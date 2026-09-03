@@ -1,0 +1,88 @@
+{
+  "collectionName": "components_academics_tiles",
+  "info": {
+    "displayName": "Tile",
+    "icon": "grid",
+    "description": "One card: a name, a line under it and a symbol. ⚠ The colour of the symbol is chosen by the page from its own palette — cards recolour themselves as you add or remove them."
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true,
+      "maxLength": 80
+    },
+    "value": {
+      "type": "text",
+      "required": true,
+      "maxLength": 400
+    },
+    "mark": {
+      "type": "enumeration",
+      "required": true,
+      "default": "bulb",
+      "enum": [
+        "book",
+        "hands",
+        "clipboard",
+        "speech",
+        "chart",
+        "cup",
+        "calendar",
+        "doc",
+        "pen",
+        "desk",
+        "flask",
+        "sun",
+        "clock",
+        "hourglass",
+        "search",
+        "target",
+        "bulb",
+        "medal",
+        "shield",
+        "bell",
+        "handHeart",
+        "eye",
+        "person",
+        "head",
+        "grow",
+        "quote",
+        "arrow",
+        "download",
+        "external",
+        "chat",
+        "atom",
+        "present",
+        "layers",
+        "refresh",
+        "hand",
+        "megaphone",
+        "ribbon",
+        "bookmark",
+        "globe",
+        "cap",
+        "pin",
+        "seat",
+        "spark",
+        "route",
+        "leaf",
+        "scroll",
+        "phone"
+      ]
+    },
+    "file": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "files"
+      ],
+      "description": "Optional — upload a PDF and the card links to it. If a file is uploaded it is used, and the address below is ignored."
+    },
+    "href": {
+      "type": "string",
+      "maxLength": 300,
+      "description": "Or a page on this site (for example /academics/assessment/) or a full web address. Only used when no file is uploaded. Leave both empty for a card that is not a link."
+    }
+  }
+}

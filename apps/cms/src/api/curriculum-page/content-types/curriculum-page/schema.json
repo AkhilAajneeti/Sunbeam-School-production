@@ -1,0 +1,19 @@
+{
+  "kind": "singleType",
+  "collectionName": "curriculum_pages",
+  "info": {
+    "singularName": "curriculum-page",
+    "pluralName": "curriculum-pages",
+    "displayName": "Curriculum",
+    "description": "The Curriculum page — one named field per visual section, in the order a reader meets them. ⚠ THE STAGES ARE EDITED ONCE, AT THE TOP, and drawn twice: as the journey in 01 and as the rows of the library in 02. Sections cannot be reordered, added or removed."
+  },
+  "options": { "draftAndPublish": true },
+  "attributes": {
+    "stages": { "type": "component", "repeatable": true, "component": "academics.stage" },
+    "sectionOne": { "type": "component", "repeatable": false, "component": "academics.lede" },
+    "sectionTwo": { "type": "component", "repeatable": false, "component": "academics.lede" },
+    "sectionThree": { "type": "component", "repeatable": false, "component": "academics.tiles" },
+    "sectionFour": { "type": "component", "repeatable": false, "component": "academics.tiles" },
+    "sectionFive": { "type": "component", "repeatable": false, "component": "academics.tiles" }
+  }
+}

@@ -21,15 +21,15 @@
  *   02 · PAPER  the access card — photograph left, the CTA right.
  *   03 · PHOTO  the dark close.
  */
-import { Picture } from 'astro:assets';
 import '../../styles/assessment.css';
 import { MARK } from '../academics/assessment/marks';
-import { resultPortal, resultPoints } from '../../data/services';
+import { getResultPage } from '../../lib/cms';
+import ClipHeading from '../ui/ClipHeading.astro';
+import CmsImage from '../ui/CmsImage.astro';
 
-import pStudents from '../../assets/photos/sunbeem-5.jpg';
-import pCohort from '../../assets/photos/sunbeem-3.jpg';
 
-const S = 'Sunbeam School Ballia';
+const page = await getResultPage();
+const { portal: resultPortal, points: resultPoints } = page;
 ---
 
 {/* ══ 01 · ONE CLICK AWAY ════════════════════════════════════════════════════ */}
@@ -38,16 +38,11 @@ const S = 'Sunbeam School Ballia';
   <span class="as-dots rs-open__dots" aria-hidden="true"></span>
 
   <div class="u-container rs-open__in">
-    <p class="as-kicker" data-reveal>Report card</p>
+    <p class="as-kicker" data-reveal>{page.openKicker}</p>
     {/* ⚠ THE SCHOOL’S OWN QUESTION, WORD FOR WORD. Its Result page asks exactly
         this; the page is a presentation of that line, not a rewrite of it. */}
-    <h2 class="as-h as-h--xl rs-open__h" id="rs-open-t">
-      <span data-clip data-clip-delay="0">Want to check</span>
-      <span data-clip data-clip-delay="150"><em>your report card?</em></span>
-    </h2>
-    <p class="as-body rs-open__b" data-reveal data-reveal-delay="200">
-      Report cards are issued through the school’s online portal.
-    </p>
+    <ClipHeading class="as-h as-h--xl rs-open__h" id="rs-open-t" text={page.openHeading} />
+    <p class="as-body rs-open__b" data-reveal data-reveal-delay="200">{page.openBody}</p>
   </div>
 </section>
 
@@ -66,31 +61,28 @@ const S = 'Sunbeam School Ballia';
       </span>
 
       <div class="rs-box__pic" data-mask>
-        <Picture
-          src={pStudents}
-          alt={`Students of ${S} at work in a classroom.`}
-          formats={['webp']}
-          widths={[520, 860, 1200]}
+        <CmsImage
+          file={page.cardPhoto}
+          alt={page.cardPhotoAlt}
           sizes="(max-width: 1023px) 92vw, 44vw"
+          fallbackWidth={1100}
           loading="eager"
           decoding="async"
         />
       </div>
 
       <div class="rs-box__copy">
-        <p class="as-kicker" data-reveal>Online result</p>
+        <p class="as-kicker" data-reveal>{page.cardKicker}</p>
         {/* ⚠ THE SCHOOL’S LINE IN ITS OWN CASING. It is set as a statement rather
             than repeated at headline size — the words are identical to the
             headline above, and shouting them twice at the same scale would read
             as a mistake rather than as emphasis. */}
-        <h2 class="rs-box__h" id="rs-card-t">WANT TO CHECK YOUR REPORT CARD?</h2>
-        <p class="as-body rs-box__b" data-reveal data-reveal-delay="200">
-          The portal opens in a new tab, so this page stays where you left it.
-        </p>
+        <h2 class="rs-box__h" id="rs-card-t">{page.cardHeading}</h2>
+        <p class="as-body rs-box__b" data-reveal data-reveal-delay="200">{page.cardBody}</p>
 
         <p class="rs-box__act" data-reveal data-reveal-delay="260">
           <a class="rs-cta" href={resultPortal} target="_blank" rel="noopener noreferrer">
-            Click here
+            {page.ctaLabel}
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <g stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" set:html={MARK.arrow} />
             </svg>
@@ -122,14 +114,11 @@ const S = 'Sunbeam School Ballia';
     would go on a lesser page; the school publishes no figures, so it does not. */}
 <section class="as-close rs-close" aria-labelledby="rs-close-t">
   <div class="as-close__media" aria-hidden="true" data-parallax data-parallax-y="-40">
-    <Picture
-      src={pCohort}
-      alt=""
-      formats={['webp']}
-      widths={[1024, 1600, 2000]}
+    <CmsImage
+      file={page.closePhoto}
+      alt={page.closePhotoAlt}
       sizes="100vw"
-      loading="lazy"
-      decoding="async"
+      fallbackWidth={1600}
       style="object-position: 50% 40%;"
     />
   </div>
@@ -137,10 +126,7 @@ const S = 'Sunbeam School Ballia';
   <span class="as-close__grain" aria-hidden="true"></span>
 
   <div class="u-container as-close__inner">
-    <h2 class="as-h as-close__h rs-close__h" id="rs-close-t">
-      <span data-clip data-clip-delay="0">Every result</span>
-      <span data-clip data-clip-delay="150">tells <em>a story.</em></span>
-    </h2>
+    <ClipHeading class="as-h as-close__h rs-close__h" id="rs-close-t" text={page.closeHeading} />
   </div>
 </section>
 

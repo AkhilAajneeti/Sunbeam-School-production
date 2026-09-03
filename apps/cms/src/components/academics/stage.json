@@ -1,0 +1,87 @@
+{
+  "collectionName": "components_academics_stages",
+  "info": {
+    "displayName": "Stage",
+    "icon": "layer",
+    "description": "One stage of school and the classes in it. ⚠ Used TWICE on the page — as a step on the journey at the top and as a row in the library below. Editing it here changes both."
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true,
+      "maxLength": 60
+    },
+    "range": {
+      "type": "string",
+      "required": true,
+      "maxLength": 60,
+      "description": "The classes it covers, as printed on the journey — e.g. \"Classes I – V\"."
+    },
+    "blurb": {
+      "type": "string",
+      "required": true,
+      "maxLength": 120,
+      "description": "The short line beside the stage in the library."
+    },
+    "mark": {
+      "type": "enumeration",
+      "required": true,
+      "default": "book",
+      "enum": [
+        "book",
+        "hands",
+        "clipboard",
+        "speech",
+        "chart",
+        "cup",
+        "calendar",
+        "doc",
+        "pen",
+        "desk",
+        "flask",
+        "sun",
+        "clock",
+        "hourglass",
+        "search",
+        "target",
+        "bulb",
+        "medal",
+        "shield",
+        "bell",
+        "handHeart",
+        "eye",
+        "person",
+        "head",
+        "grow",
+        "quote",
+        "arrow",
+        "download",
+        "external",
+        "chat",
+        "atom",
+        "present",
+        "layers",
+        "refresh",
+        "hand",
+        "megaphone",
+        "ribbon",
+        "bookmark",
+        "globe",
+        "cap",
+        "pin",
+        "seat",
+        "spark",
+        "route",
+        "leaf",
+        "scroll",
+        "phone"
+      ]
+    },
+    "classes": {
+      "type": "component",
+      "repeatable": true,
+      "component": "academics.class-doc"
+    }
+  }
+}

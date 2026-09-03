@@ -1,0 +1,13 @@
+{
+  "kind":"collectionType","collectionName":"teachers",
+  "info":{"singularName":"teacher","pluralName":"teachers","displayName":"Teacher",
+    "description":"One row of the Mandatory Public Disclosure's teacher table — all 131 of them. ⚠⚠ DO NOT TIDY THE CAPITALISATION OR THE QUALIFICATION SPELLINGS. 'bachelor of engineering with b.ed' and 'masters of arts with ,masters in education' are what the school filed with CBSE. Correcting them here makes this page disagree with the PDF beside it, and the PDF is the document of record. ⚠ `filedOrder` IS THE ROW NUMBER IN THE FILING, kept so the page can present the table in the order it was submitted rather than alphabetically. ⚠ The page's designation filter is DERIVED from the distinct values here — adding a designation needs no code change."},
+  "options":{"draftAndPublish":true},
+  "attributes":{
+    "filedOrder":{"type":"integer","required":true},
+    "slug":{"type":"uid","targetField":"name","required":true},
+    "name":{"type":"string","required":true,"maxLength":200},
+    "designation":{"type":"string","required":true,"maxLength":80},
+    "qualification":{"type":"text","required":true,"maxLength":500}
+  }
+}

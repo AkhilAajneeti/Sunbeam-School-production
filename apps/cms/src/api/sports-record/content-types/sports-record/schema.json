@@ -1,0 +1,17 @@
+{
+  "kind":"collectionType","collectionName":"sports_records",
+  "info":{"singularName":"sports-record","pluralName":"sports-records","displayName":"Sports Record",
+    "description":"One block of the sporting record — a championship or a season, with its podium placings and photographs. Mirrors the `record` export of apps/web/src/data/sportsRecord.ts."},
+  "options":{"draftAndPublish":true},
+  "attributes":{
+    "title":{"type":"string","required":true,"maxLength":240},
+    "slug":{"type":"uid","targetField":"title","required":true},
+    "kicker":{"type":"string","maxLength":160},
+    "body":{"type":"text","required":true,"maxLength":2000},
+    "more":{"type":"text","maxLength":1200},
+    "alt":{"type":"text","maxLength":500},
+    "podiums":{"type":"component","repeatable":true,"component":"sports.podium"},
+    "shots":{"type":"component","repeatable":true,"component":"shared.photo"},
+    "displayOrder":{"type":"integer","default":0,"required":true}
+  }
+}

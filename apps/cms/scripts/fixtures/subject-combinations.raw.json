@@ -1,0 +1,52 @@
+{
+  "open": {
+    "kicker": "Subject Combinations",
+    "heading": "A stream is more\n{{than a name.}}",
+    "body": [
+      "This page shows what is known about the subjects attached to each Senior Secondary stream at {school.name}, and clearly highlights what is **confirmed** by the school and what is not yet published."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pLead",
+        "alt": "Senior students of {schoolName} at the physics laboratory benches, apparatus in front of them and subject portraits along the wall"
+      },
+      {
+        "key": "pCampus",
+        "alt": "The campus of {schoolName} — its teaching blocks standing around the front lawn"
+      }
+    ],
+    "runs": []
+  },
+  "worlds": {
+    "kicker": "The four subject worlds",
+    "heading": "Four streams.\n{{Four unique subject worlds.}}",
+    "body": [
+      "Each stream builds a different set of skills, perspectives and opportunities. Here is what each stream focuses on:"
+    ],
+    "caption": null,
+    "shots": [],
+    "runs": []
+  },
+  "map": {
+    "kicker": "Subjects at a glance",
+    "heading": "Four streams.\n{{Four ways of thinking.}}",
+    "body": [
+      "Each stream builds its own focus, but together they form a complete Senior Secondary journey.",
+      "XI — XII"
+    ],
+    "caption": null,
+    "shots": [],
+    "runs": []
+  },
+  "close": {
+    "kicker": null,
+    "heading": "The right stream builds the foundation.\n{{The right combination builds the future.}}",
+    "body": [
+      "For the latest subject combinations, elective availability and session-specific choices, please confirm with the school."
+    ],
+    "caption": null,
+    "shots": [],
+    "runs": []
+  }
+}

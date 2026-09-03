@@ -1,4 +1,7 @@
 ---
+import { getCampusSafetyData } from '../../../lib/cms';
+const {emergencyPoints, emergencySteps} = await getCampusSafetyData();
+
 /**
  * §3 · EMERGENCY PREPAREDNESS — split figure, then the response as a flow.
  *
@@ -11,7 +14,7 @@
  * rather than four separate "to confirm" chips that would read as noise. It
  * describes what the procedure would be, and says so.
  */
-import { emergencyPoints, emergencySteps } from '../../../data/campus';
+
 import { showBuildNotes } from '../../../data/site';
 import SectionHead from '../../academics/SectionHead.astro';
 import Photo from '../../ui/Photo.astro';

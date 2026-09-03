@@ -160,15 +160,26 @@ export const facilities: Facility[] = [
     alt: 'The basketball court at Sunbeam School Ballia',
   },
 
-  /* --- Awaiting photography (request A2) --------------------------------- */
+  /**
+   * ⚠ CALLED THE SHOOTING RANGE UNTIL THE SCHOOL CONFIRMED WHAT IT IS.
+   *
+   * The facility carried the name "Shooting Range" and a standing photography
+   * request for "lanes, safety line and a student on the firing point". The
+   * photographs that eventually arrived are archery — recurve bows at full draw,
+   * quivers, arm guards, a coach on the line — because the range IS the archery
+   * range, confirmed by the school.
+   *
+   * Both were changed together. A picture of bows under a heading that says
+   * shooting is the kind of quiet mismatch this site exists not to make, and
+   * leaving the old name would have kept a standing request open for a facility
+   * that does not exist.
+   */
   {
-    id: 'shooting',
-    name: 'Shooting Range',
+    id: 'archery',
+    name: 'Archery Range',
     blurb: 'The rarest facility the school has, and one very few district schools can offer.',
-    images: [],
-    pending: true,
-    brief: 'The shooting range in use, 4:3 — lanes, safety line and a student on the firing point',
-    alt: 'The shooting range at Sunbeam School Ballia',
+    images: folder('archery-range'),
+    alt: 'Students of Sunbeam School Ballia on the archery line, at full draw',
   },
   {
     id: 'auditorium',

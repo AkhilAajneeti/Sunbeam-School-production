@@ -31,9 +31,17 @@
  * heading size and how much detail each card shows — rather than by orientation,
  * so the three read as one family with a clear first among them.
  */
-import { Picture } from 'astro:assets';
-import { majors } from '../../../data/achievements';
+import CmsImage from '../../ui/CmsImage.astro';
+import { getMajors } from '../../../lib/cms';
 import SectionHead from '../../academics/SectionHead.astro';
+
+/* ⚠ FROM STRAPI NOW, NOT data/achievements.ts. `m.slug` replaces the old `m.id`
+   and carries the same values — robowunder, innovation, khokho — because it is
+   rendered as this article's HTML id and data/newsEvents.ts links to it.
+   `facts` is flattened back to string[] in the query module, so the map below is
+   unchanged. The old data file stays on disk until this is verified in a
+   production build. */
+const majors = await getMajors();
 ---
 
 <section class="maj" id="major" aria-labelledby="maj-title">
@@ -50,7 +58,7 @@ import SectionHead from '../../academics/SectionHead.astro';
 
     <div class="maj__grid">
       {majors.map((m, i) => (
-        <article class:list={['maj__card', i === 0 && 'maj__card--lead']} id={m.id} data-reveal data-reveal-delay={i * 90}>
+        <article class:list={['maj__card', i === 0 && 'maj__card--lead']} id={m.slug} data-reveal data-reveal-delay={i * 90}>
           {/* The poster, framed on a mat. The mat is what stops a graphic with
               its own white ground from floating on the ink. */}
           <figure class="maj__frame">
@@ -63,18 +71,17 @@ import SectionHead from '../../academics/SectionHead.astro';
                 the poster is full width; ≤900 the grid is one column so a
                 secondary card still spans the container; above that the
                 secondaries sit two-up and the lead spans the row. */}
-            <Picture
-              src={m.art}
+            <CmsImage
+              file={m.art}
               alt={m.alt}
-              formats={['webp']}
-              widths={[420, 840, 1400]}
               sizes={
                 i === 0
                   ? '(max-width: 560px) 86vw, (max-width: 900px) 40vw, 30vw'
                   : '(max-width: 560px) 86vw, (max-width: 900px) 34vw, 18vw'
               }
+              fallbackWidth={i === 0 ? 1100 : 420}
               loading={i === 0 ? 'eager' : 'lazy'}
-              decoding="async"
+              fetchpriority={i === 0 ? 'high' : undefined}
             />
           </figure>
 

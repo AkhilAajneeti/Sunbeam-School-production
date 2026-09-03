@@ -1,0 +1,90 @@
+{
+  "kind": "collectionType",
+  "collectionName": "news_items",
+  "info": {
+    "singularName": "news-item",
+    "pluralName": "news-items",
+    "displayName": "News Item",
+    "description": "One workshop, competition, celebration or school event. Replaces the four ChroniclePage exports of apps/web/src/data/newsPages.ts — four near-identical index/detail pairs collapse into ONE type separated by `category`. NOTE: the achievements chronicle is NOT stored here; its items derive from Major Achievement, and duplicating them would give one fact two owners. School activities reuse this type as category `activity` — the same ChroniclePage shape, a different URL space."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 240
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
+    },
+    "category": {
+      "type": "enumeration",
+      "required": true,
+      "enum": [
+        "workshop",
+        "competition",
+        "celebration",
+        "school-event",
+        "activity"
+      ]
+    },
+    "group": {
+      "type": "string",
+      "required": true,
+      "maxLength": 60
+    },
+    "meta": {
+      "type": "string",
+      "required": true,
+      "maxLength": 240
+    },
+    "body": {
+      "type": "text",
+      "required": true,
+      "maxLength": 4000
+    },
+    "result": {
+      "type": "text",
+      "maxLength": 1000
+    },
+    "when": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "href": {
+      "type": "string",
+      "maxLength": 500
+    },
+    "fit": {
+      "type": "enumeration",
+      "enum": [
+        "cover",
+        "contain"
+      ],
+      "default": "cover",
+      "required": true
+    },
+    "art": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "gallery": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.photo"
+    },
+    "displayOrder": {
+      "type": "integer",
+      "default": 0,
+      "required": true
+    }
+  }
+}

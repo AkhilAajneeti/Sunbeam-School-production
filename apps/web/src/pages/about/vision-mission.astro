@@ -41,11 +41,14 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/ui/PageHero.astro';
 import { Image } from 'astro:assets';
-import { school } from '../../data/site';
+import { getSchool, getVisionMission } from '../../lib/cms';
 
 import banner from '../../assets/photos/sunbeem-5.jpg';
 import crest from '../../assets/icons/logos/sunbeam.png';
 import wave from '../../assets/icons/bg-2.png';
+
+const school = await getSchool();
+const { cipher, greeting } = await getVisionMission();
 
 /**
  * The three colours, keyed to the crest.
@@ -87,27 +90,13 @@ const keys = [
 ];
 
 /** The Cipher, in the emblem's own first-person voice. */
-const cipher = [
-  'I become your thought and your vision the moment you embrace me. I illuminate your path and guide you on your onward Journey. I was conceptualized and put into my form in the year 1972, when Sunbeam was established and the journey there on has been tremendous.',
-  'All Sunbeams are open books with transparency in thought and action and an honest affirmation. They are learners and keep their slates clean to constantly learn and evolve.',
-];
 
-const greeting = [
-  'Sunbeam schools not only use this as a greeting but also a way of life where all aspects of patriotism are nurtured and felt to be visible in every little act of Sunbeams. Sunbeams feel strongly for their nation and stand up proudly for it in all their acts.',
-  'Jai Hind, is more than a salutation from Sunbeams to others reiterating the pride they take of being an Indian and everything that comes along with that identity.',
-];
 ---
 
 <BaseLayout
-  title="Vision and Mission — Sunbeam School Ballia"
-  description="The Sunbeam vision, the Jai Hind greeting, and the story of the Sunbeam identity — Duty, Devotion, Discipline, in the school's own words."
 >
   <PageHero
-    title="Vision and Mission"
-    crumbs={[{ label: 'Home', href: '/' }, { label: 'About', href: '/about/' }]}
     src={banner}
-    alt="Student council office-bearers and NCC cadets of Sunbeam School Ballia on stage with members of staff."
-    position="50% 42%"
   />
 
   <div class="u-page-panel u-page-panel--flush">

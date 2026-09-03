@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_shared_socials",
+  "info": {
+    "displayName": "Social",
+    "icon": "earth",
+    "description": "Social profiles. Empty means the channel is not linked — audit 14.3 says not to ship links to dormant channels, so youtube and x are present but blank until the school confirms they are maintained."
+  },
+  "options": {},
+  "attributes": {
+    "facebook": { "type": "string", "maxLength": 500 },
+    "instagram": { "type": "string", "maxLength": 500 },
+    "linkedin": { "type": "string", "maxLength": 500 },
+    "youtube": { "type": "string", "maxLength": 500 },
+    "x": { "type": "string", "maxLength": 500 }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "kind": "singleType",
+  "collectionName": "student_centred_learning_pages",
+  "info": {
+    "singularName": "student-centred-learning-page",
+    "pluralName": "student-centred-learning-pages",
+    "displayName": "Student-Centred Learning",
+    "description": "The four sections of /academics/philosophy/student-centred-learning/, in the order they appear. ⚠⚠ FIXED FIELDS, NOT A LIST — the page cannot be reordered from here, a section cannot be deleted and no new one added. ⚠ THREE OF THE FOUR COMPONENTS ARE SHARED WITH TEACHING PHILOSOPHY. Only the collage in 02 is new; the statement, the constellation and the closing band already existed, which is the point of building these by shape rather than one set per page. ⚠ NEVER HERE: the 01–03 numerals, the washes and grids, the float ornaments, the collage geometry, the orbit radius and each node's angle, and the section order."
+  },
+  "options": { "draftAndPublish": true },
+  "attributes": {
+    "sectionOne":   { "type": "component", "repeatable": false, "component": "philosophy.statement" },
+    "sectionTwo":   { "type": "component", "repeatable": false, "component": "philosophy.collage" },
+    "sectionThree": { "type": "component", "repeatable": false, "component": "philosophy.constellation" },
+    "close":        { "type": "component", "repeatable": false, "component": "philosophy.close" }
+  }
+}

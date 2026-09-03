@@ -122,6 +122,19 @@ export const record: RecordBlock[] = [
     alt: 'Players at the Sub-Junior National Volleyball Training Camp held at Sunbeam School Ballia',
   },
   {
+    id: 'district-junior-volleyball',
+    kicker: 'District · hosted',
+    title: 'District Junior Volleyball Championship',
+    /* ⚠ NO PLACING IS CLAIMED. The photographs show the opening — teams lined up
+       at the net behind their own school flags, NCC cadets with the colours — and
+       the school did not publish a result. A record that says who won when the
+       evidence only shows a march-past is the kind of claim this site does not
+       make. */
+    body: 'The District Junior Volleyball Championship, its teams lined up at the net for the opening with their school flags and NCC cadets carrying the colours. The school published photographs of the day; it did not publish the results or the final placings.',
+    shots: ['distvolley-1.jpg', 'distvolley-2.jpg', 'distvolley-3.jpg', 'distvolley-4.jpg', 'distvolley-5.jpg', 'distvolley-6.jpg', 'distvolley-7.jpg', 'distvolley-8.jpg', 'distvolley-9.jpg', 'distvolley-10.jpg', 'distvolley-11.jpg', 'distvolley-12.jpg', 'distvolley-13.jpg', 'distvolley-14.jpg', 'distvolley-15.jpg', 'distvolley-16.jpg', 'distvolley-17.jpg', 'distvolley-18.jpg', 'distvolley-19.jpg', 'distvolley-20.jpg'],
+    alt: 'Teams at the opening of the District Junior Volleyball Championship',
+  },
+  {
     id: 'junior-district',
     kicker: 'Veer Lorik Sports Stadium · District',
     title: 'Junior District Championship — 2nd overall',

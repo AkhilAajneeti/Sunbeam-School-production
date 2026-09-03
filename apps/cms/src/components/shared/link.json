@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_shared_links",
+  "info": {
+    "displayName": "Link",
+    "icon": "link",
+    "description": "A labelled destination. Used for quick-access tiles and breadcrumbs. `external` drives target/rel on the anchor rather than being inferred from the href, because several internal links point at the school's own other domain."
+  },
+  "options": {},
+  "attributes": {
+    "label": { "type": "string", "required": true, "maxLength": 120 },
+    "description": { "type": "string", "maxLength": 200 },
+    "href": { "type": "string", "required": true, "maxLength": 500 },
+    "external": { "type": "boolean", "default": false, "required": true }
+  }
+}

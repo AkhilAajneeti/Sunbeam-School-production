@@ -20,6 +20,7 @@ import '../../../styles/academics.css';
  */
 import { Picture } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
+import SmartImage from '../../ui/SmartImage.astro';
 
 interface Poster {
   art: ImageMetadata;
@@ -68,14 +69,12 @@ const headingId = id ?? `acpo-${Math.abs(heading.length * 6151 % 9973)}`;
       {posters.map((p, i) => (
         <li class="acpo__item" data-reveal data-reveal-delay={120 + i * 90}>
           <span class="acpo__plate" style={`aspect-ratio: ${aspect};`}>
-            <Picture
-              src={p.art}
+            <SmartImage
+              file={p.art}
               alt={p.alt}
-              formats={['webp']}
-              widths={[360, 620]}
               sizes="(max-width: 720px) 84vw, (max-width: 1100px) 42vw, 27vw"
+              fallbackWidth={1100}
               loading="lazy"
-              decoding="async"
             />
           </span>
 

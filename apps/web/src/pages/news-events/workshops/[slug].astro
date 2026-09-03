@@ -7,10 +7,12 @@
  * missing detail page can never surface as a broken link.
  */
 import DetailPage from '../../../components/news/DetailPage.astro';
-import { workshops, type ChronicleItem } from '../../../data/newsPages';
+import { getChroniclePage, type ChronicleItem } from '../../../lib/cms';;
+
+const workshops = await getChroniclePage('workshops');
 
 export async function getStaticPaths() {
-  const { workshops: wk } = await import('../../../data/newsPages');
+  const wk = await getChroniclePage('workshops');
   return wk.groups.flatMap((g) =>
     g.items
       .filter((i) => i.slug)

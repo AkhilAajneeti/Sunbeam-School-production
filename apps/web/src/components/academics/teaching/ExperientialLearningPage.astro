@@ -66,20 +66,21 @@
  * MOTION is the project's own attribute set — data-clip, data-reveal, data-pop,
  * data-drift, data-parallax, data-draw, data-mask, data-zoom.
  */
-import { Picture } from 'astro:assets';
 import Lightbox from '../../ui/Lightbox.astro';
 
 /* ── PHOTOGRAPHY — every frame is a genuine Sunbeam Ballia photograph, and each
    alt says what is IN it rather than what the section is about. */
-import pCompost from '../../../assets/school-activities/little-agriculturists/03.jpg';
-import pOwnWork from '../../../assets/School Activity in Uniform/School Activity in Uniform (5).jpeg';
-import pCanva from '../../../assets/school-event/Impetus—ClassesIII-V/Impetus—ClassesIII-V-02.jpg';
-import pRocket from '../../../assets/school-activities/summer-camp/05.jpg';
-import pDome from '../../../assets/school-activities/taramandal-show/01.jpg';
-import pMonash from '../../../assets/school-event/Monash-Innovation/Monash-Innovation-01.jpg';
-import pChef from '../../../assets/School Activity in Uniform/School Activity in Uniform (1).jpg';
-import pThread from '../../../assets/School Activity in Uniform/Embriodery.jpg';
-import pCohort from '../../../assets/photos/sunbeem-3.jpg';
+import { getAcademicTopic } from '../../../lib/cms';
+import SmartImage from '../../ui/SmartImage.astro';
+
+const ac = await getAcademicTopic('/academics/teaching-learning/experiential-learning/');
+const pCompost = ac.pic('pCompost');
+const pOwnWork = ac.pic('pOwnWork');
+const pCanva = ac.pic('pCanva');
+const pMonash = ac.pic('pMonash');
+const pChef = ac.pic('pChef');
+const pThread = ac.pic('pThread');
+const pCohort = ac.pic('pCohort');
 
 const S = 'Sunbeam School Ballia';
 
@@ -100,63 +101,10 @@ const MARK: Record<string, string> = {
    with their own drawings" is honest, a stop captioned "a gallery walk" would
    not be. `owed: true` marks the stop with no photograph rather than borrowing
    one from another activity. */
-const stops = [
-  {
-    n: '01',
-    k: 'Little Agriculturists',
-    body: 'A planting plot the youngest children dig, sow and water themselves.',
-    photo: pCompost,
-    alt: `Children of ${S} and their teacher, in gloves, sorting kitchen peelings into compost trays beneath a hand-painted “Little Agriculturist — Compost making” sign`,
-    owed: false,
-  },
-  {
-    n: '02',
-    k: 'Gallery Walks',
-    body: 'The school’s words — work “turning the classroom into a mini exhibition hall.”',
-    photo: pOwnWork,
-    alt: `Two students of ${S} sharing a desk, each working on her own drawing with the colour pencils open between them`,
-    owed: false,
-  },
-  {
-    n: '03',
-    k: 'Impetus · Classes III–V',
-    body: 'The school’s own programme: folk painting, presentation software, heritage week.',
-    photo: pCanva,
-    alt: `A class at ${S} during the Canva Presentation session of the Impetus programme, the activity poster standing on the teacher’s table`,
-    owed: false,
-  },
-  {
-    n: '04',
-    k: 'Stargazing',
-    body: 'The school’s words — “a breathtaking view of the Moon through a telescope.”',
-    photo: pRocket,
-    alt: `A young student of ${S} holding up a hand-made rocket cut-out at the Star Gazing session, the night-sky board behind him`,
-    owed: false,
-  },
-  {
-    n: '05',
-    k: 'Taramandal',
-    body: 'A planetarium show, published in eleven photographs — the school did not say where.',
-    photo: pDome,
-    alt: `Students of ${S} seated inside the Taramandal planetarium dome, the projected sky above them`,
-    owed: false,
-  },
-  {
-    n: '06',
-    k: 'CBSE Capacity Building',
-    body: 'Experiential Learning, two days, hosted at Ballia · 20–21 September 2025.',
-    photo: null,
-    alt: '',
-    owed: true,
-  },
-] as const;
+const stops = ac.section('stops').points;
 
 /* The three design labels on the dark close. */
-const beats = [
-  { mark: 'eye', k: 'Observe' },
-  { mark: 'hand', k: 'Create' },
-  { mark: 'spark', k: 'Reflect' },
-] as const;
+const beats = ac.section('beats').points;
 ---
 
 {/* ══ 01 · IN THE HAND BEFORE THE EXAM ═══════════════════════════════════════
@@ -212,10 +160,10 @@ const beats = [
       </svg>
 
       <figure class="ex-open__lead" data-mask data-zoom data-zoom-to="1.06">
-        <Picture
-          src={pCanva}
-          alt={`A class at ${S} during the Canva Presentation session of the Impetus programme`}
-          formats={['webp']}
+        <SmartImage
+          file={pCanva}
+          alt={ac.picAlt('pCanva')}
+         
           widths={[560, 900, 1200]}
           sizes="(max-width: 1023px) 92vw, 44vw"
           loading="lazy"
@@ -224,10 +172,10 @@ const beats = [
       </figure>
 
       <figure class="ex-open__mid" data-parallax data-parallax-y="26">
-        <Picture
-          src={pOwnWork}
-          alt={`Two students of ${S} sharing a desk, each working on her own drawing`}
-          formats={['webp']}
+        <SmartImage
+          file={pOwnWork}
+          alt={ac.picAlt('pOwnWork')}
+         
           widths={[320, 540]}
           sizes="(max-width: 1023px) 42vw, 19vw"
           loading="lazy"
@@ -236,10 +184,10 @@ const beats = [
       </figure>
 
       <figure class="ex-open__disc" data-parallax data-parallax-y="-20">
-        <Picture
-          src={pCompost}
-          alt={`A child of ${S} in gloves at the Little Agriculturists compost activity`}
-          formats={['webp']}
+        <SmartImage
+          file={pCompost}
+          alt={ac.picAlt('pCompost')}
+         
           widths={[260, 420]}
           sizes="(max-width: 1023px) 30vw, 13vw"
           loading="lazy"
@@ -346,14 +294,12 @@ const beats = [
               {s.photo ? (
                 <a class="ex-stop__shot" href={s.photo.src} data-lb-open
                   data-lb-alt={s.alt} data-lb-cap={s.k} data-drift="26">
-                  <Picture
-                    src={s.photo}
+                  <SmartImage
+                    file={s.photo}
                     alt={s.alt}
-                    formats={['webp']}
-                    widths={[240, 420]}
                     sizes="(max-width: 767px) 40vw, 16vw"
+                    fallbackWidth={1100}
                     loading="lazy"
-                    decoding="async"
                   />
                   <span class="ex-stop__zoom" aria-hidden="true">
                     <svg viewBox="0 0 24 24" fill="none">
@@ -462,10 +408,10 @@ const beats = [
 
     <div class="ex-proj__stack">
       <figure class="ex-proj__lead" data-mask data-zoom data-zoom-to="1.06">
-        <Picture
-          src={pMonash}
-          alt={`A student of ${S} standing beside the Monash University “Innovation Guarantee” banner at the outreach session in Delhi`}
-          formats={['webp']}
+        <SmartImage
+          file={pMonash}
+          alt={ac.picAlt('pMonash')}
+         
           widths={[480, 800, 1100]}
           sizes="(max-width: 1023px) 84vw, 34vw"
           loading="lazy"
@@ -475,10 +421,10 @@ const beats = [
       </figure>
 
       <figure class="ex-proj__side" data-parallax data-parallax-y="-30">
-        <Picture
-          src={pChef}
-          alt={`A teacher at ${S} demonstrating at the table during the papadi chaat activity, her class in paper chef hats around her`}
-          formats={['webp']}
+        <SmartImage
+          file={pChef}
+          alt={ac.picAlt('pChef')}
+         
           widths={[340, 560]}
           sizes="(max-width: 1023px) 44vw, 20vw"
           loading="lazy"
@@ -488,10 +434,10 @@ const beats = [
       </figure>
 
       <figure class="ex-proj__disc" data-parallax data-parallax-y="22">
-        <Picture
-          src={pThread}
-          alt={`Students of ${S} embroidering from one shared basket of thread`}
-          formats={['webp']}
+        <SmartImage
+          file={pThread}
+          alt={ac.picAlt('pThread')}
+         
           widths={[240, 400]}
           sizes="(max-width: 1023px) 28vw, 12vw"
           loading="lazy"
@@ -505,10 +451,10 @@ const beats = [
 {/* ══ 04 · THE SCHOOL IN PRACTICE ════════════════════════════════════════════ */}
 <section class="ex-close" aria-labelledby="ex-close-t">
   <div class="ex-close__media" aria-hidden="true" data-parallax data-parallax-y="-40">
-    <Picture
-      src={pCohort}
-      alt=""
-      formats={['webp']}
+    <SmartImage
+      file={pCohort}
+      alt={ac.picAlt('pCohort')}
+     
       widths={[1024, 1600, 2000]}
       sizes="100vw"
       loading="lazy"

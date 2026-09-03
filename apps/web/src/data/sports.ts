@@ -52,6 +52,9 @@
 /* Explicit imports, not a glob: which frame goes where is a content decision on
    this page (the goal photograph belongs to Football and the net photograph to
    Volleyball), and a glob would sort them by filename and get both wrong. */
+import archLine from '../assets/archery-range/07.jpg';
+import archAim from '../assets/archery-range/08.jpg';
+import archTarget from '../assets/archery-range/02.jpg';
 import joshNets from '../assets/JOSH GROUND/DSC_1283 copy.jpg';
 import joshNetsWide from '../assets/JOSH GROUND/DSC_1284 copy.jpg';
 import joshGoal from '../assets/JOSH GROUND/DSC_1286 copy.jpg';
@@ -145,12 +148,16 @@ export const facilities: SportFacility[] = [
   },
   {
     id: 'range',
-    name: 'Shooting Range',
+    name: 'Archery Range',
     kicker: 'The rare one',
-    body: 'The facility almost no other school in the district can offer, and the reason shooting can be taught here at all rather than travelled to.',
+    body: 'The facility almost no other school in the district can offer, and the reason archery can be taught here at all rather than travelled to.',
     notes: ['On campus', 'Rare at district level'],
-    brief:
-      'The shooting range in use, landscape — the lane, the safety line and a student on the firing point. This is the only facility on this page we hold no photograph of.',
+    /* Was "Shooting Range", with a standing request for a photograph of a firing
+       point. The school confirmed the range is for archery; the photographs and
+       the name were corrected together. */
+    lead: archLine,
+    support: [archAim, archTarget],
+    alt: 'Students of Sunbeam School Ballia on the archery line, at full draw',
   },
 ];
 

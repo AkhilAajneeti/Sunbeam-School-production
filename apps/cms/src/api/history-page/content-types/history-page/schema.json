@@ -1,0 +1,12 @@
+{
+  "kind":"singleType","collectionName":"history_page",
+  "info":{"singularName":"history-page","pluralName":"history-pages","displayName":"History Page",
+    "description":"The legacy narrative and its surrounding bands. `history` is prose, not a dated milestone list — the school publishes paragraphs rather than a timeline, and inventing dates for it was ruled out. WARNING: facts and onward are held but NOT RENDERED — both were declared in history-legacy.astro and never used by its template. They are carried here so the copy is not lost; putting them on the page would be a redesign, which this migration does not do."},
+  "options":{"draftAndPublish":true},
+  "attributes":{
+    "history":{"type":"component","repeatable":true,"component":"shared.paragraph"},
+    "facts":{"type":"component","repeatable":true,"component":"shared.point"},
+    "voices":{"type":"component","repeatable":true,"component":"about.testimonial"},
+    "onward":{"type":"component","repeatable":true,"component":"shared.link"}
+  }
+}

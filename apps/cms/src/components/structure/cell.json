@@ -1,0 +1,69 @@
+{
+  "collectionName": "components_structure_cells",
+  "info": {
+    "displayName": "Cell",
+    "icon": "bulletList",
+    "description": "One item in a run — a name, a line under it, and a symbol. ⚠ THE 01, 02, 03 IS COUNTED BY THE PAGE. Every numbered run on these pages was a plain sequence, so the number is not stored: add or remove a cell and the run renumbers itself."
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "maxLength": 120,
+      "description": "The name of the item. Some runs are a sentence with a symbol and no name — leave it empty there."
+    },
+    "value": {
+      "type": "text",
+      "maxLength": 600,
+      "description": "The line under the name. Some runs are names only — leave it empty there."
+    },
+    "mark": {
+      "type": "string",
+      "maxLength": 40,
+      "description": "Which symbol is drawn beside it. The symbols belong to the page; this names one of them."
+    },
+    "note": {
+      "type": "text",
+      "maxLength": 400,
+      "description": "An extra line a few runs carry — who won an award, for instance."
+    },
+    "flag": {
+      "type": "boolean",
+      "default": false,
+      "required": true,
+      "description": "The source's own yes/no state — a teaching post the school has advertised as filled, for example. The page prints a different qualifier for it."
+    },
+    "sub": {
+      "type": "string",
+      "maxLength": 200,
+      "description": "A short second line some runs carry under the name."
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ],
+      "description": "A few runs give every item its own photograph."
+    },
+    "alt": {
+      "type": "text",
+      "maxLength": 500,
+      "description": "What is in that photograph, for readers who cannot see it."
+    },
+    "caption": {
+      "type": "string",
+      "maxLength": 200,
+      "description": "The line printed under that photograph."
+    },
+    "state": {
+      "type": "enumeration",
+      "enum": [
+        "yes",
+        "part",
+        "info"
+      ],
+      "description": "How firmly the school has published this — fully (yes), in part (part), or as background only (info). The page prints a different mark for each."
+    }
+  }
+}

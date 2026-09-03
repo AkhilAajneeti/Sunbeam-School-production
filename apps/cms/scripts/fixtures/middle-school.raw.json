@@ -1,0 +1,164 @@
+{
+  "open": {
+    "kicker": "Classes VI – VIII",
+    "heading": "A real venture,\n{{end to end.}}",
+    "body": [
+      "The school’s description of **KIDS Entrepreneurship** is six words long and does the whole job: *“a Class 7 programme that runs a real venture end to end.”* Not a simulation and not a case study — a venture, carried from start to finish by twelve-year-olds.",
+      "Around it the stage turns academic. **Specialist teaching begins**, and the general science laboratory — the middle-school room specifically — opens for practical work well before the board syllabus needs it."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pMicro"
+      },
+      {
+        "key": "pMaking"
+      },
+      {
+        "key": "pJunior"
+      }
+    ],
+    "runs": [
+      {
+        "field": "cells",
+        "list": "marks"
+      }
+    ]
+  },
+  "exp": {
+    "kicker": "Beyond the timetable",
+    "heading": "Learning becomes\n{{more independent.}}",
+    "body": [
+      "Four things change between Class V and Class VI, and the school publishes all four. None of them is a promise about attitude — each is a room, a post or a programme with a name."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pLibrary"
+      },
+      {
+        "key": "pMachines"
+      }
+    ],
+    "runs": [
+      {
+        "field": "cells",
+        "list": "shifts"
+      }
+    ]
+  },
+  "doing": {
+    "kicker": "When the lesson leaves the page",
+    "heading": "Ideas become\n{{something you can do.}}",
+    "body": [
+      "The laboratories are the visible half of this stage. The school runs twelve of them, and the photographs below are the three rooms in which a middle-school class most often ends up.",
+      "The full inventory — and which four of the twelve are inquiry rooms rather than subject laboratories — is on {' '}<a class=\"ms-link\" href={LABS}>Laboratories & Academic Clubs</a>.",
+      "Chemistry",
+      "Students at the bench, not watching one.",
+      "Biology",
+      "Glassware in hand, at twelve years old.",
+      "Activity room",
+      "A lesson that does not need desks."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pBench"
+      },
+      {
+        "key": "pGlass"
+      },
+      {
+        "key": "pFloor"
+      }
+    ],
+    "runs": []
+  },
+  "four": {
+    "kicker": "The middle school mix",
+    "heading": "Four ways\n{{students grow.}}",
+    "body": [],
+    "caption": null,
+    "shots": [],
+    "runs": [
+      {
+        "field": "cells",
+        "list": "directions"
+      }
+    ]
+  },
+  "subj": {
+    "kicker": "More to learn",
+    "heading": "More subjects.\nMore {{ways to think.}}",
+    "body": [
+      "The school does not publish a middle-school subject scheme. What it publishes twice — on its own recruitment notices, naming **grades 6 to 8** — is the list of subjects it hires middle-school teachers for. Those five are marked below.",
+      "The last three are rooms on the facilities inventory rather than subjects the school has named for this stage, and are set apart as that. Curriculum documents are published class by class as {' '}<a class=\"ms-link\" href={CURRICULUM}>PRECEPT</a>; the notices themselves are on {' '}<a class=\"ms-link\" href={CAREERS}>Career</a>."
+    ],
+    "caption": null,
+    "shots": [],
+    "runs": [
+      {
+        "field": "cells",
+        "list": "subjects"
+      }
+    ]
+  },
+  "lab": {
+    "kicker": "From classroom to lab",
+    "heading": "The room changes.\n{{The question stays.}}",
+    "body": [
+      "Twelve laboratories, and the school’s own count puts **four of them** outside the subject list altogether — Geography, Srijan, Model United Nations and Active Learning. They are inside the twelve, not added to it, and they are where a middle-school question goes when it has no single right answer.",
+      "What the Robotics Lab holds is set out on {' '}<a class=\"ms-link\" href={STEM}>STEM, Robotics & Enrichment</a>."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pChem"
+      }
+    ],
+    "runs": [
+      {
+        "field": "cells",
+        "list": "rail"
+      }
+    ]
+  },
+  "ach": {
+    "kicker": "Learning worth remembering",
+    "heading": "Miss Ayana Pandey,\n{{Class VIII.}}",
+    "body": [
+      "This stage’s published achievement belongs to a named student. Ayana Pandey of Class VIII won the **Shining Star Kids Fashion Show** in 2025 — a contest of more than seventy entrants, with the award presented by **Miss Universe India 2024, Riya Singha**.",
+      "No photograph of the contest has been published, so none is shown. The rest of the record, year group by year group, is on {' '}<a class=\"ms-link\" href={SUCCESS}>Student Success</a>."
+    ],
+    "caption": null,
+    "shots": [],
+    "runs": []
+  },
+  "jrn": {
+    "kicker": "The middle school journey",
+    "heading": "From guided learning\nto {{independent thinking.}}",
+    "body": [],
+    "caption": null,
+    "shots": [],
+    "runs": [
+      {
+        "field": "cells",
+        "list": "journey"
+      }
+    ]
+  },
+  "close": {
+    "kicker": "A strong beginning",
+    "heading": "Twelve years old,\n{{and already building.}}",
+    "body": [
+      "The school names the KIDS programme, its class, the rooms that open at this stage and the one published achievement that belongs to it. What KIDS runs week to week — and photography of it — are not published, and are not invented here."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pCohort"
+      }
+    ],
+    "runs": []
+  }
+}

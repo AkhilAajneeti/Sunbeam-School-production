@@ -23,7 +23,6 @@
  */
 import SectionHead from '../SectionHead.astro';
 import Photo from '../../ui/Photo.astro';
-import { parents } from '../../../data/academics';
 
 /**
  * ⚠ THE FIRST REAL PHOTOGRAPHS OF PARENTS ON THIS SITE.
@@ -43,29 +42,14 @@ import { parents } from '../../../data/academics';
  * It is a promotional creative, and audit 10.2 objects specifically to creatives
  * standing in for content. It is in the repository if the school wants it.
  */
-import panelPhoto from '../../../assets/parents forum/parents forum (5).jpg';
-import hallPhoto from '../../../assets/parents forum/parents forum (3).jpg';
-import listeningPhoto from '../../../assets/parents forum/parents forum (2).jpg';
+import { getAcademicTopic } from '../../../lib/cms';
+
+const ac = await getAcademicTopic('/academics/parent-partnership/');
+const parents = ac.blockMap('parents');
 
 const { forum: f } = parents;
 
-const shots = [
-  {
-    src: panelPhoto,
-    alt: 'The Sunbeam School Ballia leadership panel at a Parents’ Forum session, with the session agenda on the screen behind them.',
-    cap: 'The panel, with the session’s agenda on screen',
-  },
-  {
-    src: hallPhoto,
-    alt: 'Parents seated in the Sunbeam School Ballia conference hall for a Parents’ Forum, desks marked with class nameplates.',
-    cap: 'The hall, seated by class',
-  },
-  {
-    src: listeningPhoto,
-    alt: 'Parents listening during a Parents’ Forum session at Sunbeam School Ballia.',
-    cap: 'A session in progress',
-  },
-];
+const shots = ac.section('shots').photos;
 ---
 
 <section class="pfo" id="forum" aria-labelledby="forum-title">
@@ -90,7 +74,7 @@ const shots = [
         <li class="pfo__shot" data-reveal data-reveal-delay={i * 80}>
           <figure>
             <Photo
-              src={s.src}
+              file={s.src}
               alt={s.alt}
               brief="Parents' Forum"
               ratio="3 / 2"

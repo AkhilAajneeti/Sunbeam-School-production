@@ -1,0 +1,134 @@
+{
+  "__doc": [
+    "THE WORDS OF /academics/philosophy/teaching-philosophy/, SECTION BY SECTION.",
+    "",
+    "Taken verbatim out of TeachingPhilosophyPage.astro, where every one of these",
+    "sentences was written straight into the markup. Nothing is reworded here; the",
+    "rendered page must stay identical.",
+    "",
+    "WARNING: TYPOGRAPHY IS NOT STORED. The curly quotation marks around a quote,",
+    "the 01-05 numerals, the line break in the closing heading and the italic on its",
+    "second line are all in the page. An editor types the words; the design puts the",
+    "quotes round them. Storing them would mean an editor could delete one and leave",
+    "the other, and every one of them would have to be retyped by hand.",
+    "",
+    "Inline emphasis uses the marks RichLine already reads across this project:",
+    "*italic* and **bold**. Raw HTML is never stored.",
+    "",
+    "{schoolName} and {principal} are filled from Site Settings at render, so the",
+    "school's name has one source and not seven."
+  ],
+  "sectionOne": {
+    "kicker": "Every child is different",
+    "heading": "Recognising",
+    "headingEm": "individual potential",
+    "quote": "All the students do not have the same talents and so each one will achieve success differently.",
+    "quoteAuthor": "",
+    "body": [
+      "That sentence is where the school's teaching begins. If success is not one shape, a lesson cannot be one shape either — and a class is not a room of the same child repeated."
+    ],
+    "image": "assets/photos/sunbeem-3.jpg",
+    "imageName": "sunbeem-3",
+    "imageAlt": "Students at {schoolName}"
+  },
+  "sectionTwo": {
+    "kicker": "Teachers as facilitators",
+    "heading": "Guiding every learner towards their strengths",
+    "quote": "We, educators being as a facilitators should always encourage our child to develop in their specific field of interest.",
+    "quoteAuthor": "",
+    "body": [
+      "A facilitator does not hand down the subject. The word the school chose puts the teacher beside the learner rather than in front of them — encouraging the direction a child is already leaning in, rather than correcting it towards an average."
+    ],
+    "imageUpper": "assets/School Activity in Uniform/School Activity in Uniform (1).jpg",
+    "imageUpperName": "School Activity in Uniform (1)",
+    "imageUpperAlt": "A teacher at {schoolName} demonstrating at the table during a cooking activity, her class in paper chef hats around her",
+    "imageLower": "assets/School Activity in Uniform/School Activity in Uniform (5).jpeg",
+    "imageLowerName": "School Activity in Uniform (5)",
+    "imageLowerAlt": "Two students of {schoolName} at one desk, each working on her own drawing"
+  },
+  "sectionThree": {
+    "kicker": "Multiple intelligences",
+    "heading": "More than one way to learn",
+    "body": [
+      "The school names the theory outright — *“a theory of Multiple Intelligence”* — as one of the three things it says it incorporates in all areas of teaching. What follows from it is simple: a class does not hold one kind of mind, so it should not be offered one kind of route in."
+    ],
+    "image": "assets/School Activity in Uniform/Embriodery.jpg",
+    "imageName": "Embriodery",
+    "imageAlt": "Students of {schoolName} working on embroidery together",
+    "cards": [
+      {
+        "label": "Words",
+        "icon": "assets/icons/Words.png",
+        "iconName": "ability-words"
+      },
+      {
+        "label": "Number",
+        "icon": "assets/icons/pencill.webp",
+        "iconName": "ability-number"
+      },
+      {
+        "label": "Making",
+        "icon": "assets/icons/paintbrush.png",
+        "iconName": "ability-making"
+      },
+      {
+        "label": "Enquiry",
+        "icon": "assets/icons/enquire.png",
+        "iconName": "ability-enquiry"
+      },
+      {
+        "label": "Invention",
+        "icon": "assets/icons/Invention.png",
+        "iconName": "ability-invention"
+      },
+      {
+        "label": "Ambition",
+        "icon": "assets/icons/Ambition.png",
+        "iconName": "ability-ambition"
+      },
+      {
+        "label": "Insight",
+        "icon": "assets/icons/bulb.png",
+        "iconName": "ability-insight"
+      }
+    ]
+  },
+  "sectionFour": {
+    "kicker": "Collaborative learning",
+    "heading": "Learning through interaction",
+    "headingEm": "",
+    "quote": "",
+    "quoteAuthor": "",
+    "body": [
+      "Collaborative learning is the third of the three the school says it incorporates *in all areas of teaching* — not in a timetabled slot. The Principal's own description of the result is a room where children are talking to each other: **“classrooms are places of curiosity and collaboration”**."
+    ],
+    "image": "assets/photos/sunbeem-1.jpg",
+    "imageName": "sunbeem-1",
+    "imageAlt": "Students together on the ground at {schoolName}"
+  },
+  "sectionFive": {
+    "kicker": "Innovative & technology-enabled",
+    "heading": "Teaching that evolves with the learner",
+    "headingEm": "",
+    "quote": "",
+    "quoteAuthor": "",
+    "body": [
+      "Technology is the first of the three the school names, and the Principal describes the intent rather than the hardware: a school where **“innovative teaching methods meet modern technology”**.",
+      "The philosophy is that teaching should keep moving — that a method earns its place by making a subject more reachable, not by being new. What that looks like in a room is a separate page."
+    ],
+    "image": "assets/computer lab/DSC_1204 copy.jpg",
+    "imageName": "DSC_1204 copy",
+    "imageAlt": "The computer laboratory at {schoolName}, rows of workstations facing an interactive board"
+  },
+  "close": {
+    "headingLines": [
+      "Teaching with purpose.",
+      "Empowering every learner."
+    ],
+    "quote": "Every child feels valued, safe, and inspired to achieve their full potential.",
+    "quoteAuthor": "",
+    "image": "assets/photos/sunbeem-4.jpg",
+    "imageName": "sunbeem-4",
+    "imageAlt": "Students of {schoolName}"
+  }
+}

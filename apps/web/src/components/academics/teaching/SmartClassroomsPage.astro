@@ -68,18 +68,21 @@
  * MOTION is the project's own attribute set — data-clip, data-reveal, data-pop,
  * data-drift, data-count, data-parallax, data-draw, data-mask, data-zoom.
  */
-import { Picture } from 'astro:assets';
+import SmartImage from '../../../components/ui/SmartImage.astro';
 
 /* ── PHOTOGRAPHY ────────────────────────────────────────────────────────────
    ⚠ SIX DISTINCT FRAMES, and the banner is a seventh. A page about one subject
    is the easiest place on the site to end up showing the same room five times. */
-import pLabBusy from '../../../assets/computer lab/it-3.jpeg';       /* senior lab in use, teacher supervising */
-import pCanva from '../../../assets/school-event/Impetus—ClassesIII-V/Impetus—ClassesIII-V-02.jpg';
-import pLabRow from '../../../assets/computer lab/it-8.jpeg';        /* the same lab down the row */
-import pLabEmpty from '../../../assets/computer lab/DSC_1206 copy.jpg';
-import pLabTaught from '../../../assets/computer lab/it-10.jpeg';    /* the room with the shortcut charts */
-import pCarnival from '../../../assets/school-event/Reading-Carnival/Reading-Carnival-02.jpg';
-import pCohort from '../../../assets/photos/sunbeem-3.jpg';
+import { getAcademicTopic } from '../../../lib/cms';
+
+const ac = await getAcademicTopic('/academics/teaching-learning/smart-classrooms/');
+const pLabBusy = ac.pic('pLabBusy');
+const pCanva = ac.pic('pCanva');
+const pLabRow = ac.pic('pLabRow');
+const pLabEmpty = ac.pic('pLabEmpty2');
+const pLabTaught = ac.pic('pLabTaught');
+const pCarnival = ac.pic('pCarnival');
+const pCohort = ac.pic('pCohort');
 
 const S = 'Sunbeam School Ballia';
 
@@ -98,36 +101,24 @@ const MARK: Record<string, string> = {
 /* ── THE INFRASTRUCTURE ─────────────────────────────────────────────────────
    ⚠ FOUR PUBLISHED QUANTITIES AND NOTHING ELSE. No derived figure, no ratio, no
    total. See the header note before touching any value. */
-const system = [
-  { n: 75, suffix: '+', mark: 'panel', k: 'Digitally smart classes', dur: 1.5 },
-  { n: 49, suffix: '+', mark: 'spark', k: 'Interactive flat panels', dur: 1.2 },
-  { n: 40, suffix: '+', mark: 'chipJr', k: 'Junior computer lab computers', dur: 1.35 },
-  { n: 40, suffix: '+', mark: 'tower', k: 'Senior computer lab computers', dur: 1.6 },
-] as const;
+/**
+ * ⚠ THE ODOMETER DURATIONS STAY IN CODE. `dur` is how long each figure takes to
+ * count up — animation configuration, not something a school should have to
+ * think about — so it is kept here and matched to the card by its label. The
+ * figures and their labels come from the CMS.
+ */
+const COUNT_DUR: Record<string, number> = {
+  'Digitally smart classes': 1.5,
+  'Interactive flat panels': 1.2,
+  'Junior computer lab computers': 1.35,
+  'Senior computer lab computers': 1.6,
+};
+const system = ac.section('system').points.map((p) => ({ ...p, dur: COUNT_DUR[p.k] ?? 1.4 }));
 
 /* ── THE THREE CONCEPTS ─────────────────────────────────────────────────────
    ⚠ THE LABELS ARE DESIGN, THE LINES UNDER THEM ARE EVIDENCE. Each `body` is a
    published fact and nothing more — no capability, no outcome, no percentage. */
-const beyond = [
-  {
-    n: '01',
-    mark: 'touch',
-    k: 'Interactive',
-    body: '49+ interactive flat panels, in the rooms classes already sit in — not a suite a teacher has to book.',
-  },
-  {
-    n: '02',
-    mark: 'book',
-    k: 'Digital Literacy',
-    body: '100 teachers hold Microsoft Innovative Educator Expert certification — the credential behind Microsoft Showcase School status.',
-  },
-  {
-    n: '03',
-    mark: 'rocket',
-    k: 'Future Skills',
-    body: 'Ayushi, of Class VII, placed first at the Indian AI Impact Festival in 2024.',
-  },
-] as const;
+const beyond = ac.section('beyond').points;
 
 const STEM = '/academics/teaching-learning/stem-robotics/';
 ---
@@ -181,10 +172,10 @@ const STEM = '/academics/teaching-learning/stem-robotics/';
       <span class="sc-dots" aria-hidden="true"></span>
 
       <figure class="sc-room__lead" data-mask data-zoom data-zoom-to="1.06">
-        <Picture
-          src={pLabBusy}
-          alt={`The senior computer laboratory at ${S} in use — students at the machines along both benches with a teacher standing at the back of the room`}
-          formats={['webp']}
+        <SmartImage
+          file={pLabBusy}
+          alt={ac.picAlt('pLabBusy')}
+         
           widths={[560, 900, 1200]}
           sizes="(max-width: 1023px) 92vw, 46vw"
           loading="lazy"
@@ -193,10 +184,10 @@ const STEM = '/academics/teaching-learning/stem-robotics/';
       </figure>
 
       <figure class="sc-room__inset" data-parallax data-parallax-y="24">
-        <Picture
-          src={pCanva}
-          alt={`A class at ${S} during the Canva Presentation activity of the Impetus programme, seated at their desks with the activity poster on the teacher's table`}
-          formats={['webp']}
+        <SmartImage
+          file={pCanva}
+          alt={ac.picAlt('pCanva')}
+         
           widths={[340, 560]}
           sizes="(max-width: 1023px) 44vw, 20vw"
           loading="lazy"
@@ -277,10 +268,10 @@ const STEM = '/academics/teaching-learning/stem-robotics/';
   <div class="u-container sc-beyond__grid" data-draw-scope>
     <div class="sc-beyond__media">
       <figure class="sc-beyond__lead" data-mask data-zoom data-zoom-to="1.07">
-        <Picture
-          src={pLabRow}
-          alt={`Students of ${S} at work down the length of the senior computer laboratory, a teacher walking the row behind them`}
-          formats={['webp']}
+        <SmartImage
+          file={pLabRow}
+          alt={ac.picAlt('pLabRow')}
+         
           widths={[560, 900, 1200]}
           sizes="(max-width: 1023px) 92vw, 44vw"
           loading="lazy"
@@ -288,10 +279,10 @@ const STEM = '/academics/teaching-learning/stem-robotics/';
         />
       </figure>
       <figure class="sc-beyond__disc" data-parallax data-parallax-y="22">
-        <Picture
-          src={pLabEmpty}
-          alt={`The computer laboratory at ${S} between classes, its machines set out along the benches`}
-          formats={['webp']}
+        <SmartImage
+          file={pLabEmpty}
+          alt={ac.picAlt('pLabEmpty')}
+         
           widths={[300, 480]}
           sizes="(max-width: 1023px) 34vw, 15vw"
           loading="lazy"
@@ -365,10 +356,10 @@ const STEM = '/academics/teaching-learning/stem-robotics/';
     {/* ONE DOMINANT FRAME, TWO SMALLER ONES BREAKING ITS EDGES. */}
     <div class="sc-prac__stage">
       <figure class="sc-frame sc-frame--lead" data-mask data-zoom data-zoom-to="1.06">
-        <Picture
-          src={pLabTaught}
-          alt={`A computer room at ${S} during a lesson — a teacher at the front and wall charts of keyboard keys and PC shortcuts behind the machines`}
-          formats={['webp']}
+        <SmartImage
+          file={pLabTaught}
+          alt={ac.picAlt('pLabTaught')}
+         
           widths={[620, 1000, 1320]}
           sizes="(max-width: 1023px) 92vw, 54vw"
           loading="lazy"
@@ -378,10 +369,10 @@ const STEM = '/academics/teaching-learning/stem-robotics/';
       </figure>
 
       <figure class="sc-frame sc-frame--side" data-parallax data-parallax-y="-24">
-        <Picture
-          src={pCarnival}
-          alt={`A corridor at ${S} during the Reading Carnival, with the school's Microsoft Innovative Educator Expert 2024 posters displayed on the wall behind the book racks`}
-          formats={['webp']}
+        <SmartImage
+          file={pCarnival}
+          alt={ac.picAlt('pCarnival')}
+         
           widths={[380, 640]}
           sizes="(max-width: 1023px) 46vw, 24vw"
           loading="lazy"
@@ -391,10 +382,10 @@ const STEM = '/academics/teaching-learning/stem-robotics/';
       </figure>
 
       <figure class="sc-frame sc-frame--disc" data-parallax data-parallax-y="20">
-        <Picture
-          src={pLabEmpty}
-          alt={`The computer laboratory at ${S}, its machines set out along the benches`}
-          formats={['webp']}
+        <SmartImage
+          file={pLabEmpty}
+          alt={ac.picAlt('pLabEmpty2')}
+         
           widths={[280, 440]}
           sizes="(max-width: 1023px) 32vw, 14vw"
           loading="lazy"
@@ -412,10 +403,10 @@ const STEM = '/academics/teaching-learning/stem-robotics/';
 {/* ══ 05 · THE CLOSE ═════════════════════════════════════════════════════════ */}
 <section class="sc-close" aria-labelledby="sc-close-t">
   <div class="sc-close__media" aria-hidden="true" data-parallax data-parallax-y="-40">
-    <Picture
-      src={pCohort}
-      alt=""
-      formats={['webp']}
+    <SmartImage
+      file={pCohort}
+      alt={ac.picAlt('pCohort')}
+     
       widths={[1024, 1600, 2000]}
       sizes="100vw"
       loading="lazy"

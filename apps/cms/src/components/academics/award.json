@@ -1,0 +1,16 @@
+{
+  "collectionName":"components_academics_awards",
+  "info":{"displayName":"Award","icon":"medal",
+    "description":"One olympiad or competition record, as the school published it — title, category, the classes it was open to, the year, and the certificate or notice image beside it. ⚠ `link` IS THE SCHOOL'S OWN POST about the result. Nothing here is composed: a competition the school has not announced does not get an entry."},
+  "options":{},
+  "attributes":{
+    "title":{"type":"string","required":true,"maxLength":300},
+    "category":{"type":"string","maxLength":120},
+    "classes":{"type":"string","maxLength":120},
+    "year":{"type":"string","maxLength":32},
+    "description":{"type":"text","maxLength":1200},
+    "link":{"type":"string","maxLength":500},
+    "image":{"type":"media","multiple":false,"allowedTypes":["images"]},
+    "alt":{"type":"text","maxLength":500}
+  }
+}

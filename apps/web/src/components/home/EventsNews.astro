@@ -10,56 +10,13 @@
  * one — audit §11 asks for this section to stay current, and a fabricated date
  * would be the fastest way to make it untrue.
  */
-import { Picture } from 'astro:assets';
+import CmsImage from '../ui/CmsImage.astro';
+import AccentHeading from '../ui/AccentHeading.astro';
+import { getHomeEvents } from '../../lib/cms';
 import { showBuildNotes } from '../../data/site';
-import genesis from '../../assets/photos/sunbeem-4.jpg';
-import farewell from '../../assets/photos/sunbeem-3.jpg';
-import investiture from '../../assets/photos/sunbeem-5.jpg';
-import community from '../../assets/photos/sunbeem-2.jpg';
-import trophy from '../../assets/school achivement/robo.jpg';
 
-const events = [
-  {
-    title: 'Genesis — Annual Function',
-    caption: '“Voyages of Discovery”, with a director of ISRO as chief guest',
-    when: '2024',
-    tag: 'Annual Function',
-    src: genesis,
-    alt: 'An award ceremony on stage at Sunbeam School Ballia.',
-  },
-  {
-    title: 'Investiture & ISRO Workshop',
-    caption: 'Student council office-bearers and NCC cadets take charge',
-    when: '2024',
-    tag: 'Ceremony',
-    src: investiture,
-    alt: 'Student council office-bearers and NCC cadets on stage at Sunbeam School Ballia.',
-  },
-  {
-    title: 'Farewell 2024-25',
-    caption: 'The senior school gathers to send off its outgoing batch',
-    when: '2024-25',
-    tag: 'School Life',
-    src: farewell,
-    alt: 'Students and staff at the 2024-25 farewell ceremony at Sunbeam School Ballia.',
-  },
-  {
-    title: 'RoboWunder International Robotics Championship',
-    caption: 'Second place in Kuala Lumpur, with a 1,500 USD prize',
-    when: 'Session 2025-26',
-    tag: 'Achievement',
-    src: trophy,
-    alt: 'The school’s award graphic for the RoboWunder International Robotics Championship in Kuala Lumpur, showing Deepak Kumar with his drone and the team receiving the award.',
-  },
-  {
-    title: 'Pradiptam — Alumni Meet',
-    caption: 'Former students return to the Agarsanda campus',
-    when: 'Date to confirm',
-    tag: 'Alumni',
-    src: community,
-    alt: 'Students and staff gathered at the Sunbeam School Ballia entrance.',
-  },
-];
+const { pill, heading, sub, events } = await getHomeEvents();
+
 
 const ACTIVE = 2;
 ---
@@ -67,27 +24,20 @@ const ACTIVE = 2;
 <section class="events" aria-labelledby="events-heading" data-events>
   <div class="u-container">
     <header class="events__head" data-reveal>
-      <p class="events__pill"><span class="pill pill--violet">News &amp; Events</span></p>
-      <h2 class="events__heading t-h2-sans" data-split id="events-heading">
-        Events and <span class="t-squiggle">news</span>
-      </h2>
-      <p class="events__sub t-body-lg">
-        Assemblies, competitions, ceremonies and workshops — what has been happening
-        on the Agarsanda campus.
-      </p>
+      <p class="events__pill"><span class="pill pill--violet">{pill}</span></p>
+      <AccentHeading class="events__heading t-h2-sans" id="events-heading" split text={heading} />
+      <p class="events__sub t-body-lg">{sub}</p>
     </header>
 
     <ul class="events__strip" data-strip>
       {events.map((e, i) => (
         <li class="eframe" data-frame data-when={e.when} data-active={i === ACTIVE ? '' : undefined}>
           <button class="eframe__btn" type="button" data-pick aria-pressed={i === ACTIVE ? 'true' : 'false'}>
-            <Picture
-              src={e.src}
-              alt={e.alt}
-              formats={['webp']}
-              widths={[400, 800, 1200]}
+            <CmsImage
+              file={e.image}
+              alt={e.alt ?? ''}
               sizes="(max-width: 767px) 70vw, 40vw"
-              loading="lazy"
+              fallbackWidth={800}
             />
             <span class="eframe__scrim" aria-hidden="true"></span>
             <span class="eframe__tag pill">{e.tag}</span>

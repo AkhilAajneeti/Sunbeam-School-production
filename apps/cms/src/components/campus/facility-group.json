@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_campus_facility_groups",
+  "info": {
+    "displayName": "Facility Group",
+    "icon": "layer",
+    "description": "One band of the infrastructure page — heading plus its inventory."
+  },
+  "options": {},
+  "attributes": {
+    "groupId": { "type": "string", "required": true, "maxLength": 60 },
+    "eyebrow": { "type": "string", "maxLength": 120 },
+    "title": { "type": "string", "required": true, "maxLength": 200 },
+    "stand": { "type": "text", "maxLength": 800 },
+    "items": { "type": "component", "repeatable": true, "component": "campus.facility-item" }
+  }
+}

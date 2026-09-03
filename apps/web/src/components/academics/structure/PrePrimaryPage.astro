@@ -67,20 +67,27 @@
  * over an always-painted dashed route, so with the script absent nothing is lost
  * but the travelling line.
  */
-import { Picture } from 'astro:assets';
 
 /* ── PHOTOGRAPHY — eight genuine Sunbeam Ballia frames. No stock. ─────────── */
-import pRoom from '../../../assets/activity learning lab/DSC_1215 copy.jpg';
-import pPark from '../../../assets/play ground/DSC_1249 copy.jpg';
-import pCompost from '../../../assets/school-activities/little-agriculturists/02.jpg';
-import pTables from '../../../assets/activity learning lab/DSC_1216 copy.jpg';
-import pSwings from '../../../assets/play ground/DSC_1246 copy.jpg';
-import pSlide from '../../../assets/play ground/DSC_1248 copy.jpg';
-import pSort from '../../../assets/school-activities/little-agriculturists/03.jpg';
-import pBin from '../../../assets/school-activities/little-agriculturists/01.jpg';
-import pTrays from '../../../assets/school-activities/little-agriculturists/04.jpg';
-import pGather from '../../../assets/school-activities/josh-spring-camp/02.jpg';
-import pGown from '../../../assets/celebration/kg-convocation/kg-convocation-09.jpg';
+import ClipHeading from '../../ui/ClipHeading.astro';
+import RichLine from '../../ui/RichLine.astro';
+import { getPrePrimary } from '../../../lib/cms';
+import SmartImage from '../../ui/SmartImage.astro';
+
+const { open, doing, land, play, abh, first, firstBand, close } = await getPrePrimary();
+
+/**
+ * ⚠ WHERE EACH STOP SITS ON THE CURVE IS DESIGN, NOT CONTENT.
+ * The three nodes were stored with an nx and an ny percentage against the
+ * editorial text, which meant an editor could drag a stop off the drawn line, or
+ * add a fourth with no position at all and have it land in the corner. The path
+ * is fixed, so its stops are fixed, and they live here beside it.
+ */
+const STOP_POSITIONS = [
+  { nx: '16.6%', ny: '34%' },
+  { nx: '50%', ny: '62%' },
+  { nx: '83.4%', ny: '34%' },
+];
 
 const S = 'Sunbeam School Ballia';
 
@@ -108,57 +115,15 @@ const MARK: Record<string, string> = {
 /* ── SECTION 01 — the five facilities, in the school's own order ───────────
    The strip is an editorial list, not five cards. Every label is a facility the
    school publishes by name. */
-const zone = [
-  { n: '01', mark: 'swing', k: 'Kids Park' },
-  { n: '02', mark: 'sand', k: 'Sand Pool' },
-  { n: '03', mark: 'water', k: 'Water Pool' },
-  { n: '04', mark: 'sprout', k: 'Little Agriculture Land' },
-  { n: '05', mark: 'prayer', k: 'Abhayeti Prayer Ground' },
-] as const;
 
 /* ── SECTION 02 — three activity areas ─────────────────────────────────────
    `cap` is what the PHOTOGRAPH shows, which is not always what the beat is
    named after. See the header note and the footnote under the row. */
-const doing = [
-  {
-    n: '01',
-    k: 'Play',
-    sub: 'Kids Park · swings',
-    v: 'Swings and play equipment, listed as the early years’ own — not a share of the senior field.',
-    photo: pSwings,
-    alt: `The swings in the early-years kids park at ${S}`,
-    cap: 'The swings, Kids Park',
-  },
-  {
-    n: '02',
-    k: 'Explore',
-    sub: 'Sand pool · water pool',
-    v: 'A shallow water play area, with sand play alongside it — “messy, and deliberately so.”',
-    photo: pSlide,
-    alt: `The slide, tunnel and climbing frames in the early-years kids park at ${S}`,
-    cap: 'The kids park slide and tunnel',
-  },
-  {
-    n: '03',
-    k: 'Grow',
-    sub: 'Little agriculture land',
-    v: 'A planting plot, and a hands-on farming activity the school runs under the name Little Agriculturist.',
-    photo: pSort,
-    alt: `Young students of ${S} in gloves sorting kitchen peel for compost at the Little Agriculturists activity`,
-    cap: 'Little Agriculturists · April 2024',
-  },
-] as const;
 
 /* ── SECTION 04 — four columns, four published facilities ──────────────────
    The brief's fourth column was "Play". The school's own fourth early-years
    provision is the Toy Library, which is published and specific, so that is what
    the column carries. */
-const place = [
-  { n: '01', mark: 'swing', k: 'Swings', v: 'Swings and play equipment, in the early years’ own kids park.' },
-  { n: '02', mark: 'sand', k: 'Sand', v: 'Sand play alongside the water pool — messy, and deliberately so.' },
-  { n: '03', mark: 'water', k: 'Water', v: 'A shallow water play area, inside the early-years zone.' },
-  { n: '04', mark: 'toy', k: 'Toys', v: 'A toy library: borrowable toys, and a first lending system at four years old.' },
-] as const;
 
 /* ── SECTION 06 — three stops ──────────────────────────────────────────────
    ⚠ THE LINES ARE STRUCTURAL, NOT CURRICULAR. "The middle year" is true of
@@ -166,14 +131,8 @@ const place = [
    Neither claims a syllabus, because the school publishes none per class.
    `nx`/`ny` are the node's position on the rail, and the rail's curve is drawn
    to pass through exactly those points. */
-const first = [
-  { k: 'Nursery', v: 'Where it starts.', nx: '16.6%', ny: '34%' },
-  { k: 'LKG', v: 'The middle year.', nx: '50%', ny: '62%' },
-  { k: 'UKG', v: 'The last before Class I.', nx: '83.4%', ny: '34%' },
-] as const;
 
 /* The three things the school names for the stage — all three years, not one. */
-const focus = ['Play-led routine', 'Early language', 'Number sense'] as const;
 ---
 
 {/* ══ 01 · A BEGINNING OF ITS OWN ════════════════════════════════════════════
@@ -201,10 +160,9 @@ const focus = ['Play-led routine', 'Early language', 'Number sense'] as const;
         reads as overlapping without a single pixel of page overflow. */}
     <div class="pp-open__stage">
       <div class="pp-open__lead" data-mask>
-        <Picture
-          src={pPark}
-          alt={`The early-years kids park at ${S} — a merry-go-round, seesaw and climbing rails beside the junior block`}
-          formats={['webp']}
+        <SmartImage
+          file={open.shots[0]?.image} alt={open.shots[0]?.alt ?? ''}
+         
           widths={[520, 860, 1200]}
           sizes="(max-width: 767px) 92vw, 40vw"
           loading="eager"
@@ -213,10 +171,9 @@ const focus = ['Play-led routine', 'Early language', 'Number sense'] as const;
       </div>
 
       <div class="pp-open__sm" data-pop data-pop-delay="180">
-        <Picture
-          src={pCompost}
-          alt={`A young student of ${S} in the yellow junior uniform tipping kitchen peel into the compost bin at the Little Agriculturists activity`}
-          formats={['webp']}
+        <SmartImage
+          file={open.shots[1]?.image} alt={open.shots[1]?.alt ?? ''}
+         
           widths={[320, 560]}
           sizes="(max-width: 767px) 46vw, 18vw"
           loading="lazy"
@@ -225,10 +182,9 @@ const focus = ['Play-led routine', 'Early language', 'Number sense'] as const;
       </div>
 
       <div class="pp-open__cir" data-pop data-pop-delay="300">
-        <Picture
-          src={pTables}
-          alt={`The curved activity tables and toy shelves of the early-years activity room at ${S}`}
-          formats={['webp']}
+        <SmartImage
+          file={open.shots[2]?.image} alt={open.shots[2]?.alt ?? ''}
+         
           widths={[220, 400]}
           sizes="(max-width: 767px) 30vw, 12vw"
           loading="lazy"
@@ -238,42 +194,28 @@ const focus = ['Play-led routine', 'Early language', 'Number sense'] as const;
     </div>
 
     <div class="pp-open__copy">
-      <p class="pp-kicker" data-reveal>Nursery · LKG · UKG</p>
-      <h2 class="pp-h pp-open__h" id="pp-open-t">
-        <span data-clip data-clip-delay="0">A beginning</span>
-        <span data-clip data-clip-delay="150"><em>of its own.</em></span>
-      </h2>
+      <p class="pp-kicker" data-reveal>{open.kicker}</p>
+      <ClipHeading class="pp-h pp-open__h" id="pp-open-t" text={open.heading} />
 
-      <p class="pp-body" data-reveal data-reveal-delay="200">
-        The early years here are not a smaller version of the senior school. They are given their own
-        grounds and their own rooms — and the school’s published description of the stage says so in
-        one line: <em>“the first years on campus, in rooms and grounds built for them.”</em>
-      </p>
-      <p class="pp-body" data-reveal data-reveal-delay="260">
-        That includes a prayer ground of their own. <strong>Abhayeti</strong> belongs to the junior
-        block and is listed separately from Naman, the senior one, so the youngest children do not
-        begin the day at the back of somebody else’s assembly.
-      </p>
+      <RichLine class="pp-body" text={open.body[0]} reveal revealDelay={200} />
+      <RichLine class="pp-body" text={open.body[1]} reveal revealDelay={260} />
 
       {/* ⚠ A STRIP, NOT FIVE CARDS. Hairline dividers, 20px marks, one line of
           label each — the brief rules out large cards here explicitly. */}
       <ul class="pp-zone" data-draw-scope>
-        {zone.map((z, i) => (
+        {open.cells.map((z, i) => (
           <li class="pp-zone__i" data-reveal data-reveal-delay={300 + i * 60}>
             <span class="pp-zone__m" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none">
                 <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={MARK[z.mark]} />
               </svg>
             </span>
-            <span class="pp-zone__n t-tabular">{z.n}</span>
-            <span class="pp-zone__k">{z.k}</span>
+            <span class="pp-zone__n t-tabular">{String(i + 1).padStart(2, '0')}</span>
+            <span class="pp-zone__k">{z.label}</span>
           </li>
         ))}
       </ul>
-      <p class="pp-note" data-reveal data-reveal-delay="620">
-        All five are listed on the school’s own <a class="pp-link" href={FACILITIES}>facilities</a>
-        {' '}inventory.
-      </p>
+      <RichLine class="pp-note" text={open.body[2]} linkClass="pp-link" reveal revealDelay={620} />
     </div>
   </div>
 </section>
@@ -287,20 +229,10 @@ const focus = ['Play-led routine', 'Early language', 'Number sense'] as const;
 
   <div class="u-container pp-doing__grid">
     <div class="pp-doing__copy">
-      <p class="pp-kicker" data-reveal>Learning through doing</p>
-      <h2 class="pp-h pp-doing__h" id="pp-doing-t">
-        <span data-clip data-clip-delay="0">Little hands.</span>
-        <span data-clip data-clip-delay="150"><em>Big first experiences.</em></span>
-      </h2>
-      <p class="pp-body" data-reveal data-reveal-delay="200">
-        Almost everything the school lists for this stage is something a child does with their hands,
-        their feet and the ground under them. The learning is physical long before it is written
-        down.
-      </p>
-      <p class="pp-note pp-doing__note" data-reveal data-reveal-delay="270">
-        <strong>Photographs.</strong> The school’s kids park, and its Little Agriculturists session.
-        The sand pool and the water pool are published facilities it has not photographed.
-      </p>
+      <p class="pp-kicker" data-reveal>{doing.kicker}</p>
+      <ClipHeading class="pp-h pp-doing__h" id="pp-doing-t" text={doing.heading} />
+      <RichLine class="pp-body" text={doing.body[0]} reveal revealDelay={200} />
+      <RichLine class="pp-note pp-doing__note" text={doing.body[1]} reveal revealDelay={270} />
     </div>
 
     <div class="pp-doing__stage">
@@ -322,26 +254,24 @@ const focus = ['Play-led routine', 'Early language', 'Number sense'] as const;
       </span>
 
       <ol class="pp-acts">
-        {doing.map((d, i) => (
+        {doing.cells.map((d, i) => (
           <li class="pp-act" data-reveal data-reveal-delay={160 + i * 110}>
             <div class="pp-act__pic" data-zoom data-zoom-to="1.05">
-              <Picture
-                src={d.photo}
+              <SmartImage
+                file={d.image}
                 alt={d.alt}
-                formats={['webp']}
-                widths={[340, 600, 860]}
                 sizes="(max-width: 767px) 92vw, 20vw"
+                fallbackWidth={1100}
                 loading="lazy"
-                decoding="async"
               />
             </div>
-            <p class="pp-act__cap">{d.cap}</p>
+            <p class="pp-act__cap">{d.caption}</p>
             <p class="pp-act__h">
-              <span class="pp-act__n t-tabular">{d.n}</span>
-              <span class="pp-act__k">{d.k}</span>
+              <span class="pp-act__n t-tabular">{String(i + 1).padStart(2, '0')}</span>
+              <span class="pp-act__k">{d.label}</span>
             </p>
             <p class="pp-act__s">{d.sub}</p>
-            <p class="pp-act__v">{d.v}</p>
+            <p class="pp-act__v">{d.value}</p>
           </li>
         ))}
       </ol>
@@ -359,10 +289,9 @@ const focus = ['Play-led routine', 'Early language', 'Number sense'] as const;
   <div class="u-container pp-land__grid">
     <div class="pp-land__stage">
       <div class="pp-land__lead" data-zoom data-zoom-to="1.04">
-        <Picture
-          src={pBin}
-          alt={`A teacher and a young student of ${S} adding dry leaves to the compost bin under the hand-lettered Little Agriculturist sign`}
-          formats={['webp']}
+        <SmartImage
+          file={land.shots[0]?.image} alt={land.shots[0]?.alt ?? ''}
+         
           widths={[520, 880, 1200]}
           sizes="(max-width: 767px) 92vw, 42vw"
           loading="lazy"
@@ -370,10 +299,9 @@ const focus = ['Play-led routine', 'Early language', 'Number sense'] as const;
         />
       </div>
       <div class="pp-land__sm" data-pop data-pop-delay="200">
-        <Picture
-          src={pTrays}
-          alt={`Trays of finished compost and kitchen peel on the ground beside young students of ${S}`}
-          formats={['webp']}
+        <SmartImage
+          file={land.shots[1]?.image} alt={land.shots[1]?.alt ?? ''}
+         
           widths={[320, 560]}
           sizes="(max-width: 767px) 52vw, 20vw"
           loading="lazy"
@@ -390,26 +318,14 @@ const focus = ['Play-led routine', 'Early language', 'Number sense'] as const;
         <circle cx="196" cy="23" r="2.8" fill="currentColor" />
       </svg>
 
-      <p class="pp-kicker" data-reveal>Learning with their hands</p>
-      <h2 class="pp-h pp-land__h" id="pp-land-t">
-        <span data-clip data-clip-delay="0">They don’t just learn</span>
-        <span data-clip data-clip-delay="150"><em>about the world.</em></span>
-      </h2>
+      <p class="pp-kicker" data-reveal>{land.kicker}</p>
+      <ClipHeading class="pp-h pp-land__h" id="pp-land-t" text={land.heading} />
 
-      <p class="pp-body" data-reveal data-reveal-delay="200">
-        The school’s description of the Little Agriculture Land is one sentence long, and every verb
-        in it belongs to the child: <em>“a planting plot the youngest children actually dig, sow and
-        water.”</em> Not a display bed at the gate — a plot they work.
-      </p>
-      <p class="pp-body" data-reveal data-reveal-delay="260">
-        It runs as a named activity too. <a class="pp-link" href={ACTIVITIES}>Little Agriculturist</a>
-        {' '}is published as a hands-on farming session for the youngest children, and the frames the
-        school released from it show composting — kitchen peel and dry leaf going into the bin,
-        gloves on, and the finished compost coming back out in a tray.
-      </p>
+      <RichLine class="pp-body" text={land.body[0]} reveal revealDelay={200} />
+      <RichLine class="pp-body" text={land.body[1]} linkClass="pp-link" reveal revealDelay={260} />
 
       <p class="pp-land__pull" data-reveal data-reveal-delay="330">
-        <span>Dig.</span><span>Sow.</span><span>Water.</span>
+        {land.cells.map((c) => <span>{c.label}</span>)}
       </p>
     </div>
   </div>
@@ -425,25 +341,21 @@ const focus = ['Play-led routine', 'Early language', 'Number sense'] as const;
 
   <div class="u-container pp-play__grid">
     <div class="pp-play__head">
-      <p class="pp-kicker" data-reveal>Play is part of the place</p>
-      <h2 class="pp-h pp-play__h" id="pp-play-t">
-        <span data-clip data-clip-delay="0">A place to</span>
-        <span data-clip data-clip-delay="150">move, <em>play</em></span>
-        <span data-clip data-clip-delay="290">and <em>discover.</em></span>
-      </h2>
+      <p class="pp-kicker" data-reveal>{play.kicker}</p>
+      <ClipHeading class="pp-h pp-play__h" id="pp-play-t" text={play.heading} delays={[0, 150, 290]} />
     </div>
 
     <ol class="pp-cols">
-      {place.map((p, i) => (
+      {play.cells.map((p, i) => (
         <li class="pp-col" data-reveal data-reveal-delay={140 + i * 90}>
           <span class="pp-col__m" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none">
               <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={MARK[p.mark]} />
             </svg>
           </span>
-          <p class="pp-col__n t-tabular">{p.n}</p>
-          <h3 class="pp-col__k">{p.k}</h3>
-          <p class="pp-col__v">{p.v}</p>
+          <p class="pp-col__n t-tabular">{String(i + 1).padStart(2, '0')}</p>
+          <h3 class="pp-col__k">{p.label}</h3>
+          <p class="pp-col__v">{p.value}</p>
         </li>
       ))}
     </ol>
@@ -463,41 +375,25 @@ const focus = ['Play-led routine', 'Early language', 'Number sense'] as const;
           headline is 48px display weight and carries a 1px outline behind it
           without losing a thing. */}
       <span class="pp-abh__ghost" aria-hidden="true" data-drift>Abhayeti</span>
-      <p class="pp-badge" data-reveal>Junior block · prayer ground</p>
-      <h2 class="pp-h pp-abh__h" id="pp-abh-t">
-        <span data-clip data-clip-delay="0">A space</span>
-        <span data-clip data-clip-delay="150">to <em>begin together.</em></span>
-      </h2>
-      <p class="pp-body" data-reveal data-reveal-delay="200">
-        The junior block has a prayer ground of its own, and the school gives it a name:
-        {' '}<strong>Abhayeti</strong>. It appears on the facilities list beside Naman, the senior
-        block’s ground, as a separate entry — which is the whole point of it.
-      </p>
-      <p class="pp-body" data-reveal data-reveal-delay="260">
-        A four-year-old’s first assembly is not held at the edge of a field built for
-        eighteen-year-olds. It is held on ground that belongs to their half of the school.
-      </p>
-      <p class="pp-note" data-reveal data-reveal-delay="330">
-        The school publishes the name and whose ground it is. It does not publish what happens there,
-        and it has released no photograph of Abhayeti itself.
-      </p>
+      <RichLine class="pp-badge" text={abh.body[0]} reveal />
+      <ClipHeading class="pp-h pp-abh__h" id="pp-abh-t" text={abh.heading} />
+      <RichLine class="pp-body" text={abh.body[1]} reveal revealDelay={200} />
+      <RichLine class="pp-body" text={abh.body[2]} reveal revealDelay={260} />
+      <RichLine class="pp-note" text={abh.body[3]} reveal revealDelay={330} />
     </div>
 
     <figure class="pp-abh__fig">
       <div class="pp-abh__pic" data-mask data-mask-from="left">
-        <Picture
-          src={pGather}
-          alt={`Junior classes of ${S} seated together on the ground facing the stage at the JOSH Sports and Spring Camp`}
-          formats={['webp']}
+        <SmartImage
+          file={abh.shots[0]?.image} alt={abh.shots[0]?.alt ?? ''}
+         
           widths={[560, 900, 1280]}
           sizes="(max-width: 767px) 92vw, 46vw"
           loading="lazy"
           decoding="async"
         />
       </div>
-      <figcaption class="pp-abh__cap">
-        Junior classes gathered for the JOSH Sports &amp; Spring Camp.
-      </figcaption>
+      <figcaption class="pp-abh__cap">{abh.caption}</figcaption>
     </figure>
   </div>
 </section>
@@ -514,11 +410,8 @@ const focus = ['Play-led routine', 'Early language', 'Number sense'] as const;
   <span class="pp-grid pp-grid--fine" aria-hidden="true"></span>
 
   <div class="u-container pp-first__inner">
-    <p class="pp-kicker pp-first__kicker" data-reveal>The first years</p>
-    <h2 class="pp-h pp-first__h" id="pp-first-t">
-      <span data-clip data-clip-delay="0">Three years,</span>
-      <span data-clip data-clip-delay="150">counted as <em>one stage.</em></span>
-    </h2>
+    <p class="pp-kicker pp-first__kicker" data-reveal>{first.kicker}</p>
+    <ClipHeading class="pp-h pp-first__h" id="pp-first-t" text={first.heading} />
 
     <div class="pp-first__track">
       <div class="pp-rail">
@@ -531,18 +424,22 @@ const focus = ['Play-led routine', 'Early language', 'Number sense'] as const;
             stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
         </svg>
 
-        {first.map((f, i) => (
-          <span class="pp-rail__node" style={`--nx: ${f.nx}; --ny: ${f.ny};`} aria-hidden="true">
+        {first.cells.map((f, i) => (
+          <span
+            class="pp-rail__node"
+            style={`--nx: ${STOP_POSITIONS[i]?.nx}; --ny: ${STOP_POSITIONS[i]?.ny};`}
+            aria-hidden="true"
+          >
             <i style={`--d: ${i * 0.9}s;`}></i>
           </span>
         ))}
       </div>
 
       <ol class="pp-stops">
-        {first.map((f, i) => (
+        {first.cells.map((f, i) => (
           <li class="pp-stop" data-reveal data-reveal-delay={140 + i * 120}>
-            <p class="pp-stop__k">{f.k}</p>
-            <p class="pp-stop__v">{f.v}</p>
+            <p class="pp-stop__k">{f.label}</p>
+            <p class="pp-stop__v">{f.value}</p>
           </li>
         ))}
       </ol>
@@ -553,42 +450,38 @@ const focus = ['Play-led routine', 'Early language', 'Number sense'] as const;
         does this page. */}
     <div class="pp-band" data-reveal data-reveal-delay="440">
       <div class="pp-band__focus">
-        <p class="pp-band__lab">Named for all three years</p>
+        <p class="pp-band__lab">{firstBand.kicker}</p>
         <ul class="pp-band__list">
-          {focus.map((f) => <li>{f}</li>)}
+          {firstBand.cells.map((f) => <li>{f.label}</li>)}
         </ul>
       </div>
       <div class="pp-band__mile">
-        <p class="pp-band__lab">And one milestone</p>
-        <p class="pp-band__q">“School as a place you want to be.”</p>
+        <p class="pp-band__lab">{firstBand.caption}</p>
+        <p class="pp-band__q">{firstBand.body[0]}</p>
       </div>
       <div class="pp-band__facts">
-        <p class="pp-band__f">
-          <span class="pp-band__m" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none">
-              <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={MARK.book} />
-            </svg>
-          </span>
-          <span>The syllabus is published class by class <strong>from Nursery</strong>, as the
-          school’s PRECEPT document.</span>
-        </p>
-        <p class="pp-band__f">
-          <span class="pp-band__m" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none">
-              <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={MARK.star} />
-            </svg>
-          </span>
-          <span>The SOF olympiad is sat <strong>from Nursery to Class II</strong> — the first time
-          the work is measured from outside.</span>
-        </p>
+        {/* ⚠ THE SYMBOL IS DRAWN HERE. The CMS holds which one and the sentence
+            beside it; the paths stay in this page's own mark set. */}
+        {firstBand.cellsTwo.map((f) => (
+          <p class="pp-band__f">
+            <span class="pp-band__m" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={MARK[f.mark]} />
+              </svg>
+            </span>
+            <RichLine tag="span" text={f.value} />
+          </p>
+        ))}
       </div>
     </div>
 
-    <p class="pp-note pp-first__note" data-reveal data-reveal-delay="520">
-      The school publishes Nursery, LKG and UKG as one stage on its
-      {' '}<a class="pp-link" href={STRUCTURE}>academic structure</a>. Admission ages, session hours
-      and class sizes are not published, and are not estimated here.
-    </p>
+    <RichLine
+      class="pp-note pp-first__note"
+      text={first.body[0]}
+      linkClass="pp-link"
+      reveal
+      revealDelay={520}
+    />
   </div>
 </section>
 
@@ -631,10 +524,9 @@ const focus = ['Play-led routine', 'Early language', 'Number sense'] as const;
     early years. */}
 <section class="pp-close" aria-labelledby="pp-close-t">
   <div class="pp-close__media" aria-hidden="true" data-parallax data-parallax-y="-40">
-    <Picture
-      src={pGown}
-      alt=""
-      formats={['webp']}
+    <SmartImage
+      file={close.shots[0]?.image} alt={close.shots[0]?.alt ?? ''}
+     
       widths={[1024, 1600, 2000]}
       sizes="100vw"
       loading="lazy"
@@ -645,19 +537,10 @@ const focus = ['Play-led routine', 'Early language', 'Number sense'] as const;
   <span class="pp-close__grain" aria-hidden="true"></span>
 
   <div class="u-container pp-close__inner">
-    <p class="pp-kicker pp-kicker--dark" data-reveal>The end of the early years</p>
-    <h2 class="pp-h pp-close__h" id="pp-close-t">
-      <span data-clip data-clip-delay="0">Three years,</span>
-      <span data-clip data-clip-delay="150">and then <em>the gown.</em></span>
-    </h2>
-    <p class="pp-close__b" data-reveal data-reveal-delay="180">
-      The school holds a convocation for KG-II — a gown, a mortar board and a rolled scroll handed
-      over on stage. It marks the last day of the early years the way a university marks its last,
-      and it is the clearest statement the school makes about how seriously it takes this stage.
-    </p>
-    <p class="pp-close__cap" data-reveal data-reveal-delay="250">
-      Photograph: the KG-II convocation ceremony at {S}.
-    </p>
+    <p class="pp-kicker pp-kicker--dark" data-reveal>{close.kicker}</p>
+    <ClipHeading class="pp-h pp-close__h" id="pp-close-t" text={close.heading} />
+    <RichLine class="pp-close__b" text={close.body[0]} reveal revealDelay={180} />
+    <RichLine class="pp-close__cap" text={close.body[1]} reveal revealDelay={250} />
   </div>
 </section>
 
@@ -673,7 +556,7 @@ const focus = ['Play-led routine', 'Early language', 'Number sense'] as const;
   }
   .pp-kicker--dark { color: var(--sb-lime); }
 
-  .pp-badge {
+  :global(.pp-badge) {
     display: inline-flex;
     align-items: center;
     margin: 0;
@@ -687,7 +570,7 @@ const focus = ['Play-led routine', 'Early language', 'Number sense'] as const;
     color: var(--sb-violet);
   }
 
-  .pp-h {
+  :global(.pp-h) {
     margin: clamp(12px, 1.5vw, 18px) 0 0;
     font-family: var(--sb-font-display);
     font-weight: 700;
@@ -695,36 +578,36 @@ const focus = ['Play-led routine', 'Early language', 'Number sense'] as const;
     letter-spacing: -0.04em;
     color: var(--sb-charcoal);
   }
-  .pp-h span { display: block; }
-  .pp-h em { font-style: normal; color: var(--sb-violet); }
+  :global(.pp-h span) { display: block; }
+  :global(.pp-h em) { font-style: normal; color: var(--sb-violet); }
 
-  .pp-body {
+  :global(.pp-body) {
     max-width: 47ch;
     margin: clamp(13px, 1.6vw, 19px) 0 0;
     font-size: clamp(12.5px, 0.92vw, 14.5px);
     line-height: 1.78;
     color: var(--sb-text-secondary);
   }
-  .pp-body em { font-style: italic; color: var(--sb-charcoal); }
-  .pp-body strong { font-weight: 700; color: var(--sb-charcoal); }
+  :global(.pp-body em) { font-style: italic; color: var(--sb-charcoal); }
+  :global(.pp-body strong) { font-weight: 700; color: var(--sb-charcoal); }
 
-  .pp-note {
+  :global(.pp-note) {
     max-width: 52ch;
     margin: clamp(12px, 1.4vw, 17px) 0 0;
     font-size: clamp(10px, 0.74vw, 11.5px);
     line-height: 1.68;
     color: var(--sb-text-muted);
   }
-  .pp-note strong { font-weight: 700; color: var(--sb-charcoal); }
+  :global(.pp-note strong) { font-weight: 700; color: var(--sb-charcoal); }
 
-  .pp-link {
+  :global(.pp-link){
     color: var(--sb-violet);
     font-weight: 700;
     text-decoration: underline;
     text-underline-offset: 3px;
     text-decoration-thickness: 1px;
   }
-  .pp-link:hover { color: var(--sb-orange-bright); }
+  :global(.pp-link:hover){ color: var(--sb-orange-bright); }
 
   /* Decorative grounds, shared. Masked so they fade rather than stopping at an
      edge, which is what makes them read as atmosphere rather than as a texture
@@ -838,7 +721,7 @@ const focus = ['Play-led routine', 'Early language', 'Number sense'] as const;
   }
   .pp-open__cir :global(img) { object-position: 54% 56%; }
 
-  .pp-open__h { font-size: clamp(29px, 3.5vw, 50px); }
+  :global(.pp-open__h) { font-size: clamp(29px, 3.5vw, 50px); }
 
   /* ⚠ A HAIRLINE STRIP, NOT FIVE CARDS. */
   .pp-zone {
@@ -904,8 +787,8 @@ const focus = ['Play-led routine', 'Early language', 'Number sense'] as const;
        it. */
     align-items: center;
   }
-  .pp-doing__h { font-size: clamp(26px, 2.9vw, 40px); }
-  .pp-doing__note {
+  :global(.pp-doing__h) { font-size: clamp(26px, 2.9vw, 40px); }
+  :global(.pp-doing__note) {
     max-width: 34ch;
     padding-top: clamp(11px, 1.3vw, 15px);
     border-top: 1px solid var(--sb-border);
@@ -1066,7 +949,7 @@ const focus = ['Play-led routine', 'Early language', 'Number sense'] as const;
     height: auto;
     color: rgba(201, 60, 10, 0.4);
   }
-  .pp-land__h { font-size: clamp(27px, 3.1vw, 44px); }
+  :global(.pp-land__h) { font-size: clamp(27px, 3.1vw, 44px); }
 
   .pp-land__pull {
     display: flex;
@@ -1125,7 +1008,7 @@ const focus = ['Play-led routine', 'Early language', 'Number sense'] as const;
     gap: clamp(24px, 3.2vw, 52px);
     align-items: center;
   }
-  .pp-play__h { font-size: clamp(26px, 2.9vw, 40px); }
+  :global(.pp-play__h) { font-size: clamp(26px, 2.9vw, 40px); }
 
   /* ⚠ COLUMNS DIVIDED BY RULES, NOT FOUR BOOTSTRAP CARDS. No background, no
      radius, no shadow — the only structure is a 1px orange hairline. */
@@ -1205,7 +1088,7 @@ const focus = ['Play-led routine', 'Early language', 'Number sense'] as const;
     gap: clamp(26px, 3.6vw, 56px);
     align-items: center;
   }
-  .pp-abh__h { font-size: clamp(29px, 3.4vw, 48px); }
+  :global(.pp-abh__h) { font-size: clamp(29px, 3.4vw, 48px); }
 
   .pp-abh__fig { margin: 0; }
   .pp-abh__pic {
@@ -1248,7 +1131,7 @@ const focus = ['Play-led routine', 'Early language', 'Number sense'] as const;
     text-align: center;
   }
   .pp-first__kicker { text-align: center; }
-  .pp-first__h { max-width: 20ch; font-size: clamp(26px, 3vw, 42px); }
+  :global(.pp-first__h) { max-width: 20ch; font-size: clamp(26px, 3vw, 42px); }
 
   .pp-first__track {
     width: 100%;
@@ -1384,7 +1267,7 @@ const focus = ['Play-led routine', 'Early language', 'Number sense'] as const;
   .pp-band__m { display: block; width: clamp(17px, 1.5vw, 21px); margin-top: 2px; color: var(--sb-violet); }
   .pp-band__m svg { display: block; width: 100%; height: auto; }
 
-  .pp-first__note { margin-top: clamp(15px, 1.8vw, 22px); text-align: center; }
+  :global(.pp-first__note) { margin-top: clamp(15px, 1.8vw, 22px); text-align: center; }
 
   /* ═══ 07 · THE CLOSE ══════════════════════════════════════════════════════ */
   .pp-close {
@@ -1425,20 +1308,20 @@ const focus = ['Play-led routine', 'Early language', 'Number sense'] as const;
     justify-items: center;
     text-align: center;
   }
-  .pp-close__h {
+  :global(.pp-close__h) {
     max-width: 20ch;
     font-size: clamp(26px, 3.2vw, 46px);
     color: #fff;
   }
-  .pp-close__h em { color: var(--sb-lime); font-style: italic; }
-  .pp-close__b {
+  :global(.pp-close__h em) { color: var(--sb-lime); font-style: italic; }
+  :global(.pp-close__b) {
     max-width: 64ch;
     margin: clamp(14px, 1.7vw, 21px) 0 0;
     font-size: clamp(12px, 0.88vw, 14px);
     line-height: 1.78;
     color: var(--sb-on-dark-82);
   }
-  .pp-close__cap {
+  :global(.pp-close__cap) {
     margin: clamp(11px, 1.3vw, 16px) 0 0;
     font-size: clamp(9.5px, 0.7vw, 11px);
     letter-spacing: 0.04em;
@@ -1451,7 +1334,7 @@ const focus = ['Play-led routine', 'Early language', 'Number sense'] as const;
      column sets fold to two-up before they fold to one. */
   @media (max-width: 1179px) {
     .pp-doing__grid { grid-template-columns: minmax(0, 1fr); gap: clamp(24px, 3.2vw, 36px); }
-    .pp-doing__note { max-width: 62ch; }
+    :global(.pp-doing__note) { max-width: 62ch; }
     .pp-play__grid { grid-template-columns: minmax(0, 1fr); gap: clamp(22px, 2.8vw, 34px); }
     .pp-band { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .pp-band__facts { grid-column: 1 / -1; grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -1467,9 +1350,9 @@ const focus = ['Play-led routine', 'Early language', 'Number sense'] as const;
     /* The picture leads on a narrow screen in 03, as it does everywhere else. */
     .pp-land__stage { order: -1; }
     .pp-land__thread { display: none; }
-    .pp-body { max-width: 62ch; }
+    :global(.pp-body) { max-width: 62ch; }
     .pp-open__h,
-    .pp-abh__h { font-size: clamp(28px, 5vw, 40px); }
+    :global(.pp-abh__h) { font-size: clamp(28px, 5vw, 40px); }
     .pp-zone { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: clamp(14px, 2vw, 20px); }
     .pp-zone__i:nth-child(4) { border-left: 0; padding-left: 0; }
     .pp-open__trail { display: none; }

@@ -1,0 +1,11 @@
+{
+  "collectionName":"components_home_voices",
+  "info":{"displayName":"Alumni Voice","icon":"quote","description":"One alumni card on the homepage. ⚠ NOT shared.point: the source shape is {quote, name, classOf, photo}, and squeezing it into title/body would have made the class year part of a sentence and left nowhere for the photograph — so an editor could never have added the entry the section is waiting for (docs/07 A4). `photo` is optional; the card falls back to the school monogram, which is a design decision that stays in Astro."},
+  "options":{},
+  "attributes":{
+    "quote":{"type":"text","required":true,"maxLength":400},
+    "name":{"type":"string","required":true,"maxLength":160},
+    "classOf":{"type":"string","maxLength":16},
+    "photo":{"type":"media","multiple":false,"allowedTypes":["images"]}
+  }
+}

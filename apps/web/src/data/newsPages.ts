@@ -441,6 +441,8 @@ export const celebrations: ChroniclePage = {
         {
           title: 'Independence Day',
         slug: 'independence-day',
+        /* Seventeen photographs the school sent directly, August 2025. */
+        photoDir: 'independence-day',
           meta: 'Chief Guest: Mr. Ashutosh Kumar Pandey, IRS, Deputy Commissioner of Income Tax',
           body: 'The national flag hoisted by the chief guest, followed by cultural performances, patriotic songs and student acts.',
           when: '2025 · the 78th',

@@ -14,40 +14,33 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/ui/PageHero.astro';
 import LeaderMessage from '../../components/about/LeaderMessage.astro';
-import { school } from '../../data/site';
+import { getLeaderMessage } from '../../lib/cms';
 import banner from '../../assets/photos/sunbeem-1.jpg';
-import portrait from '../../assets/photos/sb-principal.jpg';
 
-const paragraphs = [
-  'The Sunbeam vision has always been to empower students with 21st-century skills while staying rooted in Indian culture and moral values. We are committed to holistic development — intellectual growth, physical well-being, emotional resilience and ethical strength.',
-  'As Principal, my role is to ensure that every child feels valued, safe, and inspired to achieve their full potential.',
-];
+const leader = await getLeaderMessage('principal');
+
+
 ---
 
 <BaseLayout
-  title="Principal's Message — Sunbeam School Ballia"
-  description="A message from Mrs. Arpita Singh, Principal of Sunbeam School Ballia, on the school's approach to character, creativity and holistic development."
 >
   <PageHero
-    title="Principal's Message"
-    crumbs={[{ label: 'Home', href: '/' }, { label: 'About', href: '/about/' }]}
     src={banner}
-    alt="The Sunbeam School Ballia campus at Agarsanda."
-    position="50% 58%"
   />
 
   <div class="u-page-panel">
     <LeaderMessage
-      eyebrow="Principal Speak"
-      heading="A word from our Principal"
-      name={school.principal}
-      role={`Principal, ${school.name}`}
-      portrait={portrait}
-      portraitAlt={`${school.principal}, Principal of Sunbeam School Ballia.`}
-      portraitBrief="Principal portrait"
-      pullQuote="At Sunbeam School Ballia, we believe that education is not merely about imparting knowledge, but about nurturing character, inspiring creativity, and preparing young minds to lead with empathy and vision."
-      paragraphs={paragraphs}
-      pending="A5 — the full message, proofread (audit 1.12)"
+      eyebrow={leader?.eyebrow}
+      heading={leader?.heading}
+      name={leader?.name}
+      role={leader?.roleLabel}
+      portrait={leader?.portrait}
+      portraitAlt={leader?.portraitAlt}
+      portraitBrief={leader?.portraitBrief}
+      pullQuote={leader?.pullQuote}
+      paragraphs={leader?.paragraphs ?? []}
+      credentials={leader?.credentials ?? []}
+      pending={leader?.pending}
     />
   </div>
 </BaseLayout>

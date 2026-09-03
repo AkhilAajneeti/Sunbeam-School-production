@@ -12,7 +12,9 @@
  * The icons are functional, not decorative — each names its destination, which
  * is what makes this scannable at a glance for a returning parent.
  */
-import { quickAccess } from '../../data/site';
+import { getSiteSettings } from '../../lib/cms';
+
+const { quickAccess } = await getSiteSettings();
 
 /** Pastel disc per item, plus the icon path. Tones stay in the warm family. */
 const looks = [

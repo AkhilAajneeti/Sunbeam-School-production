@@ -23,7 +23,10 @@
  */
 import SectionHead from '../SectionHead.astro';
 import AcademicGlyph from '../AcademicGlyph.astro';
-import { teachingLearning } from '../../../data/academics';
+import { getAcademicTopic } from '../../../lib/cms';
+
+const ac = await getAcademicTopic('/academics/teaching-learning/');
+const teachingLearning = ac.blockMap('teachingLearning');
 
 const { index } = teachingLearning;
 ---

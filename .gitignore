@@ -38,7 +38,11 @@ apps/cms/.cache/
 apps/cms/build/
 apps/cms/dist/
 apps/cms/.strapi-updater.json
-apps/cms
+
+# ⚠ DO NOT ADD A BARE `apps/cms` LINE HERE. One was present until 2026-08-26 and
+# it silently ignored the ENTIRE Strapi application — every content-type schema,
+# every seed script, every config file. The CMS is source code and belongs in
+# git; only the generated output above and the secrets and uploads below do not.
 
 # ⚠⚠ UPLOADED MEDIA IS NOT VERSIONED, AND THAT IS THE DESIGN.
 # Decision D5: images live on disk and are served by Caddy, not committed. This
@@ -136,3 +140,10 @@ apps/web/src/assets/Linotext Regular/
 #                                have none — npm hoists from here.
 #   .env.example                 the environment template; .env itself is not
 #   *.pdf                        the client audit report — governing requirements
+
+# Strapi development lock — one instance per database (docs/09)
+apps/cms/.strapi-develop.lock
+
+# Database dumps and media archives — recovery artefacts, never source (docs/11).
+# The uploads tarball alone is 335 MB.
+backups/

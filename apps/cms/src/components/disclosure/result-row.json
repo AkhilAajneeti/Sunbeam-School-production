@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_disclosure_result_rows",
+  "info": {
+    "displayName": "Board Result Row",
+    "icon": "chartCircle",
+    "description": "One class's board result for one year. ⚠ THERE IS NO 'APPEARED' FIELD, DELIBERATELY. The school publishes Registered, Passed and pass percentage only; the reference design showed an Appeared row, and filling it by assuming appeared = registered would be inventing an examination statistic. ⚠ `percentage` IS A STRING because the school files '98.90' and '100' — storing a number would print 98.9 and lose a digit the filing has."
+  },
+  "options": {},
+  "attributes": {
+    "registered": { "type": "integer", "required": true },
+    "passed": { "type": "integer", "required": true },
+    "percentage": { "type": "string", "required": true, "maxLength": 12 }
+  }
+}

@@ -1,4 +1,7 @@
 ---
+import { getTransportData } from '../../lib/cms';
+const {routes, coverage, stopAliases, stats} = await getTransportData();
+
 /**
  * ROUTE FINDER — the search, the area chips and the route cards.
  *
@@ -33,7 +36,7 @@
  * components have shipped a 500ing script over a helper named `wrap` or
  * `frame`, and `npm run build` passed both times.
  */
-import { routes, coverage, stopAliases, stats } from '../../data/transport';
+
 
 /* The search haystack is built at BUILD time, once per card, rather than being
    recomputed in the browser on every keystroke. Aliases are folded in so a

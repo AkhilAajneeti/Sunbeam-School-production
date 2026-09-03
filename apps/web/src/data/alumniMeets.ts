@@ -48,6 +48,24 @@ import mMedals from '../assets/alumni-meets/pradiptam-2-0-2026-27/02-alumni-with
 import mHall from '../assets/alumni-meets/pradiptam-2-0-2026-27/03-alumni-in-the-hall.jpg';
 import mTable from '../assets/alumni-meets/pradiptam-2-0-2026-27/04-medallions-at-the-table.jpg';
 import mLamp from '../assets/alumni-meets/pradiptam-2-0-2026-27/05-lamp-lighting.jpg';
+/* Added from photographs the school sent directly, at full resolution. The five
+   above came from its public activity feed; these are the same evening. */
+import mEntrance from '../assets/alumni-meets/pradiptam-2-0-2026-27/06-entrance-before-the-meet.jpg';
+import mSpeaker from '../assets/alumni-meets/pradiptam-2-0-2026-27/07-an-alumna-speaking.jpg';
+import mMedallion from '../assets/alumni-meets/pradiptam-2-0-2026-27/08-a-medallion-presented.jpg';
+import mSteps from '../assets/alumni-meets/pradiptam-2-0-2026-27/09-alumni-and-staff-on-the-steps.jpg';
+import mLampClose from '../assets/alumni-meets/pradiptam-2-0-2026-27/10-lighting-the-lamp.jpg';
+import mRoundTable from '../assets/alumni-meets/pradiptam-2-0-2026-27/11-alumni-at-a-round-table.jpg';
+import mFourAlumnae from '../assets/alumni-meets/pradiptam-2-0-2026-27/12-alumnae-at-a-table.jpg';
+import mMedalPg from '../assets/alumni-meets/pradiptam-2-0-2026-27/13-a-medallion-for-a-postgraduate.jpg';
+import mMedalMed from '../assets/alumni-meets/pradiptam-2-0-2026-27/14-a-medallion-for-a-medical-student.jpg';
+import mMedalPol from '../assets/alumni-meets/pradiptam-2-0-2026-27/15-a-medallion-for-a-politics-graduate.jpg';
+import mMedalTeacher from '../assets/alumni-meets/pradiptam-2-0-2026-27/16-a-medallion-from-a-teacher.jpg';
+import mMedalMicro from '../assets/alumni-meets/pradiptam-2-0-2026-27/17-a-medallion-for-a-microbiologist.jpg';
+import mMedal2024 from '../assets/alumni-meets/pradiptam-2-0-2026-27/18-a-medallion-for-the-2024-batch.jpg';
+import mMedal2223 from '../assets/alumni-meets/pradiptam-2-0-2026-27/19-a-medallion-for-the-2022-23-batch.jpg';
+import mMedalSci from '../assets/alumni-meets/pradiptam-2-0-2026-27/20-a-medallion-for-a-science-graduate.jpg';
+import mStanding from '../assets/alumni-meets/pradiptam-2-0-2026-27/21-standing-at-the-tables.jpg';
 
 /** One photograph in a meet's gallery. */
 export interface MeetPhoto {
@@ -137,6 +155,86 @@ export const alumniMeets: AlumniMeet[] = [
         image: mHall,
         alt: `Four alumnae of ${S} standing together in the hall during the meet, wearing the event’s badges.`,
         caption: 'In the hall',
+      },
+      {
+        image: mEntrance,
+        alt: `The entrance to ${S} before Pradiptam 2.0 — a red carpet laid between house pennants, under the Alumni Meet 2026 board.`,
+        caption: 'Before the meet',
+      },
+      {
+        image: mSpeaker,
+        alt: 'An alumna of the 2017 batch speaking at Pradiptam 2.0, her name and degree on the screen behind her.',
+        caption: 'An alumna speaks',
+      },
+      {
+        image: mMedallion,
+        alt: 'One alumnus handing a commemorative medallion to another at Pradiptam 2.0, both wearing the meet’s badges.',
+        caption: 'A medallion presented',
+      },
+      {
+        image: mSteps,
+        alt: `Alumni and staff of ${S} on the school steps at the close of Pradiptam 2.0, the stage behind them.`,
+        caption: 'At the close',
+      },
+      {
+        image: mLampClose,
+        alt: `Staff and alumni of ${S} gathered around the garlanded brass lamp on the red carpet as it is lit to open Pradiptam 2.0.`,
+        caption: 'Lighting the lamp',
+      },
+      {
+        image: mRoundTable,
+        alt: `Six alumni of ${S} seated at a round table in their Pradiptam badges, students of the school in rows behind them.`,
+        caption: 'At a round table',
+      },
+      {
+        image: mFourAlumnae,
+        alt: `Four alumnae of ${S} at a table, each wearing an Alumni Meet 2026 badge, a Pradiptam 2.0 card standing between them.`,
+        caption: 'Between the speeches',
+      },
+      {
+        image: mMedalPg,
+        alt: `An alumnus of ${S} taking his commemorative medallion from a member of staff, his photograph and postgraduate subject on the screen behind.`,
+        caption: 'A medallion presented',
+      },
+      {
+        image: mMedalMed,
+        alt: `An alumnus of ${S} receiving his medallion, the screen behind naming his batch and the medical degree he is reading for.`,
+        caption: 'A medallion presented',
+      },
+      {
+        image: mMedalPol,
+        alt: `An alumna of ${S} receiving her medallion, her honours degree in political science and her college named on the screen behind.`,
+        caption: 'A medallion presented',
+      },
+      {
+        image: mMedalTeacher,
+        alt: `An alumna of ${S} taking her medallion from a teacher, both holding it between them, her photograph on the screen behind.`,
+        caption: 'A medallion presented',
+      },
+      {
+        image: mMedalMicro,
+        alt: `An alumna of the 2017 batch receiving her medallion at Pradiptam 2.0, her master’s subject on the screen behind her.`,
+        caption: 'A medallion presented',
+      },
+      {
+        image: mMedal2024,
+        alt: `An alumna of the 2024 batch receiving her medallion, the screen behind carrying her photograph and the examination she cleared.`,
+        caption: 'A medallion presented',
+      },
+      {
+        image: mMedal2223,
+        alt: `An alumna of the 2022–23 batch receiving her medallion at Pradiptam 2.0, a photograph of her dancing on the screen behind.`,
+        caption: 'A medallion presented',
+      },
+      {
+        image: mMedalSci,
+        alt: `An alumna of ${S} receiving her medallion, her science degree named on the screen behind her.`,
+        caption: 'A medallion presented',
+      },
+      {
+        image: mStanding,
+        alt: `Alumni of ${S} standing at their tables, their medallions and an Alumni Meet 2026–27 card in front of them.`,
+        caption: 'Standing at the tables',
       },
     ],
     featured: true,

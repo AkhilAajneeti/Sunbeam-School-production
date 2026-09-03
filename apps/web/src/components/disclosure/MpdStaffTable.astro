@@ -16,15 +16,23 @@
  * a reset, rather than leaving a blank table that reads as a broken page.
  */
 import { MARK } from '../academics/assessment/marks';
-import { teachers, designations } from '../../data/disclosure';
+import { designationsOf } from '../../lib/cms';
+import type { Teacher } from '../../lib/cms';
 
 interface Props {
+  /** ⚠ PASSED IN, NOT FETCHED. The page already holds the list; fetching it a
+      second time here would be a second round trip for the same 131 rows. */
+  teachers: Teacher[];
   /** Rows per page. */
   per?: number;
   id: string;
 }
 
-const { per = 12, id } = Astro.props;
+const { per = 12, id, teachers } = Astro.props;
+
+/* ⚠ DERIVED, NEVER A TYPED LIST — the filter can only ever offer a designation
+   the table can actually show. */
+const designations = designationsOf(teachers);
 
 /**
  * ⚠ THE FILTER SHOWS ITS OWN ARITHMETIC. "PGT (24)" tells a reader how many rows

@@ -35,13 +35,17 @@ import Atmosphere from '../components/contact/Atmosphere.astro';
 import Backdrop from '../components/ui/Backdrop.astro';
 import LocationSection from '../components/contact/LocationSection.astro';
 import heroPhoto from '../assets/photos/sunbeem-1.jpg';
-import { school } from '../data/site';
+import { getSchool, getContactPage } from '../lib/cms';
+
+const school = await getSchool();
+const page = await getContactPage();
 
 /**
- * ⚠ EVERY VALUE COMES FROM data/site.ts, THE VERIFIED-FACTS FILE — nothing on
- * this page is a number somebody typed into the markup. The client supplied the
- * copy for these blocks and each line was checked against site.ts before use:
- * the address, the email and both phone numbers match exactly.
+ * ⚠ EVERY VALUE COMES FROM SITE SETTINGS IN STRAPI — nothing on this page is a
+ * number somebody typed into the markup. It used to come from data/site.ts; the
+ * shape is identical, so every reference below is unchanged and only the import
+ * moved. The address, the email and both phone numbers are the school's, edited
+ * in one place and rendered in 57 files.
  *
  * ⚠ THE TRANSPORT NUMBER IS DELIBERATELY ABSENT. It is real (7755005909) and it
  * is on the transport page, but the client's brief for THIS section lists two
@@ -54,13 +58,6 @@ import { school } from '../data/site';
  * Class XII", a different granularity, and splitting it here would be inventing
  * a grouping the school has not published.
  */
-const CLASSES = [
-  'Pre-Primary',
-  'Classes I – V',
-  'Classes VI – VIII',
-  'Classes IX – X',
-  'Classes XI – XII',
-] as const;
 
 const addressLines = [
   `${school.address.line1},`,
@@ -104,8 +101,6 @@ const socials = [
 ---
 
 <BaseLayout
-  title={`Contact — ${school.name}`}
-  description={`Reach ${school.name} — admissions, school office and transport numbers, email, and the campus address at ${school.address.line1}, ${school.address.city}.`}
 >
   {/* ⚠ THE SHARED BANNER, ON THE CLIENT'S INSTRUCTION — this page had a bespoke
       one (parallax photograph, orange accent word, floating rings) and now wears
@@ -118,12 +113,7 @@ const socials = [
       rather than the sky above it — in the band. Same photograph, same focal
       point, standard everything else. */}
   <PageHero
-    title="Contact us"
-    standfirst="Where the school is, who to call, and a message form that reaches the office."
-    crumbs={[{ label: 'Home', href: '/' }]}
     src={heroPhoto}
-    alt={`The main building of ${school.name} seen across its ground, with the school buses parked alongside`}
-    position="50% 58%"
   />
 
   {/* ⚠ THE ANCHOR IS #contact, NOT #contact-form. The <form> below already owns
@@ -142,7 +132,7 @@ const socials = [
 
     <div class="u-container">
       <div class="ct__head">
-        <p class="ct__eyebrow"><span class="ct__dot" aria-hidden="true"></span>Contact us</p>
+        <p class="ct__eyebrow"><span class="ct__dot" aria-hidden="true"></span>{page.eyebrow}</p>
         {/* ⚠ h2, NOT h1. The banner above now owns the page's only h1
             ("Contact us"). Two h1s on one document is the single most common
             heading-structure fault, and a screen-reader user navigating by
@@ -152,11 +142,8 @@ const socials = [
             under a mask, the standfirst fades up behind it. Both are gated on
             `belowFold`, so nothing above the fold ever animates in — and the
             CSS default is visible, so with JS off the copy simply sits there. */}
-        <h2 class="ct__h1" data-split>Get in touch</h2>
-        <p class="ct__stand" data-reveal>
-          Admissions, transport, fees or a question about your child's class — send it here, or
-          call the office directly. Someone from the school will come back to you.
-        </p>
+        <h2 class="ct__h1" data-split>{page.heading}</h2>
+        <p class="ct__stand" data-reveal>{page.standfirst}</p>
       </div>
 
       {/* ⚠ THE TWO CARDS ARE THE ONLY GRID ITEMS NOW. With the intro inside the
@@ -173,17 +160,37 @@ const socials = [
             tied to each field with aria-describedby. The `required` and `type`
             attributes stay, because they are what the script and assistive
             tech both read. */}
-        <form class="ct__form" id="contact-form" novalidate>
+        {/* ⚠ THE OFFICE NUMBER IS PASSED IN AS AN ATTRIBUTE, NOT WRITTEN INTO
+            THE SCRIPT. Both of this form's failure messages tell the reader to
+            ring the office, and both used to carry '+91 77550 05905' as a
+            literal — so changing the number in the CMS updated it everywhere on
+            the page except the two places a reader sees when something has
+            already gone wrong. A client-side <script> cannot read frontmatter,
+            so the value travels on the element instead. */}
+        <form
+          class="ct__form"
+          id="contact-form"
+          novalidate
+          data-office-phone={school.phone.officeDisplay}
+          data-send-label={page.submitLabel}
+          data-sending-label={page.sendingLabel}
+          data-msg-consent={page.consentError}
+          data-msg-success={page.statusSuccess}
+          data-msg-failure={page.statusFailure}
+          data-msg-notconnected={page.statusNotConnected}
+          data-msg-name={page.fields['cf-name']?.error}
+          data-msg-email={page.fields['cf-email']?.error}
+        >
           <div class="ct__row">
             <div class="fld">
               <input class="fld__in" id="cf-name" name="name" type="text" required placeholder=" " autocomplete="name" />
-              <label class="fld__lb" for="cf-name">Name <span aria-hidden="true">*</span></label>
+              <label class="fld__lb" for="cf-name">{page.fields['cf-name']?.label} <span aria-hidden="true">*</span></label>
               <p class="fld__err" id="cf-name-err" hidden></p>
             </div>
 
             <div class="fld">
               <input class="fld__in" id="cf-email" name="email" type="email" required placeholder=" " autocomplete="email" />
-              <label class="fld__lb" for="cf-email">Email <span aria-hidden="true">*</span></label>
+              <label class="fld__lb" for="cf-email">{page.fields['cf-email']?.label} <span aria-hidden="true">*</span></label>
               <p class="fld__err" id="cf-email-err" hidden></p>
             </div>
           </div>
@@ -191,19 +198,19 @@ const socials = [
           <div class="ct__row">
             <div class="fld">
               <input class="fld__in" id="cf-subject" name="subject" type="text" placeholder=" " />
-              <label class="fld__lb" for="cf-subject">Subject</label>
+              <label class="fld__lb" for="cf-subject">{page.fields['cf-subject']?.label}</label>
             </div>
 
             <div class="fld">
               <input class="fld__in" id="cf-phone" name="phone" type="tel" placeholder=" " autocomplete="tel" inputmode="tel" />
-              <label class="fld__lb" for="cf-phone">Phone number</label>
+              <label class="fld__lb" for="cf-phone">{page.fields['cf-phone']?.label}</label>
             </div>
           </div>
 
           <div class="ct__row">
             <div class="fld">
               <input class="fld__in" id="cf-city" name="city" type="text" placeholder=" " autocomplete="address-level2" />
-              <label class="fld__lb" for="cf-city">City</label>
+              <label class="fld__lb" for="cf-city">{page.fields['cf-city']?.label}</label>
             </div>
 
             {/* ⚠ THE LABEL SITS UP PERMANENTLY ON THE SELECT, unlike its
@@ -215,20 +222,20 @@ const socials = [
                 chosen value is not. */}
             <div class="fld fld--sel">
               <select class="fld__in fld__in--sel" id="cf-class" name="class">
-                <option value="">Select a class</option>
-                {CLASSES.map((c) => <option value={c}>{c}</option>)}
+                <option value="">{page.classPlaceholder}</option>
+                {page.classOptions.map((c) => <option value={c}>{c}</option>)}
               </select>
-              <label class="fld__lb fld__lb--up" for="cf-class">Class</label>
+              <label class="fld__lb fld__lb--up" for="cf-class">{page.classLabel}</label>
             </div>
           </div>
 
           <div class="ct__consent">
             <input class="ct__box" id="cf-terms" name="terms" type="checkbox" required />
-            <label class="ct__terms" for="cf-terms">I accept the privacy and terms.</label>
+            <label class="ct__terms" for="cf-terms">{page.consentLabel}</label>
           </div>
           <p class="fld__err ct__err--consent" id="cf-terms-err" hidden></p>
 
-          <button class="ct__send" type="submit">Send Message</button>
+          <button class="ct__send" type="submit">{page.submitLabel}</button>
 
           {/* role="status" so the outcome is announced without stealing focus.
               It is in the DOM from the start — a live region inserted at the
@@ -257,7 +264,7 @@ const socials = [
               </svg>
             </span>
             <div class="prow__body">
-              <h3 class="prow__h">Address</h3>
+              <h3 class="prow__h">{page.addressHeading}</h3>
               {/* <address> is italic by default in every browser, which reads as
                   an aside rather than as the thing the page is for. */}
               <address class="prow__addr">
@@ -286,7 +293,7 @@ const socials = [
                 `tel:`), so announcing the icon as well would be the same fact
                 read out twice per line. */}
             <div class="prow__body">
-              <h3 class="prow__h">Contact details</h3>
+              <h3 class="prow__h">{page.contactHeading}</h3>
 
               <a class="prow__v prow__v--mail" href={`mailto:${school.email}`}>
                 <svg class="prow__vico" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -324,7 +331,7 @@ const socials = [
               </svg>
             </span>
             <div class="prow__body">
-              <h3 class="prow__h">Join us on social</h3>
+              <h3 class="prow__h">{page.socialHeading}</h3>
               <ul class="soc">
                 {
                   socials.map((s) => (
@@ -1028,6 +1035,34 @@ const socials = [
     const ENDPOINT = '';
 
     const form = document.querySelector<HTMLFormElement>('#contact-form');
+
+    /* From data-office-phone — see the note beside the <form>. The fallback is
+       deliberately generic rather than a number: a wrong number is worse than
+       telling someone to use the details above. */
+    const OFFICE_PHONE = form?.dataset.officePhone || 'the school office';
+
+    /**
+     * ⚠ EVERY MESSAGE THIS FORM SHOWS NOW COMES FROM THE CMS, off the form's own
+     * data- attributes — the same route the office number already travelled.
+     * They were string literals in here, so the school could not reword a single
+     * one of its own validation or status messages without a developer.
+     *
+     * ⚠ THE OFFICE NUMBER IS ALREADY SUBSTITUTED SERVER-SIDE via the
+     * `{officePhone}` token, so these strings arrive complete. The fallbacks are
+     * the previous wording, with OFFICE_PHONE spliced in as before, so a missing
+     * attribute degrades to exactly what the page said rather than to nothing.
+     */
+    const D = form?.dataset ?? ({} as DOMStringMap);
+    const T = {
+      send: D.sendLabel || 'Send Message',
+      sending: D.sendingLabel || 'Sending…',
+      consent: D.msgConsent || 'Please accept the privacy and terms to continue.',
+      success: D.msgSuccess || 'Thank you — your message has reached the school. We will reply soon.',
+      failure: D.msgFailure || `Sorry, that did not send. Please try again, or call the office on ${OFFICE_PHONE}.`,
+      notConnected: D.msgNotconnected || `This form is not connected to the school’s inbox yet. Please call the office on ${OFFICE_PHONE} meanwhile.`,
+      name: D.msgName || 'Please tell us your name.',
+      email: D.msgEmail || 'Please enter an email address we can reply to.',
+    };
     const status = document.querySelector<HTMLElement>('#cf-status');
 
     if (form && status) {
@@ -1039,10 +1074,10 @@ const socials = [
 
       /** Field id → the message shown when it fails, and the test it must pass. */
       const RULES: { id: string; msg: string; ok: (v: string) => boolean }[] = [
-        { id: 'cf-name', msg: 'Please tell us your name.', ok: (v) => v.trim().length > 0 },
+        { id: 'cf-name', msg: T.name, ok: (v) => v.trim().length > 0 },
         {
           id: 'cf-email',
-          msg: 'Please enter an email address we can reply to.',
+          msg: T.email,
           /* Deliberately loose. Anything stricter rejects real addresses —
              plus-tags, new TLDs, non-Latin domains — and the only reliable test
              of an address is sending to it. */
@@ -1107,7 +1142,7 @@ const socials = [
         const termsErr = document.querySelector<HTMLElement>('#cf-terms-err');
         if (terms && termsErr) {
           const good = terms.checked;
-          termsErr.textContent = good ? '' : 'Please accept the privacy and terms to continue.';
+          termsErr.textContent = good ? '' : T.consent;
           termsErr.hidden = good;
           if (!good && !firstBad) firstBad = terms;
         }
@@ -1121,15 +1156,15 @@ const socials = [
         }
 
         if (!ENDPOINT) {
-          say('This form is not connected to the school’s inbox yet. Please call the office on ' + '+91 77550 05905' + ' meanwhile.', 'bad');
+          say(T.notConnected, 'bad');
           return;
         }
 
         const btn = form.querySelector<HTMLButtonElement>('.ct__send');
-        const label = btn?.textContent ?? 'Send Message';
+        const label = btn?.textContent ?? T.send;
         if (btn) {
           btn.disabled = true;
-          btn.textContent = 'Sending…';
+          btn.textContent = T.sending;
         }
         say('', '');
 
@@ -1141,9 +1176,9 @@ const socials = [
           });
           if (!res.ok) throw new Error(String(res.status));
           form.reset();
-          say('Thank you — your message has reached the school. We will reply soon.', 'good');
+          say(T.success, 'good');
         } catch {
-          say('Sorry, that did not send. Please try again, or call the office on +91 77550 05905.', 'bad');
+          say(T.failure, 'bad');
         } finally {
           if (btn) {
             btn.disabled = false;

@@ -1,0 +1,99 @@
+{
+  "sectionOne": {
+    "kicker": "Learning by experience",
+    "heading": "Experience first.",
+    "headingEm": "Understanding follows.",
+    "quote": "",
+    "quoteAuthor": "",
+    "body": [
+      "Experiential and inquiry-based learning is the school's stated approach rather than an enrichment attached to it: a topic is met in the hand before it is met in the exam. The **twelve laboratories** are what make that possible in an ordinary week rather than on a special day.",
+      "The school's own account of a Gallery Walk puts it plainly — children *“confidently presented their projects, charts, and models, turning the classroom into a mini exhibition hall.”* The work came first; the explaining came after it."
+    ],
+    "imageUpper": "assets/School Activity in Uniform/School Activity in Uniform (1).jpg",
+    "imageUpperName": "School Activity in Uniform (1)",
+    "imageUpperAlt": "A teacher at {schoolName} demonstrating at the table during a cooking activity, her class in paper chef hats around her",
+    "imageLower": "assets/School Activity in Uniform/School Activity in Uniform (5).jpeg",
+    "imageLowerName": "School Activity in Uniform (5)",
+    "imageLowerAlt": "Two students of {schoolName} sharing a desk, each working on her own drawing"
+  },
+  "sectionTwo": {
+    "kicker": "Inquiry, in three moves",
+    "headingWords": [
+      "Explore",
+      "Question",
+      "Discover"
+    ],
+    "steps": [
+      {
+        "label": "Explore",
+        "body": "A material, a tool, a problem that has not been explained yet.",
+        "photo": "assets/School Activity in Uniform/Embriodery.jpg",
+        "photoName": "embriodery",
+        "photoAlt": "Students of {schoolName} sitting together on the floor, working on embroidery from one shared basket of thread",
+        "icon": "assets/icons/saturn.png",
+        "iconName": "ex-step-explore"
+      },
+      {
+        "label": "Question",
+        "body": "The school calls it “sparking curiosity, scientific thinking” — the moment a child wants to know why.",
+        "photo": "assets/school-activities/summer-camp/05.jpg",
+        "photoName": "summer-camp-05",
+        "photoAlt": "A young student of {schoolName} holding a hand-made rocket cut-out at the Star Gazing session, the night sky on the board behind",
+        "icon": "assets/icons/questions.png",
+        "iconName": "ex-step-question"
+      },
+      {
+        "label": "Discover",
+        "body": "The answer arrives having been looked for. That is what makes it stay.",
+        "photo": "assets/school-activities/taramandal-show/01.jpg",
+        "photoName": "taramandal-show-01",
+        "photoAlt": "Children of {schoolName} sitting in a ring inside the Taramandal planetarium dome, faces turned upward",
+        "icon": "assets/icons/bulb.png",
+        "iconName": "ex-step-discover"
+      }
+    ]
+  },
+  "sectionThree": {
+    "kicker": "Real learning experiences",
+    "heading": "Not a special day.",
+    "headingEm": "An ordinary week.",
+    "body": [
+      "A planting plot, a planetarium and a telescope are not the decoration around the curriculum — they are where parts of it are taught. The school's record of the stargazing evening is that the campus *“transformed into a window to the universe.”*"
+    ],
+    "entries": [
+      {
+        "label": "Little Agriculturists",
+        "value": "A planting activity the youngest children dig, sow and water themselves."
+      },
+      {
+        "label": "Taramandal Show",
+        "value": "A planetarium brought to the children — eleven photographs published."
+      },
+      {
+        "label": "Star Gazing",
+        "value": "“A breathtaking view of the Moon through a telescope — a first-time experience for many.”"
+      }
+    ],
+    "imageOne": "assets/school-activities/little-agriculturists/02.jpg",
+    "imageOneName": "little-agriculturists-02",
+    "imageOneAlt": "A young student of {schoolName} adding kitchen scraps to the compost bin at the Little Agriculturists activity",
+    "imageTwo": "assets/school-activities/summer-camp/02.jpg",
+    "imageTwoName": "summer-camp-02",
+    "imageTwoAlt": "A young student of {schoolName} with her teacher inside a hand-made Star Gazing display",
+    "imageThree": "assets/school-activities/taramandal-show/03.jpg",
+    "imageThreeName": "taramandal-show-03",
+    "imageThreeAlt": "The night sky projected onto the inside of the Taramandal dome at {schoolName}"
+  },
+  "close": {
+    "headingLines": [
+      "Experience it.",
+      "Question it.",
+      "Discover it."
+    ],
+    "quote": "Twelve laboratories, a planting plot and a night sky — so that what a child learns has been handled before it is answered.",
+    "quoteAuthor": "",
+    "image": "assets/school-activities/josh-spring-camp/02.jpg",
+    "imageName": "josh-spring-camp-02",
+    "imageAlt": "Students of {schoolName} seated together in the school hall"
+  }
+}

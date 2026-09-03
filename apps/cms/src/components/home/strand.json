@@ -1,0 +1,13 @@
+{
+  "collectionName":"components_home_strands",
+  "info":{"displayName":"Strand","icon":"apps","description":"One non-sport strand on the Beyond Academics band. Only the leadership strand has a photograph so far; the other renders its brief in a labelled placeholder, which is the honest state and what the live site shows."},
+  "options":{},
+  "attributes":{
+    "title":{"type":"string","required":true,"maxLength":120},
+    "body":{"type":"text","required":true,"maxLength":1200},
+    "href":{"type":"string","maxLength":200},
+    "brief":{"type":"string","maxLength":200},
+    "photo":{"type":"media","multiple":false,"allowedTypes":["images"]},
+    "photoAlt":{"type":"text","maxLength":500}
+  }
+}

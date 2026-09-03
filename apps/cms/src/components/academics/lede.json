@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_academics_ledes",
+  "info": {
+    "displayName": "Section opening",
+    "icon": "quote",
+    "description": "The small label, the heading and the paragraphs that open a section. ⚠ The line break in the heading is drawn by the page — type the two halves and it sets the second in italic."
+  },
+  "options": {},
+  "attributes": {
+    "kicker": { "type": "string", "required": true, "maxLength": 80 },
+    "heading": { "type": "string", "required": true, "maxLength": 140 },
+    "headingEm": { "type": "string", "maxLength": 140, "description": "The second line, set in italic. Leave empty for a heading of one line." },
+    "body": { "type": "component", "repeatable": true, "component": "shared.paragraph" }
+  }
+}

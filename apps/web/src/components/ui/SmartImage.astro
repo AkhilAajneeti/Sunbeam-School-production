@@ -1,0 +1,86 @@
+---
+/**
+ * AN IMAGE THAT TAKES EITHER A STRAPI FILE OR A LOCAL IMPORT.
+ *
+ * ═══ WHY THIS IS NEEDED, AND ONLY HERE ═════════════════════════════════════
+ *
+ * The academics section is built out of shared layout components — AcCollage,
+ * AcPath, AcPosters, AsPhotoSlider — which render whatever photograph their
+ * caller hands them. After G8 most callers hand over a Strapi file. Some still
+ * hand over a local `import` (banners, decorative marks, and any page outside
+ * academics that uses the same band).
+ *
+ * ⚠ THE TWO ARE NOT INTERCHANGEABLE. Astro's `<Picture>` needs the
+ * `ImageMetadata` its own importer produces and fails the build on anything
+ * else — "Received unsupported format `undefined`". `<CmsImage>` needs a Strapi
+ * file and its upload-time derivatives. Forcing every caller to one or the other
+ * would mean either losing build-time optimisation on the local assets or
+ * rewriting components that have nothing to do with this migration.
+ *
+ * ⚠ THE TEST IS THE SHAPE, NOT A FLAG. An `ImageMetadata` has a string `src` and
+ * a numeric `width`; a Strapi file has a `url`. Asking callers to pass a
+ * discriminator would be one more thing for a future caller to get wrong, and
+ * getting it wrong renders nothing.
+ *
+ * ⚠ USE Photo/CmsImage DIRECTLY WHERE THE SOURCE IS KNOWN. This exists for the
+ * genuinely polymorphic components; reaching for it everywhere would hide which
+ * images come from where.
+ */
+import { Picture } from 'astro:assets';
+import CmsImage from './CmsImage.astro';
+import type { StrapiFile } from '../../lib/cms';
+
+interface Props {
+  file?: StrapiFile | ImageMetadata | null;
+  alt?: string;
+  sizes?: string;
+  class?: string;
+  loading?: 'lazy' | 'eager';
+  decoding?: 'async' | 'sync' | 'auto';
+  fallbackWidth?: number;
+  widths?: number[];
+  style?: string;
+}
+
+const {
+  file,
+  alt = '',
+  sizes,
+  class: className,
+  loading = 'lazy',
+  decoding = 'async',
+  fallbackWidth = 1100,
+  widths = [480, 860, 1280],
+  style,
+} = Astro.props;
+
+const isLocal = (v: unknown): v is ImageMetadata =>
+  Boolean(v) && typeof (v as ImageMetadata).src === 'string' && typeof (v as ImageMetadata).width === 'number';
+---
+
+{
+  isLocal(file) ? (
+    <Picture
+      src={file}
+      alt={alt}
+      formats={['webp']}
+      widths={widths}
+      sizes={sizes}
+      loading={loading}
+      decoding={decoding}
+      class={className}
+      style={style}
+    />
+  ) : file ? (
+    <CmsImage
+      file={file as StrapiFile}
+      alt={alt}
+      sizes={sizes}
+      fallbackWidth={fallbackWidth}
+      loading={loading}
+      decoding={decoding}
+      class={className}
+      style={style}
+    />
+  ) : null
+}

@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_uniform_shoe_rows",
+  "info": {
+    "displayName": "Shoe Table Row",
+    "icon": "apps",
+    "description": "One row of the catalogue's footwear table, transcribed cell for cell. Boys and girls are separate columns in the document, so they are separate fields here rather than one merged description."
+  },
+  "options": {},
+  "attributes": {
+    "classes": { "type": "string", "required": true, "maxLength": 80 },
+    "boys": { "type": "string", "required": true, "maxLength": 200 },
+    "girls": { "type": "string", "required": true, "maxLength": 200 },
+    "days": { "type": "string", "required": true, "maxLength": 80 }
+  }
+}

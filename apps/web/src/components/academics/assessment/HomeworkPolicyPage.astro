@@ -41,19 +41,22 @@
  *   06 · PAPER  copy left, a three-frame composition right.
  *   07 · PHOTO  the cinematic close.
  */
-import { Picture } from 'astro:assets';
+import SmartImage from '../../../components/ui/SmartImage.astro';
 import '../../../styles/assessment.css';
 import { MARK } from './marks';
 import AsRail from './AsRail.astro';
 import AsClose from './AsClose.astro';
 
 /* ── PHOTOGRAPHY — five genuine Sunbeam Ballia frames, each used ONCE. ────── */
-import pPanel from '../../../assets/parents forum/parents forum (5).jpg';
-import pTiers from '../../../assets/parents forum/parents forum (6).jpg';
-import pSeated from '../../../assets/parents forum/parents forum (2).jpg';
-import pHall from '../../../assets/parents forum/parents forum (3).jpg';
-import pLibrary from '../../../assets/library/DSC_1226 copy.jpg';
-import pCohort from '../../../assets/photos/sunbeem-3.jpg';
+import { getAcademicTopic } from '../../../lib/cms';
+
+const ac = await getAcademicTopic('/academics/assessment/homework-policy/');
+const pPanel = ac.pic('pPanel');
+const pTiers = ac.pic('pTiers');
+const pSeated = ac.pic('pSeated');
+const pHall = ac.pic('pHall');
+const pLibrary = ac.pic('pLibrary');
+const pCohort = ac.pic('pCohort');
 
 const S = 'Sunbeam School Ballia';
 
@@ -66,50 +69,23 @@ const CONTACT = '/contact-us/';
 /* ── SECTION 01 — the two columns of the ledger ───────────────────────────
    ⚠ THE LEFT COLUMN IS THE WHOLE OF WHAT IS PUBLISHED. It is one row long
    because the school's homework copy is one sentence long. */
-const published = [
-  { k: 'The pattern', v: 'Homework is set to a published pattern rather than assigned subject by subject on the day.' },
-  { k: 'The channel', v: 'Two of the twelve items on the Parents’ Forum agenda are the quality of assignments and the correction of notebooks.' },
-] as const;
+const published = ac.section('published').points;
 
-const assumed = [
-  { k: 'Minutes per night', v: 'Not published for any class.' },
-  { k: 'Days per subject', v: 'Not published — no weekly grid exists on the school’s site.' },
-  { k: 'A weekend rule', v: 'Not published.' },
-  { k: 'A holiday rule', v: 'Not published.' },
-] as const;
+const assumed = ac.section('assumed').points;
 
 /* ── SECTION 03 — the framework. Four steps, and each one is only as strong as
    what the school actually states; `soft` marks the two that describe a
    channel rather than a rule. */
-const framework = [
-  { n: '01', mark: 'pen', k: 'Set', v: 'Homework is assigned to the school’s published pattern rather than subject by subject on the day.' },
-  { n: '02', mark: 'book', k: 'Complete', v: 'Students work on the tasks expected for their class and their subject.' },
-  { n: '03', mark: 'clipboard', k: 'Review', v: 'Correction of notebooks is item eleven on the forum agenda — so it is a thing the school answers for.' },
-  { n: '04', mark: 'chat', k: 'Raise', v: 'A parent raises the question under item five, on a published agenda, in the forum.' },
-] as const;
+const framework = ac.section('framework').points;
 
 /* ── SECTION 04 — where a parent actually looks ───────────────────────────── */
-const places = [
-  { mark: 'doc', k: 'The published pattern', v: 'What the school actually states: homework is set to a pattern, not assigned on the day.', href: ASSESSMENT },
-  { mark: 'hands', k: 'The Parents’ Forum', v: 'A panel session with a twelve-item agenda, two items of which are this subject.', href: FORUM },
-  { mark: 'calendar', k: 'The academic calendar', v: 'Terms, holidays and examination dates — the frame the week is set inside.', href: CALENDAR },
-] as const;
+const places = ac.section('places').points;
 
 /* ── SECTION 05 — the four absences, checked one at a time ────────────────── */
-const unknown = [
-  { mark: 'clock', k: 'Fixed minutes per night' },
-  { mark: 'layers', k: 'Identical homework for every subject' },
-  { mark: 'calendar', k: 'A universal weekend rule' },
-  { mark: 'sun', k: 'Holiday homework expectations' },
-] as const;
+const unknown = ac.section('unknown').points;
 
 /* ── SECTION 06 — the four things the channels are for ────────────────────── */
-const ask = [
-  'Homework practice, and how much is set',
-  'Feedback and the correction of notebooks',
-  'Planning together for improvement',
-  'Support for better learning outcomes',
-] as const;
+const ask = ac.section('ask').facts;
 ---
 
 {/* ══ 01 · A PATTERN, NOT A POLICY ═══════════════════════════════════════════
@@ -199,10 +175,10 @@ const ask = [
   <div class="u-container hp-item__grid">
     <figure class="hp-item__stage">
       <div class="hp-item__lead as-frame as-fill" data-zoom data-zoom-to="1.04">
-        <Picture
-          src={pPanel}
-          alt={`The leadership panel at a Parents’ Forum session at ${S}, the session’s twelve-item agenda projected on the screen beside them`}
-          formats={['webp']}
+        <SmartImage
+          file={pPanel}
+          alt={ac.picAlt('pPanel')}
+         
           widths={[520, 880, 1200]}
           sizes="(max-width: 1023px) 92vw, 44vw"
           loading="eager"
@@ -210,10 +186,10 @@ const ask = [
         />
       </div>
       <div class="hp-item__sm as-frame as-frame--float as-fill" data-pop data-pop-delay="200">
-        <Picture
-          src={pTiers}
-          alt={`Parents of ${S} seated in the tiered rows of the hall during a Parents’ Forum session`}
-          formats={['webp']}
+        <SmartImage
+          file={pTiers}
+          alt={ac.picAlt('pTiers')}
+         
           widths={[320, 560]}
           sizes="(max-width: 1023px) 50vw, 20vw"
           loading="lazy"
@@ -395,13 +371,13 @@ const ask = [
         two reading as the same build twice. */}
     <div class="hp-ask__stage">
       <div class="hp-ask__a as-frame as-fill" data-mask data-mask-from="left">
-        <Picture src={pSeated} alt={`Parents of ${S} seated in the hall during a Parents’ Forum session`} formats={['webp']} widths={[480, 820]} sizes="(max-width: 1023px) 92vw, 30vw" loading="lazy" decoding="async" />
+        <SmartImage file={pSeated} alt={ac.picAlt('pSeated')} widths={[480, 820]} sizes="(max-width: 1023px) 92vw, 30vw" loading="lazy" decoding="async" />
       </div>
       <div class="hp-ask__b as-frame as-frame--float as-fill" data-pop data-pop-delay="180">
-        <Picture src={pHall} alt={`Parents of ${S} in the hall at a Parents’ Forum, each desk carrying a class placard`} formats={['webp']} widths={[340, 600]} sizes="(max-width: 1023px) 46vw, 18vw" loading="lazy" decoding="async" />
+        <SmartImage file={pHall} alt={ac.picAlt('pHall')} widths={[340, 600]} sizes="(max-width: 1023px) 46vw, 18vw" loading="lazy" decoding="async" />
       </div>
       <div class="hp-ask__c as-frame as-frame--float as-fill" data-pop data-pop-delay="280">
-        <Picture src={pLibrary} alt={`The Nalanda Library at ${S}, its shelves signed by subject and its reading tables set out`} formats={['webp']} widths={[340, 600]} sizes="(max-width: 1023px) 46vw, 18vw" loading="lazy" decoding="async" />
+        <SmartImage file={pLibrary} alt={ac.picAlt('pLibrary')} widths={[340, 600]} sizes="(max-width: 1023px) 46vw, 18vw" loading="lazy" decoding="async" />
       </div>
     </div>
   </div>

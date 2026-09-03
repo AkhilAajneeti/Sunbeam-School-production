@@ -1,0 +1,13 @@
+{
+  "kind": "singleType",
+  "collectionName": "campus_tour_page",
+  "info": {
+    "singularName": "campus-tour-page", "pluralName": "campus-tour-pages", "displayName": "Campus Tour Page",
+    "description": "The overview stats and journey band of /campus/. The facilities themselves are a Collection beside this."
+  },
+  "options": { "draftAndPublish": true },
+  "attributes": {
+    "overviewStats": { "type": "component", "repeatable": true, "component": "shared.stat" },
+    "journey": { "type": "component", "repeatable": true, "component": "shared.point" }
+  }
+}

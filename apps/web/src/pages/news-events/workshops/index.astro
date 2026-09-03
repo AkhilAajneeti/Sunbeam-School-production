@@ -21,8 +21,10 @@ import SectionRail from '../../../components/academics/SectionRail.astro';
 import IndexIntro from '../../../components/news/IndexIntro.astro';
 import CardGrid from '../../../components/news/CardGrid.astro';
 
-import { workshops } from '../../../data/newsPages';
+import { getChroniclePage } from '../../../lib/cms';;
 import heroPhoto from '../../../assets/photos/sb-library.jpg';
+
+const workshops = await getChroniclePage('workshops');
 
 /**
  * ⚠ THE FIGURES ARE COUNTED FROM THE DATA, NEVER TYPED. The line this replaced
@@ -45,19 +47,9 @@ const figures = [
 ---
 
 <BaseLayout
-  title={`${workshops.title} — Sunbeam School Ballia`}
-  description={workshops.standfirst}
 >
   <PageHero
-    title={workshops.title}
-    standfirst={workshops.standfirst}
-    crumbs={[
-      { label: 'Home', href: '/' },
-      { label: 'News & Events', href: '/news-events/' },
-    ]}
     src={heroPhoto}
-    alt="The library at Sunbeam School Ballia, where staff training sessions are held"
-    position="50% 45%"
   />
 
   <SectionRail items={workshops.groups.map((g) => ({ id: g.id, label: g.label }))} />

@@ -1,0 +1,40 @@
+{
+  "collectionName": "components_philosophy_closes",
+  "info": {
+    "displayName": "Closing statement",
+    "icon": "medium",
+    "description": "The full-bleed closing band. ⚠ The scrim, the float ornament and the reveal delays are design and stay in the page."
+  },
+  "options": {},
+  "attributes": {
+    "headingLines": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.paragraph",
+      "description": "One line of the heading per entry. The page puts the breaks in and sets the last line in italic."
+    },
+    "quote": {
+      "type": "text",
+      "maxLength": 500,
+      "description": "The closing line. Some pages set it as a quotation with a name under it; some as a plain sentence. The page decides which."
+    },
+    "quoteAuthor": {
+      "type": "string",
+      "maxLength": 120,
+      "description": "Leave empty to credit the Principal named in Site Settings."
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "imageAlt": {
+      "type": "text",
+      "required": true,
+      "maxLength": 500
+    }
+  }
+}

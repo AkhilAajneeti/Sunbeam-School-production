@@ -1,0 +1,60 @@
+{
+  "kind": "collectionType",
+  "collectionName": "notices",
+  "info": {
+    "singularName": "notice",
+    "pluralName": "notices",
+    "displayName": "Notice",
+    "description": "A notice poster published by the school. Fields mirror apps/web/src/data/notices.ts exactly — see that file's header for why these fields and no others (no category, no description, no PDF: the source provides none)."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 200
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
+    },
+    "sub": {
+      "type": "text",
+      "maxLength": 500
+    },
+    "date": {
+      "type": "date"
+    },
+    "dateLabel": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "alt": {
+      "type": "text",
+      "required": true,
+      "maxLength": 500
+    },
+    "featured": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "displayOrder": {
+      "type": "integer",
+      "default": 0,
+      "required": true
+    }
+  }
+}

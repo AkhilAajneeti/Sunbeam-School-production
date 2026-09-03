@@ -1,0 +1,88 @@
+{
+  "collectionName": "components_shared_points",
+  "info": {
+    "displayName": "Point",
+    "icon": "bulletList",
+    "description": "A numbered explanatory card — marker, heading, body. Recurs across services help strips, campus emergency steps, facilities rationale cards and parent-forum benefits. ⚠ `href` AND AN OPTIONAL `body` WERE ADDED FOR ACADEMICS. Sixty-odd arrays across the academics pages are {n, mark, k, v} — this component exactly — and a handful carry a link or a bare label with no body. Widening the component was right where minting a near-identical second one would have left two things to keep in step. ⚠ `number` IS 60 CHARACTERS, NOT 8. It started as a marker like '01', but the academics pages use the same slot for a phase name, a session year and a cycle step — 'Taught content' is a number in this sense. Truncating it would have silently shortened the label on several pages. ⚠⚠ A POINT CAN CARRY ITS OWN PHOTOGRAPH. Several academics arrays are a label, a body AND an image in one entry — `stops` is {n, k, body, photo, alt, owed}. Routing those to a photo list kept the picture and silently dropped the prose beside it; splitting them into two lists would have broken the markup that reads one array. `owed` is the source's own flag for an asset the school still has to supply: the page renders a labelled placeholder rather than pretending. ⚠ `slot` IS A STABLE IDENTIFIER, NOT EDITORIAL. A few academics arrays bind a card to a position in a bespoke layout — ParentOrientation's frames are 'a', 'b', 'c', 'd' — and the markup finds a card by that key. Without somewhere to keep it the key was dropped, which no count check can see: the right number of cards arrived and the page could no longer tell which was which. ⚠ `note` AND `tags` CARRY THE SECOND LINE AND THE CHIP ROW. The academics cards routinely have more than a heading and a paragraph: an assessment step has a `gloss`, a programme card a `sub`, a workshop card a `format` line and a row of names. A field-fidelity check found 117 such values with nowhere to land — invisible to a build, invisible to a count of cards, and visible only as a page quietly saying less than it used to. WARNING: flag CARRIES THE SOURCE'S OWN BOOLEAN STATE - a subject whose post the school has advertised as filled. It is content, not styling: the page prints a different qualifier for it. WARNING: flag CARRIES THE SOURCE'S OWN BOOLEAN STATE - a subject whose post the school has advertised as filled. It is content, not styling: the page prints a different qualifier for it. WARNING: suffix, anchor AND quote WERE EACH FOUND BY THE FIELD-FIDELITY CHECK. A smart-classroom figure reads '75+' and the plus was being dropped; a methodology card carries an anchor line naming the evidence behind it; a stage card carries a quotation. None of the three changes the number of cards on the page, so nothing but a field-level comparison would have noticed them go. WARNING: children IS A CARD'S NESTED LIST OF ROWS, not of strings. The laboratory index groups its rooms as { label, items: [{ name, glyph }] }; tags holds strings only, so those rooms had nowhere to go and a page of twelve laboratories rendered its two group headings and nothing under them."
+  },
+  "options": {},
+  "attributes": {
+    "number": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "icon": {
+      "type": "string",
+      "maxLength": 40
+    },
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 160
+    },
+    "body": {
+      "type": "text",
+      "required": false,
+      "maxLength": 1000
+    },
+    "href": {
+      "type": "string",
+      "maxLength": 500
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "alt": {
+      "type": "text",
+      "maxLength": 500
+    },
+    "caption": {
+      "type": "string",
+      "maxLength": 200
+    },
+    "owed": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "slot": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "note": {
+      "type": "text",
+      "maxLength": 1000
+    },
+    "tags": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.fact"
+    },
+    "flag": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "suffix": {
+      "type": "string",
+      "maxLength": 8
+    },
+    "anchor": {
+      "type": "text",
+      "maxLength": 600
+    },
+    "quote": {
+      "type": "text",
+      "maxLength": 800
+    },
+    "children": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.detail"
+    }
+  }
+}

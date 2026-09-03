@@ -26,48 +26,33 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/ui/PageHero.astro';
 import LeaderMessage from '../../components/about/LeaderMessage.astro';
+import { getLeaderMessage } from '../../lib/cms';
 import banner from '../../assets/photos/sunbeem-2.jpg';
-import portrait from '../../assets/photos/directorImage.jpeg';
 
-const paragraphs = [
-  'Sunbeam School Ballia has successfully fulfilled the need of a school which propagates education to inculcate the confidence in students to be global citizens yet be rooted to their culture and traditions.',
-  'Sunbeam Ballia is geared with the best of infrastructure and has achieved new benchmarks in school education in the district.',
-  'The school has been providing well-rounded holistic education to the students residing in and around the city of Ballia.',
-  'Sunbeam Ballia has the proud privilege of providing a unique platform to young sportsmen by conducting Zonal and State Championships from time to time. Our students have grabbed prestigious positions in the state and have participated at the National level as well.',
-  'I welcome you all to Sunbeam Ballia.',
-];
+const leader = await getLeaderMessage('director');
 
-const credentials = [
-  'M.Sc. (Chemistry), Ph.D.',
-  'EdLEAP: Education Leader Program from IIM Calcutta',
-  'B.Ed. & P.G.D.C.A.',
-];
+
 ---
 
 <BaseLayout
-  title="Director's Message — Sunbeam School Ballia"
-  description="A message from Dr. Kunwar Arun Singh, Director of Sunbeam School Ballia, on the school's commitment to world-class education rooted in culture and tradition."
 >
   <PageHero
-    title="Director's Message"
-    crumbs={[{ label: 'Home', href: '/' }, { label: 'About', href: '/about/' }]}
     src={banner}
-    alt="Students and staff gathered at the entrance to Sunbeam School Ballia."
-    position="50% 42%"
   />
 
   <div class="u-page-panel">
     <LeaderMessage
-      eyebrow="Director Speak"
-      heading="A word from our Director"
-      name="Dr. Kunwar Arun Singh"
-      role="Director, Sunbeam School Ballia"
-      portrait={portrait}
-      portraitAlt="Dr. Kunwar Arun Singh, Director of Sunbeam School Ballia."
-      portraitBrief="Director portrait"
-      pullQuote="Sunbeam Ballia is committed to make Ballia a name to reckon with for education and to provide world-class quality education."
-      paragraphs={paragraphs}
-      credentials={credentials}
+      eyebrow={leader?.eyebrow}
+      heading={leader?.heading}
+      name={leader?.name}
+      role={leader?.roleLabel}
+      portrait={leader?.portrait}
+      portraitAlt={leader?.portraitAlt}
+      portraitBrief={leader?.portraitBrief}
+      pullQuote={leader?.pullQuote}
+      paragraphs={leader?.paragraphs ?? []}
+      credentials={leader?.credentials ?? []}
+      pending={leader?.pending}
     />
   </div>
 </BaseLayout>

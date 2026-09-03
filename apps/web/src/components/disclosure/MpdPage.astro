@@ -25,35 +25,30 @@
  *   A two-column body: sticky rail left, five disclosure sections right.
  *   A closing compliance callout.
  */
-import { Picture } from 'astro:assets';
 import '../../styles/assessment.css';
 import { MARK } from '../academics/assessment/marks';
 import MpdStaffTable from './MpdStaffTable.astro';
-import {
-  quickInfo,
-  generalInformation,
-  certificates,
-  academicDocs,
-  boardResults,
-  staffSummary,
-  infrastructure,
-  inspectionVideo,
-  teachers,
-  disclosureSource,
-} from '../../data/disclosure';
+import { getDisclosure } from '../../lib/cms';
+import RichLine from '../ui/RichLine.astro';
+import CmsImage from '../ui/CmsImage.astro';
 
-import pCampus from '../../assets/photos/sunbeem-1.jpg';
 
 const S = 'Sunbeam School Ballia';
 
-/** One array drives the rail, the spy and the headings. */
-const sections = [
-  { id: 'mp-general', n: '01', label: 'General Information' },
-  { id: 'mp-docs', n: '02', label: 'Documents & Certificates' },
-  { id: 'mp-results', n: '03', label: 'Results & Academics' },
-  { id: 'mp-staff', n: '04', label: 'Staff & Teaching' },
-  { id: 'mp-infra', n: '05', label: 'School Infrastructure' },
-];
+/**
+ * ⚠ ONE RECORD NOW DRIVES THE RAIL, THE SPY AND THE HEADINGS. The labels used
+ * to be written twice — once in this array for the rail, once as literal text
+ * inside each section heading — so the two could disagree. The anchors are the
+ * page's own ids and stay exactly what they were; the numbering is derived from
+ * position and is not stored.
+ */
+const {
+  sections, quickInfo, quickNote, source: disclosureSource, rail,
+  generalInformation, certificates, academicDocs, docViewLabel,
+  boardResults, boardResultsNote,
+  staffSummary, staffLead, infrastructure, inspectionVideo,
+  callout, teachers,
+} = await getDisclosure();
 ---
 
 {/* ══ THE QUICK-INFORMATION CARD ═════════════════════════════════════════════
@@ -78,9 +73,7 @@ const sections = [
         </li>
       ))}
     </ul>
-    <p class="mp-quick__note">
-      As filed in the school’s Mandatory Public Disclosure. {disclosureSource.covers}.
-    </p>
+    <RichLine class="mp-quick__note" text={quickNote} />
   </div>
 </section>
 
@@ -91,7 +84,7 @@ const sections = [
     {/* ── THE RAIL ─────────────────────────────────────────────────────────── */}
     <aside class="mp-rail" aria-label="Disclosure sections">
       <nav class="mp-rail__box" data-spy-nav>
-        <p class="mp-rail__lab">Disclosure</p>
+        <p class="mp-rail__lab">{rail.label}</p>
         <ul class="mp-rail__list">
           {sections.map((s) => (
             <li>
@@ -105,13 +98,11 @@ const sections = [
       </nav>
 
       <div class="mp-rail__pdf">
-        <p class="mp-rail__pdfk">Complete Disclosure PDF</p>
-        <p class="mp-rail__pdfv">
-          The full Mandatory Public Disclosure document, as filed with CBSE.
-        </p>
+        <p class="mp-rail__pdfk">{rail.pdfTitle}</p>
+        <p class="mp-rail__pdfv">{rail.pdfBody}</p>
         <p class="mp-rail__pdfa">
           <a class="as-btn as-btn--solid" href={disclosureSource.pdf} target="_blank" rel="noopener noreferrer">
-            View PDF
+            {rail.viewLabel}
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <g stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" set:html={MARK.external} />
             </svg>
@@ -119,7 +110,7 @@ const sections = [
         </p>
         <p class="mp-rail__pdfb">
           <a class="mp-rail__dl" href={disclosureSource.pdf} download>
-            Download PDF
+            {rail.downloadLabel}
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <g stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" set:html={MARK.download} />
             </svg>
@@ -133,8 +124,8 @@ const sections = [
       {/* 01 · GENERAL INFORMATION */}
       <section class="mp-sec" id="mp-general" aria-labelledby="mp-general-t">
         <p class="mp-sec__h" data-reveal>
-          <span class="mp-sec__n t-tabular">01</span>
-          <span class="mp-sec__t" id="mp-general-t">General Information</span>
+          <span class="mp-sec__n t-tabular">{sections[0]?.n}</span>
+          <span class="mp-sec__t" id="mp-general-t">{sections[0]?.label}</span>
         </p>
 
         <div class="mp-card">
@@ -143,7 +134,7 @@ const sections = [
               <div class="mp-fact">
                 <dt class="mp-fact__k">
                   {r.k}
-                  {r.from && <span class="mp-fact__src">{r.from}</span>}
+                  {r.note && <span class="mp-fact__src">{r.note}</span>}
                 </dt>
                 <dd class="mp-fact__v">
                   {r.href ? <a href={r.href}>{r.v}</a> : r.v}
@@ -157,8 +148,8 @@ const sections = [
       {/* 02 · DOCUMENTS & CERTIFICATES */}
       <section class="mp-sec" id="mp-docs" aria-labelledby="mp-docs-t">
         <p class="mp-sec__h" data-reveal>
-          <span class="mp-sec__n t-tabular">02</span>
-          <span class="mp-sec__t" id="mp-docs-t">Documents &amp; Certificates</span>
+          <span class="mp-sec__n t-tabular">{sections[1]?.n}</span>
+          <span class="mp-sec__t" id="mp-docs-t">{sections[1]?.label}</span>
         </p>
 
         <ul class="mp-docs">
@@ -173,7 +164,7 @@ const sections = [
               <p class="mp-doc__v">{c.v}</p>
               <p class="mp-doc__a">
                 <a href={c.href} target="_blank" rel="noopener noreferrer">
-                  View PDF
+                  {docViewLabel}
                   <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                     <g stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" set:html={MARK.arrow} />
                   </svg>
@@ -194,8 +185,8 @@ const sections = [
           disclosure.ts and nothing here changes. */}
       <section class="mp-sec" id="mp-results" aria-labelledby="mp-results-t">
         <p class="mp-sec__h" data-reveal>
-          <span class="mp-sec__n t-tabular">03</span>
-          <span class="mp-sec__t" id="mp-results-t">Results &amp; Academics</span>
+          <span class="mp-sec__n t-tabular">{sections[2]?.n}</span>
+          <span class="mp-sec__t" id="mp-results-t">{sections[2]?.label}</span>
         </p>
 
         <div class="mp-card mp-res" data-res>
@@ -240,11 +231,7 @@ const sections = [
             </div>
           ))}
 
-          <p class="mp-res__note">
-            As published by the school in its “Last Three Years Board Result” document. It records
-            students <strong>registered</strong> and <strong>passed</strong>; a separate figure for
-            students <em>appeared</em> is not published, so none is shown.
-          </p>
+          <RichLine class="mp-res__note" text={boardResultsNote} />
         </div>
 
         <ul class="mp-docs mp-docs--slim">
@@ -259,7 +246,7 @@ const sections = [
               <p class="mp-doc__v">{c.v}</p>
               <p class="mp-doc__a">
                 <a href={c.href} target="_blank" rel="noopener noreferrer">
-                  View PDF
+                  {docViewLabel}
                   <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                     <g stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" set:html={MARK.arrow} />
                   </svg>
@@ -278,8 +265,8 @@ const sections = [
       {/* 04 · STAFF & TEACHING */}
       <section class="mp-sec" id="mp-staff" aria-labelledby="mp-staff-t">
         <p class="mp-sec__h" data-reveal>
-          <span class="mp-sec__n t-tabular">04</span>
-          <span class="mp-sec__t" id="mp-staff-t">Staff &amp; Teaching</span>
+          <span class="mp-sec__n t-tabular">{sections[3]?.n}</span>
+          <span class="mp-sec__t" id="mp-staff-t">{sections[3]?.label}</span>
         </p>
 
         <ul class="mp-sum">
@@ -291,21 +278,16 @@ const sections = [
           ))}
         </ul>
 
-        <p class="mp-staff__lead">
-          The filing names <strong>{teachers.length} members of staff</strong> individually. Its own
-          headline figure of <strong>121 teachers</strong> counts the TGT, PGT, PRT, NTT, wellness
-          and special-education posts; the remaining {teachers.length - 121} — physical education,
-          other staff, the Principal and the Vice Principal — are listed but sit outside that total.
-        </p>
+        <RichLine class="mp-staff__lead" text={staffLead} />
 
-        <MpdStaffTable id="mp-staff-table" per={12} />
+        <MpdStaffTable id="mp-staff-table" per={12} teachers={teachers} />
       </section>
 
       {/* 05 · SCHOOL INFRASTRUCTURE */}
       <section class="mp-sec" id="mp-infra" aria-labelledby="mp-infra-t">
         <p class="mp-sec__h" data-reveal>
-          <span class="mp-sec__n t-tabular">05</span>
-          <span class="mp-sec__t" id="mp-infra-t">School Infrastructure</span>
+          <span class="mp-sec__n t-tabular">{sections[4]?.n}</span>
+          <span class="mp-sec__t" id="mp-infra-t">{sections[4]?.label}</span>
         </p>
 
         <ul class="mp-infra">
@@ -319,7 +301,7 @@ const sections = [
               <span class="mp-if__t">
                 <span class="mp-if__k">{f.k}</span>
                 <span class="mp-if__v t-tabular">{f.v}</span>
-                {f.unit && <span class="mp-if__u">{f.unit}</span>}
+                {f.note && <span class="mp-if__u">{f.note}</span>}
               </span>
             </li>
           ))}
@@ -357,26 +339,16 @@ const sections = [
       </span>
 
       <div class="mp-callout__copy">
-        <h2 class="mp-callout__h" id="mp-callout-t">
-          All information is published in accordance with CBSE Mandatory Disclosure norms.
-        </h2>
-        <p class="mp-callout__b">
-          Every figure and document on this page is taken from the school’s own filing and the
-          certificates linked beside it. For any query or clarification, please contact the school
-          office on {' '}<a href="tel:+917755005905">7755005905</a>, or write to {' '}
-          <a href="mailto:sunbeamballia2131962@gmail.com">sunbeamballia2131962@gmail.com</a>.
-        </p>
+        <h2 class="mp-callout__h" id="mp-callout-t">{callout.heading}</h2>
+        <RichLine class="mp-callout__b" text={callout.body} />
       </div>
 
       <div class="mp-callout__pic">
-        <Picture
-          src={pCampus}
-          alt={`The main building of ${S} at Agarsanda, its name across the front elevation.`}
-          formats={['webp']}
-          widths={[420, 760]}
+        <CmsImage
+          file={callout.photo}
+          alt={callout.alt}
           sizes="(max-width: 1023px) 92vw, 30vw"
-          loading="lazy"
-          decoding="async"
+          fallbackWidth={760}
         />
       </div>
     </div>

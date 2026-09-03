@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "alumni_meets",
+  "info": {
+    "singularName": "alumni-meet",
+    "pluralName": "alumni-meets",
+    "displayName": "Alumni Meet",
+    "description": "A reunion with its photo gallery. Mirrors the `alumniMeets` export of apps/web/src/data/alumniMeets.ts. NOTE: the source's `published` boolean is NOT a field here — it maps onto Strapi's own draft/publish state, so an unpublished meet is a draft rather than a published row carrying a flag the API would still return."
+  },
+  "options": { "draftAndPublish": true },
+  "pluginOptions": {},
+  "attributes": {
+    "title": { "type": "string", "required": true, "maxLength": 200 },
+    "slug": { "type": "uid", "targetField": "title", "required": true },
+    "subtitle": { "type": "string", "maxLength": 200 },
+    "session": { "type": "string", "required": true, "maxLength": 32 },
+    "description": { "type": "component", "repeatable": true, "component": "shared.paragraph" },
+    "cover": { "type": "media", "multiple": false, "allowedTypes": ["images"] },
+    "coverAlt": { "type": "text", "maxLength": 500 },
+    "gallery": { "type": "component", "repeatable": true, "component": "shared.photo" },
+    "featured": { "type": "boolean", "default": false, "required": true },
+    "source": { "type": "string", "maxLength": 500 },
+    "displayOrder": { "type": "integer", "default": 0, "required": true }
+  }
+}

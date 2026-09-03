@@ -1,4 +1,7 @@
 ---
+import { getSportsPage } from '../../../lib/cms';
+
+const { ladder } = await getSportsPage();
 /**
  * §4 · INTER-HOUSE COMPETITIONS — the stacking ticket deck.
  *
@@ -35,7 +38,6 @@
  * the client's own claim and puts the gap in its milestone line, where the other
  * three rungs put a published record.
  */
-import { ladder } from '../../../data/sports';
 import { showBuildNotes } from '../../../data/site';
 import SectionHead from '../../academics/SectionHead.astro';
 import SportIcon from './SportIcon.astro';

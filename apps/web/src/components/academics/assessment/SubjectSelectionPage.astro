@@ -50,21 +50,24 @@
  *               typographic panels.
  *   05 · PHOTO  the cinematic close.
  */
-import { Picture } from 'astro:assets';
 import '../../../styles/assessment.css';
 import { MARK } from './marks';
 import AsRail from './AsRail.astro';
 import AsClose from './AsClose.astro';
-import { school as sb } from '../../../data/site';
+import { getSchool } from '../../../lib/cms';
 
-import pDesk from '../../../assets/school-activities/career-counselling/03.jpg';
-import pTalk from '../../../assets/school-activities/career-counselling/08.jpg';
-import pPhy from '../../../assets/photos/sb-phy-lab.jpg';
-import pBio from '../../../assets/photos/sb-bio-lab.jpg';
-import pCohort from '../../../assets/photos/sunbeem-5.jpg';
+import { getAcademicTopic } from '../../../lib/cms';
+import SmartImage from '../../ui/SmartImage.astro';
+
+const ac = await getAcademicTopic('/academics/student-success/subject-selection/');
+const pDesk = ac.pic('pDesk');
+const pTalk = ac.pic('pTalk');
+const pCohort = ac.pic('pCohort');
+
+const sb = await getSchool();
 
 const S = 'Sunbeam School Ballia';
-const streams = [...sb.streams];
+const streams = ac.section('streams').facts;
 
 const COMBINATIONS = '/academics/structure/subject-combinations/';
 const CAREER = '/academics/student-success/career-guidance/';
@@ -75,60 +78,16 @@ const SENIOR = '/academics/structure/senior-secondary/';
    ⚠ NAMES AND A DESCRIPTION OF WHAT THE STREAM IS, never a subject list. The
    descriptions below restate the stream's own definition — PCM *is* Physics,
    Chemistry and Mathematics — and stop there. */
-const routes = [
-  { n: '01', mark: 'atom', k: streams[0] ?? 'PCM', v: 'Physics, Chemistry and Mathematics — the engineering and physical-science route.' },
-  { n: '02', mark: 'leaf', k: streams[1] ?? 'PCB', v: 'Physics, Chemistry and Biology — the life-science and medical route.' },
-  { n: '03', mark: 'chart', k: streams[2] ?? 'Commerce', v: 'Business, accounts and economics, taught to CBSE board level.' },
-  { n: '04', mark: 'scroll', k: streams[3] ?? 'Humanities', v: 'Arts, social science and languages, taught to CBSE board level.' },
-] as const;
+const routes = ac.section('routes').points;
 
 /* ── SECTION 02 — what the desk actually covers ──────────────────────────── */
-const covered = [
-  'Subject choice, discussed one student at a time',
-  'Stream selection, in Class X — the year before it lands',
-  'University guidance, followed through to the entrance paper',
-  'A parent or elder sibling welcome in the next chair',
-] as const;
+const covered = ac.section('covered').facts;
 
 /* ── SECTION 03 — before the choice ──────────────────────────────────────── */
-const process = [
-  { n: '01', k: 'Understand', v: 'The conversation opens with the student rather than with a list of streams.' },
-  { n: '02', k: 'Explore', v: 'Four routes, each taught to board level, and what each one is for.' },
-  { n: '03', k: 'Compare', v: 'The choice weighed at the desk, with a counsellor and the family present.' },
-  { n: '04', k: 'Choose', v: 'Made in Class X, so Class XI starts on a decision rather than on a default.' },
-] as const;
+const process = ac.section('process').points;
 
 /* ── SECTION 04 — the visual story. `art: null` means no room is published. */
-const visual = [
-  {
-    k: streams[0] ?? 'PCM',
-    v: 'For students with a strong interest in Physics, Chemistry and Mathematics.',
-    art: pPhy,
-    alt: `Students of ${S} working at benches in the physics laboratory, with portraits of Nikola Tesla and Michael Faraday on the wall`,
-    cap: 'The physics laboratory',
-  },
-  {
-    k: streams[1] ?? 'PCB',
-    v: 'For students inclined towards Biology and the life sciences.',
-    art: pBio,
-    alt: `Two students of ${S} handling glassware in the biology laboratory`,
-    cap: 'The biology laboratory',
-  },
-  {
-    k: streams[2] ?? 'Commerce',
-    v: 'For those interested in business, accounts and economics.',
-    art: null,
-    alt: '',
-    cap: 'No commerce room is published',
-  },
-  {
-    k: streams[3] ?? 'Humanities',
-    v: 'For students drawn to arts, social sciences and languages.',
-    art: null,
-    alt: '',
-    cap: 'No humanities room is published',
-  },
-] as const;
+const visual = ac.section('visual').points;
 ---
 
 {/* ══ 01 · ONE CHOICE, MADE ONCE ═════════════════════════════════════════════
@@ -169,10 +128,10 @@ const visual = [
     <figure class="ss-desk__stage">
       <span class="as-dots ss-desk__dots" aria-hidden="true"></span>
       <div class="ss-desk__lead as-frame as-fill" data-mask>
-        <Picture
-          src={pDesk}
-          alt={`A student of ${S} and a family member seated opposite a counsellor working from a laptop, the school's Class X and XI career counselling banner behind them`}
-          formats={['webp']}
+        <SmartImage
+          file={pDesk}
+          alt={ac.picAlt('pDesk')}
+         
           widths={[520, 880, 1200]}
           sizes="(max-width: 1023px) 92vw, 44vw"
           loading="eager"
@@ -180,10 +139,10 @@ const visual = [
         />
       </div>
       <div class="ss-desk__sm as-frame as-frame--float as-fill" data-pop data-pop-delay="200">
-        <Picture
-          src={pTalk}
-          alt={`A visiting speaker addressing the senior school of ${S}, his projected deck headed “Dream BIG aim HIGH”`}
-          formats={['webp']}
+        <SmartImage
+          file={pTalk}
+          alt={ac.picAlt('pTalk')}
+         
           widths={[320, 560]}
           sizes="(max-width: 1023px) 46vw, 18vw"
           loading="lazy"
@@ -276,14 +235,12 @@ const visual = [
         <li class="ss-tile" data-pop data-pop-delay={120 + i * 90}>
           {v.art ? (
             <div class="ss-tile__art as-frame as-fit">
-              <Picture
-                src={v.art}
+              <SmartImage
+                file={v.art}
                 alt={v.alt}
-                formats={['webp']}
-                widths={[340, 620]}
                 sizes="(max-width: 767px) 92vw, 23vw"
+                fallbackWidth={1100}
                 loading="lazy"
-                decoding="async"
               />
             </div>
           ) : (

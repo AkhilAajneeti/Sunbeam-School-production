@@ -1,4 +1,28 @@
 ---
+import { getTransportData, transportCountsSentence, getSchool } from '../../lib/cms';
+
+const { stats } = await getTransportData();
+const school = await getSchool();
+
+/**
+ * ⚠⚠ THIS PAGE COMPOSES ITS OWN META DESCRIPTION, AND IT IS THE ONLY ONE THAT DOES.
+ *
+ * G2 moved every route's description into page-meta, which was right for 73 of
+ * the 74 — but this one states COUNTS: "22 buses across 28 route runs and 91
+ * boarding points". Those are derived from the routes themselves, so a stored
+ * copy is correct on the day it is written and wrong the moment the school adds
+ * a route, with nothing to indicate it has gone stale.
+ *
+ * So the sentence is rebuilt from the live Bus Route rows and passed as an
+ * override; BaseLayout prefers a passed description over the stored one. The
+ * page-meta row still holds its (now ignored) copy, which is harmless and keeps
+ * the table uniform — the alternative is a null column that means "ask the
+ * route", which is worse to read.
+ */
+const description =
+  `Bus routes for ${school.name}: ${transportCountsSentence(stats)}. ` +
+  "Search your area to find the bus that stops near you, with the driver's name and number for every route.";
+
 /**
  * TRANSPORT — a route portal, not a marketing page.
  *
@@ -58,7 +82,7 @@ import SectionRail from '../../components/academics/SectionRail.astro';
 import RouteFinder from '../../components/transport/RouteFinder.astro';
 import TransportBands from '../../components/transport/TransportBands.astro';
 
-import { stats } from '../../data/transport';
+
 import heroPhoto from '../../assets/photos/sunbeem-1.jpg';
 
 const rail = [
@@ -71,19 +95,10 @@ const rail = [
 ---
 
 <BaseLayout
-  title="School Transport & Bus Routes — Sunbeam School Ballia"
-  description={`Bus routes for Sunbeam School Ballia: ${stats.buses} buses across ${stats.runs} route runs and ${stats.stops} boarding points. Search your area to find the bus that stops near you, with the driver's name and number for every route.`}
+  description={description}
 >
   <PageHero
-    title="Transport"
-    standfirst={`${stats.buses} buses, ${stats.runs} route runs and ${stats.stops} boarding points across Ballia — search your area to find the bus that stops near you.`}
-    crumbs={[
-      { label: 'Home', href: '/' },
-      { label: 'Campus Tour', href: '/campus/' },
-    ]}
     src={heroPhoto}
-    alt="The main building of Sunbeam School Ballia"
-    position="50% 62%"
   />
 
   <SectionRail items={rail} />

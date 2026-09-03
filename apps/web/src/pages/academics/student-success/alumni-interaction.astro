@@ -40,29 +40,21 @@ import AcPath from '../../../components/academics/system/AcPath.astro';
 import AcClose from '../../../components/academics/system/AcClose.astro';
 
 import banner from '../../../assets/corridor and stairs/DSC_1221 copy.jpg';
-import gSudhanshu from '../../../assets/alumni/alumni (1).jpg';
-import gAditya from '../../../assets/alumni/alumni (2).jpg';
-import gNavneet from '../../../assets/alumni/alumni (3).jpg';
-import pCohort from '../../../assets/photos/sunbeem-5.jpg';
+import { getAcademicTopic } from '../../../lib/cms';
+
+const ac = await getAcademicTopic('/academics/student-success/alumni-interaction/');
+const gSudhanshu = ac.pic('gSudhanshu');
+const gAditya = ac.pic('gAditya');
+const gNavneet = ac.pic('gNavneet');
+const pCohort = ac.pic('pCohort');
 
 const school = 'Sunbeam School Ballia';
 ---
 
 <BaseLayout
-  title="Alumni Interaction — Sunbeam School Ballia"
-  description="Sunbeam School Ballia names its alumni, their degrees and their employers: GE Aerospace, Micron Technology and ICICI Prudential, on the school's own alumni cards."
 >
   <PageHero
-    title="Alumni Interaction"
-    standfirst="Three cards, and on each one a name, a degree, an institution and an employer."
-    crumbs={[
-      { label: 'Home', href: '/' },
-      { label: 'Academics', href: '/academics/' },
-      { label: 'Student Success', href: '/academics/student-success/' },
-    ]}
     src={banner}
-    alt="A corridor and stairwell at Sunbeam School Ballia, its doors and landings running the length of the block."
-    position="50% 50%"
   />
 
   <div class="u-page-panel ac-panel">

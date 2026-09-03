@@ -1,0 +1,14 @@
+{
+  "collectionName":"components_academics_results",
+  "info":{"displayName":"Named Result","icon":"chartCircle",
+    "description":"One named student result — the examination and the score, with the school's own announcement image. ⚠ `score` IS A STRING. The school files ranks, percentiles, bands and marks in one list; forcing them to a number would lose the ones that are not numbers and round the ones that are."},
+  "options":{},
+  "attributes":{
+    "name":{"type":"string","required":true,"maxLength":200},
+    "exam":{"type":"string","maxLength":200},
+    "score":{"type":"string","maxLength":80},
+    "description":{"type":"text","maxLength":1200},
+    "image":{"type":"media","multiple":false,"allowedTypes":["images"]},
+    "alt":{"type":"text","maxLength":500}
+  }
+}

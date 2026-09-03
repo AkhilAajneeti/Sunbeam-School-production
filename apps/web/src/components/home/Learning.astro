@@ -7,16 +7,17 @@
  * Height is viewport-driven so the whole section lands in one screen without
  * scrolling. A single image, held to the exact height of the split.
  */
-import { learning } from '../../data/home';
+import { getLearning } from '../../lib/cms';
 import Photo from '../ui/Photo.astro';
-import chemPractical from '../../assets/photos/sunbeem-students.jpg';
+
+const learning = await getLearning();
 ---
 
 <section class="learn u-on-dark" aria-labelledby="learn-heading" data-learn>
   <div class="learn__media">
     <Photo
-      src={chemPractical}
-      alt="Sunbeam School Ballia students in lab coats performing a chemistry practical on the law of conservation of mass."
+      file={learning.photo}
+      alt={learning.photoAlt}
       brief={learning.imageBrief}
       position="50% 45%"
       sizes="(max-width: 1023px) 100vw, 55vw"

@@ -53,8 +53,12 @@
  */
 import { Image } from 'astro:assets';
 import AcademicGlyph from '../AcademicGlyph.astro';
-import { streamDetail, combinationsFootnote } from '../../../data/academics';
 import cap from '../../../assets/icons/graduate-cap.png';
+import { getAcademicTopic } from '../../../lib/cms';
+
+const ac = await getAcademicTopic('/academics/structure/');
+const streamDetail = ac.section('streamDetail').streams;
+const combinationsFootnote = ac.section('combinationsFootnote').note;
 
 /* Two independent caveats, because they can be outstanding independently — and
    right now exactly one of them is. `electivesOwed` is false (the school sent

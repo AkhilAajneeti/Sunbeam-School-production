@@ -1,0 +1,13 @@
+{
+  "collectionName":"components_home_events",
+  "info":{"displayName":"Homepage Event","icon":"calendar","description":"A curated events teaser. ⚠ NOT derived from News Item: these five carry their own captions and photographs, chosen for the homepage rather than pulled from the chronicles."},
+  "options":{},
+  "attributes":{
+    "title":{"type":"string","required":true,"maxLength":200},
+    "caption":{"type":"text","maxLength":600},
+    "when":{"type":"string","maxLength":40},
+    "tag":{"type":"string","maxLength":80},
+    "alt":{"type":"text","maxLength":500},
+    "image":{"type":"media","multiple":false,"allowedTypes":["images"]}
+  }
+}

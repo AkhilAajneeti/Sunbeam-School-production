@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_philosophy_step_sections",
+  "info": {
+    "displayName": "Steps section",
+    "icon": "bulletList",
+    "description": "A heading made of the step names in sequence, over the steps themselves. ⚠ THE ARROWS BETWEEN THE WORDS ARE DRAWN BY THE PAGE, and so is the italic on the last one — type the words, the design joins them up."
+  },
+  "options": {},
+  "attributes": {
+    "kicker": { "type": "string", "required": true, "maxLength": 80 },
+    "headingWords": { "type": "component", "repeatable": true, "component": "shared.paragraph", "description": "One word or phrase per move. The page sets them in order with an arrow between each." },
+    "steps": { "type": "component", "repeatable": true, "component": "philosophy.step" }
+  }
+}

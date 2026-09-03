@@ -1,4 +1,7 @@
 ---
+import { getFacilitiesData } from '../../../lib/cms';
+const {whyCards} = await getFacilitiesData();
+
 /**
  * §7 · WHY THE INFRASTRUCTURE MATTERS — benefit, not inventory.
  *
@@ -11,7 +14,7 @@
  * Dark ground because it closes the argument before the CTA, and because six
  * light cards after six light group bands would disappear into them.
  */
-import { whyCards } from '../../../data/facilities';
+
 import SectionHead from '../../academics/SectionHead.astro';
 import FacIcon from './FacIcon.astro';
 ---

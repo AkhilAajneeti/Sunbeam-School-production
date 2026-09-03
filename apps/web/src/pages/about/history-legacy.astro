@@ -28,13 +28,14 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageHero from "../../components/ui/PageHero.astro";
 import VideoFeature from "../../components/about/VideoFeature.astro";
 import Photo from "../../components/ui/Photo.astro";
-import { school } from "../../data/site";
+import { getSchool, getHistoryPage } from '../../lib/cms';
 import stars from "../../assets/icons/stars.png";
 import banner from "../../assets/photos/sunbeem-1.jpg";
 import poster from "../../assets/photos/sunbeem-2.jpg";
-import chairman from "../../assets/photos/Chairman-sunbeam.jpg";
-import secretary from "../../assets/photos/secretary-sunbeam.jpeg";
 import { Image } from "astro:assets";
+
+const school = await getSchool();
+const { history, voices } = await getHistoryPage();
 
 /**
  * THE CLIENT'S COPY, SET AS TWO PARAGRAPHS AT THE CLIENT'S REQUEST.
@@ -54,10 +55,6 @@ import { Image } from "astro:assets";
  * ⚠ EVERY FIGURE STILL AGREES WITH data/site.ts — 2013, 456, 2,700+, Nursery to
  * Class XII, CBSE New Delhi, the four streams, Duty/Devotion/Discipline.
  */
-const history = [
-  'Established in 2013, Sunbeam School, Agarsanda, Ballia has grown into one of the district’s leading educational institutions, evolving from a humble beginning of 456 students to a thriving community of 2,700+ learners from Nursery to Class XII. A Co-educational Senior Secondary School affiliated with CBSE, New Delhi, the school offers PCM, PCB, Commerce and Humanities, providing students with diverse pathways to discover their interests, pursue their aspirations and prepare for an ever-changing world. At Sunbeam School Ballia, education extends far beyond the classroom. Over the years, the school has built a strong reputation for academic excellence, value-based education and holistic development, creating an environment where every learner is encouraged to question, explore, create and excel.',
-  'With a vibrant campus, experienced educators, progressive teaching methodologies and excellent infrastructure, Sunbeam School strives to provide an enriching learning experience that nurtures knowledge, character, confidence and leadership. Rooted in the guiding values of Duty, Devotion and Discipline, the school encourages students to participate and excel across academics, sports, cultural pursuits, leadership and life skills. Today, with a growing community of 2,700+ students, Sunbeam School, Agarsanda, Ballia continues its journey with a clear purpose — to educate the future, inspire excellence and empower every learner to make a meaningful difference in the world.',
-];
 
 /**
  * The plate under the paragraph.
@@ -71,74 +68,12 @@ const history = [
  *
  * A longer account of the founding years is asset request A3.
  */
-const facts = [
-  { label: "Motto", value: school.motto },
-  {
-    label: "Affiliation",
-    value: `CBSE ${school.affiliationNo} · School Code ${school.schoolCode}`,
-  },
-  { label: "Campus", value: `${school.address.line1}, ${school.address.city}` },
-];
 
 
-const voices = [
-  {
-    name: "Mr. Sanjai Kumar Pandey",
-    /* ⚠ “Chairman”, AT THE CLIENT’S DIRECTION, AFTER THE CHECK CAME BACK EMPTY.
-       The client first said he does not hold this office and asked us to verify;
-       the school’s own live site names NO Chairman at all and does not name him
-       on its home page or its General Information page, so there was nothing to
-       verify against either way. The client has since asked for the title back,
-       which is their call to make about their own governance. Recorded here so
-       the history of the decision is not lost. */
-    role: "Chairman",
-    portrait: chairman,
-    alt: "Mr. Sanjai Kumar Pandey, Chairman of Sunbeam School Ballia.",
-    paragraphs: [
-      "Sunbeam School Ballia has effectively played a pivotal role in spreading the Sunbeam Education revolution in the district for last 7 years. I congratulate the entire team of Management, staff members, students and last but not the least the parents of the school for this success of Sunbeam Ballia.",
-      "Education is a continuous life long process which begins at the early stage of life from a school till one enters the last stage of life. The aim & objective of a school is to instill in the students the qualities of a genuine human and concerns of society. Sunbeam School Ballia fulfills these commitments to realize the welfare of not only an individual but society & country at a large. To realize this we offer many co-curricular activities which help to unfold the hidden talents of our students.",
-      "I would like to offer my sincere thanks to all the parents & well-wishers for their support & co-operation.",
-    ],
-  },
-  {
-    name: "Mr. Shriwats Singh",
-    role: "Secretary",
-    portrait: secretary,
-    alt: "Mr. Shriwats Singh, Secretary of Sunbeam School Ballia.",
-    paragraphs: [
-      "Learning is not a process limited to school & colleges only. It is indeed a never ending process and the school is the first orientation of formal education of a child. We all agree that the youth of future generation are going to face more pressure in all spheres. It is the demand of our time to prepare global students for a better world.",
-      "I am happy to share that Sunbeam School Ballia has been facilitating students for the all round progress & character building.",
-      "Wish you all the best!",
-    ],
-  },
-];
 
-const onward = [
-  {
-    label: "Director's Message",
-    href: "/about/directors-message/",
-    note: "Dr. Kunwar Arun Singh",
-  },
-  {
-    label: "Principal's Message",
-    href: "/about/principals-message/",
-    note: school.principal,
-  },
-  {
-    // Client's chosen label. Worth knowing: the supplied panels carry a Vision,
-    // a greeting and an identity story, but still no Mission statement — so
-    // this link promises something the page does not yet contain. Nothing has
-    // been invented to cover the gap; see the header of vision-mission.astro.
-    label: "Vision and Mission",
-    href: "/about/vision-mission/",
-    note: "The vision, the greeting, and the Sunbeam cipher",
-  },
-];
 ---
 
 <BaseLayout
-  title="Our Journey — Sunbeam School Ballia"
-  description="Sunbeam School Ballia, founded 2013 at Agarsanda and part of the Sunbeam group since 1972 — the school's journey, its growth from 456 to 2,700+ students, and messages from the school's leadership."
 >
   <PageHero
     {/* ⚠ RENAMED AT THE CLIENT'S REQUEST — "History of the school" is struck
@@ -146,14 +81,7 @@ const onward = [
         /about/history-legacy/ is linked from the footer, the nav, the homepage
         and two redirects that target #leadership on it, so renaming the URL as
         well would break four things to fix a label. */}
-    title="Our Journey"
-    crumbs={[
-      { label: "Home", href: "/" },
-      { label: "About", href: "/about/" },
-    ]}
     src={banner}
-    alt="The Sunbeam School Ballia campus at Agarsanda."
-    position="50% 58%"
   />
 
   <div class="u-page-panel">
@@ -249,8 +177,8 @@ const onward = [
             >
               <div class="voice__media">
                 <Photo
-                  src={v.portrait}
-                  alt={v.alt}
+                  file={v.portrait}
+                  alt={v.alt ?? ''}
                   brief={`${v.role} portrait`}
                   ratio="4 / 5"
                   position="50% 18%"

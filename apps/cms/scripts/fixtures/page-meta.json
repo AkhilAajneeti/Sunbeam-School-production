@@ -1,0 +1,2064 @@
+{
+  "generatedFrom": "rendered dev server",
+  "base": "http://localhost:4321",
+  "rows": [
+    {
+      "route": "/404/",
+      "file": "404.astro",
+      "seo": {
+        "metaTitle": "Page not found",
+        "metaDescription": "That address does not exist on the Sunbeam School Ballia website. Use the links here to find what you were looking for, or call the school on +91 77550 05908.",
+        "noIndex": true
+      },
+      "titleStandalone": false,
+      "heroTitle": "Page not found",
+      "heroStandfirst": "That address does not exist on this website.",
+      "heroAlt": "The Sunbeam School Ballia campus at Agarsanda, seen across the school lawn",
+      "heroPosition": "50% 45%",
+      "banner": "assets/photos/sunbeem-1.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        }
+      ],
+      "wasInterpolated": [
+        "description is template: That address does not exist on the Sunbeam School Ballia web"
+      ]
+    },
+    {
+      "route": "/about/directors-message/",
+      "file": "about/directors-message.astro",
+      "seo": {
+        "metaTitle": "Director's Message",
+        "metaDescription": "A message from Dr. Kunwar Arun Singh, Director of Sunbeam School Ballia, on the school's commitment to world-class education rooted in culture and tradition.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Director's Message",
+      "heroStandfirst": null,
+      "heroAlt": "Students and staff gathered at the entrance to Sunbeam School Ballia.",
+      "heroPosition": "50% 42%",
+      "banner": "assets/photos/sunbeem-2.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "About",
+          "href": "/about/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/about/history-legacy/",
+      "file": "about/history-legacy.astro",
+      "seo": {
+        "metaTitle": "Our Journey",
+        "metaDescription": "Sunbeam School Ballia, founded 2013 at Agarsanda and part of the Sunbeam group since 1972 — the school's journey, its growth from 456 to 2,700+ students, and messages from the school's leadership.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Our Journey",
+      "heroStandfirst": null,
+      "heroAlt": "The Sunbeam School Ballia campus at Agarsanda.",
+      "heroPosition": "50% 58%",
+      "banner": "assets/photos/sunbeem-1.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "About",
+          "href": "/about/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/about/principals-message/",
+      "file": "about/principals-message.astro",
+      "seo": {
+        "metaTitle": "Principal's Message",
+        "metaDescription": "A message from Mrs. Arpita Singh, Principal of Sunbeam School Ballia, on the school's approach to character, creativity and holistic development.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Principal's Message",
+      "heroStandfirst": null,
+      "heroAlt": "The Sunbeam School Ballia campus at Agarsanda.",
+      "heroPosition": "50% 58%",
+      "banner": "assets/photos/sunbeem-1.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "About",
+          "href": "/about/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/about/vision-mission/",
+      "file": "about/vision-mission.astro",
+      "seo": {
+        "metaTitle": "Vision and Mission",
+        "metaDescription": "The Sunbeam vision, the Jai Hind greeting, and the story of the Sunbeam identity — Duty, Devotion, Discipline, in the school's own words.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Vision and Mission",
+      "heroStandfirst": null,
+      "heroAlt": "Student council office-bearers and NCC cadets of Sunbeam School Ballia on stage with members of staff.",
+      "heroPosition": "50% 42%",
+      "banner": "assets/photos/sunbeem-5.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "About",
+          "href": "/about/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/academics/academic-calendar/",
+      "file": "academics/academic-calendar.astro",
+      "seo": {
+        "metaTitle": "Academic Calendar",
+        "metaDescription": "Download the academic calendars Sunbeam School Ballia publishes — the Calendar &#38; Monthly Planner 2026-27, the Sunbeam Calendar 2025 and the seven sheets of 2024 — covering terms, holidays, examination dates and parent–teacher meetings.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Academic Calendar",
+      "heroStandfirst": "The academic calendar shows how we plan the year for your child and for you.",
+      "heroAlt": "A corridor and stairwell at Sunbeam School Ballia, its landings running the length of the block.",
+      "heroPosition": "50% 50%",
+      "banner": "assets/corridor and stairs/DSC_1211 copy.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Academics",
+          "href": "/academics/"
+        },
+        {
+          "label": "Assessment & Support",
+          "href": "/academics/assessment/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/academics/assessment/",
+      "file": "academics/assessment.astro",
+      "seo": {
+        "metaTitle": "Assessment & Support",
+        "metaDescription": "How an academic year runs at Sunbeam School Ballia: taught content, activities, internal assessment, CBSE board examinations at Class X and XII, and the remedial support, mentoring and parent–teacher meetings around them.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Assessment & Support",
+      "heroStandfirst": "Six steps, repeating — content taught, practised, assessed and fed back, with the support named rather than assumed.",
+      "heroAlt": "Students of Sunbeam School Ballia working at the bench during a science practical.",
+      "heroPosition": "50% 42%",
+      "banner": "assets/photos/sunbeem-students.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Academics",
+          "href": "/academics/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/academics/assessment/competitive-exam-preparation/",
+      "file": "academics/assessment/competitive-exam-preparation.astro",
+      "seo": {
+        "metaTitle": "Competitive Examination Preparation",
+        "metaDescription": "The national programmes Sunbeam School Ballia enters: Vidyarthi Vigyan Manthan for Classes VI to XI, the National Children's Science Congress, Inspire Award MANAK and the SOF olympiads.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Competitive Examination Preparation",
+      "heroStandfirst": "Four national programmes, named — because an entry can be checked and an abstraction cannot.",
+      "heroAlt": "Students of Sunbeam School Ballia working along the chemistry bench, test tubes held over the burners.",
+      "heroPosition": "50% 44%",
+      "banner": "assets/photos/sb-chem-lab.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Academics",
+          "href": "/academics/"
+        },
+        {
+          "label": "Assessment & Support",
+          "href": "/academics/assessment/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/academics/assessment/homework-policy/",
+      "file": "academics/assessment/homework-policy.astro",
+      "seo": {
+        "metaTitle": "Homework Policy",
+        "metaDescription": "What Sunbeam School Ballia publishes about homework: that it is set to a published pattern, and that the quality of assignments and the correction of notebooks are standing items on the Parents' Forum agenda.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Homework Policy",
+      "heroStandfirst": "One published sentence, one published agenda item — and nothing invented to fill the gap between them.",
+      "heroAlt": "Students of Sunbeam School Ballia reading at the long tables of the library, a member of staff at the head of the row.",
+      "heroPosition": "50% 46%",
+      "banner": "assets/photos/sb-library.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Academics",
+          "href": "/academics/"
+        },
+        {
+          "label": "Assessment & Support",
+          "href": "/academics/assessment/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/academics/assessment/mentoring/",
+      "file": "academics/assessment/mentoring.astro",
+      "seo": {
+        "metaTitle": "Mentoring",
+        "metaDescription": "Mentoring at Sunbeam School Ballia: every student has a member of staff who knows them, with trained BCS counsellors on campus and a school counsellor post advertised at master's level.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Mentoring",
+      "heroStandfirst": "What a school staffs for says more than what it says about itself.",
+      "heroAlt": "The Nalanda Library at Sunbeam School Ballia, its reading tables set out along the shelves.",
+      "heroPosition": "50% 48%",
+      "banner": "assets/library/DSC_1224 copy.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Academics",
+          "href": "/academics/"
+        },
+        {
+          "label": "Assessment & Support",
+          "href": "/academics/assessment/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/academics/assessment/parent-teacher-meetings/",
+      "file": "academics/assessment/parent-teacher-meetings.astro",
+      "seo": {
+        "metaTitle": "Parent–Teacher Meetings",
+        "metaDescription": "Parent–teacher meetings at Sunbeam School Ballia are placed on the session's academic calendar in advance, with the parent portal carrying term reports and results in between.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Parent-Teacher Meetings",
+      "heroStandfirst": "On the calendar before the session starts — so the date arrives before the problem does.",
+      "heroAlt": "Parents of Sunbeam School Ballia seated in the tiered rows of the hall during a Parents' Forum session.",
+      "heroPosition": "50% 42%",
+      "banner": "assets/parents forum/parents forum (2).jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Academics",
+          "href": "/academics/"
+        },
+        {
+          "label": "Assessment & Support",
+          "href": "/academics/assessment/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/academics/assessment/remedial-support/",
+      "file": "academics/assessment/remedial-support.astro",
+      "seo": {
+        "metaTitle": "Remedial Support",
+        "metaDescription": "How a retest works at Sunbeam School Ballia: no sooner than ten days after results, two clear days between retests, results within two and a half weeks, and a retest still required after a medical absence.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Remedial Support",
+      "heroStandfirst": "A retest with dates attached — ten days, two clear days, two and a half weeks.",
+      "heroAlt": "The chemistry laboratory at Sunbeam School Ballia, benches laid out with reagent shelves and gas taps.",
+      "heroPosition": "50% 50%",
+      "banner": "assets/chem lab/DSC_1262 copy.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Academics",
+          "href": "/academics/"
+        },
+        {
+          "label": "Assessment & Support",
+          "href": "/academics/assessment/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/academics/board-results/",
+      "file": "academics/board-results.astro",
+      "seo": {
+        "metaTitle": "Board Results",
+        "metaDescription": "Sunbeam School Ballia does not publish its CBSE Class X and XII board results. This page says so plainly, and sets out the outcome data the school does publish — CUET (UG) 2025 scores and named university placements.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Board Results",
+      "heroStandfirst": "The school has not published them. This page says that rather than estimating a number you would plan around.",
+      "heroAlt": "The Nalanda Library at Sunbeam School Ballia, its shelves signed by subject.",
+      "heroPosition": "50% 50%",
+      "banner": "assets/library/DSC_1226 copy.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Academics",
+          "href": "/academics/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/academics/",
+      "file": "academics/index.astro",
+      "seo": {
+        "metaTitle": "Academics",
+        "metaDescription": "Academics at Sunbeam School Ballia: a CBSE curriculum from Nursery to Class XII, four senior-secondary streams, twelve laboratories, a 17,574-book library and 100 Microsoft-certified teachers.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Learning that goes beyond the book",
+      "heroStandfirst": null,
+      "heroAlt": null,
+      "heroPosition": null,
+      "banner": null,
+      "crumbs": [],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/academics/parent-partnership/",
+      "file": "academics/parent-partnership.astro",
+      "seo": {
+        "metaTitle": "Parent Partnership",
+        "metaDescription": "How Sunbeam School Ballia works with parents: orientation before the session, a parents' forum, workshops, parent–teacher meetings on the published calendar, and a report card portal.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Parent Partnership",
+      "heroStandfirst": "Together we shape every child’s future.",
+      "heroAlt": "Students of Sunbeam School Ballia on the school campus.",
+      "heroPosition": "50% 42%",
+      "banner": "assets/photos/sunbeem-3.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Academics",
+          "href": "/academics/"
+        }
+      ],
+      "wasInterpolated": [
+        "heroTitle is expr: parents.hero.title",
+        "heroStandfirst is expr: parents.hero.stand"
+      ]
+    },
+    {
+      "route": "/academics/parent-partnership/faqs/",
+      "file": "academics/parent-partnership/faqs.astro",
+      "seo": {
+        "metaTitle": "Parent FAQs",
+        "metaDescription": "Clear answers to the questions parents ask most about Sunbeam School Ballia — admission, transport across 27 published routes, fees, affiliation 2131962, and the parent portal.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Parent FAQs",
+      "heroStandfirst": "Clear answers to the questions parents ask most about Sunbeam Ballia.",
+      "heroAlt": "Parents of Sunbeam School Ballia seated in the tiered rows of the hall during a Parents' Forum session.",
+      "heroPosition": "50% 42%",
+      "banner": "assets/parents forum/parents forum (2).jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Academics",
+          "href": "/academics/"
+        },
+        {
+          "label": "Parent Partnership",
+          "href": "/academics/parent-partnership/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/academics/parent-partnership/parent-engagement/",
+      "file": "academics/parent-partnership/parent-engagement.astro",
+      "seo": {
+        "metaTitle": "Parent Engagement",
+        "metaDescription": "How parents are engaged at Sunbeam School Ballia: seated by class section at the Parents' Forum from Nursery upward, with a projected twelve-item agenda that names Grandparents Cove.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Parent Engagement",
+      "heroStandfirst": "Not an open invitation — a seat, with a class written on it.",
+      "heroAlt": "Parents of Sunbeam School Ballia seated at desks carrying class nameplates during a Parents' Forum session.",
+      "heroPosition": "50% 52%",
+      "banner": "assets/parents forum/parents forum (3).jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Academics",
+          "href": "/academics/"
+        },
+        {
+          "label": "Parent Partnership",
+          "href": "/academics/parent-partnership/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/academics/parent-partnership/parent-orientation/",
+      "file": "academics/parent-partnership/parent-orientation.astro",
+      "seo": {
+        "metaTitle": "Parent Orientation",
+        "metaDescription": "Parent Orientation at Sunbeam School Ballia runs several times each admission season, months before the session begins. 234 students and 389 parents attended the first programme of 2024-25; 292 students appeared in January 2026.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Parent Orientation",
+      "heroStandfirst": "Months before the session begins, the whole family comes in for a morning.",
+      "heroAlt": "A member of staff at Sunbeam School Ballia holding up the PRECEPT syllabus booklet to parents seated in the conference room during a Parent's Orientation Programme.",
+      "heroPosition": "50% 42%",
+      "banner": "assets/school-event/Parent-Orientation/pop4-2024-a.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Academics",
+          "href": "/academics/"
+        },
+        {
+          "label": "Parent Partnership",
+          "href": "/academics/parent-partnership/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/academics/parent-partnership/parents-forum/",
+      "file": "academics/parent-partnership/parents-forum.astro",
+      "seo": {
+        "metaTitle": "Parents’ Forum",
+        "metaDescription": "The Parents' Forum at Sunbeam School Ballia: a seat per class section, the school's leadership on the panel, and a twelve-item agenda projected on the wall — from the Almanac and the pace of teaching to the correction of notebooks.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Parents’ Forum",
+      "heroStandfirst": "A seat with your child's class written on it, and an agenda projected on the wall.",
+      "heroAlt": "A sitting of the Parents' Forum at Sunbeam School Ballia, its agenda projected on the screen above the school's leadership panel.",
+      "heroPosition": "50% 42%",
+      "banner": "assets/parents forum/parents forum (5).jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Academics",
+          "href": "/academics/"
+        },
+        {
+          "label": "Parent Partnership",
+          "href": "/academics/parent-partnership/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/academics/parent-partnership/school-parent-communication/",
+      "file": "academics/parent-partnership/school-parent-communication.astro",
+      "seo": {
+        "metaTitle": "School–Parent Communication",
+        "metaDescription": "How Sunbeam School Ballia reaches parents: separate published lines for admissions, the school office and transport, a named transport in-charge, an office email, and a parent portal carrying term reports and results.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "School–Parent Communication",
+      "heroStandfirst": "Three numbers, not one — so a question about a bus does not queue behind an admissions enquiry.",
+      "heroAlt": "A corridor at Sunbeam School Ballia, its noticeboards ranged along the wall.",
+      "heroPosition": "50% 50%",
+      "banner": "assets/corridor and stairs/DSC_1223 copy.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Academics",
+          "href": "/academics/"
+        },
+        {
+          "label": "Parent Partnership",
+          "href": "/academics/parent-partnership/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/academics/parent-partnership/workshops-webinars/",
+      "file": "academics/parent-partnership/workshops-webinars.astro",
+      "seo": {
+        "metaTitle": "Workshops & Webinars",
+        "metaDescription": "The professional development Sunbeam School Ballia publishes: workshop sessions in counselling, pedagogy, AI in the classroom and the CBSE capacity-building programme — run for the school's teachers and administrators.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Workshops & Webinars",
+      "heroStandfirst": "The training the school publishes is run for the people who teach your child — named trainers, named institutions, on the record.",
+      "heroAlt": "A workshop session in progress at Sunbeam School Ballia, delegates seated at tables facing the speaker.",
+      "heroPosition": "50% 45%",
+      "banner": "assets/workshops/CriticalThinking/CriticalThinking1.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Academics",
+          "href": "/academics/"
+        },
+        {
+          "label": "Parent Partnership",
+          "href": "/academics/parent-partnership/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/academics/philosophy/",
+      "file": "academics/philosophy.astro",
+      "seo": {
+        "metaTitle": "Academic Philosophy",
+        "metaDescription": "How Sunbeam School Ballia teaches — student-centred learning, experiential and inquiry-based work, critical thinking and creativity, and the CBSE curriculum behind them.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Academic Philosophy",
+      "heroStandfirst": null,
+      "heroAlt": "The library at Sunbeam School Ballia, its reading table ringed with chairs and the shelves labelled by subject.",
+      "heroPosition": "50% 38%",
+      "banner": "assets/library/DSC_1225 copy.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Academics",
+          "href": "/academics/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/academics/philosophy/affiliation-details/",
+      "file": "academics/philosophy/affiliation-details.astro",
+      "seo": {
+        "metaTitle": "Affiliation Details",
+        "metaDescription": "Sunbeam School Ballia is affiliated to CBSE Delhi — affiliation number 2131962, school code 70205, UDISE code 09631300403. The board's letter records affiliation up to senior secondary level for 01.04.2025 to 31.03.2030.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Affiliation Details",
+      "heroStandfirst": "The board, the two numbers every form asks for — and the letter they are printed on.",
+      "heroAlt": "A corridor at Sunbeam School Ballia, its classroom doors and landings running the length of the block.",
+      "heroPosition": "50% 50%",
+      "banner": "assets/corridor and stairs/DSC_1240 copy.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Academics",
+          "href": "/academics/"
+        },
+        {
+          "label": "Academic Philosophy",
+          "href": "/academics/philosophy/"
+        }
+      ],
+      "wasInterpolated": [
+        "description is template: Sunbeam School Ballia is affiliated to CBSE Delhi — affiliat"
+      ]
+    },
+    {
+      "route": "/academics/philosophy/critical-thinking/",
+      "file": "academics/philosophy/critical-thinking.astro",
+      "seo": {
+        "metaTitle": "Critical Thinking & Creativity",
+        "metaDescription": "How Sunbeam School Ballia builds critical thinking and creativity: CMSMUN and the Model United Nations Lab, SUNBEAM INNOVX, a TED Talk, and a staff workshop on teaching critical thinking in the classroom.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Critical Thinking & Creativity",
+      "heroStandfirst": "A student who, in the Principal's words, thinks critically, acts responsibly and dreams fearlessly.",
+      "heroAlt": "Delegates from Sunbeam School Ballia holding their Model United Nations certificates in front of the national flags.",
+      "heroPosition": "50% 44%",
+      "banner": "assets/excursions/imun-3.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Academics",
+          "href": "/academics/"
+        },
+        {
+          "label": "Academic Philosophy",
+          "href": "/academics/philosophy/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/academics/philosophy/curriculum/",
+      "file": "academics/philosophy/curriculum.astro",
+      "seo": {
+        "metaTitle": "Curriculum",
+        "metaDescription": "The CBSE curriculum at Sunbeam School Ballia, published class by class as its PRECEPT syllabus for session 2026-27 — one document for every year from Nursery to Class XII.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Curriculum",
+      "heroStandfirst": "CBSE, published class by class — fifteen year groups, fifteen syllabus documents.",
+      "heroAlt": "The Nalanda Library at Sunbeam School Ballia, its shelves signed by subject.",
+      "heroPosition": "50% 48%",
+      "banner": "assets/library/DSC_1225 copy.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Academics",
+          "href": "/academics/"
+        },
+        {
+          "label": "Academic Philosophy",
+          "href": "/academics/philosophy/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/academics/philosophy/experiential-inquiry/",
+      "file": "academics/philosophy/experiential-inquiry.astro",
+      "seo": {
+        "metaTitle": "Experiential & Inquiry-Based Learning",
+        "metaDescription": "How Sunbeam School Ballia teaches through experience and inquiry: twelve laboratories, gallery walks, a planting plot and a planetarium — a topic met in the hand before it is met in the exam.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Experiential & Inquiry-Based Learning",
+      "heroStandfirst": "A topic met in the hand before it is met in the exam.",
+      "heroAlt": "The chemistry laboratory at Sunbeam School Ballia, benches laid out with reagent shelves and gas taps.",
+      "heroPosition": "50% 52%",
+      "banner": "assets/chem lab/DSC_1262 copy.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Academics",
+          "href": "/academics/"
+        },
+        {
+          "label": "Academic Philosophy",
+          "href": "/academics/philosophy/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/academics/philosophy/student-centred-learning/",
+      "file": "academics/philosophy/student-centred-learning.astro",
+      "seo": {
+        "metaTitle": "Student-Centred Learning",
+        "metaDescription": "How Sunbeam School Ballia puts the learner at the centre: equal regard and equal access to the curriculum, a secure and caring environment, a Children's Forum where students are heard, collaborative learning, and room for different strengths.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Student-Centred Learning",
+      "heroStandfirst": "Every learner has a voice, a potential and a path of their own.",
+      "heroAlt": "Students of Sunbeam School Ballia seated together in the school hall at the Sports and Spring Camp assembly.",
+      "heroPosition": "50% 46%",
+      "banner": "assets/school-activities/josh-spring-camp/02.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Academics",
+          "href": "/academics/"
+        },
+        {
+          "label": "Academic Philosophy",
+          "href": "/academics/philosophy/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/academics/philosophy/teaching-philosophy/",
+      "file": "academics/philosophy/teaching-philosophy.astro",
+      "seo": {
+        "metaTitle": "Teaching Philosophy",
+        "metaDescription": "How Sunbeam School Ballia believes teaching should happen: recognising that every child is different, teachers as facilitators, multiple intelligences, collaborative learning, innovative methods, and teaching towards independence.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Teaching Philosophy",
+      "heroStandfirst": "Sunbeam's approach begins by recognising that abilities differ — then guides each child towards their own strengths, through collaboration and methods that keep moving.",
+      "heroAlt": "The activity learning lab at Sunbeam School Ballia, tables set out for group work.",
+      "heroPosition": "50% 50%",
+      "banner": "assets/activity learning lab/DSC_1215 copy.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Academics",
+          "href": "/academics/"
+        },
+        {
+          "label": "Academic Philosophy",
+          "href": "/academics/philosophy/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/academics/structure/",
+      "file": "academics/structure.astro",
+      "seo": {
+        "metaTitle": "Academic Structure",
+        "metaDescription": "The academic structure at Sunbeam School Ballia: Pre-Primary through Senior Secondary, Nursery to Class XII, with four CBSE streams — PCM, PCB, Commerce and Humanities.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Academic Structure",
+      "heroStandfirst": null,
+      "heroAlt": "Students and staff of Sunbeam School Ballia gathered under the school name at a whole-school assembly.",
+      "heroPosition": "50% 40%",
+      "banner": "assets/photos/sunbeem-3.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Academics",
+          "href": "/academics/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/academics/structure/middle-school/",
+      "file": "academics/structure/middle-school.astro",
+      "seo": {
+        "metaTitle": "Middle School",
+        "metaDescription": "Middle School at Sunbeam School Ballia, Classes VI to VIII: specialist teaching, twelve laboratories, a Class VII entrepreneurship programme that runs a real venture end to end, and a Class VIII winner of a seventy-entrant contest.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Middle School",
+      "heroStandfirst": "Classes VI to VIII — where learning becomes more independent, practical and exploratory.",
+      "heroAlt": "Students of Sunbeam School Ballia working at benches in the physics laboratory, with portraits of Nikola Tesla and Michael Faraday on the wall.",
+      "heroPosition": "50% 46%",
+      "banner": "assets/photos/sb-phy-lab.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Academics",
+          "href": "/academics/"
+        },
+        {
+          "label": "Academic Structure",
+          "href": "/academics/structure/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/academics/structure/pre-primary/",
+      "file": "academics/structure/pre-primary.astro",
+      "seo": {
+        "metaTitle": "Pre-Primary",
+        "metaDescription": "Pre-Primary at Sunbeam School Ballia — Nursery, LKG and UKG: a kids park, sand and water pools, a toy library, a planting plot the children dig themselves, and Abhayeti, the junior block's own prayer ground.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Pre-Primary",
+      "heroStandfirst": "Nursery, LKG and UKG — an early-years zone built around play, curiosity and first experiences.",
+      "heroAlt": "The early-years activity room at Sunbeam School Ballia — a painted sky ceiling, toy shelves, soft play blocks, a climbing ladder and curved activity tables.",
+      "heroPosition": "50% 58%",
+      "banner": "assets/activity learning lab/DSC_1215 copy.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Academics",
+          "href": "/academics/"
+        },
+        {
+          "label": "Academic Structure",
+          "href": "/academics/structure/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/academics/structure/primary/",
+      "file": "academics/structure/primary.astro",
+      "seo": {
+        "metaTitle": "Primary",
+        "metaDescription": "Primary at Sunbeam School Ballia, Classes I to V: a PRECEPT syllabus document for every class, the Impetus activity programme for Classes III–V, SOF Olympiad entries from Nursery, and a Class I speaking competition across Sunbeam branches.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Primary",
+      "heroStandfirst": "A strong foundation for steady growth.",
+      "heroAlt": "A class at Sunbeam School Ballia during a Canva Presentation activity in the Impetus programme, the word wall display behind them.",
+      "heroPosition": "50% 44%",
+      "banner": "assets/school-event/Impetus—ClassesIII-V/Impetus—ClassesIII-V-02.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Academics",
+          "href": "/academics/"
+        },
+        {
+          "label": "Academic Structure",
+          "href": "/academics/structure/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/academics/structure/secondary/",
+      "file": "academics/structure/secondary.astro",
+      "seo": {
+        "metaTitle": "Secondary",
+        "metaDescription": "Secondary at Sunbeam School Ballia, Classes IX and X: board practicals in the Physics, Chemistry and Biology laboratories from Class IX, a published syllabus document for every class, and a serving IRS officer taking the Guiding Futures session.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Secondary",
+      "heroStandfirst": "Classes IX to X — where board practicals begin and an IRS officer comes to talk about how he got there.",
+      "heroAlt": "The chemistry laboratory at Sunbeam School Ballia, benches laid out with reagent shelves and gas taps.",
+      "heroPosition": "50% 52%",
+      "banner": "assets/chem lab/DSC_1262 copy.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Academics",
+          "href": "/academics/"
+        },
+        {
+          "label": "Academic Structure",
+          "href": "/academics/structure/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/academics/structure/senior-secondary/",
+      "file": "academics/structure/senior-secondary.astro",
+      "seo": {
+        "metaTitle": "Senior Secondary",
+        "metaDescription": "Senior Secondary at Sunbeam School Ballia, Classes XI and XII: four streams taught to board level, a Class XII physics practical done properly, and an international innovation project run with Monash University, Australia.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Senior Secondary",
+      "heroStandfirst": "Classes XI and XII — four streams, a galvanometer measured properly, and a project run with Monash.",
+      "heroAlt": "Students of Sunbeam School Ballia working at benches in the physics laboratory, with portraits of Nikola Tesla and Michael Faraday on the wall.",
+      "heroPosition": "50% 48%",
+      "banner": "assets/photos/sb-phy-lab.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Academics",
+          "href": "/academics/"
+        },
+        {
+          "label": "Academic Structure",
+          "href": "/academics/structure/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/academics/structure/streams-offered/",
+      "file": "academics/structure/streams-offered.astro",
+      "seo": {
+        "metaTitle": "Streams Offered",
+        "metaDescription": "The four Senior Secondary streams at Sunbeam School Ballia: PCM, PCB, Commerce and Humanities, each taught to CBSE board level in Classes XI and XII.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Streams Offered",
+      "heroStandfirst": "Four streams at Senior Secondary — PCM, PCB, Commerce and Humanities.",
+      "heroAlt": "A subject laboratory at Sunbeam School Ballia, benches and apparatus laid out along the room.",
+      "heroPosition": "50% 50%",
+      "banner": "assets/bio lab/DSC_1274 copy.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Academics",
+          "href": "/academics/"
+        },
+        {
+          "label": "Academic Structure",
+          "href": "/academics/structure/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/academics/structure/subject-combinations/",
+      "file": "academics/structure/subject-combinations.astro",
+      "seo": {
+        "metaTitle": "Subject Combinations",
+        "metaDescription": "Subject combinations for Senior Secondary at Sunbeam School Ballia: what each stream contains, with the confidence of each stated — PCM and PCB are definitional, the Commerce core is standard, and the Humanities core is not published.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Subject Combinations",
+      "heroStandfirst": "What each stream contains — and how far each of those lists can be relied on.",
+      "heroAlt": "A computer laboratory at Sunbeam School Ballia, rows of workstations facing an interactive board.",
+      "heroPosition": "50% 48%",
+      "banner": "assets/computer lab/DSC_1204 copy.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Academics",
+          "href": "/academics/"
+        },
+        {
+          "label": "Academic Structure",
+          "href": "/academics/structure/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/academics/student-success/",
+      "file": "academics/student-success.astro",
+      "seo": {
+        "metaTitle": "Student Success",
+        "metaDescription": "Named results at Sunbeam School Ballia: #1 Co-Ed Day School in Ballia for six consecutive years, Microsoft Showcase School with 100 certified teachers, and national science programme selections.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Student Success",
+      "heroStandfirst": "Every figure here is published by the school and can be checked against a third party. Where it has not published something, this page says so rather than estimating.",
+      "heroAlt": "Student council office-bearers and NCC cadets of Sunbeam School Ballia on stage with the school's dignitaries.",
+      "heroPosition": "50% 38%",
+      "banner": "assets/photos/sunbeem-5.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Academics",
+          "href": "/academics/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/academics/student-success/alumni-interaction/",
+      "file": "academics/student-success/alumni-interaction.astro",
+      "seo": {
+        "metaTitle": "Alumni Interaction",
+        "metaDescription": "Sunbeam School Ballia names its alumni, their degrees and their employers: GE Aerospace, Micron Technology and ICICI Prudential, on the school's own alumni cards.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Alumni Interaction",
+      "heroStandfirst": "Three cards, and on each one a name, a degree, an institution and an employer.",
+      "heroAlt": "A corridor and stairwell at Sunbeam School Ballia, its doors and landings running the length of the block.",
+      "heroPosition": "50% 50%",
+      "banner": "assets/corridor and stairs/DSC_1221 copy.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Academics",
+          "href": "/academics/"
+        },
+        {
+          "label": "Student Success",
+          "href": "/academics/student-success/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/academics/student-success/career-guidance/",
+      "file": "academics/student-success/career-guidance.astro",
+      "seo": {
+        "metaTitle": "Career Guidance",
+        "metaDescription": "Career guidance at Sunbeam School Ballia: a hall session for the senior school followed by one-to-one counselling for Classes X and XI, and career-guidance talks by named officers for Classes IX to XII.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Career Guidance",
+      "heroStandfirst": "A day that starts in the hall and ends at a table, with one student on the other side of it.",
+      "heroAlt": "A student of Sunbeam School Ballia in a one-to-one career counselling session, the counsellor working from a laptop across the table.",
+      "heroPosition": "50% 46%",
+      "banner": "assets/school-activities/career-counselling/03.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Academics",
+          "href": "/academics/"
+        },
+        {
+          "label": "Student Success",
+          "href": "/academics/student-success/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/academics/student-success/olympiad-achievements/",
+      "file": "academics/student-success/olympiad-achievements.astro",
+      "seo": {
+        "metaTitle": "Olympiad Achievements",
+        "metaDescription": "Sunbeam School Ballia enters the Science Olympiad Foundation olympiads from Nursery, holds an SOF Zonal Excellence Award for Classes III to V, and has qualified students to the national level of Vidyarthi Vigyan Manthan.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Olympiad Achievements",
+      "heroStandfirst": "The school's answer to “from what age do they sit these?” is Nursery.",
+      "heroAlt": "The composite laboratory at Sunbeam School Ballia, its benches and apparatus laid out along the room.",
+      "heroPosition": "50% 50%",
+      "banner": "assets/composite lab/DSC_1255 copy.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Academics",
+          "href": "/academics/"
+        },
+        {
+          "label": "Student Success",
+          "href": "/academics/student-success/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/academics/student-success/scholarships/",
+      "file": "academics/student-success/scholarships.astro",
+      "seo": {
+        "metaTitle": "Scholarships",
+        "metaDescription": "Sunbeam School Ballia does not publish scholarship information. This page says so plainly and points to the school office rather than describing terms that cannot be verified.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Scholarships",
+      "heroStandfirst": "The school has not published any scholarship terms. This page says that rather than filling the space.",
+      "heroAlt": "The Nalanda Library at Sunbeam School Ballia, its shelves signed by subject and its reading tables set out beneath them.",
+      "heroPosition": "50% 50%",
+      "banner": "assets/library/DSC_1230 copy.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Academics",
+          "href": "/academics/"
+        },
+        {
+          "label": "Student Success",
+          "href": "/academics/student-success/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/academics/student-success/subject-selection/",
+      "file": "academics/student-success/subject-selection.astro",
+      "seo": {
+        "metaTitle": "Subject Selection Guidance",
+        "metaDescription": "How the stream choice is supported at Sunbeam School Ballia: one-to-one counselling for Classes X and XI, four streams to board level, and CUET (UG) 2025 results published across three of them.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Subject Selection Guidance",
+      "heroStandfirst": "The school's own banner says who this is for — Class X and Class XI. One year before the choice, and the year it lands.",
+      "heroAlt": "A subject laboratory at Sunbeam School Ballia, benches and apparatus laid out along the room.",
+      "heroPosition": "50% 50%",
+      "banner": "assets/bio lab/DSC_1274 copy.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Academics",
+          "href": "/academics/"
+        },
+        {
+          "label": "Student Success",
+          "href": "/academics/student-success/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/academics/student-success/success-stories/",
+      "file": "academics/student-success/success-stories.astro",
+      "seo": {
+        "metaTitle": "Student Success Stories",
+        "metaDescription": "Named results at Sunbeam School Ballia: second place at an international robotics championship in Kuala Lumpur, rank 2 in Uttar Pradesh at the CBSE innovation awards, and CBSE Cluster-V Kho-Kho gold.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Student Success Stories",
+      "heroStandfirst": "No totals, because the school publishes none. Names, places and prize money, because it publishes those.",
+      "heroAlt": "Students of Sunbeam School Ballia mid-game at the boards during the Chaturang chess championship.",
+      "heroPosition": "50% 50%",
+      "banner": "assets/competition/chaturang-chess-championship/chaturang-chess-championship-04.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Academics",
+          "href": "/academics/"
+        },
+        {
+          "label": "Student Success",
+          "href": "/academics/student-success/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/academics/student-success/university-counselling/",
+      "file": "academics/student-success/university-counselling.astro",
+      "seo": {
+        "metaTitle": "University Counselling",
+        "metaDescription": "Where the 2024-25 leavers of Sunbeam School Ballia went: eighteen named placements on the school's own board — ten University of Delhi colleges, three at BHU — and the published CUET (UG) 2025 scores behind them.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "University Counselling",
+      "heroStandfirst": "The school prints the destinations on a board, with names on it. This page is that board.",
+      "heroAlt": "The Nalanda Library at Sunbeam School Ballia, its shelves signed by subject and reading tables ringed with chairs.",
+      "heroPosition": "50% 48%",
+      "banner": "assets/library/DSC_1224 copy.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Academics",
+          "href": "/academics/"
+        },
+        {
+          "label": "Student Success",
+          "href": "/academics/student-success/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/academics/teaching-learning/",
+      "file": "academics/teaching-learning.astro",
+      "seo": {
+        "metaTitle": "Teaching & Learning",
+        "metaDescription": "Twelve subject laboratories, a robotics lab, two computer labs, 75+ smart classrooms with 49+ interactive panels, and the 17,574-book Nalanda Library at Sunbeam School Ballia — a Microsoft Showcase School.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Teaching & Learning",
+      "heroStandfirst": null,
+      "heroAlt": "Younger students of Sunbeam School Ballia working at desktop computers in the junior computer laboratory.",
+      "heroPosition": "50% 45%",
+      "banner": "assets/photos/sb-comp-lab-2.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Academics",
+          "href": "/academics/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/academics/teaching-learning/experiential-learning/",
+      "file": "academics/teaching-learning/experiential-learning.astro",
+      "seo": {
+        "metaTitle": "Experiential & Project-Based Learning",
+        "metaDescription": "Learning by doing at Sunbeam School Ballia: a planting plot the youngest children dig themselves, a Class 7 programme running a real venture, and an international innovation project with Monash University.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Experiential & Project-Based Learning",
+      "heroStandfirst": "Met in the hand before it is met in the exam — and the school now teaches other schools how.",
+      "heroAlt": "A young student of Sunbeam School Ballia adding kitchen scraps to the compost bin at the Little Agriculturists activity.",
+      "heroPosition": "50% 40%",
+      "banner": "assets/school-activities/little-agriculturists/02.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Academics",
+          "href": "/academics/"
+        },
+        {
+          "label": "Teaching & Learning",
+          "href": "/academics/teaching-learning/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/academics/teaching-learning/laboratories-clubs/",
+      "file": "academics/teaching-learning/laboratories-clubs.astro",
+      "seo": {
+        "metaTitle": "Laboratories & Academic Clubs",
+        "metaDescription": "The full inventory at Sunbeam School Ballia: twelve laboratories including Physics, Chemistry, Biology, Mathematics, Language, Robotics and two computer rooms — four of the twelve being inquiry rooms.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Laboratories & Academic Clubs",
+      "heroStandfirst": "Specialised spaces where ideas, curiosity and learning come to life.",
+      "heroAlt": "The composite laboratory at Sunbeam School Ballia, its benches and apparatus laid out along the room.",
+      "heroPosition": "50% 50%",
+      "banner": "assets/composite lab/DSC_1255 copy.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Academics",
+          "href": "/academics/"
+        },
+        {
+          "label": "Teaching & Learning",
+          "href": "/academics/teaching-learning/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/academics/teaching-learning/methodology/",
+      "file": "academics/teaching-learning/methodology.astro",
+      "seo": {
+        "metaTitle": "Teaching Methodology",
+        "metaDescription": "The method Sunbeam School Ballia names as its own: technology, a theory of multiple intelligence and collaborative learning, built into all areas of teaching rather than run as separate programmes.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Teaching Methodology",
+      "heroStandfirst": "Three things, named by the school — and not one of them is a special lesson.",
+      "heroAlt": "The activity learning laboratory at Sunbeam School Ballia, its worktables set out for group work.",
+      "heroPosition": "50% 50%",
+      "banner": "assets/activity learning lab/DSC_1215 copy.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Academics",
+          "href": "/academics/"
+        },
+        {
+          "label": "Teaching & Learning",
+          "href": "/academics/teaching-learning/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/academics/teaching-learning/reading-language/",
+      "file": "academics/teaching-learning/reading-language.astro",
+      "seo": {
+        "metaTitle": "Reading, Language & Library",
+        "metaDescription": "The Nalanda Library at Sunbeam School Ballia holds 17,574 books and 25 periodicals, with a Reading Club, a reading carnival, an Ardent Reader Award and a language laboratory alongside it.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Reading, Language & Library",
+      "heroStandfirst": "17,574 books, 25 periodicals — and a room full of children actually in it.",
+      "heroAlt": "Students of Sunbeam School Ballia reading at the long tables of the Nalanda Library, a member of staff at the head of the row.",
+      "heroPosition": "50% 46%",
+      "banner": "assets/photos/sb-library.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Academics",
+          "href": "/academics/"
+        },
+        {
+          "label": "Teaching & Learning",
+          "href": "/academics/teaching-learning/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/academics/teaching-learning/smart-classrooms/",
+      "file": "academics/teaching-learning/smart-classrooms.astro",
+      "seo": {
+        "metaTitle": "Smart Classrooms & Digital Literacy",
+        "metaDescription": "Digital teaching at Sunbeam School Ballia: 75+ smart classrooms, 49+ interactive flat panels, two computer laboratories with 40+ machines each, and 100 Microsoft Innovative Educator Experts.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Smart Classrooms & Digital Literacy",
+      "heroStandfirst": "The certification is the teachers, not the hardware — a hundred of them.",
+      "heroAlt": "The computer laboratory at Sunbeam School Ballia, its machines set out along the benches.",
+      "heroPosition": "50% 50%",
+      "banner": "assets/computer lab/DSC_1204 copy.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Academics",
+          "href": "/academics/"
+        },
+        {
+          "label": "Teaching & Learning",
+          "href": "/academics/teaching-learning/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/academics/teaching-learning/stem-robotics/",
+      "file": "academics/teaching-learning/stem-robotics.astro",
+      "seo": {
+        "metaTitle": "STEM, Robotics & Enrichment",
+        "metaDescription": "STEM at Sunbeam School Ballia: a Robotics Lab with a drone, 3-D printer and telescope, board practicals from Class IX, and three national science programmes the school actually enters.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "STEM, Robotics & Enrichment",
+      "heroStandfirst": "Named rooms and entered programmes — and a drone that came second in Malaysia.",
+      "heroAlt": "Students of Sunbeam School Ballia working along the chemistry bench, test tubes held over the burners.",
+      "heroPosition": "50% 44%",
+      "banner": "assets/photos/sb-chem-lab.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Academics",
+          "href": "/academics/"
+        },
+        {
+          "label": "Teaching & Learning",
+          "href": "/academics/teaching-learning/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/admissions/uniform-catalogue/",
+      "file": "admissions/uniform-catalogue.astro",
+      "seo": {
+        "metaTitle": "Uniform Catalogue",
+        "metaDescription": "The official uniform catalogues of Sunbeam School Ballia: the Winter Uniform Catalogue for Session 2025-26 and the school's general uniform catalogue, with the class groups, seasons, shoe list and uniform notes they set out.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Uniform Catalogue",
+      "heroStandfirst": "School uniform and dress guidelines for all classes and seasons.",
+      "heroAlt": "The main building of Sunbeam School Ballia at Agarsanda, seen across its front lawn.",
+      "heroPosition": "50% 46%",
+      "banner": "assets/photos/sunbeem-1.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Essential Information",
+          "href": "/admissions/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/alumni/",
+      "file": "alumni/index.astro",
+      "seo": {
+        "metaTitle": "Alumni",
+        "metaDescription": "The alumni record of Sunbeam School Ballia: the school's alumni meets, and the former students whose degree, institution and placement the school has published.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Alumni",
+      "heroStandfirst": "From the classrooms of Sunbeam Ballia, into the world beyond.",
+      "heroAlt": "Alumni and staff of Sunbeam School Ballia gathered on the school steps at Pradiptam 2.0, the school's alumni meet.",
+      "heroPosition": "50% 42%",
+      "banner": "assets/alumni-meets/pradiptam-2-0-2026-27/01-group-on-the-steps.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/alumni/registration/",
+      "file": "alumni/registration.astro",
+      "seo": {
+        "metaTitle": "Alumni Registration",
+        "metaDescription": "Leave your details so Sunbeam School Ballia can reach you about its alumni meets. A proposed registration form for the school's former students, alongside the published record of Pradiptam 2.0.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Alumni Registration",
+      "heroStandfirst": "Reconnect. Remember. Stay connected.",
+      "heroAlt": "Four students of Sunbeam School Ballia in blazers, arms around one another, looking across the campus.",
+      "heroPosition": "50% 62%",
+      "banner": "assets/alumni-meets/allumniBanner.png",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Alumni",
+          "href": "/alumni/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/beyond-academics/achievements/",
+      "file": "beyond-academics/achievements.astro",
+      "seo": {
+        "metaTitle": "Achievements",
+        "metaDescription": "What Sunbeam School Ballia has won: a second place at the RoboWunder International Robotics Championship in Kuala Lumpur, Rank 2 in Uttar Pradesh at the National School Innovation Awards, CBSE Cluster V Kho-Kho gold, six years as Education World's #1 co-ed day school in Ballia, and the full sporting and academic record.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Achievements",
+      "heroStandfirst": "An international robotics placing, a national innovation ranking, six years at the top of the district — and the full record behind them.",
+      "heroAlt": "An award ceremony on stage in the hall at Sunbeam School Ballia",
+      "heroPosition": "50% 42%",
+      "banner": "assets/photos/sunbeem-4.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Beyond Academics",
+          "href": "/beyond-academics/sports/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/beyond-academics/excursions/",
+      "file": "beyond-academics/excursions.astro",
+      "seo": {
+        "metaTitle": "Excursions & Educational Tours",
+        "metaDescription": "Where Sunbeam School Ballia takes its students: a Model United Nations floor in Odisha, the IMUN summit at Indore, the Jaipur Heritage Festival, Buxar Fort, and a dairy, a district court and a forest park within an afternoon of school.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Excursions & Educational Tours",
+      "heroStandfirst": "A dairy, a district court and a forest park within an afternoon of school — and a conference floor in Odisha for those who go furthest.",
+      "heroAlt": "Sunbeam School Ballia students and staff with the school banner at the IMUN conference",
+      "heroPosition": "50% 38%",
+      "banner": "assets/excursions/imun-1.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Beyond Academics",
+          "href": "/beyond-academics/sports/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/beyond-academics/school-activities/",
+      "file": "beyond-academics/school-activities/index.astro",
+      "seo": {
+        "metaTitle": "School Activities",
+        "metaDescription": "Camps, ceremonies, commemorations and days out, as the school photographed them.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "School Activities",
+      "heroStandfirst": "Camps, ceremonies, commemorations and days out, as the school photographed them.",
+      "heroAlt": null,
+      "heroPosition": null,
+      "banner": null,
+      "crumbs": [],
+      "wasInterpolated": [
+        "title is template: ${schoolActivities.title} — Sunbeam School Ballia",
+        "description is expr: schoolActivities.standfirst"
+      ]
+    },
+    {
+      "route": "/beyond-academics/sports/",
+      "file": "beyond-academics/sports.astro",
+      "seo": {
+        "metaTitle": "Sports & Games",
+        "metaDescription": "Sport at Sunbeam School Ballia: the JOSH ground, the basketball court, the junior park and the shooting range; fifteen games indoor and out; inter-house competition through to a national women's league; and a record that includes CBSE Cluster V Kho-Kho.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Sports & Games",
+      "heroStandfirst": "Four places to play, fifteen games on the roster, and a games period that reaches every year group in the school.",
+      "heroAlt": "The JOSH ground at Sunbeam School Ballia, seen through the school gateway arch",
+      "heroPosition": "50% 58%",
+      "banner": "assets/JOSH GROUND/DSC_1287 copy.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Beyond Academics",
+          "href": "/beyond-academics/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/campus/facilities-infrastructure/",
+      "file": "campus/facilities-infrastructure.astro",
+      "seo": {
+        "metaTitle": "Facilities & Infrastructure",
+        "metaDescription": "The complete infrastructure of Sunbeam School Ballia — 75+ smart classrooms with 49+ interactive panels, twelve laboratories including robotics, the 17,574-book Nalanda Library, two computer labs, a shooting range, 29+ GPS-tracked buses and full CCTV.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Facilities & Infrastructure",
+      "heroStandfirst": "Thirty smart classrooms, ten laboratories, fifteen thousand books, a shooting range and a fleet of twenty-nine buses — the whole of what this campus holds.",
+      "heroAlt": "The Sunbeam School Ballia campus at Agarsanda, seen across the school ground.",
+      "heroPosition": "50% 58%",
+      "banner": "assets/photos/sunbeem-1.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Campus Tour",
+          "href": "/campus/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/campus/",
+      "file": "campus/index.astro",
+      "seo": {
+        "metaTitle": "Explore Our Campus",
+        "metaDescription": "A tour of the Sunbeam School Ballia campus at Agarsanda — the Nalanda Library, twelve subject laboratories, computer labs, the JOSH ground and the playground, in 68 photographs.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Explore Our Campus",
+      "heroStandfirst": "The Nalanda Library, twelve laboratories, two computer labs and the ground the whole school assembles on — photographed room by room.",
+      "heroAlt": "The Sunbeam School Ballia campus at Agarsanda, seen across the school ground.",
+      "heroPosition": "50% 58%",
+      "banner": "assets/photos/sunbeem-1.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/campus/safety-security/",
+      "file": "campus/safety-security.astro",
+      "seo": {
+        "metaTitle": "Safety & Security",
+        "metaDescription": "Safety at Sunbeam School Ballia: 24×7 security guards, full CCTV coverage, a 15,000-litre fire hose reel, extinguishers in every corridor, attendants in junior classes, and a GPS-tracked, speed-governed bus fleet across 22 routes.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Safety & Security",
+      "heroStandfirst": "Guards on duty every hour of the year, cameras across the campus, and a fleet that is tracked on every one of its twenty-two routes.",
+      "heroAlt": "The Sunbeam School Ballia campus at Agarsanda — the four-storey teaching block seen across the school ground.",
+      "heroPosition": "50% 62%",
+      "banner": "assets/photos/sunbeem-1.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Campus Tour",
+          "href": "/campus/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/campus/transport/",
+      "file": "campus/transport.astro",
+      "seo": {
+        "metaTitle": "School Transport & Bus Routes",
+        "metaDescription": "Bus routes for Sunbeam School Ballia: 22 buses across 28 route runs and 91 boarding points. Search your area to find the bus that stops near you, with the driver's name and number for every route.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Transport",
+      "heroStandfirst": "22 buses, 28 route runs and 91 boarding points across Ballia — search your area to find the bus that stops near you.",
+      "heroAlt": "The main building of Sunbeam School Ballia",
+      "heroPosition": "50% 62%",
+      "banner": "assets/photos/sunbeem-1.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Campus Tour",
+          "href": "/campus/"
+        }
+      ],
+      "wasInterpolated": [
+        "description is template: Bus routes for Sunbeam School Ballia: ${stats.buses} buses a",
+        "heroStandfirst is template: ${stats.buses} buses, ${stats.runs} route runs and ${stats.s"
+      ]
+    },
+    {
+      "route": "/career/",
+      "file": "career.astro",
+      "seo": {
+        "metaTitle": "Career",
+        "metaDescription": "Teaching and support-staff vacancies at Sunbeam School Ballia, Ballia — PGT, TGT, PRT, NTT, sports coaches and school transport. Send your CV to appointmentsunbeamballia@gmail.com.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Career",
+      "heroStandfirst": "Openings at the school, as the school has advertised them. Enlarge any poster to read it in full.",
+      "heroAlt": null,
+      "heroPosition": "50% 58%",
+      "banner": "assets/photos/sunbeem-1.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        }
+      ],
+      "wasInterpolated": [
+        "title is template: Career — ${school.name}",
+        "description is template: Teaching and support-staff vacancies at ${school.name}, ${sc",
+        "heroAlt is template: The main building of ${school.name} seen across its ground"
+      ]
+    },
+    {
+      "route": "/contact-us/",
+      "file": "contact-us.astro",
+      "seo": {
+        "metaTitle": "Contact",
+        "metaDescription": "Reach Sunbeam School Ballia — admissions, school office and transport numbers, email, and the campus address at Agarsanda, near Hanuman Temple, Ballia.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Contact us",
+      "heroStandfirst": "Where the school is, who to call, and a message form that reaches the office.",
+      "heroAlt": null,
+      "heroPosition": "50% 58%",
+      "banner": "assets/photos/sunbeem-1.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        }
+      ],
+      "wasInterpolated": [
+        "title is template: Contact — ${school.name}",
+        "description is template: Reach ${school.name} — admissions, school office and transpo",
+        "heroAlt is template: The main building of ${school.name} seen across its ground, "
+      ]
+    },
+    {
+      "route": "/download-tc/",
+      "file": "download-tc.astro",
+      "seo": {
+        "metaTitle": "Download Transfer Certificate",
+        "metaDescription": "Enter your enrolment number to check and download your Transfer Certificate from Sunbeam School Ballia.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Get Your Transfer Certificate",
+      "heroStandfirst": "Enter your enrolment number to check and download your Transfer Certificate.",
+      "heroAlt": "The main building of Sunbeam School Ballia at Agarsanda, seen across its front lawn.",
+      "heroPosition": "50% 46%",
+      "banner": "assets/photos/sunbeem-1.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Essential Information",
+          "href": "/admissions/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/general-info/",
+      "file": "general-info.astro",
+      "seo": {
+        "metaTitle": "Mandatory Public Disclosure",
+        "metaDescription": "The CBSE Mandatory Public Disclosure for Sunbeam School Ballia: affiliation 2131962, school code 70205, the school's certificates, three years of Class X and XII board results, all 131 filed staff members, and its infrastructure figures.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Mandatory Public Disclosure",
+      "heroStandfirst": "Official information and documents published by Sunbeam School Ballia in accordance with CBSE guidelines.",
+      "heroAlt": "The main building of Sunbeam School Ballia at Agarsanda, seen across its front lawn.",
+      "heroPosition": "50% 46%",
+      "banner": "assets/photos/sunbeem-1.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "General Information",
+          "href": "/general-info/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/",
+      "file": "index.astro",
+      "seo": {
+        "metaTitle": "Sunbeam School Ballia — CBSE co-educational school, Nursery to Class XII",
+        "metaDescription": "Sunbeam School Ballia, established 2013 at Agarsanda. A CBSE co-educational day school for Nursery to Class XII, ranked Ballia's #1 co-ed day school by Education World for six consecutive years.",
+        "noIndex": false
+      },
+      "titleStandalone": true,
+      "heroTitle": "Where Ballia’s Future Leaders Take Shape",
+      "heroStandfirst": null,
+      "heroAlt": null,
+      "heroPosition": null,
+      "banner": null,
+      "crumbs": [],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/news-events/celebrations/",
+      "file": "news-events/celebrations/index.astro",
+      "seo": {
+        "metaTitle": "Celebrations",
+        "metaDescription": "The national days, the festivals and the mornings the school stops for — with the guests who came and the classes who ran them.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Celebrations",
+      "heroStandfirst": "The national days, the festivals and the mornings the school stops for — with the guests who came and the classes who ran them.",
+      "heroAlt": "A cultural programme on stage at Sunbeam School Ballia",
+      "heroPosition": "50% 40%",
+      "banner": "assets/photos/sunbeem-2.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "News & Events",
+          "href": "/news-events/"
+        }
+      ],
+      "wasInterpolated": [
+        "title is template: ${celebrations.title} — Sunbeam School Ballia",
+        "description is expr: celebrations.standfirst",
+        "heroTitle is expr: celebrations.title",
+        "heroStandfirst is expr: celebrations.standfirst"
+      ]
+    },
+    {
+      "route": "/news-events/competitions/",
+      "file": "news-events/competitions/index.astro",
+      "seo": {
+        "metaTitle": "Competitions",
+        "metaDescription": "Where the school competes and what it hosts — from a Class I speaking contest to a district chess championship run on its own ground.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Competitions",
+      "heroStandfirst": "Where the school competes and what it hosts — from a Class I speaking contest to a district chess championship run on its own ground.",
+      "heroAlt": "The JOSH ground at Sunbeam School Ballia, the volleyball court marked out and the school's name on the boundary wall",
+      "heroPosition": "50% 55%",
+      "banner": "assets/JOSH GROUND/DSC_1283 copy.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "News & Events",
+          "href": "/news-events/"
+        }
+      ],
+      "wasInterpolated": [
+        "title is template: ${competitions.title} — Sunbeam School Ballia",
+        "description is expr: competitions.standfirst",
+        "heroTitle is expr: competitions.title",
+        "heroStandfirst is expr: competitions.standfirst"
+      ]
+    },
+    {
+      "route": "/news-events/",
+      "file": "news-events/index.astro",
+      "seo": {
+        "metaTitle": "Latest News & Events",
+        "metaDescription": "What is happening at Sunbeam School Ballia: recent achievements, school events, competitions, workshops for parents, celebrations, and the announcements families need.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Latest News & Events",
+      "heroStandfirst": "Achievements, events, competitions, workshops, celebrations and the announcements that matter — what the school is doing now.",
+      "heroAlt": "An award ceremony at Sunbeam School Ballia",
+      "heroPosition": "50% 40%",
+      "banner": "assets/photos/sunbeem-4.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/news-events/notices/",
+      "file": "news-events/notices.astro",
+      "seo": {
+        "metaTitle": "School Notices",
+        "metaDescription": "Official notices from Sunbeam School Ballia — the school's own published notice posters, searchable by title and filterable by year.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "School Notices",
+      "heroStandfirst": "Important announcements, circulars and updates from Sunbeam School Ballia.",
+      "heroAlt": "The main building of Sunbeam School Ballia at Agarsanda, seen across its front lawn.",
+      "heroPosition": "50% 46%",
+      "banner": "assets/photos/sunbeem-1.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/news-events/school-events/",
+      "file": "news-events/school-events/index.astro",
+      "seo": {
+        "metaTitle": "School Events",
+        "metaDescription": "The programmes the school runs and the people it brings in — an IRS officer, a retired professor, Monash University, and a book fair opened by the CRO.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "School Events",
+      "heroStandfirst": "The programmes the school runs and the people it brings in — an IRS officer, a retired professor, Monash University, and a book fair opened by the CRO.",
+      "heroAlt": "A guest addressing students and staff on stage at Sunbeam School Ballia",
+      "heroPosition": "50% 42%",
+      "banner": "assets/photos/sunbeem-5.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "News & Events",
+          "href": "/news-events/"
+        }
+      ],
+      "wasInterpolated": [
+        "title is template: ${schoolEvents.title} — Sunbeam School Ballia",
+        "description is expr: schoolEvents.standfirst",
+        "heroTitle is expr: schoolEvents.title",
+        "heroStandfirst is expr: schoolEvents.standfirst"
+      ]
+    },
+    {
+      "route": "/news-events/workshops/",
+      "file": "news-events/workshops/index.astro",
+      "seo": {
+        "metaTitle": "Workshops",
+        "metaDescription": "Fifteen sessions run for the people who teach — counselling, pedagogy, AI in the classroom and the CBSE capacity-building programme.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Workshops",
+      "heroStandfirst": "Fifteen sessions run for the people who teach — counselling, pedagogy, AI in the classroom and the CBSE capacity-building programme.",
+      "heroAlt": "The library at Sunbeam School Ballia, where staff training sessions are held",
+      "heroPosition": "50% 45%",
+      "banner": "assets/photos/sb-library.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "News & Events",
+          "href": "/news-events/"
+        }
+      ],
+      "wasInterpolated": [
+        "title is template: ${workshops.title} — Sunbeam School Ballia",
+        "description is expr: workshops.standfirst",
+        "heroTitle is expr: workshops.title",
+        "heroStandfirst is expr: workshops.standfirst"
+      ]
+    },
+    {
+      "route": "/result/",
+      "file": "result.astro",
+      "seo": {
+        "metaTitle": "Result",
+        "metaDescription": "Check your report card through the online result portal of Sunbeam School Ballia.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Result",
+      "heroStandfirst": "Check your report card through the school's online result portal.",
+      "heroAlt": "The main building of Sunbeam School Ballia at Agarsanda, seen across its front lawn.",
+      "heroPosition": "50% 46%",
+      "banner": "assets/photos/sunbeem-1.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        }
+      ],
+      "wasInterpolated": []
+    }
+  ]
+}

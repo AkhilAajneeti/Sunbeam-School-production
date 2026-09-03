@@ -1,0 +1,33 @@
+{
+  "collectionName": "components_academics_class_docs",
+  "info": {
+    "displayName": "Class syllabus",
+    "icon": "file",
+    "description": "One class and its published syllabus — either an uploaded PDF or a link to one. ⚠ With neither, the card says the syllabus is issued by the school instead of pretending to be a download."
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true,
+      "maxLength": 40
+    },
+    "file": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "files"
+      ],
+      "description": "Upload the syllabus PDF here. This is the simplest way — the card links to it and prints its size on its own. If a file is uploaded it is used, and the link below is ignored."
+    },
+    "href": {
+      "type": "string",
+      "maxLength": 400,
+      "description": "Or paste a link to a PDF already published elsewhere. Only used when no file is uploaded above. Leave both empty and the card says the syllabus is issued by the school."
+    },
+    "sizeMb": {
+      "type": "integer",
+      "description": "Only needed for a pasted link — an uploaded file reports its own size. Megabytes, printed on the card so a parent on mobile data can see it before opening."
+    }
+  }
+}

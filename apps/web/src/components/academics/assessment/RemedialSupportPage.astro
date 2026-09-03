@@ -41,16 +41,20 @@
  *   04 · CREAM  one callout — the page's single editorial statement.
  *   05 · PHOTO  the cinematic close.
  */
-import { Picture } from 'astro:assets';
+import SmartImage from '../../../components/ui/SmartImage.astro';
 import '../../../styles/assessment.css';
 import { MARK } from './marks';
 import AsRail from './AsRail.astro';
 import AsClose from './AsClose.astro';
 
 /* ── PHOTOGRAPHY — three genuine Sunbeam Ballia frames, each used ONCE. ───── */
-import pBench from '../../../assets/photos/sb-chem-lab.jpg';
-import pActivity from '../../../assets/photos/sb-maths-lab.jpg';
-import pCohort from '../../../assets/photos/sunbeem-3.jpg';
+import { getAcademicTopic } from '../../../lib/cms';
+import RichLine from '../../ui/RichLine.astro';
+
+const ac = await getAcademicTopic('/academics/assessment/remedial-support/');
+const pBench = ac.pic('pBench');
+const pActivity = ac.pic('pActivity');
+const pCohort = ac.pic('pCohort');
 
 const S = 'Sunbeam School Ballia';
 
@@ -59,41 +63,10 @@ const MENTORING = '/academics/assessment/mentoring/';
 const PTM = '/academics/assessment/parent-teacher-meetings/';
 
 /* ── SECTION 02 — the journey, in the order it happens ───────────────────── */
-const journey = [
-  { n: '01', mark: 'search', k: 'Identify', v: 'A result falls below the required mark in one subject — Classes VIII and IX — or one subject is failed in Class XI.' },
-  { n: '02', mark: 'hand', k: 'Support', v: 'Additional teaching is provided in that subject. The support is attached to the subject, not to the student.' },
-  { n: '03', mark: 'hourglass', k: 'Prepare', v: 'At least ten days pass before the retest, so the additional teaching has actually happened.' },
-  { n: '04', mark: 'clipboard', k: 'Retest', v: 'The student sits the retest on the published schedule, and the result is declared with the annual one.' },
-] as const;
+const journey = ac.section('journey').points;
 
 /* ── SECTION 03 — the published rules, one row each ──────────────────────── */
-const rules = [
-  {
-    mark: 'hands',
-    k: 'Applicable classes',
-    v: 'Classes VIII and IX where a single subject falls below the threshold, and Class XI where one subject is failed.',
-  },
-  {
-    mark: 'book',
-    k: 'Additional teaching',
-    v: 'Extra teaching is provided in that subject before any retest is sat — the second chance is to learn it, not to sit it again.',
-  },
-  {
-    mark: 'calendar',
-    k: 'Preparation time',
-    v: 'A retest sits no sooner than <strong>ten days</strong> after results are announced, with <strong>two clear days</strong> between papers where a student sits more than one.',
-  },
-  {
-    mark: 'megaphone',
-    k: 'Results window',
-    v: 'Results are published within <strong>two and a half weeks</strong> of the main examination — short enough for the ten-day clock to be useful.',
-  },
-  {
-    mark: 'shield',
-    k: 'Medical absence',
-    v: 'A medical certificate does not waive the retest. A promotion is not given on the half-yearly alone.',
-  },
-] as const;
+const rules = ac.section('rules').points;
 ---
 
 {/* ══ 01 · ONE SUBJECT, NOT THE WHOLE YEAR ═══════════════════════════════════
@@ -145,10 +118,10 @@ const rules = [
     <div class="rs-open__stage">
       <span class="rs-open__glow" aria-hidden="true"></span>
       <div class="rs-open__lead as-frame as-fill" data-mask>
-        <Picture
-          src={pBench}
-          alt={`Students of ${S} working along the chemistry bench, test tubes held over the burners`}
-          formats={['webp']}
+        <SmartImage
+          file={pBench}
+          alt={ac.picAlt('pBench')}
+         
           widths={[520, 880, 1200]}
           sizes="(max-width: 1023px) 92vw, 44vw"
           loading="eager"
@@ -156,10 +129,10 @@ const rules = [
         />
       </div>
       <div class="rs-open__sm as-frame as-frame--float as-fill" data-pop data-pop-delay="200">
-        <Picture
-          src={pActivity}
-          alt={`Students of ${S} seated on the floor of a decorated activity room during a lesson`}
-          formats={['webp']}
+        <SmartImage
+          file={pActivity}
+          alt={ac.picAlt('pActivity')}
+         
           widths={[320, 560]}
           sizes="(max-width: 1023px) 46vw, 18vw"
           loading="lazy"
@@ -225,7 +198,11 @@ const rules = [
           </span>
           <div class="as-row__t">
             <p class="as-row__k">{r.k}</p>
-            <p class="as-row__v" set:html={r.v} />
+            <RichLine
+  tag="p"
+  class="as-row__v"
+  text={r.v}
+/>
           </div>
         </li>
       ))}

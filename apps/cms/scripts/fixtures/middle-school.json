@@ -1,0 +1,323 @@
+{
+  "open": {
+    "kicker": "Classes VI – VIII",
+    "heading": "A real venture,\n{{end to end.}}",
+    "body": [
+      "The school’s description of **KIDS Entrepreneurship** is six words long and does the whole job: *“a Class 7 programme that runs a real venture end to end.”* Not a simulation and not a case study — a venture, carried from start to finish by twelve-year-olds.",
+      "Around it the stage turns academic. **Specialist teaching begins**, and the general science laboratory — the middle-school room specifically — opens for practical work well before the board syllabus needs it."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pMicro",
+        "asset": "assets/photos/sb-sci-lab.jpg",
+        "name": "sb-sci-lab",
+        "alt": "A student of {schoolName} using a microscope beside plant specimens in flasks"
+      },
+      {
+        "key": "pMaking",
+        "asset": "assets/School Activity in Uniform/Embriodery.jpg",
+        "name": "Embriodery",
+        "alt": "Students of {schoolName} working together on embroidery from one shared basket of thread"
+      },
+      {
+        "key": "pJunior",
+        "asset": "assets/photos/sb-comp-lab-2.jpg",
+        "name": "sb-comp-lab-2",
+        "alt": "Younger students of {schoolName} working at desktop computers in the junior computer laboratory"
+      }
+    ],
+    "cells": [
+      {
+        "mark": "venture",
+        "label": "A real venture",
+        "value": "KIDS Entrepreneurship, Class VII."
+      },
+      {
+        "mark": "microscope",
+        "label": "Practical science",
+        "value": "The general science laboratory opens."
+      },
+      {
+        "mark": "hand",
+        "label": "Independent projects",
+        "value": "Work carried without being carried."
+      },
+      {
+        "mark": "team",
+        "label": "Specialist teaching",
+        "value": "One subject, one specialist."
+      }
+    ],
+    "cellsTwo": []
+  },
+  "exp": {
+    "kicker": "Beyond the timetable",
+    "heading": "Learning becomes\n{{more independent.}}",
+    "body": [
+      "Four things change between Class V and Class VI, and the school publishes all four. None of them is a promise about attitude — each is a room, a post or a programme with a name."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pLibrary",
+        "asset": "assets/photos/sb-library.jpg",
+        "name": "sb-library",
+        "alt": "Students of {schoolName} reading and working at tables in the Nalanda Library"
+      },
+      {
+        "key": "pMachines",
+        "asset": "assets/computer lab/it-3.jpeg",
+        "name": "it-3",
+        "alt": "A class at {schoolName} at work in the computer laboratory, a teacher standing at the back of the room"
+      }
+    ],
+    "cells": [
+      {
+        "label": "Specialist teaching",
+        "value": "A subject taught by somebody who teaches only that subject — the change that defines this stage."
+      },
+      {
+        "label": "Practical learning",
+        "value": "The general science laboratory is the middle-school room specifically, and it opens before the board syllabus starts."
+      },
+      {
+        "label": "Laboratory work",
+        "value": "Twelve laboratories, four of them inquiry rooms, and two computer labs with 40+ machines each."
+      },
+      {
+        "label": "A venture of their own",
+        "value": "Class VII runs KIDS Entrepreneurship — not a simulation, not a case study, but a real venture end to end."
+      }
+    ],
+    "cellsTwo": []
+  },
+  "doing": {
+    "kicker": "When the lesson leaves the page",
+    "heading": "Ideas become\n{{something you can do.}}",
+    "body": [
+      "The laboratories are the visible half of this stage. The school runs twelve of them, and the photographs below are the three rooms in which a middle-school class most often ends up.",
+      "The full inventory — and which four of the twelve are inquiry rooms rather than subject laboratories — is on [Laboratories & Academic Clubs](/academics/teaching-learning/laboratories-clubs/).",
+      "Chemistry",
+      "Students at the bench, not watching one.",
+      "Biology",
+      "Glassware in hand, at twelve years old.",
+      "Activity room",
+      "A lesson that does not need desks."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pBench",
+        "asset": "assets/photos/sb-chem-lab.jpg",
+        "name": "sb-chem-lab",
+        "alt": "Students of {schoolName} at the bench in the chemistry laboratory"
+      },
+      {
+        "key": "pGlass",
+        "asset": "assets/photos/sb-bio-lab.jpg",
+        "name": "sb-bio-lab",
+        "alt": "Two students of {schoolName} handling glassware in the biology laboratory"
+      },
+      {
+        "key": "pFloor",
+        "asset": "assets/photos/sb-maths-lab.jpg",
+        "name": "sb-maths-lab",
+        "alt": "Students of {schoolName} seated on the floor of a decorated activity room during a lesson"
+      }
+    ],
+    "cells": [],
+    "cellsTwo": []
+  },
+  "four": {
+    "kicker": "The middle school mix",
+    "heading": "Four ways\n{{students grow.}}",
+    "body": [],
+    "caption": null,
+    "shots": [],
+    "cells": [
+      {
+        "mark": "bulb",
+        "label": "Understand",
+        "value": "Specialist teaching begins, and a subject stops being one strand of a general lesson."
+      },
+      {
+        "mark": "flask",
+        "label": "Experiment",
+        "value": "The general science laboratory is the middle-school room, used before the board years need it."
+      },
+      {
+        "mark": "make",
+        "label": "Create",
+        "value": "Class VII carries a real venture from start to finish under the KIDS programme."
+      },
+      {
+        "mark": "speech",
+        "label": "Communicate",
+        "value": "Four inquiry rooms — debate, committee procedure, making and open-ended work."
+      }
+    ],
+    "cellsTwo": []
+  },
+  "subj": {
+    "kicker": "More to learn",
+    "heading": "More subjects.\nMore {{ways to think.}}",
+    "body": [
+      "The school does not publish a middle-school subject scheme. What it publishes twice — on its own recruitment notices, naming **grades 6 to 8** — is the list of subjects it hires middle-school teachers for. Those five are marked below.",
+      "The last three are rooms on the facilities inventory rather than subjects the school has named for this stage, and are set apart as that. Curriculum documents are published class by class as [PRECEPT](/academics/philosophy/curriculum/); the notices themselves are on [Career](/career/)."
+    ],
+    "caption": null,
+    "shots": [],
+    "cells": [
+      {
+        "mark": "langue",
+        "label": "English",
+        "value": "Named on both published recruitment notices.",
+        "flag": true
+      },
+      {
+        "mark": "atom",
+        "label": "Science",
+        "value": "With the general science laboratory alongside it.",
+        "flag": true
+      },
+      {
+        "mark": "globe",
+        "label": "Social Science",
+        "value": "Named on both published recruitment notices.",
+        "flag": true
+      },
+      {
+        "mark": "sigma",
+        "label": "Mathematics",
+        "value": "And a mathematics laboratory — the room most schools skip.",
+        "flag": true
+      },
+      {
+        "mark": "speech",
+        "label": "French",
+        "value": "Added to the middle-school list on the 2024-25 notice.",
+        "flag": true
+      },
+      {
+        "mark": "screen",
+        "label": "Computing",
+        "value": "Two laboratories, 40+ machines each — a room, not a stated subject.",
+        "flag": false
+      },
+      {
+        "mark": "ball",
+        "label": "Physical education",
+        "value": "Fifteen sports across the indoor and outdoor programme.",
+        "flag": false
+      },
+      {
+        "mark": "brush",
+        "label": "Art & activities",
+        "value": "A dedicated art room, a dance room and the music programme.",
+        "flag": false
+      }
+    ],
+    "cellsTwo": []
+  },
+  "lab": {
+    "kicker": "From classroom to lab",
+    "heading": "The room changes.\n{{The question stays.}}",
+    "body": [
+      "Twelve laboratories, and the school’s own count puts **four of them** outside the subject list altogether — Geography, Srijan, Model United Nations and Active Learning. They are inside the twelve, not added to it, and they are where a middle-school question goes when it has no single right answer.",
+      "What the Robotics Lab holds is set out on [STEM, Robotics & Enrichment](/academics/teaching-learning/stem-robotics/)."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pChem",
+        "asset": "assets/chem lab/DSC_1262 copy.jpg",
+        "name": "DSC_1262 copy",
+        "alt": "The chemistry laboratory at {schoolName}, benches laid out with reagent shelves and gas taps"
+      }
+    ],
+    "cells": [
+      {
+        "mark": "flask",
+        "label": "Science",
+        "value": "Twelve laboratories in all."
+      },
+      {
+        "mark": "chip",
+        "label": "Robotics",
+        "value": "Drone · 3-D printer · telescope."
+      },
+      {
+        "mark": "screen",
+        "label": "Computing",
+        "value": "Junior and senior labs."
+      },
+      {
+        "mark": "spark",
+        "label": "Inquiry rooms",
+        "value": "Four of the twelve."
+      }
+    ],
+    "cellsTwo": []
+  },
+  "ach": {
+    "kicker": "Learning worth remembering",
+    "heading": "Miss Ayana Pandey,\n{{Class VIII.}}",
+    "body": [
+      "This stage’s published achievement belongs to a named student. Ayana Pandey of Class VIII won the **Shining Star Kids Fashion Show** in 2025 — a contest of more than seventy entrants, with the award presented by **Miss Universe India 2024, Riya Singha**.",
+      "No photograph of the contest has been published, so none is shown. The rest of the record, year group by year group, is on [Student Success](/academics/student-success/)."
+    ],
+    "caption": null,
+    "shots": [],
+    "cells": [],
+    "cellsTwo": []
+  },
+  "jrn": {
+    "kicker": "The middle school journey",
+    "heading": "From guided learning\nto {{independent thinking.}}",
+    "body": [],
+    "caption": null,
+    "shots": [],
+    "cells": [
+      {
+        "mark": "ask",
+        "label": "Question",
+        "value": "Four inquiry rooms for the work that has no single right answer."
+      },
+      {
+        "mark": "compass",
+        "label": "Explore",
+        "value": "The laboratories open up, and specialist teaching begins."
+      },
+      {
+        "mark": "target",
+        "label": "Apply",
+        "value": "Class VII runs a real venture, end to end."
+      },
+      {
+        "mark": "present",
+        "label": "Present",
+        "value": "Debate, committee procedure and position papers in the MUN room."
+      }
+    ],
+    "cellsTwo": []
+  },
+  "close": {
+    "kicker": "A strong beginning",
+    "heading": "Twelve years old,\n{{and already building.}}",
+    "body": [
+      "The school names the KIDS programme, its class, the rooms that open at this stage and the one published achievement that belongs to it. What KIDS runs week to week — and photography of it — are not published, and are not invented here."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pCohort",
+        "asset": "assets/photos/sunbeem-3.jpg",
+        "name": "sunbeem-3",
+        "alt": ""
+      }
+    ],
+    "cells": [],
+    "cellsTwo": []
+  }
+}

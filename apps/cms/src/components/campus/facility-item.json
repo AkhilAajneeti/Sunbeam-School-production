@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_campus_facility_items",
+  "info": {
+    "displayName": "Facility Item",
+    "icon": "bulletList",
+    "description": "One line of the infrastructure inventory. `unlisted` marks a facility the school has NOT published — the page shows it differently rather than claiming it."
+  },
+  "options": {},
+  "attributes": {
+    "label": { "type": "string", "required": true, "maxLength": 200 },
+    "body": { "type": "text", "required": true, "maxLength": 1000 },
+    "icon": { "type": "string", "maxLength": 40 },
+    "unlisted": { "type": "boolean", "default": false, "required": true },
+    "photo": { "type": "string", "maxLength": 120 }
+  }
+}

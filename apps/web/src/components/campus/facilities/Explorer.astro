@@ -1,4 +1,7 @@
 ---
+import { getFacilitiesData } from '../../../lib/cms';
+const {allItems, groups} = await getFacilitiesData();
+
 /**
  * §5 · FACILITY EXPLORER — the complete list, filterable, in one grid.
  *
@@ -15,7 +18,7 @@
  * background colours": the only colour is the icon plate, and only the hover
  * state moves.
  */
-import { allItems, groups } from '../../../data/facilities';
+
 import { showBuildNotes } from '../../../data/site';
 import SectionHead from '../../academics/SectionHead.astro';
 import FacIcon from './FacIcon.astro';

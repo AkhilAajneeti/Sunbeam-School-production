@@ -1,4 +1,8 @@
 ---
+import { getCampusTourData, getCampusSafetyData } from '../../../lib/cms';
+const {facilities} = await getCampusTourData();
+const {mapPoints} = await getCampusSafetyData();
+
 /**
  * §2 · CAMPUS SECURITY PLAN — an interactive schematic with hotspots.
  *
@@ -16,9 +20,9 @@
  * Nothing here is hover-only — that was the failure mode this pattern usually
  * ships with, and it makes the whole section unusable on a phone.
  */
-import { Picture } from 'astro:assets';
-import { mapPoints } from '../../../data/campus';
-import { facilities } from '../../../data/campusTour';
+import CmsImage from '../../ui/CmsImage.astro';
+
+
 import { showBuildNotes } from '../../../data/site';
 import SectionHead from '../../academics/SectionHead.astro';
 import SafetyIcon from './SafetyIcon.astro';
@@ -131,15 +135,13 @@ const icons: Record<string, string> = {
           <article class="cmap__card" data-cmap-card={pt.id} hidden={i !== 0}>
             {shots[pt.photo ?? ''] ? (
               <span class="cmap__shot">
-                <Picture
-                  src={shots[pt.photo!]!}
+                <CmsImage
+                  file={shots[pt.photo!]!}
                   alt={`${pt.label} — Sunbeam School Ballia`}
-                  formats={['webp']}
-                  widths={[400, 800]}
                   sizes="320px"
                   loading="lazy"
-                  decoding="async"
-                />
+      fallbackWidth={760}
+    />
               </span>
             ) : (
               <span class="cmap__noshot">Photograph pending</span>

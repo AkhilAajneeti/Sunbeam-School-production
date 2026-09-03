@@ -32,16 +32,19 @@
  *   03 · CREAM  a four-item information strip on thin vertical rules.
  *   04 · PHOTO  the cinematic close.
  */
-import { Picture } from 'astro:assets';
+import SmartImage from '../../../components/ui/SmartImage.astro';
 import '../../../styles/assessment.css';
 import { MARK } from './marks';
 import AsClose from './AsClose.astro';
 
-import pExam from '../../../assets/photos/sunbeem-students.jpg';
-import pCampus from '../../../assets/photos/sunbeem-1.jpg';
-import pLib from '../../../assets/photos/sb-library.jpg';
-import pBench from '../../../assets/photos/sb-chem-lab.jpg';
-import pCohort from '../../../assets/photos/sunbeem-5.jpg';
+import { getAcademicTopic } from '../../../lib/cms';
+
+const ac = await getAcademicTopic('/academics/board-results/');
+const pExam = ac.pic('pExam');
+const pCampus = ac.pic('pCampus');
+const pLib = ac.pic('pLib');
+const pBench = ac.pic('pBench');
+const pCohort = ac.pic('pCohort');
 
 const S = 'Sunbeam School Ballia';
 
@@ -51,20 +54,10 @@ const ASSESSMENT = '/academics/assessment/';
 
 /* ── SECTION 01 — the four absences. Every line is a true statement about the
    record, checked one at a time. ────────────────────────────────────────── */
-const absent = [
-  { mark: 'chart', k: 'No pass percentage' },
-  { mark: 'medal', k: 'No toppers list' },
-  { mark: 'ribbon', k: 'No rank holders' },
-  { mark: 'clock', k: 'No year-on-year data' },
-] as const;
+const absent = ac.section('absent').points;
 
 /* ── SECTION 03 — the information strip ─────────────────────────────────── */
-const strip = [
-  { n: '01', mark: 'calendar', k: 'No annual table', v: 'The school does not publish an annual results table for Class X or Class XII.' },
-  { n: '02', mark: 'person', k: 'No individual ranks', v: 'No toppers, no merit list, no rank holders.' },
-  { n: '03', mark: 'chart', k: 'No pass percentage', v: 'No overall pass percentage, no stream-wise percentage, no year-on-year trend.' },
-  { n: '04', mark: 'doc', k: 'Results when supplied', v: 'When the school supplies its data, it will be shown here with the year, cohort size and board.' },
-] as const;
+const strip = ac.section('strip').points;
 ---
 
 {/* ══ 01 · NO PASS RATE. NO TOPPERS. ═════════════════════════════════════════
@@ -126,10 +119,10 @@ const strip = [
       </svg>
 
       <div class="br-stage__lead as-frame as-fill" data-pop>
-        <Picture
-          src={pExam}
-          alt={`Students of ${S} working at the bench during a science practical`}
-          formats={['webp']}
+        <SmartImage
+          file={pExam}
+          alt={ac.picAlt('pExam')}
+         
           widths={[420, 760]}
           sizes="(max-width: 1023px) 60vw, 26vw"
           loading="eager"
@@ -138,10 +131,10 @@ const strip = [
       </div>
 
       <div class="br-stage__sm as-frame as-frame--float as-fill" data-pop data-pop-delay="140">
-        <Picture
-          src={pCampus}
-          alt={`The campus of ${S} at Agarsanda, its main block behind the lawns`}
-          formats={['webp']}
+        <SmartImage
+          file={pCampus}
+          alt={ac.picAlt('pCampus')}
+         
           widths={[320, 560]}
           sizes="(max-width: 1023px) 46vw, 20vw"
           loading="lazy"
@@ -189,10 +182,10 @@ const strip = [
     <figure class="br-does__stage">
       <span class="as-dots br-does__dots" aria-hidden="true"></span>
       <div class="br-does__lead as-frame as-fill" data-zoom data-zoom-to="1.04">
-        <Picture
-          src={pLib}
-          alt={`Students of ${S} reading and working at the long tables of the Nalanda Library, a member of staff at the head of the row`}
-          formats={['webp']}
+        <SmartImage
+          file={pLib}
+          alt={ac.picAlt('pLib')}
+         
           widths={[520, 880, 1200]}
           sizes="(max-width: 1023px) 92vw, 44vw"
           loading="lazy"
@@ -200,10 +193,10 @@ const strip = [
         />
       </div>
       <div class="br-does__sm as-frame as-frame--float as-fill" data-pop data-pop-delay="200">
-        <Picture
-          src={pBench}
-          alt={`Students of ${S} working along the chemistry bench, test tubes held over the burners`}
-          formats={['webp']}
+        <SmartImage
+          file={pBench}
+          alt={ac.picAlt('pBench')}
+         
           widths={[320, 560]}
           sizes="(max-width: 1023px) 46vw, 19vw"
           loading="lazy"

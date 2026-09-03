@@ -1,0 +1,254 @@
+{
+  "open": {
+    "kicker": "Nursery · LKG · UKG",
+    "heading": "A beginning\n{{of its own.}}",
+    "body": [
+      "The early years here are not a smaller version of the senior school. They are given their own grounds and their own rooms — and the school’s published description of the stage says so in one line: *“the first years on campus, in rooms and grounds built for them.”*",
+      "That includes a prayer ground of their own. **Abhayeti** belongs to the junior block and is listed separately from Naman, the senior one, so the youngest children do not begin the day at the back of somebody else’s assembly.",
+      "All five are listed on the school’s own [facilities](/campus/facilities-infrastructure/) inventory."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pPark",
+        "asset": "assets/play ground/DSC_1249 copy.jpg",
+        "name": "DSC_1249 copy",
+        "alt": "The early-years kids park at {schoolName} — a merry-go-round, seesaw and climbing rails beside the junior block"
+      },
+      {
+        "key": "pCompost",
+        "asset": "assets/school-activities/little-agriculturists/02.jpg",
+        "name": "little-agriculturists-02",
+        "alt": "A young student of {schoolName} in the yellow junior uniform tipping kitchen peel into the compost bin at the Little Agriculturists activity"
+      },
+      {
+        "key": "pTables",
+        "asset": "assets/activity learning lab/DSC_1216 copy.jpg",
+        "name": "DSC_1216 copy",
+        "alt": "The curved activity tables and toy shelves of the early-years activity room at {schoolName}"
+      }
+    ],
+    "cells": [
+      {
+        "mark": "swing",
+        "label": "Kids Park"
+      },
+      {
+        "mark": "sand",
+        "label": "Sand Pool"
+      },
+      {
+        "mark": "water",
+        "label": "Water Pool"
+      },
+      {
+        "mark": "sprout",
+        "label": "Little Agriculture Land"
+      },
+      {
+        "mark": "prayer",
+        "label": "Abhayeti Prayer Ground"
+      }
+    ],
+    "cellsTwo": []
+  },
+  "doing": {
+    "kicker": "Learning through doing",
+    "heading": "Little hands.\n{{Big first experiences.}}",
+    "body": [
+      "Almost everything the school lists for this stage is something a child does with their hands, their feet and the ground under them. The learning is physical long before it is written down.",
+      "**Photographs.** The school’s kids park, and its Little Agriculturists session. The sand pool and the water pool are published facilities it has not photographed."
+    ],
+    "caption": null,
+    "shots": [],
+    "cells": [
+      {
+        "label": "Play",
+        "sub": "Kids Park · swings",
+        "value": "Swings and play equipment, listed as the early years’ own — not a share of the senior field.",
+        "image": "assets/play ground/DSC_1246 copy.jpg",
+        "alt": "The swings in the early-years kids park at Sunbeam School Ballia",
+        "caption": "The swings, Kids Park",
+        "imageName": "play-ground-dsc_1246-copy"
+      },
+      {
+        "label": "Explore",
+        "sub": "Sand pool · water pool",
+        "value": "A shallow water play area, with sand play alongside it — “messy, and deliberately so.”",
+        "image": "assets/play ground/DSC_1248 copy.jpg",
+        "alt": "The slide, tunnel and climbing frames in the early-years kids park at Sunbeam School Ballia",
+        "caption": "The kids park slide and tunnel",
+        "imageName": "play-ground-dsc_1248-copy"
+      },
+      {
+        "label": "Grow",
+        "sub": "Little agriculture land",
+        "value": "A planting plot, and a hands-on farming activity the school runs under the name Little Agriculturist.",
+        "image": "assets/school-activities/little-agriculturists/03.jpg",
+        "alt": "Young students of Sunbeam School Ballia in gloves sorting kitchen peel for compost at the Little Agriculturists activity",
+        "caption": "Little Agriculturists · April 2024",
+        "imageName": "little-agriculturists-03"
+      }
+    ],
+    "cellsTwo": []
+  },
+  "land": {
+    "kicker": "Learning with their hands",
+    "heading": "They don’t just learn\n{{about the world.}}",
+    "body": [
+      "The school’s description of the Little Agriculture Land is one sentence long, and every verb in it belongs to the child: *“a planting plot the youngest children actually dig, sow and water.”* Not a display bed at the gate — a plot they work.",
+      "It runs as a named activity too. [Little Agriculturist](/beyond-academics/school-activities/little-agriculturists/) is published as a hands-on farming session for the youngest children, and the frames the school released from it show composting — kitchen peel and dry leaf going into the bin, gloves on, and the finished compost coming back out in a tray."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pBin",
+        "asset": "assets/school-activities/little-agriculturists/01.jpg",
+        "name": "little-agriculturists-01",
+        "alt": "A teacher and a young student of {schoolName} adding dry leaves to the compost bin under the hand-lettered Little Agriculturist sign"
+      },
+      {
+        "key": "pTrays",
+        "asset": "assets/school-activities/little-agriculturists/04.jpg",
+        "name": "04",
+        "alt": "Trays of finished compost and kitchen peel on the ground beside young students of {schoolName}"
+      }
+    ],
+    "cells": [
+      {
+        "label": "Dig."
+      },
+      {
+        "label": "Sow."
+      },
+      {
+        "label": "Water."
+      }
+    ],
+    "cellsTwo": []
+  },
+  "play": {
+    "kicker": "Play is part of the place",
+    "heading": "A place to\nmove, {{play}}\nand {{discover.}}",
+    "body": [],
+    "caption": null,
+    "shots": [],
+    "cells": [
+      {
+        "mark": "swing",
+        "label": "Swings",
+        "value": "Swings and play equipment, in the early years’ own kids park."
+      },
+      {
+        "mark": "sand",
+        "label": "Sand",
+        "value": "Sand play alongside the water pool — messy, and deliberately so."
+      },
+      {
+        "mark": "water",
+        "label": "Water",
+        "value": "A shallow water play area, inside the early-years zone."
+      },
+      {
+        "mark": "toy",
+        "label": "Toys",
+        "value": "A toy library: borrowable toys, and a first lending system at four years old."
+      }
+    ],
+    "cellsTwo": []
+  },
+  "abh": {
+    "kicker": null,
+    "heading": "A space\nto {{begin together.}}",
+    "body": [
+      "Junior block · prayer ground",
+      "The junior block has a prayer ground of its own, and the school gives it a name: **Abhayeti**. It appears on the facilities list beside Naman, the senior block’s ground, as a separate entry — which is the whole point of it.",
+      "A four-year-old’s first assembly is not held at the edge of a field built for eighteen-year-olds. It is held on ground that belongs to their half of the school.",
+      "The school publishes the name and whose ground it is. It does not publish what happens there, and it has released no photograph of Abhayeti itself."
+    ],
+    "caption": "Junior classes gathered for the JOSH Sports & Spring Camp.",
+    "shots": [
+      {
+        "key": "pGather",
+        "asset": "assets/school-activities/josh-spring-camp/02.jpg",
+        "name": "josh-spring-camp-02",
+        "alt": "Junior classes of {schoolName} seated together on the ground facing the stage at the JOSH Sports and Spring Camp"
+      }
+    ],
+    "cells": [],
+    "cellsTwo": []
+  },
+  "first": {
+    "kicker": "The first years",
+    "heading": "Three years,\ncounted as {{one stage.}}",
+    "body": [
+      "The school publishes Nursery, LKG and UKG as one stage on its [academic structure](/academics/structure/). Admission ages, session hours and class sizes are not published, and are not estimated here."
+    ],
+    "caption": null,
+    "shots": [],
+    "cells": [
+      {
+        "label": "Nursery",
+        "value": "Where it starts."
+      },
+      {
+        "label": "LKG",
+        "value": "The middle year."
+      },
+      {
+        "label": "UKG",
+        "value": "The last before Class I."
+      }
+    ],
+    "cellsTwo": []
+  },
+  "firstBand": {
+    "kicker": "Named for all three years",
+    "heading": null,
+    "body": [
+      "“School as a place you want to be.”"
+    ],
+    "caption": "And one milestone",
+    "shots": [],
+    "cells": [
+      {
+        "label": "Play-led routine"
+      },
+      {
+        "label": "Early language"
+      },
+      {
+        "label": "Number sense"
+      }
+    ],
+    "cellsTwo": [
+      {
+        "mark": "book",
+        "value": "The syllabus is published class by class **from Nursery**, as the school’s PRECEPT document."
+      },
+      {
+        "mark": "star",
+        "value": "The SOF olympiad is sat **from Nursery to Class II** — the first time the work is measured from outside."
+      }
+    ]
+  },
+  "close": {
+    "kicker": "The end of the early years",
+    "heading": "Three years,\nand then {{the gown.}}",
+    "body": [
+      "The school holds a convocation for KG-II — a gown, a mortar board and a rolled scroll handed over on stage. It marks the last day of the early years the way a university marks its last, and it is the clearest statement the school makes about how seriously it takes this stage.",
+      "Photograph: the KG-II convocation ceremony at {schoolName}."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pGown",
+        "asset": "assets/celebration/kg-convocation/kg-convocation-09.jpg",
+        "name": "kg-convocation-09",
+        "alt": ""
+      }
+    ],
+    "cells": [],
+    "cellsTwo": []
+  }
+}

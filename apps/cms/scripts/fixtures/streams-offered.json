@@ -1,0 +1,99 @@
+{
+  "paths": {
+    "kicker": "Classes XI – XII",
+    "heading": "Four paths.\n{{One senior}}\n{{secondary journey.}}",
+    "body": [],
+    "caption": null,
+    "shots": [],
+    "cells": [],
+    "cellsTwo": []
+  },
+  "x": {
+    "kicker": "Explore each stream",
+    "heading": "Different\ninterests.\n{{Different}}\n{{possibilities.}}",
+    "body": [
+      "Every stream opens a door. Every student chooses what feels right — and the choice is made at the end of Class X, with the school’s counselling behind it."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pLab",
+        "asset": "assets/photos/sb-chem-lab.jpg",
+        "name": "sb-chem-lab",
+        "alt": "Senior students of {schoolName} at the laboratory bench, test tubes and burners in front of them"
+      }
+    ],
+    "cells": [],
+    "cellsTwo": []
+  },
+  "dir": {
+    "kicker": "Four different directions",
+    "heading": "Different interests.\n{{Different directions.}}",
+    "body": [],
+    "caption": null,
+    "shots": [],
+    "cells": [],
+    "cellsTwo": []
+  },
+  "sure": {
+    "kicker": "What is certain, and what is not",
+    "heading": "The names are published.\n{{The lists are not.}}",
+    "body": [
+      "Confirmed by the school",
+      "For full subject combinations, electives and the year’s availability, see the school’s Subject Combinations page."
+    ],
+    "caption": null,
+    "shots": [],
+    "cells": [
+      {
+        "mark": "tick",
+        "label": "PCM, PCB, Commerce, Humanities",
+        "value": "These four stream names are published by the school.",
+        "state": "yes"
+      },
+      {
+        "mark": "aim",
+        "label": "Subject combinations",
+        "value": "The specific subject combinations are not published here.",
+        "state": "part"
+      },
+      {
+        "mark": "info",
+        "label": "Where to check",
+        "value": "See the school’s Subject Combinations page, and the office, for what is actually confirmed.",
+        "state": "info"
+      }
+    ],
+    "cellsTwo": []
+  },
+  "streams": [
+    {
+      "label": "PCM",
+      "mark": "atom",
+      "sub": "Physics · Chemistry · Mathematics",
+      "value": "Engineering and the physical sciences.",
+      "note": "Analytical thinking, mathematics and physical sciences."
+    },
+    {
+      "label": "PCB",
+      "mark": "helix",
+      "sub": "Physics · Chemistry · Biology",
+      "value": "Medicine and the life sciences.",
+      "note": "Understanding life sciences and biological systems."
+    },
+    {
+      "label": "Commerce",
+      "mark": "bars",
+      "sub": "Business · Finance · Management",
+      "value": "How money, firms and markets work.",
+      "note": "Business, finance and the world of organisations."
+    },
+    {
+      "label": "Humanities",
+      "mark": "group",
+      "sub": "Law · Civil Services · Design · Media",
+      "value": "The social sciences and human studies.",
+      "note": "Society, culture, communication and human perspective."
+    }
+  ]
+}

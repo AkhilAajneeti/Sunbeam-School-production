@@ -23,7 +23,10 @@
  * "Sunbeam School Agarsanda Ballia" — the school's own Google listing.
  */
 import Atmosphere from './Atmosphere.astro';
-import { school } from '../../data/site';
+import { getSchool, getContactPage } from '../../lib/cms';
+
+const school = await getSchool();
+const page = await getContactPage();
 
 const addressOneLine = `${school.address.line1}, ${school.address.city}, ${school.address.state} ${school.address.pin}`;
 const mapQuery = encodeURIComponent(`${school.name}, ${addressOneLine}`);
@@ -39,7 +42,7 @@ const mapLink = `https://www.google.com/maps/search/?api=1&query=${mapQuery}`;
       would have left `aria-labelledby="loc-h"` pointing at nothing, which makes
       the landmark anonymous to a screen reader running through the page's
       regions. A visually-hidden heading costs no pixels and keeps it labelled. */}
-  <h2 class="u-visually-hidden" id="loc-h">Where the school is</h2>
+  <h2 class="u-visually-hidden" id="loc-h">{page.locationHeading}</h2>
 
   {/* ⚠ THE STAGE WRAPPER STAYS THOUGH IT NOW HOLDS ONE CHILD. It is what
       carries `z-index: 1` over the Atmosphere layer above; folding it away

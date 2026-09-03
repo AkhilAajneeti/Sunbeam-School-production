@@ -81,15 +81,23 @@
  * campaign date, so a reader sees WHEN before planning a journey to Agarsanda.
  * That is the most this treatment can honestly do — see data/career.ts.
  */
-import { Image, Picture } from "astro:assets";
+import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHero from "../components/ui/PageHero.astro";
 import Lightbox from "../components/ui/Lightbox.astro";
 import Backdrop from "../components/ui/Backdrop.astro";
 import heroPhoto from "../assets/photos/sunbeem-1.jpg";
 import applicant from "../assets/icons/thinkgirl.png";
-import { posters, posterCount } from "../data/career";
-import { school } from "../data/site";
+import CmsImage from "../components/ui/CmsImage.astro";
+import { getCareerPageData, fileUrl, getSchool } from '../lib/cms';
+
+const school = await getSchool();
+
+/* ⚠ FROM STRAPI NOW, NOT data/career.ts. `posterCount` stays DERIVED from the
+   wall itself rather than stored — a stored number disagrees with the wall the
+   first time somebody adds a poster and forgets to update it. The old data file
+   remains on disk until this is verified in a production build. */
+const { posters, posterCount } = await getCareerPageData();
 
 /**
  * ⚠ THE ROW ICONS BELOW ARE THE CONTACT PAGE'S, GLYPH FOR GLYPH. Envelope,
@@ -103,12 +111,14 @@ import { school } from "../data/site";
  */
 
 /**
- * ⚠ WIDTHS ARE SIZED FOR THE LIGHTBOX, NOT FOR THE THUMBNAIL. In the wall a
- * poster is at most ~420px wide, so 480 would cover the grid — but every frame
- * is a lightbox trigger, and the viewer opens the ORIGINAL file at up to the
- * full width of the screen. A reader enlarging a poster to read a phone number
- * is the entire interaction; serving them a 480px upscale of dense 12pt text
- * would defeat it.
+ * ⚠ THE WIDTH LIST IS GONE, AND THE REASON IT EXISTED IS NOW HANDLED UPSTREAM.
+ * It used to read [420, 720, 1080] — sized for the LIGHTBOX rather than the
+ * thumbnail, because every frame here is a lightbox trigger and a reader
+ * enlarging a poster to read a phone number is the entire interaction. Strapi
+ * derives its sizes once at upload from the breakpoints in
+ * apps/cms/config/plugins.ts, which run to 1600, and the lightbox opens the
+ * original file regardless. WALL_SIZES stays: the browser still has to be told
+ * how wide the slot is.
  */
 /**
  * ⚠ THE ADDRESS IS SPLIT SO IT HAS SOMEWHERE SENSIBLE TO BREAK. 34 characters
@@ -127,7 +137,6 @@ import { school } from "../data/site";
  */
 const [mailUser, mailDomain] = school.recruitmentEmail.split('@');
 
-const WALL_WIDTHS = [420, 720, 1080];
 const WALL_SIZES = "(min-width: 1024px) 32vw, (min-width: 640px) 46vw, 92vw";
 
 /**
@@ -141,16 +150,9 @@ const WALL_SIZES = "(min-width: 1024px) 32vw, (min-width: 640px) 46vw, 92vw";
 ---
 
 <BaseLayout
-  title={`Career — ${school.name}`}
-  description={`Teaching and support-staff vacancies at ${school.name}, ${school.address.city} — PGT, TGT, PRT, NTT, sports coaches and school transport. Send your CV to ${school.recruitmentEmail}.`}
 >
   <PageHero
-    title="Career"
-    standfirst="Openings at the school, as the school has advertised them. Enlarge any poster to read it in full."
-    crumbs={[{ label: "Home", href: "/" }]}
     src={heroPhoto}
-    alt={`The main building of ${school.name} seen across its ground`}
-    position="50% 58%"
   />
 
   <div class="u-page-panel cr">
@@ -265,7 +267,7 @@ const WALL_SIZES = "(min-width: 1024px) 32vw, (min-width: 640px) 46vw, 92vw";
                   — on the one page where the content IS the pictures. */}
               <a
                 class="wall__a"
-                href={p.src.src}
+                href={fileUrl(p.image)}
                 data-lb-open
                 data-lb-alt={p.alt}
                 data-lb-cap={p.dated ? `${p.title} — ${p.dated}` : p.title}
@@ -274,14 +276,13 @@ const WALL_SIZES = "(min-width: 1024px) 32vw, (min-width: 640px) 46vw, 92vw";
                   before scrolling; the rest wait. Ten posters at full size is
                   several megabytes, and this page is one a candidate is likely
                   to open on a phone. */}
-                <Picture
-                  src={p.src}
+                <CmsImage
+                  file={p.image}
                   alt={p.alt}
-                  formats={["webp"]}
-                  widths={WALL_WIDTHS}
                   sizes={WALL_SIZES}
+                  fallbackWidth={760}
                   loading={i < 3 ? "eager" : "lazy"}
-                  decoding="async"
+                  fetchpriority={i === 0 ? "high" : undefined}
                 />
 
                 <span class="wall__zoom" aria-hidden="true">

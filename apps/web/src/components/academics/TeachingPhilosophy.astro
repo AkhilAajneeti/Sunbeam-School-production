@@ -38,11 +38,16 @@
  * note above `teachingPhilosophy` in src/data/academics.ts before editing copy.
  */
 import { Image } from 'astro:assets';
-import { teachingPhilosophy as tp } from '../../data/academics';
-import { school } from '../../data/site';
+import { getSchool } from '../../lib/cms';
 import bulb from '../../assets/icons/bulb.png';
 import plane from '../../assets/icons/rocketpaper.png';
 import cap from '../../assets/icons/small-cap.png';
+import { getAcademicTopic } from '../../lib/cms';
+
+const ac = await getAcademicTopic('/academics/philosophy/');
+const tp = ac.section('teachingPhilosophy');
+
+const school = await getSchool();
 
 /**
  * One specification, four subjects. `stroke` and `fill` are set on the <svg> in

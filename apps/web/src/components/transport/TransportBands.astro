@@ -1,4 +1,7 @@
 ---
+import { getTransportData } from '../../lib/cms';
+const {stats, transportContact, safety} = await getTransportData();
+
 /**
  * THE SUPPORTING BANDS — overview, safety, contact and questions.
  *
@@ -13,7 +16,7 @@
  * the school had not made. Removed on the client’s instruction that the page
  * mirror the parent page and design it.
  */
-import { stats, transportContact, safety } from '../../data/transport';
+
 
 const shown = safety;
 

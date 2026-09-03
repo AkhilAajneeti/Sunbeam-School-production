@@ -1,4 +1,10 @@
 ---
+import { getGames } from '../../../lib/cms';
+
+/* ⚠ NOT DESTRUCTURED. getGames() RETURNS the { outdoor, indoor } object that
+   this rail calls `games` — destructuring a `games` key off it yields undefined
+   and the rail renders empty with no error. */
+const games = await getGames();
 /**
  * §2 · GAMES CONDUCTED THROUGH THE YEAR — the page's highlight.
  *
@@ -34,8 +40,7 @@
  * The one true action photograph in the building — the Kho-Kho team with their
  * cluster medals — is on the Kho-Kho card, where it belongs.
  */
-import { Picture } from 'astro:assets';
-import { games } from '../../../data/sports';
+import CmsImage from '../../ui/CmsImage.astro';
 import SectionHead from '../../academics/SectionHead.astro';
 import SportIcon from './SportIcon.astro';
 
@@ -98,15 +103,13 @@ const all = [
           <article class="gcard__in">
             {g.photo && (
               <span class="gcard__media" aria-hidden="true">
-                <Picture
-                  src={g.photo}
+                <CmsImage
+                  file={g.photo}
                   alt=""
-                  formats={['webp']}
-                  widths={[380, 760]}
                   sizes="(max-width: 700px) 74vw, 30vw"
                   loading="lazy"
-                  decoding="async"
-                />
+              fallbackWidth={760}
+            />
               </span>
             )}
 

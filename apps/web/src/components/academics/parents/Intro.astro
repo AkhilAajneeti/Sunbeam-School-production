@@ -36,9 +36,13 @@ import { Image } from 'astro:assets';
 import Photo from '../../ui/Photo.astro';
 import HeroTitle from '../../ui/HeroTitle.astro';
 import CounterStrip from '../CounterStrip.astro';
-import { parents, partnership } from '../../../data/academics';
-import photo from '../../../assets/photos/sunbeem-2.jpg';
 import kite from '../../../assets/icons/kite.png';
+import { getAcademicTopic } from '../../../lib/cms';
+
+const ac = await getAcademicTopic('/academics/parent-partnership/');
+const photo = ac.pic('photo');
+const parents = ac.blockMap('parents');
+const partnership = ac.section('partnership').points;
 
 const { intro } = parents;
 
@@ -81,8 +85,8 @@ const figures = [
       <div class="pin__media" data-reveal>
         <div data-mask>
           <Photo
-            src={photo}
-            alt="The whole school gathered at the entrance of Sunbeam School Ballia beneath the school name."
+            file={photo}
+            alt={ac.picAlt('photo')}
             brief="Home and school"
             ratio="4 / 5"
             position="50% 40%"

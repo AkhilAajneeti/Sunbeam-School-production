@@ -1,4 +1,7 @@
 ---
+import { getCampusTourData, fileUrl } from '../../../lib/cms';
+const {allFrames, shot} = await getCampusTourData();
+
 /**
  * §4 · MASONRY GALLERY + LIGHTBOX — every frame on the campus, one wall.
  *
@@ -8,10 +11,10 @@
  * leave the page in a collapsed state if a script fails. A JS masonry would buy
  * strict left-to-right reading order at the cost of all three.
  *
- * FULL-SIZE SOURCES ARE BUILT AHEAD. `getImage()` emits one 1600w WebP per frame
- * at build time and the URL rides on `data-full`, so opening the lightbox is a
- * single fetch of an already-optimised file rather than the browser being handed
- * a 5568px original.
+ * FULL-SIZE SOURCES COME FROM STRAPI. The URL of the stored original rides on
+ * `data-full`, so the lightbox is one fetch. This used to call getImage() to
+ * emit a 1600w WebP per frame at BUILD time — 73 of them, every build — which is
+ * exactly the image work the CMS migration removed.
  *
  * LAZY BY DEFAULT. Sixty-eight frames would be an unreasonable payload for a
  * parent on a metered connection in Ballia, so every thumbnail is `loading=lazy`
@@ -22,17 +25,19 @@
  * rebuilds the navigable set, so ←/→ walk the visible frames rather than
  * wandering into hidden ones — which is the bug this pattern usually ships with.
  */
-import { Picture, getImage } from 'astro:assets';
-import { allFrames, shot } from '../../../data/campusTour';
+import CmsImage from '../../ui/CmsImage.astro';
+
 import SectionHead from '../../academics/SectionHead.astro';
 
-/** One optimised full-size source per frame, resolved at build time. */
-const frames = await Promise.all(
-  allFrames.map(async (f) => ({
-    ...f,
-    full: (await getImage({ src: f.src, width: 1600, format: 'webp' })).src,
-  }))
-);
+/**
+ * The full-size source the lightbox opens.
+ *
+ * ⚠ NO getImage() ANY MORE. Astro's getImage re-processed every frame at build
+ * time — 73 of them — which is the image work this migration exists to remove.
+ * Strapi already holds the original, so the lightbox points straight at it and
+ * the build does nothing.
+ */
+const frames = allFrames.map((f) => ({ ...f, full: fileUrl(f.src) }));
 ---
 
 {/* The heading COUNTS the frames rather than stating a number. It read
@@ -77,15 +82,13 @@ const frames = await Promise.all(
             data-alt={f.alt}
             aria-label={`Open: ${f.alt}`}
           >
-            <Picture
-              src={f.src}
+            <CmsImage
+              file={f.src}
               alt={f.alt}
-              formats={['webp']}
-              widths={[320, 640]}
               sizes="(max-width: 600px) 92vw, (max-width: 1000px) 46vw, 30vw"
               loading="lazy"
-              decoding="async"
-            />
+      fallbackWidth={760}
+    />
             <span class="gal__veil" aria-hidden="true"></span>
             <figcaption class="gal__cap">{f.facility}</figcaption>
           </button>

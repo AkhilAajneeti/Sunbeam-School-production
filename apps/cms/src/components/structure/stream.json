@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_structure_streams",
+  "info": {
+    "displayName": "Stream",
+    "icon": "layer",
+    "description": "One stream after Class X, and the subjects in it. ⚠ EDITED ONCE, DRAWN SEVERAL TIMES — the same four streams carry the cards, the rail and the subject map on their page. Change one here and every place it appears changes with it. The 01–04 and the colour are the page's."
+  },
+  "options": {},
+  "attributes": {
+    "label": { "type": "string", "required": true, "maxLength": 80, "description": "The stream's name, as the school publishes it — PCM, PCB, Commerce, Humanities." },
+    "mark": { "type": "string", "maxLength": 40, "description": "Which symbol is drawn beside it. The symbols belong to the page; this names one." },
+    "sub": { "type": "string", "maxLength": 200, "description": "The subjects spelled out under the name, where the design prints them." },
+    "value": { "type": "text", "maxLength": 600, "description": "The one line that says what the stream is for." },
+    "note": { "type": "text", "maxLength": 600, "description": "The line about who it suits." },
+    "core": { "type": "component", "repeatable": true, "component": "shared.paragraph", "description": "The subjects every student in this stream takes. One per row." },
+    "optional": { "type": "component", "repeatable": true, "component": "shared.paragraph", "description": "The subjects a student may choose. One per row." },
+    "additional": { "type": "component", "repeatable": true, "component": "shared.paragraph", "description": "The extra subjects offered alongside. One per row." },
+    "owed": { "type": "boolean", "default": false, "required": true, "description": "⚠ TRUE when the school has NOT published this stream's core subjects. The page says so plainly instead of inventing a list." }
+  }
+}

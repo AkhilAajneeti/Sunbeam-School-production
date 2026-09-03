@@ -1,0 +1,20 @@
+{
+  "kind": "collectionType",
+  "collectionName": "bus_routes",
+  "info": {
+    "singularName": "bus-route", "pluralName": "bus-routes", "displayName": "Bus Route",
+    "description": "One published route run. Mirrors the `routes` export of apps/web/src/data/transport.ts. NOTE: the bus / run / stop COUNTS on the transport page are derived from these rows and are never stored — adding a route updates them."
+  },
+  "options": { "draftAndPublish": true },
+  "attributes": {
+    "bus": { "type": "string", "required": true, "maxLength": 80 },
+    "slug": { "type": "uid", "targetField": "bus", "required": true },
+    "vehicle": { "type": "integer", "required": true },
+    "leg": { "type": "string", "maxLength": 80 },
+    "driver": { "type": "string", "required": true, "maxLength": 160 },
+    "phone": { "type": "string", "required": true, "maxLength": 24 },
+    "stops": { "type": "component", "repeatable": true, "component": "shared.fact" },
+    "staffOnly": { "type": "boolean", "default": false, "required": true },
+    "displayOrder": { "type": "integer", "default": 0, "required": true }
+  }
+}

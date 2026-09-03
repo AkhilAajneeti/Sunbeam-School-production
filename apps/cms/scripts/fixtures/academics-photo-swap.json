@@ -1,0 +1,1738 @@
+{
+  "components/academics/AffiliationDetailsPage.astro": {
+    "route": "/academics/philosophy/affiliation-details/",
+    "uses": [
+      {
+        "binding": "pCampus",
+        "key": "pCampus",
+        "route": "/academics/philosophy/affiliation-details/",
+        "component": "Picture",
+        "altRaw": "{`The campus of ${S} — its teaching blocks standing around the front lawn`}"
+      },
+      {
+        "binding": "pStairs",
+        "key": "pStairs",
+        "route": "/academics/philosophy/affiliation-details/",
+        "component": "Picture",
+        "altRaw": "{`A stairwell at ${S} — a marble flight rising to the landing, steel handrails either side and framed notices on the wall above`}"
+      },
+      {
+        "binding": "docLetter",
+        "key": "docLetter",
+        "route": "/academics/philosophy/affiliation-details/",
+        "component": "Picture",
+        "altRaw": "{`Page one of the CBSE affiliation letter published by ${S}: letter number CBSE/${sb.affiliationNo}/EX-00497-2526/2025-26 dated ${sb.affiliationLetterDated}, subject “${sb.affiliationSubject}”, with a table giving affiliation number ${sb.affiliationNo}, school number ${sb.schoolCode} and period of affiliation ${sb.affiliationPeriod}, and the school’s stamp carrying UDISE code ${sb.udise}.`}"
+      }
+    ]
+  },
+  "components/academics/assessment/AcademicCalendarPage.astro": {
+    "route": "/academics/academic-calendar/",
+    "uses": [
+      {
+        "binding": "pMarch",
+        "key": "pMarch",
+        "route": "/academics/academic-calendar/",
+        "component": "Picture",
+        "altRaw": "{`A month page of the Sunbeam School Calendar & Monthly Planner 2026-27, ruled into weeks with the month's observances printed in each cell`}"
+      },
+      {
+        "binding": "pApril",
+        "key": "pApril",
+        "route": "/academics/academic-calendar/",
+        "component": "Picture",
+        "altRaw": "{`A second month page of the same planner, the month in which the session begins`}"
+      },
+      {
+        "binding": "pCohort",
+        "key": "pCohort",
+        "route": "/academics/academic-calendar/",
+        "component": "AsClose",
+        "altRaw": null
+      }
+    ]
+  },
+  "components/academics/assessment/AssessmentPage.astro": {
+    "route": "/academics/assessment/",
+    "uses": [
+      {
+        "binding": "pForum",
+        "key": "pForum",
+        "route": "/academics/assessment/",
+        "component": "Picture",
+        "altRaw": "{`Parents of ${S} seated in the hall at a Parents’ Forum session, each desk carrying a class placard`}"
+      },
+      {
+        "binding": "pSpeak",
+        "key": "pSpeak",
+        "route": "/academics/assessment/",
+        "component": "Picture",
+        "altRaw": "{`A parent of ${S} speaking into the microphone at a Parents’ Forum session`}"
+      },
+      {
+        "binding": "pCohort",
+        "key": "pCohort",
+        "route": "/academics/assessment/",
+        "component": "AsClose",
+        "altRaw": null
+      }
+    ]
+  },
+  "components/academics/assessment/BoardResultsPage.astro": {
+    "route": "/academics/board-results/",
+    "uses": [
+      {
+        "binding": "pExam",
+        "key": "pExam",
+        "route": "/academics/board-results/",
+        "component": "Picture",
+        "altRaw": "{`Students of ${S} working at the bench during a science practical`}"
+      },
+      {
+        "binding": "pCampus",
+        "key": "pCampus",
+        "route": "/academics/board-results/",
+        "component": "Picture",
+        "altRaw": "{`The campus of ${S} at Agarsanda, its main block behind the lawns`}"
+      },
+      {
+        "binding": "pLib",
+        "key": "pLib",
+        "route": "/academics/board-results/",
+        "component": "Picture",
+        "altRaw": "{`Students of ${S} reading and working at the long tables of the Nalanda Library, a member of staff at the head of the row`}"
+      },
+      {
+        "binding": "pBench",
+        "key": "pBench",
+        "route": "/academics/board-results/",
+        "component": "Picture",
+        "altRaw": "{`Students of ${S} working along the chemistry bench, test tubes held over the burners`}"
+      },
+      {
+        "binding": "pCohort",
+        "key": "pCohort",
+        "route": "/academics/board-results/",
+        "component": "AsClose",
+        "altRaw": null
+      }
+    ]
+  },
+  "components/academics/assessment/CareerGuidancePage.astro": {
+    "route": "/academics/student-success/career-guidance/",
+    "uses": [
+      {
+        "binding": "pTalk",
+        "key": "pTalk",
+        "route": "/academics/student-success/career-guidance/",
+        "component": "Picture",
+        "altRaw": "{`A visiting speaker addressing the senior school of ${S} on a lapel microphone, his projected deck headed “Dream BIG aim HIGH”`}"
+      },
+      {
+        "binding": "pHall",
+        "key": "pHall",
+        "route": "/academics/student-success/career-guidance/",
+        "component": "Picture",
+        "altRaw": "{`The hall at ${S} during the career counselling session, the senior school seated in rows`}"
+      },
+      {
+        "binding": "pCohort",
+        "key": "pCohort",
+        "route": "/academics/student-success/career-guidance/",
+        "component": "AsClose",
+        "altRaw": null
+      }
+    ]
+  },
+  "components/academics/assessment/CompetitiveExamPage.astro": {
+    "route": "/academics/assessment/competitive-exam-preparation/",
+    "uses": [
+      {
+        "binding": "pBench",
+        "key": "pBench",
+        "route": "/academics/assessment/competitive-exam-preparation/",
+        "component": "Picture",
+        "altRaw": "{`Students of ${S} working along the chemistry bench, test tubes held over the burners`}"
+      },
+      {
+        "binding": "pComposite",
+        "key": "pComposite",
+        "route": "/academics/assessment/competitive-exam-preparation/",
+        "component": "Picture",
+        "altRaw": "{`The composite laboratory at ${S}, apparatus set out along the benches`}"
+      },
+      {
+        "binding": "pCohort",
+        "key": "pCohort",
+        "route": "/academics/assessment/competitive-exam-preparation/",
+        "component": "AsClose",
+        "altRaw": null
+      }
+    ]
+  },
+  "components/academics/assessment/HomeworkPolicyPage.astro": {
+    "route": "/academics/assessment/homework-policy/",
+    "uses": [
+      {
+        "binding": "pPanel",
+        "key": "pPanel",
+        "route": "/academics/assessment/homework-policy/",
+        "component": "Picture",
+        "altRaw": "{`The leadership panel at a Parents’ Forum session at ${S}, the session’s twelve-item agenda projected on the screen beside them`}"
+      },
+      {
+        "binding": "pTiers",
+        "key": "pTiers",
+        "route": "/academics/assessment/homework-policy/",
+        "component": "Picture",
+        "altRaw": "{`Parents of ${S} seated in the tiered rows of the hall during a Parents’ Forum session`}"
+      },
+      {
+        "binding": "pSeated",
+        "key": "pSeated",
+        "route": "/academics/assessment/homework-policy/",
+        "component": "Picture",
+        "altRaw": "{`Parents of ${S} seated in the hall during a Parents’ Forum session`}"
+      },
+      {
+        "binding": "pHall",
+        "key": "pHall",
+        "route": "/academics/assessment/homework-policy/",
+        "component": "Picture",
+        "altRaw": "{`Parents of ${S} in the hall at a Parents’ Forum, each desk carrying a class placard`}"
+      },
+      {
+        "binding": "pLibrary",
+        "key": "pLibrary",
+        "route": "/academics/assessment/homework-policy/",
+        "component": "Picture",
+        "altRaw": "{`The Nalanda Library at ${S}, its shelves signed by subject and its reading tables set out`}"
+      },
+      {
+        "binding": "pCohort",
+        "key": "pCohort",
+        "route": "/academics/assessment/homework-policy/",
+        "component": "AsClose",
+        "altRaw": null
+      }
+    ]
+  },
+  "components/academics/assessment/MentoringPage.astro": {
+    "route": "/academics/assessment/mentoring/",
+    "uses": [
+      {
+        "binding": "pLib",
+        "key": "pLib",
+        "route": "/academics/assessment/mentoring/",
+        "component": "Picture",
+        "altRaw": "{`Students of ${S} reading at the long tables of the library, a member of staff at the head of the row`}"
+      },
+      {
+        "binding": "pBench",
+        "key": "pBench",
+        "route": "/academics/assessment/mentoring/",
+        "component": "Picture",
+        "altRaw": "{`Students of ${S} working along the chemistry bench`}"
+      },
+      {
+        "binding": "pCorridor",
+        "key": "pCorridor",
+        "route": "/academics/assessment/mentoring/",
+        "component": "Picture",
+        "altRaw": "{`A corridor at ${S}, its classroom doors running the length of the block`}"
+      },
+      {
+        "binding": "pTables",
+        "key": "pTables",
+        "route": "/academics/assessment/mentoring/",
+        "component": "Picture",
+        "altRaw": "{`The reading tables of the Nalanda Library at ${S}, set out along the shelves`}"
+      },
+      {
+        "binding": "pStage",
+        "key": "pStage",
+        "route": "/academics/assessment/mentoring/",
+        "component": "Picture",
+        "altRaw": "{`Student council office-bearers and NCC cadets of ${S} on stage with the school’s dignitaries`}"
+      },
+      {
+        "binding": "pCohort",
+        "key": "pCohort",
+        "route": "/academics/assessment/mentoring/",
+        "component": "Picture",
+        "altRaw": "\"\""
+      }
+    ]
+  },
+  "components/academics/assessment/OlympiadPage.astro": {
+    "route": "/academics/student-success/olympiad-achievements/",
+    "uses": [
+      {
+        "binding": "pComposite",
+        "key": "pComposite",
+        "route": "/academics/student-success/olympiad-achievements/",
+        "component": "Picture",
+        "altRaw": "{`The composite laboratory at ${S}, its benches and apparatus laid out along the room`}"
+      },
+      {
+        "binding": "pComposite",
+        "key": "pComposite2",
+        "route": "/academics/student-success/olympiad-achievements/",
+        "component": "Picture",
+        "altRaw": "{`A detail of the composite laboratory at ${S}`}"
+      },
+      {
+        "binding": "pMaths",
+        "key": "pMaths",
+        "route": "/academics/student-success/olympiad-achievements/",
+        "component": "Picture",
+        "altRaw": "{`The mathematics laboratory at ${S}, its models and charts set out on the working surfaces`}"
+      },
+      {
+        "binding": "pActivity",
+        "key": "pActivity",
+        "route": "/academics/student-success/olympiad-achievements/",
+        "component": "Picture",
+        "altRaw": "{`The activity learning room at ${S}, its worktables set out for group work`}"
+      },
+      {
+        "binding": "pLib",
+        "key": "pLib",
+        "route": "/academics/student-success/olympiad-achievements/",
+        "component": "Picture",
+        "altRaw": "{`The Nalanda Library at ${S}, its shelves signed by subject`}"
+      },
+      {
+        "binding": "pCohort",
+        "key": "pCohort",
+        "route": "/academics/student-success/olympiad-achievements/",
+        "component": "AsClose",
+        "altRaw": null
+      }
+    ]
+  },
+  "components/academics/assessment/ParentTeacherPage.astro": {
+    "route": "/academics/assessment/parent-teacher-meetings/",
+    "uses": [
+      {
+        "binding": "pHall",
+        "key": "pHall",
+        "route": "/academics/assessment/parent-teacher-meetings/",
+        "component": "Picture",
+        "altRaw": "{`Parents of ${S} seated in the hall at a Parents’ Forum session, each desk carrying a class placard`}"
+      },
+      {
+        "binding": "pTiers",
+        "key": "pTiers",
+        "route": "/academics/assessment/parent-teacher-meetings/",
+        "component": "Picture",
+        "altRaw": "{`Parents of ${S} seated in the tiered rows of the hall during a Parents’ Forum session`}"
+      },
+      {
+        "binding": "pPanel",
+        "key": "pPanel",
+        "route": "/academics/assessment/parent-teacher-meetings/",
+        "component": "Picture",
+        "altRaw": "{`The leadership panel at a Parents’ Forum session at ${S}, the session’s twelve-item agenda projected on the screen beside them`}"
+      },
+      {
+        "binding": "pSpeak",
+        "key": "pSpeak",
+        "route": "/academics/assessment/parent-teacher-meetings/",
+        "component": "Picture",
+        "altRaw": "{`A parent of ${S} speaking into the microphone at a Parents’ Forum session`}"
+      },
+      {
+        "binding": "pCohort",
+        "key": "pCohort",
+        "route": "/academics/assessment/parent-teacher-meetings/",
+        "component": "AsClose",
+        "altRaw": null
+      }
+    ]
+  },
+  "components/academics/assessment/RemedialSupportPage.astro": {
+    "route": "/academics/assessment/remedial-support/",
+    "uses": [
+      {
+        "binding": "pBench",
+        "key": "pBench",
+        "route": "/academics/assessment/remedial-support/",
+        "component": "Picture",
+        "altRaw": "{`Students of ${S} working along the chemistry bench, test tubes held over the burners`}"
+      },
+      {
+        "binding": "pActivity",
+        "key": "pActivity",
+        "route": "/academics/assessment/remedial-support/",
+        "component": "Picture",
+        "altRaw": "{`Students of ${S} seated on the floor of a decorated activity room during a lesson`}"
+      },
+      {
+        "binding": "pCohort",
+        "key": "pCohort",
+        "route": "/academics/assessment/remedial-support/",
+        "component": "AsClose",
+        "altRaw": null
+      }
+    ]
+  },
+  "components/academics/assessment/ScholarshipsPage.astro": {
+    "route": "/academics/student-success/scholarships/",
+    "uses": [
+      {
+        "binding": "pAward",
+        "key": "pAward",
+        "route": "/academics/student-success/scholarships/",
+        "component": "Picture",
+        "altRaw": "{`${S}'s award graphic for securing second position in Uttar Pradesh at the National School Innovation Awards, showing the citation being presented on stage`}"
+      },
+      {
+        "binding": "pCohort",
+        "key": "pCohort",
+        "route": "/academics/student-success/scholarships/",
+        "component": "AsClose",
+        "altRaw": null
+      }
+    ]
+  },
+  "components/academics/assessment/SubjectSelectionPage.astro": {
+    "route": "/academics/student-success/subject-selection/",
+    "uses": [
+      {
+        "binding": "pDesk",
+        "key": "pDesk",
+        "route": "/academics/student-success/subject-selection/",
+        "component": "Picture",
+        "altRaw": "{`A student of ${S} and a family member seated opposite a counsellor working from a laptop, the school's Class X and XI career counselling banner behind them`}"
+      },
+      {
+        "binding": "pTalk",
+        "key": "pTalk",
+        "route": "/academics/student-success/subject-selection/",
+        "component": "Picture",
+        "altRaw": "{`A visiting speaker addressing the senior school of ${S}, his projected deck headed “Dream BIG aim HIGH”`}"
+      },
+      {
+        "binding": "pCohort",
+        "key": "pCohort",
+        "route": "/academics/student-success/subject-selection/",
+        "component": "AsClose",
+        "altRaw": null
+      }
+    ]
+  },
+  "components/academics/assessment/SuccessStoriesPage.astro": {
+    "route": "/academics/student-success/success-stories/",
+    "uses": [
+      {
+        "binding": "pCohort",
+        "key": "pCohort",
+        "route": "/academics/student-success/success-stories/",
+        "component": "AsClose",
+        "altRaw": null
+      }
+    ]
+  },
+  "components/academics/assessment/UniversityCounsellingPage.astro": {
+    "route": "/academics/student-success/university-counselling/",
+    "uses": [
+      {
+        "binding": "gBoard",
+        "key": "gBoard",
+        "route": "/academics/student-success/university-counselling/",
+        "component": "Picture",
+        "altRaw": "{`${S}’s printed placement board, “Vision To Reality — Session 2024-25, Students Placed In Prestigious Colleges/Universities”, listing eighteen students with their course and institution above a strip of individual placement cards`}"
+      },
+      {
+        "binding": "pCohort",
+        "key": "pCohort",
+        "route": "/academics/student-success/university-counselling/",
+        "component": "AsClose",
+        "altRaw": null
+      }
+    ]
+  },
+  "components/academics/CriticalThinkingPage.astro": {
+    "route": "/academics/philosophy/critical-thinking/",
+    "uses": [
+      {
+        "binding": "pTrainer",
+        "key": "pTrainer",
+        "route": "/academics/philosophy/critical-thinking/",
+        "component": "Picture",
+        "altRaw": "{`Prof. Pradeep Mishra of Lovely Professional University speaking at the Critical Thinking workshop for teachers at ${school.name}`}"
+      },
+      {
+        "binding": "pDelegation",
+        "key": "pDelegation",
+        "route": "/academics/philosophy/critical-thinking/",
+        "component": "Picture",
+        "altRaw": "{`The ${school.name} delegation holding the school flag at the MU20 Model United Nations conference`}"
+      },
+      {
+        "binding": "pCertificates",
+        "key": "pCertificates",
+        "route": "/academics/philosophy/critical-thinking/",
+        "component": "Picture",
+        "altRaw": "{`Four delegates from ${school.name} holding their Model United Nations certificates in front of the national flags`}"
+      },
+      {
+        "binding": "pMonash",
+        "key": "pMonash",
+        "route": "/academics/philosophy/critical-thinking/",
+        "component": "Picture",
+        "altRaw": "{`A student of ${school.name} beside the Monash University Innovation Guarantee banner at an outreach session`}"
+      },
+      {
+        "binding": "pCanva",
+        "key": "pCanva",
+        "route": "/academics/philosophy/critical-thinking/",
+        "component": "Picture",
+        "altRaw": "{`A Canva Presentation activity in progress with a class at ${school.name} during Impetus, Classes III to V`}"
+      },
+      {
+        "binding": "pMaking",
+        "key": "pMaking",
+        "route": "/academics/philosophy/critical-thinking/",
+        "component": "Picture",
+        "altRaw": "{`Students of ${school.name} working on embroidery together from one shared basket of thread`}"
+      },
+      {
+        "binding": "pRocket",
+        "key": "pRocket",
+        "route": "/academics/philosophy/critical-thinking/",
+        "component": "Picture",
+        "altRaw": "{`A young student of ${school.name} holding a hand-made rocket cut-out at the Star Gazing session`}"
+      }
+    ]
+  },
+  "components/academics/ExperientialPage.astro": {
+    "route": "/academics/philosophy/experiential-inquiry/",
+    "uses": [
+      {
+        "binding": "pChef",
+        "key": "pChef",
+        "route": "/academics/philosophy/experiential-inquiry/",
+        "component": "Picture",
+        "altRaw": "{`A teacher at ${school.name} demonstrating at the table during a cooking activity, her class in paper chef hats around her`}"
+      },
+      {
+        "binding": "pOwnWork",
+        "key": "pOwnWork",
+        "route": "/academics/philosophy/experiential-inquiry/",
+        "component": "Picture",
+        "altRaw": "{`Two students of ${school.name} sharing a desk, each working on her own drawing`}"
+      },
+      {
+        "binding": "pStars",
+        "key": "pStars",
+        "route": "/academics/philosophy/experiential-inquiry/",
+        "component": "Picture",
+        "altRaw": "{`The night sky projected onto the inside of the Taramandal dome at ${school.name}`}"
+      },
+      {
+        "binding": "pCompost",
+        "key": "pCompost",
+        "route": "/academics/philosophy/experiential-inquiry/",
+        "component": "Picture",
+        "altRaw": "{`A young student of ${school.name} adding kitchen scraps to the compost bin at the Little Agriculturists activity`}"
+      },
+      {
+        "binding": "pStarSet",
+        "key": "pStarSet",
+        "route": "/academics/philosophy/experiential-inquiry/",
+        "component": "Picture",
+        "altRaw": "{`A young student of ${school.name} with her teacher inside a hand-made Star Gazing display`}"
+      },
+      {
+        "binding": "pHall",
+        "key": "pHall",
+        "route": "/academics/philosophy/experiential-inquiry/",
+        "component": "Picture",
+        "altRaw": "{`Students of ${school.name} seated together in the school hall`}"
+      }
+    ]
+  },
+  "components/academics/ParentOrientationPage.astro": {
+    "route": "/academics/parent-partnership/parent-orientation/",
+    "uses": [
+      {
+        "binding": "pPrecept",
+        "key": "pPrecept",
+        "route": "/academics/parent-partnership/parent-orientation/",
+        "component": "Picture",
+        "altRaw": "{`A member of staff at ${S} holding up the PRECEPT syllabus booklet to parents seated in the conference room during a Parent's Orientation Programme`}"
+      },
+      {
+        "binding": "pClassWide",
+        "key": "pClassWide",
+        "route": "/academics/parent-partnership/parent-orientation/",
+        "component": "Picture",
+        "altRaw": "{`A classroom of students at ${S} writing at their desks during a Parent's Orientation Programme, in coats and woollen caps`}"
+      },
+      {
+        "binding": "pDeskTwo",
+        "key": "pDeskTwo",
+        "route": "/academics/parent-partnership/parent-orientation/",
+        "component": "Picture",
+        "altRaw": "{`Two parents in conversation with a member of staff across a desk at ${S}`}"
+      },
+      {
+        "binding": "pDeskFamily",
+        "key": "pDeskFamily",
+        "route": "/academics/parent-partnership/parent-orientation/",
+        "component": "Picture",
+        "altRaw": "{`A mother, father and small child seated across a desk from a member of staff at ${S} during a Parent's Orientation Programme`}"
+      }
+    ]
+  },
+  "components/academics/parents/Engagement.astro": {
+    "route": "/academics/parent-partnership/",
+    "uses": [
+      {
+        "binding": "photo",
+        "key": "photo",
+        "route": "/academics/parent-partnership/",
+        "component": "Photo",
+        "altRaw": "{e.alt}"
+      }
+    ]
+  },
+  "components/academics/parents/Faq.astro": {
+    "route": "/academics/parent-partnership/",
+    "uses": [
+      {
+        "binding": "photo",
+        "key": "photo2",
+        "route": "/academics/parent-partnership/",
+        "component": "Photo",
+        "altRaw": "{faq.alt}"
+      }
+    ]
+  },
+  "components/academics/parents/Intro.astro": {
+    "route": "/academics/parent-partnership/",
+    "uses": [
+      {
+        "binding": "photo",
+        "key": "photo3",
+        "route": "/academics/parent-partnership/",
+        "component": "Photo",
+        "altRaw": "\"The whole school gathered at the entrance of Sunbeam School Ballia beneath the school name.\""
+      }
+    ]
+  },
+  "components/academics/parents/Orientation.astro": {
+    "route": "/academics/parent-partnership/",
+    "uses": [
+      {
+        "binding": "entrancePhoto",
+        "key": "entrancePhoto",
+        "route": "/academics/parent-partnership/",
+        "component": "Photo",
+        "altRaw": "\"Students and staff of Sunbeam School Ballia gathered at the entrance to the school.\""
+      },
+      {
+        "binding": "campusPhoto",
+        "key": "campusPhoto",
+        "route": "/academics/parent-partnership/",
+        "component": "Photo",
+        "altRaw": "\"The Sunbeam School Ballia campus at Agarsanda.\""
+      },
+      {
+        "binding": "readingPhoto",
+        "key": "readingPhoto",
+        "route": "/academics/parent-partnership/",
+        "component": "Photo",
+        "altRaw": "\"Parents at a forum session at Sunbeam School Ballia.\""
+      }
+    ]
+  },
+  "components/academics/parents/Voice.astro": {
+    "route": "/academics/parent-partnership/",
+    "uses": [
+      {
+        "binding": "portrait",
+        "key": "portrait",
+        "route": "/academics/parent-partnership/",
+        "component": "Photo",
+        "altRaw": "{`${voice.name}, Principal of Sunbeam School Ballia.`}"
+      }
+    ]
+  },
+  "components/academics/partnership/ParentEngagementPage.astro": {
+    "route": "/academics/parent-partnership/parents-forum/",
+    "uses": [
+      {
+        "binding": "pRoom",
+        "key": "pRoom",
+        "route": "/academics/parent-partnership/parents-forum/",
+        "component": "Picture",
+        "altRaw": "{`Parents of ${S} seated at desks during a Parents' Forum sitting, each desk carrying a printed class nameplate`}"
+      },
+      {
+        "binding": "pRows",
+        "key": "pRows",
+        "route": "/academics/parent-partnership/parents-forum/",
+        "component": "Picture",
+        "altRaw": "{`A closer view of parents seated in the rows at a Parents' Forum sitting at ${S}`}"
+      },
+      {
+        "binding": "pCohort",
+        "key": "pCohort",
+        "route": "/academics/parent-partnership/parents-forum/",
+        "component": "AsClose",
+        "altRaw": null
+      }
+    ]
+  },
+  "components/academics/partnership/ParentsForumPage.astro": {
+    "route": "/academics/parent-partnership/parents-forum/",
+    "uses": [
+      {
+        "binding": "pRoom",
+        "key": "pRoom",
+        "route": "/academics/parent-partnership/parents-forum/",
+        "component": "Picture",
+        "altRaw": "{`Parents of ${S} seated at desks during a Parents' Forum sitting, each desk carrying a printed class nameplate`}"
+      },
+      {
+        "binding": "pRows",
+        "key": "pRows",
+        "route": "/academics/parent-partnership/parents-forum/",
+        "component": "Picture",
+        "altRaw": "{`A closer view of parents seated in the rows at a Parents' Forum sitting at ${S}`}"
+      },
+      {
+        "binding": "pPanel",
+        "key": "pPanel",
+        "route": "/academics/parent-partnership/parents-forum/",
+        "component": "Picture",
+        "altRaw": "{`The Parents' Forum agenda projected on a screen at ${S}, with a panel of the school's leadership seated beneath it behind a name plate`}"
+      },
+      {
+        "binding": "pMic",
+        "key": "pMic",
+        "route": "/academics/parent-partnership/parents-forum/",
+        "component": "Picture",
+        "altRaw": "{`A parent at a Parents' Forum sitting at ${S} speaking into a hand-held microphone from the floor, the desk in front labelled II-C`}"
+      },
+      {
+        "binding": "pCohort",
+        "key": "pCohort",
+        "route": "/academics/parent-partnership/parents-forum/",
+        "component": "AsClose",
+        "altRaw": null
+      }
+    ]
+  },
+  "components/academics/partnership/PpCta.astro": {
+    "route": "/academics/parent-partnership/",
+    "uses": [
+      {
+        "binding": "pCampus",
+        "key": "pCampus",
+        "route": "/academics/parent-partnership/",
+        "component": "Picture",
+        "altRaw": "{`The main building of ${S} at Agarsanda, its name across the front elevation.`}"
+      }
+    ]
+  },
+  "components/academics/partnership/SchoolParentCommunicationPage.astro": {
+    "route": "/academics/parent-partnership/school-parent-communication/",
+    "uses": [
+      {
+        "binding": "pPanel",
+        "key": "pPanel",
+        "route": "/academics/parent-partnership/school-parent-communication/",
+        "component": "Picture",
+        "altRaw": "{`Parents of ${S} seated in the rows at a school meeting`}"
+      },
+      {
+        "binding": "pPanel",
+        "key": "pPanel2",
+        "route": "/academics/parent-partnership/school-parent-communication/",
+        "component": "Picture",
+        "altRaw": "{`Parents of ${S} listening at a school meeting`}"
+      },
+      {
+        "binding": "pLib",
+        "key": "pLib",
+        "route": "/academics/parent-partnership/school-parent-communication/",
+        "component": "Picture",
+        "altRaw": "{`The Nalanda Library at ${S}, its reading tables set out beneath signed shelves`}"
+      },
+      {
+        "binding": "pLib",
+        "key": "pLib2",
+        "route": "/academics/parent-partnership/school-parent-communication/",
+        "component": "Picture",
+        "altRaw": "{`Students reading at the tables of the Nalanda Library at ${S}`}"
+      },
+      {
+        "binding": "pCohort",
+        "key": "pCohort",
+        "route": "/academics/parent-partnership/school-parent-communication/",
+        "component": "AsClose",
+        "altRaw": null
+      }
+    ]
+  },
+  "components/academics/PhilosophyStory.astro": {
+    "route": "/academics/philosophy/",
+    "uses": [
+      {
+        "binding": "campus",
+        "key": "campus",
+        "route": "/academics/philosophy/",
+        "component": "Picture",
+        "altRaw": "{`The main building of ${school.name} seen across its ground`}"
+      },
+      {
+        "binding": "lab",
+        "key": "lab",
+        "route": "/academics/philosophy/",
+        "component": "Picture",
+        "altRaw": "{`A subject laboratory at ${school.name}`}"
+      },
+      {
+        "binding": "activity",
+        "key": "activity",
+        "route": "/academics/philosophy/",
+        "component": "Picture",
+        "altRaw": "{`The activity learning lab at ${school.name}`}"
+      },
+      {
+        "binding": "assembly",
+        "key": "assembly",
+        "route": "/academics/philosophy/",
+        "component": "Picture",
+        "altRaw": "{`Students and staff at an assembly at ${school.name}`}"
+      },
+      {
+        "binding": "ceremony",
+        "key": "ceremony",
+        "route": "/academics/philosophy/",
+        "component": "Picture",
+        "altRaw": "{`An award ceremony in the hall at ${school.name}`}"
+      }
+    ]
+  },
+  "components/academics/structure/MiddleSchoolPage.astro": {
+    "route": "/academics/structure/middle-school/",
+    "uses": [
+      {
+        "binding": "pMicro",
+        "key": "pMicro",
+        "route": "/academics/structure/middle-school/",
+        "component": "Picture",
+        "altRaw": "{`A student of ${S} using a microscope beside plant specimens in flasks`}"
+      },
+      {
+        "binding": "pMaking",
+        "key": "pMaking",
+        "route": "/academics/structure/middle-school/",
+        "component": "Picture",
+        "altRaw": "{`Students of ${S} working together on embroidery from one shared basket of thread`}"
+      },
+      {
+        "binding": "pJunior",
+        "key": "pJunior",
+        "route": "/academics/structure/middle-school/",
+        "component": "Picture",
+        "altRaw": "{`Younger students of ${S} working at desktop computers in the junior computer laboratory`}"
+      },
+      {
+        "binding": "pLibrary",
+        "key": "pLibrary",
+        "route": "/academics/structure/middle-school/",
+        "component": "Picture",
+        "altRaw": "{`Students of ${S} reading and working at tables in the Nalanda Library`}"
+      },
+      {
+        "binding": "pMachines",
+        "key": "pMachines",
+        "route": "/academics/structure/middle-school/",
+        "component": "Picture",
+        "altRaw": "{`A class at ${S} at work in the computer laboratory, a teacher standing at the back of the room`}"
+      },
+      {
+        "binding": "pBench",
+        "key": "pBench",
+        "route": "/academics/structure/middle-school/",
+        "component": "Picture",
+        "altRaw": "{`Students of ${S} at the bench in the chemistry laboratory`}"
+      },
+      {
+        "binding": "pGlass",
+        "key": "pGlass",
+        "route": "/academics/structure/middle-school/",
+        "component": "Picture",
+        "altRaw": "{`Two students of ${S} handling glassware in the biology laboratory`}"
+      },
+      {
+        "binding": "pFloor",
+        "key": "pFloor",
+        "route": "/academics/structure/middle-school/",
+        "component": "Picture",
+        "altRaw": "{`Students of ${S} seated on the floor of a decorated activity room during a lesson`}"
+      },
+      {
+        "binding": "pChem",
+        "key": "pChem",
+        "route": "/academics/structure/middle-school/",
+        "component": "Picture",
+        "altRaw": "{`The chemistry laboratory at ${S}, benches laid out with reagent shelves and gas taps`}"
+      },
+      {
+        "binding": "pCohort",
+        "key": "pCohort",
+        "route": "/academics/structure/middle-school/",
+        "component": "Picture",
+        "altRaw": "\"\""
+      }
+    ]
+  },
+  "components/academics/structure/PrePrimaryPage.astro": {
+    "route": "/academics/structure/pre-primary/",
+    "uses": [
+      {
+        "binding": "pPark",
+        "key": "pPark",
+        "route": "/academics/structure/pre-primary/",
+        "component": "Picture",
+        "altRaw": "{`The early-years kids park at ${S} — a merry-go-round, seesaw and climbing rails beside the junior block`}"
+      },
+      {
+        "binding": "pCompost",
+        "key": "pCompost",
+        "route": "/academics/structure/pre-primary/",
+        "component": "Picture",
+        "altRaw": "{`A young student of ${S} in the yellow junior uniform tipping kitchen peel into the compost bin at the Little Agriculturists activity`}"
+      },
+      {
+        "binding": "pTables",
+        "key": "pTables",
+        "route": "/academics/structure/pre-primary/",
+        "component": "Picture",
+        "altRaw": "{`The curved activity tables and toy shelves of the early-years activity room at ${S}`}"
+      },
+      {
+        "binding": "pBin",
+        "key": "pBin",
+        "route": "/academics/structure/pre-primary/",
+        "component": "Picture",
+        "altRaw": "{`A teacher and a young student of ${S} adding dry leaves to the compost bin under the hand-lettered Little Agriculturist sign`}"
+      },
+      {
+        "binding": "pTrays",
+        "key": "pTrays",
+        "route": "/academics/structure/pre-primary/",
+        "component": "Picture",
+        "altRaw": "{`Trays of finished compost and kitchen peel on the ground beside young students of ${S}`}"
+      },
+      {
+        "binding": "pGather",
+        "key": "pGather",
+        "route": "/academics/structure/pre-primary/",
+        "component": "Picture",
+        "altRaw": "{`Junior classes of ${S} seated together on the ground facing the stage at the JOSH Sports and Spring Camp`}"
+      },
+      {
+        "binding": "pGown",
+        "key": "pGown",
+        "route": "/academics/structure/pre-primary/",
+        "component": "Picture",
+        "altRaw": "\"\""
+      }
+    ]
+  },
+  "components/academics/structure/PrimaryPage.astro": {
+    "route": "/academics/structure/primary/",
+    "uses": [
+      {
+        "binding": "pMic",
+        "key": "pMic",
+        "route": "/academics/structure/primary/",
+        "component": "Picture",
+        "altRaw": "{`A student of ${S} presenting at the microphone during the Impetus “Math Around Me” session`}"
+      },
+      {
+        "binding": "pCraft",
+        "key": "pCraft",
+        "route": "/academics/structure/primary/",
+        "component": "Picture",
+        "altRaw": "{`Two students of ${S} sharing a desk, each working on her own drawing with colour pencils and cut paper`}"
+      },
+      {
+        "binding": "pCitation",
+        "key": "pCitation",
+        "route": "/academics/structure/primary/",
+        "component": "Picture",
+        "altRaw": "{`A student of ${S} receiving a Citation of Appreciation from a teacher at the Impetus session`}"
+      },
+      {
+        "binding": "pBoard",
+        "key": "pBoard",
+        "route": "/academics/structure/primary/",
+        "component": "Picture",
+        "altRaw": "{`A teacher at ${S} introducing the Impetus Canva Presentation session at the interactive board`}"
+      },
+      {
+        "binding": "pMaking",
+        "key": "pMaking",
+        "route": "/academics/structure/primary/",
+        "component": "Picture",
+        "altRaw": "{`Students of ${S} seated on the floor in a circle, working with embroidery hoops, thread and felt`}"
+      },
+      {
+        "binding": "pReading",
+        "key": "pReading",
+        "route": "/academics/structure/primary/",
+        "component": "Picture",
+        "altRaw": "{`The Reading Carnival display at ${S}, its Class 3–5 story book rack behind the guests`}"
+      },
+      {
+        "binding": "pAssembly",
+        "key": "pAssembly",
+        "route": "/academics/structure/primary/",
+        "component": "Picture",
+        "altRaw": "{`Junior classes of ${S} seated together under the covered ground at an Impetus gathering`}"
+      },
+      {
+        "binding": "pLamp",
+        "key": "pLamp",
+        "route": "/academics/structure/primary/",
+        "component": "Picture",
+        "altRaw": "{`Staff of ${S} lighting the lamp at the inauguration of the Impetus programme`}"
+      },
+      {
+        "binding": "pLibrary",
+        "key": "pLibrary",
+        "route": "/academics/structure/primary/",
+        "component": "Picture",
+        "altRaw": "{`The Nalanda Library at ${S}, its shelves signed by subject and its reading tables set out`}"
+      },
+      {
+        "binding": "pComputer",
+        "key": "pComputer",
+        "route": "/academics/structure/primary/",
+        "component": "Picture",
+        "altRaw": "{`A computer laboratory at ${S}, machines laid out along the benches`}"
+      },
+      {
+        "binding": "pBio",
+        "key": "pBio",
+        "route": "/academics/structure/primary/",
+        "component": "Picture",
+        "altRaw": "{`The biology laboratory at ${S}, microscopes and models on the benches`}"
+      },
+      {
+        "binding": "pCourt",
+        "key": "pCourt",
+        "route": "/academics/structure/primary/",
+        "component": "Picture",
+        "altRaw": "{`The basketball court at ${S}, the hoop set against the school block`}"
+      },
+      {
+        "binding": "pCohort",
+        "key": "pCohort",
+        "route": "/academics/structure/primary/",
+        "component": "Picture",
+        "altRaw": "\"\""
+      }
+    ]
+  },
+  "components/academics/structure/SecondaryPage.astro": {
+    "route": "/academics/structure/secondary/",
+    "uses": [
+      {
+        "binding": "pGuest",
+        "key": "pGuest",
+        "route": "/academics/structure/secondary/",
+        "component": "Picture",
+        "altRaw": "{`Guests at the Guiding Futures session being shown the Nalanda Library at ${S}`}"
+      },
+      {
+        "binding": "pRoom",
+        "key": "pRoom",
+        "route": "/academics/structure/secondary/",
+        "component": "Picture",
+        "altRaw": "{`A subject laboratory at ${S}, benches and apparatus laid out along the room`}"
+      },
+      {
+        "binding": "pBench",
+        "key": "pBench",
+        "route": "/academics/structure/secondary/",
+        "component": "Picture",
+        "altRaw": "{`Students of ${S} at the bench in the chemistry laboratory`}"
+      },
+      {
+        "binding": "pMachines",
+        "key": "pMachines",
+        "route": "/academics/structure/secondary/",
+        "component": "Picture",
+        "altRaw": "{`Younger students of ${S} working at desktop computers in the junior computer laboratory`}"
+      },
+      {
+        "binding": "pLibrary",
+        "key": "pLibrary",
+        "route": "/academics/structure/secondary/",
+        "component": "Picture",
+        "altRaw": "{`Students of ${S} reading and working at tables in the Nalanda Library`}"
+      },
+      {
+        "binding": "pMicro",
+        "key": "pMicro",
+        "route": "/academics/structure/secondary/",
+        "component": "Picture",
+        "altRaw": "{`A student of ${S} using a microscope beside plant specimens in flasks`}"
+      },
+      {
+        "binding": "pCourt",
+        "key": "pCourt",
+        "route": "/academics/structure/secondary/",
+        "component": "Picture",
+        "altRaw": "{`The basketball court at ${S}, the hoop set against the school block`}"
+      },
+      {
+        "binding": "pCohort",
+        "key": "pCohort",
+        "route": "/academics/structure/secondary/",
+        "component": "Picture",
+        "altRaw": "\"\""
+      }
+    ]
+  },
+  "components/academics/structure/SeniorSecondaryPage.astro": {
+    "route": "/academics/structure/senior-secondary/",
+    "uses": [
+      {
+        "binding": "pBench",
+        "key": "pBench",
+        "route": "/academics/structure/senior-secondary/",
+        "component": "Picture",
+        "altRaw": "{`Students of ${S} at the bench in the chemistry laboratory`}"
+      },
+      {
+        "binding": "pLibrary",
+        "key": "pLibrary",
+        "route": "/academics/structure/senior-secondary/",
+        "component": "Picture",
+        "altRaw": "{`Students of ${S} reading and working at tables in the Nalanda Library`}"
+      },
+      {
+        "binding": "pMicro",
+        "key": "pMicro",
+        "route": "/academics/structure/senior-secondary/",
+        "component": "Picture",
+        "altRaw": "{`A student of ${S} using a microscope beside plant specimens in flasks`}"
+      },
+      {
+        "binding": "pMonash",
+        "key": "pMonash",
+        "route": "/academics/structure/senior-secondary/",
+        "component": "Picture",
+        "altRaw": "{`A student of ${S} beside the Monash University Innovation Guarantee banner at an outreach session`}"
+      },
+      {
+        "binding": "pChem",
+        "key": "pChem",
+        "route": "/academics/structure/senior-secondary/",
+        "component": "Picture",
+        "altRaw": "{`The chemistry laboratory at ${S}, benches laid out with reagent shelves and gas taps`}"
+      },
+      {
+        "binding": "pMachines",
+        "key": "pMachines",
+        "route": "/academics/structure/senior-secondary/",
+        "component": "Picture",
+        "altRaw": "{`Younger students of ${S} working at desktop computers in the junior computer laboratory`}"
+      },
+      {
+        "binding": "pActivity",
+        "key": "pActivity",
+        "route": "/academics/structure/senior-secondary/",
+        "component": "Picture",
+        "altRaw": "{`Students of ${S} seated on the floor of a decorated activity room during a lesson`}"
+      },
+      {
+        "binding": "pRoom",
+        "key": "pRoom",
+        "route": "/academics/structure/senior-secondary/",
+        "component": "Picture",
+        "altRaw": "{`A subject laboratory at ${S}, benches and apparatus laid out along the room`}"
+      },
+      {
+        "binding": "pCourt",
+        "key": "pCourt",
+        "route": "/academics/structure/senior-secondary/",
+        "component": "Picture",
+        "altRaw": "{`The basketball court at ${S}, the hoop set against the school block`}"
+      },
+      {
+        "binding": "pCohort",
+        "key": "pCohort",
+        "route": "/academics/structure/senior-secondary/",
+        "component": "Picture",
+        "altRaw": "\"\""
+      }
+    ]
+  },
+  "components/academics/structure/StreamsOfferedPage.astro": {
+    "route": "/academics/structure/streams-offered/",
+    "uses": [
+      {
+        "binding": "pLab",
+        "key": "pLab",
+        "route": "/academics/structure/streams-offered/",
+        "component": "Picture",
+        "altRaw": "{`Senior students of ${school.name} at the laboratory bench, test tubes and burners in front of them`}"
+      }
+    ]
+  },
+  "components/academics/structure/SubjectCombinationsPage.astro": {
+    "route": "/academics/structure/subject-combinations/",
+    "uses": [
+      {
+        "binding": "pLead",
+        "key": "pLead",
+        "route": "/academics/structure/subject-combinations/",
+        "component": "Picture",
+        "altRaw": "{`Senior students of ${school.name} at the physics laboratory benches, apparatus in front of them and subject portraits along the wall`}"
+      },
+      {
+        "binding": "pCampus",
+        "key": "pCampus",
+        "route": "/academics/structure/subject-combinations/",
+        "component": "Picture",
+        "altRaw": "{`The campus of ${school.name} — its teaching blocks standing around the front lawn`}"
+      }
+    ]
+  },
+  "components/academics/StudentCentredPage.astro": {
+    "route": "/academics/philosophy/student-centred-learning/",
+    "uses": [
+      {
+        "binding": "pOwnWork",
+        "key": "pOwnWork",
+        "route": "/academics/philosophy/student-centred-learning/",
+        "component": "Picture",
+        "altRaw": "{`Two students of ${school.name} sharing a desk, each working on her own drawing`}"
+      },
+      {
+        "binding": "pSpeaking",
+        "key": "pSpeaking",
+        "route": "/academics/philosophy/student-centred-learning/",
+        "component": "Picture",
+        "altRaw": "{`The Head Boy of ${school.name} speaking into a microphone at the Student Council investiture ceremony`}"
+      },
+      {
+        "binding": "pSash",
+        "key": "pSash",
+        "route": "/academics/philosophy/student-centred-learning/",
+        "component": "Picture",
+        "altRaw": "{`A student of ${school.name} being invested with the Head Boy sash`}"
+      },
+      {
+        "binding": "pFlag",
+        "key": "pFlag",
+        "route": "/academics/philosophy/student-centred-learning/",
+        "component": "Picture",
+        "altRaw": "{`A house captain at ${school.name} kneeling to receive the house flag`}"
+      },
+      {
+        "binding": "pGrowing",
+        "key": "pGrowing",
+        "route": "/academics/philosophy/student-centred-learning/",
+        "component": "Picture",
+        "altRaw": "{`A young student of ${school.name} adding kitchen scraps to the compost bin at the Little Agriculturists activity`}"
+      },
+      {
+        "binding": "pCohort",
+        "key": "pCohort",
+        "route": "/academics/philosophy/student-centred-learning/",
+        "component": "Picture",
+        "altRaw": "{`Students and staff of ${school.name} gathered on the hall stage`}"
+      }
+    ]
+  },
+  "components/academics/teaching/ExperientialLearningPage.astro": {
+    "route": "/academics/teaching-learning/experiential-learning/",
+    "uses": [
+      {
+        "binding": "pCompost",
+        "key": "pCompost",
+        "route": "/academics/teaching-learning/experiential-learning/",
+        "component": "Picture",
+        "altRaw": "{`A child of ${S} in gloves at the Little Agriculturists compost activity`}"
+      },
+      {
+        "binding": "pOwnWork",
+        "key": "pOwnWork",
+        "route": "/academics/teaching-learning/experiential-learning/",
+        "component": "Picture",
+        "altRaw": "{`Two students of ${S} sharing a desk, each working on her own drawing`}"
+      },
+      {
+        "binding": "pCanva",
+        "key": "pCanva",
+        "route": "/academics/teaching-learning/experiential-learning/",
+        "component": "Picture",
+        "altRaw": "{`A class at ${S} during the Canva Presentation session of the Impetus programme`}"
+      },
+      {
+        "binding": "pMonash",
+        "key": "pMonash",
+        "route": "/academics/teaching-learning/experiential-learning/",
+        "component": "Picture",
+        "altRaw": "{`A student of ${S} standing beside the Monash University “Innovation Guarantee” banner at the outreach session in Delhi`}"
+      },
+      {
+        "binding": "pChef",
+        "key": "pChef",
+        "route": "/academics/teaching-learning/experiential-learning/",
+        "component": "Picture",
+        "altRaw": "{`A teacher at ${S} demonstrating at the table during the papadi chaat activity, her class in paper chef hats around her`}"
+      },
+      {
+        "binding": "pThread",
+        "key": "pThread",
+        "route": "/academics/teaching-learning/experiential-learning/",
+        "component": "Picture",
+        "altRaw": "{`Students of ${S} embroidering from one shared basket of thread`}"
+      },
+      {
+        "binding": "pCohort",
+        "key": "pCohort",
+        "route": "/academics/teaching-learning/experiential-learning/",
+        "component": "Picture",
+        "altRaw": "\"\""
+      }
+    ]
+  },
+  "components/academics/teaching/HandsOn.astro": {
+    "route": "/academics/teaching-learning/",
+    "uses": [
+      {
+        "binding": "bioPhoto",
+        "key": "bioPhoto",
+        "route": "/academics/teaching-learning/",
+        "component": "Photo",
+        "altRaw": "\"Two students of Sunbeam School Ballia handling glassware in the biology laboratory.\""
+      },
+      {
+        "binding": "sciPhoto",
+        "key": "sciPhoto",
+        "route": "/academics/teaching-learning/",
+        "component": "Photo",
+        "altRaw": "\"A student of Sunbeam School Ballia using a microscope beside plant specimens in flasks.\""
+      },
+      {
+        "binding": "mathsPhoto",
+        "key": "mathsPhoto",
+        "route": "/academics/teaching-learning/",
+        "component": "Photo",
+        "altRaw": "\"Students of Sunbeam School Ballia seated on the floor of a decorated activity room during a lesson.\""
+      }
+    ]
+  },
+  "components/academics/teaching/LaboratoriesClubsPage.astro": {
+    "route": "/academics/teaching-learning/laboratories-clubs/",
+    "uses": [
+      {
+        "binding": "pBench",
+        "key": "pBench",
+        "route": "/academics/teaching-learning/laboratories-clubs/",
+        "component": "Picture",
+        "altRaw": "{`Students of ${S} working along the chemistry bench, test tubes held over the burners`}"
+      },
+      {
+        "binding": "pBio",
+        "key": "pBio",
+        "route": "/academics/teaching-learning/laboratories-clubs/",
+        "component": "Picture",
+        "altRaw": "{`The biology laboratory at ${S} between classes — red stools along the bench, microscopes on the shelves and anatomy charts on the wall`}"
+      },
+      {
+        "binding": "pMicro",
+        "key": "pMicro",
+        "route": "/academics/teaching-learning/laboratories-clubs/",
+        "component": "Picture",
+        "altRaw": "{`A student of ${S} at the microscope, conical flasks of plant cuttings and an anatomy model on the bench beside her`}"
+      },
+      {
+        "binding": "pActivity",
+        "key": "pActivity",
+        "route": "/academics/teaching-learning/laboratories-clubs/",
+        "component": "Picture",
+        "altRaw": "{`The activity learning laboratory at ${S}, its worktables set out for group work`}"
+      },
+      {
+        "binding": "pMaths",
+        "key": "pMaths",
+        "route": "/academics/teaching-learning/laboratories-clubs/",
+        "component": "Picture",
+        "altRaw": "{`The mathematics laboratory at ${S}, its models and charts set out on the working surfaces`}"
+      },
+      {
+        "binding": "pTables",
+        "key": "pTables",
+        "route": "/academics/teaching-learning/laboratories-clubs/",
+        "component": "Picture",
+        "altRaw": "{`The activity learning laboratory at ${S} — one crescent table with chairs set all the way round it`}"
+      },
+      {
+        "binding": "pCohort",
+        "key": "pCohort",
+        "route": "/academics/teaching-learning/laboratories-clubs/",
+        "component": "Picture",
+        "altRaw": "\"\""
+      }
+    ]
+  },
+  "components/academics/teaching/MethodologyPage.astro": {
+    "route": "/academics/teaching-learning/methodology/",
+    "uses": [
+      {
+        "binding": "pDesk",
+        "key": "pDesk",
+        "route": "/academics/teaching-learning/methodology/",
+        "component": "Picture",
+        "altRaw": "{`Two students of ${S} sharing a desk, one reaching across for a colour pencil while the other works on her own drawing`}"
+      },
+      {
+        "binding": "pTables",
+        "key": "pTables",
+        "route": "/academics/teaching-learning/methodology/",
+        "component": "Picture",
+        "altRaw": "{`The activity learning laboratory at ${S} — one crescent table with chairs set all the way round it`}"
+      },
+      {
+        "binding": "pThread",
+        "key": "pThread",
+        "route": "/academics/teaching-learning/methodology/",
+        "component": "Picture",
+        "altRaw": "{`Students of ${S} sitting in a circle on the floor, embroidering from one shared basket of thread between them`}"
+      },
+      {
+        "binding": "pChef",
+        "key": "pChef",
+        "route": "/academics/teaching-learning/methodology/",
+        "component": "Picture",
+        "altRaw": "{`A teacher at ${S} demonstrating at the table during the papadi chaat activity, her class in paper chef hats gathered around her`}"
+      },
+      {
+        "binding": "pCohort",
+        "key": "pCohort",
+        "route": "/academics/teaching-learning/methodology/",
+        "component": "Picture",
+        "altRaw": "\"\""
+      }
+    ]
+  },
+  "components/academics/teaching/ReadingLanguagePage.astro": {
+    "route": "/academics/teaching-learning/reading-language/",
+    "uses": [
+      {
+        "binding": "pReading",
+        "key": "pReading",
+        "route": "/academics/teaching-learning/reading-language/",
+        "component": "Picture",
+        "altRaw": "{`Students of ${S} reading at the long tables of the Nalanda Library, a member of staff at the head of the row`}"
+      },
+      {
+        "binding": "pRoom",
+        "key": "pRoom",
+        "route": "/academics/teaching-learning/reading-language/",
+        "component": "Picture",
+        "altRaw": "{`The Nalanda Library at ${S} between classes — reading tables and chairs, with shelves signed “Ballia Literature”, “Mythology” and “Magazines”`}"
+      },
+      {
+        "binding": "pTables",
+        "key": "pTables",
+        "route": "/academics/teaching-learning/reading-language/",
+        "component": "Picture",
+        "altRaw": "{`The reading tables of the Nalanda Library at ${S}, set out beneath the periodical shelves`}"
+      },
+      {
+        "binding": "pCarnival",
+        "key": "pCarnival",
+        "route": "/academics/teaching-learning/reading-language/",
+        "component": "Picture",
+        "altRaw": "{`Children of ${S} at the Reading Carnival racks, picking books from shelves headed “Story” and “Activity”`}"
+      },
+      {
+        "binding": "pRacks",
+        "key": "pRacks",
+        "route": "/academics/teaching-learning/reading-language/",
+        "component": "Picture",
+        "altRaw": "{`A corridor at ${S} during the Reading Carnival, its book racks signed by section`}"
+      },
+      {
+        "binding": "pAward",
+        "key": "pAward",
+        "route": "/academics/teaching-learning/reading-language/",
+        "component": "Picture",
+        "altRaw": "{`A student of ${S} in a prefect’s sash with a member of staff, from the school’s Ardent Reader Award photographs`}"
+      },
+      {
+        "binding": "pAssembly",
+        "key": "pAssembly",
+        "route": "/academics/teaching-learning/reading-language/",
+        "component": "Picture",
+        "altRaw": "{`The whole school of ${S} seated under the canopy for an assembly, staff along the side`}"
+      },
+      {
+        "binding": "pCohort",
+        "key": "pCohort",
+        "route": "/academics/teaching-learning/reading-language/",
+        "component": "Picture",
+        "altRaw": "\"\""
+      }
+    ]
+  },
+  "components/academics/teaching/SmartClassroomsPage.astro": {
+    "route": "/academics/teaching-learning/smart-classrooms/",
+    "uses": [
+      {
+        "binding": "pLabBusy",
+        "key": "pLabBusy",
+        "route": "/academics/teaching-learning/smart-classrooms/",
+        "component": "Picture",
+        "altRaw": "{`The senior computer laboratory at ${S} in use — students at the machines along both benches with a teacher standing at the back of the room`}"
+      },
+      {
+        "binding": "pCanva",
+        "key": "pCanva",
+        "route": "/academics/teaching-learning/smart-classrooms/",
+        "component": "Picture",
+        "altRaw": "{`A class at ${S} during the Canva Presentation activity of the Impetus programme, seated at their desks with the activity poster on the teacher's table`}"
+      },
+      {
+        "binding": "pLabRow",
+        "key": "pLabRow",
+        "route": "/academics/teaching-learning/smart-classrooms/",
+        "component": "Picture",
+        "altRaw": "{`Students of ${S} at work down the length of the senior computer laboratory, a teacher walking the row behind them`}"
+      },
+      {
+        "binding": "pLabEmpty",
+        "key": "pLabEmpty",
+        "route": "/academics/teaching-learning/smart-classrooms/",
+        "component": "Picture",
+        "altRaw": "{`The computer laboratory at ${S} between classes, its machines set out along the benches`}"
+      },
+      {
+        "binding": "pLabEmpty",
+        "key": "pLabEmpty2",
+        "route": "/academics/teaching-learning/smart-classrooms/",
+        "component": "Picture",
+        "altRaw": "{`The computer laboratory at ${S}, its machines set out along the benches`}"
+      },
+      {
+        "binding": "pLabTaught",
+        "key": "pLabTaught",
+        "route": "/academics/teaching-learning/smart-classrooms/",
+        "component": "Picture",
+        "altRaw": "{`A computer room at ${S} during a lesson — a teacher at the front and wall charts of keyboard keys and PC shortcuts behind the machines`}"
+      },
+      {
+        "binding": "pCarnival",
+        "key": "pCarnival",
+        "route": "/academics/teaching-learning/smart-classrooms/",
+        "component": "Picture",
+        "altRaw": "{`A corridor at ${S} during the Reading Carnival, with the school's Microsoft Innovative Educator Expert 2024 posters displayed on the wall behind the book racks`}"
+      },
+      {
+        "binding": "pCohort",
+        "key": "pCohort",
+        "route": "/academics/teaching-learning/smart-classrooms/",
+        "component": "Picture",
+        "altRaw": "\"\""
+      }
+    ]
+  },
+  "components/academics/teaching/StemRoboticsPage.astro": {
+    "route": "/academics/teaching-learning/stem-robotics/",
+    "uses": [
+      {
+        "binding": "pPhysics",
+        "key": "pPhysics",
+        "route": "/academics/teaching-learning/stem-robotics/",
+        "component": "Picture",
+        "altRaw": "{`Senior students of ${S} at the physics laboratory benches, apparatus in front of them and subject portraits along the wall`}"
+      },
+      {
+        "binding": "pComposite",
+        "key": "pComposite",
+        "route": "/academics/teaching-learning/stem-robotics/",
+        "component": "Picture",
+        "altRaw": "{`The composite laboratory at ${S} between classes, its long benches and apparatus set out along the room`}"
+      },
+      {
+        "binding": "pMicroscope",
+        "key": "pMicroscope",
+        "route": "/academics/teaching-learning/stem-robotics/",
+        "component": "Picture",
+        "altRaw": "{`A student of ${S} at the microscope, conical flasks of plant cuttings and an anatomy model on the bench beside her`}"
+      },
+      {
+        "binding": "pCohort",
+        "key": "pCohort",
+        "route": "/academics/teaching-learning/stem-robotics/",
+        "component": "Picture",
+        "altRaw": "\"\""
+      }
+    ]
+  },
+  "components/academics/teaching/Words.astro": {
+    "route": "/academics/teaching-learning/",
+    "uses": [
+      {
+        "binding": "libraryPhoto",
+        "key": "libraryPhoto",
+        "route": "/academics/teaching-learning/",
+        "component": "Photo",
+        "altRaw": "{words.alt}"
+      }
+    ]
+  },
+  "components/academics/TeachingPhilosophyPage.astro": {
+    "route": "/academics/philosophy/teaching-philosophy/",
+    "uses": [
+      {
+        "binding": "pStudents",
+        "key": "pStudents",
+        "route": "/academics/philosophy/teaching-philosophy/",
+        "component": "Picture",
+        "altRaw": "{`Students at ${school.name}`}"
+      },
+      {
+        "binding": "pComputers",
+        "key": "pComputers",
+        "route": "/academics/philosophy/teaching-philosophy/",
+        "component": "Picture",
+        "altRaw": "{`The computer laboratory at ${school.name}, rows of workstations facing an interactive board`}"
+      },
+      {
+        "binding": "pGround",
+        "key": "pGround",
+        "route": "/academics/philosophy/teaching-philosophy/",
+        "component": "Picture",
+        "altRaw": "{`Students together on the ground at ${school.name}`}"
+      },
+      {
+        "binding": "pCeremony",
+        "key": "pCeremony",
+        "route": "/academics/philosophy/teaching-philosophy/",
+        "component": "Picture",
+        "altRaw": "{`Students of ${school.name}`}"
+      },
+      {
+        "binding": "pMaking",
+        "key": "pMaking",
+        "route": "/academics/philosophy/teaching-philosophy/",
+        "component": "Picture",
+        "altRaw": "{`Students of ${school.name} working on embroidery together`}"
+      },
+      {
+        "binding": "pChef",
+        "key": "pChef",
+        "route": "/academics/philosophy/teaching-philosophy/",
+        "component": "Picture",
+        "altRaw": "{`A teacher at ${school.name} demonstrating at the table during a cooking activity, her class in paper chef hats around her`}"
+      },
+      {
+        "binding": "pPair",
+        "key": "pPair",
+        "route": "/academics/philosophy/teaching-philosophy/",
+        "component": "Picture",
+        "altRaw": "{`Two students of ${school.name} at one desk, each working on her own drawing`}"
+      }
+    ]
+  },
+  "pages/academics/index.astro": {
+    "route": "/academics/",
+    "uses": [
+      {
+        "binding": "heroPhoto",
+        "key": "heroPhoto",
+        "route": "/academics/",
+        "component": "Photo",
+        "altRaw": "\"Students of Sunbeam School Ballia working with laboratory glassware and a burner during a chemistry lesson.\""
+      }
+    ]
+  },
+  "pages/academics/parent-partnership/faqs.astro": {
+    "route": "/academics/parent-partnership/faqs/",
+    "uses": [
+      {
+        "binding": "pReading",
+        "key": "pReading",
+        "route": "/academics/parent-partnership/faqs/",
+        "component": "Picture",
+        "altRaw": "{`Students of ${S} reading at the long tables of the Nalanda Library`}"
+      },
+      {
+        "binding": "pCampus",
+        "key": "pCampus",
+        "route": "/academics/parent-partnership/faqs/",
+        "component": "Picture",
+        "altRaw": "{`The campus of ${S}, its blocks around the front lawn`}"
+      },
+      {
+        "binding": "pCohort",
+        "key": "pCohort",
+        "route": "/academics/parent-partnership/faqs/",
+        "component": "Picture",
+        "altRaw": "{`Student council office-bearers and NCC cadets of ${S} on stage with the school’s dignitaries`}"
+      }
+    ]
+  },
+  "pages/academics/philosophy/curriculum.astro": {
+    "route": "/academics/philosophy/curriculum/",
+    "uses": [
+      {
+        "binding": "pCohort",
+        "key": "pCohort",
+        "route": "/academics/philosophy/curriculum/",
+        "component": "?",
+        "altRaw": null
+      }
+    ]
+  },
+  "pages/academics/student-success/alumni-interaction.astro": {
+    "route": "/academics/student-success/alumni-interaction/",
+    "uses": [
+      {
+        "binding": "pCohort",
+        "key": "pCohort",
+        "route": "/academics/student-success/alumni-interaction/",
+        "component": "?",
+        "altRaw": null
+      },
+      {
+        "binding": "gSudhanshu",
+        "key": "gSudhanshu",
+        "route": "/academics/student-success/alumni-interaction/",
+        "component": "reference",
+        "altRaw": null
+      },
+      {
+        "binding": "gAditya",
+        "key": "gAditya",
+        "route": "/academics/student-success/alumni-interaction/",
+        "component": "reference",
+        "altRaw": null
+      },
+      {
+        "binding": "gNavneet",
+        "key": "gNavneet",
+        "route": "/academics/student-success/alumni-interaction/",
+        "component": "reference",
+        "altRaw": null
+      }
+    ]
+  }
+}

@@ -16,64 +16,21 @@
  * all taken in the hall. The rest keep labelled placeholders rather than
  * borrowing an unrelated photograph.
  */
-import { facilities } from '../../data/home';
+import { getCampus } from '../../lib/cms';
+import CmsImage from '../ui/CmsImage.astro';
 import Photo from '../ui/Photo.astro';
-import { Picture } from 'astro:assets';
-import campusPhoto from '../../assets/photos/sunbeem-1.jpg';
-import awardsPhoto from '../../assets/photos/sunbeem-4.jpg';
-import farewellPhoto from '../../assets/photos/sunbeem-3.jpg';
-import councilPhoto from '../../assets/photos/sunbeem-5.jpg';
-import labPhoto from '../../assets/photos/sunbeem-students.jpg';
-import libraryPhoto from '../../assets/photos/sb-library.jpg';
-import physicsPhoto from '../../assets/photos/sb-phy-lab.jpg';
-import bioPhoto from '../../assets/photos/sb-bio-lab.jpg';
-import compPhoto from '../../assets/photos/sb-comp-lab-2.jpg';
-import mathsPhoto from '../../assets/photos/sb-maths-lab.jpg';
 
 /* The academic blocks from the inside. The exterior shot alone left two of this
    panel's three frames as placeholders, and these are the same building — a
    corridor and a stairwell in the block the panel is about, not a borrowed
    picture of somewhere else. */
-import corridorPhoto from '../../assets/corridor and stairs/DSC_1211 copy.jpg';
-import stairsPhoto from '../../assets/corridor and stairs/DSC_1240 copy.jpg';
 
 /* Sports had NO photograph at all on this panel and three placeholders, which
    was true when this component was written and is not any more — the ground,
    court and junior park are all photographed. */
-import joshPhoto from '../../assets/JOSH GROUND/DSC_1287 copy.jpg';
-import courtPhoto from '../../assets/basket ball/DSC_1280 copy.jpg';
-import parkPhoto from '../../assets/play ground/DSC_1248 copy.jpg';
 
-type Shot = { src: ImageMetadata; alt: string };
 
-/** Real photography, keyed to the facility it actually shows. */
-const gallery: Record<string, Shot[]> = {
-  campus: [
-    { src: campusPhoto, alt: 'The Sunbeam School Ballia academic blocks at Agarsanda, seen across the school lawn.' },
-    { src: corridorPhoto, alt: 'A corridor inside the academic block at Sunbeam School Ballia.' },
-    { src: stairsPhoto, alt: 'A noticeboard-lined corridor in the academic block at Sunbeam School Ballia.' },
-  ],
-  sports: [
-    { src: joshPhoto, alt: 'The JOSH ground at Sunbeam School Ballia, seen through the school gateway arch.' },
-    { src: courtPhoto, alt: 'The basketball court at Sunbeam School Ballia.' },
-    { src: parkPhoto, alt: 'The junior playground at Sunbeam School Ballia.' },
-  ],
-  lab: [
-    { src: labPhoto, alt: 'Sunbeam School Ballia students performing a chemistry practical in the science laboratory.' },
-    { src: physicsPhoto, alt: 'The physics laboratory at Sunbeam School Ballia.' },
-    { src: bioPhoto, alt: 'The biology laboratory at Sunbeam School Ballia.' },
-  ],
-  library: [
-    { src: libraryPhoto, alt: 'Students reading at tables in the Nalanda Library at Sunbeam School Ballia.' },
-    { src: mathsPhoto, alt: 'The mathematics laboratory at Sunbeam School Ballia.' },
-    { src: compPhoto, alt: 'A computer laboratory at Sunbeam School Ballia.' },
-  ],
-  auditorium: [
-    { src: awardsPhoto, alt: 'An award ceremony on stage in the hall at Sunbeam School Ballia.' },
-    { src: farewellPhoto, alt: 'The 2024-25 farewell ceremony in the hall at Sunbeam School Ballia.' },
-    { src: councilPhoto, alt: 'Student council office-bearers and NCC cadets on the hall stage.' },
-  ],
-};
+const { eyebrow, heading, sub, facilities } = await getCampus();
 
 const total = String(facilities.length).padStart(2, '0');
 const slots = ['tall', 'top', 'bottom'] as const;
@@ -85,19 +42,16 @@ const slots = ['tall', 'top', 'bottom'] as const;
       <header class="campus__head" data-reveal>
         {/* the pill is inline-flex, so it needs a block wrapper or it sits on
             the same line as the heading */}
-        <p class="campus__eyebrow"><span class="pill pill--violet">The Campus</span></p>
-        <h2 class="campus__heading t-h2-sans" data-split id="campus-heading">Explore our campus life</h2>
-        <p class="campus__sub t-body-lg">
-          Twelve laboratories, a fifteen-thousand-book library and a shooting range, on one
-          campus at Agarsanda. Step through the places a Sunbeam day actually happens in.
-        </p>
+        <p class="campus__eyebrow"><span class="pill pill--violet">{eyebrow}</span></p>
+        <h2 class="campus__heading t-h2-sans" data-split id="campus-heading">{heading}</h2>
+        <p class="campus__sub t-body-lg">{sub}</p>
       </header>
 
       <div class="campus__browser" data-campus>
         <div class="campus__viewport">
           <div class="campus__track" data-track>
-            {facilities.map((f: any, i) => {
-              const shots = f.photo ? gallery[f.photo] ?? [] : [];
+            {facilities.map((f, i) => {
+              const shots = f.shots;
               return (
                 <div
                   class="campus__panel"
@@ -128,8 +82,8 @@ const slots = ['tall', 'top', 'bottom'] as const;
                           brief={`${f.name} — ${slot === 'tall' ? 'primary' : 'supporting'} view. ${f.brief}`}
                           ref="A2"
                           quiet
-                          src={shots[s]?.src}
-                          alt={shots[s]?.alt}
+                          file={shots[s]?.image}
+                          alt={shots[s]?.alt ?? ''}
                           sizes="(max-width: 1023px) 50vw, 28vw"
                         />
                       </div>
@@ -145,8 +99,8 @@ const slots = ['tall', 'top', 'bottom'] as const;
         <div class="campus__stepper">
           <div class="campus__steps" role="tablist" aria-label="Campus facilities">
             <span class="campus__progress" aria-hidden="true"></span>
-            {facilities.map((f: any, i) => {
-              const thumb = f.photo ? gallery[f.photo]?.[0] : undefined;
+            {facilities.map((f, i) => {
+              const thumb = f.shots[0];
               return (
                 <button
                   class="campus__step"
@@ -160,8 +114,7 @@ const slots = ['tall', 'top', 'bottom'] as const;
                 >
                   <span class="campus__thumb">
                     {thumb ? (
-                      <Picture src={thumb.src} alt="" formats={['webp']}
-                        widths={[56, 112]} sizes="56px" loading="lazy" />
+                      <CmsImage file={thumb.image} alt="" sizes="56px" fallbackWidth={112} />
                     ) : (
                       <span class="campus__thumb-mono" aria-hidden="true">
                         {String(i + 1).padStart(2, '0')}

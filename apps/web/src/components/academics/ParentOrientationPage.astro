@@ -64,50 +64,39 @@
  * data-draw (timeline), plus the site's data-mask / data-zoom / data-parallax.
  * All behind the existing prefers-reduced-motion and Save-Data gates.
  */
-import { Image, Picture } from 'astro:assets';
+import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
-import { school } from '../../data/site';
+import { getSchool } from '../../lib/cms';
 
 /* All six verified by eye before use. */
-import pPrecept from '../../assets/school-event/Parent-Orientation/pop4-2024-a.jpg';
-import pClassWide from '../../assets/school-event/Parent-Orientation/pop1-2024-d.jpg';
-import pGirls from '../../assets/school-event/Parent-Orientation/pop1-2024-e.jpg';
-import pDeskGroup from '../../assets/school-event/Parent-Orientation/pop2-2024-a.jpg';
-import pDeskTwo from '../../assets/school-event/Parent-Orientation/pop1-2024-c.jpg';
-import pDeskFamily from '../../assets/school-event/Parent-Orientation/pop1-2024-b.jpg';
 
 /* ⚠ two-stars.png IS NOT IMPORTED HERE, deliberately. It is referenced from
    another component's CSS by url(), and handing it to astro:assets would make
    it emit as .webp and 404 that stylesheet — the exact failure dot-bg.png hit.
    star.png has no CSS references anywhere, so it is safe to import. */
 import oStar from '../../assets/icons/star.png';
+import { getAcademicTopic } from '../../lib/cms';
+import SmartImage from '../ui/SmartImage.astro';
+
+const ac = await getAcademicTopic('/academics/parent-partnership/parent-orientation/');
+const pPrecept = ac.pic('pPrecept');
+const pClassWide = ac.pic('pClassWide');
+const pDeskTwo = ac.pic('pDeskTwo');
+const pDeskFamily = ac.pic('pDeskFamily');
+
+const school = await getSchool();
 
 const S = school.name;
 
 /* Resolved here rather than in the data, because astro:assets has to see each
    import statically to emit the AVIF/WebP variants. */
-const stepPhoto: Record<string, ImageMetadata> = {
-  precept: pPrecept,
-  deskGroup: pDeskGroup,
-  girls: pGirls,
-  deskTwo: pDeskTwo,
-};
+const stepPhoto = ac.section('stepPhoto').byKey;
 
-const frameAlt: Record<string, string> = {
-  precept: `A member of staff at ${school.name} holding up the PRECEPT syllabus booklet to seated parents during a Parent's Orientation Programme`,
-  deskGroup: `Two parents and a small child seated opposite a member of staff at ${school.name}, admission forms across the desk`,
-  girls: `Two young children of ${school.name} in woollen caps writing at a classroom desk`,
-  deskTwo: `Two parents in conversation with a member of staff across a desk at ${school.name}`,
-};
+/* key → alt text, rebuilt from the labelled rows the CMS stores. */
+const frameAlt = Object.fromEntries(ac.section('frameAlt').details.map((d) => [d.k, d.v]));
 
 /* Only programmes whose date is on the school's own poster or page text. */
-const timeline = [
-  { n: '1st', when: '17 Jan 2024', detail: '234 students · 389 parents', classes: 'Nur.–IX & XI' },
-  { n: '3rd', when: '14 Feb 2024', detail: '109 students', classes: 'Nur.–IX & XI' },
-  { n: '5th', when: '11 Mar 2024', detail: '61 students · 104 parents', classes: 'Nur.–IX & XI' },
-  { n: '1st', when: '18 Jan 2026', detail: '292 students appeared', classes: 'Nur.–IX' },
-  { n: '3rd', when: '14 Feb 2026', detail: 'Result published', classes: 'Nur.–IX' },
-];
+const timeline = ac.section('timeline').details;
 
 /* ⚠ FOUR FRAMES, BECAUSE THE REFERENCE HAS FOUR IMAGE POSITIONS. The morning
    has three photographed movements, so the fourth position takes a second frame
@@ -118,18 +107,15 @@ const timeline = [
 /* The lead time, as a visual rather than a sentence: orientation runs in these
    three months, and the session it admits to starts after them. The months are
    the school's own dates — 17 Jan, 14 Feb, 11 Mar, 18 Jan, 14 Feb. */
-const months = [
-  { m: 'January', d: '1st programme' },
-  { m: 'February', d: '3rd programme' },
-  { m: 'March', d: '5th programme' },
-];
+const months = ac.section('months').details;
 
-const frames = [
-  { key: 'a', photo: 'precept',   n: '01', t: 'The room, and the syllabus', m: 'PRECEPT shown to parents' },
-  { key: 'b', photo: 'deskGroup', n: '02', t: 'One family, one desk',       m: 'The forms between them' },
-  { key: 'd', photo: 'deskTwo',   n: '',   t: 'And again, one at a time',   m: 'Another family, another desk' },
-  { key: 'c', photo: 'girls',     n: '03', t: 'The children write',         m: 'Grouped by age' },
-];
+/**
+ * ⚠ `slot` IS THE LAYOUT KEY AND `cap` IS THE PHOTOGRAPH'S. The source card was
+ * { key, photo, n, t, m }; the point keeps the first as `slot` and the second as
+ * `cap`, so the four framed panels still find their own picture and caption.
+ */
+const frames = ac.section('frames').points;
+const frame = (slot: string) => frames.find((f) => f.slot === slot)!;
 
 ---
 
@@ -165,10 +151,10 @@ const frames = [
       <span class="po-open__dots" aria-hidden="true"></span>
 
       <figure class="po-open__frame" data-mask data-zoom data-zoom-to="1.08">
-        <Picture
-          src={pPrecept}
-          alt={`A member of staff at ${S} holding up the PRECEPT syllabus booklet to parents seated in the conference room during a Parent's Orientation Programme`}
-          formats={['webp']}
+        <SmartImage
+          file={pPrecept}
+          alt={ac.picAlt('pPrecept')}
+         
           widths={[640, 1000, 1400]}
           sizes="(max-width: 1000px) 92vw, 46vw"
           loading="lazy"
@@ -178,10 +164,10 @@ const frames = [
       </figure>
 
       <figure class="po-open__inset" data-parallax data-parallax-y="26">
-        <Picture
-          src={pDeskTwo}
-          alt={`Two parents in conversation with a member of staff across a desk at ${S}`}
-          formats={['webp']}
+        <SmartImage
+          file={pDeskTwo}
+          alt={ac.picAlt('pDeskTwo')}
+         
           widths={[280, 480]}
           sizes="(max-width: 1000px) 44vw, 20vw"
           loading="lazy"
@@ -233,10 +219,10 @@ const frames = [
       </div>
 
       <figure class="po-num__frame" data-zoom data-zoom-to="1.1">
-        <Picture
-          src={pClassWide}
-          alt={`A classroom of students at ${S} writing at their desks during a Parent's Orientation Programme, in coats and woollen caps`}
-          formats={['webp']}
+        <SmartImage
+          file={pClassWide}
+          alt={ac.picAlt('pClassWide')}
+         
           widths={[560, 900]}
           sizes="(max-width: 900px) 92vw, 38vw"
           loading="lazy"
@@ -305,78 +291,70 @@ const frames = [
       </div>
 
       <figure class="rf__img rf__img--a" data-mask data-zoom data-zoom-to="1.07">
-        <Picture
-          src={stepPhoto[frames.find((f) => f.key === 'a')!.photo]}
-          alt={frameAlt[frames.find((f) => f.key === 'a')!.photo]}
-          formats={['webp']}
-          widths={[340, 620]}
+        <SmartImage
+          file={stepPhoto[frame('a').cap ?? '']?.src}
+          alt={frameAlt[frame('a').cap ?? '']}
           sizes="(max-width: 900px) 88vw, 24vw"
+          fallbackWidth={1100}
           loading="lazy"
-          decoding="async"
         />
         <figcaption class="rf__plate">
-          {frames.find((f) => f.key === 'a')!.n && (
-            <span class="rf__n t-tabular">{frames.find((f) => f.key === 'a')!.n}</span>
+          {frame('a').n && (
+            <span class="rf__n t-tabular">{frame('a').n}</span>
           )}
-          <span class="rf__t">{frames.find((f) => f.key === 'a')!.t}</span>
-          <span class="rf__m">{frames.find((f) => f.key === 'a')!.m}</span>
+          <span class="rf__t">{frame('a').k}</span>
+          <span class="rf__m">{frame('a').v}</span>
         </figcaption>
       </figure>
 
       <figure class="rf__img rf__img--b" data-mask data-zoom data-zoom-to="1.07">
-        <Picture
-          src={stepPhoto[frames.find((f) => f.key === 'b')!.photo]}
-          alt={frameAlt[frames.find((f) => f.key === 'b')!.photo]}
-          formats={['webp']}
-          widths={[340, 620]}
+        <SmartImage
+          file={stepPhoto[frame('b').cap ?? '']?.src}
+          alt={frameAlt[frame('b').cap ?? '']}
           sizes="(max-width: 900px) 88vw, 24vw"
+          fallbackWidth={1100}
           loading="lazy"
-          decoding="async"
         />
         <figcaption class="rf__plate">
-          {frames.find((f) => f.key === 'b')!.n && (
-            <span class="rf__n t-tabular">{frames.find((f) => f.key === 'b')!.n}</span>
+          {frame('b').n && (
+            <span class="rf__n t-tabular">{frame('b').n}</span>
           )}
-          <span class="rf__t">{frames.find((f) => f.key === 'b')!.t}</span>
-          <span class="rf__m">{frames.find((f) => f.key === 'b')!.m}</span>
+          <span class="rf__t">{frame('b').k}</span>
+          <span class="rf__m">{frame('b').v}</span>
         </figcaption>
       </figure>
 
       <figure class="rf__img rf__img--d" data-mask data-zoom data-zoom-to="1.07">
-        <Picture
-          src={stepPhoto[frames.find((f) => f.key === 'd')!.photo]}
-          alt={frameAlt[frames.find((f) => f.key === 'd')!.photo]}
-          formats={['webp']}
-          widths={[340, 620]}
+        <SmartImage
+          file={stepPhoto[frame('d').cap ?? '']?.src}
+          alt={frameAlt[frame('d').cap ?? '']}
           sizes="(max-width: 900px) 88vw, 24vw"
+          fallbackWidth={1100}
           loading="lazy"
-          decoding="async"
         />
         <figcaption class="rf__plate">
-          {frames.find((f) => f.key === 'd')!.n && (
-            <span class="rf__n t-tabular">{frames.find((f) => f.key === 'd')!.n}</span>
+          {frame('d').n && (
+            <span class="rf__n t-tabular">{frame('d').n}</span>
           )}
-          <span class="rf__t">{frames.find((f) => f.key === 'd')!.t}</span>
-          <span class="rf__m">{frames.find((f) => f.key === 'd')!.m}</span>
+          <span class="rf__t">{frame('d').k}</span>
+          <span class="rf__m">{frame('d').v}</span>
         </figcaption>
       </figure>
 
       <figure class="rf__img rf__img--c" data-mask data-zoom data-zoom-to="1.07">
-        <Picture
-          src={stepPhoto[frames.find((f) => f.key === 'c')!.photo]}
-          alt={frameAlt[frames.find((f) => f.key === 'c')!.photo]}
-          formats={['webp']}
-          widths={[340, 620]}
+        <SmartImage
+          file={stepPhoto[frame('c').cap ?? '']?.src}
+          alt={frameAlt[frame('c').cap ?? '']}
           sizes="(max-width: 900px) 88vw, 24vw"
+          fallbackWidth={1100}
           loading="lazy"
-          decoding="async"
         />
         <figcaption class="rf__plate">
-          {frames.find((f) => f.key === 'c')!.n && (
-            <span class="rf__n t-tabular">{frames.find((f) => f.key === 'c')!.n}</span>
+          {frame('c').n && (
+            <span class="rf__n t-tabular">{frame('c').n}</span>
           )}
-          <span class="rf__t">{frames.find((f) => f.key === 'c')!.t}</span>
-          <span class="rf__m">{frames.find((f) => f.key === 'c')!.m}</span>
+          <span class="rf__t">{frame('c').k}</span>
+          <span class="rf__m">{frame('c').v}</span>
         </figcaption>
       </figure>
 
@@ -428,10 +406,10 @@ const frames = [
 {/* ══ 04 · CLOSING ══════════════════════════════════════════════════════════ */}
 <section class="po-end" aria-labelledby="po-end-title">
   <div class="po-end__media" data-zoom data-zoom-to="1.14">
-    <Picture
-      src={pDeskFamily}
-      alt={`A mother, father and small child seated across a desk from a member of staff at ${S} during a Parent's Orientation Programme`}
-      formats={['webp']}
+    <SmartImage
+      file={pDeskFamily}
+      alt={ac.picAlt('pDeskFamily')}
+     
       widths={[900, 1400, 1600]}
       sizes="100vw"
       loading="lazy"

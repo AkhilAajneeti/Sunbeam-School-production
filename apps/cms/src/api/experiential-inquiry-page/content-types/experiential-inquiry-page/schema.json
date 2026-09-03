@@ -1,0 +1,17 @@
+{
+  "kind": "singleType",
+  "collectionName": "experiential_inquiry_pages",
+  "info": {
+    "singularName": "experiential-inquiry-page",
+    "pluralName": "experiential-inquiry-pages",
+    "displayName": "Experiential & Inquiry Learning",
+    "description": "The Experiential & Inquiry-Based Learning page — one named field per visual section, in the order a reader meets them. ⚠ Sections cannot be reordered, added or removed: the page is designed around these four and each is drawn differently."
+  },
+  "options": { "draftAndPublish": true },
+  "attributes": {
+    "sectionOne": { "type": "component", "repeatable": false, "component": "philosophy.pair" },
+    "sectionTwo": { "type": "component", "repeatable": false, "component": "philosophy.steps" },
+    "sectionThree": { "type": "component", "repeatable": false, "component": "philosophy.listing" },
+    "close": { "type": "component", "repeatable": false, "component": "philosophy.close" }
+  }
+}

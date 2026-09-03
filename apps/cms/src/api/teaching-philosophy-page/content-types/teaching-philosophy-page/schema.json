@@ -1,0 +1,19 @@
+{
+  "kind": "singleType",
+  "collectionName": "teaching_philosophy_pages",
+  "info": {
+    "singularName": "teaching-philosophy-page",
+    "pluralName": "teaching-philosophy-pages",
+    "displayName": "Teaching Philosophy",
+    "description": "The five sections and the closing band of /academics/philosophy/teaching-philosophy/, in the order they appear on the page. ⚠⚠ THE SECTIONS ARE FIXED FIELDS, NOT A LIST. Each one is a named, single component, so the page cannot be reordered, a section cannot be deleted and no new one can be added — the design owns the composition and this owns the words. ⚠ WHAT IS NEVER HERE: the 01–05 numerals, the washes, grids, dot fields and float ornaments, the parallax and reveal delays, the constellation's radius and node angles, and the section order. All of it stays in TeachingPhilosophyPage.astro."
+  },
+  "options": { "draftAndPublish": true },
+  "attributes": {
+    "sectionOne":   { "type": "component", "repeatable": false, "component": "philosophy.statement" },
+    "sectionTwo":   { "type": "component", "repeatable": false, "component": "philosophy.pair" },
+    "sectionThree": { "type": "component", "repeatable": false, "component": "philosophy.constellation" },
+    "sectionFour":  { "type": "component", "repeatable": false, "component": "philosophy.statement" },
+    "sectionFive":  { "type": "component", "repeatable": false, "component": "philosophy.statement" },
+    "close":        { "type": "component", "repeatable": false, "component": "philosophy.close" }
+  }
+}

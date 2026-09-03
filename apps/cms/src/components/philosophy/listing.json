@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_philosophy_listings",
+  "info": {
+    "displayName": "Listing section",
+    "icon": "bulletList",
+    "description": "A statement with a short list under it and photographs alongside. ⚠ The collage geometry, the sizes, the overlaps and the reveal delays are design and stay in the page."
+  },
+  "options": {},
+  "attributes": {
+    "kicker": { "type": "string", "required": true, "maxLength": 80 },
+    "heading": { "type": "string", "required": true, "maxLength": 120 },
+    "headingEm": { "type": "string", "maxLength": 120, "description": "The second line, set in italic. The page puts the line break in." },
+    "body": { "type": "component", "repeatable": true, "component": "shared.paragraph" },
+    "entries": { "type": "component", "repeatable": true, "component": "shared.detail", "description": "Each row is a name and a short note beside it." },
+    "imageOne": { "type": "media", "multiple": false, "allowedTypes": ["images"] },
+    "imageOneAlt": { "type": "text", "maxLength": 500 },
+    "imageTwo": { "type": "media", "multiple": false, "allowedTypes": ["images"] },
+    "imageTwoAlt": { "type": "text", "maxLength": 500 },
+    "imageThree": { "type": "media", "multiple": false, "allowedTypes": ["images"] },
+    "imageThreeAlt": { "type": "text", "maxLength": 500 }
+  }
+}

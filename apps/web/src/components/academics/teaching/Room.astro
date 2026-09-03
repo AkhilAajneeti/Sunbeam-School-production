@@ -18,7 +18,10 @@
  * only overwrites them once the motion chunk loads and the stage scrolls in.
  */
 import SectionHead from '../SectionHead.astro';
-import { teachingLearning } from '../../../data/academics';
+import { getAcademicTopic } from '../../../lib/cms';
+
+const ac = await getAcademicTopic('/academics/teaching-learning/');
+const teachingLearning = ac.blockMap('teachingLearning');
 
 const { room } = teachingLearning;
 ---

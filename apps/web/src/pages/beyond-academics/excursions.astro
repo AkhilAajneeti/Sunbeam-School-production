@@ -49,7 +49,9 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/ui/PageHero.astro';
 import Band from '../../components/beyond/excursions/Band.astro';
 
-import { sections, photo } from '../../data/excursions';
+import { getExcursionSections } from '../../lib/cms';
+
+const sections = await getExcursionSections();
 
 /* Students outside a building on a visit — the closest thing in the library to
    a photograph of this page's subject. */
@@ -65,29 +67,23 @@ const TONES = ['ivory', 'sand', 'paper'] as const;
  * of the same visit apart instead of hearing one sentence four times. Per-image
  * descriptions are owed — they belong with the photography asset request.
  */
-const slidesFor = (shots: readonly string[], alt: string) =>
-  shots
-    .filter((f) => photo[f])
-    .map((f, i, all) => ({
-      src: photo[f],
-      alt: all.length > 1 ? `${alt} — photograph ${i + 1} of ${all.length}` : alt,
-    }));
+/**
+ * ⚠ `shots` IS StrapiFile[] NOW, NOT string[]. The source held FILENAMES that
+ * indexed a Vite-glob map, so this used to look each one up and drop any that
+ * did not resolve. Each section carries its photographs directly, so the lookup
+ * and the filter are both gone — the numbering is unchanged.
+ */
+const slidesFor = (shots: readonly any[], alt: string) =>
+  shots.map((src, i, all) => ({
+    src,
+    alt: all.length > 1 ? `${alt} — photograph ${i + 1} of ${all.length}` : alt,
+  }));
 ---
 
 <BaseLayout
-  title="Excursions & Educational Tours — Sunbeam School Ballia"
-  description="Where Sunbeam School Ballia takes its students: a Model United Nations floor in Odisha, the IMUN summit at Indore, the Jaipur Heritage Festival, Buxar Fort, and a dairy, a district court and a forest park within an afternoon of school."
 >
   <PageHero
-    title="Excursions & Educational Tours"
-    standfirst="A dairy, a district court and a forest park within an afternoon of school — and a conference floor in Odisha for those who go furthest."
-    crumbs={[
-      { label: 'Home', href: '/' },
-      { label: 'Beyond Academics', href: '/beyond-academics/sports/' },
-    ]}
     src={heroPhoto}
-    alt="Sunbeam School Ballia students and staff with the school banner at the IMUN conference"
-    position="50% 38%"
   />
 
   {/* padding-block: 0 — every band carries its own --sb-section-y, and the panel

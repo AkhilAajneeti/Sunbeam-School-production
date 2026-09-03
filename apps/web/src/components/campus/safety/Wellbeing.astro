@@ -1,4 +1,7 @@
 ---
+import { getCampusSafetyData } from '../../../lib/cms';
+const {wellbeingCards} = await getCampusSafetyData();
+
 /**
  * §5 · STUDENT WELLBEING — the warm band.
  *
@@ -10,7 +13,7 @@
  * Only the junior-class attendants are published. The other three cards are the
  * brief's, not the school's, and say so.
  */
-import { wellbeingCards } from '../../../data/campus';
+
 import { showBuildNotes } from '../../../data/site';
 import SectionHead from '../../academics/SectionHead.astro';
 import BurstCard from '../../ui/BurstCard.astro';

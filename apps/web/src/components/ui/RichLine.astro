@@ -1,0 +1,129 @@
+---
+/**
+ * ONE PARAGRAPH OF CMS PROSE THAT MAY CARRY EMPHASIS AND LINKS.
+ *
+ * ═══ WHY THIS EXISTS ═══════════════════════════════════════════════════════
+ *
+ * Most migrated copy is plain text and needs nothing. A handful of paragraphs
+ * are not — they were written as markup because the meaning needs it:
+ *
+ *     It records students <strong>registered</strong> and <strong>passed</strong>;
+ *     a separate figure for students <em>appeared</em> is not published…
+ *
+ * That sentence is a regulatory clarification and the emphasis is the point of
+ * it. Storing it as plain text would flatten a distinction the disclosure page
+ * exists to make; leaving it in the component would mean the school cannot
+ * correct its own filing note.
+ *
+ * ⚠ THREE MARKS, AND NOTHING ELSE:
+ *
+ *     **bold**            → <strong>
+ *     *italic*            → <em>
+ *     [label](/href)      → <a>
+ *
+ * ⚠ NOT A MARKDOWN RENDERER, AND NOT RICH TEXT. Both would accept arbitrary
+ * HTML from the admin and put it inside a paragraph that has a designed type
+ * scale — one pasted heading or colour and the page stops matching the rest of
+ * the site. This parses three constructs and prints every other character
+ * verbatim, so there is no path from the CMS to raw markup.
+ *
+ * ⚠ AN UNCLOSED MARK IS PRINTED AS TYPED rather than swallowing the rest of the
+ * sentence. An editor who writes "2 ** 3" gets "2 ** 3".
+ */
+interface Props {
+  text?: string | null;
+  class?: string;
+  /** `p` by default; `span` where the paragraph is already wrapped. */
+  tag?: 'p' | 'span' | 'div' | 'li' | 'h1' | 'h2' | 'h3' | 'dd' | 'dt';
+  id?: string;
+  /** Emits `data-reveal`, which the GSAP scroll reveal picks up. */
+  reveal?: boolean;
+  revealDelay?: number;
+  /** Emits data-split, which the GSAP heading reveal picks up. */
+  split?: boolean;
+  /**
+   * ⚠ WHAT A LINK LOOKS LIKE BELONGS TO THE PAGE, NOT THE SENTENCE.
+   * The academics pages style their inline links per page — sc-link, ms-link,
+   * pr-link — and one is a button. The CMS stores only [text](/where/); the page
+   * says how it should look, exactly as it does for every other element.
+   */
+  linkClass?: string;
+}
+
+const {
+  text,
+  class: className,
+  tag: Tag = 'p',
+  id,
+  reveal = false,
+  revealDelay,
+  split = false,
+  linkClass,
+} = Astro.props;
+
+type Node =
+  | { t: 'text'; v: string }
+  | { t: 'strong'; v: string }
+  | { t: 'em'; v: string }
+  | { t: 'link'; v: string; href: string };
+
+/**
+ * One pass, left to right, taking whichever mark opens first. Doing it with
+ * three separate replaces would let a `**bold**` inside a link label be found
+ * before the link and split the label in half.
+ */
+function parse(src: string): Node[] {
+  const out: Node[] = [];
+  let rest = src;
+
+  /* ⚠ `**` IS TESTED BEFORE `*`, or every bold opener reads as an italic. */
+  const RULES: Array<[RegExp, (m: RegExpMatchArray) => Node]> = [
+    [/^\*\*([\s\S]+?)\*\*/, (m) => ({ t: 'strong', v: m[1] })],
+    [/^\*([^*\n]+?)\*/, (m) => ({ t: 'em', v: m[1] })],
+    [/^\[([^\]\n]+)\]\(([^)\s]+)\)/, (m) => ({ t: 'link', v: m[1], href: m[2] })],
+  ];
+
+  let buffer = '';
+  while (rest.length > 0) {
+    let matched: Node | null = null;
+    let length = 0;
+
+    for (const [re, make] of RULES) {
+      const m = rest.match(re);
+      if (m) { matched = make(m); length = m[0].length; break; }
+    }
+
+    if (matched) {
+      if (buffer) { out.push({ t: 'text', v: buffer }); buffer = ''; }
+      out.push(matched);
+      rest = rest.slice(length);
+    } else {
+      buffer += rest[0];
+      rest = rest.slice(1);
+    }
+  }
+  if (buffer) out.push({ t: 'text', v: buffer });
+  return out;
+}
+
+const nodes = text ? parse(text) : [];
+
+/** Anything not starting with `/`, `#`, `mailto:` or `tel:` leaves the site. */
+const isExternal = (href: string) => /^https?:\/\//i.test(href);
+---
+
+<Tag class={className} id={id} data-reveal={reveal ? '' : undefined} data-reveal-delay={revealDelay} data-split={split ? '' : undefined}>
+  {nodes.map((n) =>
+    n.t === 'strong' ? <strong>{n.v}</strong>
+    : n.t === 'em' ? <em>{n.v}</em>
+    : n.t === 'link' ? (
+        <a
+          class={linkClass}
+          href={n.href}
+          target={isExternal(n.href) ? '_blank' : undefined}
+          rel={isExternal(n.href) ? 'noopener noreferrer' : undefined}
+        >{n.v}</a>
+      )
+    : n.v,
+  )}
+</Tag>

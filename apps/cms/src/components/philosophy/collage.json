@@ -1,0 +1,81 @@
+{
+  "collectionName": "components_philosophy_collages",
+  "info": {
+    "displayName": "Collage section",
+    "icon": "picture",
+    "description": "A heading over a short index line, two paragraphs, and three photographs arranged as a collage. ⚠ The collage geometry — which frame is masked, which pops, the zoom on each — is design and stays in the page. Only the words and the three photographs are here."
+  },
+  "options": {},
+  "attributes": {
+    "kicker": {
+      "type": "string",
+      "maxLength": 80,
+      "description": "Optional small label above the heading."
+    },
+    "heading": {
+      "type": "string",
+      "required": true,
+      "maxLength": 120
+    },
+    "headingSecond": {
+      "type": "string",
+      "maxLength": 120,
+      "description": "The second line of the heading. The page puts the line break in."
+    },
+    "index": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.paragraph",
+      "description": "The short list under the heading — one word or two per entry."
+    },
+    "body": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.paragraph"
+    },
+    "imageOne": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "imageOneAlt": {
+      "type": "text",
+      "required": true,
+      "maxLength": 500
+    },
+    "imageTwo": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "imageTwoAlt": {
+      "type": "text",
+      "required": true,
+      "maxLength": 500
+    },
+    "imageThree": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "imageThreeAlt": {
+      "type": "text",
+      "required": true,
+      "maxLength": 500
+    },
+    "closingLine": {
+      "type": "string",
+      "maxLength": 160,
+      "description": "Optional short line that ends the section, set apart from the paragraphs."
+    }
+  }
+}

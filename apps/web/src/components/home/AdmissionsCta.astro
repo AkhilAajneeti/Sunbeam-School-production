@@ -12,10 +12,12 @@
  * A8), so this band routes to the admissions page rather than stating them.
  */
 import { Image } from 'astro:assets';
-import { school } from '../../data/site';
+import { getSchool } from '../../lib/cms';
 import cap from '../../assets/icons/graduate-cap.png';
 import book from '../../assets/icons/icon-2.png';
 import brush from '../../assets/icons/paintbrush.png';
+
+const school = await getSchool();
 ---
 
 <section class="adm" aria-labelledby="adm-heading">

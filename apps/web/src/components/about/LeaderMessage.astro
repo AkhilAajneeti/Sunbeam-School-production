@@ -18,6 +18,8 @@
  */
 import { Image } from 'astro:assets';
 import Photo from '../ui/Photo.astro';
+import { plainHeading } from '../../lib/cms';
+import type { StrapiFile } from '../../lib/cms';
 import crest from '../../assets/icons/logos/sunbeam.png';
 
 interface Props {
@@ -25,9 +27,10 @@ interface Props {
   role?: string;
   eyebrow?: string;
   heading?: string;
-  portrait?: ImageMetadata;
+  /** A Strapi file — the CMS owns which portrait this is. */
+  portrait?: StrapiFile | null;
   portraitAlt?: string;
-  portraitBrief: string;
+  portraitBrief?: string | null;
   /** The single strongest line, set large above the body. */
   pullQuote?: string;
   paragraphs: string[];
@@ -59,9 +62,9 @@ const hasBody = paragraphs.length > 0;
 <section class="lead">
   <div class="lead__media">
     <Photo
-      src={portrait}
+      file={portrait}
       alt={portrait ? portraitAlt : undefined}
-      brief={portraitBrief}
+      brief={portraitBrief ?? ''}
       position="50% 24%"
       sizes="(max-width: 1023px) 100vw, 44vw"
     />
@@ -75,7 +78,7 @@ const hasBody = paragraphs.length > 0;
 
     <p class="lead__pill"><span class="pill pill--violet">{eyebrow}</span></p>
 
-    {heading && <h2 class="lead__heading">{heading}</h2>}
+    {heading && <h2 class="lead__heading">{plainHeading(heading)}</h2>}
 
     {pullQuote && (
       <blockquote class="lead__quote">

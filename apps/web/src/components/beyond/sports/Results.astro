@@ -1,4 +1,7 @@
 ---
+import { getSportsRecord } from '../../../lib/cms';
+
+const record = await getSportsRecord();
 /**
  * §7 · RESULTS — every published placing, in one board.
  *
@@ -41,7 +44,6 @@
  * Results are read by scanning a column of placings, so the placings share a
  * column and the rules do the separating.
  */
-import { record } from '../../../data/sportsRecord';
 import SectionHead from '../../academics/SectionHead.astro';
 
 /* Only the blocks that actually published placings. Computed, never typed — a

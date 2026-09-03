@@ -1,0 +1,66 @@
+{
+  "collectionName": "components_philosophy_pairs",
+  "info": {
+    "displayName": "Two-photograph section",
+    "icon": "picture",
+    "description": "Section 02 — the same copy as a statement section, but with two photographs set on a diagonal with a drawn connector between them. ⚠ The diagonal, the connector and the parallax are design and stay in the page; only the two photographs and their descriptions are here."
+  },
+  "options": {},
+  "attributes": {
+    "kicker": {
+      "type": "string",
+      "required": true,
+      "maxLength": 80
+    },
+    "heading": {
+      "type": "string",
+      "required": true,
+      "maxLength": 120
+    },
+    "headingEm": {
+      "type": "string",
+      "maxLength": 120,
+      "description": "The second line of the heading, set in italic. The page puts the line break in."
+    },
+    "quote": {
+      "type": "text",
+      "maxLength": 500
+    },
+    "quoteAuthor": {
+      "type": "string",
+      "maxLength": 120,
+      "description": "Leave empty to credit the Principal named in Site Settings."
+    },
+    "body": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.paragraph"
+    },
+    "imageUpper": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "imageUpperAlt": {
+      "type": "text",
+      "required": true,
+      "maxLength": 500
+    },
+    "imageLower": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "imageLowerAlt": {
+      "type": "text",
+      "required": true,
+      "maxLength": 500
+    }
+  }
+}

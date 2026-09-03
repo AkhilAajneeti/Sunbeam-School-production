@@ -1,4 +1,7 @@
 ---
+import { getCampusTourData } from '../../../lib/cms';
+const {shot} = await getCampusTourData();
+
 /**
  * §6 · CONTINUOUS RAIL — two lanes of campus frames, drifting opposite ways.
  *
@@ -19,8 +22,8 @@
  * The lane renders its frames TWICE and travels exactly -50%, which is what
  * makes the loop seamless rather than snapping back.
  */
-import { Picture } from 'astro:assets';
-import { shot } from '../../../data/campusTour';
+import CmsImage from '../../ui/CmsImage.astro';
+
 
 /** One frame from each facility, then a second pass for variety, capped. */
 const pool = shot.flatMap((f) => f.images.slice(0, 3).map((src) => ({ src, alt: f.alt })));
@@ -33,15 +36,13 @@ const laneB = pool.filter((_, i) => i % 2 === 1).slice(0, 14);
     <div class="mrq__track mrq__track--a">
       {[...laneA, ...laneA].map((f, i) => (
         <div class="mrq__cell" aria-hidden={i >= laneA.length ? 'true' : undefined}>
-          <Picture
-            src={f.src}
+          <CmsImage
+            file={f.src}
             alt={i >= laneA.length ? '' : f.alt}
-            formats={['webp']}
-            widths={[320, 560]}
             sizes="300px"
             loading="lazy"
-            decoding="async"
-          />
+      fallbackWidth={760}
+    />
         </div>
       ))}
     </div>
@@ -51,15 +52,13 @@ const laneB = pool.filter((_, i) => i % 2 === 1).slice(0, 14);
     <div class="mrq__track mrq__track--b">
       {[...laneB, ...laneB].map((f, i) => (
         <div class="mrq__cell mrq__cell--short" aria-hidden={i >= laneB.length ? 'true' : undefined}>
-          <Picture
-            src={f.src}
+          <CmsImage
+            file={f.src}
             alt={i >= laneB.length ? '' : f.alt}
-            formats={['webp']}
-            widths={[320, 560]}
             sizes="240px"
             loading="lazy"
-            decoding="async"
-          />
+      fallbackWidth={760}
+    />
         </div>
       ))}
     </div>

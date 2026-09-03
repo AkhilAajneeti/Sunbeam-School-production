@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_shared_external_links",
+  "info": {
+    "displayName": "External Links",
+    "icon": "cursor",
+    "description": "Destinations the school owns but this site does not: the vendor ERP and the old WordPress. Named fields rather than a list because each has a distinct job — see the notes in data/site.ts on why applyNurseryToIX and applyFormNurseryToIX are deliberately different URLs."
+  },
+  "options": {},
+  "attributes": {
+    "applyNurseryToIX": { "type": "string", "maxLength": 500 },
+    "applyClassXI": { "type": "string", "maxLength": 500 },
+    "applyFormNurseryToIX": { "type": "string", "maxLength": 500 },
+    "applyFormClassXI": { "type": "string", "maxLength": 500 },
+    "results": { "type": "string", "maxLength": 500 },
+    "resultPage": { "type": "string", "maxLength": 500 },
+    "parentLogin": { "type": "string", "maxLength": 500 },
+    "downloadTC": { "type": "string", "maxLength": 500 },
+    "affiliationLetter": { "type": "string", "maxLength": 500 },
+    "mandatoryDisclosure": { "type": "string", "maxLength": 500 }
+  }
+}

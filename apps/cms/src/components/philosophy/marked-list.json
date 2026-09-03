@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_philosophy_marked_lists",
+  "info": {
+    "displayName": "Marked-list section",
+    "icon": "bulletList",
+    "description": "Copy with a run of single words beside it, each carrying a small symbol, and one or two photographs. ⚠ The numbering, the run direction, the reveal delays and the frame geometry are design and stay in the page."
+  },
+  "options": {},
+  "attributes": {
+    "kicker": { "type": "string", "required": true, "maxLength": 80 },
+    "heading": { "type": "string", "required": true, "maxLength": 120 },
+    "headingSecond": { "type": "string", "maxLength": 120, "description": "The start of the second line, in the ordinary weight. Leave empty when the whole second line is italic." },
+    "headingEm": { "type": "string", "maxLength": 120, "description": "The end of the heading, set in italic. The page puts the line break in." },
+    "body": { "type": "component", "repeatable": true, "component": "shared.paragraph" },
+    "marks": { "type": "component", "repeatable": true, "component": "philosophy.marked" },
+    "imageOne": { "type": "media", "multiple": false, "allowedTypes": ["images"] },
+    "imageOneAlt": { "type": "text", "maxLength": 500 },
+    "imageTwo": { "type": "media", "multiple": false, "allowedTypes": ["images"], "description": "Optional — some sections carry one photograph, some two." },
+    "imageTwoAlt": { "type": "text", "maxLength": 500 }
+  }
+}

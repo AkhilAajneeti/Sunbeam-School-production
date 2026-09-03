@@ -24,9 +24,9 @@
  * button rather than a button that goes nowhere — the same rule as the nav
  * submenu, and for the same reason.
  */
-import { Picture } from 'astro:assets';
-import type { ChroniclePage } from '../../data/newsPages';
-import { leadPhoto } from '../../data/workshopPhotos';
+import CmsImage from '../ui/CmsImage.astro';
+import type { ChroniclePage } from '../../lib/cms';
+import { faceOf } from '../../lib/cms';
 
 interface Props {
   page: ChroniclePage;
@@ -103,7 +103,10 @@ let n = 0;
                photoDir through the assets glob; an award graphic is a single
                poster already imported by data/achievements.ts and has no folder
                to point at. */
-            const face = item.art ?? leadPhoto(item.photoDir, item.photoSkip);
+            /* ⚠ SAME PRECEDENCE AS BEFORE — art beats the gallery. It used to resolve
+               the folder through a Vite glob; the gallery is CMS content now and
+               faceOf() applies the identical rule. */
+            const face = faceOf(item);
 
             /* ⚠ A POSTER IS FRAMED, NOT CROPPED. The full-bleed treatment below
                covers the card and lays white copy over the picture — right for a
@@ -124,14 +127,12 @@ let n = 0;
                     the detail page, where the photographs are the content. */}
                 {face && (
                   <div class:list={[framed ? 'wcard__art' : 'wcard__face']}>
-                    <Picture
-                      src={face}
+                    <CmsImage
+                      file={face}
                       alt=""
-                      formats={['webp']}
-                      widths={[420, 840]}
                       sizes="(max-width: 700px) 92vw, (max-width: 1100px) 46vw, 30vw"
+                      fallbackWidth={420}
                       loading="lazy"
-                      decoding="async"
                     />
                   </div>
                 )}

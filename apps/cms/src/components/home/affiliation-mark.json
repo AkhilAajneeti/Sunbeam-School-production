@@ -1,0 +1,10 @@
+{
+  "collectionName":"components_home_affiliation_marks",
+  "info":{"displayName":"Affiliation Mark","icon":"shield","description":"One partner or accreditation logo. ⚠ B1 in docs/07 is still open: written permission to use each third-party mark, and the real Education World logo (the supplied file is generic stock)."},
+  "options":{},
+  "attributes":{
+    "name":{"type":"string","required":true,"maxLength":160},
+    "note":{"type":"string","maxLength":200},
+    "logo":{"type":"media","multiple":false,"allowedTypes":["images"]}
+  }
+}

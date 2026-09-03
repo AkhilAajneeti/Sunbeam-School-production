@@ -37,19 +37,24 @@
  *   04 · CREAM  the contact panel.
  *   05 · PHOTO  the cinematic close.
  */
-import { Picture } from 'astro:assets';
+import SmartImage from '../../../components/ui/SmartImage.astro';
 import '../../../styles/assessment.css';
 import { MARK } from '../assessment/marks';
 import AsClose from '../assessment/AsClose.astro';
 import PpWhy from './PpWhy.astro';
 import PpCta from './PpCta.astro';
 import Lightbox from '../../ui/Lightbox.astro';
-import { commsBenefits } from '../../../data/parentsForum';
-import { school } from '../../../data/site';
+import { getSchool } from '../../../lib/cms';
 
-import pPanel from '../../../assets/parents forum/parents forum (2).jpg';
-import pLib from '../../../assets/photos/sb-library.jpg';
-import pCohort from '../../../assets/photos/sunbeem-3.jpg';
+import { getAcademicTopic } from '../../../lib/cms';
+
+const ac = await getAcademicTopic('/academics/parent-partnership/school-parent-communication/');
+const pPanel = ac.pic('pPanel2');
+const pLib = ac.pic('pLib2');
+const pCohort = ac.pic('pCohort');
+const commsBenefits = ac.section('commsBenefits').points;
+
+const school = await getSchool();
 
 const S = 'Sunbeam School Ballia';
 
@@ -59,40 +64,7 @@ const S = 'Sunbeam School Ballia';
  *
  * ⚠ `why` DESCRIBES WHAT THE LINE IS FOR, NOT HOW FAST IT ANSWERS.
  */
-const channels = [
-  {
-    n: '01',
-    mark: 'megaphone',
-    k: 'Admissions',
-    value: school.phone.admissionsDisplay,
-    href: `tel:${school.phone.admissions}`,
-    why: 'Applications, dates and the fee schedule for a class.',
-  },
-  {
-    n: '02',
-    mark: 'desk',
-    k: 'School office',
-    value: school.phone.officeDisplay,
-    href: `tel:${school.phone.office}`,
-    why: 'The day-to-day line: absence, documents, everything else.',
-  },
-  {
-    n: '03',
-    mark: 'route',
-    k: 'Transport',
-    value: school.phone.transportDisplay,
-    href: `tel:${school.phone.transport}`,
-    why: `Routes and stops, held by ${school.phone.transportIncharge}.`,
-  },
-  {
-    n: '04',
-    mark: 'doc',
-    k: 'Email',
-    value: school.email,
-    href: `mailto:${school.email}`,
-    why: 'The office address, for anything that needs to be in writing.',
-  },
-];
+const channels = ac.section('channels').points;
 ---
 
 {/* ══ 01 · WHOEVER YOU NEED ══════════════════════════════════════════════════
@@ -130,10 +102,10 @@ const channels = [
           data-lb-cap="Parents in the school’s own meeting room"
           data-mask
         >
-          <Picture
-            src={pPanel}
-            alt={`Parents of ${S} seated in the rows at a school meeting`}
-            formats={['webp']}
+          <SmartImage
+            file={pPanel}
+            alt={ac.picAlt('pPanel')}
+           
             widths={[520, 860, 1200]}
             sizes="(max-width: 1023px) 92vw, 42vw"
             loading="eager"
@@ -150,10 +122,10 @@ const channels = [
           data-pop
           data-pop-delay="240"
         >
-          <Picture
-            src={pLib}
-            alt={`The Nalanda Library at ${S}, its reading tables set out beneath signed shelves`}
-            formats={['webp']}
+          <SmartImage
+            file={pLib}
+            alt={ac.picAlt('pLib')}
+           
             widths={[320, 560]}
             sizes="(max-width: 1023px) 46vw, 20vw"
             loading="lazy"
@@ -199,10 +171,10 @@ const channels = [
         data-lb-cap="Parents at a school meeting"
         data-mask
       >
-        <Picture
-          src={pPanel}
-          alt={`Parents of ${S} listening at a school meeting`}
-          formats={['webp']}
+        <SmartImage
+          file={pPanel}
+          alt={ac.picAlt('pPanel2')}
+         
           widths={[420, 760, 1080]}
           sizes="(max-width: 1023px) 92vw, 38vw"
           loading="lazy"
@@ -219,10 +191,10 @@ const channels = [
         data-pop
         data-pop-delay="220"
       >
-        <Picture
-          src={pLib}
-          alt={`Students reading at the tables of the Nalanda Library at ${S}`}
-          formats={['webp']}
+        <SmartImage
+          file={pLib}
+          alt={ac.picAlt('pLib2')}
+         
           widths={[300, 520]}
           sizes="(max-width: 1023px) 44vw, 18vw"
           loading="lazy"

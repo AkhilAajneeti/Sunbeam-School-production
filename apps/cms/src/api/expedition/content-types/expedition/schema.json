@@ -1,0 +1,14 @@
+{
+  "kind":"collectionType","collectionName":"expeditions",
+  "info":{"singularName":"expedition","pluralName":"expeditions","displayName":"Expedition",
+    "description":"A short learning-expedition entry. Mirrors the `expeditions` export of apps/web/src/data/excursions.ts."},
+  "options":{"draftAndPublish":true},
+  "attributes":{
+    "name":{"type":"string","required":true,"maxLength":200},
+    "slug":{"type":"uid","targetField":"name","required":true},
+    "note":{"type":"text","required":true,"maxLength":800},
+    "kind":{"type":"enumeration","required":true,"default":"civic","enum":["civic","nature","heritage","industry"]},
+    "icon":{"type":"string","maxLength":40},
+    "displayOrder":{"type":"integer","default":0,"required":true}
+  }
+}

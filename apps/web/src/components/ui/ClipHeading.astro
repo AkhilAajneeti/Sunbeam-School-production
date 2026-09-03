@@ -1,0 +1,91 @@
+---
+/**
+ * THE TWO-PART CLIPPED HEADING USED ACROSS THE ASSESSMENT-STYLE PAGES.
+ *
+ * Every one of them was written as literal markup:
+ *
+ *     <h2 class="as-h as-h--md un-head__h" id="un-cls-t">
+ *       <span data-clip data-clip-delay="0">How the catalogues</span>
+ *       <span data-clip data-clip-delay="140"><em>are organised</em></span>
+ *     </h2>
+ *
+ * Three things are tangled there. The WORDS are editorial. The line break
+ * between them is editorial too — it is where the sentence turns. The clip
+ * animation, its stagger and the italic treatment are design.
+ *
+ * ⚠ THE CMS FIELD IS TWO LINES, WITH THE EMPHASIS MARKED:
+ *
+ *     How the catalogues
+ *     {{are organised}}
+ *
+ * One line per clipped span, `{{…}}` for the italic. Same marker as
+ * ui/AccentHeading.astro, which renders it as the hand-drawn squiggle instead —
+ * one convention for "this part is emphasised", each component deciding what
+ * emphasis looks like where it lives.
+ *
+ * ⚠ THE MARK CAN SIT INSIDE A LINE, NOT ONLY AROUND IT. The results page ends
+ * "tells {{a story.}}", which is one span with two words italic — so the marker
+ * is parsed within each line rather than being assumed to wrap the whole of it.
+ *
+ * ⚠ THE STAGGER IS A PROP, NOT CONTENT. Existing pages use 0/150 and 0/140;
+ * both are kept exactly rather than normalised, because this migration does not
+ * retime animations.
+ */
+interface Props {
+  /** One line per clipped span; `{{…}}` marks the italic. */
+  text?: string | null;
+  class?: string;
+  id?: string;
+  /** Delay in ms added per line after the first. */
+  stagger?: number;
+  /**
+   * ⚠ EXACT PER-LINE DELAYS, for headings whose stagger is not a multiple.
+   * The structure pages carry 0/150/290 and 0/130/240/340 — hand-timed runs
+   * that an even stagger would round to 300 and 390. This migration does not
+   * retime animations, so those pass their own numbers instead.
+   */
+  delays?: number[];
+  tag?: 'h1' | 'h2' | 'h3';
+}
+
+const {
+  text,
+  class: className,
+  id,
+  stagger = 150,
+  delays,
+  tag: Tag = 'h2',
+} = Astro.props;
+
+/** An explicit delay wins; otherwise the even stagger, as before. */
+const delayAt = (i: number) => delays?.[i] ?? i * stagger;
+
+type Part = { t: 'text' | 'em'; v: string };
+
+/** Split one line on `{{…}}`, keeping everything outside it verbatim. */
+function parts(line: string): Part[] {
+  const out: Part[] = [];
+  const re = /\{\{([\s\S]*?)\}\}/g;
+  let last = 0;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(line)) !== null) {
+    if (m.index > last) out.push({ t: 'text', v: line.slice(last, m.index) });
+    out.push({ t: 'em', v: m[1] });
+    last = m.index + m[0].length;
+  }
+  if (last < line.length) out.push({ t: 'text', v: line.slice(last) });
+  return out;
+}
+
+const lines = (text ?? '').split('\n').map((l) => l.trim()).filter(Boolean);
+---
+
+{/* ⚠ THE SPAN'S CHILDREN ARE ON ONE LINE ON PURPOSE. Written across several,
+    Astro emits the surrounding newlines as text inside the span — "<span>
+    Explore our official </span>" — and the clipped word then carries leading and
+    trailing whitespace the hand-written markup never had. */}
+<Tag class={className} id={id}>
+  {lines.map((line, i) => (
+    <span data-clip data-clip-delay={delayAt(i)}>{parts(line).map((p) => (p.t === 'em' ? <em>{p.v}</em> : p.v))}</span>
+  ))}
+</Tag>

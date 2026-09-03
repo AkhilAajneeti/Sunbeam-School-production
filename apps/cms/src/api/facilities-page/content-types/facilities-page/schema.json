@@ -1,0 +1,15 @@
+{
+  "kind": "singleType",
+  "collectionName": "facilities_page",
+  "info": {
+    "singularName": "facilities-page", "pluralName": "facilities-pages", "displayName": "Facilities Page",
+    "description": "The infrastructure page. Mirrors apps/web/src/data/facilities.ts — KPIs, grouped inventory, rationale cards and the growth progression."
+  },
+  "options": { "draftAndPublish": true },
+  "attributes": {
+    "kpis": { "type": "component", "repeatable": true, "component": "shared.stat" },
+    "groups": { "type": "component", "repeatable": true, "component": "campus.facility-group" },
+    "whyCards": { "type": "component", "repeatable": true, "component": "shared.point" },
+    "progression": { "type": "component", "repeatable": true, "component": "shared.point" }
+  }
+}

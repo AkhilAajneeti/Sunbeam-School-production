@@ -22,7 +22,10 @@
  */
 import SectionHead from '../SectionHead.astro';
 import AcademicGlyph from '../AcademicGlyph.astro';
-import { parents } from '../../../data/academics';
+import { getAcademicTopic } from '../../../lib/cms';
+
+const ac = await getAcademicTopic('/academics/parent-partnership/');
+const parents = ac.blockMap('parents');
 
 const { resources } = parents;
 ---

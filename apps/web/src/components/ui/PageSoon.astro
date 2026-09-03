@@ -41,9 +41,11 @@
  */
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from './PageHero.astro';
-import { school } from '../../data/site';
+import { getSchool } from '../../lib/cms';
 
 import heroPhoto from '../../assets/photos/sunbeem-1.jpg';
+
+const school = await getSchool();
 
 interface Props {
   /** The destination's own label, taken from the navigation where it has one. */

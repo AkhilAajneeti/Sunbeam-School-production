@@ -58,15 +58,20 @@
  * declares a keyframe that content depends on: with the motion chunk absent
  * (reduced motion, Save-Data, a failed request) every section is complete.
  */
-import { Image, Picture } from 'astro:assets';
+import { Image } from 'astro:assets';
+import SmartImage from '../../../components/ui/SmartImage.astro';
 
 /* ── PHOTOGRAPHY ────────────────────────────────────────────────────────────
    Each frame was chosen because it shows the thing its section is about. */
-import pDesk from '../../../assets/School Activity in Uniform/School Activity in Uniform (5).jpeg';
-import pTables from '../../../assets/activity learning lab/DSC_1217 copy.jpg';
-import pThread from '../../../assets/School Activity in Uniform/Embriodery.jpg';
-import pChef from '../../../assets/School Activity in Uniform/School Activity in Uniform (1).jpg';
-import pCohort from '../../../assets/photos/sunbeem-3.jpg';
+import { getAcademicTopic } from '../../../lib/cms';
+import RichLine from '../../ui/RichLine.astro';
+
+const ac = await getAcademicTopic('/academics/teaching-learning/methodology/');
+const pDesk = ac.pic('pDesk');
+const pTables = ac.pic('pTables');
+const pThread = ac.pic('pThread');
+const pChef = ac.pic('pChef');
+const pCohort = ac.pic('pCohort');
 
 const S = 'Sunbeam School Ballia';
 
@@ -95,63 +100,11 @@ const MARK: Record<string, string> = {
    the Principal's own published sentences and one certification held by a
    hundred members of staff. A method is only worth printing if each part of it
    points at something a reader can go and verify. */
-const three = [
-  {
-    n: '01',
-    mark: 'screen',
-    k: 'Technology',
-    anchor: '100 Microsoft Innovative Educator Experts',
-    body:
-      'The certification that makes Sunbeam a Microsoft Showcase School. The rooms it runs in are set out on Smart Classrooms &amp; Digital Literacy.',
-    quote: false,
-  },
-  {
-    n: '02',
-    mark: 'mind',
-    k: 'Multiple Intelligence',
-    anchor: '“All the students do not have the same talents.”',
-    body: 'Teaching that looks for different strengths, not a single mould.',
-    quote: true,
-  },
-  {
-    n: '03',
-    mark: 'group',
-    k: 'Collaborative Learning',
-    anchor: 'Classrooms as “places of curiosity and collaboration.”',
-    body: 'Learning with others, from others, because others think differently.',
-    quote: true,
-  },
-] as const;
+const three = ac.section('three').points;
 
 /* ── THE FOUR PLATFORMS ─────────────────────────────────────────────────────
    The school's own published record, and nothing beyond it. */
-const platforms = [
-  {
-    n: '01',
-    mark: 'speak',
-    k: 'Speaking',
-    body:
-      'Class I entered an inter-branch Attire Speak competition; Class IV took the top three places in a group-wide declamation.',
-  },
-  {
-    n: '02',
-    mark: 'make',
-    k: 'Making',
-    body: 'Folk painting under Impetus, embroidery, and the Srijan making-and-design room.',
-  },
-  {
-    n: '03',
-    mark: 'build',
-    k: 'Building',
-    body: 'The Robotics Lab, and a second place at an international robotics championship.',
-  },
-  {
-    n: '04',
-    mark: 'field',
-    k: 'The field',
-    body: 'Kho-kho gold, chess, handball, taekwondo — a sporting record stronger than most.',
-  },
-] as const;
+const platforms = ac.section('platforms').points;
 
 const SMART = '/academics/teaching-learning/smart-classrooms/';
 ---
@@ -206,10 +159,10 @@ const SMART = '/academics/teaching-learning/smart-classrooms/';
       <span class="tm-open__dots" aria-hidden="true"></span>
 
       <figure class="tm-open__lead" data-mask data-zoom data-zoom-to="1.06">
-        <Picture
-          src={pDesk}
-          alt={`Two students of ${S} sharing a desk, one reaching across for a colour pencil while the other works on her own drawing`}
-          formats={['webp']}
+        <SmartImage
+          file={pDesk}
+          alt={ac.picAlt('pDesk')}
+         
           widths={[560, 900, 1200]}
           sizes="(max-width: 1023px) 92vw, 46vw"
           loading="lazy"
@@ -219,10 +172,10 @@ const SMART = '/academics/teaching-learning/smart-classrooms/';
 
       {/* The circular crop breaking the picture's bottom-left corner. */}
       <figure class="tm-open__disc" data-parallax data-parallax-y="24">
-        <Picture
-          src={pTables}
-          alt={`The activity learning laboratory at ${S} — one crescent table with chairs set all the way round it`}
-          formats={['webp']}
+        <SmartImage
+          file={pTables}
+          alt={ac.picAlt('pTables')}
+         
           widths={[320, 520]}
           sizes="(max-width: 1023px) 40vw, 18vw"
           loading="lazy"
@@ -280,8 +233,15 @@ const SMART = '/academics/teaching-learning/smart-classrooms/';
           </div>
 
           <h3 class="tm-pillar__k">{t.k}</h3>
-          <p class={`tm-pillar__a${t.quote ? ' tm-pillar__a--q' : ''}`} set:html={t.anchor} />
-          <p class="tm-pillar__b" set:html={t.body} />
+          <RichLine
+  tag="p"
+  text={t.anchor}
+/>
+          <RichLine
+  tag="p"
+  class="tm-pillar__b"
+  text={t.body}
+/>
 
           {t.mark === 'screen' && (
             <p class="tm-pillar__link">
@@ -336,10 +296,10 @@ const SMART = '/academics/teaching-learning/smart-classrooms/';
         first's bottom-right corner — layered, not two boxes with a gutter. */}
     <div class="tm-collab__media">
       <figure class="tm-collab__lead" data-mask data-zoom data-zoom-to="1.07">
-        <Picture
-          src={pThread}
-          alt={`Students of ${S} sitting in a circle on the floor, embroidering from one shared basket of thread between them`}
-          formats={['webp']}
+        <SmartImage
+          file={pThread}
+          alt={ac.picAlt('pThread')}
+         
           widths={[620, 1000, 1320]}
           sizes="(max-width: 1023px) 92vw, 44vw"
           loading="lazy"
@@ -347,10 +307,10 @@ const SMART = '/academics/teaching-learning/smart-classrooms/';
         />
       </figure>
       <figure class="tm-collab__inset" data-parallax data-parallax-y="-26">
-        <Picture
-          src={pChef}
-          alt={`A teacher at ${S} demonstrating at the table during the papadi chaat activity, her class in paper chef hats gathered around her`}
-          formats={['webp']}
+        <SmartImage
+          file={pChef}
+          alt={ac.picAlt('pChef')}
+         
           widths={[360, 620]}
           sizes="(max-width: 1023px) 46vw, 22vw"
           loading="lazy"
@@ -403,10 +363,10 @@ const SMART = '/academics/teaching-learning/smart-classrooms/';
     what the school does NOT publish. */}
 <section class="tm-close" aria-labelledby="tm-close-t">
   <div class="tm-close__media" aria-hidden="true" data-parallax data-parallax-y="-40">
-    <Picture
-      src={pCohort}
-      alt=""
-      formats={['webp']}
+    <SmartImage
+      file={pCohort}
+      alt={ac.picAlt('pCohort')}
+     
       widths={[1024, 1600, 2000]}
       sizes="100vw"
       loading="lazy"

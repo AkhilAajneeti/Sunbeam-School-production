@@ -1,0 +1,15 @@
+{
+  "collectionName":"components_home_sport_cards",
+  "info":{"displayName":"Sport Card","icon":"trophy","description":"The homepage's sport panel. `indoor`/`outdoor` are the two game lists it prints; `brief` is the outstanding photography request (docs/07 A2), kept because it is an asset the school still owes."},
+  "options":{},
+  "attributes":{
+    "title":{"type":"string","required":true,"maxLength":120},
+    "body":{"type":"text","required":true,"maxLength":1200},
+    "indoor":{"type":"text","maxLength":600},
+    "outdoor":{"type":"text","maxLength":600},
+    "href":{"type":"string","maxLength":200},
+    "brief":{"type":"string","maxLength":200},
+    "photo":{"type":"media","multiple":false,"allowedTypes":["images"]},
+    "photoAlt":{"type":"text","maxLength":500}
+  }
+}

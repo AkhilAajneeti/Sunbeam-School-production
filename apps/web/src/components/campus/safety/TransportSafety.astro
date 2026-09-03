@@ -1,4 +1,7 @@
 ---
+import { getCampusSafetyData } from '../../../lib/cms';
+const {transportFeatures} = await getCampusSafetyData();
+
 /**
  * §4 · TRANSPORT SAFETY — the fleet band.
  *
@@ -13,12 +16,15 @@
  * every one of them — all published. They lead, and the unconfirmed items follow
  * behind them rather than being mixed in as equals.
  */
-import { transportFeatures } from '../../../data/campus';
-import { school, showBuildNotes } from '../../../data/site';
+
+import { showBuildNotes } from '../../../data/site';
+import { getSchool } from '../../../lib/cms';
 import SectionHead from '../../academics/SectionHead.astro';
 import Photo from '../../ui/Photo.astro';
 import SafetyIcon from './SafetyIcon.astro';
 import campus from '../../../assets/photos/sunbeem-1.jpg';
+
+const school = await getSchool();
 
 const icons: Record<string, string> = {
   'GPS Tracking': 'gps',

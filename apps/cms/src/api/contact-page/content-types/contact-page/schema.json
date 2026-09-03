@@ -1,0 +1,28 @@
+{
+  "kind":"singleType","collectionName":"contact_page",
+  "info":{"singularName":"contact-page","pluralName":"contact-pages","displayName":"Contact Page",
+    "description":"The editable copy of /contact-us/. ⚠ THE ADDRESS, EMAIL, PHONES AND SOCIAL LINKS ARE NOT HERE. They are Site Settings' and are rendered in 57 files from that one record; duplicating them onto this page would give the school two places to correct and one of them would be missed. ⚠ THE MAP EMBED AND THE FORM HANDLER STAY IN CODE. The map URL is built from the school's own name and address, so it follows Site Settings automatically; the handler's validation, submission and field bindings are integration. ⚠ WHAT MOVED OUT OF THE <script> IS THE WORDING: every error and status message a parent reads was a string literal in the page's JavaScript, unreachable to anyone but a developer."},
+  "options":{"draftAndPublish":true},
+  "attributes":{
+    "eyebrow":{"type":"string","maxLength":120},
+    "heading":{"type":"string","maxLength":200},
+    "standfirst":{"type":"text","maxLength":800},
+
+    "fields":{"type":"component","repeatable":true,"component":"contact.field"},
+    "classOptions":{"type":"component","repeatable":true,"component":"shared.fact"},
+    "classPlaceholder":{"type":"string","maxLength":120},
+    "classLabel":{"type":"string","maxLength":120},
+    "consentLabel":{"type":"string","maxLength":200},
+    "consentError":{"type":"string","maxLength":200},
+    "submitLabel":{"type":"string","maxLength":80},
+    "sendingLabel":{"type":"string","maxLength":80},
+    "statusSuccess":{"type":"text","maxLength":400},
+    "statusFailure":{"type":"text","maxLength":400},
+    "statusNotConnected":{"type":"text","maxLength":400},
+
+    "addressHeading":{"type":"string","maxLength":120},
+    "contactHeading":{"type":"string","maxLength":120},
+    "socialHeading":{"type":"string","maxLength":120},
+    "locationHeading":{"type":"string","maxLength":160}
+  }
+}

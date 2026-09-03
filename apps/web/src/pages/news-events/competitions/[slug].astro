@@ -6,15 +6,17 @@
  * and `base` differ.
  */
 import DetailPage from '../../../components/news/DetailPage.astro';
-import { competitions, type ChronicleItem } from '../../../data/newsPages';
+import { getChroniclePage, type ChronicleItem } from '../../../lib/cms';;
 
 /* The index's own banner, so a page with no photographs of its own still opens
    on the school's ground rather than on a generic hall. See DetailPage's
    `fallbackHero`. */
 import heroPhoto from '../../../assets/JOSH GROUND/DSC_1283 copy.jpg';
 
+const competitions = await getChroniclePage('competitions');
+
 export async function getStaticPaths() {
-  const { competitions: c } = await import('../../../data/newsPages');
+  const c = await getChroniclePage('competitions');
   return c.groups.flatMap((g) =>
     g.items
       .filter((i) => i.slug)

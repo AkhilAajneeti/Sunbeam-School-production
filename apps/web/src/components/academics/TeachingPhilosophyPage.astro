@@ -49,19 +49,13 @@
  * data-pop, data-parallax, data-mask — handled by scripts/motion-gsap.ts, which
  * is already gated on prefers-reduced-motion and Save-Data. No new JS ships.
  */
-import { Picture } from 'astro:assets';
-import { school } from '../../data/site';
+import SmartImage from '../../components/ui/SmartImage.astro';
 
 /* Photography — verified Ballia frames only. */
-import pStudents from '../../assets/photos/sunbeem-3.jpg';
-import pComputers from '../../assets/computer lab/DSC_1204 copy.jpg';
-import pGround from '../../assets/photos/sunbeem-1.jpg';
-import pCeremony from '../../assets/photos/sunbeem-4.jpg';
 /* The constellation's core. A wide ceremony frame was here first and read as
    noise once cropped to a 200px circle — this one holds two faces and a pair of
    working hands at that size, and it is a making intelligence in the middle of a
    diagram about there being more than one. */
-import pMaking from '../../assets/School Activity in Uniform/Embriodery.jpg';
 /**
  * §02's pair. The section draws a teacher and a learner joined by a connector,
  * so both ends have to actually BE that.
@@ -74,26 +68,21 @@ import pMaking from '../../assets/School Activity in Uniform/Embriodery.jpg';
  * not exist, which is an invented claim a screen-reader user has no way to
  * check. These two are people actually teaching and actually working.
  */
-import pChef from '../../assets/School Activity in Uniform/School Activity in Uniform (1).jpg';
-import pPair from '../../assets/School Activity in Uniform/School Activity in Uniform (5).jpeg';
 
 /* Decorative transparent PNGs — used as ornament, never as bullet glyphs. */
 import dBulb from '../../assets/icons/bulb.png';
 import dBooks from '../../assets/icons/books.png';
-import dBrush from '../../assets/icons/paintbrush.png';
-import dSaturn from '../../assets/icons/saturn.png';
 import dRocket from '../../assets/icons/rocketpaper.png';
-import dCap from '../../assets/icons/graduate-cap.png';
 import dStars from '../../assets/icons/two-stars.png';
 import dKite from '../../assets/icons/kite.png';
-import dPencil from '../../assets/icons/pencill.webp';
 /* The four the client supplied for this constellation. Named for the nodes
    they belong to, so a future swap is obvious. */
-import iWords from '../../assets/icons/Words.png';
-import iEnquiry from '../../assets/icons/enquire.png';
-import iInvention from '../../assets/icons/Invention.png';
-import iAmbition from '../../assets/icons/Ambition.png';
 import dShape from '../../assets/icons/shape-2.png';
+import { getTeachingPhilosophy } from '../../lib/cms';
+import RichLine from '../ui/RichLine.astro';
+import { fileUrl } from '../../lib/cms';
+
+
 
 /**
  * The constellation for §03. Each node is an ABILITY, and each carries a real
@@ -121,15 +110,16 @@ const R = 40;
 /* ⚠ FOUR OF THE SEVEN CARRY THE CLIENT’S OWN ICONS; the other three keep the
    ornament set this page was built with. Nothing else about the constellation
    changed — the angles are still evenly spaced and still derived from R. */
-const abilities = [
-  { k: 'Words', art: iWords, a: 0 },
-  { k: 'Number', art: dPencil, a: 51 },
-  { k: 'Making', art: dBrush, a: 103 },
-  { k: 'Enquiry', art: iEnquiry, a: 154 },
-  { k: 'Invention', art: iInvention, a: 206 },
-  { k: 'Ambition', art: iAmbition, a: 257 },
-  { k: 'Insight', art: dBulb, a: 309 },
-];
+const tp = await getTeachingPhilosophy();
+const { one, two, three, four, five, close } = tp;
+
+/**
+ * ⚠ THE ANGLE IS COMPUTED, NOT STORED. Each node sits at an even share of the
+ * circle, so seven cards are 0°, 51°, 103° … — exactly `i × 360 ÷ cards`. It was
+ * stored once, per card, which meant an editor could drag a node off the ring or
+ * add an eighth that overlapped the first. The ring now re-spaces itself.
+ */
+const angleOf = (i) => (i * 360) / three.cards.length;
 ---
 
 <div class="tp">
@@ -143,28 +133,27 @@ const abilities = [
     <div class="u-container tp-one__in">
       <div class="tp-one__copy">
         <p class="tp__n" aria-hidden="true">01</p>
-        <p class="tp__k t-label" data-reveal>Every child is different</p>
+        <p class="tp__k t-label" data-reveal>{one.kicker}</p>
         <h2 class="tp-one__h" id="tp-one-h" data-split>
-          Recognising <em>individual potential</em>
+          {one.heading} <em>{one.headingEm}</em>
         </h2>
 
+        {/* ⚠ THE CURLY QUOTES ARE TYPOGRAPHY AND STAY HERE. An editor types the
+            sentence; the design puts the marks round it. Storing them means one
+            can be deleted and the other left. */}
         <blockquote class="tp-quote" data-reveal data-reveal-delay="110">
-          <p>“All the students do not have the same talents and so each one will achieve success differently.”</p>
-          <cite>{school.principal} · Principal</cite>
+          <p>“{one.quote}”</p>
+          <cite>{one.quoteAuthor} · Principal</cite>
         </blockquote>
 
-        <p class="tp__p" data-reveal data-reveal-delay="200">
-          That sentence is where the school's teaching begins. If success is not one shape, a
-          lesson cannot be one shape either — and a class is not a room of the same child
-          repeated.
-        </p>
+        <RichLine class="tp__p" text={one.body[0]} reveal revealDelay={200} />
       </div>
 
       <figure class="tp-one__art" data-mask>
-        <Picture
-          src={pStudents}
-          alt={`Students at ${school.name}`}
-          formats={['webp']}
+        <SmartImage
+          file={one.image}
+          alt={one.imageAlt}
+         
           widths={[520, 900, 1200]}
           sizes="(max-width: 900px) 92vw, 46vw"
           loading="eager"
@@ -186,7 +175,7 @@ const abilities = [
     <div class="u-container tp-two__in">
       <div class="tp-two__stage">
         <figure class="tp-two__a" data-parallax data-parallax-y="38">
-          <Picture src={pChef} alt={`A teacher at ${school.name} demonstrating at the table during a cooking activity, her class in paper chef hats around her`} formats={['webp']} widths={[420, 780]} sizes="(max-width: 900px) 88vw, 30vw" loading="lazy" decoding="async" />
+          <SmartImage file={two.imageUpper} alt={two.imageUpperAlt} widths={[420, 780]} sizes="(max-width: 900px) 88vw, 30vw" loading="lazy" decoding="async" />
         </figure>
 
         {/* The connector. Drawn, decorative, and the reason this reads as one
@@ -198,25 +187,21 @@ const abilities = [
         </svg>
 
         <figure class="tp-two__b" data-parallax data-parallax-y="-34">
-          <Picture src={pPair} alt={`Two students of ${school.name} at one desk, each working on her own drawing`} formats={['webp']} widths={[420, 780]} sizes="(max-width: 900px) 74vw, 26vw" loading="lazy" decoding="async" />
+          <SmartImage file={two.imageLower} alt={two.imageLowerAlt} widths={[420, 780]} sizes="(max-width: 900px) 74vw, 26vw" loading="lazy" decoding="async" />
         </figure>
       </div>
 
       <div class="tp-two__copy">
         <p class="tp__n" aria-hidden="true">02</p>
-        <p class="tp__k t-label" data-reveal>Teachers as facilitators</p>
-        <h2 class="tp-two__h" id="tp-two-h" data-split>Guiding every learner towards their strengths</h2>
+        <p class="tp__k t-label" data-reveal>{two.kicker}</p>
+        <h2 class="tp-two__h" id="tp-two-h" data-split>{two.heading}</h2>
 
         <blockquote class="tp-quote" data-reveal data-reveal-delay="110">
-          <p>“We, educators being as a facilitators should always encourage our child to develop in their specific field of interest.”</p>
-          <cite>{school.principal} · Principal</cite>
+          <p>“{two.quote}”</p>
+          <cite>{two.quoteAuthor} · Principal</cite>
         </blockquote>
 
-        <p class="tp__p" data-reveal data-reveal-delay="190">
-          A facilitator does not hand down the subject. The word the school chose puts the
-          teacher beside the learner rather than in front of them — encouraging the direction a
-          child is already leaning in, rather than correcting it towards an average.
-        </p>
+        <RichLine class="tp__p" text={two.body[0]} reveal revealDelay={190} />
       </div>
     </div>
 
@@ -233,19 +218,14 @@ const abilities = [
     <div class="u-container tp-three__in">
       <header class="tp-three__head">
         <p class="tp__n tp__n--onink" aria-hidden="true">03</p>
-        <p class="tp__k tp__k--onink t-label" data-reveal>Multiple intelligences</p>
-        <h2 class="tp-three__h" id="tp-three-h" data-split>More than one way to learn</h2>
-        <p class="tp__p tp__p--onink" data-reveal data-reveal-delay="110">
-          The school names the theory outright — <em>“a theory of Multiple Intelligence”</em> — as
-          one of the three things it says it incorporates in all areas of teaching. What follows
-          from it is simple: a class does not hold one kind of mind, so it should not be offered
-          one kind of route in.
-        </p>
+        <p class="tp__k tp__k--onink t-label" data-reveal>{three.kicker}</p>
+        <h2 class="tp-three__h" id="tp-three-h" data-split>{three.heading}</h2>
+        <RichLine class="tp__p tp__p--onink" text={three.body[0]} reveal revealDelay={110} />
       </header>
 
       <div class="tp-const" data-reveal>
         <div class="tp-const__core">
-          <Picture src={pMaking} alt={`Students of ${school.name} working on embroidery together`} formats={['webp']} widths={[320, 560]} sizes="(max-width: 700px) 46vw, 260px" loading="lazy" decoding="async" />
+          <SmartImage file={three.image} alt={three.imageAlt} widths={[320, 560]} sizes="(max-width: 700px) 46vw, 260px" loading="lazy" decoding="async" />
         </div>
 
         {/* ⚠ THE RINGS ARE ONE SVG, NOT SEVEN BORDERED DIVS. Concentric rings
@@ -264,16 +244,22 @@ const abilities = [
 
         <ul class="tp-const__set">
           {
-            abilities.map((ab, i) => (
+            three.cards.map((ab, i) => (
               <li
                 class="node"
-                style={`--x: ${(50 + R * Math.cos((ab.a * Math.PI) / 180)).toFixed(2)}%; --y: ${(50 + R * Math.sin((ab.a * Math.PI) / 180)).toFixed(2)}%;`}
+                style={`--x: ${(50 + R * Math.cos((angleOf(i) * Math.PI) / 180)).toFixed(2)}%; --y: ${(50 + R * Math.sin((angleOf(i) * Math.PI) / 180)).toFixed(2)}%;`}
                 data-pop
                 data-pop-delay={i * 70}
               >
                 <span class="node__in">
-                  <img src={ab.art.src} alt="" aria-hidden="true" />
-                  <span class="node__k">{ab.k}</span>
+                  {/* ⚠ A PLAIN img, NOT CmsImage. The node icon is 512px of
+                      decoration inside a 44px circle: it needs no srcset, and
+                      CmsImage drops the aria-hidden a decorative image must
+                      carry — it also emits a bare `alt` where the original had
+                      `alt=""`, which is the same to a browser and not the same
+                      to a diff. */}
+                  <img src={fileUrl(ab.icon)} alt="" aria-hidden="true" />
+                  <span class="node__k">{ab.label}</span>
                 </span>
               </li>
             ))
@@ -288,10 +274,10 @@ const abilities = [
       inset over it on glass — no columns, no cards. */}
   <section class="tp-four" aria-labelledby="tp-four-h">
     <figure class="tp-four__art" data-mask data-mask-from="left">
-      <Picture
-        src={pGround}
-        alt={`Students together on the ground at ${school.name}`}
-        formats={['webp']}
+      <SmartImage
+        file={four.image}
+        alt={four.imageAlt}
+       
         widths={[900, 1400, 1920]}
         sizes="100vw"
         loading="lazy"
@@ -302,14 +288,9 @@ const abilities = [
     <div class="u-container tp-four__in">
       <div class="tp-four__plate" data-reveal>
         <p class="tp__n" aria-hidden="true">04</p>
-        <p class="tp__k t-label">Collaborative learning</p>
-        <h2 class="tp-four__h" id="tp-four-h" data-split>Learning through interaction</h2>
-        <p class="tp__p">
-          Collaborative learning is the third of the three the school says it incorporates
-          <em>in all areas of teaching</em> — not in a timetabled slot. The Principal's own
-          description of the result is a room where children are talking to each other:
-          <strong>“classrooms are places of curiosity and collaboration”</strong>.
-        </p>
+        <p class="tp__k t-label">{four.kicker}</p>
+        <h2 class="tp-four__h" id="tp-four-h" data-split>{four.heading}</h2>
+        <RichLine class="tp__p" text={four.body[0]} />
       </div>
     </div>
 
@@ -325,22 +306,14 @@ const abilities = [
     <div class="u-container tp-five__in">
       <div class="tp-five__copy">
         <p class="tp__n" aria-hidden="true">05</p>
-        <p class="tp__k t-label" data-reveal>Innovative &amp; technology-enabled</p>
-        <h2 class="tp-five__h" id="tp-five-h" data-split>Teaching that evolves with the learner</h2>
-        <p class="tp__p" data-reveal data-reveal-delay="110">
-          Technology is the first of the three the school names, and the Principal describes the
-          intent rather than the hardware: a school where
-          <strong>“innovative teaching methods meet modern technology”</strong>.
-        </p>
-        <p class="tp__p" data-reveal data-reveal-delay="180">
-          The philosophy is that teaching should keep moving — that a method earns its place by
-          making a subject more reachable, not by being new. What that looks like in a room is a
-          separate page.
-        </p>
+        <p class="tp__k t-label" data-reveal>{five.kicker}</p>
+        <h2 class="tp-five__h" id="tp-five-h" data-split>{five.heading}</h2>
+        <RichLine class="tp__p" text={five.body[0]} reveal revealDelay={110} />
+        <RichLine class="tp__p" text={five.body[1]} reveal revealDelay={180} />
       </div>
 
       <figure class="tp-five__art" data-parallax data-parallax-y="44">
-        <Picture src={pComputers} alt={`The computer laboratory at ${school.name}, rows of workstations facing an interactive board`} formats={['webp']} widths={[480, 860]} sizes="(max-width: 900px) 92vw, 40vw" loading="lazy" decoding="async" />
+        <SmartImage file={five.image} alt={five.imageAlt} widths={[480, 860]} sizes="(max-width: 900px) 92vw, 40vw" loading="lazy" decoding="async" />
       </figure>
     </div>
 
@@ -350,18 +323,22 @@ const abilities = [
   {/* ═══ CLOSING ════════════════════════════════════════════════════════════ */}
   <section class="tp-end" aria-labelledby="tp-end-h">
     <figure class="tp-end__art">
-      <Picture src={pCeremony} alt={`Students of ${school.name}`} formats={['webp']} widths={[900, 1400, 1920]} sizes="100vw" loading="lazy" decoding="async" />
+      <SmartImage file={close.image} alt={close.imageAlt} widths={[900, 1400, 1920]} sizes="100vw" loading="lazy" decoding="async" />
     </figure>
     <span class="tp-end__scrim" aria-hidden="true"></span>
 
     <div class="u-container tp-end__in">
       <h2 class="tp-end__h" id="tp-end-h" data-split>
-        Teaching with purpose.<br /><em>Empowering every learner.</em>
+      {/* Any number of lines: the page puts the breaks in and sets the
+          last one in italic. Three lines on one page, two on another. */}
+      {close.headingLines.map((line, i) => (
+        <>{i > 0 && <br />}{i === close.headingLines.length - 1 ? <em>{line}</em> : line}</>
+      ))}
       </h2>
       <p class="tp-end__p" data-reveal data-reveal-delay="140">
-        “Every child feels valued, safe, and inspired to achieve their full potential.”
+        “{close.quote}”
       </p>
-      <p class="tp-end__by" data-reveal data-reveal-delay="220">{school.principal} · Principal</p>
+      <p class="tp-end__by" data-reveal data-reveal-delay="220">{close.quoteAuthor} · Principal</p>
     </div>
 
     <img class="tp__f tp__f--books" src={dBooks.src} alt="" aria-hidden="true" data-parallax data-parallax-y="-36" />
@@ -390,7 +367,7 @@ const abilities = [
 
   .tp__n--onink { color: rgba(255, 255, 255, 0.16); }
 
-  .tp__p {
+  :global(.tp__p) {
     max-width: 52ch;
     margin-top: var(--sb-4);
     font-size: clamp(15.5px, 1.15vw, 18px);
@@ -398,11 +375,11 @@ const abilities = [
     color: var(--sb-text-secondary);
   }
 
-  .tp__p em { font-style: italic; color: var(--sb-charcoal); }
-  .tp__p strong { font-weight: 700; color: var(--sb-charcoal); }
-  .tp__p--onink { color: rgba(255, 255, 255, 0.82); }
+  :global(.tp__p em) { font-style: italic; color: var(--sb-charcoal); }
+  :global(.tp__p strong) { font-weight: 700; color: var(--sb-charcoal); }
+  :global(.tp__p--onink) { color: rgba(255, 255, 255, 0.82); }
   .tp__p--onink em,
-  .tp__p--onink strong { color: #fff; }
+  :global(.tp__p--onink strong) { color: #fff; }
 
   .tp-quote {
     margin: clamp(16px, 2vw, 22px) 0 0;

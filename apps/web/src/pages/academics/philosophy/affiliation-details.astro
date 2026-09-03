@@ -20,26 +20,17 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import PageHero from '../../../components/ui/PageHero.astro';
 import AffiliationDetailsPage from '../../../components/academics/AffiliationDetailsPage.astro';
-import { school as sb } from '../../../data/site';
+import { getSchool } from '../../../lib/cms';
 
 import banner from '../../../assets/corridor and stairs/DSC_1240 copy.jpg';
+
+const sb = await getSchool();
 ---
 
 <BaseLayout
-  title="Affiliation Details — Sunbeam School Ballia"
-  description={`Sunbeam School Ballia is affiliated to CBSE Delhi — affiliation number ${sb.affiliationNo}, school code ${sb.schoolCode}, UDISE code ${sb.udise}. The board's letter records affiliation up to senior secondary level for ${sb.affiliationPeriod}.`}
 >
   <PageHero
-    title="Affiliation Details"
-    standfirst="The board, the two numbers every form asks for — and the letter they are printed on."
-    crumbs={[
-      { label: 'Home', href: '/' },
-      { label: 'Academics', href: '/academics/' },
-      { label: 'Academic Philosophy', href: '/academics/philosophy/' },
-    ]}
     src={banner}
-    alt="A corridor at Sunbeam School Ballia, its classroom doors and landings running the length of the block."
-    position="50% 50%"
   />
 
   {/* ⚠ THE PANEL IS REQUIRED. PageHero is sticky and this panel covers it as the

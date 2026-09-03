@@ -45,23 +45,22 @@
  *               viewer.
  *   05 · PHOTO  the cinematic close.
  */
-import { Picture } from 'astro:assets';
 import '../../../styles/assessment.css';
 import { MARK } from './marks';
 import AsClose from './AsClose.astro';
 import AsPhotoSlider from './AsPhotoSlider.astro';
 import Lightbox from '../../ui/Lightbox.astro';
-import { careerGuidanceImages } from '../../../data/studentSuccess';
 
 /* ── PHOTOGRAPHY — the intro and photo-story frames. The slider takes its own
    set from data/studentSuccess.ts. ─────────────────────────────────────────── */
-import pTalk from '../../../assets/school-activities/career-counselling/08.jpg';
-import pHall from '../../../assets/school-activities/career-counselling/01.jpg';
-import pDeskA from '../../../assets/school-activities/career-counselling/03.jpg';
-import pDeskB from '../../../assets/school-activities/career-counselling/06.jpg';
-import pWait from '../../../assets/school-activities/career-counselling/02.jpg';
-import pRoom from '../../../assets/school-activities/career-counselling/07.jpg';
-import pCohort from '../../../assets/photos/sunbeem-5.jpg';
+import { getAcademicTopic } from '../../../lib/cms';
+import SmartImage from '../../ui/SmartImage.astro';
+
+const ac = await getAcademicTopic('/academics/student-success/career-guidance/');
+const pTalk = ac.pic('pTalk');
+const pHall = ac.pic('pHall');
+const pCohort = ac.pic('pCohort');
+const careerGuidanceImages = ac.section('careerGuidanceImages').photos;
 
 const S = 'Sunbeam School Ballia';
 
@@ -72,56 +71,14 @@ const FACILITIES = '/campus/facilities-infrastructure/';
 
 /* ── SECTION 02 — the record, five numbered rows ──────────────────────────
    ⚠ ROWS ON HAIRLINES, NOT CARDS. The brief rules cards out here explicitly. */
-const record = [
-  {
-    n: '01',
-    mark: 'chat',
-    k: 'Career counselling · Classes X & XI',
-    v: 'One-to-one at a desk, a counsellor working from a laptop, a file of papers between them, and a parent or elder sibling welcome in the next chair.',
-  },
-  {
-    n: '02',
-    mark: 'person',
-    k: 'Guiding Futures · Classes IX – XII',
-    v: 'Mr. Ashutosh Kumar Pandey, IRS, Deputy Commissioner of Income Tax — his own educational journey, not a careers deck.',
-  },
-  {
-    n: '03',
-    mark: 'route',
-    k: 'On-campus guidance',
-    v: 'A career counselling desk for subject choice, stream selection and university guidance, listed on the school’s own facilities inventory.',
-  },
-  {
-    n: '04',
-    mark: 'handHeart',
-    k: 'Counsellors',
-    v: 'BCS Counsellors — trained counsellors available to students, apart from the careers programme.',
-  },
-  {
-    n: '05',
-    mark: 'clipboard',
-    k: 'Published record',
-    v: 'Twenty-six photographs of day one, and a second day published separately. Neither carries an account of who spoke.',
-  },
-] as const;
+const record = ac.section('record').points;
 
 /* ── SECTION 03 — what it gives. Four columns, each anchored to something the
    school actually runs rather than to an adjective. ─────────────────────── */
-const benefits = [
-  { n: '01', mark: 'search', k: 'Understand yourself', v: 'A conversation that starts with the student rather than with a list of careers.' },
-  { n: '02', mark: 'globe', k: 'Explore possibilities', v: 'A serving officer describing the route he actually took, to four year groups at once.' },
-  { n: '03', mark: 'route', k: 'Make informed decisions', v: 'Subject choice and stream selection, discussed at the desk in Class X — the year before it lands.' },
-  { n: '04', mark: 'cap', k: 'Plan your journey', v: 'University guidance, followed through to the placement board the school prints at the end of it.' },
-] as const;
+const benefits = ac.section('benefits').points;
 
 /* ── SECTION 04 — the photo story. Five frames, controlled composition. ──── */
-const story = [
-  { src: pHall, alt: `The hall at ${S} during the career counselling session, the senior school seated in rows facing the projected deck`, cap: 'The hall' },
-  { src: pWait, alt: `Students of ${S} waiting their turn at the career counselling session`, cap: 'Waiting to be seen' },
-  { src: pDeskB, alt: `A student of ${S} seated opposite a counsellor at a career counselling desk, a file of papers between them`, cap: 'At the desk' },
-  { src: pTalk, alt: `A visiting speaker addressing the senior school of ${S}, his projected deck headed “Dream BIG aim HIGH”`, cap: 'Dream BIG aim HIGH' },
-  { src: pRoom, alt: `The career counselling programme at ${S}, tables set out beneath the school’s own hand-painted banner`, cap: 'The room, set out' },
-] as const;
+const story = ac.section('story').photos;
 ---
 
 {/* ══ 01 · IT OPENS WITH A ROOM ══════════════════════════════════════════════
@@ -159,10 +116,10 @@ const story = [
     <figure class="cg-open__stage">
       <span class="as-dots cg-open__dots" aria-hidden="true"></span>
       <div class="cg-open__lead as-frame as-fill" data-mask data-mask-from="left">
-        <Picture
-          src={pTalk}
-          alt={`A visiting speaker addressing the senior school of ${S} on a lapel microphone, his projected deck headed “Dream BIG aim HIGH”`}
-          formats={['webp']}
+        <SmartImage
+          file={pTalk}
+          alt={ac.picAlt('pTalk')}
+         
           widths={[560, 900, 1280]}
           sizes="(max-width: 1023px) 92vw, 46vw"
           loading="eager"
@@ -170,10 +127,10 @@ const story = [
         />
       </div>
       <div class="cg-open__sm as-frame as-frame--float as-fill" data-pop data-pop-delay="200">
-        <Picture
-          src={pHall}
-          alt={`The hall at ${S} during the career counselling session, the senior school seated in rows`}
-          formats={['webp']}
+        <SmartImage
+          file={pHall}
+          alt={ac.picAlt('pHall')}
+         
           widths={[320, 560]}
           sizes="(max-width: 1023px) 46vw, 18vw"
           loading="lazy"
@@ -297,14 +254,12 @@ const story = [
           data-pop
           data-pop-delay={120 + i * 80}
         >
-          <Picture
-            src={s.src}
+          <SmartImage
+            file={s.src}
             alt={s.alt}
-            formats={['webp']}
-            widths={[340, 620, 900]}
             sizes="(max-width: 767px) 92vw, 24vw"
+            fallbackWidth={1100}
             loading="lazy"
-            decoding="async"
           />
         </a>
       ))}

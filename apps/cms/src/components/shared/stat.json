@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_shared_stats",
+  "info": {
+    "displayName": "Stat",
+    "icon": "chartBubble",
+    "description": "A counted figure with its label. Recurs in facilities KPIs, campus tour overview, sports figures and site counters — count and suffix are separate so the odometer animation can tween the number and hold the '+'."
+  },
+  "options": {},
+  "attributes": {
+    "count": { "type": "integer", "required": true },
+    "suffix": { "type": "string", "maxLength": 8, "default": "" },
+    "label": { "type": "string", "required": true, "maxLength": 80 },
+    "icon": { "type": "string", "maxLength": 40 },
+    "note": { "type": "string", "maxLength": 240 }
+  }
+}

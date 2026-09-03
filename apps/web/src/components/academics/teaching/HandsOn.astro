@@ -23,11 +23,14 @@
 import Photo from '../../ui/Photo.astro';
 import SectionHead from '../SectionHead.astro';
 import AcademicGlyph from '../AcademicGlyph.astro';
-import { teachingLearning } from '../../../data/academics';
 
-import bioPhoto from '../../../assets/photos/sb-bio-lab.jpg';
-import sciPhoto from '../../../assets/photos/sb-sci-lab.jpg';
-import mathsPhoto from '../../../assets/photos/sb-maths-lab.jpg';
+import { getAcademicTopic } from '../../../lib/cms';
+
+const ac = await getAcademicTopic('/academics/teaching-learning/');
+const bioPhoto = ac.pic('bioPhoto');
+const sciPhoto = ac.pic('sciPhoto');
+const mathsPhoto = ac.pic('mathsPhoto');
+const teachingLearning = ac.blockMap('teachingLearning');
 
 const { handsOn } = teachingLearning;
 ---
@@ -69,8 +72,8 @@ const { handsOn } = teachingLearning;
         <div class="hands__frame hands__frame--a" data-parallax data-parallax-y="70">
           <div data-mask>
             <Photo
-              src={bioPhoto}
-              alt="Two students of Sunbeam School Ballia handling glassware in the biology laboratory."
+              file={bioPhoto}
+              alt={ac.picAlt('bioPhoto')}
               brief="Biology practical"
               ratio="4 / 5"
               position="50% 45%"
@@ -82,8 +85,8 @@ const { handsOn } = teachingLearning;
         <div class="hands__frame hands__frame--b" data-parallax data-parallax-y="-96">
           <div data-mask data-mask-from="left">
             <Photo
-              src={sciPhoto}
-              alt="A student of Sunbeam School Ballia using a microscope beside plant specimens in flasks."
+              file={sciPhoto}
+              alt={ac.picAlt('sciPhoto')}
               brief="Microscope work"
               ratio="1 / 1"
               position="50% 40%"
@@ -95,8 +98,8 @@ const { handsOn } = teachingLearning;
         <div class="hands__frame hands__frame--c" data-parallax data-parallax-y="46">
           <div data-mask>
             <Photo
-              src={mathsPhoto}
-              alt="Students of Sunbeam School Ballia seated on the floor of a decorated activity room during a lesson."
+              file={mathsPhoto}
+              alt={ac.picAlt('mathsPhoto')}
               brief="Activity room lesson"
               ratio="3 / 2"
               position="50% 50%"

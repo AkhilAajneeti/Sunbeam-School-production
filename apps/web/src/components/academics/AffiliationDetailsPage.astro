@@ -52,20 +52,26 @@
  * ivory (why it matters). Nothing between the banner and the dark section is
  * dark, so the one dark band lands as the page's single accent.
  */
-import { Image, Picture } from 'astro:assets';
-import { school as sb } from '../../data/site';
+import { Image } from 'astro:assets';
+import SmartImage from '../../components/ui/SmartImage.astro';
+import { getSchool } from '../../lib/cms';
 
 /* ⚠ FOUR DIFFERENT PHOTOGRAPHS ACROSS THE PAGE, AND THE BANNER OWNS
    DSC_1240 — so the stairwell here is a different frame from the banner's. */
-import pCampus from '../../assets/photos/sunbeem-1.jpg';
-import pStairs from '../../assets/corridor and stairs/DSC_1221 copy.jpg';
 /* ⚠ THE BOARD'S EMBLEM WITH ITS WHITE CARD CUT AWAY. cbse_v2.webp is the
    artwork sitting on an opaque white plate. Inside the ring that plate reads as
    a sticker, and at watermark opacity it reads as a pale rectangle floating on
    the brown. This is the identical file with near-white pixels made
    transparent — the board's own artwork, not a redrawn one. */
 import oCbseCut from '../../assets/icons/cbse-emblem-cut.png';
-import docLetter from '../../assets/documents/cbse-affiliation-letter-2025-2030.jpg';
+import { getAcademicTopic } from '../../lib/cms';
+
+const ac = await getAcademicTopic('/academics/philosophy/affiliation-details/');
+const pStairs = ac.pic('pStairs');
+const docLetter = ac.pic('docLetter');
+const pCampus = ac.pic('pCampus');
+
+const sb = await getSchool();
 
 const S = 'Sunbeam School Ballia';
 
@@ -85,40 +91,13 @@ const ICON: Record<string, string> = {
 
 /* The identity stack. Every value is published; the last three come off the
    board's letter rather than off a school page. */
-const rows = [
-  { k: 'School', v: 'Sunbeam School', i: 'building' },
-  { k: 'Affiliation', v: sb.boardFull, i: 'book' },
-  { k: 'Category', v: 'Co-educational senior secondary school', i: 'people' },
-  { k: 'Classes', v: sb.classRange, i: 'cap' },
-  { k: 'School code', v: sb.schoolCode, i: 'card', mono: true },
-  { k: 'UDISE code', v: sb.udise, i: 'code', mono: true },
-  { k: 'Period of affiliation', v: sb.affiliationPeriod, i: 'calendar', mono: true },
-];
+const rows = ac.section('rows').points;
 
 /* ⚠ THE BRIEF'S THREE POINTS, UNEXPANDED. Each says what an identifier IS.
    None says what the affiliation permits, requires or guarantees — the school
    publishes no regulatory explanation, and inventing one here would be the
    easiest thing on this page to get wrong. */
-const points = [
-  {
-    n: '01',
-    k: 'Identity',
-    i: 'shield',
-    body: 'The affiliation number identifies the school’s official CBSE affiliation. The board’s letter also uses it as the school’s user ID on the OASIS and LOC registration systems.',
-  },
-  {
-    n: '02',
-    k: 'Reference',
-    i: 'book',
-    body: 'The school code provides an official school identifier — the short form that appears on board correspondence and on registration paperwork.',
-  },
-  {
-    n: '03',
-    k: 'Verification',
-    i: 'check',
-    body: 'These published details allow families to cross-check school information through official records. The school’s Mandatory Public Disclosure carries them alongside the documents themselves.',
-  },
-];
+const points = ac.section('points').points;
 ---
 
 {/* ══ 01 · THE TWO NUMBERS ═══════════════════════════════════════════════════ */}
@@ -212,10 +191,10 @@ const points = [
           laid over the first rather than a hole cut in it. */}
       <div class="af-id__media">
         <figure class="af-id__lead" data-mask data-zoom data-zoom-to="1.06">
-          <Picture
-            src={pCampus}
-            alt={`The campus of ${S} — its teaching blocks standing around the front lawn`}
-            formats={['webp']}
+          <SmartImage
+            file={pCampus}
+            alt={ac.picAlt('pCampus')}
+           
             widths={[620, 980]}
             sizes="(max-width: 1060px) 92vw, 46vw"
             loading="lazy"
@@ -223,10 +202,10 @@ const points = [
           />
         </figure>
         <figure class="af-id__inset" data-parallax data-parallax-y="20">
-          <Picture
-            src={pStairs}
-            alt={`A stairwell at ${S} — a marble flight rising to the landing, steel handrails either side and framed notices on the wall above`}
-            formats={['webp']}
+          <SmartImage
+            file={pStairs}
+            alt={ac.picAlt('pStairs')}
+           
             widths={[320, 520]}
             sizes="(max-width: 1060px) 44vw, 20vw"
             loading="lazy"
@@ -310,10 +289,10 @@ const points = [
         letterboxing to hide. */}
     <figure class="af-paper" data-reveal data-reveal-delay="140">
       <a class="af-paper__a" href={sb.external.affiliationLetter} target="_blank" rel="noopener noreferrer">
-        <Picture
-          src={docLetter}
+        <SmartImage
+          file={docLetter}
           alt={`Page one of the CBSE affiliation letter published by ${S}: letter number CBSE/${sb.affiliationNo}/EX-00497-2526/2025-26 dated ${sb.affiliationLetterDated}, subject “${sb.affiliationSubject}”, with a table giving affiliation number ${sb.affiliationNo}, school number ${sb.schoolCode} and period of affiliation ${sb.affiliationPeriod}, and the school’s stamp carrying UDISE code ${sb.udise}.`}
-          formats={['webp']}
+         
           widths={[430, 700, 940]}
           sizes="(max-width: 1060px) 78vw, 34vw"
           loading="lazy"

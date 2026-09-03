@@ -1,4 +1,7 @@
 ---
+import { getFacilitiesData } from '../../../lib/cms';
+const {progression} = await getFacilitiesData();
+
 /**
  * §6 · STUDENT EXPERIENCE — arrival to graduation, as a horizontal run.
  *
@@ -13,7 +16,7 @@
  * wheel, by keyboard and by touch — and it is a plain overflow container, so it
  * needs no script at all.
  */
-import { progression } from '../../../data/facilities';
+
 import SectionHead from '../../academics/SectionHead.astro';
 import FacIcon from './FacIcon.astro';
 ---

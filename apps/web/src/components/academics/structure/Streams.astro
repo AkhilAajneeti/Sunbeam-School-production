@@ -51,22 +51,17 @@
  * and three sit lower than two and four.
  */
 import { Picture } from 'astro:assets';
-import { streamDetail } from '../../../data/academics';
 
-import pcmShot from '../../../assets/photos/sb-phy-lab.jpg';
-import pcbShot from '../../../assets/photos/sb-bio-lab.jpg';
-import commerceShot from '../../../assets/school achivement/robo.jpg';
-import humanitiesShot from '../../../assets/photos/sb-library.jpg';
+import { getAcademicTopic } from '../../../lib/cms';
+import SmartImage from '../../ui/SmartImage.astro';
+
+const ac = await getAcademicTopic('/academics/structure/');
+const streamDetail = ac.section('streamDetail').streams;
 
 /* Paired here rather than in the data file: astro:assets has to see each import
    at build time to emit the AVIF/WebP variants, and a filename string in a .ts
    file is invisible to it. */
-const shots = [
-  { src: pcmShot, alt: 'Students of Sunbeam School Ballia working at benches in the physics laboratory.' },
-  { src: pcbShot, alt: 'Two students of Sunbeam School Ballia handling glassware in the biology laboratory.' },
-  { src: commerceShot, alt: 'The school’s RoboWunder International Robotics Championship award graphic.' },
-  { src: humanitiesShot, alt: 'Students of Sunbeam School Ballia reading at tables in the Nalanda Library.' },
-];
+const shots = ac.section('shots').photos;
 ---
 
 <section class="asstr" id="streams" aria-labelledby="asstr-title">
@@ -92,12 +87,11 @@ const shots = [
                 area are the same object. */}
             <a class="asr" href={`#comb-${s.name.toLowerCase()}`}>
               <div class="asr__media">
-                <Picture
-                  src={shots[i].src}
+                <SmartImage
+                  file={shots[i].src}
                   alt={shots[i].alt}
-                  formats={['webp']}
-                  widths={[420, 760, 1000]}
                   sizes="(max-width: 719px) 88vw, (max-width: 1080px) 44vw, 320px"
+                  fallbackWidth={1100}
                   loading="lazy"
                 />
               </div>

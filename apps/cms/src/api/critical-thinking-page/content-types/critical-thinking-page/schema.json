@@ -1,0 +1,17 @@
+{
+  "kind": "singleType",
+  "collectionName": "critical_thinking_pages",
+  "info": {
+    "singularName": "critical-thinking-page",
+    "pluralName": "critical-thinking-pages",
+    "displayName": "Critical Thinking & Creativity",
+    "description": "The Critical Thinking & Creativity page — one named field per visual section, in the order a reader meets them. ⚠ Sections cannot be reordered, added or removed: the page is designed around these four and each is drawn differently."
+  },
+  "options": { "draftAndPublish": true },
+  "attributes": {
+    "sectionOne": { "type": "component", "repeatable": false, "component": "philosophy.statement" },
+    "sectionTwo": { "type": "component", "repeatable": false, "component": "philosophy.marked-list" },
+    "sectionThree": { "type": "component", "repeatable": false, "component": "philosophy.marked-list" },
+    "sectionFour": { "type": "component", "repeatable": false, "component": "philosophy.collage" }
+  }
+}

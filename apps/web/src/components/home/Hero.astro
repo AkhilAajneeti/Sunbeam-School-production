@@ -13,22 +13,15 @@
  * Sunbeam-specific line available and it replaces a generic name-and-year
  * eyebrow that merely repeated the masthead.
  */
-import { school } from '../../data/site';
+import { getHero } from '../../lib/cms';
+import AccentHeading from '../ui/AccentHeading.astro';
 import Photo from '../ui/Photo.astro';
-import practical from '../../assets/photos/sunbeem-students.jpg';
 /* ⚠ THE CLIENT'S OWN BANNER SET, src/assets/banners/ — ALL NINE OF THEM.
    The folder holds ten files, but banner10.jpg is byte-identical to
    banner2.jpg (same MD5, same 346,606 bytes), so there are nine distinct
    photographs and the tenth can never add a frame. */
-import bParade from '../../assets/banners/banner1.jpg';
-import bCouncil from '../../assets/banners/banner2.jpg';
-import bStudio from '../../assets/banners/banner3.jpg';
-import bSchool from '../../assets/banners/banner4.jpg';
-import bRelease from '../../assets/banners/banner5.jpg';
-import bMementoes from '../../assets/banners/banner6.jpg';
-import bHouses from '../../assets/banners/banner7.jpg';
-import bContingent from '../../assets/banners/banner8.jpg';
-import bCaps from '../../assets/banners/banner9.jpg';
+
+const { eyebrow, title, deck, actions, stats, slides } = await getHero();
 
 /**
  * ⚠⚠ THE STUDENTS PHOTOGRAPH LEADS NOW, and the poster is gone entirely.
@@ -71,98 +64,6 @@ import bCaps from '../../assets/banners/banner9.jpg';
  * hand that shows learning happening rather than an occasion being marked. The
  * banners are all occasions.
  */
-const slides = [
-  {
-    src: practical,
-    alt: 'Students of Sunbeam School Ballia in lab coats at a chemistry practical, verifying the law of conservation of mass.',
-    /* The faces sit across the upper-middle band, so the crop holds there
-       rather than centring on the bench. */
-    position: '50% 38%',
-    tone: 'ink' as const,
-    brief: 'Students engaged in learning — a practical in progress',
-    caption: 'A senior chemistry practical',
-  },
-  {
-    src: bParade,
-    alt: 'Ranks of NCC cadets of Sunbeam School Ballia standing at attention beneath the assembly canopy while officers walk the red carpet between them.',
-    /* The officers and the near rank sit across the middle band; centring the
-       crop lower would hold the matting and lose the faces. */
-    position: '50% 46%',
-    tone: 'ink' as const,
-    brief: 'NCC cadets at attention, officers reviewing along the carpet',
-    caption: 'NCC cadets on parade',
-  },
-  {
-    src: bSchool,
-    alt: 'The students and staff of Sunbeam School Ballia assembled in rows on the steps beneath the school’s Sunbeam Ballia sign.',
-    position: '50% 44%',
-    tone: 'charcoal' as const,
-    brief: 'The whole school in rows on the steps under the school sign',
-    caption: 'The whole school, assembled',
-  },
-  {
-    src: bCouncil,
-    alt: 'Office-bearers of the Sunbeam School Ballia student council standing with a hand on their hearts to take the oath, their sashes reading Head Boy, Head Girl and Captain, while a member of staff speaks at the lectern.',
-    position: '50% 50%',
-    tone: 'maroon' as const,
-    brief: 'Student council office-bearers taking the oath beside the lectern',
-    caption: 'The student council, invested',
-  },
-  {
-    src: bCaps,
-    alt: 'The youngest classes of Sunbeam School Ballia on stage in graduation caps and striped sashes, each holding a rolled certificate, with their teachers standing behind them.',
-    position: '50% 46%',
-    tone: 'ink' as const,
-    brief: 'The youngest classes on stage in caps, certificates in hand',
-    caption: 'The youngest classes, capped',
-  },
-  {
-    src: bHouses,
-    alt: 'Students of Sunbeam School Ballia on stage holding framed certificates and the house flags, their sashes reading Head and Vice, with staff standing behind them.',
-    position: '50% 48%',
-    tone: 'maroon' as const,
-    brief: 'House office-bearers with their certificates and house flags',
-    caption: 'The houses and their flags',
-  },
-  {
-    src: bContingent,
-    alt: 'The NCC contingent of Sunbeam School Ballia drawn up in ranks on stage in khaki with red plumes, an officer standing at each end of the line.',
-    position: '50% 50%',
-    tone: 'charcoal' as const,
-    brief: 'The NCC contingent in ranks on stage, an officer at each end',
-    caption: 'The NCC contingent',
-  },
-  {
-    src: bStudio,
-    /* ⚠ WHAT IS IN FRAME, NOT WHAT THE OCCASION MIGHT BE. The wall reads
-       "speak · PODCAST STUDIO" and the two sashes read Vice Head and Asst
-       Discipline; why they are there is not legible, so the line stops at
-       what can be seen. */
-    alt: 'Two office-bearers of Sunbeam School Ballia, their sashes reading Vice Head and Asst Discipline, standing with two adults on the lit set of a podcast studio, softboxes and a camera either side.',
-    position: '50% 44%',
-    tone: 'ink' as const,
-    brief: 'Two office-bearers with two adults on a podcast studio set',
-    caption: 'Office-bearers at the podcast studio',
-  },
-  {
-    src: bMementoes,
-    alt: 'A line of guests and staff on stage at Sunbeam School Ballia, each holding a framed memento, with a police officer in uniform at the end of the row.',
-    position: '50% 50%',
-    tone: 'charcoal' as const,
-    brief: 'Guests and staff in a line on stage, each with a framed memento',
-    caption: 'Guests with their mementoes',
-  },
-  {
-    src: bRelease,
-    /* The copies they hold are not readable at this size; the title screen
-       behind them is, so that is what the line names. */
-    alt: 'Guests and staff on stage at Sunbeam School Ballia holding up copies of a publication at its release, the title screen behind them reading Hamar Ballia.',
-    position: '50% 52%',
-    tone: 'maroon' as const,
-    brief: 'A publication held up on stage at its release',
-    caption: 'A publication, released',
-  },
-];
 ---
 
 <section class="hero" data-hero aria-label="Welcome to Sunbeam School Ballia">
@@ -177,7 +78,7 @@ const slides = [
         aria-hidden={i !== 0}
       >
         <Photo
-          src={slide.src}
+          file={slide.image}
           alt={slide.alt}
           brief={slide.brief}
           tone={slide.tone}
@@ -203,14 +104,16 @@ const slides = [
           ⚠ The .hero__badge / .hero__badge-dot styles are left in place: they
           cost nothing unused, and this is the kind of thing that comes back for
           one admissions season. */}
-      <p class="hero__eyebrow t-label">{school.motto}</p>
-      <h1 class="hero__title t-display" data-split>
-        Where Ballia’s <br class="hero__br" />Future Leaders <span class="t-squiggle t-squiggle--lime">Take Shape</span>
-      </h1>
-      <p class="hero__deck t-body-lg">
-        A Sunbeam institution since 2013 — {school.currentStrength} students, Nursery to
-        Class&nbsp;XII, on a campus built for how children actually learn.
-      </p>
+      <p class="hero__eyebrow t-label">{eyebrow}</p>
+      <AccentHeading
+        tag="h1"
+        class="hero__title t-display"
+        split
+        accentClass="t-squiggle--lime"
+        breakClass="hero__br"
+        text={title}
+      />
+      <p class="hero__deck t-body-lg">{deck}</p>
       {/* ⚠ THE TWO APPLICATION FORMS, NOT AN ADMISSIONS PAGE. The school has no
           admissions page of its own — what it publishes is these two forms, one
           per intake, named exactly this way in its own top bar. The hero now
@@ -227,24 +130,19 @@ const slides = [
           These two go where the hero used to send people before the apply links
           briefly took the slot — both real, finished pages. */}
       <div class="hero__actions">
-        <a class="btn btn--on-image-primary" href="/academics/">Explore Academics</a>
-        <a class="btn btn--on-image-secondary" href="/campus/">Explore the Campus</a>
+        {actions.map((a, i) => (
+          <a class={`btn ${i === 0 ? 'btn--on-image-primary' : 'btn--on-image-secondary'}`} href={a.href}>{a.label}</a>
+        ))}
       </div>
 
       {/* Floating stat card — reference hero pattern. Verified figures only. */}
       <div class="hero__stats">
-        <div class="hero__stat">
-          <span class="hero__stat-value">13</span>
-          <span class="hero__stat-label">years in Ballia</span>
-        </div>
-        <div class="hero__stat">
-          <span class="hero__stat-value">{school.currentStrength}</span>
-          <span class="hero__stat-label">students today</span>
-        </div>
-        <div class="hero__stat">
-          <span class="hero__stat-value">#1</span>
-          <span class="hero__stat-label">co-ed day school, Ballia</span>
-        </div>
+        {stats.map((stat) => (
+          <div class="hero__stat">
+            <span class="hero__stat-value">{stat.value}</span>
+            <span class="hero__stat-label">{stat.label}</span>
+          </div>
+        ))}
       </div>
     </div>
 
@@ -461,7 +359,19 @@ const slides = [
     margin-bottom: var(--sb-6);
   }
 
-  .hero__title {
+  /**
+   * WARNING: :global BECAUSE ANOTHER COMPONENT RENDERS THIS ELEMENT.
+   *
+   * Astro scopes a component’s CSS by stamping data-astro-cid-* on the elements
+   * in its OWN template. The h1 here is rendered by AccentHeading, so it carries
+   * AccentHeading’s attribute and not this file’s - and every .hero__title rule
+   * below silently matched nothing. The heading fell back to the page’s dark
+   * default text colour and sat black on a dark photograph, along with losing its
+   * measure, its margin and both of its breakpoints.
+   *
+   * ⚠ Passing a class INTO a component does not carry the caller’s scope with it.
+   */
+  :global(.hero__title) {
     color: #fff;
     /* FLUID, so the chosen break holds at every width rather than only at the
        two where it happened to fit.
@@ -562,7 +472,7 @@ const slides = [
   @media (max-width: 1023px) {
     .hero__copy { grid-column: 1 / span 6; }
     .hero__meta { grid-column: 7 / span 2; }
-    .hero__title { max-width: none; }
+    :global(.hero__title) { max-width: none; }
   }
 
   /* Below ~900 the caption competes with the deck for the same optical line. */
@@ -578,7 +488,7 @@ const slides = [
      no longer fit however wide the column is. The chosen break is dropped there
      and the heading wraps naturally. */
   @media (max-width: 479px) {
-    .hero__br { display: none; }
+    :global(.hero__br) { display: none; }
   }
 
   @media (max-width: 767px) {
@@ -607,7 +517,7 @@ const slides = [
     .hero__stat + .hero__stat { padding-left: var(--sb-5); }
     .hero__stat-value { font-size: 22px; }
     .hero__stat-label { font-size: 11px; }
-    .hero__title { max-width: none; margin-bottom: var(--sb-5); }
+    :global(.hero__title) { max-width: none; margin-bottom: var(--sb-5); }
     .hero__deck { max-width: none; margin-bottom: var(--sb-7); }
 
     .hero__actions { flex-direction: column; }

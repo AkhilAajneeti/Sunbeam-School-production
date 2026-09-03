@@ -15,31 +15,44 @@
  * ⚠ NO SIBLING NAVIGATION WHILE THERE IS ONE MEET. Previous/next links across a
  * single-item set are two dead controls; they appear once a second meet does.
  */
-import { Picture } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/ui/PageHero.astro';
 import Lightbox from '../../components/ui/Lightbox.astro';
+import CmsImage from '../../components/ui/CmsImage.astro';
 import '../../styles/assessment.css';
 import { MARK } from '../../components/academics/assessment/marks';
-import { publishedMeets } from '../../data/alumniMeets';
-import { school } from '../../data/site';
+import { getAlumniMeets, fileUrl, getSchool } from '../../lib/cms';
 
 import bannerFallback from '../../assets/photos/sunbeem-1.jpg';
 
+const school = await getSchool();
+
+/**
+ * ⚠ ONE REQUEST FOR EVERY MEET, NOT ONE PER PAGE. getStaticPaths returns the
+ * meet as a prop, so each generated page already holds its own record and never
+ * fetches again — the N+1 that a per-page query would cause during a build.
+ *
+ * ⚠ ONLY PUBLISHED MEETS GET A ROUTE, and that is now enforced by the CMS rather
+ * than by remembering to filter. A draft meet is invisible to the read-only
+ * token, so it cannot mint a page.
+ */
 export async function getStaticPaths() {
-  const { publishedMeets } = await import('../../data/alumniMeets');
-  return publishedMeets.map((meet) => ({ params: { slug: meet.slug }, props: { meet } }));
+  const meets = await getAlumniMeets();
+  return meets.map((meet, index) => ({
+    params: { slug: meet.slug },
+    props: { meet, prev: index > 0 ? meets[index - 1] : null, next: meets[index + 1] ?? null },
+  }));
 }
 
-const { meet } = Astro.props;
+const { meet, prev, next } = Astro.props;
 
 const S = 'Sunbeam School Ballia';
 const ALL = '/alumni/';
 
-/** Where this meet sits in the published set — used only to decide on siblings. */
-const at = publishedMeets.findIndex((m) => m.slug === meet.slug);
-const prev = at > 0 ? publishedMeets[at - 1] : null;
-const next = at > -1 && at < publishedMeets.length - 1 ? publishedMeets[at + 1] : null;
+/* ⚠ prev/next COME FROM getStaticPaths NOW. They used to be computed here by
+   searching the full published list for this meet's own index — which meant
+   every generated page re-read the whole collection to find its two neighbours.
+   The path builder already knows the order, so it hands them over as props. */
 ---
 
 <BaseLayout
@@ -53,7 +66,8 @@ const next = at > -1 && at < publishedMeets.length - 1 ? publishedMeets[at + 1] 
       { label: 'Home', href: '/' },
       { label: 'Alumni', href: ALL },
     ]}
-    src={meet.cover ?? bannerFallback}
+    src={bannerFallback}
+    file={meet.cover}
     alt={meet.coverAlt ?? `The main building of ${S} at Agarsanda.`}
     position="50% 46%"
   />
@@ -126,15 +140,13 @@ const next = at > -1 && at < publishedMeets.length - 1 ? publishedMeets[at + 1] 
           <ul class="am-shots">
             {meet.gallery.map((g, i) => (
               <li class="am-shot" data-pop data-pop-delay={80 + i * 45}>
-                <a class="am-shot__a" data-lb-open href={g.image.src} data-lb-alt={g.alt} data-lb-cap={g.caption ?? g.alt}>
-                  <Picture
-                    src={g.image}
+                <a class="am-shot__a" data-lb-open href={fileUrl(g.image)} data-lb-alt={g.alt} data-lb-cap={g.caption ?? g.alt}>
+                  <CmsImage
+                    file={g.image}
                     alt={g.alt}
-                    formats={['webp']}
-                    widths={[420, 760]}
                     sizes="(max-width: 767px) 92vw, 30vw"
+                    fallbackWidth={760}
                     loading="lazy"
-                    decoding="async"
                   />
                 </a>
               </li>

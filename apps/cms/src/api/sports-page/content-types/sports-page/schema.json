@@ -1,0 +1,35 @@
+{
+  "kind": "singleType",
+  "collectionName": "sports_page",
+  "info": {
+    "singularName": "sports-page",
+    "pluralName": "sports-pages",
+    "displayName": "Sports Page",
+    "description": "The headline figures, the participation ladder and the coaching claims on /beyond-academics/sports/. The games, facilities and record are Collections beside it."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "figures": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.figure"
+    },
+    "ladder": {
+      "type": "component",
+      "repeatable": true,
+      "component": "sports.rung"
+    },
+    "coaching": {
+      "type": "component",
+      "repeatable": true,
+      "component": "sports.coach-card"
+    },
+    "montage": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.photo"
+    }
+  }
+}

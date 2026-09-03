@@ -1,4 +1,7 @@
 ---
+import { getSportsPage } from '../../../lib/cms';
+
+const { coaching } = await getSportsPage();
 /**
  * §5 · COACHING OPPORTUNITIES — the staggered tinted-card layout.
  *
@@ -32,7 +35,6 @@
  * without Class I coaching — and then prints the record that forces it. The
  * `proof` line is the card's evidence, not decoration.
  */
-import { coaching } from '../../../data/sports';
 import SectionHead from '../../academics/SectionHead.astro';
 import SportIcon from './SportIcon.astro';
 import CloudEdge from '../../ui/CloudEdge.astro';

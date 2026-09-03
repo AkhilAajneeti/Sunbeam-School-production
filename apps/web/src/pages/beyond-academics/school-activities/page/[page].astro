@@ -1,4 +1,7 @@
 ---
+import { getActivitiesData } from '../../../../lib/cms';
+
+const { schoolActivities } = await getActivitiesData();
 /**
  * SCHOOL ACTIVITIES — pages 2 and up.
  *
@@ -15,10 +18,9 @@
  */
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
 import ActivityIndex from '../../../../components/news/ActivityIndex.astro';
-import { schoolActivities } from '../../../../data/schoolActivities';
 
 export async function getStaticPaths() {
-  const { pageCount } = await import('../../../../data/schoolActivities');
+  const { pageCount } = await getActivitiesData();
   return Array.from({ length: Math.max(0, pageCount - 1) }, (_, i) => ({
     params: { page: String(i + 2) },
     props: { current: i + 2 },

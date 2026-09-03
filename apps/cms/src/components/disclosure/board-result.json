@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_disclosure_board_results",
+  "info": {
+    "displayName": "Board Result Year",
+    "icon": "medal",
+    "description": "One year of board results, as the tabs present them. ⚠ `year` IS THE SCHOOL'S OWN LABEL — it writes the examination year (2025), not the session (2024-25). Adding a fourth year is one more entry here and no change to the page. ⚠ NEWEST FIRST: the tabs read the stored order."
+  },
+  "options": {},
+  "attributes": {
+    "year": { "type": "string", "required": true, "maxLength": 16 },
+    "classX": { "type": "component", "repeatable": false, "component": "disclosure.result-row" },
+    "classXii": { "type": "component", "repeatable": false, "component": "disclosure.result-row" }
+  }
+}

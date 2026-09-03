@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_disclosure_sections",
+  "info": {
+    "displayName": "Disclosure Section",
+    "icon": "bulletList",
+    "description": "One numbered section of the Mandatory Public Disclosure page. ⚠⚠ `anchor` IS A URL TARGET. It is the id the section carries and the href the side rail links to, so changing it breaks any link a parent or an inspector has saved to that section. Change the label freely; change the anchor only deliberately. ⚠ THE LABEL USED TO BE WRITTEN TWICE — once for the rail, once as the section heading — and the two could drift. One record now feeds both. The section number is derived from position, not stored."
+  },
+  "options": {},
+  "attributes": {
+    "anchor": { "type": "string", "required": true, "maxLength": 60 },
+    "label": { "type": "string", "required": true, "maxLength": 120 }
+  }
+}

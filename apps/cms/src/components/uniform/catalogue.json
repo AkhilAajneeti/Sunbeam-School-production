@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_uniform_catalogues",
+  "info": {
+    "displayName": "Uniform Catalogue",
+    "icon": "book",
+    "description": "One published uniform catalogue. ⚠ `file` IS THE CATALOGUE ITSELF, now held in Strapi media rather than as a path into the site's public directory — a new edition is an upload, not a deploy. `originHref` records where the school publishes the same document, which is provenance and stays a plain URL because it is not ours to host. ⚠ `pages` AND `size` DESCRIBE THE FILE and are stated on the card; they are transcribed rather than computed because the card quotes the document, not the upload."
+  },
+  "options": {},
+  "attributes": {
+    "number": { "type": "string", "maxLength": 8 },
+    "icon": { "type": "string", "maxLength": 40 },
+    "title": { "type": "string", "required": true, "maxLength": 200 },
+    "session": { "type": "string", "maxLength": 120 },
+    "revised": { "type": "string", "maxLength": 120 },
+    "linkedAs": { "type": "string", "maxLength": 200 },
+    "file": { "type": "media", "multiple": false, "allowedTypes": ["files", "images"] },
+    "originHref": { "type": "string", "maxLength": 500 },
+    "pages": { "type": "integer" },
+    "size": { "type": "string", "maxLength": 24 }
+  }
+}

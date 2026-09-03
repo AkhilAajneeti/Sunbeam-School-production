@@ -1,0 +1,49 @@
+{
+  "collectionName": "components_philosophy_constellations",
+  "info": {
+    "displayName": "Constellation section",
+    "icon": "bulletList",
+    "description": "Section 03 — the abilities orbiting a central photograph. ⚠ THE RING ITSELF IS DESIGN: its radius, the two drawn circles and each node's position are computed by the page. Adding or removing a card re-spaces the ring automatically."
+  },
+  "options": {},
+  "attributes": {
+    "kicker": {
+      "type": "string",
+      "maxLength": 80,
+      "description": "Optional — some pages open the section with a small label, some go straight to the heading."
+    },
+    "heading": {
+      "type": "string",
+      "required": true,
+      "maxLength": 120
+    },
+    "headingEm": {
+      "type": "string",
+      "maxLength": 120,
+      "description": "The second line of the heading, set in italic. The page puts the line break in."
+    },
+    "body": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.paragraph"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "imageAlt": {
+      "type": "text",
+      "required": true,
+      "maxLength": 500
+    },
+    "cards": {
+      "type": "component",
+      "repeatable": true,
+      "component": "philosophy.ability"
+    }
+  }
+}

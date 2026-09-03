@@ -9,34 +9,27 @@
  * Layout is an uneven 2:1 editorial grid — sport dominant, arts and leadership
  * stacked beside it. Explicitly not three equal cards.
  */
-import { beyond } from '../../data/home';
+import { getBeyond } from '../../lib/cms';
+import AccentHeading from '../ui/AccentHeading.astro';
 import Photo from '../ui/Photo.astro';
-import council from '../../assets/photos/sunbeem-5.jpg';
 
-/** Only the leadership strand has a photograph so far. */
-const strandPhotos = [
-  { src: undefined, alt: undefined },
-  {
-    src: council,
-    alt: 'Student council office-bearers and NCC cadets of Sunbeam School Ballia at an investiture ceremony.',
-  },
-];
+const beyond = await getBeyond();
+
 ---
 
 <section class="beyond" aria-labelledby="beyond-heading">
   <div class="u-container">
     <div class="beyond__head" data-reveal>
       <p class="beyond__eyebrow t-label">{beyond.eyebrow}</p>
-      <h2 class="beyond__heading t-h2-sans" id="beyond-heading">
-        Every child plays. Every child <span class="t-squiggle">performs</span>.
-      </h2>
+      <AccentHeading class="beyond__heading t-h2-sans" id="beyond-heading" text={beyond.heading} />
       <p class="beyond__deck t-body-lg">{beyond.deck}</p>
     </div>
 
     <div class="beyond__grid">
       <article class="beyond__sport" data-reveal>
         <a class="beyond__sport-media" href={beyond.sport.href}>
-          <Photo ratio="3 / 2" tone="charcoal" brief={beyond.sport.brief} ref="A2" quiet />
+          <Photo ratio="3 / 2" tone="charcoal" brief={beyond.sport.brief} ref="A2" quiet
+            file={beyond.sport.photo} alt={beyond.sport.photoAlt} />
         </a>
         <h3 class="beyond__sport-title t-h3">{beyond.sport.title}</h3>
         <p class="beyond__sport-body">{beyond.sport.body}</p>
@@ -63,8 +56,8 @@ const strandPhotos = [
                 brief={strand.brief}
                 ref="A2"
                 quiet
-                src={strandPhotos[i]?.src}
-                alt={strandPhotos[i]?.alt}
+                file={strand.photo}
+                alt={strand.photoAlt}
                 position="46% 40%"
                 sizes="(max-width: 767px) 96px, (max-width: 1023px) 45vw, 200px"
               />

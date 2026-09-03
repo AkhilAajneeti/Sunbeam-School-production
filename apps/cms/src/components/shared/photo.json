@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_shared_photos",
+  "info": {
+    "displayName": "Photo",
+    "icon": "picture",
+    "description": "One captioned photograph. The single most repeated structure in this project — alumni meet galleries, calendar sheets, excursion sections and event chronicles all use it."
+  },
+  "options": {},
+  "attributes": {
+    "key": {
+      "type": "string",
+      "maxLength": 60,
+      "description": "OPTIONAL, AND ONLY USED WHERE A PAGE LOOKS A PHOTOGRAPH UP BY NAME. Galleries do not need it, they render in order. The academics pages do: each bespoke layout has named picture slots in its markup, and the slot is named after the binding the component already used, so the page reads photo(pBench) where it used to read a local import and nothing below that line changes."
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": ["images"]
+    },
+    "alt": { "type": "text", "required": true, "maxLength": 500 },
+    "caption": { "type": "string", "maxLength": 200 }
+  }
+}

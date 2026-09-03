@@ -1,0 +1,82 @@
+---
+/**
+ * AN IMAGE THAT COMES FROM STRAPI.
+ *
+ * ═══ WHY NOT ASTRO'S <Picture> ═════════════════════════════════════════════
+ *
+ * <Picture> works on an ImageMetadata produced by importing a file from
+ * src/assets, and derives every width itself during the build. Pointing it at a
+ * remote URL is possible, but it then DOWNLOADS AND RE-PROCESSES each file on
+ * every build — which is the 8,328-variant, 948 MB, 23-minute problem this
+ * migration exists to remove, merely relocated.
+ *
+ * Strapi already derived the sizes at upload, into the breakpoints in
+ * apps/cms/config/plugins.ts. This emits a plain <img> pointing at them. The
+ * build does no image work at all.
+ *
+ * ⚠ VISUALLY IDENTICAL, STRUCTURALLY SIMPLER. <Picture> emits <picture> with
+ * per-format <source> elements because it offers AVIF and WebP alongside the
+ * original. Strapi resizes without converting, so there is one format and
+ * therefore nothing for <picture> to choose between — a single <img srcset>
+ * expresses exactly the same thing. Every class, every layout rule and every
+ * `sizes` value the page already had still applies.
+ *
+ * ⚠ width AND height ARE ALWAYS SET. Posters are the tallest thing on the page;
+ * without intrinsic dimensions the grid reflows as each one arrives.
+ */
+import { fileUrl, srcSet, formatAtLeast, dimensions } from '../../lib/cms';
+import type { StrapiFile } from '../../lib/cms';
+
+interface Props {
+  file: StrapiFile | null | undefined;
+  alt: string;
+  /** Standard `sizes`. Should match what the CSS actually gives the element. */
+  sizes?: string;
+  /** Width the `src` fallback should aim for — browsers ignoring srcset get this. */
+  fallbackWidth?: number;
+  loading?: 'lazy' | 'eager';
+  decoding?: 'async' | 'sync' | 'auto';
+  fetchpriority?: 'high' | 'low' | 'auto';
+  class?: string;
+  /** Inline object-position and the like, where the layout needs one. */
+  style?: string;
+}
+
+const {
+  file,
+  alt,
+  sizes,
+  fallbackWidth = 760,
+  loading = 'lazy',
+  decoding = 'async',
+  fetchpriority,
+  class: className,
+  style,
+} = Astro.props;
+
+const dims = dimensions(file);
+const fallback = formatAtLeast(file, fallbackWidth);
+const set = srcSet(file);
+
+/* ⚠ A MISSING FILE RENDERS NOTHING RATHER THAN A BROKEN ICON. Media is required
+   on every content type that uses this, so an empty file means a genuine data
+   fault — but a broken-image glyph in the middle of a poster grid is a worse
+   way to find out than an empty slot and a clean page. */
+const src = fallback ? fileUrl({ ...(file as StrapiFile), url: fallback.url }) : fileUrl(file);
+---
+
+{file && src && (
+  <img
+    src={src}
+    srcset={set || undefined}
+    sizes={set ? sizes : undefined}
+    alt={alt}
+    style={style}
+    width={dims?.width}
+    height={dims?.height}
+    loading={loading}
+    decoding={decoding}
+    fetchpriority={fetchpriority}
+    class={className}
+  />
+)}

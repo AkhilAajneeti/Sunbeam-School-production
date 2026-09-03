@@ -50,20 +50,26 @@
  *   04 · CREAM  the contact panel.
  *   05 · PHOTO  the cinematic close.
  */
-import { Picture } from 'astro:assets';
+import SmartImage from '../../../components/ui/SmartImage.astro';
 import '../../../styles/assessment.css';
 import { MARK } from '../assessment/marks';
 import AsClose from '../assessment/AsClose.astro';
 import PpWhy from './PpWhy.astro';
 import PpCta from './PpCta.astro';
 import Lightbox from '../../ui/Lightbox.astro';
-import { forumAgenda, agendaHeading, forumNameplates, forumBenefits } from '../../../data/parentsForum';
 
-import pRoom from '../../../assets/parents forum/parents forum (3).jpg';
-import pRows from '../../../assets/parents forum/parents forum (2).jpg';
-import pPanel from '../../../assets/parents forum/parents forum (5).jpg';
-import pMic from '../../../assets/parents forum/parents forum (4).jpg';
-import pCohort from '../../../assets/photos/sunbeem-3.jpg';
+import { getAcademicTopic } from '../../../lib/cms';
+
+const ac = await getAcademicTopic('/academics/parent-partnership/parents-forum/');
+const pRoom = ac.pic('pRoom');
+const pRows = ac.pic('pRows');
+const pPanel = ac.pic('pPanel');
+const pMic = ac.pic('pMic');
+const pCohort = ac.pic('pCohort');
+const forumAgenda = ac.section('forumAgenda').points;
+const agendaHeading = ac.section('agendaHeading').note;
+const forumNameplates = ac.section('forumNameplates').facts;
+const forumBenefits = ac.section('forumBenefits').points;
 
 const S = 'Sunbeam School Ballia';
 const PTM = '/academics/assessment/parent-teacher-meetings/';
@@ -116,10 +122,10 @@ const plates = forumNameplates.join(', ');
         data-lb-cap="The forum room — every desk named for a class"
         data-mask
       >
-        <Picture
-          src={pRoom}
-          alt={`Parents of ${S} seated at desks during a Parents' Forum sitting, each desk carrying a printed class nameplate`}
-          formats={['webp']}
+        <SmartImage
+          file={pRoom}
+          alt={ac.picAlt('pRoom')}
+         
           widths={[540, 900, 1280]}
           sizes="(max-width: 1023px) 92vw, 44vw"
           loading="eager"
@@ -136,10 +142,10 @@ const plates = forumNameplates.join(', ');
         data-pop
         data-pop-delay="240"
       >
-        <Picture
-          src={pRows}
-          alt={`A closer view of parents seated in the rows at a Parents' Forum sitting at ${S}`}
-          formats={['webp']}
+        <SmartImage
+          file={pRows}
+          alt={ac.picAlt('pRows')}
+         
           widths={[320, 560]}
           sizes="(max-width: 1023px) 46vw, 20vw"
           loading="lazy"
@@ -181,10 +187,10 @@ const plates = forumNameplates.join(', ');
           data-lb-cap={agendaHeading}
           data-mask
         >
-          <Picture
-            src={pPanel}
-            alt={`The Parents' Forum agenda projected on a screen at ${S}, with a panel of the school's leadership seated beneath it behind a name plate`}
-            formats={['webp']}
+          <SmartImage
+            file={pPanel}
+            alt={ac.picAlt('pPanel')}
+           
             widths={[420, 760, 1100]}
             sizes="(max-width: 1023px) 92vw, 34vw"
             loading="lazy"
@@ -201,10 +207,10 @@ const plates = forumNameplates.join(', ');
           data-pop
           data-pop-delay="260"
         >
-          <Picture
-            src={pMic}
-            alt={`A parent at a Parents' Forum sitting at ${S} speaking into a hand-held microphone from the floor, the desk in front labelled II-C`}
-            formats={['webp']}
+          <SmartImage
+            file={pMic}
+            alt={ac.picAlt('pMic')}
+           
             widths={[260, 440]}
             sizes="(max-width: 1023px) 36vw, 14vw"
             loading="lazy"

@@ -1,0 +1,14 @@
+{
+  "collectionName":"components_home_facility_cards",
+  "info":{"displayName":"Facility Card","icon":"house",
+    "description":"A homepage campus teaser with its own three-photograph grid. ⚠ NOT the same as Campus Facility: that collection holds rooms with full galleries for the /campus/ tour; these are short editorial cards with their own wording and a link out. ⚠ `detail` IS OPTIONAL ON PURPOSE — the Conference Room has no published description and the panel prints its name and qualifier rather than invented copy (docs/07 B3). ⚠ `shots` REPLACED A `photo` KEY: the source held a string that indexed a hardcoded gallery in Campus.astro, so changing which photograph the homepage shows meant editing Astro. The photographs and their alt text are editorial and live here; which of the three lands in the tall slot and which two stack beside it is layout and stays in Astro."},
+  "options":{},
+  "attributes":{
+    "name":{"type":"string","required":true,"maxLength":120},
+    "qualifier":{"type":"string","maxLength":200},
+    "detail":{"type":"text","maxLength":800},
+    "href":{"type":"string","maxLength":200},
+    "brief":{"type":"string","maxLength":160},
+    "shots":{"type":"component","repeatable":true,"component":"shared.photo"}
+  }
+}

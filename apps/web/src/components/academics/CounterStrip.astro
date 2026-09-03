@@ -14,7 +14,10 @@
  * `data-count-suffix` carries the + so the symbol survives the textContent
  * write; motion-gsap.ts re-appends it on every frame.
  */
-import { counters } from '../../data/academics';
+import { getAcademicTopic } from '../../lib/cms';
+
+const ac = await getAcademicTopic('/academics/');
+const counters = ac.section('counters').stats;
 
 interface Counter {
   n: number;
@@ -41,7 +44,7 @@ interface Props {
 }
 
 const { tone = 'dark', limit, items: custom } = Astro.props;
-const items = custom ?? (limit ? counters.slice(0, limit) : counters);
+const items = ac.section('items').stats;
 ---
 
 <dl class:list={['cstrip', `cstrip--${tone}`]}>

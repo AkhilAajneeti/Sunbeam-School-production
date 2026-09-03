@@ -20,8 +20,10 @@
  * the gap clamp does not). Below 1280 the drawer takes over.
  */
 import { mainNav } from '../../data/navigation';
-import { school } from '../../data/site';
+import { getSchool } from '../../lib/cms';
 import MegaMenu from './MegaMenu.astro';
+
+const school = await getSchool();
 ---
 
 <header class="masthead" data-masthead>

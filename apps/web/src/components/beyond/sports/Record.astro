@@ -36,8 +36,13 @@
  * and copying that pattern here would wire up block one and silently leave the
  * other thirteen inert.
  */
-import { Picture } from 'astro:assets';
-import { record, shot } from '../../../data/sportsRecord';
+import CmsImage from '../../ui/CmsImage.astro';
+import { getSportsRecord } from '../../../lib/cms';
+
+/* ⚠ NO `shot` LOOKUP ANY MORE. The source stored filenames that indexed a
+   Vite-glob map; each record now carries its photographs directly, so
+   `r.shots` is StrapiFile[] and needs no resolution step. */
+const record = await getSportsRecord();
 import SectionHead from '../../academics/SectionHead.astro';
 ---
 
@@ -98,14 +103,12 @@ import SectionHead from '../../academics/SectionHead.astro';
           <ul class="rblk__track">
             {r.shots.map((s, si) => (
               <li class="rblk__frame">
-                <Picture
-                  src={shot[s]}
+                <CmsImage
+                  file={s}
                   alt={si === 0 ? r.alt : ''}
-                  formats={['webp']}
-                  widths={[420, 840]}
                   sizes="(max-width: 700px) 78vw, 380px"
                   loading={i < 2 ? 'eager' : 'lazy'}
-                  decoding="async"
+                  fallbackWidth={760}
                 />
               </li>
             ))}

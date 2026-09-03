@@ -16,7 +16,8 @@
  * where the headline sits; the grain is a soft-light noise tile at 0.26 that
  * stops the gradient banding on a wide display.
  */
-import { Picture } from 'astro:assets';
+import SmartImage from '../../ui/SmartImage.astro';
+import type { StrapiFile } from '../../../lib/cms';
 import '../../../styles/assessment.css';
 
 interface Props {
@@ -27,7 +28,13 @@ interface Props {
   accent: string;
   /** One paragraph. Usually the "and here is what is NOT published" line. */
   body: string;
-  photo: ImageMetadata;
+  /**
+   * WARNING: EITHER SOURCE, BECAUSE THE PHOTOGRAPH IS NOW CONTENT.
+   * Eighteen pages close with this band and every one of them now hands over a
+   * Strapi file from its own record; the local shape stays accepted so a caller
+   * outside academics is not forced to migrate to keep using the band.
+   */
+  photo: StrapiFile | ImageMetadata | null;
   /** object-position, to hold the focal point through a wide crop. */
   position?: string;
   /**
@@ -44,11 +51,11 @@ const { kicker, lead, accent, body, photo, position = '50% 42%', inline = false,
 
 <section class:list={['as-close', inline && 'as-close--inline']} aria-labelledby={id}>
   <div class="as-close__media" aria-hidden="true" data-parallax data-parallax-y="-40">
-    <Picture
-      src={photo}
+    <SmartImage
+      file={photo}
       alt=""
-      formats={['webp']}
       widths={[1024, 1600, 2000]}
+      fallbackWidth={1600}
       sizes="100vw"
       loading="lazy"
       decoding="async"

@@ -31,18 +31,23 @@
  *   03 · PAPER  four editorial columns on thin vertical rules.
  *   04 · PHOTO  the cinematic close.
  */
-import { Picture } from 'astro:assets';
+import SmartImage from '../../../components/ui/SmartImage.astro';
 import '../../../styles/assessment.css';
 import { MARK } from './marks';
 import AsClose from './AsClose.astro';
-import { school } from '../../../data/site';
+import { getSchool } from '../../../lib/cms';
 
 /* ── PHOTOGRAPHY — five genuine Sunbeam Ballia frames, each used ONCE. ────── */
-import pHall from '../../../assets/parents forum/parents forum (3).jpg';
-import pTiers from '../../../assets/parents forum/parents forum (6).jpg';
-import pPanel from '../../../assets/parents forum/parents forum (5).jpg';
-import pSpeak from '../../../assets/parents forum/parents forum (4).jpg';
-import pCohort from '../../../assets/photos/sunbeem-3.jpg';
+import { getAcademicTopic } from '../../../lib/cms';
+
+const ac = await getAcademicTopic('/academics/assessment/parent-teacher-meetings/');
+const pHall = ac.pic('pHall');
+const pTiers = ac.pic('pTiers');
+const pPanel = ac.pic('pPanel');
+const pSpeak = ac.pic('pSpeak');
+const pCohort = ac.pic('pCohort');
+
+const school = await getSchool();
 
 const S = 'Sunbeam School Ballia';
 
@@ -52,56 +57,10 @@ const ASSESSMENT = '/academics/assessment/';
 const PORTAL = school.external.results;
 
 /* ── SECTION 02 — the four channels ──────────────────────────────────────── */
-const channels = [
-  {
-    mark: 'hands',
-    k: 'Parent–teacher meetings',
-    v: 'On the academic calendar for the session, published in advance rather than called when there is a problem.',
-  },
-  {
-    mark: 'clock',
-    k: 'Between meetings',
-    v: 'The parent portal carries term reports and results at any hour.',
-  },
-  {
-    mark: 'calendar',
-    k: 'On the same calendar',
-    v: 'Examination dates, terms and holidays — so a meeting can be read against the paper it follows.',
-  },
-  {
-    mark: 'chat',
-    k: 'Parents’ Forum · IX–XII',
-    v: 'A panel session with a twelve-item agenda, projected in the room. Session 2025-26.',
-  },
-] as const;
+const channels = ac.section('channels').points;
 
 /* ── SECTION 03 — four reasons, each one anchored to something published ─── */
-const reasons = [
-  {
-    n: '01',
-    mark: 'calendar',
-    k: 'Scheduled early',
-    v: 'The date is placed on the session calendar before the year starts, so a family plans around it rather than reacting to it.',
-  },
-  {
-    n: '02',
-    mark: 'chat',
-    k: 'Conversations that help',
-    v: 'A meeting that was always in the calendar carries no message of its own — which is what makes it possible to sit down about a child who is doing perfectly well.',
-  },
-  {
-    n: '03',
-    mark: 'chart',
-    k: 'Aligned on progress',
-    v: 'Four of the twelve forum items are academic quality: classroom teaching, pace, assignments and the correction of notebooks.',
-  },
-  {
-    n: '04',
-    mark: 'doc',
-    k: 'A record that stays',
-    v: 'Term reports and results sit in the parent portal between meetings, so the conversation has something to be read against.',
-  },
-] as const;
+const reasons = ac.section('reasons').points;
 ---
 
 {/* ══ 01 · THE DATE COMES FIRST ══════════════════════════════════════════════
@@ -141,10 +100,10 @@ const reasons = [
       <span class="as-dots pt-open__dots" aria-hidden="true"></span>
 
       <div class="pt-open__lead as-frame as-fill" data-mask>
-        <Picture
-          src={pHall}
-          alt={`Parents of ${S} seated in the hall at a Parents’ Forum session, each desk carrying a class placard`}
-          formats={['webp']}
+        <SmartImage
+          file={pHall}
+          alt={ac.picAlt('pHall')}
+         
           widths={[520, 880, 1200]}
           sizes="(max-width: 1023px) 92vw, 44vw"
           loading="eager"
@@ -152,10 +111,10 @@ const reasons = [
         />
       </div>
       <div class="pt-open__sm as-frame as-frame--float as-fill" data-pop data-pop-delay="200">
-        <Picture
-          src={pTiers}
-          alt={`Parents of ${S} seated in the tiered rows of the hall during a Parents’ Forum session`}
-          formats={['webp']}
+        <SmartImage
+          file={pTiers}
+          alt={ac.picAlt('pTiers')}
+         
           widths={[320, 560]}
           sizes="(max-width: 1023px) 46vw, 18vw"
           loading="lazy"
@@ -174,10 +133,10 @@ const reasons = [
     <figure class="pt-agenda__stage">
       <span class="as-dots pt-agenda__dots" aria-hidden="true"></span>
       <div class="pt-agenda__lead as-frame as-fill" data-zoom data-zoom-to="1.04">
-        <Picture
-          src={pPanel}
-          alt={`The leadership panel at a Parents’ Forum session at ${S}, the session’s twelve-item agenda projected on the screen beside them`}
-          formats={['webp']}
+        <SmartImage
+          file={pPanel}
+          alt={ac.picAlt('pPanel')}
+         
           widths={[520, 880, 1200]}
           sizes="(max-width: 1023px) 92vw, 42vw"
           loading="lazy"
@@ -185,10 +144,10 @@ const reasons = [
         />
       </div>
       <div class="pt-agenda__cir as-frame as-frame--float as-frame--round as-fill" data-pop data-pop-delay="220">
-        <Picture
-          src={pSpeak}
-          alt={`A parent of ${S} speaking into the microphone at a Parents’ Forum session`}
-          formats={['webp']}
+        <SmartImage
+          file={pSpeak}
+          alt={ac.picAlt('pSpeak')}
+         
           widths={[240, 430]}
           sizes="(max-width: 1023px) 32vw, 13vw"
           loading="lazy"

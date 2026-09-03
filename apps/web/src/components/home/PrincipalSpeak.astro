@@ -27,26 +27,23 @@
  * published form until the school confirms (docs/08 D15).
  */
 import { Image } from 'astro:assets';
-import { school } from '../../data/site';
+import { getSchool, getPrincipalSpeak } from '../../lib/cms';
+import AccentHeading from '../ui/AccentHeading.astro';
 import Photo from '../ui/Photo.astro';
-import principal from '../../assets/photos/sb-principal.jpg';
 import crest from '../../assets/icons/logos/sunbeam.png';
 
-const quote =
-  'At Sunbeam School Ballia, we believe that education is not merely about imparting knowledge, but about nurturing character, inspiring creativity, and preparing young minds to lead with empathy and vision.';
+const school = await getSchool();
+const { leader, cta } = await getPrincipalSpeak();
 
-const paragraphs = [
-  'The Sunbeam vision has always been to empower students with 21st-century skills while staying rooted in Indian culture and moral values. We are committed to holistic development — intellectual growth, physical well-being, emotional resilience and ethical strength.',
-  'As Principal, my role is to ensure that every child feels valued, safe, and inspired to achieve their full potential.',
-];
+
 ---
 
 <section class="principal" aria-labelledby="principal-heading">
   <div class="principal__media">
     <Photo
-      src={principal}
-      alt={`${school.principal}, Principal of Sunbeam School Ballia.`}
-      brief="Principal portrait"
+      file={leader?.portrait}
+      alt={leader?.portraitAlt ?? ''}
+      brief={leader?.portraitBrief ?? ''}
       position="50% 24%"
       sizes="(max-width: 1023px) 100vw, 44vw"
     />
@@ -58,31 +55,29 @@ const paragraphs = [
     <Image class="principal__crest" src={crest} alt="" aria-hidden="true"
       widths={[260, 520]} sizes="260px" loading="lazy" />
 
-    <p class="principal__pill"><span class="pill pill--violet">Principal Speak</span></p>
+    <p class="principal__pill"><span class="pill pill--violet">{leader?.eyebrow}</span></p>
 
-    <h2 class="principal__heading" data-split id="principal-heading">
-      A word from our <span class="t-squiggle">Principal</span>
-    </h2>
+    <AccentHeading class="principal__heading" id="principal-heading" split text={leader?.heading} />
 
     <blockquote class="principal__quote">
       <svg class="principal__mark" width="34" height="26" viewBox="0 0 18 15"
         fill="currentColor" aria-hidden="true">
         <path d="M7.2 0C3.3 0 0 3.1 0 7.4c0 3.9 2.7 6.9 6.2 7.6l.6-1.9C4.5 12.4 3 10.6 3 8.3h4.2V0Zm10.6 0c-3.9 0-7.2 3.1-7.2 7.4 0 3.9 2.7 6.9 6.2 7.6l.6-1.9c-2.3-.7-3.8-2.5-3.8-4.8H18V0Z" />
       </svg>
-      <p>{quote}</p>
+      <p>{leader?.pullQuote}</p>
     </blockquote>
 
     <div class="principal__text">
-      {paragraphs.map((p) => <p>{p}</p>)}
+      {(leader?.paragraphs ?? []).map((p) => <p>{p}</p>)}
     </div>
 
     <div class="principal__sign">
       <div>
-        <p class="principal__name">{school.principal}</p>
-        <p class="principal__role">Principal, {school.name}</p>
+        <p class="principal__name">{leader?.name}</p>
+        <p class="principal__role">{leader?.roleLabel}</p>
       </div>
-      <a class="principal__cta" href="/about/principals-message/">
-        Read the full message
+      <a class="principal__cta" href={cta.href}>
+        {cta.label}
         <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true">
           <path d="M9 1L13 5L9 9M13 5H0" stroke="currentColor" stroke-width="1.6" />
         </svg>

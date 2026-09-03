@@ -43,17 +43,15 @@
  * from the keyboard and reads correctly to a screen reader.
  */
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import SmartImage from '../../../components/ui/SmartImage.astro';
 import PageHero from '../../../components/ui/PageHero.astro';
-import { Image, Picture } from 'astro:assets';
-import { school as sb } from '../../../data/site';
+import { Image } from 'astro:assets';
+import { getSchool } from '../../../lib/cms';
 
 /* ⚠ FOUR DIFFERENT PHOTOGRAPHS, ONE PER SLOT. The banner first used the same
    library frame as the intro lead — the one thing the brief rules out. The
    banner now carries parents, which is the subject of the page. */
 import banner from '../../../assets/parents forum/parents forum (2).jpg';
-import pReading from '../../../assets/photos/sb-library.jpg';
-import pCampus from '../../../assets/photos/sunbeem-1.jpg';
-import pCohort from '../../../assets/photos/sunbeem-5.jpg';
 
 /* ⚠ ICONS BY <Image>, dot-bg BY CSS MASK. dot-bg.png is referenced from another
    component's stylesheet by url(); handing it to astro:assets makes it emit as
@@ -62,97 +60,31 @@ import oPlane from '../../../assets/icons/rocketpaper.png';
 import oBooks from '../../../assets/icons/books.png';
 import oStar from '../../../assets/icons/star.png';
 import oArrow from '../../../assets/icons/arrowcurve.png';
+import { getAcademicTopic } from '../../../lib/cms';
+import RichLine from '../../../components/ui/RichLine.astro';
+
+const ac = await getAcademicTopic('/academics/parent-partnership/faqs/');
+const pReading = ac.pic('pReading');
+const pCampus = ac.pic('pCampus');
+const pCohort = ac.pic('pCohort');
+
+const sb = await getSchool();
 
 const S = 'Sunbeam School Ballia';
 
 /* The five facts a parent checks first. Every one published. */
-const facts = [
-  { k: 'Affiliation', v: 'CBSE co-educational day school', s: `Affiliation ${sb.affiliationNo} · Code ${sb.schoolCode}` },
-  { k: 'Classes', v: sb.classRange, s: 'Four streams at senior secondary' },
-  { k: 'Location', v: `${sb.address.line1}, ${sb.address.city}`, s: sb.address.landmark },
-  { k: 'Admissions', v: sb.phone.admissionsDisplay, s: sb.email },
-  { k: 'Transport', v: sb.phone.transportDisplay, s: `In-charge · ${sb.phone.transportIncharge}` },
-];
+const facts = ac.section('facts').points;
 
 /* ⚠ SEVEN QUESTIONS, FIVE WITH REAL ANSWERS AND TWO THAT SAY SO. A page of
    seven confident answers would be a page with two inventions in it. */
-const faqs = [
-  {
-    q: 'How do we apply, and when?',
-    a: [
-      `Applications for <strong>Nursery to Class IX</strong> and for <strong>Class XI</strong> are made on the school’s own online form. The admissions desk confirms the dates for a given session — they are the people to ask rather than a forwarded message.`,
-    ],
-    note: `Admissions helpline · ${sb.phone.admissionsDisplay}`,
-    cta: { label: 'Apply online', href: sb.external.applyNurseryToIX, external: true },
-  },
-  {
-    q: 'What happens at the Parent Orientation Programme?',
-    a: [
-      `Orientation is part of the admission process rather than a welcome evening, and it runs <strong>several times each season</strong> — five programmes in 2024-25, three in 2026-27. Parents meet staff at a desk while the children are taken to classrooms and given a paper.`,
-      `The first programme of 2024-25 was attended by <strong>234 students with 389 parents</strong>, and the school publishes a result list after each one.`,
-    ],
-    note: 'A family who misses one is asked to submit the form before the last date to join the next.',
-    cta: { label: 'Parent Orientation', href: '/academics/parent-partnership/parent-orientation/' },
-  },
-  {
-    q: 'Is there school transport to our area?',
-    a: [
-      `Yes, and the school publishes the whole thing rather than a promise. Its route table lists <strong>27 routes</strong>, each with the vehicle number, the driver’s name and mobile number, and the stops that route covers.`,
-      `Whether one passes your area is therefore a question with a printed answer — and the transport in-charge holds the current list.`,
-    ],
-    note: `Transport in-charge · ${sb.phone.transportIncharge} · ${sb.phone.transportDisplay}`,
-    cta: { label: 'Transport and routes', href: '/campus/transport/' },
-  },
-  {
-    q: 'What does it cost?',
-    a: [
-      `The school publishes its <strong>fee structure as a document</strong>, set per class and per session, rather than quoting a figure case by case. This page deliberately does not restate it — a fee copied here would go out of date silently, and a family would plan around our number rather than the school’s.`,
-    ],
-    note: 'Ask admissions for the current schedule for your child’s class.',
-    cta: { label: 'Fee structure', href: '/admissions/fee-structure/' },
-  },
-  {
-    q: 'What board is the school affiliated to?',
-    a: [
-      `${S} is affiliated to the <strong>${sb.boardFull}</strong> as a co-educational senior secondary day school, running ${sb.classRange}.`,
-      `Affiliation number <strong>${sb.affiliationNo}</strong>, school code <strong>${sb.schoolCode}</strong> — the two values almost every form asks for.`,
-    ],
-    cta: { label: 'Affiliation details', href: '/academics/philosophy/affiliation-details/' },
-  },
-  {
-    q: 'How do we see reports and results?',
-    a: [
-      `Term reports and results sit in the <strong>parent portal</strong>, reachable with your own login at any hour, so the record of the year accumulates in one place instead of arriving as letters.`,
-      `The school also publishes a results page, and carries the last three years of board results under its mandatory disclosure.`,
-    ],
-    cta: { label: 'Open the parent portal', href: sb.external.results, external: true },
-  },
-  {
-    q: 'What are the school timings?',
-    a: [
-      `<strong>The school does not publish its daily timings online.</strong> They are not on the general information page or anywhere else on its site, so no hours are printed here — a family plans the morning around this, and a plausible guess would be worse than no answer.`,
-    ],
-    note: `The school office holds them · ${sb.phone.officeDisplay}`,
-  },
-];
+const faqs = ac.section('faqs').faqs;
 ---
 
 <BaseLayout
-  title="Parent FAQs — Sunbeam School Ballia"
-  description="Clear answers to the questions parents ask most about Sunbeam School Ballia — admission, transport across 27 published routes, fees, affiliation 2131962, and the parent portal."
 >
   {/* ══ BANNER — the shared Academics component, unchanged ═══════════════════ */}
   <PageHero
-    title="Parent FAQs"
-    standfirst="Clear answers to the questions parents ask most about Sunbeam Ballia."
-    crumbs={[
-      { label: 'Home', href: '/' },
-      { label: 'Academics', href: '/academics/' },
-      { label: 'Parent Partnership', href: '/academics/parent-partnership/' },
-    ]}
     src={banner}
-    alt="Parents of Sunbeam School Ballia seated in the tiered rows of the hall during a Parents' Forum session."
-    position="50% 42%"
   />
 
   <div class="u-page-panel fq-panel">
@@ -182,10 +114,10 @@ const faqs = [
             loading="lazy" data-parallax data-parallax-y="16" />
 
           <figure class="fq-intro__lead" data-mask data-zoom data-zoom-to="1.07">
-            <Picture
-              src={pReading}
-              alt={`Students of ${S} reading at the long tables of the Nalanda Library`}
-              formats={['webp']}
+            <SmartImage
+              file={pReading}
+              alt={ac.picAlt('pReading')}
+             
               widths={[560, 900]}
               sizes="(max-width: 1000px) 92vw, 42vw"
               loading="lazy"
@@ -194,10 +126,10 @@ const faqs = [
           </figure>
 
           <figure class="fq-intro__inset" data-parallax data-parallax-y="22">
-            <Picture
-              src={pCampus}
-              alt={`The campus of ${S}, its blocks around the front lawn`}
-              formats={['webp']}
+            <SmartImage
+              file={pCampus}
+              alt={ac.picAlt('pCampus')}
+             
               widths={[380, 640]}
               sizes="(max-width: 1000px) 52vw, 24vw"
               loading="lazy"
@@ -291,7 +223,10 @@ const faqs = [
 
               <div class="fq-item__panel" id={`fq-p-${i}`} role="region" aria-labelledby={`fq-b-${i}`}>
                 <div class="fq-item__inner">
-                  {f.a.map((para) => <p class="fq-item__a" set:html={para} />)}
+                  {/* ⚠ RichLine, NOT set:html. The answers carry emphasis — "**Nursery to Class
+                      IX**" — and the CMS stores the marker rather than raw markup, so
+                      nothing an editor types can put HTML into this page. */}
+                  {f.a.map((para) => <RichLine class="fq-item__a" text={para} />)}
                   {f.note && <p class="fq-item__note">{f.note}</p>}
                   {f.cta && (
                     <a
@@ -314,10 +249,10 @@ const faqs = [
     {/* ══ 04 · STILL HAVE A QUESTION ══════════════════════════════════════════ */}
     <section class="fq-cta" aria-labelledby="fq-cta-title">
       <div class="fq-cta__media" data-zoom data-zoom-to="1.1">
-        <Picture
-          src={pCohort}
-          alt={`Student council office-bearers and NCC cadets of ${S} on stage with the school’s dignitaries`}
-          formats={['webp']}
+        <SmartImage
+          file={pCohort}
+          alt={ac.picAlt('pCohort')}
+         
           widths={[900, 1400, 1600]}
           sizes="100vw"
           loading="lazy"

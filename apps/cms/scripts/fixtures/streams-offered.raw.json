@@ -1,0 +1,49 @@
+{
+  "paths": {
+    "kicker": "Classes XI – XII",
+    "heading": "Four paths.\n{{One senior}}\n{{secondary journey.}}",
+    "body": [],
+    "caption": null,
+    "shots": [],
+    "runs": []
+  },
+  "x": {
+    "kicker": "Explore each stream",
+    "heading": "Different\ninterests.\n{{Different}}\n{{possibilities.}}",
+    "body": [
+      "Every stream opens a door. Every student chooses what feels right — and the choice is made at the end of Class X, with the school’s counselling behind it."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pLab",
+        "alt": "Senior students of {schoolName} at the laboratory bench, test tubes and burners in front of them"
+      }
+    ],
+    "runs": []
+  },
+  "dir": {
+    "kicker": "Four different directions",
+    "heading": "Different interests.\n{{Different directions.}}",
+    "body": [],
+    "caption": null,
+    "shots": [],
+    "runs": []
+  },
+  "sure": {
+    "kicker": "What is certain, and what is not",
+    "heading": "The names are published.\n{{The lists are not.}}",
+    "body": [
+      "Confirmed by the school",
+      "For full subject combinations, electives and the year’s availability, see the school’s Subject Combinations page."
+    ],
+    "caption": null,
+    "shots": [],
+    "runs": [
+      {
+        "field": "cells",
+        "list": "certainty"
+      }
+    ]
+  }
+}

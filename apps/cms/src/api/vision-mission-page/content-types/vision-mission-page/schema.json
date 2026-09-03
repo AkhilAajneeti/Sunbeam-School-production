@@ -1,0 +1,10 @@
+{
+  "kind":"singleType","collectionName":"vision_mission_page",
+  "info":{"singularName":"vision-mission-page","pluralName":"vision-mission-pages","displayName":"Vision & Mission Page",
+    "description":"The prose of /about/vision-mission/. ⚠ `keys` STAYS IN CODE — it is {name,hex,fill,text}, a colour palette driving the cipher animation, which is design rather than editorial content. ⚠ docs/07 A3 is still open: the school has published no formal Vision and Mission statement, so this page carries what it has rather than an invented one."},
+  "options":{"draftAndPublish":true},
+  "attributes":{
+    "cipher":{"type":"component","repeatable":true,"component":"shared.paragraph"},
+    "greeting":{"type":"component","repeatable":true,"component":"shared.paragraph"}
+  }
+}

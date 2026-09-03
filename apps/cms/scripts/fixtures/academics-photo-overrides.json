@@ -1,0 +1,44 @@
+{
+  "__doc": [
+    "DELIBERATE REPLACEMENTS FOR PHOTOGRAPH SLOTS, APPLIED AFTER EXTRACTION.",
+    "",
+    "The plan is derived from the imports in the last commit, so it can only ever",
+    "describe the photography the site already had. A photograph the school sends",
+    "later has no import to be found, and a hand-edit to the plan is erased the",
+    "next time the extractor runs. This file is where a new photograph is recorded",
+    "instead: reviewable, kept in git, and merged over the plan on every run.",
+    "",
+    "WARNING: THE DESCRIPTION IS NOT OPTIONAL. Replacing the picture and leaving",
+    "the old alt behind describes the wrong image, and no check on this project",
+    "can see that - the production diff compares rendered text and an alt is not",
+    "rendered text. Change them together or not at all.",
+    "",
+    "'why' is required by the merge. A slot is only worth overriding when the new",
+    "photograph is a truer picture of what that slot already claims; anything else",
+    "is decoration, and decoration is how a school site ends up evidencing things",
+    "that did not happen."
+  ],
+
+  "/academics/assessment/parent-teacher-meetings/": {
+    "pHall": {
+      "asset": "assets/parent-teacher-day/ptd-welcome.jpg",
+      "alt": "The entrance to {schoolName} on Parent-Teacher Day, the Head Boy and Head Girl standing at the welcome board with parents arriving at the help desks beyond",
+      "why": "The slot showed a Parents' Forum sitting. This is Parent-Teacher Day itself."
+    },
+    "pPanel": {
+      "asset": "assets/parent-teacher-day/ptd-senior-desk.jpg",
+      "alt": "A class teacher at {schoolName} going through a student's record with both parents across the desk, the student sitting beside them",
+      "why": "The slot showed a Parents' Forum panel. This is the meeting the page is about."
+    },
+    "pTiers": {
+      "asset": "assets/parent-teacher-day/ptd-junior-family.jpg",
+      "alt": "A mother and father at {schoolName} completing a form with the class teacher, their child at the desk beside them and other parents waiting their turn",
+      "why": "The slot showed rows of seated parents at a forum. This is a junior-section meeting."
+    },
+    "pSpeak": {
+      "asset": "assets/parent-teacher-day/ptd-report.jpg",
+      "alt": "A teacher at {schoolName} going through a report with parents at a classroom desk on Parent-Teacher Day",
+      "why": "The slot showed a parent at a forum microphone, which is a different event."
+    }
+  }
+}

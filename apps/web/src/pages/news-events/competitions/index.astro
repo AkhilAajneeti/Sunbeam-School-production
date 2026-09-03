@@ -20,7 +20,7 @@ import SectionRail from '../../../components/academics/SectionRail.astro';
 import IndexIntro from '../../../components/news/IndexIntro.astro';
 import CardGrid from '../../../components/news/CardGrid.astro';
 
-import { competitions } from '../../../data/newsPages';
+import { getChroniclePage } from '../../../lib/cms';;
 
 /* ⚠ THE HERO MUST BE A VERIFIED SUNBEAM BALLIA PHOTOGRAPH — this page was
    first built with `photos/sunbeem-students-3.jpg` and the client identified it
@@ -34,6 +34,8 @@ import { competitions } from '../../../data/newsPages';
    Championship below was actually played on. The sports page hero comes from
    the same client-supplied set. */
 import heroPhoto from '../../../assets/JOSH GROUND/DSC_1283 copy.jpg';
+
+const competitions = await getChroniclePage('competitions');
 
 /**
  * ⚠ COUNTED, NEVER TYPED. A placing is the checkable thing on this page, so it
@@ -49,19 +51,9 @@ const figures = [
 ---
 
 <BaseLayout
-  title={`${competitions.title} — Sunbeam School Ballia`}
-  description={competitions.standfirst}
 >
   <PageHero
-    title={competitions.title}
-    standfirst={competitions.standfirst}
-    crumbs={[
-      { label: 'Home', href: '/' },
-      { label: 'News & Events', href: '/news-events/' },
-    ]}
     src={heroPhoto}
-    alt="The JOSH ground at Sunbeam School Ballia, the volleyball court marked out and the school's name on the boundary wall"
-    position="50% 55%"
   />
 
   <SectionRail items={competitions.groups.map((g) => ({ id: g.id, label: g.label }))} />

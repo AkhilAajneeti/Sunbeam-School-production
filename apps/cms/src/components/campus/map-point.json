@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_campus_map_points",
+  "info": {
+    "displayName": "Map Point",
+    "icon": "pinMap",
+    "description": "One marker on the campus security plan. x/y are PERCENTAGES of the plan image, not pixels — the plan is responsive, so absolute coordinates would drift at every breakpoint."
+  },
+  "options": {},
+  "attributes": {
+    "pointId": { "type": "string", "required": true, "maxLength": 60 },
+    "label": { "type": "string", "required": true, "maxLength": 160 },
+    "body": { "type": "text", "required": true, "maxLength": 1000 },
+    "x": { "type": "float", "required": true },
+    "y": { "type": "float", "required": true },
+    "verified": { "type": "boolean", "default": true, "required": true },
+    "photo": { "type": "string", "maxLength": 120 }
+  }
+}

@@ -1,4 +1,8 @@
 ---
+import { getAcademicTopic } from '../../lib/cms';
+
+const ac = await getAcademicTopic('/academics/philosophy/');
+const philosophy = ac.section('philosophy').points;
 /**
  * THE LEARNING ECOSYSTEM — the client's own constellation, and section two of
  * Academics → Academic Philosophy.
@@ -17,7 +21,6 @@
  * works with JavaScript off, for free. The only scripted part would have been
  * the open/close animation, and grid-template-rows handles that in CSS.
  */
-import { philosophy } from '../../data/academics';
 ---
 
 <section class="phil" id="philosophy" aria-labelledby="phil-title">

@@ -1,0 +1,591 @@
+{
+  "ref": "53aaf25ffc5fc04361cc1df922ccc62791a79884",
+  "achievements": {
+    "institutional": [
+      {
+        "title": "Microsoft Showcase School",
+        "detail": "100 teachers certified as Microsoft Innovative Educator Experts"
+      },
+      {
+        "title": "Brainfeed School Excellence Award",
+        "detail": "National recognition for school excellence"
+      },
+      {
+        "title": "Sunbeam Eduserve Award",
+        "detail": "Best School of the Year"
+      },
+      {
+        "title": "Dr. Kalam Leadership Excellence Award",
+        "detail": "For institutional leadership"
+      },
+      {
+        "title": "NCC ‘A’ and ‘B’ affiliations",
+        "detail": "Two teachers promoted to officer rank"
+      }
+    ],
+    "student": [
+      {
+        "value": "1st",
+        "label": "Handball",
+        "detail": "Asmita Khelo India Women’s League"
+      },
+      {
+        "value": "21",
+        "label": "Taekwondo medallists",
+        "detail": "Poomse Championship 2025 — 10 gold, 9 silver, 2 bronze"
+      },
+      {
+        "value": "1st",
+        "label": "AI Impact Festival",
+        "detail": "Indian AI Impact Festival 2024"
+      },
+      {
+        "value": "3",
+        "label": "District handball titles",
+        "detail": "Junior boys 1st · Senior boys 2nd · Girls 1st"
+      }
+    ],
+    "awards": {
+      "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\photos\\sunbeem-4.jpg"
+    },
+    "trophy": {
+      "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\school achivement\\robo.jpg"
+    }
+  },
+  "events": [
+    {
+      "title": "Genesis — Annual Function",
+      "caption": "“Voyages of Discovery”, with a director of ISRO as chief guest",
+      "when": "2024",
+      "tag": "Annual Function",
+      "alt": "An award ceremony on stage at Sunbeam School Ballia.",
+      "image": {
+        "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\photos\\sunbeem-4.jpg"
+      }
+    },
+    {
+      "title": "Investiture & ISRO Workshop",
+      "caption": "Student council office-bearers and NCC cadets take charge",
+      "when": "2024",
+      "tag": "Ceremony",
+      "alt": "Student council office-bearers and NCC cadets on stage at Sunbeam School Ballia.",
+      "image": {
+        "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\photos\\sunbeem-5.jpg"
+      }
+    },
+    {
+      "title": "Farewell 2024-25",
+      "caption": "The senior school gathers to send off its outgoing batch",
+      "when": "2024-25",
+      "tag": "School Life",
+      "alt": "Students and staff at the 2024-25 farewell ceremony at Sunbeam School Ballia.",
+      "image": {
+        "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\photos\\sunbeem-3.jpg"
+      }
+    },
+    {
+      "title": "RoboWunder International Robotics Championship",
+      "caption": "Second place in Kuala Lumpur, with a 1,500 USD prize",
+      "when": "Session 2025-26",
+      "tag": "Achievement",
+      "alt": "The school’s award graphic for the RoboWunder International Robotics Championship in Kuala Lumpur, showing Deepak Kumar with his drone and the team receiving the award.",
+      "image": {
+        "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\school achivement\\robo.jpg"
+      }
+    },
+    {
+      "title": "Pradiptam — Alumni Meet",
+      "caption": "Former students return to the Agarsanda campus",
+      "when": "Date to confirm",
+      "tag": "Alumni",
+      "alt": "Students and staff gathered at the Sunbeam School Ballia entrance.",
+      "image": {
+        "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\photos\\sunbeem-2.jpg"
+      }
+    }
+  ],
+  "partners": [
+    {
+      "name": "Central Board of Secondary Education",
+      "note": "Affiliation 2131962",
+      "logo": {
+        "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\icons\\logos\\trimmed\\cbse.png"
+      }
+    },
+    {
+      "name": "Sunbeam Group of Educational Institutions",
+      "note": "Part of the group since 1972",
+      "logo": {
+        "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\icons\\logos\\trimmed\\sunbeam.png"
+      }
+    },
+    {
+      "name": "National Progressive Schools Conference",
+      "note": "Member school",
+      "logo": {
+        "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\icons\\logos\\trimmed\\NPSC.png"
+      }
+    },
+    {
+      "name": "American Field Service",
+      "note": "Member school",
+      "logo": {
+        "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\icons\\logos\\trimmed\\afs-logo.png"
+      }
+    },
+    {
+      "name": "FICCI",
+      "note": "Member school",
+      "logo": {
+        "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\icons\\logos\\trimmed\\ficci-logo.png"
+      }
+    },
+    {
+      "name": "Microsoft",
+      "note": "Showcase School",
+      "logo": {
+        "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\icons\\logos\\trimmed\\microsoft.png"
+      }
+    },
+    {
+      "name": "Microsoft Innovative Educator Expert",
+      "note": "100 certified teachers",
+      "logo": {
+        "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\icons\\logos\\trimmed\\microsoftEducation.png"
+      }
+    },
+    {
+      "name": "EducationWorld",
+      "note": "#1 in Ballia, six years",
+      "logo": {
+        "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\icons\\logos\\trimmed\\educationWorld.png"
+      }
+    },
+    {
+      "name": "Brainfeed",
+      "note": "School Excellence Award",
+      "logo": {
+        "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\icons\\logos\\trimmed\\brainfeed.png"
+      }
+    },
+    {
+      "name": "Inspire Award MANAK",
+      "note": "Innovations selected for MANAK",
+      "logo": {
+        "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\icons\\logos\\trimmed\\inspire.png"
+      }
+    },
+    {
+      "name": "Vidyarthi Vigyan Manthan",
+      "note": "Qualified to national level",
+      "logo": {
+        "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\icons\\logos\\trimmed\\vidyarthiVigyan.png"
+      }
+    },
+    {
+      "name": "National Children’s Science Congress",
+      "note": "National-level qualification",
+      "logo": {
+        "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\icons\\logos\\trimmed\\nationalChildren.png"
+      }
+    },
+    {
+      "name": "National Cadet Corps",
+      "note": "‘A’ & ‘B’ certificate",
+      "logo": {
+        "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\icons\\logos\\trimmed\\ncc.png"
+      }
+    },
+    {
+      "name": "Hindustan Olympiad",
+      "note": null,
+      "logo": {
+        "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\icons\\logos\\trimmed\\hindustanolympiad.png"
+      }
+    },
+    {
+      "name": "Behes",
+      "note": "Debate for All",
+      "logo": {
+        "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\icons\\logos\\trimmed\\behes.png"
+      }
+    },
+    {
+      "name": "School Cinema",
+      "note": null,
+      "logo": {
+        "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\icons\\logos\\trimmed\\schoolCenema.png"
+      }
+    },
+    {
+      "name": "UMEED",
+      "note": "A Positive Living Initiative",
+      "logo": {
+        "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\icons\\logos\\trimmed\\umeed.png"
+      }
+    }
+  ],
+  "gallery": {
+    "campus": [
+      {
+        "image": {
+          "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\photos\\sunbeem-1.jpg"
+        },
+        "alt": "The Sunbeam School Ballia academic blocks at Agarsanda, seen across the school lawn."
+      },
+      {
+        "image": {
+          "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\corridor and stairs\\DSC_1211 copy.jpg"
+        },
+        "alt": "A corridor inside the academic block at Sunbeam School Ballia."
+      },
+      {
+        "image": {
+          "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\corridor and stairs\\DSC_1240 copy.jpg"
+        },
+        "alt": "A noticeboard-lined corridor in the academic block at Sunbeam School Ballia."
+      }
+    ],
+    "sports": [
+      {
+        "image": {
+          "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\JOSH GROUND\\DSC_1287 copy.jpg"
+        },
+        "alt": "The JOSH ground at Sunbeam School Ballia, seen through the school gateway arch."
+      },
+      {
+        "image": {
+          "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\basket ball\\DSC_1280 copy.jpg"
+        },
+        "alt": "The basketball court at Sunbeam School Ballia."
+      },
+      {
+        "image": {
+          "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\play ground\\DSC_1248 copy.jpg"
+        },
+        "alt": "The junior playground at Sunbeam School Ballia."
+      }
+    ],
+    "lab": [
+      {
+        "image": {
+          "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\photos\\sunbeem-students.jpg"
+        },
+        "alt": "Sunbeam School Ballia students performing a chemistry practical in the science laboratory."
+      },
+      {
+        "image": {
+          "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\photos\\sb-phy-lab.jpg"
+        },
+        "alt": "The physics laboratory at Sunbeam School Ballia."
+      },
+      {
+        "image": {
+          "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\photos\\sb-bio-lab.jpg"
+        },
+        "alt": "The biology laboratory at Sunbeam School Ballia."
+      }
+    ],
+    "library": [
+      {
+        "image": {
+          "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\photos\\sb-library.jpg"
+        },
+        "alt": "Students reading at tables in the Nalanda Library at Sunbeam School Ballia."
+      },
+      {
+        "image": {
+          "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\photos\\sb-maths-lab.jpg"
+        },
+        "alt": "The mathematics laboratory at Sunbeam School Ballia."
+      },
+      {
+        "image": {
+          "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\photos\\sb-comp-lab-2.jpg"
+        },
+        "alt": "A computer laboratory at Sunbeam School Ballia."
+      }
+    ],
+    "auditorium": [
+      {
+        "image": {
+          "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\photos\\sunbeem-4.jpg"
+        },
+        "alt": "An award ceremony on stage in the hall at Sunbeam School Ballia."
+      },
+      {
+        "image": {
+          "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\photos\\sunbeem-3.jpg"
+        },
+        "alt": "The 2024-25 farewell ceremony in the hall at Sunbeam School Ballia."
+      },
+      {
+        "image": {
+          "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\photos\\sunbeem-5.jpg"
+        },
+        "alt": "Student council office-bearers and NCC cadets on the hall stage."
+      }
+    ],
+    "archery": [
+      {
+        "image": {
+          "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\archery-range\\07.jpg"
+        },
+        "alt": "Students of Sunbeam School Ballia on the archery line, four at full draw with a coach behind them."
+      },
+      {
+        "image": {
+          "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\archery-range\\08.jpg"
+        },
+        "alt": "A student of Sunbeam School Ballia drawing a recurve bow on the archery line."
+      },
+      {
+        "image": {
+          "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\archery-range\\02.jpg"
+        },
+        "alt": "The archery target set up on the ground at Sunbeam School Ballia, classes gathered around it."
+      }
+    ]
+  },
+  "story": {
+    "farewell": {
+      "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\photos\\sunbeem-3.jpg"
+    },
+    "council": {
+      "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\photos\\sunbeem-5.jpg"
+    }
+  },
+  "stagePhotos": {
+    "senior": {
+      "image": {
+        "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\school achivement\\robo.jpg"
+      },
+      "alt": "The school’s RoboWunder International Robotics Championship award graphic."
+    },
+    "lab": {
+      "image": {
+        "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\photos\\sunbeem-students.jpg"
+      },
+      "alt": "Sunbeam School Ballia students in lab coats performing a chemistry practical on the law of conservation of mass."
+    }
+  },
+  "strandPhotos": [
+    null,
+    {
+      "image": {
+        "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\photos\\sunbeem-5.jpg"
+      },
+      "alt": "Student council office-bearers and NCC cadets of Sunbeam School Ballia at an investiture ceremony."
+    }
+  ],
+  "learningPhoto": {
+    "image": {
+      "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\photos\\sunbeem-students.jpg"
+    },
+    "alt": "Sunbeam School Ballia students in lab coats performing a chemistry practical on the law of conservation of mass."
+  },
+  "heroSlides": [
+    {
+      "image": {
+        "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\photos\\sunbeem-students.jpg"
+      },
+      "alt": "Students of Sunbeam School Ballia in lab coats at a chemistry practical, verifying the law of conservation of mass.",
+      "caption": "A senior chemistry practical",
+      "brief": "Students engaged in learning — a practical in progress",
+      "focalPoint": "50% 38%",
+      "tone": "ink"
+    },
+    {
+      "image": {
+        "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\banners\\banner1.jpg"
+      },
+      "alt": "Ranks of NCC cadets of Sunbeam School Ballia standing at attention beneath the assembly canopy while officers walk the red carpet between them.",
+      "caption": "NCC cadets on parade",
+      "brief": "NCC cadets at attention, officers reviewing along the carpet",
+      "focalPoint": "50% 46%",
+      "tone": "ink"
+    },
+    {
+      "image": {
+        "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\banners\\banner4.jpg"
+      },
+      "alt": "The students and staff of Sunbeam School Ballia assembled in rows on the steps beneath the school’s Sunbeam Ballia sign.",
+      "caption": "The whole school, assembled",
+      "brief": "The whole school in rows on the steps under the school sign",
+      "focalPoint": "50% 44%",
+      "tone": "charcoal"
+    },
+    {
+      "image": {
+        "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\banners\\banner2.jpg"
+      },
+      "alt": "Office-bearers of the Sunbeam School Ballia student council standing with a hand on their hearts to take the oath, their sashes reading Head Boy, Head Girl and Captain, while a member of staff speaks at the lectern.",
+      "caption": "The student council, invested",
+      "brief": "Student council office-bearers taking the oath beside the lectern",
+      "focalPoint": "50% 50%",
+      "tone": "maroon"
+    },
+    {
+      "image": {
+        "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\banners\\banner9.jpg"
+      },
+      "alt": "The youngest classes of Sunbeam School Ballia on stage in graduation caps and striped sashes, each holding a rolled certificate, with their teachers standing behind them.",
+      "caption": "The youngest classes, capped",
+      "brief": "The youngest classes on stage in caps, certificates in hand",
+      "focalPoint": "50% 46%",
+      "tone": "ink"
+    },
+    {
+      "image": {
+        "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\banners\\banner7.jpg"
+      },
+      "alt": "Students of Sunbeam School Ballia on stage holding framed certificates and the house flags, their sashes reading Head and Vice, with staff standing behind them.",
+      "caption": "The houses and their flags",
+      "brief": "House office-bearers with their certificates and house flags",
+      "focalPoint": "50% 48%",
+      "tone": "maroon"
+    },
+    {
+      "image": {
+        "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\banners\\banner8.jpg"
+      },
+      "alt": "The NCC contingent of Sunbeam School Ballia drawn up in ranks on stage in khaki with red plumes, an officer standing at each end of the line.",
+      "caption": "The NCC contingent",
+      "brief": "The NCC contingent in ranks on stage, an officer at each end",
+      "focalPoint": "50% 50%",
+      "tone": "charcoal"
+    },
+    {
+      "image": {
+        "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\banners\\banner3.jpg"
+      },
+      "alt": "Two office-bearers of Sunbeam School Ballia, their sashes reading Vice Head and Asst Discipline, standing with two adults on the lit set of a podcast studio, softboxes and a camera either side.",
+      "caption": "Office-bearers at the podcast studio",
+      "brief": "Two office-bearers with two adults on a podcast studio set",
+      "focalPoint": "50% 44%",
+      "tone": "ink"
+    },
+    {
+      "image": {
+        "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\banners\\banner6.jpg"
+      },
+      "alt": "A line of guests and staff on stage at Sunbeam School Ballia, each holding a framed memento, with a police officer in uniform at the end of the row.",
+      "caption": "Guests with their mementoes",
+      "brief": "Guests and staff in a line on stage, each with a framed memento",
+      "focalPoint": "50% 50%",
+      "tone": "charcoal"
+    },
+    {
+      "image": {
+        "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\banners\\banner5.jpg"
+      },
+      "alt": "Guests and staff on stage at Sunbeam School Ballia holding up copies of a publication at its release, the title screen behind them reading Hamar Ballia.",
+      "caption": "A publication, released",
+      "brief": "A publication held up on stage at its release",
+      "focalPoint": "50% 52%",
+      "tone": "maroon"
+    }
+  ],
+  "director": {
+    "paragraphs": [
+      "Sunbeam School Ballia has successfully fulfilled the need of a school which propagates education to inculcate the confidence in students to be global citizens yet be rooted to their culture and traditions.",
+      "Sunbeam Ballia is geared with the best of infrastructure and has achieved new benchmarks in school education in the district.",
+      "The school has been providing well-rounded holistic education to the students residing in and around the city of Ballia.",
+      "Sunbeam Ballia has the proud privilege of providing a unique platform to young sportsmen by conducting Zonal and State Championships from time to time. Our students have grabbed prestigious positions in the state and have participated at the National level as well.",
+      "I welcome you all to Sunbeam Ballia."
+    ],
+    "credentials": [
+      "M.Sc. (Chemistry), Ph.D.",
+      "EdLEAP: Education Leader Program from IIM Calcutta",
+      "B.Ed. & P.G.D.C.A."
+    ],
+    "portrait": {
+      "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\photos\\directorImage.jpeg"
+    }
+  },
+  "principal": {
+    "paragraphs": [
+      "The Sunbeam vision has always been to empower students with 21st-century skills while staying rooted in Indian culture and moral values. We are committed to holistic development — intellectual growth, physical well-being, emotional resilience and ethical strength.",
+      "As Principal, my role is to ensure that every child feels valued, safe, and inspired to achieve their full potential."
+    ],
+    "credentials": [],
+    "portrait": {
+      "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\photos\\sb-principal.jpg"
+    }
+  },
+  "visionMission": {
+    "cipher": [
+      "I become your thought and your vision the moment you embrace me. I illuminate your path and guide you on your onward Journey. I was conceptualized and put into my form in the year 1972, when Sunbeam was established and the journey there on has been tremendous.",
+      "All Sunbeams are open books with transparency in thought and action and an honest affirmation. They are learners and keep their slates clean to constantly learn and evolve."
+    ],
+    "greeting": [
+      "Sunbeam schools not only use this as a greeting but also a way of life where all aspects of patriotism are nurtured and felt to be visible in every little act of Sunbeams. Sunbeams feel strongly for their nation and stand up proudly for it in all their acts.",
+      "Jai Hind, is more than a salutation from Sunbeams to others reiterating the pride they take of being an Indian and everything that comes along with that identity."
+    ]
+  },
+  "history": {
+    "history": [
+      "Established in 2013, Sunbeam School, Agarsanda, Ballia has grown into one of the district’s leading educational institutions, evolving from a humble beginning of 456 students to a thriving community of 2,700+ learners from Nursery to Class XII. A Co-educational Senior Secondary School affiliated with CBSE, New Delhi, the school offers PCM, PCB, Commerce and Humanities, providing students with diverse pathways to discover their interests, pursue their aspirations and prepare for an ever-changing world. At Sunbeam School Ballia, education extends far beyond the classroom. Over the years, the school has built a strong reputation for academic excellence, value-based education and holistic development, creating an environment where every learner is encouraged to question, explore, create and excel.",
+      "With a vibrant campus, experienced educators, progressive teaching methodologies and excellent infrastructure, Sunbeam School strives to provide an enriching learning experience that nurtures knowledge, character, confidence and leadership. Rooted in the guiding values of Duty, Devotion and Discipline, the school encourages students to participate and excel across academics, sports, cultural pursuits, leadership and life skills. Today, with a growing community of 2,700+ students, Sunbeam School, Agarsanda, Ballia continues its journey with a clear purpose — to educate the future, inspire excellence and empower every learner to make a meaningful difference in the world."
+    ],
+    "facts": [
+      {
+        "label": "Motto",
+        "value": "Duty · Devotion · Discipline"
+      },
+      {
+        "label": "Affiliation",
+        "value": "CBSE 2131962 · School Code 70205"
+      },
+      {
+        "label": "Campus",
+        "value": "Agarsanda, near Hanuman Temple, Ballia"
+      }
+    ],
+    "onward": [
+      {
+        "label": "Director's Message",
+        "href": "/about/directors-message/",
+        "note": "Dr. Kunwar Arun Singh"
+      },
+      {
+        "label": "Principal's Message",
+        "href": "/about/principals-message/",
+        "note": "Mrs. Arpita Singh"
+      },
+      {
+        "label": "Vision and Mission",
+        "href": "/about/vision-mission/",
+        "note": "The vision, the greeting, and the Sunbeam cipher"
+      }
+    ],
+    "voices": [
+      {
+        "name": "Mr. Sanjai Kumar Pandey",
+        "role": "Chairman",
+        "alt": "Mr. Sanjai Kumar Pandey, Chairman of Sunbeam School Ballia.",
+        "paragraphs": [
+          "Sunbeam School Ballia has effectively played a pivotal role in spreading the Sunbeam Education revolution in the district for last 7 years. I congratulate the entire team of Management, staff members, students and last but not the least the parents of the school for this success of Sunbeam Ballia.",
+          "Education is a continuous life long process which begins at the early stage of life from a school till one enters the last stage of life. The aim & objective of a school is to instill in the students the qualities of a genuine human and concerns of society. Sunbeam School Ballia fulfills these commitments to realize the welfare of not only an individual but society & country at a large. To realize this we offer many co-curricular activities which help to unfold the hidden talents of our students.",
+          "I would like to offer my sincere thanks to all the parents & well-wishers for their support & co-operation."
+        ],
+        "portrait": {
+          "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\photos\\Chairman-sunbeam.jpg"
+        }
+      },
+      {
+        "name": "Mr. Shriwats Singh",
+        "role": "Secretary",
+        "alt": "Mr. Shriwats Singh, Secretary of Sunbeam School Ballia.",
+        "paragraphs": [
+          "Learning is not a process limited to school & colleges only. It is indeed a never ending process and the school is the first orientation of formal education of a child. We all agree that the youth of future generation are going to face more pressure in all spheres. It is the demand of our time to prepare global students for a better world.",
+          "I am happy to share that Sunbeam School Ballia has been facilitating students for the all round progress & character building.",
+          "Wish you all the best!"
+        ],
+        "portrait": {
+          "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\photos\\secretary-sunbeam.jpeg"
+        }
+      }
+    ]
+  }
+}

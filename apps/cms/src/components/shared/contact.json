@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_shared_contacts",
+  "info": {
+    "displayName": "Contact",
+    "icon": "phone",
+    "description": "Phone numbers and email addresses. NAMED FIELDS, NOT A REPEATABLE LIST — every consumer reads school.phone.officeDisplay by name, and a list would turn 57 one-line import swaps into 57 lookup rewrites. Each number is stored twice on purpose: the dial value has no spaces for tel: hrefs, the display value is what a reader sees."
+  },
+  "options": {},
+  "attributes": {
+    "admissions": { "type": "string", "required": true, "maxLength": 24 },
+    "admissionsDisplay": { "type": "string", "required": true, "maxLength": 32 },
+    "office": { "type": "string", "required": true, "maxLength": 24 },
+    "officeDisplay": { "type": "string", "required": true, "maxLength": 32 },
+    "transport": { "type": "string", "required": true, "maxLength": 24 },
+    "transportDisplay": { "type": "string", "required": true, "maxLength": 32 },
+    "transportIncharge": { "type": "string", "maxLength": 120 },
+    "email": { "type": "string", "required": true, "maxLength": 160 },
+    "recruitmentEmail": { "type": "string", "required": true, "maxLength": 160 }
+  }
+}

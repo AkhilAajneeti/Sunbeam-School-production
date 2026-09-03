@@ -1,0 +1,31 @@
+{
+  "kind":"singleType","collectionName":"tc_page",
+  "info":{"singularName":"tc-page","pluralName":"tc-pages","displayName":"Transfer Certificate Page",
+    "description":"The editable copy of /download-tc/. ⚠ THE LOOKUP ITSELF STAYS IN CODE — the endpoint, the field name the school's system expects, the fetch and the response handling are integration, not content. What lives here is every word a parent reads, including the validation and status messages, which were previously strings inside a <script> and therefore unreachable. ⚠ NO ENDPOINT IS CONFIGURED YET: the form explains that the school's own page has the working lookup and sends the reader there, rather than showing a fabricated result. ⚠ `{officePhone}` IN ANY FIELD IS FILLED FROM SITE SETTINGS — the number belongs there, and a hardcoded copy in this page's script is exactly the bug this replaces."},
+  "options":{"draftAndPublish":true},
+  "attributes":{
+    "cardHeading":{"type":"string","maxLength":200},
+    "cardBody":{"type":"text","maxLength":600},
+    "fieldLabel":{"type":"string","maxLength":120},
+    "fieldPlaceholder":{"type":"string","maxLength":120},
+    "submitLabel":{"type":"string","maxLength":60},
+    "busyLabel":{"type":"string","maxLength":60},
+    "formNote":{"type":"text","maxLength":400},
+
+    "photo":{"type":"component","repeatable":false,"component":"shared.photo"},
+    "helpTitle":{"type":"string","maxLength":160},
+    "help":{"type":"component","repeatable":true,"component":"shared.point"},
+
+    "errEmpty":{"type":"string","maxLength":200},
+    "errShort":{"type":"string","maxLength":200},
+    "statusNoEndpointLead":{"type":"text","maxLength":400},
+    "statusNoEndpointLink":{"type":"string","maxLength":200},
+    "statusNoEndpointTail":{"type":"text","maxLength":400},
+    "statusFound":{"type":"string","maxLength":200},
+    "statusFoundLink":{"type":"string","maxLength":120},
+    "statusNotFound":{"type":"text","maxLength":400},
+    "statusError":{"type":"text","maxLength":400},
+
+    "sourcePage":{"type":"string","maxLength":500}
+  }
+}

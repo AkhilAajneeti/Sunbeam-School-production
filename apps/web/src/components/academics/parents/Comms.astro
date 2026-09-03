@@ -35,8 +35,11 @@
 import { Image } from 'astro:assets';
 import AcademicGlyph from '../AcademicGlyph.astro';
 import BurstCard from '../../ui/BurstCard.astro';
-import { parents } from '../../../data/academics';
 import cloud from '../../../assets/icons/clouds.png';
+import { getAcademicTopic } from '../../../lib/cms';
+
+const ac = await getAcademicTopic('/academics/parent-partnership/');
+const parents = ac.blockMap('parents');
 
 const { comms: c } = parents;
 

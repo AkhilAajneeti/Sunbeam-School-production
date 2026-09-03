@@ -51,8 +51,7 @@
  * Save-Data — those readers never download the library at all. No new JS ships
  * for this page.
  */
-import { Picture } from 'astro:assets';
-import { school } from '../../data/site';
+import { getSchool } from '../../lib/cms';
 
 /**
  * ⚠ ONE COMPONENT, SEVEN MOVEMENTS, TWO KINDS OF CALLER — AND THAT IS THE POINT.
@@ -80,13 +79,6 @@ const { only } = Astro.props;
 const show = (k: NonNullable<Props['only']>) => !only || only === k;
 
 /* ── photography: verified Ballia frames only ───────────────────────────── */
-import campus from '../../assets/photos/sunbeem-1.jpg';
-import library from '../../assets/library/DSC_1224 copy.jpg';
-import lab from '../../assets/chem lab/DSC_1262 copy.jpg';
-import computers from '../../assets/computer lab/DSC_1204 copy.jpg';
-import activity from '../../assets/activity learning lab/DSC_1215 copy.jpg';
-import assembly from '../../assets/photos/sunbeem-5.jpg';
-import ceremony from '../../assets/photos/sunbeem-4.jpg';
 
 /* ── decorative, transparent PNGs from assets/icons ─────────────────────── */
 import dKite from '../../assets/icons/kite.png';
@@ -100,54 +92,37 @@ import dStars from '../../assets/icons/two-stars.png';
 import dStar from '../../assets/icons/star.png';
 import dShape from '../../assets/icons/shape-2.png';
 import cbse from '../../assets/icons/cbse_v2.webp';
+import { getAcademicTopic } from '../../lib/cms';
+import SmartImage from '../ui/SmartImage.astro';
+
+const ac = await getAcademicTopic('/academics/philosophy/');
+const lab = ac.pic('lab');
+const activity = ac.pic('activity');
+const campus = ac.pic('campus');
+const assembly = ac.pic('assembly');
+const ceremony = ac.pic('ceremony');
+
+const school = await getSchool();
 
 /**
  * The school's stated aims, quoted. These are the four that describe the
  * learner rather than the institution.
  */
-const aims = [
-  { n: '01', t: 'Learn effectively', v: 'Learn effectively and develop their full potential.' },
-  { n: '02', t: 'Carry it forward', v: 'Acquire the attitudes, skills, and knowledge that will form the basis for their future living and learning.' },
-  { n: '03', t: 'Stand on their own', v: 'Develop in children a degree of independence and self-motivation.' },
-  { n: '04', t: 'Treat others well', v: 'Encourage behavior that is tolerant, sensitive to others and reflects good manners and moral awareness.' },
-];
+const aims = ac.section('aims').points;
 
 /** The three the school names in one sentence about all its teaching. */
-const triad = [
-  { k: 'Technology', v: 'Interactive panels in every room, and Microsoft-certified teachers behind them.', art: computers, alt: 'A computer laboratory at Sunbeam School Ballia' },
-  { k: 'Multiple Intelligence', v: 'A theory the school names outright — that a class does not have one kind of mind in it.', art: activity, alt: 'The activity learning lab at Sunbeam School Ballia' },
-  { k: 'Collaborative learning', v: 'Findings compared and defended in the group, in every subject.', art: library, alt: 'The Nalanda Library at Sunbeam School Ballia' },
-];
+const triad = ac.section('triad').points;
 
 /** Named activities the school published — the evidence for "experiential". */
-const evidence = [
-  { k: 'Little Agriculturists', v: 'Sowing seeds, in the ground.' },
-  { k: 'Chandrayaan-3', v: 'The soft landing, watched live.' },
-  { k: 'Science & Mathematics exhibition', v: 'Built, then explained to a visitor.' },
-  { k: 'Gallery walks', v: 'Work on the wall, defended out loud.' },
-  { k: 'Living Newspaper', v: 'The week, performed.' },
-  { k: 'Taramandal', v: 'The sky, in a planetarium.' },
-];
+const evidence = ac.section('evidence').points;
 
 /** The journey, from data/site.ts and the school's own stages. */
-const journey = [
-  { s: 'Pre-Primary', v: 'School becomes a place a child knows.' },
-  { s: 'Primary', v: 'Reading, number, and the habits of a working week.' },
-  { s: 'Middle', v: 'Subjects separate; the laboratories open up.' },
-  { s: 'Secondary', v: 'Classes IX–X, and the first board year.' },
-  { s: 'Senior Secondary', v: 'Classes XI–XII, in one of four streams.' },
-];
+const journey = ac.section('journey').points;
 
-const facts = [
-  { k: 'Affiliating board', v: school.boardFull },
-  { k: 'Affiliation number', v: school.affiliationNo },
-  { k: 'School code', v: school.schoolCode },
-  { k: 'Classes', v: school.classRange },
-  { k: 'Streams', v: school.streams.join(' · ') },
-];
+const facts = ac.section('facts').points;
 
 /** Bodies the school states it belongs to. */
-const bodies = ['National Progressive Schools Conference', 'American Field Service', 'FICCI', 'Microsoft Showcase School'];
+const bodies = ac.section('bodies').facts;
 ---
 
 <div class="ph">
@@ -185,10 +160,10 @@ const bodies = ['National Progressive Schools Conference', 'American Field Servi
         </div>
 
         <figure class="ph-open__art" data-mask>
-          <Picture
-            src={campus}
+          <SmartImage
+            file={campus}
             alt={`The main building of ${school.name} seen across its ground`}
-            formats={['webp']}
+           
             widths={[560, 900, 1200]}
             sizes="(max-width: 900px) 92vw, 46vw"
             loading="eager"
@@ -232,14 +207,12 @@ const bodies = ['National Progressive Schools Conference', 'American Field Servi
           {triad.map((t, i) => (
             <li class="tri" data-reveal data-reveal-delay={i * 110}>
               <figure class="tri__art">
-                <Picture
-                  src={t.art}
+                <SmartImage
+                  file={t.art}
                   alt={t.alt}
-                  formats={['webp']}
-                  widths={[420, 760]}
                   sizes="(max-width: 780px) 88vw, 30vw"
+                  fallbackWidth={1100}
                   loading="lazy"
-                  decoding="async"
                 />
               </figure>
               <p class="tri__k">{t.k}</p>
@@ -262,10 +235,10 @@ const bodies = ['National Progressive Schools Conference', 'American Field Servi
 
       <div class="u-container ph-child__in">
         <figure class="ph-child__art" data-mask data-mask-from="left">
-          <Picture
-            src={assembly}
+          <SmartImage
+            file={assembly}
             alt={`Students and staff at an assembly at ${school.name}`}
-            formats={['webp']}
+           
             widths={[520, 860]}
             sizes="(max-width: 900px) 92vw, 42vw"
             loading="lazy"
@@ -323,10 +296,10 @@ const bodies = ['National Progressive Schools Conference', 'American Field Servi
 
         <div class="ph-hands__stack">
           <figure class="ph-hands__a" data-parallax data-parallax-y="42">
-            <Picture src={lab} alt={`A subject laboratory at ${school.name}`} formats={['webp']} widths={[420, 760]} sizes="(max-width: 900px) 60vw, 26vw" loading="lazy" decoding="async" />
+            <SmartImage file={lab} alt={`A subject laboratory at ${school.name}`} widths={[420, 760]} sizes="(max-width: 900px) 60vw, 26vw" loading="lazy" decoding="async" />
           </figure>
           <figure class="ph-hands__b" data-parallax data-parallax-y="-38">
-            <Picture src={activity} alt={`The activity learning lab at ${school.name}`} formats={['webp']} widths={[420, 760]} sizes="(max-width: 900px) 52vw, 22vw" loading="lazy" decoding="async" />
+            <SmartImage file={activity} alt={`The activity learning lab at ${school.name}`} widths={[420, 760]} sizes="(max-width: 900px) 52vw, 22vw" loading="lazy" decoding="async" />
           </figure>
           <img class="ph__float ph__float--rocket" src={dRocket.src} alt="" aria-hidden="true" />
         </div>
@@ -427,7 +400,7 @@ const bodies = ['National Progressive Schools Conference', 'American Field Servi
 
         <aside class="ph-reg__side">
           <figure class="ph-reg__art">
-            <Picture src={ceremony} alt={`An award ceremony in the hall at ${school.name}`} formats={['webp']} widths={[420, 760]} sizes="(max-width: 900px) 90vw, 34vw" loading="lazy" decoding="async" />
+            <SmartImage file={ceremony} alt={`An award ceremony in the hall at ${school.name}`} widths={[420, 760]} sizes="(max-width: 900px) 90vw, 34vw" loading="lazy" decoding="async" />
           </figure>
 
           <p class="ph-reg__k t-label">Also a member of</p>

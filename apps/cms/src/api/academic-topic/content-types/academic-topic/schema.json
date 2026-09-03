@@ -1,0 +1,26 @@
+{
+  "kind":"collectionType","collectionName":"academic_topics",
+  "info":{"singularName":"academic-topic","pluralName":"academic-topics","displayName":"Academic Topic",
+    "description":"ONE RECORD PER ACADEMICS PAGE — all 46 of them, from the /academics/ overview down to each stage, stream, policy and partnership page. Replaces data/academics.ts, academicTopics.ts, teachingTopics.ts, studentSuccess.ts and parentsForum.ts, and the several hundred content consts that were declared inside the page components themselves. ⚠⚠ THIS REPLACES THE CONTENT SOURCE, NOT THE DESIGNS. Every academics page keeps its own bespoke layout, markup, GSAP timeline, scoped CSS, responsive behaviour, section keys and URL. A page reads `section('steps').points` where it used to read a local const, and nothing below that line changes. ⚠ `route` IS THE URL AND IS THE KEY. It is what the page looks itself up by, and every one of them is a published address — changing it orphans the page and breaks any link to it. ⚠ `owed` MARKS A TOPIC THE SCHOOL PUBLISHES NOTHING ON. The page then says so rather than being padded to length: a school site that invents a scholarship or a success story does real damage. `existing` marks a topic whose destination was already a page of its own."},
+  "options":{"draftAndPublish":true},
+  "attributes":{
+    "route":{"type":"string","required":true,"unique":true,"maxLength":200},
+    "slug":{"type":"uid","targetField":"label","required":true},
+    "group":{"type":"enumeration","required":true,"enum":["overview","philosophy","structure","teaching-learning","assessment","student-success","parent-partnership"]},
+    "displayOrder":{"type":"integer","required":true,"default":0},
+
+    "label":{"type":"string","required":true,"maxLength":200},
+    "hint":{"type":"text","maxLength":400},
+    "title":{"type":"string","maxLength":200},
+    "standfirst":{"type":"text","maxLength":1200},
+    "photoKey":{"type":"string","maxLength":60},
+
+    "owed":{"type":"boolean","default":false,"required":true},
+    "existing":{"type":"boolean","default":false,"required":true},
+
+    "body":{"type":"component","repeatable":true,"component":"shared.paragraph"},
+    "points":{"type":"component","repeatable":true,"component":"shared.point"},
+    "sections":{"type":"component","repeatable":true,"component":"shared.section"},
+    "photos":{"type":"component","repeatable":true,"component":"shared.photo","description":"THE PAGE'S OWN PHOTOGRAPHS, KEYED BY SLOT. These are the pictures that sit in the bespoke markup rather than inside a content block, the ones G8 left as local imports because they were never in a content const and so had no source key to compare against. The key is the binding the component already used. WARNING: THE DESCRIPTION MOVES WITH THE PICTURE. alt is required here, because a photograph replaced in the admin with its description left behind in code describes the wrong image, and no text diff can see that. NOT HERE: widths, sizes, loading and object-position. How large a photograph is fetched and where it is cropped is design and stays in the component."}
+  }
+}

@@ -18,17 +18,25 @@
  * `hidden` on cards already in the DOM, so all 24 notices are in the HTML for
  * search engines and for anyone with JavaScript off — who simply sees them all.
  */
-import { Picture } from 'astro:assets';
 import '../../styles/assessment.css';
 import { MARK } from '../academics/assessment/marks';
 import Lightbox from '../ui/Lightbox.astro';
-import { notices, featuredNotices, noticeYears, noticeSource } from '../../data/notices';
+import CmsImage from '../ui/CmsImage.astro';
+import { getNoticesPageData, fileUrl } from '../../lib/cms';
 
 interface Props {
   /** Cards shown before "Load more". */
   step?: number;
 }
 const { step = 10 } = Astro.props;
+
+/* ⚠ CONTENT COMES FROM STRAPI NOW, NOT FROM data/notices.ts.
+   One request for the whole set; the featured rotator and the year filter are
+   derived from that same array rather than queried separately, so they cannot
+   disagree with the grid they sit above. The old module is still on disk and
+   still the seed's source — it is not deleted until this is verified in a
+   production build. See apps/web/src/lib/cms/queries/notices.ts. */
+const { notices, featuredNotices, noticeYears, noticeSource } = await getNoticesPageData();
 
 const S = 'Sunbeam School Ballia';
 ---
@@ -46,35 +54,34 @@ const S = 'Sunbeam School Ballia';
         <a
           class="nt-feat__art"
           data-lb-open
-          href={n.image.src}
+          href={fileUrl(n.image)}
           data-lb-alt={n.alt}
           data-lb-cap={n.title}
           data-mask
         >
-          {/* ⚠ A 48px COPY OF THE SAME POSTER, BLURRED — not a second download worth
-              worrying about (~1KB of avif) and not a different picture. It fills
-              whatever the contained poster leaves over, so the letterbox reads as
-              a frame instead of dead white. */}
+          {/* ⚠ A TINY COPY OF THE SAME POSTER, BLURRED — not a second download worth
+              worrying about and not a different picture. It fills whatever the
+              contained poster leaves over, so the letterbox reads as a frame
+              instead of dead white.
+              Strapi's `xsmall` breakpoint (64px on the long edge) is what serves
+              this; the CSS blurs it, so its exact width has never mattered. */}
           <span class="nt-feat__bg" aria-hidden="true">
-            <Picture
-              src={n.image}
+            <CmsImage
+              file={n.image}
               alt=""
-              formats={['webp']}
-              widths={[48]}
-              sizes="48px"
+              sizes="64px"
+              fallbackWidth={64}
               loading="lazy"
-              decoding="async"
             />
           </span>
           <span class="nt-feat__fg">
-            <Picture
-              src={n.image}
+            <CmsImage
+              file={n.image}
               alt={n.alt}
-              formats={['webp']}
-              widths={[420, 760, 1100]}
               sizes="(max-width: 1023px) 92vw, 38vw"
+              fallbackWidth={760}
               loading={i === 0 ? 'eager' : 'lazy'}
-              decoding="async"
+              fetchpriority={i === 0 ? 'high' : undefined}
             />
           </span>
         </a>
@@ -182,18 +189,16 @@ const S = 'Sunbeam School Ballia';
           <a
             class="nt-card__art"
             data-lb-open
-            href={n.image.src}
+            href={fileUrl(n.image)}
             data-lb-alt={n.alt}
             data-lb-cap={n.dateLabel ? `${n.title} · ${n.dateLabel}` : n.title}
           >
-            <Picture
-              src={n.image}
+            <CmsImage
+              file={n.image}
               alt={n.alt}
-              formats={['webp']}
-              widths={[320, 560]}
               sizes="(max-width: 767px) 88vw, 19vw"
+              fallbackWidth={420}
               loading="lazy"
-              decoding="async"
             />
           </a>
           <div class="nt-card__body">

@@ -1,0 +1,55 @@
+{
+  "kind": "singleType",
+  "collectionName": "primary_stage_pages",
+  "info": {
+    "singularName": "primary-stage-page",
+    "pluralName": "primary-stage-pages",
+    "displayName": "Primary",
+    "description": "The Primary page (/academics/structure/primary/) — one named field per band of the page, in the order a reader meets them. ⚠ Every band is the same shape: a label, a heading, paragraphs, photographs and a run of cells. What differs between them is how the page lays that out, and the page owns that. Bands cannot be reordered, added or removed."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "open": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "rail": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "appr": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "act": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "val": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "space": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "jrn": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "close": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    }
+  }
+}

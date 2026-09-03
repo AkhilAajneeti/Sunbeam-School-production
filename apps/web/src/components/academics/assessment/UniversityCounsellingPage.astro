@@ -35,16 +35,19 @@
  *   03 · PAPER  the destinations, counted off the board, as one hairline band.
  *   04 · PHOTO  the cinematic close.
  */
-import { Picture } from 'astro:assets';
 import '../../../styles/assessment.css';
 import { MARK } from './marks';
 import AsClose from './AsClose.astro';
 import AsRailSlider from './AsRailSlider.astro';
 import Lightbox from '../../ui/Lightbox.astro';
-import { universityResults } from '../../../data/studentSuccess';
 
-import gBoard from '../../../assets/placement/WhatsApp Image 2025-12-02 at 11.49.42 AM.jpeg';
-import pCohort from '../../../assets/photos/sunbeem-5.jpg';
+import { getAcademicTopic } from '../../../lib/cms';
+import SmartImage from '../../ui/SmartImage.astro';
+
+const ac = await getAcademicTopic('/academics/student-success/university-counselling/');
+const gBoard = ac.pic('gBoard');
+const pCohort = ac.pic('pCohort');
+const universityResults = ac.section('universityResults').results;
 
 const S = 'Sunbeam School Ballia';
 
@@ -55,12 +58,7 @@ const SUBJECT = '/academics/student-success/subject-selection/';
 /* ── SECTION 03 — the destinations, counted off the board ─────────────────
    ⚠ COUNTS, NOT RATES. "Ten of eighteen" is a count read off a printed table.
    A percentage would imply a cohort size the school has not published. */
-const destinations = [
-  { n: '10', mark: 'cap', k: 'University of Delhi', v: 'Miranda House, Kamala Nehru, Ram Lal Anand, Deshbandhu, Sri Aurobindo, Zakir Husain twice, Dr. B. R. Ambedkar, Satyawati and Kalindi Women’s.' },
-  { n: '03', mark: 'scroll', k: 'Banaras Hindu University', v: 'Three of the eighteen, the nearest of the major destinations on the board.' },
-  { n: '05', mark: 'pin', k: 'Elsewhere', v: 'Galgotias, NIET and ITS in Greater Noida, Dr. Ram Manohar Lohia Avadh University in Ayodhya, and UPES Dehradun.' },
-  { n: '18', mark: 'seat', k: 'Named in all', v: 'Every line on the board is a student, a course and an institution — no line is a summary.' },
-] as const;
+const destinations = ac.section('destinations').points;
 ---
 
 {/* ══ 01 · EIGHTEEN NAMES ════════════════════════════════════════════════════
@@ -113,10 +111,10 @@ const destinations = [
         data-lb-cap="The placement board · session 2024-25"
         data-pop
       >
-        <Picture
-          src={gBoard}
-          alt={`${S}’s printed placement board, “Vision To Reality — Session 2024-25, Students Placed In Prestigious Colleges/Universities”, listing eighteen students with their course and institution above a strip of individual placement cards`}
-          formats={['webp']}
+        <SmartImage
+          file={gBoard}
+          alt={ac.picAlt('gBoard')}
+         
           widths={[700, 1100, 1600]}
           sizes="(max-width: 1023px) 94vw, 50vw"
           loading="eager"
@@ -189,14 +187,12 @@ const destinations = [
               data-lb-alt={r.alt}
               data-lb-cap={`${r.name} · ${r.exam}`}
             >
-              <Picture
-                src={r.image}
+              <SmartImage
+                file={r.image}
                 alt={r.alt}
-                formats={['webp']}
-                widths={[360, 640]}
                 sizes="(max-width: 767px) 84vw, 22vw"
+                fallbackWidth={1100}
                 loading="lazy"
-                decoding="async"
               />
             </a>
             <div class="uc-card__body">

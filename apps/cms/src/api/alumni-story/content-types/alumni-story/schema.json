@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "alumni_stories",
+  "info": {
+    "singularName": "alumni-story",
+    "pluralName": "alumni-stories",
+    "displayName": "Alumni Story",
+    "description": "An alumnus profile with quote and narrative. Mirrors the `alumniStories` export of apps/web/src/data/alumniMeets.ts. As with Alumni Meet, the source's `published` boolean maps onto Strapi's draft/publish state rather than becoming a field."
+  },
+  "options": { "draftAndPublish": true },
+  "pluginOptions": {},
+  "attributes": {
+    "name": { "type": "string", "required": true, "maxLength": 160 },
+    "slug": { "type": "uid", "targetField": "name", "required": true },
+    "batch": { "type": "string", "maxLength": 32 },
+    "photo": { "type": "media", "multiple": false, "allowedTypes": ["images"] },
+    "photoAlt": { "type": "text", "maxLength": 500 },
+    "profession": { "type": "string", "maxLength": 200 },
+    "organisation": { "type": "string", "maxLength": 200 },
+    "study": { "type": "string", "maxLength": 240 },
+    "quote": { "type": "text", "maxLength": 1000 },
+    "story": { "type": "component", "repeatable": true, "component": "shared.paragraph" },
+    "gallery": { "type": "component", "repeatable": true, "component": "shared.photo" },
+    "featured": { "type": "boolean", "default": false, "required": true },
+    "displayOrder": { "type": "integer", "default": 0, "required": true }
+  }
+}

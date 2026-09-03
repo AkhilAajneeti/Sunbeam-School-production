@@ -15,12 +15,17 @@
  * a photograph of the school. On tablet the photograph drops below; on mobile
  * the whole panel becomes one column.
  */
-import { Picture } from 'astro:assets';
+import SmartImage from '../../../components/ui/SmartImage.astro';
 import '../../../styles/assessment.css';
 import { MARK } from '../assessment/marks';
-import { school } from '../../../data/site';
+import { getSchool } from '../../../lib/cms';
+import { getAcademicTopic } from '../../../lib/cms';
 
-import pCampus from '../../../assets/photos/sunbeem-1.jpg';
+const ac = await getAcademicTopic('/academics/parent-partnership/');
+const pCampus = ac.pic('pCampus');
+
+
+const school = await getSchool();
 
 interface Props {
   /** First line of the headline. */
@@ -74,10 +79,10 @@ const S = 'Sunbeam School Ballia';
       </div>
 
       <div class="pp-cta__pic as-frame as-frame--round" data-pop data-pop-delay="220">
-        <Picture
-          src={pCampus}
-          alt={`The main building of ${S} at Agarsanda, its name across the front elevation.`}
-          formats={['webp']}
+        <SmartImage
+          file={pCampus}
+          alt={ac.picAlt('pCampus')}
+         
           widths={[420, 720]}
           sizes="(max-width: 1023px) 92vw, 22vw"
           loading="lazy"

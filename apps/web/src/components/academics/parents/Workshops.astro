@@ -27,40 +27,25 @@
  * string in a .ts file is invisible to it.
  */
 import JourneyCarousel from '../JourneyCarousel.astro';
-import { parents } from '../../../data/academics';
 
 /* ⚠ THESE SIX CHANGED WITH THE CARDS THEY ILLUSTRATE. The rail used to show a
    computer laboratory for "digital safety at home" and the RoboWunder AWARD
    GRAPHIC for a session on adolescence — a designed poster standing in for a
    photograph of a session that did not exist. Every image below is a photograph
    of the session named on the card it sits behind. */
-import cbsePhoto from '../../../assets/workshops/CBSE-Capacity-Building-Programme-Experiential-Learning1/CBSE-Capacity-Building-Programme-Experiential-Learning1.jpg';
-import storyPhoto from '../../../assets/workshops/Storytelling-Pedagogy/Storytelling-Pedagogy1.jpg';
-import criticalPhoto from '../../../assets/workshops/CriticalThinking/CriticalThinking1.jpg';
-import aiPhoto from '../../../assets/workshops/aimaster/AI-Masterclass.jpg';
-import dimensionsPhoto from '../../../assets/workshops/Recapitulating-Dimension-of-Learning2/Recapitulating-Dimension-of-Learning1.jpg';
-import nepPhoto from '../../../assets/workshops/National-Education-Policy/National-Education-Policy-training.jpg';
+import { getAcademicTopic } from '../../../lib/cms';
 
-const photos: Record<string, ImageMetadata> = {
-  'cbse-experiential.jpg': cbsePhoto,
-  'storytelling.jpg': storyPhoto,
-  'critical-thinking.jpg': criticalPhoto,
-  'ai-masterclass.jpg': aiPhoto,
-  'dimensions.jpg': dimensionsPhoto,
-  'nep.jpg': nepPhoto,
-};
+const ac = await getAcademicTopic('/academics/parent-partnership/');
+const parents = ac.blockMap('parents');
+
+const photos = ac.section('photos').photos;
 
 const { workshops: w } = parents;
 
 /* The wave that closes the section is painted in the ground of the section
    BELOW — Comms, which runs on the ivory tone — so it reads as that band rising
    into this one rather than as a shape floating on this one. */
-const cards = w.cards.map((c) => ({
-  ...c,
-  image: c.photo ? photos[c.photo] : undefined,
-  /* The format line is the card's fact strip — when it runs and who it is for. */
-  fact: c.format,
-}));
+const cards = ac.section('cards').points;
 ---
 
 <JourneyCarousel

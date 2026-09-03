@@ -9,10 +9,12 @@
  * 768px reappear here under Quick Links.
  */
 import { mainNav, utilityLinks } from '../../data/navigation';
-import { school } from '../../data/site';
+import { getSchool } from '../../lib/cms';
 /* Same stroke set the desktop menu uses, so a link carries the same glyph in
    both places — the drawer is the same navigation, not a second one. */
 import FacIcon from '../campus/facilities/FacIcon.astro';
+
+const school = await getSchool();
 ---
 
 <div class="drawer" id="mobile-nav" data-drawer hidden>

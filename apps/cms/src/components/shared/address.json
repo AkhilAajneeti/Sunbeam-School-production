@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_shared_addresses",
+  "info": {
+    "displayName": "Address",
+    "icon": "pinMap",
+    "description": "The school's postal address. Field names mirror data/site.ts exactly so the 57 files reading school.address.city need no change beyond their import."
+  },
+  "options": {},
+  "attributes": {
+    "line1": { "type": "string", "required": true, "maxLength": 200 },
+    "city": { "type": "string", "required": true, "maxLength": 80 },
+    "state": { "type": "string", "required": true, "maxLength": 80 },
+    "pin": { "type": "string", "required": true, "maxLength": 12 },
+    "country": { "type": "string", "required": true, "maxLength": 80 },
+    "landmark": { "type": "string", "maxLength": 240 }
+  }
+}

@@ -67,40 +67,18 @@
  * data-mask, data-parallax(+y), data-zoom(+to) — handled by
  * scripts/motion-gsap.ts, already gated on prefers-reduced-motion and Save-Data.
  */
-import { Picture } from 'astro:assets';
-import { school } from '../../data/site';
-import { MARK } from './assessment/marks';
-
-/* ─── Photography — seven frames, each opened and looked at before placing ─── */
-import pTrainer from '../../assets/workshops/CriticalThinking/CriticalThinking2.jpg';
-import pDelegation from '../../assets/excursions/imun-1.jpg';
-import pCertificates from '../../assets/excursions/imun-3.jpg';
-import pMonash from '../../assets/school-event/Monash-Innovation/Monash-Innovation-01.jpg';
-import pCanva from '../../assets/school-event/Impetus—ClassesIII-V/Impetus—ClassesIII-V-02.jpg';
-import pMaking from '../../assets/School Activity in Uniform/Embriodery.jpg';
-import pRocket from '../../assets/school-activities/summer-camp/05.jpg';
+import SmartImage from '../../components/ui/SmartImage.astro';
+import RichLine from '../ui/RichLine.astro';
+import { getCriticalThinking } from '../../lib/cms';
 
 /**
- * §02's six verbs, now a vertical rail rather than type scattered across the
- * stage. Same six words; each carries a line icon from the project's own mark
- * set, so nothing new was drawn for this page.
+ * ⚠ THE SYMBOLS STAY HERE. The CMS stores which mark goes with each word - a
+ * name out of a fixed list - and this map is what turns that name into paths.
+ * An editor chooses a symbol; nobody can draw a new one by typing.
  */
-const verbs = [
-  { k: 'Question', mark: 'search' },
-  { k: 'Argue', mark: 'megaphone' },
-  { k: 'Reason', mark: 'bulb' },
-  { k: 'Present', mark: 'present' },
-  { k: 'Listen', mark: 'chat' },
-  { k: 'Decide', mark: 'target' },
-] as const;
+import { MARK } from './assessment/marks';
 
-/** §03's arc. Four words the INNOVX description itself supports. */
-const arc = [
-  { k: 'Idea', mark: 'bulb' },
-  { k: 'Think', mark: 'head' },
-  { k: 'Build', mark: 'layers' },
-  { k: 'Solve', mark: 'cup' },
-] as const;
+const { one, two, three, four } = await getCriticalThinking();
 ---
 
 <div class="ct">
@@ -113,25 +91,16 @@ const arc = [
 
     <div class="u-container ct-mind__in">
       <div class="ct-mind__copy">
-        <p class="ct__k t-label" data-reveal>Critical Thinking &amp; Creativity</p>
+        <p class="ct__k t-label" data-reveal>{one.kicker}</p>
 
         <h2 class="ct-mind__h" id="ct-mind-h" data-split>
-          Think critically.<br /><em>Dream fearlessly.</em>
+          {one.heading}<br /><em>{one.headingEm}</em>
         </h2>
 
         <span class="ct__rule" aria-hidden="true"></span>
 
-        <p class="ct__p" data-reveal data-reveal-delay="160">
-          The words are the Principal's. She describes a Sunbeam education as
-          <em>“nurturing character, inspiring creativity”</em>, and the student it is meant to
-          produce as one who <strong>“thinks critically, acts responsibly, and dreams
-          fearlessly.”</strong>
-        </p>
-        <p class="ct__p" data-reveal data-reveal-delay="230">
-          Beyond knowing the answer is a teachable thing, so the school treated it as one: it
-          brought in a workshop on <strong>teaching critical thinking in the classroom</strong> and
-          put its own staff through it. The training went to the teachers first.
-        </p>
+        <RichLine class="ct__p" text={one.body[0]} reveal revealDelay={160} />
+        <RichLine class="ct__p" text={one.body[1]} reveal revealDelay={230} />
       </div>
 
       {/* ⚠ THE DOT FIELDS ARE aria-hidden SPANS INSIDE THE FIGURE, not background
@@ -142,10 +111,10 @@ const arc = [
         <span class="ct-dots ct-dots--bl" aria-hidden="true"></span>
 
         <span class="ct-mind__frame" data-mask data-zoom data-zoom-to="1.1">
-          <Picture
-            src={pTrainer}
-            alt={`Prof. Pradeep Mishra of Lovely Professional University speaking at the Critical Thinking workshop for teachers at ${school.name}`}
-            formats={['webp']}
+          <SmartImage
+            file={one.image}
+            alt={one.imageAlt}
+           
             widths={[380, 760]}
             sizes="(max-width: 900px) 84vw, 40vw"
             loading="eager"
@@ -154,8 +123,8 @@ const arc = [
         </span>
 
         <figcaption class="ct-mind__cap">
-          <span class="ct-mind__cap-n">Prof. Pradeep Mishra — Lovely</span>
-          <span class="ct-mind__cap-s">Professional University</span>
+          <span class="ct-mind__cap-n">{one.caption}</span>
+          <span class="ct-mind__cap-s">{one.captionSecond}</span>
         </figcaption>
       </figure>
     </div>
@@ -168,30 +137,22 @@ const arc = [
   <section class="ct-voice" aria-labelledby="ct-voice-h">
     <div class="u-container ct-voice__in">
       <div class="ct-voice__lede">
-        <p class="ct__k t-label" data-reveal>Ideas need a voice</p>
+        <p class="ct__k t-label" data-reveal>{two.kicker}</p>
+        {/* The line break and the italic are design; the words are content. */}
         <h2 class="ct-voice__h" id="ct-voice-h" data-split>
-          A position you<br />have to <em>defend aloud.</em>
+          {two.heading}<br />{two.headingSecond} <em>{two.headingEm}</em>
         </h2>
-        <p class="ct__p" data-reveal data-reveal-delay="150">
-          Sunbeam's students went to <strong>CMSMUN</strong> — which the school records as
-          <em>“an experience that went beyond the classroom.”</em> A Model United Nations committee
-          is the one room where a thought is no use until it has been said out loud, to people who
-          may disagree.
-        </p>
-        <p class="ct__p" data-reveal data-reveal-delay="220">
-          The school keeps a <strong>Model United Nations Lab</strong> among its inquiry rooms, so
-          the committee is not only something the delegation meets once a year at somebody else's
-          conference.
-        </p>
+        <RichLine class="ct__p" text={two.body[0]} reveal revealDelay={150} />
+        <RichLine class="ct__p" text={two.body[1]} reveal revealDelay={220} />
       </div>
 
       {/* ⚠ aria-hidden, AND THAT IS CORRECT. These six words are a visual accent
           on the argument the paragraphs already make; read aloud they would be a
           list of bare verbs with no sentence around them. */}
       <ol class="ct-rail" aria-hidden="true">
-        {verbs.map((v, i) => (
+        {two.marks.map((v, i) => (
           <li class="ct-rail__step" data-reveal data-reveal-delay={i * 80}>
-            <span class="ct-rail__k">{v.k}</span>
+            <span class="ct-rail__k">{v.label}</span>
             <span class="ct-rail__m">
               <svg viewBox="0 0 24 24" fill="none">
                 <g stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" set:html={MARK[v.mark]} />
@@ -203,10 +164,10 @@ const arc = [
 
       <div class="ct-voice__stage">
         <figure class="ct-voice__a" data-mask data-zoom>
-          <Picture
-            src={pDelegation}
-            alt={`The ${school.name} delegation holding the school flag at the MU20 Model United Nations conference`}
-            formats={['webp']}
+          <SmartImage
+            file={two.imageOne}
+            alt={two.imageOneAlt}
+           
             widths={[460, 940]}
             sizes="(max-width: 900px) 88vw, 40vw"
             loading="lazy"
@@ -215,10 +176,10 @@ const arc = [
         </figure>
 
         <figure class="ct-voice__b" data-reveal data-reveal-delay="180" data-zoom data-zoom-to="1.14">
-          <Picture
-            src={pCertificates}
-            alt={`Four delegates from ${school.name} holding their Model United Nations certificates in front of the national flags`}
-            formats={['webp']}
+          <SmartImage
+            file={two.imageTwo}
+            alt={two.imageTwoAlt}
+           
             widths={[300, 620]}
             sizes="(max-width: 900px) 46vw, 18vw"
             loading="lazy"
@@ -240,23 +201,15 @@ const arc = [
 
     <div class="u-container ct-impact__in">
       <div class="ct-impact__copy">
-        <p class="ct__k ct__k--onink t-label" data-reveal>Ideas into impact</p>
+        <p class="ct__k ct__k--onink t-label" data-reveal>{three.kicker}</p>
         <h2 class="ct-impact__h" id="ct-impact-h" data-split>
-          Two days, seven schools,<br /><em>one working answer.</em>
+          {three.heading}<br /><em>{three.headingEm}</em>
         </h2>
-        <p class="ct__p ct__p--onink" data-reveal data-reveal-delay="150">
-          <strong>SUNBEAM INNOVX — Hackathon &amp; Coding Contest 2026</strong> is the school's own
-          description of <em>“a two-day celebration of young innovators solving real-world problems
-          through code, creativity, and collaboration.”</em>
-        </p>
-        <p class="ct__p ct__p--onink" data-reveal data-reveal-delay="220">
-          Seven schools entered the preliminary round. The finals took the top three on cut-off
-          merit — Sunbeam School Ballia, Columbus International School and PM Shri Kendriya
-          Vidyalaya.
-        </p>
+        <RichLine class="ct__p ct__p--onink" text={three.body[0]} reveal revealDelay={150} />
+        <RichLine class="ct__p ct__p--onink" text={three.body[1]} reveal revealDelay={220} />
 
         <ol class="ct-arc">
-          {arc.map((a, i) => (
+          {three.marks.map((a, i) => (
             <li class="ct-arc__step" data-reveal data-reveal-delay={300 + i * 90}>
               <span class="ct-arc__m">
                 <svg viewBox="0 0 24 24" fill="none">
@@ -264,17 +217,17 @@ const arc = [
                 </svg>
               </span>
               <span class="ct-arc__n t-tabular">{String(i + 1).padStart(2, '0')}</span>
-              <span class="ct-arc__k">{a.k}</span>
+              <span class="ct-arc__k">{a.label}</span>
             </li>
           ))}
         </ol>
       </div>
 
       <figure class="ct-impact__art" data-mask data-mask-from="left" data-zoom data-zoom-to="1.1">
-        <Picture
-          src={pMonash}
-          alt={`A student of ${school.name} beside the Monash University Innovation Guarantee banner at an outreach session`}
-          formats={['webp']}
+        <SmartImage
+          file={three.imageOne}
+          alt={three.imageOneAlt}
+         
           widths={[420, 840]}
           sizes="(max-width: 900px) 84vw, 34vw"
           loading="lazy"
@@ -294,10 +247,10 @@ const arc = [
     <div class="u-container ct-create__in">
       <div class="ct-create__collage">
         <figure class="ct-create__a" data-mask data-zoom>
-          <Picture
-            src={pCanva}
-            alt={`A Canva Presentation activity in progress with a class at ${school.name} during Impetus, Classes III to V`}
-            formats={['webp']}
+          <SmartImage
+            file={four.imageOne}
+            alt={four.imageOneAlt}
+           
             widths={[440, 900]}
             sizes="(max-width: 900px) 88vw, 34vw"
             loading="lazy"
@@ -305,10 +258,10 @@ const arc = [
           />
         </figure>
         <figure class="ct-create__b" data-reveal data-reveal-delay="150" data-zoom data-zoom-to="1.14">
-          <Picture
-            src={pMaking}
-            alt={`Students of ${school.name} working on embroidery together from one shared basket of thread`}
-            formats={['webp']}
+          <SmartImage
+            file={four.imageTwo}
+            alt={four.imageTwoAlt}
+           
             widths={[300, 620]}
             sizes="(max-width: 900px) 44vw, 18vw"
             loading="lazy"
@@ -316,10 +269,10 @@ const arc = [
           />
         </figure>
         <figure class="ct-create__c" data-reveal data-reveal-delay="230" data-zoom data-zoom-to="1.18">
-          <Picture
-            src={pRocket}
-            alt={`A young student of ${school.name} holding a hand-made rocket cut-out at the Star Gazing session`}
-            formats={['webp']}
+          <SmartImage
+            file={four.imageThree}
+            alt={four.imageThreeAlt}
+           
             widths={[220, 440]}
             sizes="(max-width: 900px) 30vw, 11vw"
             loading="lazy"
@@ -329,15 +282,11 @@ const arc = [
       </div>
 
       <div class="ct-create__copy">
-        <p class="ct__k t-label" data-reveal>Ideas take shape</p>
-        <h2 class="ct-create__h" id="ct-create-h" data-split>Create.</h2>
-        <p class="ct__p" data-reveal data-reveal-delay="150">
-          Because ideas become powerful when students have the freedom to express them — on a
-          stage, in a presentation, or with their hands. The school's own TED Talk put it best:
-          <em>“Where ideas take the stage and voices find their power.”</em>
-        </p>
+        <p class="ct__k t-label" data-reveal>{four.kicker}</p>
+        <h2 class="ct-create__h" id="ct-create-h" data-split>{four.heading}</h2>
+        <RichLine class="ct__p" text={four.body[0]} reveal revealDelay={150} />
         <span class="ct__rule ct__rule--wide" aria-hidden="true"></span>
-        <p class="ct-create__end" data-reveal data-reveal-delay="240">Think deeply. Create boldly.</p>
+        <p class="ct-create__end" data-reveal data-reveal-delay="240">{four.closingLine}</p>
       </div>
     </div>
   </section>
@@ -366,7 +315,7 @@ const arc = [
   /* Body caps at 16.5px. The brief asked for 16–18 and the build this replaced
      ran to 17 at a much larger heading scale; holding the body and cutting the
      headings is what changes the feel. */
-  .ct__p {
+  :global(.ct__p) {
     max-width: 52ch;
     margin: clamp(12px, 1.5vw, 17px) 0 0;
     /* ⚠⚠ 0.5vw + 9px, NOT A BARE vw. A pure-vw middle term only reaches 16.5px
@@ -378,11 +327,11 @@ const arc = [
     line-height: 1.75;
     color: var(--sb-text-secondary);
   }
-  .ct__p strong { font-weight: 700; color: var(--sb-charcoal); }
-  .ct__p em { font-style: italic; color: var(--sb-charcoal); }
-  .ct__p--onink { color: rgba(255, 255, 255, 0.8); }
+  :global(.ct__p strong) { font-weight: 700; color: var(--sb-charcoal); }
+  :global(.ct__p em) { font-style: italic; color: var(--sb-charcoal); }
+  :global(.ct__p--onink) { color: rgba(255, 255, 255, 0.8); }
   .ct__p--onink strong,
-  .ct__p--onink em { color: #fff; }
+  :global(.ct__p--onink em) { color: #fff; }
 
   .ct__rule {
     display: block;
@@ -797,7 +746,7 @@ const arc = [
     .ct-impact__art { max-width: 460px; margin-inline: auto; }
     .ct-impact__art :global(img) { aspect-ratio: 4 / 3.4; }
     .ct-mind__frame :global(img) { aspect-ratio: 4 / 3.6; }
-    .ct__p { max-width: 62ch; }
+    :global(.ct__p) { max-width: 62ch; }
 
     .ct-voice__in { grid-template-columns: minmax(0, 1fr); }
     /* ⚠ HORIZONTAL, NOT VERTICAL, ON A PHONE. Six stacked rows of one word each

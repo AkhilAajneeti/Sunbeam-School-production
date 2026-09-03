@@ -1,0 +1,18 @@
+{
+  "kind": "singleType",
+  "collectionName": "campus_safety_page",
+  "info": {
+    "singularName": "campus-safety-page", "pluralName": "campus-safety-pages", "displayName": "Campus Safety Page",
+    "description": "Safety bands, the security plan's markers, and the emergency procedure. Mirrors apps/web/src/data/campus.ts."
+  },
+  "options": { "draftAndPublish": true },
+  "attributes": {
+    "safetyGroups": { "type": "component", "repeatable": true, "component": "campus.safety-group" },
+    "mapPoints": { "type": "component", "repeatable": true, "component": "campus.map-point" },
+    "emergencySteps": { "type": "component", "repeatable": true, "component": "shared.point" },
+    "emergencyPoints": { "type": "component", "repeatable": true, "component": "shared.measure" },
+    "transportFeatures": { "type": "component", "repeatable": true, "component": "shared.measure" },
+    "wellbeingCards": { "type": "component", "repeatable": true, "component": "shared.point" },
+    "surveillanceCards": { "type": "component", "repeatable": true, "component": "shared.point" }
+  }
+}

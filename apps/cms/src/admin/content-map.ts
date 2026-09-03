@@ -1,0 +1,243 @@
+/**
+ * THE SITE, AS AN EDITOR THINKS OF IT.
+ *
+ * ═══ WHAT THIS IS, AND WHAT IT IS NOT ══════════════════════════════════════
+ *
+ * A map from the school's own information architecture onto the content types
+ * that already exist. Every leaf is a link into the Content Manager — filtered
+ * where one type serves several parts of the site.
+ *
+ * ⚠ IT CREATES NOTHING. No content type, no record, no route, no field. Strapi's
+ * own Content Manager still lists everything exactly as before; this is a second
+ * way in, arranged the way the website is arranged rather than alphabetically.
+ *
+ * ⚠ WHY A PAGE AND NOT A NESTED SIDEBAR. Strapi's Content Manager sidebar cannot
+ * be regrouped — it renders "Collection Types" and "Single Types" alphabetically
+ * and offers no hook to nest them — and `addMenuLink` has no grouping either, so
+ * forty links would land flat in the left rail and be worse than the list they
+ * replaced. One page that draws the tree is the only shape that gives real
+ * nesting, and it is fully supported.
+ *
+ * ⚠ THE ACADEMIC GROUPS ARE FILTERS ON A FIELD THAT ALREADY EXISTS. Each links
+ * to `academic-topic` filtered by its `group`, so the 46 records stay one
+ * collection and appear under the heading the site puts them under. Adding a
+ * page in the admin puts it in the right group automatically.
+ */
+
+/** A Content Manager route for one collection, optionally filtered. */
+const list = (uid: string, filters?: Record<string, string>, exclude?: Array<[string, string]>) => {
+  const base = `content-manager/collection-types/${uid}`;
+  if (!filters && !exclude) return base;
+  /* Strapi's own list-view filter shape. Written out rather than guessed: this
+     is what the UI produces when you filter by hand. */
+  const clauses = [
+    ...Object.entries(filters ?? {}).map(([field, value]) => [field, '$eq', value]),
+    /* `$ne` is how a stale record is kept out of a list without deleting it. */
+    ...(exclude ?? []).map(([field, value]) => [field, '$ne', value]),
+  ];
+  const q = clauses
+    .map(([field, op, value], i) => `filters[$and][${i}][${field}][${op}]=${encodeURIComponent(value)}`)
+    .join('&');
+  return `${base}?${q}`;
+};
+
+/** A Content Manager route for one single type. */
+const single = (uid: string) => `content-manager/single-types/${uid}`;
+
+const TOPIC = 'api::academic-topic.academic-topic';
+const NEWS = 'api::news-item.news-item';
+
+export interface Leaf { label: string; to: string; note?: string }
+export interface Branch { label: string; note?: string; leaves?: Leaf[]; branches?: Branch[] }
+
+export const CONTENT_MAP: Branch[] = [
+  {
+    label: 'Site & Global',
+    note: 'Settings and page headers that apply across the whole site.',
+    leaves: [
+      { label: 'Site Settings', to: single('api::site-setting.site-setting'), note: 'Name, phones, addresses, social links — used everywhere.' },
+      { label: 'Page Meta', to: list('api::page-meta.page-meta'), note: 'Each page’s hero, title and search description.' },
+      { label: 'Homepage', to: single('api::homepage.homepage') },
+    ],
+  },
+
+  {
+    label: 'About Us',
+    leaves: [
+      { label: 'Leader Messages', to: list('api::leader-message.leader-message'), note: 'The Director’s and the Principal’s messages.' },
+      { label: 'History', to: single('api::history-page.history-page') },
+      { label: 'Vision & Mission', to: single('api::vision-mission-page.vision-mission-page') },
+    ],
+  },
+
+  {
+    label: 'Academics',
+    note: 'Forty-six pages, grouped the way the website groups them.',
+    branches: [
+      {
+        label: 'Academic Philosophy',
+        leaves: [
+          { label: 'Teaching Philosophy', to: single('api::teaching-philosophy-page.teaching-philosophy-page'), note: 'Edited section by section — 01 to 05 and the closing statement.' },
+          { label: 'Student-Centred Learning', to: single('api::student-centred-learning-page.student-centred-learning-page'), note: 'Edited section by section — 01 to 03 and the closing statement.' },
+          { label: 'Experiential & Inquiry Learning', to: single('api::experiential-inquiry-page.experiential-inquiry-page'), note: 'Edited section by section — 01 to 03 and the closing statement.' },
+          { label: 'Critical Thinking & Creativity', to: single('api::critical-thinking-page.critical-thinking-page'), note: 'Edited section by section — 01 to 04.' },
+          { label: 'Curriculum', to: single('api::curriculum-page.curriculum-page'), note: 'The stages and the syllabus library, then 01 to 05.' },
+          /**
+           * WARNING: THE TEACHING PHILOSOPHY ROW IS FILTERED OUT OF THIS LIST.
+           *
+           * That page moved to its own single type above, and Astro reads only
+           * that. Its old academic-topic record still exists and still holds the
+           * route's sections and photographs, but NOTHING READS THEM - so an
+           * editor who found it would change a page and see nothing happen.
+           *
+           * The record is NOT deleted. It is excluded from this list by route,
+           * so there is one obvious place to edit that page and no decoy beside
+           * it. Strapi's own Content Manager still lists it, as it lists
+           * everything; this map is what an editor is meant to navigate by.
+           */
+          { label: 'All philosophy pages', to: list(TOPIC, { group: 'philosophy' }, [['route', '/academics/philosophy/teaching-philosophy/'], ['route', '/academics/philosophy/student-centred-learning/'], ['route', '/academics/philosophy/experiential-inquiry/'], ['route', '/academics/philosophy/critical-thinking/'], ['route', '/academics/philosophy/curriculum/']]), note: 'Affiliation Details and the section hub.' },
+        ],
+      },
+      {
+        label: 'Academic Structure',
+        leaves: [
+          { label: 'Pre-Primary', to: single('api::pre-primary-page.pre-primary-page'), note: 'Edited band by band — 01 to 08.' },
+          { label: 'Primary', to: single('api::primary-stage-page.primary-stage-page'), note: 'Edited band by band — 01 to 08.' },
+          { label: 'Middle School', to: single('api::middle-school-page.middle-school-page'), note: 'Edited band by band — 01 to 09.' },
+          { label: 'Secondary', to: single('api::secondary-stage-page.secondary-stage-page'), note: 'Edited band by band — 01 to 06.' },
+          { label: 'Senior Secondary', to: single('api::senior-secondary-page.senior-secondary-page'), note: 'Edited band by band — 01 to 06.' },
+          /**
+           * WARNING: THE FOUR ROWS ABOVE ARE FILTERED OUT OF THE LIST BELOW.
+           * Those pages moved to their own single types and Astro reads only
+           * those. Their old academic-topic records still hold the runs and the
+           * photographs, but NOTHING READS THEM — an editor who found one would
+           * change a page and see nothing happen. The records are NOT deleted.
+           */
+          { label: 'Streams Offered', to: single('api::streams-offered-page.streams-offered-page'), note: 'The four streams, then 01 to 04.' },
+          { label: 'Subject Combinations', to: single('api::subject-combinations-page.subject-combinations-page'), note: 'The four streams and their subjects, then 01 to 04.' },
+          { label: 'All other structure pages', to: list(TOPIC, { group: 'structure' }, [
+            ['route', '/academics/structure/pre-primary/'],
+            ['route', '/academics/structure/primary/'],
+            ['route', '/academics/structure/middle-school/'],
+            ['route', '/academics/structure/secondary/'],
+            ['route', '/academics/structure/senior-secondary/'],
+            ['route', '/academics/structure/streams-offered/'],
+            ['route', '/academics/structure/subject-combinations/'],
+          ]), note: 'The Academic Structure hub itself. Every stage page above now has its own editor.' },
+        ],
+      },
+      {
+        label: 'Teaching & Learning',
+        leaves: [{ label: 'All teaching pages', to: list(TOPIC, { group: 'teaching-learning' }), note: 'Methodology, Smart Classrooms, Experiential, STEM & Robotics, Reading & Library, Laboratories & Clubs.' }],
+      },
+      {
+        label: 'Assessment',
+        leaves: [
+          { label: 'All assessment pages', to: list(TOPIC, { group: 'assessment' }), note: 'Assessment System, Competitive Exams, Homework Policy, Mentoring, Parent–Teacher Meetings, Remedial Support.' },
+          { label: 'Academic Calendar', to: single('api::academic-calendar-page.academic-calendar-page') },
+        ],
+      },
+      {
+        label: 'Student Success',
+        leaves: [{ label: 'All student-success pages', to: list(TOPIC, { group: 'student-success' }), note: 'Board Results, Career Guidance, Olympiads, Scholarships, Subject Selection, Success Stories, University Counselling, Alumni Interaction.' }],
+      },
+      {
+        label: 'Parent Partnership',
+        /**
+         * WARNING: workshops-webinars IS EXCLUDED AND NOT DELETED.
+         * That page reads getChroniclePage() — the workshops chronicle — and
+         * never touches its academic-topic record at all. An editor who found it
+         * would change a page and see nothing happen.
+         */
+        leaves: [{ label: 'All parent pages', to: list(TOPIC, { group: 'parent-partnership' }, [['route', '/academics/parent-partnership/workshops-webinars/']]), note: 'Parents’ Forum, Parent Engagement, Orientation, Communication, FAQs. Workshops & Webinars is edited under News & Events → Workshops.' }],
+      },
+      {
+        label: 'The Academics landing page',
+        leaves: [{ label: 'Academics overview', to: list(TOPIC, { group: 'overview' }) }],
+      },
+    ],
+  },
+
+  {
+    label: 'Beyond Academics',
+    branches: [
+      {
+        label: 'Sports',
+        leaves: [
+          { label: 'Sports Page', to: single('api::sports-page.sports-page') },
+          { label: 'Sport Facilities', to: list('api::sport-facility.sport-facility') },
+          { label: 'Games', to: list('api::game.game') },
+          { label: 'Sports Records', to: list('api::sports-record.sports-record'), note: 'Championships, camps and results.' },
+        ],
+      },
+      {
+        label: 'Excursions',
+        leaves: [
+          { label: 'Excursion Sections', to: list('api::excursion-section.excursion-section') },
+          { label: 'Expeditions', to: list('api::expedition.expedition') },
+        ],
+      },
+      {
+        label: 'School Activities',
+        leaves: [{ label: 'All activities', to: list(NEWS, { category: 'activity' }), note: 'The activities chronicle.' }],
+      },
+      {
+        label: 'Achievements',
+        leaves: [
+          { label: 'Major Achievements', to: list('api::achievement-major.achievement-major') },
+          { label: 'Achievement Records', to: list('api::achievement-record.achievement-record') },
+          { label: 'Credentials', to: list('api::credential.credential') },
+        ],
+      },
+    ],
+  },
+
+  {
+    label: 'News & Events',
+    note: 'One collection, shown by section. Adding an item puts it wherever its category says.',
+    leaves: [
+      { label: 'Celebrations', to: list(NEWS, { category: 'celebration' }) },
+      { label: 'Workshops', to: list(NEWS, { category: 'workshop' }) },
+      { label: 'Competitions', to: list(NEWS, { category: 'competition' }) },
+      { label: 'School Events', to: list(NEWS, { category: 'school-event' }) },
+      { label: 'Every item', to: list(NEWS), note: 'All categories together.' },
+      { label: 'Section headers', to: list('api::news-category-page.news-category-page') },
+      { label: 'Notices', to: list('api::notice.notice') },
+    ],
+  },
+
+  {
+    label: 'Campus',
+    leaves: [
+      { label: 'Facilities Page', to: single('api::facilities-page.facilities-page') },
+      { label: 'Campus Facilities', to: list('api::campus-facility.campus-facility') },
+      { label: 'Safety & Security', to: single('api::campus-safety-page.campus-safety-page') },
+      { label: 'Campus Tour', to: single('api::campus-tour-page.campus-tour-page') },
+      { label: 'Transport Page', to: single('api::transport-page.transport-page') },
+      { label: 'Bus Routes', to: list('api::bus-route.bus-route') },
+    ],
+  },
+
+  {
+    label: 'School Administration',
+    leaves: [
+      { label: 'Teachers', to: list('api::teacher.teacher'), note: 'The staff list published in the disclosure.' },
+      { label: 'Job Postings', to: list('api::job-posting.job-posting') },
+      { label: 'Alumni', to: list('api::alumnus.alumnus') },
+      { label: 'Alumni Stories', to: list('api::alumni-story.alumni-story') },
+      { label: 'Alumni Meets', to: list('api::alumni-meet.alumni-meet') },
+    ],
+  },
+
+  {
+    label: 'Documents & Services',
+    leaves: [
+      { label: 'Mandatory Public Disclosure', to: single('api::disclosure-page.disclosure-page') },
+      { label: 'Uniform', to: single('api::uniform-page.uniform-page') },
+      { label: 'Contact', to: single('api::contact-page.contact-page') },
+      { label: 'Result', to: single('api::result-page.result-page') },
+      { label: 'Transfer Certificate', to: single('api::tc-page.tc-page') },
+      { label: 'Calendar Documents', to: list('api::calendar-document.calendar-document') },
+    ],
+  },
+];

@@ -48,21 +48,17 @@
  *   05 · PEACH  a rounded container holding the drawn journey rail.
  *   06 · PHOTO  the dark close.
  */
-import { Picture } from 'astro:assets';
+import SmartImage from '../../../components/ui/SmartImage.astro';
 
 /* ── PHOTOGRAPHY — eight genuine Sunbeam Ballia frames, each used ONCE. Every
    alt is the description already published against that file in data/, so no
    caption here invents what a photograph shows. */
-import pGuest from '../../../assets/school-event/Guiding-Futures/Guiding-Futures-01.jpg';
-import pRoom from '../../../assets/bio lab/DSC_1274 copy.jpg';
-import pBench from '../../../assets/photos/sb-chem-lab.jpg';
-import pMachines from '../../../assets/photos/sb-comp-lab-2.jpg';
-import pLibrary from '../../../assets/photos/sb-library.jpg';
-import pMicro from '../../../assets/photos/sb-sci-lab.jpg';
-import pCourt from '../../../assets/basket ball/DSC_1280 copy.jpg';
-import pCohort from '../../../assets/photos/sunbeem-3.jpg';
+import ClipHeading from '../../ui/ClipHeading.astro';
+import RichLine from '../../ui/RichLine.astro';
+import { getSecondaryStage } from '../../../lib/cms';
 
-const S = 'Sunbeam School Ballia';
+const { open, board, deep, beyond, jrn, close } = await getSecondaryStage();
+
 
 const LABS = '/academics/teaching-learning/laboratories-clubs/';
 const CURRICULUM = '/academics/philosophy/curriculum/';
@@ -90,49 +86,16 @@ const MARK: Record<string, string> = {
 
 /* ── SECTION 01 — four cells, four published facts ────────────────────────
    ⚠ NOT THE MOCKUP'S FOUR SLOGANS. See the header note. */
-const guest = [
-  { n: '01', mark: 'person', k: 'A named guest', v: 'Mr. Ashutosh Kumar Pandey, IRS.' },
-  { n: '02', mark: 'badge', k: 'His office', v: 'Deputy Commissioner of Income Tax.' },
-  { n: '03', mark: 'group', k: 'The audience', v: 'Classes IX to XII, together.' },
-  { n: '04', mark: 'path', k: 'What he brought', v: 'His own educational journey.' },
-] as const;
 
 /* ── SECTION 02 — the vertical information list, on rules ─────────────────── */
-const rooms = [
-  { mark: 'flask', k: 'Physics · Chemistry · Biology', v: 'Board practicals, Classes IX–XII — one room built for each subject.' },
-  { mark: 'person', k: 'Guiding Futures · IX–XII', v: 'Mr. Ashutosh Kumar Pandey, IRS, Deputy Commissioner of Income Tax.' },
-  { mark: 'doc', k: 'PRECEPT syllabus', v: 'A published document per class, session 2026-27.' },
-  { mark: 'flag', k: 'Milestone', v: 'The CBSE Class X board examination.' },
-] as const;
 
 /* ── SECTION 03 — four compact columns ────────────────────────────────────
    Each is anchored to a published room or programme rather than to an adjective,
    so none of the four is a generic promise wearing a number. */
-const deeper = [
-  { n: '01', mark: 'layers', k: 'Conceptual depth', v: 'Class IX is the year the laboratory programme stops being introductory.' },
-  { n: '02', mark: 'hand', k: 'Practical work', v: 'Board practicals in three rooms, carried from Class IX to Class XII.' },
-  { n: '03', mark: 'ask', k: 'Independent thinking', v: 'Four inquiry rooms among the twelve — Geography, Srijan, MUN and Active Learning.' },
-  { n: '04', mark: 'speech', k: 'Communication', v: 'Model United Nations: debate, committee procedure and position papers.' },
-] as const;
 
 /* ── SECTION 04 — the checked list. Every line is a published facility. ───── */
-const beyond = [
-  'Science laboratories — one room for each subject',
-  'Computer laboratories, junior and senior — 40+ machines each',
-  'Robotics Lab — drone, 3-D printer and telescope',
-  'Four inquiry rooms among the twelve laboratories',
-  'Nalanda Library — 17,574 books — and the language laboratory',
-  'Fifteen sports, indoor and outdoor',
-  'Guiding Futures, Shaping Lives — Classes IX to XII',
-] as const;
 
 /* ── SECTION 05 — four stages, each anchored to something published ──────── */
-const journey = [
-  { n: '01', mark: 'book', k: 'Learn', v: 'A syllabus document published for every class, as PRECEPT.' },
-  { n: '02', mark: 'flask', k: 'Practise', v: 'Board practicals in Physics, Chemistry and Biology, from Class IX.' },
-  { n: '03', mark: 'lens', k: 'Analyse', v: 'Four inquiry rooms for the work that has no single right answer.' },
-  { n: '04', mark: 'crown', k: 'Lead', v: 'Committee procedure and position papers in the Model UN room.' },
-] as const;
 ---
 
 {/* ══ 01 · SOMEONE WHO ACTUALLY DID IT ═══════════════════════════════════════
@@ -146,33 +109,23 @@ const journey = [
 
   <div class="u-container sc-open__grid">
     <div class="sc-open__copy">
-      <p class="sc-kicker" data-reveal>Classes IX – X</p>
-      <h2 class="sc-h sc-open__h" id="sc-open-t">
-        <span data-clip data-clip-delay="0">Someone who</span>
-        <span data-clip data-clip-delay="150"><em>actually did it.</em></span>
-      </h2>
+      <p class="sc-kicker" data-reveal>{open.kicker}</p>
+      <ClipHeading class="sc-h sc-open__h" id="sc-open-t" text={open.heading} />
 
-      <p class="sc-body" data-reveal data-reveal-delay="200">
-        The school runs <strong>Guiding Futures, Shaping Lives</strong> for Classes IX to XII. The
-        2025 session was taken by <strong>Mr. Ashutosh Kumar Pandey, IRS, Deputy Commissioner of
-        Income Tax</strong>, who shared his own educational journey rather than a careers slide deck.
-      </p>
-      <p class="sc-body" data-reveal data-reveal-delay="260">
-        The measure of a programme like this is who agrees to come and speak as it is — and the
-        school names its guests, with their office, every time.
-      </p>
+      <RichLine class="sc-body" text={open.body[0]} reveal revealDelay={200} />
+      <RichLine class="sc-body" text={open.body[1]} reveal revealDelay={260} />
 
       <ul class="sc-cells">
-        {guest.map((g, i) => (
+        {open.cells.map((g, i) => (
           <li class="sc-cell" data-reveal data-reveal-delay={300 + i * 70}>
             <span class="sc-cell__m" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none">
                 <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={MARK[g.mark]} />
               </svg>
             </span>
-            <span class="sc-cell__n t-tabular">{g.n}</span>
-            <span class="sc-cell__k">{g.k}</span>
-            <span class="sc-cell__v">{g.v}</span>
+            <span class="sc-cell__n t-tabular">{String(i + 1).padStart(2, '0')}</span>
+            <span class="sc-cell__k">{g.label}</span>
+            <span class="sc-cell__v">{g.value}</span>
           </li>
         ))}
       </ul>
@@ -180,20 +133,16 @@ const journey = [
 
     <figure class="sc-open__fig">
       <div class="sc-open__pic" data-mask data-mask-from="left">
-        <Picture
-          src={pGuest}
-          alt={`Guests at the Guiding Futures session being shown the Nalanda Library at ${S}`}
-          formats={['webp']}
+        <SmartImage
+          file={open.shots[0]?.image} alt={open.shots[0]?.alt ?? ''}
+         
           widths={[560, 900, 1280]}
           sizes="(max-width: 1023px) 92vw, 46vw"
           loading="eager"
           decoding="async"
         />
       </div>
-      <figcaption class="sc-open__cap">
-        Guests being shown the library at a Guiding Futures session. The school has published no
-        photograph of the address itself.
-      </figcaption>
+      <figcaption class="sc-open__cap">{open.caption}</figcaption>
     </figure>
   </div>
 </section>
@@ -208,28 +157,20 @@ const journey = [
   <div class="u-container sc-board__grid">
     <div class="sc-board__stage">
       <div class="sc-board__lead" data-zoom data-zoom-to="1.04">
-        <Picture src={pRoom} alt={`A subject laboratory at ${S}, benches and apparatus laid out along the room`} formats={['webp']} widths={[520, 880, 1200]} sizes="(max-width: 1023px) 92vw, 42vw" loading="lazy" decoding="async" />
+        <SmartImage file={board.shots[0]?.image} alt={board.shots[0]?.alt ?? ''} widths={[520, 880, 1200]} sizes="(max-width: 1023px) 92vw, 42vw" loading="lazy" decoding="async" />
       </div>
       <div class="sc-board__sm" data-pop data-pop-delay="200">
-        <Picture src={pBench} alt={`Students of ${S} at the bench in the chemistry laboratory`} formats={['webp']} widths={[320, 560]} sizes="(max-width: 1023px) 52vw, 20vw" loading="lazy" decoding="async" />
+        <SmartImage file={board.shots[1]?.image} alt={board.shots[1]?.alt ?? ''} widths={[320, 560]} sizes="(max-width: 1023px) 52vw, 20vw" loading="lazy" decoding="async" />
       </div>
     </div>
 
     <div class="sc-board__copy">
-      <p class="sc-kicker" data-reveal>And the reason for the rooms</p>
-      <h2 class="sc-h sc-board__h" id="sc-board-t">
-        <span data-clip data-clip-delay="0">Board practicals</span>
-        <span data-clip data-clip-delay="150"><em>start here</em></span>
-      </h2>
-      <p class="sc-body" data-reveal data-reveal-delay="200">
-        Class IX is the year the laboratory programme stops being introductory. Physics, Chemistry
-        and Biology each carry <strong>board practicals from Class IX to Class XII</strong> — the
-        same practicals a board expects a candidate to have done, in rooms built for one subject
-        each.
-      </p>
+      <p class="sc-kicker" data-reveal>{board.kicker}</p>
+      <ClipHeading class="sc-h sc-board__h" id="sc-board-t" text={board.heading} />
+      <RichLine class="sc-body" text={board.body[0]} reveal revealDelay={200} />
 
       <ol class="sc-rooms">
-        {rooms.map((r, i) => (
+        {board.cells.map((r, i) => (
           <li class="sc-room" data-reveal data-reveal-delay={250 + i * 80}>
             <span class="sc-room__m" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none">
@@ -237,17 +178,13 @@ const journey = [
               </svg>
             </span>
             <div class="sc-room__t">
-              <p class="sc-room__k">{r.k}</p>
-              <p class="sc-room__v">{r.v}</p>
+              <p class="sc-room__k">{r.label}</p>
+              <p class="sc-room__v">{r.value}</p>
             </div>
           </li>
         ))}
       </ol>
-      <p class="sc-note" data-reveal data-reveal-delay="580">
-        The syllabus itself is published class by class as
-        {' '}<a class="sc-link" href={CURRICULUM}>PRECEPT</a>; board outcomes have their own page,
-        {' '}<a class="sc-link" href={RESULTS}>Board Results</a>.
-      </p>
+      <RichLine class="sc-note" text={board.body[1]} linkClass="sc-link" reveal revealDelay={580} />
     </div>
   </div>
 </section>
@@ -260,28 +197,22 @@ const journey = [
 
   <div class="u-container sc-deep__grid">
     <div class="sc-deep__head">
-      <p class="sc-kicker" data-reveal>Learning that stands on practice</p>
-      <h2 class="sc-h sc-deep__h" id="sc-deep-t">
-        <span data-clip data-clip-delay="0">Deeper questions.</span>
-        <span data-clip data-clip-delay="150"><em>Stronger answers.</em></span>
-      </h2>
-      <p class="sc-body sc-deep__b" data-reveal data-reveal-delay="200">
-        Secondary is where understanding deepens, experiments become evidence and ideas take shape —
-        and each of the four below names a room or a programme rather than a promise.
-      </p>
+      <p class="sc-kicker" data-reveal>{deep.kicker}</p>
+      <ClipHeading class="sc-h sc-deep__h" id="sc-deep-t" text={deep.heading} />
+      <RichLine class="sc-body sc-deep__b" text={deep.body[0]} reveal revealDelay={200} />
     </div>
 
     <ol class="sc-cols">
-      {deeper.map((d, i) => (
+      {deep.cells.map((d, i) => (
         <li class="sc-col" data-reveal data-reveal-delay={140 + i * 90}>
           <span class="sc-col__m" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none">
               <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={MARK[d.mark]} />
             </svg>
           </span>
-          <p class="sc-col__n t-tabular">{d.n}</p>
-          <h3 class="sc-col__k">{d.k}</h3>
-          <p class="sc-col__v">{d.v}</p>
+          <p class="sc-col__n t-tabular">{String(i + 1).padStart(2, '0')}</p>
+          <h3 class="sc-col__k">{d.label}</h3>
+          <p class="sc-col__v">{d.value}</p>
         </li>
       ))}
     </ol>
@@ -296,18 +227,12 @@ const journey = [
 
   <div class="u-container sc-beyond__grid">
     <div class="sc-beyond__copy">
-      <p class="sc-kicker" data-reveal>Opportunities that stay with you</p>
-      <h2 class="sc-h sc-beyond__h" id="sc-beyond-t">
-        <span data-clip data-clip-delay="0">Beyond the classroom,</span>
-        <span data-clip data-clip-delay="150"><em>inside the school.</em></span>
-      </h2>
-      <p class="sc-body" data-reveal data-reveal-delay="200">
-        None of the rooms below is added for the board years — they are already there, and Class IX
-        is simply the point at which a student is expected to use all of them.
-      </p>
+      <p class="sc-kicker" data-reveal>{beyond.kicker}</p>
+      <ClipHeading class="sc-h sc-beyond__h" id="sc-beyond-t" text={beyond.heading} />
+      <RichLine class="sc-body" text={beyond.body[0]} reveal revealDelay={200} />
 
       <ul class="sc-checks">
-        {beyond.map((b, i) => (
+        {beyond.cells.map((b, i) => (
           <li class="sc-check" data-reveal data-reveal-delay={250 + i * 55}>
             <span class="sc-check__i" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none">
@@ -315,32 +240,28 @@ const journey = [
                 <path d="m8 12.2 2.8 2.8 5.4-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
             </span>
-            {b}
+            {b.label}
           </li>
         ))}
       </ul>
-      <p class="sc-note" data-reveal data-reveal-delay="620">
-        Every room above is on the school’s own
-        {' '}<a class="sc-link" href={FACILITIES}>facilities</a> inventory; the twelve laboratories
-        are set out on {' '}<a class="sc-link" href={LABS}>Laboratories &amp; Academic Clubs</a>.
-      </p>
+      <RichLine class="sc-note" text={beyond.body[1]} linkClass="sc-link" reveal revealDelay={620} />
     </div>
 
     <div class="sc-quad">
       <figure class="sc-q sc-q--a" data-pop data-pop-delay="120">
-        <Picture src={pMicro} alt={`A student of ${S} using a microscope beside plant specimens in flasks`} formats={['webp']} widths={[340, 620]} sizes="(max-width: 767px) 46vw, 22vw" loading="lazy" decoding="async" />
+        <SmartImage file={beyond.shots[0]?.image} alt={beyond.shots[0]?.alt ?? ''} widths={[340, 620]} sizes="(max-width: 767px) 46vw, 22vw" loading="lazy" decoding="async" />
         <figcaption>Practical work</figcaption>
       </figure>
       <figure class="sc-q sc-q--b" data-pop data-pop-delay="200">
-        <Picture src={pMachines} alt={`Younger students of ${S} working at desktop computers in the junior computer laboratory`} formats={['webp']} widths={[340, 620]} sizes="(max-width: 767px) 46vw, 22vw" loading="lazy" decoding="async" />
+        <SmartImage file={beyond.shots[1]?.image} alt={beyond.shots[1]?.alt ?? ''} widths={[340, 620]} sizes="(max-width: 767px) 46vw, 22vw" loading="lazy" decoding="async" />
         <figcaption>Computer laboratories</figcaption>
       </figure>
       <figure class="sc-q sc-q--c" data-pop data-pop-delay="280">
-        <Picture src={pLibrary} alt={`Students of ${S} reading and working at tables in the Nalanda Library`} formats={['webp']} widths={[340, 620]} sizes="(max-width: 767px) 46vw, 22vw" loading="lazy" decoding="async" />
+        <SmartImage file={beyond.shots[2]?.image} alt={beyond.shots[2]?.alt ?? ''} widths={[340, 620]} sizes="(max-width: 767px) 46vw, 22vw" loading="lazy" decoding="async" />
         <figcaption>Reading and language</figcaption>
       </figure>
       <figure class="sc-q sc-q--d" data-pop data-pop-delay="360">
-        <Picture src={pCourt} alt={`The basketball court at ${S}, the hoop set against the school block`} formats={['webp']} widths={[340, 620]} sizes="(max-width: 767px) 46vw, 22vw" loading="lazy" decoding="async" />
+        <SmartImage file={beyond.shots[3]?.image} alt={beyond.shots[3]?.alt ?? ''} widths={[340, 620]} sizes="(max-width: 767px) 46vw, 22vw" loading="lazy" decoding="async" />
         <figcaption>Sport and co-curricular</figcaption>
       </figure>
     </div>
@@ -353,11 +274,8 @@ const journey = [
 <section class="sc-jrn" aria-labelledby="sc-jrn-t">
   <div class="u-container">
     <div class="sc-jrn__box">
-      <p class="sc-kicker sc-jrn__kicker" data-reveal>The secondary journey</p>
-      <h2 class="sc-h sc-jrn__h" id="sc-jrn-t">
-        <span data-clip data-clip-delay="0">From learning</span>
-        <span data-clip data-clip-delay="150">to <em>leadership.</em></span>
-      </h2>
+      <p class="sc-kicker sc-jrn__kicker" data-reveal>{jrn.kicker}</p>
+      <ClipHeading class="sc-h sc-jrn__h" id="sc-jrn-t" text={jrn.heading} />
 
       <div class="sc-jrn__track">
         <span class="sc-jrn__rule" aria-hidden="true">
@@ -368,16 +286,16 @@ const journey = [
         </span>
 
         <ol class="sc-steps">
-          {journey.map((j, i) => (
+          {jrn.cells.map((j, i) => (
             <li class="sc-step" data-reveal data-reveal-delay={140 + i * 120}>
               <span class="sc-step__node" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none">
                   <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={MARK[j.mark]} />
                 </svg>
               </span>
-              <p class="sc-step__n t-tabular">{j.n}</p>
-              <h3 class="sc-step__k">{j.k}</h3>
-              <p class="sc-step__v">{j.v}</p>
+              <p class="sc-step__n t-tabular">{String(i + 1).padStart(2, '0')}</p>
+              <h3 class="sc-step__k">{j.label}</h3>
+              <p class="sc-step__v">{j.value}</p>
             </li>
           ))}
         </ol>
@@ -420,23 +338,15 @@ const journey = [
 {/* ══ 06 · THE CLOSE ═════════════════════════════════════════════════════════ */}
 <section class="sc-close" aria-labelledby="sc-close-t">
   <div class="sc-close__media" aria-hidden="true" data-parallax data-parallax-y="-40">
-    <Picture src={pCohort} alt="" formats={['webp']} widths={[1024, 1600, 2000]} sizes="100vw" loading="lazy" decoding="async" />
+    <SmartImage file={close.shots[0]?.image} alt={close.shots[0]?.alt ?? ''} widths={[1024, 1600, 2000]} sizes="100vw" loading="lazy" decoding="async" />
   </div>
   <span class="sc-close__scrim" aria-hidden="true"></span>
   <span class="sc-close__grain" aria-hidden="true"></span>
 
   <div class="u-container sc-close__inner">
-    <p class="sc-kicker sc-kicker--dark" data-reveal>Two years, and a first board</p>
-    <h2 class="sc-h sc-close__h" id="sc-close-t">
-      <span data-clip data-clip-delay="0">Board practicals,</span>
-      <span data-clip data-clip-delay="150"><em>and a clearer direction.</em></span>
-    </h2>
-    <p class="sc-close__b" data-reveal data-reveal-delay="180">
-      Secondary is where preparation meets purpose: three laboratories carrying board practicals from
-      Class IX, a syllabus published class by class, and a serving IRS officer in the hall telling
-      four year groups how he got there. Board outcomes are published separately, and are not
-      restated here.
-    </p>
+    <p class="sc-kicker sc-kicker--dark" data-reveal>{close.kicker}</p>
+    <ClipHeading class="sc-h sc-close__h" id="sc-close-t" text={close.heading} />
+    <RichLine class="sc-close__b" text={close.body[0]} reveal revealDelay={180} />
   </div>
 </section>
 
@@ -452,7 +362,7 @@ const journey = [
   }
   .sc-kicker--dark { color: var(--sb-lime); }
 
-  .sc-h {
+  :global(.sc-h) {
     margin: clamp(12px, 1.5vw, 18px) 0 0;
     font-family: var(--sb-font-display);
     font-weight: 700;
@@ -460,19 +370,19 @@ const journey = [
     letter-spacing: -0.04em;
     color: var(--sb-charcoal);
   }
-  .sc-h span { display: block; }
-  .sc-h em { font-style: normal; color: var(--sb-violet); }
+  :global(.sc-h span) { display: block; }
+  :global(.sc-h em) { font-style: normal; color: var(--sb-violet); }
 
-  .sc-body {
+  :global(.sc-body) {
     max-width: 47ch;
     margin: clamp(13px, 1.6vw, 19px) 0 0;
     font-size: clamp(12.5px, 0.92vw, 14.5px);
     line-height: 1.78;
     color: var(--sb-text-secondary);
   }
-  .sc-body strong { font-weight: 700; color: var(--sb-charcoal); }
+  :global(.sc-body strong) { font-weight: 700; color: var(--sb-charcoal); }
 
-  .sc-note {
+  :global(.sc-note) {
     max-width: 56ch;
     margin: clamp(12px, 1.4vw, 17px) 0 0;
     font-size: clamp(10px, 0.74vw, 11.5px);
@@ -480,14 +390,14 @@ const journey = [
     color: var(--sb-text-muted);
   }
 
-  .sc-link {
+  :global(.sc-link){
     color: var(--sb-violet);
     font-weight: 700;
     text-decoration: underline;
     text-underline-offset: 3px;
     text-decoration-thickness: 1px;
   }
-  .sc-link:hover { color: var(--sb-orange-bright); }
+  :global(.sc-link:hover){ color: var(--sb-orange-bright); }
 
   .sc-grid {
     position: absolute;
@@ -550,7 +460,7 @@ const journey = [
     gap: clamp(26px, 3.6vw, 56px);
     align-items: center;
   }
-  .sc-open__h { font-size: clamp(28px, 3.3vw, 46px); }
+  :global(.sc-open__h) { font-size: clamp(28px, 3.3vw, 46px); }
 
   .sc-open__fig { margin: 0; }
   .sc-open__pic {
@@ -652,7 +562,7 @@ const journey = [
   .sc-board__sm :global(picture) { display: block; height: 100%; }
   .sc-board__lead :global(img),
   .sc-board__sm :global(img) { display: block; width: 100%; height: 100%; object-fit: cover; }
-  .sc-board__h { font-size: clamp(27px, 3.1vw, 44px); }
+  :global(.sc-board__h) { font-size: clamp(27px, 3.1vw, 44px); }
 
   /* ⚠ THIN HORIZONTAL RULES, NOT CARDS. */
   .sc-rooms { margin: clamp(18px, 2.2vw, 28px) 0 0; padding: 0; list-style: none; }
@@ -699,8 +609,8 @@ const journey = [
     gap: clamp(24px, 3.2vw, 50px);
     align-items: center;
   }
-  .sc-deep__h { font-size: clamp(24px, 2.6vw, 36px); }
-  .sc-deep__b { max-width: 34ch; }
+  :global(.sc-deep__h) { font-size: clamp(24px, 2.6vw, 36px); }
+  :global(.sc-deep__b) { max-width: 34ch; }
 
   .sc-cols {
     display: grid;
@@ -749,7 +659,7 @@ const journey = [
     gap: clamp(26px, 3.6vw, 54px);
     align-items: center;
   }
-  .sc-beyond__h { font-size: clamp(26px, 3vw, 42px); }
+  :global(.sc-beyond__h) { font-size: clamp(26px, 3vw, 42px); }
 
   .sc-checks {
     display: grid;
@@ -827,7 +737,7 @@ const journey = [
     text-align: center;
   }
   .sc-jrn__kicker { text-align: center; }
-  .sc-jrn__h { max-width: 20ch; font-size: clamp(25px, 2.9vw, 40px); }
+  :global(.sc-jrn__h) { max-width: 20ch; font-size: clamp(25px, 2.9vw, 40px); }
 
   .sc-jrn__track { position: relative; width: 100%; margin: clamp(22px, 2.8vw, 38px) 0 0; }
   .sc-jrn__rule {
@@ -925,9 +835,9 @@ const journey = [
     background-size: 180px 180px;
   }
   .sc-close__inner { position: relative; display: grid; justify-items: center; text-align: center; }
-  .sc-close__h { max-width: 22ch; font-size: clamp(26px, 3.2vw, 46px); color: #fff; }
-  .sc-close__h em { color: var(--sb-lime); font-style: italic; }
-  .sc-close__b {
+  :global(.sc-close__h) { max-width: 22ch; font-size: clamp(26px, 3.2vw, 46px); color: #fff; }
+  :global(.sc-close__h em) { color: var(--sb-lime); font-style: italic; }
+  :global(.sc-close__b) {
     max-width: 66ch;
     margin: clamp(14px, 1.7vw, 21px) 0 0;
     font-size: clamp(12px, 0.88vw, 14px);
@@ -938,7 +848,7 @@ const journey = [
   /* ═══ RESPONSIVE ══════════════════════════════════════════════════════════ */
   @media (max-width: 1179px) {
     .sc-deep__grid { grid-template-columns: minmax(0, 1fr); gap: clamp(20px, 2.8vw, 30px); }
-    .sc-deep__b { max-width: 62ch; }
+    :global(.sc-deep__b) { max-width: 62ch; }
   }
 
   @media (max-width: 1023px) {
@@ -950,10 +860,10 @@ const journey = [
     }
     .sc-open__fig,
     .sc-board__stage { order: -1; }
-    .sc-body { max-width: 62ch; }
+    :global(.sc-body) { max-width: 62ch; }
     .sc-open__h,
     .sc-board__h,
-    .sc-beyond__h { font-size: clamp(27px, 4.8vw, 38px); }
+    :global(.sc-beyond__h) { font-size: clamp(27px, 4.8vw, 38px); }
     .sc-cells { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: clamp(16px, 2.2vw, 22px); }
     .sc-cell:nth-child(3) { padding-left: 0; border-left: 0; }
     .sc-open__ghost { font-size: clamp(64px, 11vw, 110px); }

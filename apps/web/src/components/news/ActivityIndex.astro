@@ -1,4 +1,7 @@
 ---
+import { getActivitiesData } from '../../lib/cms';
+
+const { schoolActivities, activityItems, activityPage, pageCount } = await getActivitiesData();
 /**
  * SCHOOL ACTIVITIES INDEX — the body shared by page 1 and every later page.
  *
@@ -15,7 +18,7 @@ import IndexIntro from './IndexIntro.astro';
 import CardGrid from './CardGrid.astro';
 import Pager from './Pager.astro';
 
-import { schoolActivities, activityItems, activityPage, pageCount } from '../../data/schoolActivities';
+
 import heroPhoto from '../../assets/photos/sunbeem-1.jpg';
 
 interface Props {

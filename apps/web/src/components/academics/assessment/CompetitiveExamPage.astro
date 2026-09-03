@@ -37,19 +37,20 @@
  *   04 · PAPER  the four-frame gallery, asymmetric, opening in the viewer.
  *   05 · PHOTO  the cinematic close.
  */
-import { Picture } from 'astro:assets';
 import '../../../styles/assessment.css';
 import { MARK } from './marks';
 import AsClose from './AsClose.astro';
 import Lightbox from '../../ui/Lightbox.astro';
 
 /* ── PHOTOGRAPHY — six genuine Sunbeam Ballia frames, each used ONCE. ─────── */
-import pBench from '../../../assets/photos/sb-chem-lab.jpg';
-import pComposite from '../../../assets/composite lab/DSC_1257 copy.jpg';
-import pMicro from '../../../assets/photos/sb-sci-lab.jpg';
-import pActivity from '../../../assets/activity learning lab/DSC_1216 copy.jpg';
-import pBio from '../../../assets/photos/sb-bio-lab.jpg';
-import pCohort from '../../../assets/photos/sunbeem-3.jpg';
+import { getAcademicTopic } from '../../../lib/cms';
+import SmartImage from '../../ui/SmartImage.astro';
+import RichLine from '../../ui/RichLine.astro';
+
+const ac = await getAcademicTopic('/academics/assessment/competitive-exam-preparation/');
+const pComposite = ac.pic('pComposite');
+const pBench = ac.pic('pBench');
+const pCohort = ac.pic('pCohort');
 
 const S = 'Sunbeam School Ballia';
 
@@ -62,49 +63,13 @@ const STEM = '/academics/teaching-learning/stem-robotics/';
    participation in other nationally notified programmes from time to time
    without naming them in a list, so the row says exactly that rather than
    inventing a sixth name to round the set out. */
-const programmes = [
-  {
-    n: '01',
-    k: 'Vidyarthi Vigyan Manthan',
-    v: 'The national science talent search, for students of <strong>Classes VI to XI</strong>. A written search, sat against a national field.',
-  },
-  {
-    n: '02',
-    k: 'National Children’s Science Congress',
-    v: 'Project-based science — work <strong>presented and defended</strong>, not answered on a paper.',
-  },
-  {
-    n: '03',
-    k: 'Inspire Award MANAK',
-    v: 'The Department of Science &amp; Technology’s scheme for <strong>original ideas</strong> from school students, taken to national level.',
-  },
-  {
-    n: '04',
-    k: 'Science Olympiad Foundation',
-    v: 'The olympiad, entered <strong>from the primary years upward</strong> — the earliest external paper a Sunbeam child sits.',
-  },
-  {
-    n: '05',
-    k: 'CUET (UG)',
-    v: 'The senior-school entrance examination; the school published 2025 results across PCM, Commerce and Humanities.',
-  },
-] as const;
+const programmes = ac.section('programmes').points;
 
 /* ── SECTION 03 — the same four, at a glance ─────────────────────────────── */
-const features = [
-  { n: '01', mark: 'search', k: 'VVM', sub: 'Science talent search', v: 'A written search for scientific temper and reasoning.' },
-  { n: '02', mark: 'flask', k: 'NCSC', sub: 'National science project', v: 'Investigate, innovate and present — then defend it.' },
-  { n: '03', mark: 'bulb', k: 'INSPIRE MANAK', sub: 'Innovation & original ideas', v: 'Original ideas from school students, taken to national level.' },
-  { n: '04', mark: 'book', k: 'Olympiads', sub: 'Subject academic challenge', v: 'External academic assessments from the primary years upward.' },
-] as const;
+const features = ac.section('features').points;
 
 /* ── SECTION 04 — the gallery. One large, two smaller, one circular. ─────── */
-const gallery = [
-  { src: pMicro, alt: `A student of ${S} using a microscope beside plant specimens in flasks`, cap: 'Practical work' },
-  { src: pComposite, alt: `The composite laboratory at ${S}, apparatus set out along the benches`, cap: 'The composite laboratory' },
-  { src: pActivity, alt: `The activity learning laboratory at ${S}, its worktables set out for group work`, cap: 'The activity learning room' },
-  { src: pBio, alt: `Two students of ${S} handling glassware in the biology laboratory`, cap: 'The biology laboratory' },
-] as const;
+const gallery = ac.section('gallery').photos;
 ---
 
 {/* ══ 01 · FOUR PAPERS NOBODY HAS TO SIT ═════════════════════════════════════
@@ -116,10 +81,10 @@ const gallery = [
   <div class="u-container ce-open__grid">
     <div class="ce-open__stage">
       <div class="ce-open__lead as-frame as-fill" data-mask>
-        <Picture
-          src={pBench}
-          alt={`Students of ${S} working along the chemistry bench, test tubes held over the burners`}
-          formats={['webp']}
+        <SmartImage
+          file={pBench}
+          alt={ac.picAlt('pBench')}
+         
           widths={[520, 880, 1200]}
           sizes="(max-width: 1023px) 92vw, 42vw"
           loading="eager"
@@ -127,10 +92,10 @@ const gallery = [
         />
       </div>
       <div class="ce-open__sm as-frame as-frame--float as-fill" data-pop data-pop-delay="200">
-        <Picture
-          src={pComposite}
-          alt={`The composite laboratory at ${S}, apparatus set out along the benches`}
-          formats={['webp']}
+        <SmartImage
+          file={pComposite}
+          alt={ac.picAlt('pComposite')}
+         
           widths={[320, 560]}
           sizes="(max-width: 1023px) 46vw, 18vw"
           loading="lazy"
@@ -197,7 +162,11 @@ const gallery = [
           <span class="ce-prog__n t-tabular">{p.n}</span>
           <div class="ce-prog__t">
             <p class="ce-prog__k">{p.k}</p>
-            <p class="ce-prog__v" set:html={p.v} />
+            <RichLine
+  tag="p"
+  class="ce-prog__v"
+  text={p.v}
+/>
           </div>
         </li>
       ))}
@@ -261,7 +230,13 @@ const gallery = [
       data-lb-cap={gallery[0].cap}
       data-pop
     >
-      <Picture src={gallery[0].src} alt={gallery[0].alt} formats={['webp']} widths={[480, 860]} sizes="(max-width: 767px) 92vw, 30vw" loading="lazy" decoding="async" />
+      <SmartImage
+        file={gallery[0].src}
+        alt={gallery[0].alt}
+        sizes="(max-width: 767px) 92vw, 30vw"
+        fallbackWidth={1100}
+        loading="lazy"
+      />
     </a>
 
     <a
@@ -273,7 +248,13 @@ const gallery = [
       data-pop
       data-pop-delay="120"
     >
-      <Picture src={gallery[1].src} alt={gallery[1].alt} formats={['webp']} widths={[360, 640]} sizes="(max-width: 767px) 46vw, 22vw" loading="lazy" decoding="async" />
+      <SmartImage
+        file={gallery[1].src}
+        alt={gallery[1].alt}
+        sizes="(max-width: 767px) 46vw, 22vw"
+        fallbackWidth={1100}
+        loading="lazy"
+      />
     </a>
 
     <a
@@ -285,7 +266,13 @@ const gallery = [
       data-pop
       data-pop-delay="220"
     >
-      <Picture src={gallery[2].src} alt={gallery[2].alt} formats={['webp']} widths={[360, 640]} sizes="(max-width: 767px) 46vw, 22vw" loading="lazy" decoding="async" />
+      <SmartImage
+        file={gallery[2].src}
+        alt={gallery[2].alt}
+        sizes="(max-width: 767px) 46vw, 22vw"
+        fallbackWidth={1100}
+        loading="lazy"
+      />
     </a>
 
     <a
@@ -297,7 +284,13 @@ const gallery = [
       data-pop
       data-pop-delay="320"
     >
-      <Picture src={gallery[3].src} alt={gallery[3].alt} formats={['webp']} widths={[260, 460]} sizes="(max-width: 767px) 40vw, 14vw" loading="lazy" decoding="async" />
+      <SmartImage
+        file={gallery[3].src}
+        alt={gallery[3].alt}
+        sizes="(max-width: 767px) 40vw, 14vw"
+        fallbackWidth={1100}
+        loading="lazy"
+      />
     </a>
   </div>
 </section>

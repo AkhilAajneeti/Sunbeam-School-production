@@ -1,0 +1,13 @@
+{
+  "kind": "singleType",
+  "collectionName": "transport_page",
+  "info": {
+    "singularName": "transport-page", "pluralName": "transport-pages", "displayName": "Transport Page",
+    "description": "The prose of /campus/transport/. ⚠ IT HOLDS NO COUNTS. Buses, runs and boarding points are computed from Bus Route at query time — storing them would give the same fact two owners and go stale the day a route is added."
+  },
+  "options": { "draftAndPublish": true },
+  "attributes": {
+    "safety": { "type": "component", "repeatable": true, "component": "shared.measure" },
+    "stopAliases": { "type": "json" }
+  }
+}

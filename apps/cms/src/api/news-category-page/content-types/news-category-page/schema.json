@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "news_category_pages",
+  "info": {
+    "singularName": "news-category-page",
+    "pluralName": "news-category-pages",
+    "displayName": "News Category Page",
+    "description": "The header and group definitions for one chronicle index — /news-events/<slug>/. Five records: workshops, competitions, celebrations, school-events and achievements. The achievements record carries only its header; its items come from Major Achievement."
+  },
+  "options": { "draftAndPublish": true },
+  "pluginOptions": {},
+  "attributes": {
+    "slug": { "type": "uid", "targetField": "title", "required": true },
+    "title": { "type": "string", "required": true, "maxLength": 160 },
+    "standfirst": { "type": "text", "required": true, "maxLength": 600 },
+    "eyebrow": { "type": "string", "required": true, "maxLength": 120 },
+    "heading": { "type": "string", "required": true, "maxLength": 240 },
+    "stand": { "type": "text", "required": true, "maxLength": 800 },
+    "groups": { "type": "component", "repeatable": true, "component": "news.group" },
+    "displayOrder": { "type": "integer", "default": 0, "required": true }
+  }
+}

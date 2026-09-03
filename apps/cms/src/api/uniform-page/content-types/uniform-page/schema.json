@@ -1,0 +1,39 @@
+{
+  "kind":"singleType","collectionName":"uniform_page",
+  "info":{"singularName":"uniform-page","pluralName":"uniform-pages","displayName":"Uniform Page",
+    "description":"The uniform catalogue page at /admissions/uniform-catalogue/. Replaces apps/web/src/data/uniform.ts. ⚠ THE CATALOGUES THEMSELVES ARE NOW STRAPI MEDIA. They were two PDFs sitting in the site's public directory (51 MB), so publishing a new edition meant a developer and a deploy; it is now an upload. ⚠ EVERYTHING BELOW THE CATALOGUES IS READ OUT OF THEM — the class groups, the seasons, the shoe table and the school's own eleven notes are transcriptions, not this project's wording, and the shoe table keeps the document's own 2023-24 session heading even though the cover says 2025-26."},
+  "options":{"draftAndPublish":true},
+  "attributes":{
+    "topKicker":{"type":"string","maxLength":120},
+    "topHeading":{"type":"text","maxLength":300},
+    "topBody":{"type":"text","maxLength":800},
+    "topNote":{"type":"text","maxLength":800},
+
+    "catalogues":{"type":"component","repeatable":true,"component":"uniform.catalogue"},
+
+    "classesKicker":{"type":"string","maxLength":120},
+    "classesHeading":{"type":"text","maxLength":300},
+    "classesNote":{"type":"text","maxLength":800},
+    "classGroups":{"type":"component","repeatable":true,"component":"shared.point"},
+
+    "seasonsKicker":{"type":"string","maxLength":120},
+    "seasonsHeading":{"type":"text","maxLength":300},
+    "seasons":{"type":"component","repeatable":true,"component":"shared.detail"},
+
+    "shoesKicker":{"type":"string","maxLength":120},
+    "shoesHeading":{"type":"string","maxLength":200},
+    "shoesNote":{"type":"text","maxLength":600},
+    "shoeRows":{"type":"component","repeatable":true,"component":"uniform.shoe-row"},
+
+    "notesTitle":{"type":"string","maxLength":160},
+    "notesBody":{"type":"text","maxLength":400},
+    "notes":{"type":"component","repeatable":true,"component":"shared.paragraph"},
+
+    "downloadKicker":{"type":"string","maxLength":160},
+    "downloadHeading":{"type":"text","maxLength":300},
+    "downloadNote":{"type":"text","maxLength":800},
+
+    "sourceHref":{"type":"string","maxLength":500},
+    "sourceLabel":{"type":"string","maxLength":120}
+  }
+}

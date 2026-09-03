@@ -55,17 +55,25 @@
  * (reduced motion, Save-Data, a failed request) every section is complete and
  * readable, and only the drift and the glow-shift are missing.
  */
-import { Image, Picture } from 'astro:assets';
-import { school } from '../../../data/site';
+import { Image } from 'astro:assets';
+import SmartImage from '../../../components/ui/SmartImage.astro';
+import { getSchool } from '../../../lib/cms';
 
 /* The photograph: a genuine Ballia frame — school blazers, the composite-lab
    bench, test tubes in hand. Not the empty-room lab shots the other structure
    pages use, because this section is about students choosing, not about a room. */
-import pLab from '../../../assets/photos/sb-chem-lab.jpg';
 
 /* ONE raster accent per section, both from the project's hand-drawn set. */
 import oPlane from '../../../assets/icons/rocketpaper.png';
 import oCurve from '../../../assets/icons/arrowcurve.png';
+import ClipHeading from '../../ui/ClipHeading.astro';
+import RichLine from '../../ui/RichLine.astro';
+import { getStreamsOffered } from '../../../lib/cms';
+
+/* `streams` is the page-level list: the same four streams every band draws. */
+const { streams, paths, x, dir, sure } = await getStreamsOffered();
+
+const school = await getSchool();
 
 /* ── THE MARKS ──────────────────────────────────────────────────────────────
    24-unit box, 1.5 stroke, round caps and joins, no fill, `currentColor`.
@@ -95,67 +103,19 @@ const MARK: Record<string, string> = {
    what it leads to where it is not (Commerce, Humanities). `line` is the reader's
    one-sentence version of the choice; `dir` is the same stream described as a
    direction of thought, for the dark section. `tint` keys the four hues below. */
-const streams = [
-  {
-    n: '01',
-    name: school.streams[0],
-    mark: 'atom',
-    tint: 'pcm',
-    sub: 'Physics · Chemistry · Mathematics',
-    line: 'Engineering and the physical sciences.',
-    dir: 'Analytical thinking, mathematics and physical sciences.',
-  },
-  {
-    n: '02',
-    name: school.streams[1],
-    mark: 'helix',
-    tint: 'pcb',
-    sub: 'Physics · Chemistry · Biology',
-    line: 'Medicine and the life sciences.',
-    dir: 'Understanding life sciences and biological systems.',
-  },
-  {
-    n: '03',
-    name: school.streams[2],
-    mark: 'bars',
-    tint: 'com',
-    sub: 'Business · Finance · Management',
-    line: 'How money, firms and markets work.',
-    dir: 'Business, finance and the world of organisations.',
-  },
-  {
-    n: '04',
-    name: school.streams[3],
-    mark: 'group',
-    tint: 'hum',
-    sub: 'Law · Civil Services · Design · Media',
-    line: 'The social sciences and human studies.',
-    dir: 'Society, culture, communication and human perspective.',
-  },
-] as const;
+
+/**
+ * ⚠ THE COLOUR OF EACH STREAM IS DESIGN, AND IT LIVES HERE.
+ * Every card, chip and step was carrying a `tint` stored against the editorial
+ * text - and the four values ran pcm, pcb, com, hum in list order, so it was
+ * never a choice anybody made per stream. An editor adding a fifth would have
+ * had to know the palette, and a typo produced a card with no colour at all.
+ */
+const STREAM_TINTS = ['pcm', 'pcb', 'com', 'hum'];
+const tintOf = (i) => STREAM_TINTS[i % STREAM_TINTS.length];
 
 /* Section 04's three lines, in descending confidence — which is also the order a
    parent asks them in. */
-const certainty = [
-  {
-    mark: 'tick',
-    k: school.streams.join(', '),
-    body: 'These four stream names are published by the school.',
-    state: 'yes',
-  },
-  {
-    mark: 'aim',
-    k: 'Subject combinations',
-    body: 'The specific subject combinations are not published here.',
-    state: 'part',
-  },
-  {
-    mark: 'info',
-    k: 'Where to check',
-    body: 'See the school’s Subject Combinations page, and the office, for what is actually confirmed.',
-    state: 'info',
-  },
-] as const;
 
 const COMBINATIONS = '/academics/structure/subject-combinations/';
 ---
@@ -184,12 +144,8 @@ const COMBINATIONS = '/academics/structure/subject-combinations/';
 
   <div class="u-container so-paths__grid-l" data-draw-scope>
     <div class="so-paths__copy">
-      <p class="so-kicker" data-reveal>Classes XI – XII</p>
-      <h2 class="so-h so-paths__h" id="so-paths-t">
-        <span data-clip data-clip-delay="0">Four paths.</span>
-        <span data-clip data-clip-delay="150"><em>One senior</em></span>
-        <span data-clip data-clip-delay="260"><em>secondary journey.</em></span>
-      </h2>
+      <p class="so-kicker" data-reveal>{paths.kicker}</p>
+      <ClipHeading class="so-h so-paths__h" id="so-paths-t" text={paths.heading} delays={[0, 150, 260]} />
       <p class="so-body" data-reveal data-reveal-delay="220">
         {school.name} offers four Senior Secondary streams. Each path allows students to explore
         their strengths, build clarity and grow with confidence.
@@ -198,9 +154,9 @@ const COMBINATIONS = '/academics/structure/subject-combinations/';
 
     <ol class="so-paths__list">
       {streams.map((s, i) => (
-        <li class={`so-step so-step--${s.tint}`} data-reveal data-reveal-delay={120 + i * 90}>
-          <span class="so-step__n t-tabular" aria-hidden="true">{s.n}</span>
-          <h3 class="so-step__k">{s.name}</h3>
+        <li class={`so-step so-step--${tintOf(i)}`} data-reveal data-reveal-delay={120 + i * 90}>
+          <span class="so-step__n t-tabular" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+          <h3 class="so-step__k">{s.label}</h3>
 
           {/* The disc and the connector are one row, so the dashes always meet
               the next disc's edge however the column resizes. */}
@@ -220,7 +176,7 @@ const COMBINATIONS = '/academics/structure/subject-combinations/';
           </div>
 
           <p class="so-step__sub">{s.sub}</p>
-          <p class="so-step__b">{s.line}</p>
+          <p class="so-step__b">{s.value}</p>
         </li>
       ))}
     </ol>
@@ -246,17 +202,9 @@ const COMBINATIONS = '/academics/structure/subject-combinations/';
 
   <div class="u-container so-x__grid">
     <div class="so-x__copy">
-      <p class="so-kicker" data-reveal>Explore each stream</p>
-      <h2 class="so-h so-x__h" id="so-x-t">
-        <span data-clip data-clip-delay="0">Different</span>
-        <span data-clip data-clip-delay="130">interests.</span>
-        <span data-clip data-clip-delay="240"><em>Different</em></span>
-        <span data-clip data-clip-delay="340"><em>possibilities.</em></span>
-      </h2>
-      <p class="so-body" data-reveal data-reveal-delay="200">
-        Every stream opens a door. Every student chooses what feels right — and the choice is made
-        at the end of Class X, with the school’s counselling behind it.
-      </p>
+      <p class="so-kicker" data-reveal>{x.kicker}</p>
+      <ClipHeading class="so-h so-x__h" id="so-x-t" text={x.heading} delays={[0, 130, 240, 340]} />
+      <RichLine class="so-body" text={x.body[0]} reveal revealDelay={200} />
     </div>
 
     <div class="so-x__stage">
@@ -265,10 +213,9 @@ const COMBINATIONS = '/academics/structure/subject-combinations/';
       <span class="so-x__glow" aria-hidden="true"></span>
 
       <figure class="so-x__fig" data-mask data-zoom data-zoom-to="1.07">
-        <Picture
-          src={pLab}
-          alt={`Senior students of ${school.name} at the laboratory bench, test tubes and burners in front of them`}
-          formats={['webp']}
+        <SmartImage
+          file={x.shots[0]?.image} alt={x.shots[0]?.alt ?? ''}
+         
           widths={[620, 980, 1320]}
           sizes="(max-width: 1023px) 92vw, 44vw"
           loading="lazy"
@@ -282,7 +229,7 @@ const COMBINATIONS = '/academics/structure/subject-combinations/';
           reflowed is just a card in the wrong place. */}
       <ul class="so-x__cards">
         {streams.map((s, i) => (
-          <li class={`so-card so-card--${s.tint} so-card--p${i + 1}`}
+          <li class={`so-card so-card--${tintOf(i)} so-card--p${i + 1}`}
             data-reveal data-reveal-delay={160 + i * 110}>
             <span class="so-card__disc" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none">
@@ -290,7 +237,7 @@ const COMBINATIONS = '/academics/structure/subject-combinations/';
               </svg>
             </span>
             <div class="so-card__t">
-              <h3 class="so-card__k">{s.name}</h3>
+              <h3 class="so-card__k">{s.label}</h3>
               <p class="so-card__b">{s.sub}</p>
             </div>
           </li>
@@ -324,18 +271,15 @@ const COMBINATIONS = '/academics/structure/subject-combinations/';
 
   <div class="u-container so-dir__inner" data-draw-scope>
     <div class="so-dir__head">
-      <p class="so-kicker so-kicker--dark" data-reveal>Four different directions</p>
-      <h2 class="so-h so-dir__h" id="so-dir-t">
-        <span data-clip data-clip-delay="0">Different interests.</span>
-        <span data-clip data-clip-delay="150"><em>Different directions.</em></span>
-      </h2>
+      <p class="so-kicker so-kicker--dark" data-reveal>{dir.kicker}</p>
+      <ClipHeading class="so-h so-dir__h" id="so-dir-t" text={dir.heading} />
     </div>
 
     {/* THE GHOST ROW. One flex row across the container rather than a word per
         column: the four are different lengths, and spacing them apart is what
         gives PCM and PCB the wide gaps the composition wants. */}
     <p class="so-dir__ghost" aria-hidden="true" data-parallax data-parallax-y="18">
-      {streams.map((s) => <span>{s.name}</span>)}
+      {streams.map((s) => <span>{s.label}</span>)}
     </p>
 
     <ol class="so-dir__list">
@@ -358,8 +302,8 @@ const COMBINATIONS = '/academics/structure/subject-combinations/';
               </svg>
             </span>
           </div>
-          <h3 class="so-dirx__k">{s.name}</h3>
-          <p class="so-dirx__b">{s.dir}</p>
+          <h3 class="so-dirx__k">{s.label}</h3>
+          <p class="so-dirx__b">{s.note}</p>
         </li>
       ))}
     </ol>
@@ -390,14 +334,11 @@ const COMBINATIONS = '/academics/structure/subject-combinations/';
 
   <div class="u-container so-sure__grid-l">
     <div class="so-sure__copy">
-      <p class="so-kicker" data-reveal>What is certain, and what is not</p>
-      <h2 class="so-h so-sure__h" id="so-sure-t">
-        <span data-clip data-clip-delay="0">The names are published.</span>
-        <span data-clip data-clip-delay="150"><em>The lists are not.</em></span>
-      </h2>
+      <p class="so-kicker" data-reveal>{sure.kicker}</p>
+      <ClipHeading class="so-h so-sure__h" id="so-sure-t" text={sure.heading} />
 
       <ul class="so-sure__list">
-        {certainty.map((c, i) => (
+        {sure.cells.map((c, i) => (
           <li class={`so-note so-note--${c.state}`} data-reveal data-reveal-delay={140 + i * 110}>
             <span class="so-note__i" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none">
@@ -405,8 +346,8 @@ const COMBINATIONS = '/academics/structure/subject-combinations/';
               </svg>
             </span>
             <div class="so-note__t">
-              <h3 class="so-note__k">{c.k}</h3>
-              <p class="so-note__b">{c.body}</p>
+              <h3 class="so-note__k">{c.label}</h3>
+              <p class="so-note__b">{c.value}</p>
             </div>
           </li>
         ))}
@@ -416,17 +357,17 @@ const COMBINATIONS = '/academics/structure/subject-combinations/';
     <div class="so-panel" data-reveal data-reveal-delay="120">
       <span class="so-panel__glow" aria-hidden="true"></span>
 
-      <p class="so-panel__label">Confirmed by the school</p>
+      <RichLine class="so-panel__label" text={sure.body[0]} />
 
       <ul class="so-panel__four">
-        {streams.map((s) => (
-          <li class={`so-chip so-chip--${s.tint}`}>
+        {streams.map((s, i) => (
+          <li class={`so-chip so-chip--${tintOf(i)}`}>
             <span class="so-chip__i" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none">
                 <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={MARK[s.mark]} />
               </svg>
             </span>
-            <span class="so-chip__k">{s.name}</span>
+            <span class="so-chip__k">{s.label}</span>
           </li>
         ))}
       </ul>
@@ -437,10 +378,7 @@ const COMBINATIONS = '/academics/structure/subject-combinations/';
             <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={MARK.doc} />
           </svg>
         </span>
-        <p class="so-panel__note">
-          For full subject combinations, electives and the year’s availability, see the school’s
-          Subject Combinations page.
-        </p>
+        <RichLine class="so-panel__note" text={sure.body[1]} />
         <a class="btn btn--primary so-panel__cta" href={COMBINATIONS}>
           Subject Combinations <span aria-hidden="true">→</span>
         </a>
@@ -473,7 +411,7 @@ const COMBINATIONS = '/academics/structure/subject-combinations/';
   }
   .so-kicker--dark { color: var(--sb-lime); }
 
-  .so-h {
+  :global(.so-h) {
     margin: clamp(12px, 1.5vw, 18px) 0 0;
     font-family: var(--sb-font-display);
     font-weight: 700;
@@ -481,10 +419,10 @@ const COMBINATIONS = '/academics/structure/subject-combinations/';
     letter-spacing: -0.04em;
     color: var(--sb-charcoal);
   }
-  .so-h span { display: block; }
-  .so-h em { font-style: normal; color: var(--sb-violet); }
+  :global(.so-h span) { display: block; }
+  :global(.so-h em) { font-style: normal; color: var(--sb-violet); }
 
-  .so-body {
+  :global(.so-body) {
     max-width: 34ch;
     margin: clamp(16px, 1.9vw, 24px) 0 0;
     font-size: clamp(13.5px, 0.98vw, 15.5px);
@@ -587,7 +525,7 @@ const COMBINATIONS = '/academics/structure/subject-combinations/';
   }
   /* Sized so the headline sets in THREE lines — "Four paths." / "One senior" /
      "secondary journey." A fourth line breaks the rhythm the numerals set. */
-  .so-paths__h { font-size: clamp(26px, 3.05vw, 43px); }
+  :global(.so-paths__h) { font-size: clamp(26px, 3.05vw, 43px); }
 
   .so-paths__list {
     display: grid;
@@ -740,7 +678,7 @@ const COMBINATIONS = '/academics/structure/subject-combinations/';
     gap: clamp(24px, 3vw, 48px);
     align-items: center;
   }
-  .so-x__h { font-size: clamp(26px, 3vw, 42px); }
+  :global(.so-x__h) { font-size: clamp(26px, 3vw, 42px); }
   .so-x__copy .so-body { max-width: 26ch; }
 
   .so-x__stage { position: relative; }
@@ -883,12 +821,12 @@ const COMBINATIONS = '/academics/structure/subject-combinations/';
   .so-dir__spark i:nth-child(3n) { animation-duration: 11s; animation-delay: -4s; }
 
   .so-dir__inner { position: relative; }
-  .so-dir__head { max-width: 46ch; }
-  .so-dir__h {
+  :global(.so-dir__head) { max-width: 46ch; }
+  :global(.so-dir__h) {
     font-size: clamp(26px, 3vw, 42px);
     color: #fff;
   }
-  .so-dir__h em { color: var(--sb-lime); font-style: italic; }
+  :global(.so-dir__h em) { color: var(--sb-lime); font-style: italic; }
 
   /* THE GHOST ROW — set on the brown so the four names read as the ground the
      real row rises out of. Low enough that it never competes with the labels
@@ -1050,7 +988,7 @@ const COMBINATIONS = '/academics/structure/subject-combinations/';
     gap: clamp(28px, 4vw, 68px);
     align-items: center;
   }
-  .so-sure__h { font-size: clamp(26px, 3vw, 42px); }
+  :global(.so-sure__h) { font-size: clamp(26px, 3vw, 42px); }
 
   .so-sure__list {
     margin: clamp(24px, 3vw, 40px) 0 0;
@@ -1113,7 +1051,7 @@ const COMBINATIONS = '/academics/structure/subject-combinations/';
     border-radius: 50%;
     background: radial-gradient(closest-side, rgba(255, 138, 92, 0.26) 0%, rgba(255, 138, 92, 0) 72%);
   }
-  .so-panel__label {
+  :global(.so-panel__label) {
     margin: 0 0 clamp(14px, 1.7vw, 22px);
     padding-bottom: clamp(12px, 1.4vw, 18px);
     border-bottom: 1px solid var(--sb-border);
@@ -1177,7 +1115,7 @@ const COMBINATIONS = '/academics/structure/subject-combinations/';
     color: var(--sb-violet);
   }
   .so-panel__doc svg { width: 58%; }
-  .so-panel__note {
+  :global(.so-panel__note) {
     margin: 0;
     font-size: clamp(11px, 0.82vw, 13px);
     line-height: 1.58;

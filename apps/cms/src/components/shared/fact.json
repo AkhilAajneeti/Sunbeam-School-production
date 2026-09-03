@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_shared_facts",
+  "info": {
+    "displayName": "Fact",
+    "icon": "check",
+    "description": "One itemised proof line, read off the source artwork. Repeatable. ⚠ 2000 CHARACTERS, AND A text FIELD. It began as a one-line proof read off artwork, but the academics pages use the same shape for lists of full sentences — a stream's rationale, a policy's clauses. A 200-character string field truncated them, and the seed refused rather than storing half a sentence."
+  },
+  "options": {},
+  "attributes": {
+    "value": {
+      "type": "text",
+      "required": true,
+      "maxLength": 2000
+    }
+  }
+}

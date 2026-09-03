@@ -1,0 +1,1980 @@
+{
+  "/academics/philosophy/affiliation-details/": [
+    {
+      "key": "pCampus",
+      "binding": "pCampus",
+      "asset": "assets/photos/sunbeem-1.jpg",
+      "altRaw": "{`The campus of ${S} — its teaching blocks standing around the front lawn`}",
+      "alt": "The campus of {schoolName} — its teaching blocks standing around the front lawn",
+      "altInCode": false,
+      "name": "sunbeem-1"
+    },
+    {
+      "key": "pStairs",
+      "binding": "pStairs",
+      "asset": "assets/corridor and stairs/DSC_1221 copy.jpg",
+      "altRaw": "{`A stairwell at ${S} — a marble flight rising to the landing, steel handrails either side and framed notices on the wall above`}",
+      "alt": "A stairwell at {schoolName} — a marble flight rising to the landing, steel handrails either side and framed notices on the wall above",
+      "altInCode": false,
+      "name": "DSC_1221 copy"
+    },
+    {
+      "key": "docLetter",
+      "binding": "docLetter",
+      "asset": "assets/documents/cbse-affiliation-letter-2025-2030.jpg",
+      "altRaw": "{`Page one of the CBSE affiliation letter published by ${S}: letter number CBSE/${sb.affiliationNo}/EX-00497-2526/2025-26 dated ${sb.affiliationLetterDated}, subject “${sb.affiliationSubject}”, with a table giving affiliation number ${sb.affiliationNo}, school number ${sb.schoolCode} and period of affiliation ${sb.affiliationPeriod}, and the school’s stamp carrying UDISE code ${sb.udise}.`}",
+      "alt": null,
+      "altInCode": true,
+      "name": "cbse-affiliation-letter-2025-2030"
+    }
+  ],
+  "/academics/academic-calendar/": [
+    {
+      "key": "pMarch",
+      "binding": "pMarch",
+      "asset": "assets/calender/planner-2026-march.jpg",
+      "altRaw": "{`A month page of the Sunbeam School Calendar & Monthly Planner 2026-27, ruled into weeks with the month's observances printed in each cell`}",
+      "alt": "A month page of the Sunbeam School Calendar & Monthly Planner 2026-27, ruled into weeks with the month's observances printed in each cell",
+      "altInCode": false,
+      "name": "planner-2026-march"
+    },
+    {
+      "key": "pApril",
+      "binding": "pApril",
+      "asset": "assets/calender/planner-2026-april.jpg",
+      "altRaw": "{`A second month page of the same planner, the month in which the session begins`}",
+      "alt": "A second month page of the same planner, the month in which the session begins",
+      "altInCode": false,
+      "name": "planner-2026-april"
+    },
+    {
+      "key": "pCohort",
+      "binding": "pCohort",
+      "asset": "assets/photos/sunbeem-3.jpg",
+      "altRaw": null,
+      "alt": null,
+      "altInCode": true,
+      "name": "sunbeem-3"
+    }
+  ],
+  "/academics/assessment/": [
+    {
+      "key": "pForum",
+      "binding": "pForum",
+      "asset": "assets/parents forum/parents forum (3).jpg",
+      "altRaw": "{`Parents of ${S} seated in the hall at a Parents’ Forum session, each desk carrying a class placard`}",
+      "alt": "Parents of {schoolName} seated in the hall at a Parents’ Forum session, each desk carrying a class placard",
+      "altInCode": false,
+      "name": "parents forum (3)"
+    },
+    {
+      "key": "pSpeak",
+      "binding": "pSpeak",
+      "asset": "assets/parents forum/parents forum (4).jpg",
+      "altRaw": "{`A parent of ${S} speaking into the microphone at a Parents’ Forum session`}",
+      "alt": "A parent of {schoolName} speaking into the microphone at a Parents’ Forum session",
+      "altInCode": false,
+      "name": "parents forum (4)"
+    },
+    {
+      "key": "pCohort",
+      "binding": "pCohort",
+      "asset": "assets/photos/sunbeem-3.jpg",
+      "altRaw": null,
+      "alt": null,
+      "altInCode": true,
+      "name": "sunbeem-3"
+    }
+  ],
+  "/academics/board-results/": [
+    {
+      "key": "pExam",
+      "binding": "pExam",
+      "asset": "assets/photos/sunbeem-students.jpg",
+      "altRaw": "{`Students of ${S} working at the bench during a science practical`}",
+      "alt": "Students of {schoolName} working at the bench during a science practical",
+      "altInCode": false,
+      "name": "sunbeem-students"
+    },
+    {
+      "key": "pCampus",
+      "binding": "pCampus",
+      "asset": "assets/photos/sunbeem-1.jpg",
+      "altRaw": "{`The campus of ${S} at Agarsanda, its main block behind the lawns`}",
+      "alt": "The campus of {schoolName} at Agarsanda, its main block behind the lawns",
+      "altInCode": false,
+      "name": "sunbeem-1"
+    },
+    {
+      "key": "pLib",
+      "binding": "pLib",
+      "asset": "assets/photos/sb-library.jpg",
+      "altRaw": "{`Students of ${S} reading and working at the long tables of the Nalanda Library, a member of staff at the head of the row`}",
+      "alt": "Students of {schoolName} reading and working at the long tables of the Nalanda Library, a member of staff at the head of the row",
+      "altInCode": false,
+      "name": "sb-library"
+    },
+    {
+      "key": "pBench",
+      "binding": "pBench",
+      "asset": "assets/photos/sb-chem-lab.jpg",
+      "altRaw": "{`Students of ${S} working along the chemistry bench, test tubes held over the burners`}",
+      "alt": "Students of {schoolName} working along the chemistry bench, test tubes held over the burners",
+      "altInCode": false,
+      "name": "sb-chem-lab"
+    },
+    {
+      "key": "pCohort",
+      "binding": "pCohort",
+      "asset": "assets/photos/sunbeem-5.jpg",
+      "altRaw": null,
+      "alt": null,
+      "altInCode": true,
+      "name": "sunbeem-5"
+    }
+  ],
+  "/academics/student-success/career-guidance/": [
+    {
+      "key": "pTalk",
+      "binding": "pTalk",
+      "asset": "assets/school-activities/career-counselling/08.jpg",
+      "altRaw": "{`A visiting speaker addressing the senior school of ${S} on a lapel microphone, his projected deck headed “Dream BIG aim HIGH”`}",
+      "alt": "A visiting speaker addressing the senior school of {schoolName} on a lapel microphone, his projected deck headed “Dream BIG aim HIGH”",
+      "altInCode": false,
+      "name": "08"
+    },
+    {
+      "key": "pHall",
+      "binding": "pHall",
+      "asset": "assets/school-activities/career-counselling/01.jpg",
+      "altRaw": "{`The hall at ${S} during the career counselling session, the senior school seated in rows`}",
+      "alt": "The hall at {schoolName} during the career counselling session, the senior school seated in rows",
+      "altInCode": false,
+      "name": "career-counselling-01"
+    },
+    {
+      "key": "pCohort",
+      "binding": "pCohort",
+      "asset": "assets/photos/sunbeem-5.jpg",
+      "altRaw": null,
+      "alt": null,
+      "altInCode": true,
+      "name": "sunbeem-5"
+    }
+  ],
+  "/academics/assessment/competitive-exam-preparation/": [
+    {
+      "key": "pBench",
+      "binding": "pBench",
+      "asset": "assets/photos/sb-chem-lab.jpg",
+      "altRaw": "{`Students of ${S} working along the chemistry bench, test tubes held over the burners`}",
+      "alt": "Students of {schoolName} working along the chemistry bench, test tubes held over the burners",
+      "altInCode": false,
+      "name": "sb-chem-lab"
+    },
+    {
+      "key": "pComposite",
+      "binding": "pComposite",
+      "asset": "assets/composite lab/DSC_1257 copy.jpg",
+      "altRaw": "{`The composite laboratory at ${S}, apparatus set out along the benches`}",
+      "alt": "The composite laboratory at {schoolName}, apparatus set out along the benches",
+      "altInCode": false,
+      "name": "DSC_1257 copy"
+    },
+    {
+      "key": "pCohort",
+      "binding": "pCohort",
+      "asset": "assets/photos/sunbeem-3.jpg",
+      "altRaw": null,
+      "alt": null,
+      "altInCode": true,
+      "name": "sunbeem-3"
+    }
+  ],
+  "/academics/assessment/homework-policy/": [
+    {
+      "key": "pPanel",
+      "binding": "pPanel",
+      "asset": "assets/parents forum/parents forum (5).jpg",
+      "altRaw": "{`The leadership panel at a Parents’ Forum session at ${S}, the session’s twelve-item agenda projected on the screen beside them`}",
+      "alt": "The leadership panel at a Parents’ Forum session at {schoolName}, the session’s twelve-item agenda projected on the screen beside them",
+      "altInCode": false,
+      "name": "parents forum (5)"
+    },
+    {
+      "key": "pTiers",
+      "binding": "pTiers",
+      "asset": "assets/parents forum/parents forum (6).jpg",
+      "altRaw": "{`Parents of ${S} seated in the tiered rows of the hall during a Parents’ Forum session`}",
+      "alt": "Parents of {schoolName} seated in the tiered rows of the hall during a Parents’ Forum session",
+      "altInCode": false,
+      "name": "parents forum (6)"
+    },
+    {
+      "key": "pSeated",
+      "binding": "pSeated",
+      "asset": "assets/parents forum/parents forum (2).jpg",
+      "altRaw": "{`Parents of ${S} seated in the hall during a Parents’ Forum session`}",
+      "alt": "Parents of {schoolName} seated in the hall during a Parents’ Forum session",
+      "altInCode": false,
+      "name": "parents forum (2)"
+    },
+    {
+      "key": "pHall",
+      "binding": "pHall",
+      "asset": "assets/parents forum/parents forum (3).jpg",
+      "altRaw": "{`Parents of ${S} in the hall at a Parents’ Forum, each desk carrying a class placard`}",
+      "alt": "Parents of {schoolName} in the hall at a Parents’ Forum, each desk carrying a class placard",
+      "altInCode": false,
+      "name": "parents forum (3)"
+    },
+    {
+      "key": "pLibrary",
+      "binding": "pLibrary",
+      "asset": "assets/library/DSC_1226 copy.jpg",
+      "altRaw": "{`The Nalanda Library at ${S}, its shelves signed by subject and its reading tables set out`}",
+      "alt": "The Nalanda Library at {schoolName}, its shelves signed by subject and its reading tables set out",
+      "altInCode": false,
+      "name": "DSC_1226 copy"
+    },
+    {
+      "key": "pCohort",
+      "binding": "pCohort",
+      "asset": "assets/photos/sunbeem-3.jpg",
+      "altRaw": null,
+      "alt": null,
+      "altInCode": true,
+      "name": "sunbeem-3"
+    }
+  ],
+  "/academics/assessment/mentoring/": [
+    {
+      "key": "pLib",
+      "binding": "pLib",
+      "asset": "assets/photos/sb-library.jpg",
+      "altRaw": "{`Students of ${S} reading at the long tables of the library, a member of staff at the head of the row`}",
+      "alt": "Students of {schoolName} reading at the long tables of the library, a member of staff at the head of the row",
+      "altInCode": false,
+      "name": "sb-library"
+    },
+    {
+      "key": "pBench",
+      "binding": "pBench",
+      "asset": "assets/photos/sb-chem-lab.jpg",
+      "altRaw": "{`Students of ${S} working along the chemistry bench`}",
+      "alt": "Students of {schoolName} working along the chemistry bench",
+      "altInCode": false,
+      "name": "sb-chem-lab"
+    },
+    {
+      "key": "pCorridor",
+      "binding": "pCorridor",
+      "asset": "assets/corridor and stairs/DSC_1222 copy.jpg",
+      "altRaw": "{`A corridor at ${S}, its classroom doors running the length of the block`}",
+      "alt": "A corridor at {schoolName}, its classroom doors running the length of the block",
+      "altInCode": false,
+      "name": "DSC_1222 copy"
+    },
+    {
+      "key": "pTables",
+      "binding": "pTables",
+      "asset": "assets/library/DSC_1230 copy.jpg",
+      "altRaw": "{`The reading tables of the Nalanda Library at ${S}, set out along the shelves`}",
+      "alt": "The reading tables of the Nalanda Library at {schoolName}, set out along the shelves",
+      "altInCode": false,
+      "name": "DSC_1230 copy"
+    },
+    {
+      "key": "pStage",
+      "binding": "pStage",
+      "asset": "assets/photos/sunbeem-5.jpg",
+      "altRaw": "{`Student council office-bearers and NCC cadets of ${S} on stage with the school’s dignitaries`}",
+      "alt": "Student council office-bearers and NCC cadets of {schoolName} on stage with the school’s dignitaries",
+      "altInCode": false,
+      "name": "sunbeem-5"
+    },
+    {
+      "key": "pCohort",
+      "binding": "pCohort",
+      "asset": "assets/photos/sunbeem-3.jpg",
+      "altRaw": "\"\"",
+      "alt": "",
+      "altInCode": false,
+      "name": "sunbeem-3"
+    }
+  ],
+  "/academics/student-success/olympiad-achievements/": [
+    {
+      "key": "pComposite",
+      "binding": "pComposite",
+      "asset": "assets/composite lab/DSC_1255 copy.jpg",
+      "altRaw": "{`The composite laboratory at ${S}, its benches and apparatus laid out along the room`}",
+      "alt": "The composite laboratory at {schoolName}, its benches and apparatus laid out along the room",
+      "altInCode": false,
+      "name": "DSC_1255 copy"
+    },
+    {
+      "key": "pComposite2",
+      "binding": "pComposite",
+      "asset": "assets/composite lab/DSC_1255 copy.jpg",
+      "altRaw": "{`A detail of the composite laboratory at ${S}`}",
+      "alt": "A detail of the composite laboratory at {schoolName}",
+      "altInCode": false,
+      "name": "DSC_1255 copy"
+    },
+    {
+      "key": "pMaths",
+      "binding": "pMaths",
+      "asset": "assets/photos/sb-maths-lab.jpg",
+      "altRaw": "{`The mathematics laboratory at ${S}, its models and charts set out on the working surfaces`}",
+      "alt": "The mathematics laboratory at {schoolName}, its models and charts set out on the working surfaces",
+      "altInCode": false,
+      "name": "sb-maths-lab"
+    },
+    {
+      "key": "pActivity",
+      "binding": "pActivity",
+      "asset": "assets/activity learning lab/DSC_1215 copy.jpg",
+      "altRaw": "{`The activity learning room at ${S}, its worktables set out for group work`}",
+      "alt": "The activity learning room at {schoolName}, its worktables set out for group work",
+      "altInCode": false,
+      "name": "DSC_1215 copy"
+    },
+    {
+      "key": "pLib",
+      "binding": "pLib",
+      "asset": "assets/library/DSC_1226 copy.jpg",
+      "altRaw": "{`The Nalanda Library at ${S}, its shelves signed by subject`}",
+      "alt": "The Nalanda Library at {schoolName}, its shelves signed by subject",
+      "altInCode": false,
+      "name": "DSC_1226 copy"
+    },
+    {
+      "key": "pCohort",
+      "binding": "pCohort",
+      "asset": "assets/photos/sunbeem-5.jpg",
+      "altRaw": null,
+      "alt": null,
+      "altInCode": true,
+      "name": "sunbeem-5"
+    }
+  ],
+  "/academics/assessment/parent-teacher-meetings/": [
+    {
+      "key": "pHall",
+      "binding": "pHall",
+      "asset": "assets/parent-teacher-day/ptd-welcome.jpg",
+      "altRaw": "{`Parents of ${S} seated in the hall at a Parents’ Forum session, each desk carrying a class placard`}",
+      "alt": "The entrance to {schoolName} on Parent-Teacher Day, the Head Boy and Head Girl standing at the welcome board with parents arriving at the help desks beyond",
+      "altInCode": false,
+      "overridden": "The slot showed a Parents' Forum sitting. This is Parent-Teacher Day itself.",
+      "name": "ptd-welcome"
+    },
+    {
+      "key": "pTiers",
+      "binding": "pTiers",
+      "asset": "assets/parent-teacher-day/ptd-junior-family.jpg",
+      "altRaw": "{`Parents of ${S} seated in the tiered rows of the hall during a Parents’ Forum session`}",
+      "alt": "A mother and father at {schoolName} completing a form with the class teacher, their child at the desk beside them and other parents waiting their turn",
+      "altInCode": false,
+      "overridden": "The slot showed rows of seated parents at a forum. This is a junior-section meeting.",
+      "name": "ptd-junior-family"
+    },
+    {
+      "key": "pPanel",
+      "binding": "pPanel",
+      "asset": "assets/parent-teacher-day/ptd-senior-desk.jpg",
+      "altRaw": "{`The leadership panel at a Parents’ Forum session at ${S}, the session’s twelve-item agenda projected on the screen beside them`}",
+      "alt": "A class teacher at {schoolName} going through a student's record with both parents across the desk, the student sitting beside them",
+      "altInCode": false,
+      "overridden": "The slot showed a Parents' Forum panel. This is the meeting the page is about.",
+      "name": "ptd-senior-desk"
+    },
+    {
+      "key": "pSpeak",
+      "binding": "pSpeak",
+      "asset": "assets/parent-teacher-day/ptd-report.jpg",
+      "altRaw": "{`A parent of ${S} speaking into the microphone at a Parents’ Forum session`}",
+      "alt": "A teacher at {schoolName} going through a report with parents at a classroom desk on Parent-Teacher Day",
+      "altInCode": false,
+      "overridden": "The slot showed a parent at a forum microphone, which is a different event.",
+      "name": "ptd-report"
+    },
+    {
+      "key": "pCohort",
+      "binding": "pCohort",
+      "asset": "assets/photos/sunbeem-3.jpg",
+      "altRaw": null,
+      "alt": null,
+      "altInCode": true,
+      "name": "sunbeem-3"
+    }
+  ],
+  "/academics/assessment/remedial-support/": [
+    {
+      "key": "pBench",
+      "binding": "pBench",
+      "asset": "assets/photos/sb-chem-lab.jpg",
+      "altRaw": "{`Students of ${S} working along the chemistry bench, test tubes held over the burners`}",
+      "alt": "Students of {schoolName} working along the chemistry bench, test tubes held over the burners",
+      "altInCode": false,
+      "name": "sb-chem-lab"
+    },
+    {
+      "key": "pActivity",
+      "binding": "pActivity",
+      "asset": "assets/photos/sb-maths-lab.jpg",
+      "altRaw": "{`Students of ${S} seated on the floor of a decorated activity room during a lesson`}",
+      "alt": "Students of {schoolName} seated on the floor of a decorated activity room during a lesson",
+      "altInCode": false,
+      "name": "sb-maths-lab"
+    },
+    {
+      "key": "pCohort",
+      "binding": "pCohort",
+      "asset": "assets/photos/sunbeem-3.jpg",
+      "altRaw": null,
+      "alt": null,
+      "altInCode": true,
+      "name": "sunbeem-3"
+    }
+  ],
+  "/academics/student-success/scholarships/": [
+    {
+      "key": "pAward",
+      "binding": "pAward",
+      "asset": "assets/school achivement/innoventure.jpg",
+      "altRaw": "{`${S}'s award graphic for securing second position in Uttar Pradesh at the National School Innovation Awards, showing the citation being presented on stage`}",
+      "alt": "{schoolName}'s award graphic for securing second position in Uttar Pradesh at the National School Innovation Awards, showing the citation being presented on stage",
+      "altInCode": false,
+      "name": "innoventure"
+    },
+    {
+      "key": "pCohort",
+      "binding": "pCohort",
+      "asset": "assets/photos/sunbeem-5.jpg",
+      "altRaw": null,
+      "alt": null,
+      "altInCode": true,
+      "name": "sunbeem-5"
+    }
+  ],
+  "/academics/student-success/subject-selection/": [
+    {
+      "key": "pDesk",
+      "binding": "pDesk",
+      "asset": "assets/school-activities/career-counselling/03.jpg",
+      "altRaw": "{`A student of ${S} and a family member seated opposite a counsellor working from a laptop, the school's Class X and XI career counselling banner behind them`}",
+      "alt": "A student of {schoolName} and a family member seated opposite a counsellor working from a laptop, the school's Class X and XI career counselling banner behind them",
+      "altInCode": false,
+      "name": "career-counselling-03"
+    },
+    {
+      "key": "pTalk",
+      "binding": "pTalk",
+      "asset": "assets/school-activities/career-counselling/08.jpg",
+      "altRaw": "{`A visiting speaker addressing the senior school of ${S}, his projected deck headed “Dream BIG aim HIGH”`}",
+      "alt": "A visiting speaker addressing the senior school of {schoolName}, his projected deck headed “Dream BIG aim HIGH”",
+      "altInCode": false,
+      "name": "08"
+    },
+    {
+      "key": "pCohort",
+      "binding": "pCohort",
+      "asset": "assets/photos/sunbeem-5.jpg",
+      "altRaw": null,
+      "alt": null,
+      "altInCode": true,
+      "name": "sunbeem-5"
+    }
+  ],
+  "/academics/student-success/success-stories/": [
+    {
+      "key": "pCohort",
+      "binding": "pCohort",
+      "asset": "assets/photos/sunbeem-5.jpg",
+      "altRaw": null,
+      "alt": null,
+      "altInCode": true,
+      "name": "sunbeem-5"
+    }
+  ],
+  "/academics/student-success/university-counselling/": [
+    {
+      "key": "gBoard",
+      "binding": "gBoard",
+      "asset": "assets/placement/WhatsApp Image 2025-12-02 at 11.49.42 AM.jpeg",
+      "altRaw": "{`${S}’s printed placement board, “Vision To Reality — Session 2024-25, Students Placed In Prestigious Colleges/Universities”, listing eighteen students with their course and institution above a strip of individual placement cards`}",
+      "alt": "{schoolName}’s printed placement board, “Vision To Reality — Session 2024-25, Students Placed In Prestigious Colleges/Universities”, listing eighteen students with their course and institution above a strip of individual placement cards",
+      "altInCode": false,
+      "name": "WhatsApp Image 2025-12-02 at 11.49.42 AM"
+    },
+    {
+      "key": "pCohort",
+      "binding": "pCohort",
+      "asset": "assets/photos/sunbeem-5.jpg",
+      "altRaw": null,
+      "alt": null,
+      "altInCode": true,
+      "name": "sunbeem-5"
+    }
+  ],
+  "/academics/philosophy/critical-thinking/": [
+    {
+      "key": "pTrainer",
+      "binding": "pTrainer",
+      "asset": "assets/workshops/CriticalThinking/CriticalThinking2.jpg",
+      "altRaw": "{`Prof. Pradeep Mishra of Lovely Professional University speaking at the Critical Thinking workshop for teachers at ${school.name}`}",
+      "alt": null,
+      "altInCode": true,
+      "name": "CriticalThinking2"
+    },
+    {
+      "key": "pDelegation",
+      "binding": "pDelegation",
+      "asset": "assets/excursions/imun-1.jpg",
+      "altRaw": "{`The ${school.name} delegation holding the school flag at the MU20 Model United Nations conference`}",
+      "alt": null,
+      "altInCode": true,
+      "name": "imun-1"
+    },
+    {
+      "key": "pCertificates",
+      "binding": "pCertificates",
+      "asset": "assets/excursions/imun-3.jpg",
+      "altRaw": "{`Four delegates from ${school.name} holding their Model United Nations certificates in front of the national flags`}",
+      "alt": null,
+      "altInCode": true,
+      "name": "imun-3"
+    },
+    {
+      "key": "pMonash",
+      "binding": "pMonash",
+      "asset": "assets/school-event/Monash-Innovation/Monash-Innovation-01.jpg",
+      "altRaw": "{`A student of ${school.name} beside the Monash University Innovation Guarantee banner at an outreach session`}",
+      "alt": null,
+      "altInCode": true,
+      "name": "Monash-Innovation-01"
+    },
+    {
+      "key": "pCanva",
+      "binding": "pCanva",
+      "asset": "assets/school-event/Impetus—ClassesIII-V/Impetus—ClassesIII-V-02.jpg",
+      "altRaw": "{`A Canva Presentation activity in progress with a class at ${school.name} during Impetus, Classes III to V`}",
+      "alt": null,
+      "altInCode": true,
+      "name": "Impetus—ClassesIII-V-02"
+    },
+    {
+      "key": "pMaking",
+      "binding": "pMaking",
+      "asset": "assets/School Activity in Uniform/Embriodery.jpg",
+      "altRaw": "{`Students of ${school.name} working on embroidery together from one shared basket of thread`}",
+      "alt": null,
+      "altInCode": true,
+      "name": "Embriodery"
+    },
+    {
+      "key": "pRocket",
+      "binding": "pRocket",
+      "asset": "assets/school-activities/summer-camp/05.jpg",
+      "altRaw": "{`A young student of ${school.name} holding a hand-made rocket cut-out at the Star Gazing session`}",
+      "alt": null,
+      "altInCode": true,
+      "name": "summer-camp-05"
+    }
+  ],
+  "/academics/philosophy/experiential-inquiry/": [
+    {
+      "key": "pChef",
+      "binding": "pChef",
+      "asset": "assets/School Activity in Uniform/School Activity in Uniform (1).jpg",
+      "altRaw": "{`A teacher at ${school.name} demonstrating at the table during a cooking activity, her class in paper chef hats around her`}",
+      "alt": null,
+      "altInCode": true,
+      "name": "School Activity in Uniform (1)"
+    },
+    {
+      "key": "pOwnWork",
+      "binding": "pOwnWork",
+      "asset": "assets/School Activity in Uniform/School Activity in Uniform (5).jpeg",
+      "altRaw": "{`Two students of ${school.name} sharing a desk, each working on her own drawing`}",
+      "alt": null,
+      "altInCode": true,
+      "name": "School Activity in Uniform (5)"
+    },
+    {
+      "key": "pStars",
+      "binding": "pStars",
+      "asset": "assets/school-activities/taramandal-show/03.jpg",
+      "altRaw": "{`The night sky projected onto the inside of the Taramandal dome at ${school.name}`}",
+      "alt": null,
+      "altInCode": true,
+      "name": "taramandal-show-03"
+    },
+    {
+      "key": "pCompost",
+      "binding": "pCompost",
+      "asset": "assets/school-activities/little-agriculturists/02.jpg",
+      "altRaw": "{`A young student of ${school.name} adding kitchen scraps to the compost bin at the Little Agriculturists activity`}",
+      "alt": null,
+      "altInCode": true,
+      "name": "little-agriculturists-02"
+    },
+    {
+      "key": "pStarSet",
+      "binding": "pStarSet",
+      "asset": "assets/school-activities/summer-camp/02.jpg",
+      "altRaw": "{`A young student of ${school.name} with her teacher inside a hand-made Star Gazing display`}",
+      "alt": null,
+      "altInCode": true,
+      "name": "summer-camp-02"
+    },
+    {
+      "key": "pHall",
+      "binding": "pHall",
+      "asset": "assets/school-activities/josh-spring-camp/02.jpg",
+      "altRaw": "{`Students of ${school.name} seated together in the school hall`}",
+      "alt": null,
+      "altInCode": true,
+      "name": "josh-spring-camp-02"
+    }
+  ],
+  "/academics/parent-partnership/parent-orientation/": [
+    {
+      "key": "pPrecept",
+      "binding": "pPrecept",
+      "asset": "assets/school-event/Parent-Orientation/pop4-2024-a.jpg",
+      "altRaw": "{`A member of staff at ${S} holding up the PRECEPT syllabus booklet to parents seated in the conference room during a Parent's Orientation Programme`}",
+      "alt": "A member of staff at {schoolName} holding up the PRECEPT syllabus booklet to parents seated in the conference room during a Parent's Orientation Programme",
+      "altInCode": false,
+      "name": "pop4-2024-a"
+    },
+    {
+      "key": "pClassWide",
+      "binding": "pClassWide",
+      "asset": "assets/school-event/Parent-Orientation/pop1-2024-d.jpg",
+      "altRaw": "{`A classroom of students at ${S} writing at their desks during a Parent's Orientation Programme, in coats and woollen caps`}",
+      "alt": "A classroom of students at {schoolName} writing at their desks during a Parent's Orientation Programme, in coats and woollen caps",
+      "altInCode": false,
+      "name": "pop1-2024-d"
+    },
+    {
+      "key": "pDeskTwo",
+      "binding": "pDeskTwo",
+      "asset": "assets/school-event/Parent-Orientation/pop1-2024-c.jpg",
+      "altRaw": "{`Two parents in conversation with a member of staff across a desk at ${S}`}",
+      "alt": "Two parents in conversation with a member of staff across a desk at {schoolName}",
+      "altInCode": false,
+      "name": "pop1-2024-c"
+    },
+    {
+      "key": "pDeskFamily",
+      "binding": "pDeskFamily",
+      "asset": "assets/school-event/Parent-Orientation/pop1-2024-b.jpg",
+      "altRaw": "{`A mother, father and small child seated across a desk from a member of staff at ${S} during a Parent's Orientation Programme`}",
+      "alt": "A mother, father and small child seated across a desk from a member of staff at {schoolName} during a Parent's Orientation Programme",
+      "altInCode": false,
+      "name": "pop1-2024-b"
+    }
+  ],
+  "/academics/parent-partnership/": [
+    {
+      "key": "photo",
+      "binding": "photo",
+      "asset": "assets/parents forum/parents forum (6).jpg",
+      "altRaw": "{e.alt}",
+      "alt": null,
+      "altInCode": true,
+      "name": "parents forum (6)"
+    },
+    {
+      "key": "photo2",
+      "binding": "photo",
+      "asset": "assets/parents forum/parents forum (4).jpg",
+      "altRaw": "{faq.alt}",
+      "alt": null,
+      "altInCode": true,
+      "name": "parents forum (4)"
+    },
+    {
+      "key": "photo3",
+      "binding": "photo",
+      "asset": "assets/photos/sunbeem-2.jpg",
+      "altRaw": "\"The whole school gathered at the entrance of Sunbeam School Ballia beneath the school name.\"",
+      "alt": "The whole school gathered at the entrance of Sunbeam School Ballia beneath the school name.",
+      "altInCode": false,
+      "name": "sunbeem-2"
+    },
+    {
+      "key": "entrancePhoto",
+      "binding": "entrancePhoto",
+      "asset": "assets/photos/sunbeem-2.jpg",
+      "altRaw": "\"Students and staff of Sunbeam School Ballia gathered at the entrance to the school.\"",
+      "alt": "Students and staff of Sunbeam School Ballia gathered at the entrance to the school.",
+      "altInCode": false,
+      "name": "sunbeem-2"
+    },
+    {
+      "key": "campusPhoto",
+      "binding": "campusPhoto",
+      "asset": "assets/photos/sunbeem-1.jpg",
+      "altRaw": "\"The Sunbeam School Ballia campus at Agarsanda.\"",
+      "alt": "The Sunbeam School Ballia campus at Agarsanda.",
+      "altInCode": false,
+      "name": "sunbeem-1"
+    },
+    {
+      "key": "readingPhoto",
+      "binding": "readingPhoto",
+      "asset": "assets/parents forum/parents forum (1).jpg",
+      "altRaw": "\"Parents at a forum session at Sunbeam School Ballia.\"",
+      "alt": "Parents at a forum session at Sunbeam School Ballia.",
+      "altInCode": false,
+      "name": "parents forum (1)"
+    },
+    {
+      "key": "portrait",
+      "binding": "portrait",
+      "asset": "assets/photos/sb-principal.jpg",
+      "altRaw": "{`${voice.name}, Principal of Sunbeam School Ballia.`}",
+      "alt": null,
+      "altInCode": true,
+      "name": "sb-principal"
+    },
+    {
+      "key": "pCampus",
+      "binding": "pCampus",
+      "asset": "assets/photos/sunbeem-1.jpg",
+      "altRaw": "{`The main building of ${S} at Agarsanda, its name across the front elevation.`}",
+      "alt": "The main building of {schoolName} at Agarsanda, its name across the front elevation.",
+      "altInCode": false,
+      "name": "sunbeem-1"
+    }
+  ],
+  "/academics/parent-partnership/parents-forum/": [
+    {
+      "key": "pRoom",
+      "binding": "pRoom",
+      "asset": "assets/parents forum/parents forum (3).jpg",
+      "altRaw": "{`Parents of ${S} seated at desks during a Parents' Forum sitting, each desk carrying a printed class nameplate`}",
+      "alt": "Parents of {schoolName} seated at desks during a Parents' Forum sitting, each desk carrying a printed class nameplate",
+      "altInCode": false,
+      "name": "parents forum (3)"
+    },
+    {
+      "key": "pRows",
+      "binding": "pRows",
+      "asset": "assets/parents forum/parents forum (2).jpg",
+      "altRaw": "{`A closer view of parents seated in the rows at a Parents' Forum sitting at ${S}`}",
+      "alt": "A closer view of parents seated in the rows at a Parents' Forum sitting at {schoolName}",
+      "altInCode": false,
+      "name": "parents forum (2)"
+    },
+    {
+      "key": "pCohort",
+      "binding": "pCohort",
+      "asset": "assets/photos/sunbeem-3.jpg",
+      "altRaw": null,
+      "alt": null,
+      "altInCode": true,
+      "name": "sunbeem-3"
+    },
+    {
+      "key": "pPanel",
+      "binding": "pPanel",
+      "asset": "assets/parents forum/parents forum (5).jpg",
+      "altRaw": "{`The Parents' Forum agenda projected on a screen at ${S}, with a panel of the school's leadership seated beneath it behind a name plate`}",
+      "alt": "The Parents' Forum agenda projected on a screen at {schoolName}, with a panel of the school's leadership seated beneath it behind a name plate",
+      "altInCode": false,
+      "name": "parents forum (5)"
+    },
+    {
+      "key": "pMic",
+      "binding": "pMic",
+      "asset": "assets/parents forum/parents forum (4).jpg",
+      "altRaw": "{`A parent at a Parents' Forum sitting at ${S} speaking into a hand-held microphone from the floor, the desk in front labelled II-C`}",
+      "alt": "A parent at a Parents' Forum sitting at {schoolName} speaking into a hand-held microphone from the floor, the desk in front labelled II-C",
+      "altInCode": false,
+      "name": "parents forum (4)"
+    }
+  ],
+  "/academics/parent-partnership/school-parent-communication/": [
+    {
+      "key": "pPanel",
+      "binding": "pPanel",
+      "asset": "assets/parents forum/parents forum (2).jpg",
+      "altRaw": "{`Parents of ${S} seated in the rows at a school meeting`}",
+      "alt": "Parents of {schoolName} seated in the rows at a school meeting",
+      "altInCode": false,
+      "name": "parents forum (2)"
+    },
+    {
+      "key": "pPanel2",
+      "binding": "pPanel",
+      "asset": "assets/parents forum/parents forum (2).jpg",
+      "altRaw": "{`Parents of ${S} listening at a school meeting`}",
+      "alt": "Parents of {schoolName} listening at a school meeting",
+      "altInCode": false,
+      "name": "parents forum (2)"
+    },
+    {
+      "key": "pLib",
+      "binding": "pLib",
+      "asset": "assets/photos/sb-library.jpg",
+      "altRaw": "{`The Nalanda Library at ${S}, its reading tables set out beneath signed shelves`}",
+      "alt": "The Nalanda Library at {schoolName}, its reading tables set out beneath signed shelves",
+      "altInCode": false,
+      "name": "sb-library"
+    },
+    {
+      "key": "pLib2",
+      "binding": "pLib",
+      "asset": "assets/photos/sb-library.jpg",
+      "altRaw": "{`Students reading at the tables of the Nalanda Library at ${S}`}",
+      "alt": "Students reading at the tables of the Nalanda Library at {schoolName}",
+      "altInCode": false,
+      "name": "sb-library"
+    },
+    {
+      "key": "pCohort",
+      "binding": "pCohort",
+      "asset": "assets/photos/sunbeem-3.jpg",
+      "altRaw": null,
+      "alt": null,
+      "altInCode": true,
+      "name": "sunbeem-3"
+    }
+  ],
+  "/academics/philosophy/": [
+    {
+      "key": "campus",
+      "binding": "campus",
+      "asset": "assets/photos/sunbeem-1.jpg",
+      "altRaw": "{`The main building of ${school.name} seen across its ground`}",
+      "alt": null,
+      "altInCode": true,
+      "name": "sunbeem-1"
+    },
+    {
+      "key": "lab",
+      "binding": "lab",
+      "asset": "assets/chem lab/DSC_1262 copy.jpg",
+      "altRaw": "{`A subject laboratory at ${school.name}`}",
+      "alt": null,
+      "altInCode": true,
+      "name": "DSC_1262 copy"
+    },
+    {
+      "key": "activity",
+      "binding": "activity",
+      "asset": "assets/activity learning lab/DSC_1215 copy.jpg",
+      "altRaw": "{`The activity learning lab at ${school.name}`}",
+      "alt": null,
+      "altInCode": true,
+      "name": "DSC_1215 copy"
+    },
+    {
+      "key": "assembly",
+      "binding": "assembly",
+      "asset": "assets/photos/sunbeem-5.jpg",
+      "altRaw": "{`Students and staff at an assembly at ${school.name}`}",
+      "alt": null,
+      "altInCode": true,
+      "name": "sunbeem-5"
+    },
+    {
+      "key": "ceremony",
+      "binding": "ceremony",
+      "asset": "assets/photos/sunbeem-4.jpg",
+      "altRaw": "{`An award ceremony in the hall at ${school.name}`}",
+      "alt": null,
+      "altInCode": true,
+      "name": "sunbeem-4"
+    }
+  ],
+  "/academics/structure/middle-school/": [
+    {
+      "key": "pMicro",
+      "binding": "pMicro",
+      "asset": "assets/photos/sb-sci-lab.jpg",
+      "altRaw": "{`A student of ${S} using a microscope beside plant specimens in flasks`}",
+      "alt": "A student of {schoolName} using a microscope beside plant specimens in flasks",
+      "altInCode": false,
+      "name": "sb-sci-lab"
+    },
+    {
+      "key": "pMaking",
+      "binding": "pMaking",
+      "asset": "assets/School Activity in Uniform/Embriodery.jpg",
+      "altRaw": "{`Students of ${S} working together on embroidery from one shared basket of thread`}",
+      "alt": "Students of {schoolName} working together on embroidery from one shared basket of thread",
+      "altInCode": false,
+      "name": "Embriodery"
+    },
+    {
+      "key": "pJunior",
+      "binding": "pJunior",
+      "asset": "assets/photos/sb-comp-lab-2.jpg",
+      "altRaw": "{`Younger students of ${S} working at desktop computers in the junior computer laboratory`}",
+      "alt": "Younger students of {schoolName} working at desktop computers in the junior computer laboratory",
+      "altInCode": false,
+      "name": "sb-comp-lab-2"
+    },
+    {
+      "key": "pLibrary",
+      "binding": "pLibrary",
+      "asset": "assets/photos/sb-library.jpg",
+      "altRaw": "{`Students of ${S} reading and working at tables in the Nalanda Library`}",
+      "alt": "Students of {schoolName} reading and working at tables in the Nalanda Library",
+      "altInCode": false,
+      "name": "sb-library"
+    },
+    {
+      "key": "pMachines",
+      "binding": "pMachines",
+      "asset": "assets/computer lab/it-3.jpeg",
+      "altRaw": "{`A class at ${S} at work in the computer laboratory, a teacher standing at the back of the room`}",
+      "alt": "A class at {schoolName} at work in the computer laboratory, a teacher standing at the back of the room",
+      "altInCode": false,
+      "name": "it-3"
+    },
+    {
+      "key": "pBench",
+      "binding": "pBench",
+      "asset": "assets/photos/sb-chem-lab.jpg",
+      "altRaw": "{`Students of ${S} at the bench in the chemistry laboratory`}",
+      "alt": "Students of {schoolName} at the bench in the chemistry laboratory",
+      "altInCode": false,
+      "name": "sb-chem-lab"
+    },
+    {
+      "key": "pGlass",
+      "binding": "pGlass",
+      "asset": "assets/photos/sb-bio-lab.jpg",
+      "altRaw": "{`Two students of ${S} handling glassware in the biology laboratory`}",
+      "alt": "Two students of {schoolName} handling glassware in the biology laboratory",
+      "altInCode": false,
+      "name": "sb-bio-lab"
+    },
+    {
+      "key": "pFloor",
+      "binding": "pFloor",
+      "asset": "assets/photos/sb-maths-lab.jpg",
+      "altRaw": "{`Students of ${S} seated on the floor of a decorated activity room during a lesson`}",
+      "alt": "Students of {schoolName} seated on the floor of a decorated activity room during a lesson",
+      "altInCode": false,
+      "name": "sb-maths-lab"
+    },
+    {
+      "key": "pChem",
+      "binding": "pChem",
+      "asset": "assets/chem lab/DSC_1262 copy.jpg",
+      "altRaw": "{`The chemistry laboratory at ${S}, benches laid out with reagent shelves and gas taps`}",
+      "alt": "The chemistry laboratory at {schoolName}, benches laid out with reagent shelves and gas taps",
+      "altInCode": false,
+      "name": "DSC_1262 copy"
+    },
+    {
+      "key": "pCohort",
+      "binding": "pCohort",
+      "asset": "assets/photos/sunbeem-3.jpg",
+      "altRaw": "\"\"",
+      "alt": "",
+      "altInCode": false,
+      "name": "sunbeem-3"
+    }
+  ],
+  "/academics/structure/pre-primary/": [
+    {
+      "key": "pPark",
+      "binding": "pPark",
+      "asset": "assets/play ground/DSC_1249 copy.jpg",
+      "altRaw": "{`The early-years kids park at ${S} — a merry-go-round, seesaw and climbing rails beside the junior block`}",
+      "alt": "The early-years kids park at {schoolName} — a merry-go-round, seesaw and climbing rails beside the junior block",
+      "altInCode": false,
+      "name": "DSC_1249 copy"
+    },
+    {
+      "key": "pCompost",
+      "binding": "pCompost",
+      "asset": "assets/school-activities/little-agriculturists/02.jpg",
+      "altRaw": "{`A young student of ${S} in the yellow junior uniform tipping kitchen peel into the compost bin at the Little Agriculturists activity`}",
+      "alt": "A young student of {schoolName} in the yellow junior uniform tipping kitchen peel into the compost bin at the Little Agriculturists activity",
+      "altInCode": false,
+      "name": "little-agriculturists-02"
+    },
+    {
+      "key": "pTables",
+      "binding": "pTables",
+      "asset": "assets/activity learning lab/DSC_1216 copy.jpg",
+      "altRaw": "{`The curved activity tables and toy shelves of the early-years activity room at ${S}`}",
+      "alt": "The curved activity tables and toy shelves of the early-years activity room at {schoolName}",
+      "altInCode": false,
+      "name": "DSC_1216 copy"
+    },
+    {
+      "key": "pBin",
+      "binding": "pBin",
+      "asset": "assets/school-activities/little-agriculturists/01.jpg",
+      "altRaw": "{`A teacher and a young student of ${S} adding dry leaves to the compost bin under the hand-lettered Little Agriculturist sign`}",
+      "alt": "A teacher and a young student of {schoolName} adding dry leaves to the compost bin under the hand-lettered Little Agriculturist sign",
+      "altInCode": false,
+      "name": "little-agriculturists-01"
+    },
+    {
+      "key": "pTrays",
+      "binding": "pTrays",
+      "asset": "assets/school-activities/little-agriculturists/04.jpg",
+      "altRaw": "{`Trays of finished compost and kitchen peel on the ground beside young students of ${S}`}",
+      "alt": "Trays of finished compost and kitchen peel on the ground beside young students of {schoolName}",
+      "altInCode": false,
+      "name": "04"
+    },
+    {
+      "key": "pGather",
+      "binding": "pGather",
+      "asset": "assets/school-activities/josh-spring-camp/02.jpg",
+      "altRaw": "{`Junior classes of ${S} seated together on the ground facing the stage at the JOSH Sports and Spring Camp`}",
+      "alt": "Junior classes of {schoolName} seated together on the ground facing the stage at the JOSH Sports and Spring Camp",
+      "altInCode": false,
+      "name": "josh-spring-camp-02"
+    },
+    {
+      "key": "pGown",
+      "binding": "pGown",
+      "asset": "assets/celebration/kg-convocation/kg-convocation-09.jpg",
+      "altRaw": "\"\"",
+      "alt": "",
+      "altInCode": false,
+      "name": "kg-convocation-09"
+    }
+  ],
+  "/academics/structure/primary/": [
+    {
+      "key": "pMic",
+      "binding": "pMic",
+      "asset": "assets/school-event/Impetus—ClassesIII-V/Impetus—ClassesIII-V-05.jpg",
+      "altRaw": "{`A student of ${S} presenting at the microphone during the Impetus “Math Around Me” session`}",
+      "alt": "A student of {schoolName} presenting at the microphone during the Impetus “Math Around Me” session",
+      "altInCode": false,
+      "name": "Impetus—ClassesIII-V-05"
+    },
+    {
+      "key": "pCraft",
+      "binding": "pCraft",
+      "asset": "assets/School Activity in Uniform/School Activity in Uniform (5).jpeg",
+      "altRaw": "{`Two students of ${S} sharing a desk, each working on her own drawing with colour pencils and cut paper`}",
+      "alt": "Two students of {schoolName} sharing a desk, each working on her own drawing with colour pencils and cut paper",
+      "altInCode": false,
+      "name": "School Activity in Uniform (5)"
+    },
+    {
+      "key": "pCitation",
+      "binding": "pCitation",
+      "asset": "assets/school-event/Impetus—ClassesIII-V/Impetus—ClassesIII-V-03.jpg",
+      "altRaw": "{`A student of ${S} receiving a Citation of Appreciation from a teacher at the Impetus session`}",
+      "alt": "A student of {schoolName} receiving a Citation of Appreciation from a teacher at the Impetus session",
+      "altInCode": false,
+      "name": "Impetus—ClassesIII-V-03"
+    },
+    {
+      "key": "pBoard",
+      "binding": "pBoard",
+      "asset": "assets/school-event/Impetus—ClassesIII-V/Impetus—ClassesIII-V-04.jpg",
+      "altRaw": "{`A teacher at ${S} introducing the Impetus Canva Presentation session at the interactive board`}",
+      "alt": "A teacher at {schoolName} introducing the Impetus Canva Presentation session at the interactive board",
+      "altInCode": false,
+      "name": "Impetus—ClassesIII-V-04"
+    },
+    {
+      "key": "pMaking",
+      "binding": "pMaking",
+      "asset": "assets/School Activity in Uniform/Embriodery.jpg",
+      "altRaw": "{`Students of ${S} seated on the floor in a circle, working with embroidery hoops, thread and felt`}",
+      "alt": "Students of {schoolName} seated on the floor in a circle, working with embroidery hoops, thread and felt",
+      "altInCode": false,
+      "name": "Embriodery"
+    },
+    {
+      "key": "pReading",
+      "binding": "pReading",
+      "asset": "assets/school-event/Reading-Carnival/Reading-Carnival-03.jpg",
+      "altRaw": "{`The Reading Carnival display at ${S}, its Class 3–5 story book rack behind the guests`}",
+      "alt": "The Reading Carnival display at {schoolName}, its Class 3–5 story book rack behind the guests",
+      "altInCode": false,
+      "name": "Reading-Carnival-03"
+    },
+    {
+      "key": "pAssembly",
+      "binding": "pAssembly",
+      "asset": "assets/school-event/Impetus—ClassesIII-V/Impetus—ClassesIII-V-08.jpg",
+      "altRaw": "{`Junior classes of ${S} seated together under the covered ground at an Impetus gathering`}",
+      "alt": "Junior classes of {schoolName} seated together under the covered ground at an Impetus gathering",
+      "altInCode": false,
+      "name": "Impetus—ClassesIII-V-08"
+    },
+    {
+      "key": "pLamp",
+      "binding": "pLamp",
+      "asset": "assets/school-event/Impetus—ClassesIII-V/Impetus—ClassesIII-V-07.jpg",
+      "altRaw": "{`Staff of ${S} lighting the lamp at the inauguration of the Impetus programme`}",
+      "alt": "Staff of {schoolName} lighting the lamp at the inauguration of the Impetus programme",
+      "altInCode": false,
+      "name": "Impetus—ClassesIII-V-07"
+    },
+    {
+      "key": "pLibrary",
+      "binding": "pLibrary",
+      "asset": "assets/library/DSC_1226 copy.jpg",
+      "altRaw": "{`The Nalanda Library at ${S}, its shelves signed by subject and its reading tables set out`}",
+      "alt": "The Nalanda Library at {schoolName}, its shelves signed by subject and its reading tables set out",
+      "altInCode": false,
+      "name": "DSC_1226 copy"
+    },
+    {
+      "key": "pComputer",
+      "binding": "pComputer",
+      "asset": "assets/computer lab/DSC_1206 copy.jpg",
+      "altRaw": "{`A computer laboratory at ${S}, machines laid out along the benches`}",
+      "alt": "A computer laboratory at {schoolName}, machines laid out along the benches",
+      "altInCode": false,
+      "name": "DSC_1206 copy"
+    },
+    {
+      "key": "pBio",
+      "binding": "pBio",
+      "asset": "assets/bio lab/DSC_1274 copy.jpg",
+      "altRaw": "{`The biology laboratory at ${S}, microscopes and models on the benches`}",
+      "alt": "The biology laboratory at {schoolName}, microscopes and models on the benches",
+      "altInCode": false,
+      "name": "DSC_1274 copy"
+    },
+    {
+      "key": "pCourt",
+      "binding": "pCourt",
+      "asset": "assets/basket ball/DSC_1280 copy.jpg",
+      "altRaw": "{`The basketball court at ${S}, the hoop set against the school block`}",
+      "alt": "The basketball court at {schoolName}, the hoop set against the school block",
+      "altInCode": false,
+      "name": "DSC_1280 copy"
+    },
+    {
+      "key": "pCohort",
+      "binding": "pCohort",
+      "asset": "assets/photos/sunbeem-3.jpg",
+      "altRaw": "\"\"",
+      "alt": "",
+      "altInCode": false,
+      "name": "sunbeem-3"
+    }
+  ],
+  "/academics/structure/secondary/": [
+    {
+      "key": "pGuest",
+      "binding": "pGuest",
+      "asset": "assets/school-event/Guiding-Futures/Guiding-Futures-01.jpg",
+      "altRaw": "{`Guests at the Guiding Futures session being shown the Nalanda Library at ${S}`}",
+      "alt": "Guests at the Guiding Futures session being shown the Nalanda Library at {schoolName}",
+      "altInCode": false,
+      "name": "Guiding-Futures-01"
+    },
+    {
+      "key": "pRoom",
+      "binding": "pRoom",
+      "asset": "assets/bio lab/DSC_1274 copy.jpg",
+      "altRaw": "{`A subject laboratory at ${S}, benches and apparatus laid out along the room`}",
+      "alt": "A subject laboratory at {schoolName}, benches and apparatus laid out along the room",
+      "altInCode": false,
+      "name": "DSC_1274 copy"
+    },
+    {
+      "key": "pBench",
+      "binding": "pBench",
+      "asset": "assets/photos/sb-chem-lab.jpg",
+      "altRaw": "{`Students of ${S} at the bench in the chemistry laboratory`}",
+      "alt": "Students of {schoolName} at the bench in the chemistry laboratory",
+      "altInCode": false,
+      "name": "sb-chem-lab"
+    },
+    {
+      "key": "pMachines",
+      "binding": "pMachines",
+      "asset": "assets/photos/sb-comp-lab-2.jpg",
+      "altRaw": "{`Younger students of ${S} working at desktop computers in the junior computer laboratory`}",
+      "alt": "Younger students of {schoolName} working at desktop computers in the junior computer laboratory",
+      "altInCode": false,
+      "name": "sb-comp-lab-2"
+    },
+    {
+      "key": "pLibrary",
+      "binding": "pLibrary",
+      "asset": "assets/photos/sb-library.jpg",
+      "altRaw": "{`Students of ${S} reading and working at tables in the Nalanda Library`}",
+      "alt": "Students of {schoolName} reading and working at tables in the Nalanda Library",
+      "altInCode": false,
+      "name": "sb-library"
+    },
+    {
+      "key": "pMicro",
+      "binding": "pMicro",
+      "asset": "assets/photos/sb-sci-lab.jpg",
+      "altRaw": "{`A student of ${S} using a microscope beside plant specimens in flasks`}",
+      "alt": "A student of {schoolName} using a microscope beside plant specimens in flasks",
+      "altInCode": false,
+      "name": "sb-sci-lab"
+    },
+    {
+      "key": "pCourt",
+      "binding": "pCourt",
+      "asset": "assets/basket ball/DSC_1280 copy.jpg",
+      "altRaw": "{`The basketball court at ${S}, the hoop set against the school block`}",
+      "alt": "The basketball court at {schoolName}, the hoop set against the school block",
+      "altInCode": false,
+      "name": "DSC_1280 copy"
+    },
+    {
+      "key": "pCohort",
+      "binding": "pCohort",
+      "asset": "assets/photos/sunbeem-3.jpg",
+      "altRaw": "\"\"",
+      "alt": "",
+      "altInCode": false,
+      "name": "sunbeem-3"
+    }
+  ],
+  "/academics/structure/senior-secondary/": [
+    {
+      "key": "pBench",
+      "binding": "pBench",
+      "asset": "assets/photos/sb-chem-lab.jpg",
+      "altRaw": "{`Students of ${S} at the bench in the chemistry laboratory`}",
+      "alt": "Students of {schoolName} at the bench in the chemistry laboratory",
+      "altInCode": false,
+      "name": "sb-chem-lab"
+    },
+    {
+      "key": "pLibrary",
+      "binding": "pLibrary",
+      "asset": "assets/photos/sb-library.jpg",
+      "altRaw": "{`Students of ${S} reading and working at tables in the Nalanda Library`}",
+      "alt": "Students of {schoolName} reading and working at tables in the Nalanda Library",
+      "altInCode": false,
+      "name": "sb-library"
+    },
+    {
+      "key": "pMicro",
+      "binding": "pMicro",
+      "asset": "assets/photos/sb-sci-lab.jpg",
+      "altRaw": "{`A student of ${S} using a microscope beside plant specimens in flasks`}",
+      "alt": "A student of {schoolName} using a microscope beside plant specimens in flasks",
+      "altInCode": false,
+      "name": "sb-sci-lab"
+    },
+    {
+      "key": "pMonash",
+      "binding": "pMonash",
+      "asset": "assets/school-event/Monash-Innovation/Monash-Innovation-01.jpg",
+      "altRaw": "{`A student of ${S} beside the Monash University Innovation Guarantee banner at an outreach session`}",
+      "alt": "A student of {schoolName} beside the Monash University Innovation Guarantee banner at an outreach session",
+      "altInCode": false,
+      "name": "Monash-Innovation-01"
+    },
+    {
+      "key": "pChem",
+      "binding": "pChem",
+      "asset": "assets/chem lab/DSC_1262 copy.jpg",
+      "altRaw": "{`The chemistry laboratory at ${S}, benches laid out with reagent shelves and gas taps`}",
+      "alt": "The chemistry laboratory at {schoolName}, benches laid out with reagent shelves and gas taps",
+      "altInCode": false,
+      "name": "DSC_1262 copy"
+    },
+    {
+      "key": "pMachines",
+      "binding": "pMachines",
+      "asset": "assets/photos/sb-comp-lab-2.jpg",
+      "altRaw": "{`Younger students of ${S} working at desktop computers in the junior computer laboratory`}",
+      "alt": "Younger students of {schoolName} working at desktop computers in the junior computer laboratory",
+      "altInCode": false,
+      "name": "sb-comp-lab-2"
+    },
+    {
+      "key": "pActivity",
+      "binding": "pActivity",
+      "asset": "assets/photos/sb-maths-lab.jpg",
+      "altRaw": "{`Students of ${S} seated on the floor of a decorated activity room during a lesson`}",
+      "alt": "Students of {schoolName} seated on the floor of a decorated activity room during a lesson",
+      "altInCode": false,
+      "name": "sb-maths-lab"
+    },
+    {
+      "key": "pRoom",
+      "binding": "pRoom",
+      "asset": "assets/bio lab/DSC_1274 copy.jpg",
+      "altRaw": "{`A subject laboratory at ${S}, benches and apparatus laid out along the room`}",
+      "alt": "A subject laboratory at {schoolName}, benches and apparatus laid out along the room",
+      "altInCode": false,
+      "name": "DSC_1274 copy"
+    },
+    {
+      "key": "pCourt",
+      "binding": "pCourt",
+      "asset": "assets/basket ball/DSC_1280 copy.jpg",
+      "altRaw": "{`The basketball court at ${S}, the hoop set against the school block`}",
+      "alt": "The basketball court at {schoolName}, the hoop set against the school block",
+      "altInCode": false,
+      "name": "DSC_1280 copy"
+    },
+    {
+      "key": "pCohort",
+      "binding": "pCohort",
+      "asset": "assets/photos/sunbeem-3.jpg",
+      "altRaw": "\"\"",
+      "alt": "",
+      "altInCode": false,
+      "name": "sunbeem-3"
+    }
+  ],
+  "/academics/structure/streams-offered/": [
+    {
+      "key": "pLab",
+      "binding": "pLab",
+      "asset": "assets/photos/sb-chem-lab.jpg",
+      "altRaw": "{`Senior students of ${school.name} at the laboratory bench, test tubes and burners in front of them`}",
+      "alt": null,
+      "altInCode": true,
+      "name": "sb-chem-lab"
+    }
+  ],
+  "/academics/structure/subject-combinations/": [
+    {
+      "key": "pLead",
+      "binding": "pLead",
+      "asset": "assets/photos/sb-phy-lab.jpg",
+      "altRaw": "{`Senior students of ${school.name} at the physics laboratory benches, apparatus in front of them and subject portraits along the wall`}",
+      "alt": null,
+      "altInCode": true,
+      "name": "sb-phy-lab"
+    },
+    {
+      "key": "pCampus",
+      "binding": "pCampus",
+      "asset": "assets/photos/sunbeem-1.jpg",
+      "altRaw": "{`The campus of ${school.name} — its teaching blocks standing around the front lawn`}",
+      "alt": null,
+      "altInCode": true,
+      "name": "sunbeem-1"
+    }
+  ],
+  "/academics/philosophy/student-centred-learning/": [
+    {
+      "key": "pOwnWork",
+      "binding": "pOwnWork",
+      "asset": "assets/School Activity in Uniform/School Activity in Uniform (5).jpeg",
+      "altRaw": "{`Two students of ${school.name} sharing a desk, each working on her own drawing`}",
+      "alt": null,
+      "altInCode": true,
+      "name": "School Activity in Uniform (5)"
+    },
+    {
+      "key": "pSpeaking",
+      "binding": "pSpeaking",
+      "asset": "assets/school-activities/investiture-ceremony/05.jpg",
+      "altRaw": "{`The Head Boy of ${school.name} speaking into a microphone at the Student Council investiture ceremony`}",
+      "alt": null,
+      "altInCode": true,
+      "name": "investiture-ceremony-05"
+    },
+    {
+      "key": "pSash",
+      "binding": "pSash",
+      "asset": "assets/school-activities/investiture-ceremony/02.jpg",
+      "altRaw": "{`A student of ${school.name} being invested with the Head Boy sash`}",
+      "alt": null,
+      "altInCode": true,
+      "name": "investiture-ceremony-02"
+    },
+    {
+      "key": "pFlag",
+      "binding": "pFlag",
+      "asset": "assets/school-activities/investiture-ceremony/03.jpg",
+      "altRaw": "{`A house captain at ${school.name} kneeling to receive the house flag`}",
+      "alt": null,
+      "altInCode": true,
+      "name": "investiture-ceremony-03"
+    },
+    {
+      "key": "pGrowing",
+      "binding": "pGrowing",
+      "asset": "assets/school-activities/little-agriculturists/02.jpg",
+      "altRaw": "{`A young student of ${school.name} adding kitchen scraps to the compost bin at the Little Agriculturists activity`}",
+      "alt": null,
+      "altInCode": true,
+      "name": "little-agriculturists-02"
+    },
+    {
+      "key": "pCohort",
+      "binding": "pCohort",
+      "asset": "assets/photos/sunbeem-3.jpg",
+      "altRaw": "{`Students and staff of ${school.name} gathered on the hall stage`}",
+      "alt": null,
+      "altInCode": true,
+      "name": "sunbeem-3"
+    }
+  ],
+  "/academics/teaching-learning/experiential-learning/": [
+    {
+      "key": "pCompost",
+      "binding": "pCompost",
+      "asset": "assets/school-activities/little-agriculturists/03.jpg",
+      "altRaw": "{`A child of ${S} in gloves at the Little Agriculturists compost activity`}",
+      "alt": "A child of {schoolName} in gloves at the Little Agriculturists compost activity",
+      "altInCode": false,
+      "name": "little-agriculturists-03"
+    },
+    {
+      "key": "pOwnWork",
+      "binding": "pOwnWork",
+      "asset": "assets/School Activity in Uniform/School Activity in Uniform (5).jpeg",
+      "altRaw": "{`Two students of ${S} sharing a desk, each working on her own drawing`}",
+      "alt": "Two students of {schoolName} sharing a desk, each working on her own drawing",
+      "altInCode": false,
+      "name": "School Activity in Uniform (5)"
+    },
+    {
+      "key": "pCanva",
+      "binding": "pCanva",
+      "asset": "assets/school-event/Impetus—ClassesIII-V/Impetus—ClassesIII-V-02.jpg",
+      "altRaw": "{`A class at ${S} during the Canva Presentation session of the Impetus programme`}",
+      "alt": "A class at {schoolName} during the Canva Presentation session of the Impetus programme",
+      "altInCode": false,
+      "name": "Impetus—ClassesIII-V-02"
+    },
+    {
+      "key": "pMonash",
+      "binding": "pMonash",
+      "asset": "assets/school-event/Monash-Innovation/Monash-Innovation-01.jpg",
+      "altRaw": "{`A student of ${S} standing beside the Monash University “Innovation Guarantee” banner at the outreach session in Delhi`}",
+      "alt": "A student of {schoolName} standing beside the Monash University “Innovation Guarantee” banner at the outreach session in Delhi",
+      "altInCode": false,
+      "name": "Monash-Innovation-01"
+    },
+    {
+      "key": "pChef",
+      "binding": "pChef",
+      "asset": "assets/School Activity in Uniform/School Activity in Uniform (1).jpg",
+      "altRaw": "{`A teacher at ${S} demonstrating at the table during the papadi chaat activity, her class in paper chef hats around her`}",
+      "alt": "A teacher at {schoolName} demonstrating at the table during the papadi chaat activity, her class in paper chef hats around her",
+      "altInCode": false,
+      "name": "School Activity in Uniform (1)"
+    },
+    {
+      "key": "pThread",
+      "binding": "pThread",
+      "asset": "assets/School Activity in Uniform/Embriodery.jpg",
+      "altRaw": "{`Students of ${S} embroidering from one shared basket of thread`}",
+      "alt": "Students of {schoolName} embroidering from one shared basket of thread",
+      "altInCode": false,
+      "name": "Embriodery"
+    },
+    {
+      "key": "pCohort",
+      "binding": "pCohort",
+      "asset": "assets/photos/sunbeem-3.jpg",
+      "altRaw": "\"\"",
+      "alt": "",
+      "altInCode": false,
+      "name": "sunbeem-3"
+    }
+  ],
+  "/academics/teaching-learning/": [
+    {
+      "key": "bioPhoto",
+      "binding": "bioPhoto",
+      "asset": "assets/photos/sb-bio-lab.jpg",
+      "altRaw": "\"Two students of Sunbeam School Ballia handling glassware in the biology laboratory.\"",
+      "alt": "Two students of Sunbeam School Ballia handling glassware in the biology laboratory.",
+      "altInCode": false,
+      "name": "sb-bio-lab"
+    },
+    {
+      "key": "sciPhoto",
+      "binding": "sciPhoto",
+      "asset": "assets/photos/sb-sci-lab.jpg",
+      "altRaw": "\"A student of Sunbeam School Ballia using a microscope beside plant specimens in flasks.\"",
+      "alt": "A student of Sunbeam School Ballia using a microscope beside plant specimens in flasks.",
+      "altInCode": false,
+      "name": "sb-sci-lab"
+    },
+    {
+      "key": "mathsPhoto",
+      "binding": "mathsPhoto",
+      "asset": "assets/photos/sb-maths-lab.jpg",
+      "altRaw": "\"Students of Sunbeam School Ballia seated on the floor of a decorated activity room during a lesson.\"",
+      "alt": "Students of Sunbeam School Ballia seated on the floor of a decorated activity room during a lesson.",
+      "altInCode": false,
+      "name": "sb-maths-lab"
+    },
+    {
+      "key": "libraryPhoto",
+      "binding": "libraryPhoto",
+      "asset": "assets/photos/sb-library.jpg",
+      "altRaw": "{words.alt}",
+      "alt": null,
+      "altInCode": true,
+      "name": "sb-library"
+    }
+  ],
+  "/academics/teaching-learning/laboratories-clubs/": [
+    {
+      "key": "pBench",
+      "binding": "pBench",
+      "asset": "assets/photos/sb-chem-lab.jpg",
+      "altRaw": "{`Students of ${S} working along the chemistry bench, test tubes held over the burners`}",
+      "alt": "Students of {schoolName} working along the chemistry bench, test tubes held over the burners",
+      "altInCode": false,
+      "name": "sb-chem-lab"
+    },
+    {
+      "key": "pBio",
+      "binding": "pBio",
+      "asset": "assets/bio lab/DSC_1275 copy.jpg",
+      "altRaw": "{`The biology laboratory at ${S} between classes — red stools along the bench, microscopes on the shelves and anatomy charts on the wall`}",
+      "alt": "The biology laboratory at {schoolName} between classes — red stools along the bench, microscopes on the shelves and anatomy charts on the wall",
+      "altInCode": false,
+      "name": "DSC_1275 copy"
+    },
+    {
+      "key": "pMicro",
+      "binding": "pMicro",
+      "asset": "assets/photos/sb-sci-lab.jpg",
+      "altRaw": "{`A student of ${S} at the microscope, conical flasks of plant cuttings and an anatomy model on the bench beside her`}",
+      "alt": "A student of {schoolName} at the microscope, conical flasks of plant cuttings and an anatomy model on the bench beside her",
+      "altInCode": false,
+      "name": "sb-sci-lab"
+    },
+    {
+      "key": "pActivity",
+      "binding": "pActivity",
+      "asset": "assets/activity learning lab/DSC_1218 copy.jpg",
+      "altRaw": "{`The activity learning laboratory at ${S}, its worktables set out for group work`}",
+      "alt": "The activity learning laboratory at {schoolName}, its worktables set out for group work",
+      "altInCode": false,
+      "name": "DSC_1218 copy"
+    },
+    {
+      "key": "pMaths",
+      "binding": "pMaths",
+      "asset": "assets/photos/sb-maths-lab.jpg",
+      "altRaw": "{`The mathematics laboratory at ${S}, its models and charts set out on the working surfaces`}",
+      "alt": "The mathematics laboratory at {schoolName}, its models and charts set out on the working surfaces",
+      "altInCode": false,
+      "name": "sb-maths-lab"
+    },
+    {
+      "key": "pTables",
+      "binding": "pTables",
+      "asset": "assets/activity learning lab/DSC_1217 copy.jpg",
+      "altRaw": "{`The activity learning laboratory at ${S} — one crescent table with chairs set all the way round it`}",
+      "alt": "The activity learning laboratory at {schoolName} — one crescent table with chairs set all the way round it",
+      "altInCode": false,
+      "name": "DSC_1217 copy"
+    },
+    {
+      "key": "pCohort",
+      "binding": "pCohort",
+      "asset": "assets/photos/sunbeem-3.jpg",
+      "altRaw": "\"\"",
+      "alt": "",
+      "altInCode": false,
+      "name": "sunbeem-3"
+    }
+  ],
+  "/academics/teaching-learning/methodology/": [
+    {
+      "key": "pDesk",
+      "binding": "pDesk",
+      "asset": "assets/School Activity in Uniform/School Activity in Uniform (5).jpeg",
+      "altRaw": "{`Two students of ${S} sharing a desk, one reaching across for a colour pencil while the other works on her own drawing`}",
+      "alt": "Two students of {schoolName} sharing a desk, one reaching across for a colour pencil while the other works on her own drawing",
+      "altInCode": false,
+      "name": "School Activity in Uniform (5)"
+    },
+    {
+      "key": "pTables",
+      "binding": "pTables",
+      "asset": "assets/activity learning lab/DSC_1217 copy.jpg",
+      "altRaw": "{`The activity learning laboratory at ${S} — one crescent table with chairs set all the way round it`}",
+      "alt": "The activity learning laboratory at {schoolName} — one crescent table with chairs set all the way round it",
+      "altInCode": false,
+      "name": "DSC_1217 copy"
+    },
+    {
+      "key": "pThread",
+      "binding": "pThread",
+      "asset": "assets/School Activity in Uniform/Embriodery.jpg",
+      "altRaw": "{`Students of ${S} sitting in a circle on the floor, embroidering from one shared basket of thread between them`}",
+      "alt": "Students of {schoolName} sitting in a circle on the floor, embroidering from one shared basket of thread between them",
+      "altInCode": false,
+      "name": "Embriodery"
+    },
+    {
+      "key": "pChef",
+      "binding": "pChef",
+      "asset": "assets/School Activity in Uniform/School Activity in Uniform (1).jpg",
+      "altRaw": "{`A teacher at ${S} demonstrating at the table during the papadi chaat activity, her class in paper chef hats gathered around her`}",
+      "alt": "A teacher at {schoolName} demonstrating at the table during the papadi chaat activity, her class in paper chef hats gathered around her",
+      "altInCode": false,
+      "name": "School Activity in Uniform (1)"
+    },
+    {
+      "key": "pCohort",
+      "binding": "pCohort",
+      "asset": "assets/photos/sunbeem-3.jpg",
+      "altRaw": "\"\"",
+      "alt": "",
+      "altInCode": false,
+      "name": "sunbeem-3"
+    }
+  ],
+  "/academics/teaching-learning/reading-language/": [
+    {
+      "key": "pReading",
+      "binding": "pReading",
+      "asset": "assets/photos/sb-library.jpg",
+      "altRaw": "{`Students of ${S} reading at the long tables of the Nalanda Library, a member of staff at the head of the row`}",
+      "alt": "Students of {schoolName} reading at the long tables of the Nalanda Library, a member of staff at the head of the row",
+      "altInCode": false,
+      "name": "sb-library"
+    },
+    {
+      "key": "pRoom",
+      "binding": "pRoom",
+      "asset": "assets/library/DSC_1224 copy.jpg",
+      "altRaw": "{`The Nalanda Library at ${S} between classes — reading tables and chairs, with shelves signed “Ballia Literature”, “Mythology” and “Magazines”`}",
+      "alt": "The Nalanda Library at {schoolName} between classes — reading tables and chairs, with shelves signed “Ballia Literature”, “Mythology” and “Magazines”",
+      "altInCode": false,
+      "name": "DSC_1224 copy"
+    },
+    {
+      "key": "pTables",
+      "binding": "pTables",
+      "asset": "assets/library/DSC_1230 copy.jpg",
+      "altRaw": "{`The reading tables of the Nalanda Library at ${S}, set out beneath the periodical shelves`}",
+      "alt": "The reading tables of the Nalanda Library at {schoolName}, set out beneath the periodical shelves",
+      "altInCode": false,
+      "name": "DSC_1230 copy"
+    },
+    {
+      "key": "pCarnival",
+      "binding": "pCarnival",
+      "asset": "assets/school-event/Reading-Carnival/Reading-Carnival-01.jpg",
+      "altRaw": "{`Children of ${S} at the Reading Carnival racks, picking books from shelves headed “Story” and “Activity”`}",
+      "alt": "Children of {schoolName} at the Reading Carnival racks, picking books from shelves headed “Story” and “Activity”",
+      "altInCode": false,
+      "name": "Reading-Carnival-01"
+    },
+    {
+      "key": "pRacks",
+      "binding": "pRacks",
+      "asset": "assets/school-event/Reading-Carnival/Reading-Carnival-02.jpg",
+      "altRaw": "{`A corridor at ${S} during the Reading Carnival, its book racks signed by section`}",
+      "alt": "A corridor at {schoolName} during the Reading Carnival, its book racks signed by section",
+      "altInCode": false,
+      "name": "Reading-Carnival-02"
+    },
+    {
+      "key": "pAward",
+      "binding": "pAward",
+      "asset": "assets/school-activities/ardent-reader-award/03.jpg",
+      "altRaw": "{`A student of ${S} in a prefect’s sash with a member of staff, from the school’s Ardent Reader Award photographs`}",
+      "alt": "A student of {schoolName} in a prefect’s sash with a member of staff, from the school’s Ardent Reader Award photographs",
+      "altInCode": false,
+      "name": "ardent-reader-award-03"
+    },
+    {
+      "key": "pAssembly",
+      "binding": "pAssembly",
+      "asset": "assets/school-activities/ardent-reader-award/01.jpg",
+      "altRaw": "{`The whole school of ${S} seated under the canopy for an assembly, staff along the side`}",
+      "alt": "The whole school of {schoolName} seated under the canopy for an assembly, staff along the side",
+      "altInCode": false,
+      "name": "ardent-reader-award-01"
+    },
+    {
+      "key": "pCohort",
+      "binding": "pCohort",
+      "asset": "assets/photos/sunbeem-3.jpg",
+      "altRaw": "\"\"",
+      "alt": "",
+      "altInCode": false,
+      "name": "sunbeem-3"
+    }
+  ],
+  "/academics/teaching-learning/smart-classrooms/": [
+    {
+      "key": "pLabBusy",
+      "binding": "pLabBusy",
+      "asset": "assets/computer lab/it-3.jpeg",
+      "altRaw": "{`The senior computer laboratory at ${S} in use — students at the machines along both benches with a teacher standing at the back of the room`}",
+      "alt": "The senior computer laboratory at {schoolName} in use — students at the machines along both benches with a teacher standing at the back of the room",
+      "altInCode": false,
+      "name": "it-3"
+    },
+    {
+      "key": "pCanva",
+      "binding": "pCanva",
+      "asset": "assets/school-event/Impetus—ClassesIII-V/Impetus—ClassesIII-V-02.jpg",
+      "altRaw": "{`A class at ${S} during the Canva Presentation activity of the Impetus programme, seated at their desks with the activity poster on the teacher's table`}",
+      "alt": "A class at {schoolName} during the Canva Presentation activity of the Impetus programme, seated at their desks with the activity poster on the teacher's table",
+      "altInCode": false,
+      "name": "Impetus—ClassesIII-V-02"
+    },
+    {
+      "key": "pLabRow",
+      "binding": "pLabRow",
+      "asset": "assets/computer lab/it-8.jpeg",
+      "altRaw": "{`Students of ${S} at work down the length of the senior computer laboratory, a teacher walking the row behind them`}",
+      "alt": "Students of {schoolName} at work down the length of the senior computer laboratory, a teacher walking the row behind them",
+      "altInCode": false,
+      "name": "it-8"
+    },
+    {
+      "key": "pLabEmpty",
+      "binding": "pLabEmpty",
+      "asset": "assets/computer lab/DSC_1206 copy.jpg",
+      "altRaw": "{`The computer laboratory at ${S} between classes, its machines set out along the benches`}",
+      "alt": "The computer laboratory at {schoolName} between classes, its machines set out along the benches",
+      "altInCode": false,
+      "name": "DSC_1206 copy"
+    },
+    {
+      "key": "pLabEmpty2",
+      "binding": "pLabEmpty",
+      "asset": "assets/computer lab/DSC_1206 copy.jpg",
+      "altRaw": "{`The computer laboratory at ${S}, its machines set out along the benches`}",
+      "alt": "The computer laboratory at {schoolName}, its machines set out along the benches",
+      "altInCode": false,
+      "name": "DSC_1206 copy"
+    },
+    {
+      "key": "pLabTaught",
+      "binding": "pLabTaught",
+      "asset": "assets/computer lab/it-10.jpeg",
+      "altRaw": "{`A computer room at ${S} during a lesson — a teacher at the front and wall charts of keyboard keys and PC shortcuts behind the machines`}",
+      "alt": "A computer room at {schoolName} during a lesson — a teacher at the front and wall charts of keyboard keys and PC shortcuts behind the machines",
+      "altInCode": false,
+      "name": "it-10"
+    },
+    {
+      "key": "pCarnival",
+      "binding": "pCarnival",
+      "asset": "assets/school-event/Reading-Carnival/Reading-Carnival-02.jpg",
+      "altRaw": "{`A corridor at ${S} during the Reading Carnival, with the school's Microsoft Innovative Educator Expert 2024 posters displayed on the wall behind the book racks`}",
+      "alt": "A corridor at {schoolName} during the Reading Carnival, with the school's Microsoft Innovative Educator Expert 2024 posters displayed on the wall behind the book racks",
+      "altInCode": false,
+      "name": "Reading-Carnival-02"
+    },
+    {
+      "key": "pCohort",
+      "binding": "pCohort",
+      "asset": "assets/photos/sunbeem-3.jpg",
+      "altRaw": "\"\"",
+      "alt": "",
+      "altInCode": false,
+      "name": "sunbeem-3"
+    }
+  ],
+  "/academics/teaching-learning/stem-robotics/": [
+    {
+      "key": "pPhysics",
+      "binding": "pPhysics",
+      "asset": "assets/photos/sb-phy-lab.jpg",
+      "altRaw": "{`Senior students of ${S} at the physics laboratory benches, apparatus in front of them and subject portraits along the wall`}",
+      "alt": "Senior students of {schoolName} at the physics laboratory benches, apparatus in front of them and subject portraits along the wall",
+      "altInCode": false,
+      "name": "sb-phy-lab"
+    },
+    {
+      "key": "pComposite",
+      "binding": "pComposite",
+      "asset": "assets/composite lab/DSC_1256 copy.jpg",
+      "altRaw": "{`The composite laboratory at ${S} between classes, its long benches and apparatus set out along the room`}",
+      "alt": "The composite laboratory at {schoolName} between classes, its long benches and apparatus set out along the room",
+      "altInCode": false,
+      "name": "DSC_1256 copy"
+    },
+    {
+      "key": "pMicroscope",
+      "binding": "pMicroscope",
+      "asset": "assets/photos/sb-sci-lab.jpg",
+      "altRaw": "{`A student of ${S} at the microscope, conical flasks of plant cuttings and an anatomy model on the bench beside her`}",
+      "alt": "A student of {schoolName} at the microscope, conical flasks of plant cuttings and an anatomy model on the bench beside her",
+      "altInCode": false,
+      "name": "sb-sci-lab"
+    },
+    {
+      "key": "pCohort",
+      "binding": "pCohort",
+      "asset": "assets/photos/sunbeem-3.jpg",
+      "altRaw": "\"\"",
+      "alt": "",
+      "altInCode": false,
+      "name": "sunbeem-3"
+    }
+  ],
+  "/academics/philosophy/teaching-philosophy/": [
+    {
+      "key": "pStudents",
+      "binding": "pStudents",
+      "asset": "assets/photos/sunbeem-3.jpg",
+      "altRaw": "{`Students at ${school.name}`}",
+      "alt": null,
+      "altInCode": true,
+      "name": "sunbeem-3"
+    },
+    {
+      "key": "pComputers",
+      "binding": "pComputers",
+      "asset": "assets/computer lab/DSC_1204 copy.jpg",
+      "altRaw": "{`The computer laboratory at ${school.name}, rows of workstations facing an interactive board`}",
+      "alt": null,
+      "altInCode": true,
+      "name": "DSC_1204 copy"
+    },
+    {
+      "key": "pGround",
+      "binding": "pGround",
+      "asset": "assets/photos/sunbeem-1.jpg",
+      "altRaw": "{`Students together on the ground at ${school.name}`}",
+      "alt": null,
+      "altInCode": true,
+      "name": "sunbeem-1"
+    },
+    {
+      "key": "pCeremony",
+      "binding": "pCeremony",
+      "asset": "assets/photos/sunbeem-4.jpg",
+      "altRaw": "{`Students of ${school.name}`}",
+      "alt": null,
+      "altInCode": true,
+      "name": "sunbeem-4"
+    },
+    {
+      "key": "pMaking",
+      "binding": "pMaking",
+      "asset": "assets/School Activity in Uniform/Embriodery.jpg",
+      "altRaw": "{`Students of ${school.name} working on embroidery together`}",
+      "alt": null,
+      "altInCode": true,
+      "name": "Embriodery"
+    },
+    {
+      "key": "pChef",
+      "binding": "pChef",
+      "asset": "assets/School Activity in Uniform/School Activity in Uniform (1).jpg",
+      "altRaw": "{`A teacher at ${school.name} demonstrating at the table during a cooking activity, her class in paper chef hats around her`}",
+      "alt": null,
+      "altInCode": true,
+      "name": "School Activity in Uniform (1)"
+    },
+    {
+      "key": "pPair",
+      "binding": "pPair",
+      "asset": "assets/School Activity in Uniform/School Activity in Uniform (5).jpeg",
+      "altRaw": "{`Two students of ${school.name} at one desk, each working on her own drawing`}",
+      "alt": null,
+      "altInCode": true,
+      "name": "School Activity in Uniform (5)"
+    }
+  ],
+  "/academics/": [
+    {
+      "key": "heroPhoto",
+      "binding": "heroPhoto",
+      "asset": "assets/photos/sb-chem-lab.jpg",
+      "altRaw": "\"Students of Sunbeam School Ballia working with laboratory glassware and a burner during a chemistry lesson.\"",
+      "alt": "Students of Sunbeam School Ballia working with laboratory glassware and a burner during a chemistry lesson.",
+      "altInCode": false,
+      "name": "sb-chem-lab"
+    }
+  ],
+  "/academics/parent-partnership/faqs/": [
+    {
+      "key": "pReading",
+      "binding": "pReading",
+      "asset": "assets/photos/sb-library.jpg",
+      "altRaw": "{`Students of ${S} reading at the long tables of the Nalanda Library`}",
+      "alt": "Students of {schoolName} reading at the long tables of the Nalanda Library",
+      "altInCode": false,
+      "name": "sb-library"
+    },
+    {
+      "key": "pCampus",
+      "binding": "pCampus",
+      "asset": "assets/photos/sunbeem-1.jpg",
+      "altRaw": "{`The campus of ${S}, its blocks around the front lawn`}",
+      "alt": "The campus of {schoolName}, its blocks around the front lawn",
+      "altInCode": false,
+      "name": "sunbeem-1"
+    },
+    {
+      "key": "pCohort",
+      "binding": "pCohort",
+      "asset": "assets/photos/sunbeem-5.jpg",
+      "altRaw": "{`Student council office-bearers and NCC cadets of ${S} on stage with the school’s dignitaries`}",
+      "alt": "Student council office-bearers and NCC cadets of {schoolName} on stage with the school’s dignitaries",
+      "altInCode": false,
+      "name": "sunbeem-5"
+    }
+  ],
+  "/academics/philosophy/curriculum/": [
+    {
+      "key": "pCohort",
+      "binding": "pCohort",
+      "asset": "assets/photos/sunbeem-3.jpg",
+      "altRaw": null,
+      "alt": null,
+      "altInCode": true,
+      "name": "sunbeem-3"
+    }
+  ],
+  "/academics/student-success/alumni-interaction/": [
+    {
+      "key": "pCohort",
+      "binding": "pCohort",
+      "asset": "assets/photos/sunbeem-5.jpg",
+      "altRaw": null,
+      "alt": null,
+      "altInCode": true,
+      "name": "sunbeem-5"
+    },
+    {
+      "key": "gSudhanshu",
+      "binding": "gSudhanshu",
+      "asset": "assets/alumni/alumni (1).jpg",
+      "altRaw": null,
+      "alt": null,
+      "altInCode": true,
+      "name": "alumni (1)"
+    },
+    {
+      "key": "gAditya",
+      "binding": "gAditya",
+      "asset": "assets/alumni/alumni (2).jpg",
+      "altRaw": null,
+      "alt": null,
+      "altInCode": true,
+      "name": "alumni (2)"
+    },
+    {
+      "key": "gNavneet",
+      "binding": "gNavneet",
+      "asset": "assets/alumni/alumni (3).jpg",
+      "altRaw": null,
+      "alt": null,
+      "altInCode": true,
+      "name": "alumni (3)"
+    }
+  ]
+}

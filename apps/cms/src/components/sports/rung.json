@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_sports_rungs",
+  "info": { "displayName": "Ladder Rung", "icon": "chartBubble",
+    "description": "One step of the participation ladder. `accent` is one of four palette slots the band cycles; `pending` marks a rung the school has described but not evidenced." },
+  "options": {},
+  "attributes": {
+    "step": { "type": "string", "required": true, "maxLength": 16 },
+    "title": { "type": "string", "required": true, "maxLength": 200 },
+    "body": { "type": "text", "required": true, "maxLength": 1200 },
+    "items": { "type": "component", "repeatable": true, "component": "shared.fact" },
+    "milestone": { "type": "string", "maxLength": 240 },
+    "glyph": { "type": "string", "maxLength": 40 },
+    "accent": { "type": "enumeration", "required": true, "default": "teal", "enum": ["teal","violet","maroon","deep"] },
+    "pending": { "type": "boolean", "default": false, "required": true }
+  }
+}

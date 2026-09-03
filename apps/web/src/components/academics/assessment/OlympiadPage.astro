@@ -37,18 +37,22 @@
  *   03 · CREAM  Explore All Olympiads — chips, then the card rail.
  *   04 · PHOTO  the cinematic close.
  */
-import { Picture } from 'astro:assets';
 import '../../../styles/assessment.css';
 import { MARK } from './marks';
 import AsClose from './AsClose.astro';
 import AsRailSlider from './AsRailSlider.astro';
-import { olympiads } from '../../../data/studentSuccess';
 
-import pComposite from '../../../assets/composite lab/DSC_1255 copy.jpg';
-import pMaths from '../../../assets/photos/sb-maths-lab.jpg';
-import pActivity from '../../../assets/activity learning lab/DSC_1215 copy.jpg';
-import pLib from '../../../assets/library/DSC_1226 copy.jpg';
-import pCohort from '../../../assets/photos/sunbeem-5.jpg';
+import { getAcademicTopic } from '../../../lib/cms';
+import SmartImage from '../../ui/SmartImage.astro';
+import RichLine from '../../ui/RichLine.astro';
+
+const ac = await getAcademicTopic('/academics/student-success/olympiad-achievements/');
+const pComposite = ac.pic('pComposite2');
+const pActivity = ac.pic('pActivity');
+const pLib = ac.pic('pLib');
+const pMaths = ac.pic('pMaths');
+const pCohort = ac.pic('pCohort');
+const olympiads = ac.section('olympiads').awards;
 
 const S = 'Sunbeam School Ballia';
 
@@ -56,25 +60,14 @@ const PREP = '/academics/assessment/competitive-exam-preparation/';
 const STORIES = '/academics/student-success/success-stories/';
 
 /* ── SECTION 01 — three facts, and all three are published quantities ────── */
-const facts = [
-  { mark: 'grow', k: 'Nursery', v: 'Earliest entry' },
-  { mark: 'cup', k: 'Class III–V', v: 'Results & recognition' },
-  { mark: 'medal', k: '₹500', v: 'Zonal Excellence voucher' },
-] as const;
+const facts = ac.section('facts').points;
 
 /* ── SECTION 02 — the six, exactly as the school words them ──────────────── */
-const programmes = [
-  { mark: 'person', k: 'Vidyarthi Vigyan Manthan', v: 'Students qualified to the national level of the national science talent search.' },
-  { mark: 'doc', k: 'National Children’s Science Congress', v: 'National-level qualification.' },
-  { mark: 'bulb', k: 'Inspire Award MANAK', v: 'Student innovations selected for the Department of Science &amp; Technology’s MANAK scheme.' },
-  { mark: 'spark', k: 'Indian AI Impact Festival · 2024', v: 'Ayushi, of Class VII, placed <strong>first</strong>.' },
-  { mark: 'atom', k: 'SOF · Nursery – Class II', v: 'The olympiad, sat from the youngest years upward.' },
-  { mark: 'medal', k: 'SOF Zonal Excellence Award · III–V', v: 'The zonal award, with a ₹500 voucher.' },
-] as const;
+const programmes = ac.section('programmes').points;
 
 /* ⚠ THE CHIPS COME FROM THE RECORDS, NOT FROM A TYPED LIST. A category with no
    record cannot appear, so the filter can never offer an empty result. */
-const categories = ['All', ...Array.from(new Set(olympiads.map((o) => o.category)))];
+const categories = ac.section('categories').facts;
 ---
 
 {/* ══ 01 · ENTERED AT NURSERY ════════════════════════════════════════════════
@@ -124,10 +117,10 @@ const categories = ['All', ...Array.from(new Set(olympiads.map((o) => o.category
       <span class="as-dots ol-open__dots" aria-hidden="true"></span>
 
       <div class="ol-open__lead as-frame as-fill" data-mask>
-        <Picture
-          src={pComposite}
-          alt={`The composite laboratory at ${S}, its benches and apparatus laid out along the room`}
-          formats={['webp']}
+        <SmartImage
+          file={pComposite}
+          alt={ac.picAlt('pComposite')}
+         
           widths={[520, 880, 1200]}
           sizes="(max-width: 1023px) 92vw, 44vw"
           loading="eager"
@@ -135,10 +128,10 @@ const categories = ['All', ...Array.from(new Set(olympiads.map((o) => o.category
         />
       </div>
       <div class="ol-open__sm as-frame as-frame--float as-fill" data-pop data-pop-delay="200">
-        <Picture
-          src={pActivity}
-          alt={`The activity learning room at ${S}, its worktables set out for group work`}
-          formats={['webp']}
+        <SmartImage
+          file={pActivity}
+          alt={ac.picAlt('pActivity')}
+         
           widths={[320, 560]}
           sizes="(max-width: 1023px) 44vw, 17vw"
           loading="lazy"
@@ -162,10 +155,10 @@ const categories = ['All', ...Array.from(new Set(olympiads.map((o) => o.category
   <div class="u-container ol-nat__grid">
     <figure class="ol-nat__stage">
       <div class="ol-nat__lead as-frame as-fill" data-zoom data-zoom-to="1.04">
-        <Picture
-          src={pLib}
-          alt={`The Nalanda Library at ${S}, its shelves signed by subject`}
-          formats={['webp']}
+        <SmartImage
+          file={pLib}
+          alt={ac.picAlt('pLib')}
+         
           widths={[520, 880, 1200]}
           sizes="(max-width: 1023px) 92vw, 42vw"
           loading="lazy"
@@ -173,10 +166,10 @@ const categories = ['All', ...Array.from(new Set(olympiads.map((o) => o.category
         />
       </div>
       <div class="ol-nat__sm as-frame as-frame--float as-fill" data-pop data-pop-delay="180">
-        <Picture
-          src={pMaths}
-          alt={`The mathematics laboratory at ${S}, its models and charts set out on the working surfaces`}
-          formats={['webp']}
+        <SmartImage
+          file={pMaths}
+          alt={ac.picAlt('pMaths')}
+         
           widths={[320, 560]}
           sizes="(max-width: 1023px) 46vw, 18vw"
           loading="lazy"
@@ -184,10 +177,10 @@ const categories = ['All', ...Array.from(new Set(olympiads.map((o) => o.category
         />
       </div>
       <div class="ol-nat__cir as-frame as-frame--float as-frame--round as-fill" data-pop data-pop-delay="280">
-        <Picture
-          src={pComposite}
-          alt={`A detail of the composite laboratory at ${S}`}
-          formats={['webp']}
+        <SmartImage
+          file={pComposite}
+          alt={ac.picAlt('pComposite2')}
+         
           widths={[220, 400]}
           sizes="(max-width: 1023px) 28vw, 11vw"
           loading="lazy"
@@ -218,7 +211,11 @@ const categories = ['All', ...Array.from(new Set(olympiads.map((o) => o.category
             </span>
             <span class="ol-item__t">
               <span class="ol-item__k">{p.k}</span>
-              <span class="ol-item__v" set:html={p.v} />
+              <RichLine
+  tag="span"
+  class="ol-item__v"
+  text={p.v}
+/>
             </span>
           </li>
         ))}
@@ -271,14 +268,12 @@ const categories = ['All', ...Array.from(new Set(olympiads.map((o) => o.category
         <li class="ol-card" data-ol-cat={o.category}>
           <a class="ol-card__in" href={o.link}>
             <span class="ol-card__pic">
-              <Picture
-                src={o.image}
+              <SmartImage
+                file={o.image}
                 alt={o.alt}
-                formats={['webp']}
-                widths={[340, 620]}
                 sizes="(max-width: 767px) 84vw, 22vw"
+                fallbackWidth={1100}
                 loading="lazy"
-                decoding="async"
               />
               <span class="ol-card__badge">{o.category}</span>
             </span>

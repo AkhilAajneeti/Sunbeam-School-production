@@ -30,27 +30,22 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/ui/PageHero.astro';
 import CounterStrip from '../../components/academics/CounterStrip.astro';
 import { showBuildNotes } from '../../data/site';
-import { wins, guidance, awaiting } from '../../data/academics';
 
 /* The student council and NCC cadets with the school's dignitaries — the page is
    about what students have been recognised for. */
 import banner from '../../assets/photos/sunbeem-5.jpg';
+import { getAcademicTopic } from '../../lib/cms';
+
+const ac = await getAcademicTopic('/academics/student-success/');
+const wins = ac.section('wins').points;
+const guidance = ac.section('guidance').points;
+const awaiting = ac.section('awaiting').points;
 ---
 
 <BaseLayout
-  title="Student Success — Sunbeam School Ballia"
-  description="Named results at Sunbeam School Ballia: #1 Co-Ed Day School in Ballia for six consecutive years, Microsoft Showcase School with 100 certified teachers, and national science programme selections."
 >
   <PageHero
-    title="Student Success"
-    standfirst="Every figure here is published by the school and can be checked against a third party. Where it has not published something, this page says so rather than estimating."
-    crumbs={[
-      { label: 'Home', href: '/' },
-      { label: 'Academics', href: '/academics/' },
-    ]}
     src={banner}
-    alt="Student council office-bearers and NCC cadets of Sunbeam School Ballia on stage with the school's dignitaries."
-    position="50% 38%"
   />
 
   {/* ⚠ THE PANEL IS REQUIRED, NOT DECORATION. PageHero is position: sticky and

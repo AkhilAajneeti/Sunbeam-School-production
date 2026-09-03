@@ -44,17 +44,24 @@
  *   04 · CREAM  the contact panel.
  *   05 · PHOTO  the cinematic close.
  */
-import { Picture } from 'astro:assets';
+import SmartImage from '../../../components/ui/SmartImage.astro';
 import '../../../styles/assessment.css';
 import { MARK } from '../assessment/marks';
 import AsClose from '../assessment/AsClose.astro';
 import PpCta from './PpCta.astro';
 import Lightbox from '../../ui/Lightbox.astro';
-import { forumAgenda, agendaHeading, forumNameplates, engagementFacts } from '../../../data/parentsForum';
 
-import pRoom from '../../../assets/parents forum/parents forum (3).jpg';
-import pRows from '../../../assets/parents forum/parents forum (2).jpg';
-import pCohort from '../../../assets/photos/sunbeem-3.jpg';
+import { getAcademicTopic } from '../../../lib/cms';
+
+const ac = await getAcademicTopic('/academics/parent-partnership/parents-forum/');
+const pRoom = ac.pic('pRoom');
+const pRows = ac.pic('pRows');
+const pCohort = ac.pic('pCohort');
+const ac1 = await getAcademicTopic('/academics/parent-partnership/parent-engagement/');
+const forumAgenda = ac.section('forumAgenda').points;
+const agendaHeading = ac.section('agendaHeading').note;
+const forumNameplates = ac.section('forumNameplates').facts;
+const engagementFacts = ac1.section('engagementFacts').points;
 
 const S = 'Sunbeam School Ballia';
 const FORUM = '/academics/parent-partnership/parents-forum/';
@@ -103,10 +110,10 @@ const plates = forumNameplates.join(', ');
         data-lb-cap="Seated by class — the nameplates on the desks"
         data-mask
       >
-        <Picture
-          src={pRoom}
-          alt={`Parents of ${S} seated at desks during a Parents' Forum sitting, each desk carrying a printed class nameplate`}
-          formats={['webp']}
+        <SmartImage
+          file={pRoom}
+          alt={ac.picAlt('pRoom')}
+         
           widths={[540, 900, 1280]}
           sizes="(max-width: 1023px) 92vw, 44vw"
           loading="eager"
@@ -123,10 +130,10 @@ const plates = forumNameplates.join(', ');
         data-pop
         data-pop-delay="240"
       >
-        <Picture
-          src={pRows}
-          alt={`A closer view of parents seated in the rows at a Parents' Forum sitting at ${S}`}
-          formats={['webp']}
+        <SmartImage
+          file={pRows}
+          alt={ac.picAlt('pRows')}
+         
           widths={[320, 560]}
           sizes="(max-width: 1023px) 46vw, 20vw"
           loading="lazy"

@@ -1,0 +1,12 @@
+{
+  "collectionName": "components_shared_paragraphs",
+  "info": {
+    "displayName": "Paragraph",
+    "icon": "align-left",
+    "description": "One paragraph of body copy. Used where the source data is string[] and the component renders each entry as its own <p> — a rich-text field would merge them and lose that structure."
+  },
+  "options": {},
+  "attributes": {
+    "text": { "type": "text", "required": true, "maxLength": 2000 }
+  }
+}

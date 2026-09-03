@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_sports_coach_cards",
+  "info": { "displayName": "Coach Card", "icon": "user",
+    "description": "One claim about coaching, with the evidence for it. `proof` is what the school published to support the claim — the card prints it rather than asserting alone." },
+  "options": {},
+  "attributes": {
+    "icon": { "type": "string", "maxLength": 40 },
+    "figure": { "type": "string", "maxLength": 24 },
+    "title": { "type": "string", "required": true, "maxLength": 200 },
+    "body": { "type": "text", "required": true, "maxLength": 1200 },
+    "proof": { "type": "text", "maxLength": 600 }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_news_groups",
+  "info": {
+    "displayName": "News Group",
+    "icon": "layer",
+    "description": "One band within a chronicle page — the heading and note above a set of items. `groupId` is what a news-item's `group` field points at; renaming the label does not move any item."
+  },
+  "options": {},
+  "attributes": {
+    "groupId": { "type": "string", "required": true, "maxLength": 60 },
+    "label": { "type": "string", "required": true, "maxLength": 160 },
+    "note": { "type": "text", "maxLength": 600 }
+  }
+}

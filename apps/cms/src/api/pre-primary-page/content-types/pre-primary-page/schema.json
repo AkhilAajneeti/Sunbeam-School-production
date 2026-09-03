@@ -1,0 +1,55 @@
+{
+  "kind": "singleType",
+  "collectionName": "pre_primary_pages",
+  "info": {
+    "singularName": "pre-primary-page",
+    "pluralName": "pre-primary-pages",
+    "displayName": "Pre-Primary",
+    "description": "The Pre-Primary page (/academics/structure/pre-primary/) — one named field per band of the page, in the order a reader meets them. ⚠ Every band is the same shape: a label, a heading, paragraphs, photographs and a run of cells. What differs between them is how the page lays that out, and the page owns that. Bands cannot be reordered, added or removed. ⚠ THE SIXTH BAND IS EDITED AS TWO: the three stops on the curve, and the summary strip under them. One <section> on the page, two things an editor thinks about separately."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "open": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "doing": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "land": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "play": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "abh": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "first": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "firstBand": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "close": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    }
+  }
+}

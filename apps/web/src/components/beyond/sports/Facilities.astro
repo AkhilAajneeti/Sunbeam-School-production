@@ -1,4 +1,7 @@
 ---
+import { getSportFacilities } from '../../../lib/cms';
+
+const facilities = await getSportFacilities();
 /**
  * §1 · SPORTS FACILITIES — alternating rows, large images, no cards.
  *
@@ -25,8 +28,7 @@
  * different facility. It is composed as its own row rather than left broken, so
  * the gap reads as a deliberate note to the school and not as a hole.
  */
-import { Picture } from 'astro:assets';
-import { facilities } from '../../../data/sports';
+import CmsImage from '../../ui/CmsImage.astro';
 import SectionHead from '../../academics/SectionHead.astro';
 import AssetPlaceholder from '../../ui/AssetPlaceholder.astro';
 ---
@@ -47,15 +49,13 @@ import AssetPlaceholder from '../../ui/AssetPlaceholder.astro';
         <article class:list={['spf__row', i % 2 === 1 && 'spf__row--flip', !f.lead && 'spf__row--brief']}>
           <div class="spf__lead" data-reveal>
             {f.lead ? (
-              <Picture
-                src={f.lead}
+              <CmsImage
+                file={f.lead}
                 alt={f.alt ?? ''}
-                formats={['webp']}
-                widths={[600, 1000, 1600]}
                 sizes="(max-width: 900px) 92vw, 52vw"
                 loading="lazy"
-                decoding="async"
-              />
+              fallbackWidth={760}
+            />
             ) : (
               <AssetPlaceholder ratio="16 / 11" tone="charcoal" brief={f.brief!} ref="A7 · Priority 1" />
             )}
@@ -79,18 +79,20 @@ import AssetPlaceholder from '../../ui/AssetPlaceholder.astro';
               </ul>
             </div>
 
-            {f.support && (
+            {/* ⚠ .length, NOT TRUTHINESS. The source gave `support` as undefined
+                when a facility had no extra photographs; the CMS query always
+                returns an array, and `[] && …` is truthy — so every facility
+                without support shots rendered an empty animated div. */}
+            {f.support.length > 0 && (
               <div class="spf__support" data-reveal data-reveal-delay="150">
                 {f.support.map((s) => (
                   <span class="spf__thumb">
-                    <Picture
-                      src={s}
+                    <CmsImage
+                      file={s}
                       alt=""
-                      formats={['webp']}
-                      widths={[320, 640]}
                       sizes="(max-width: 900px) 46vw, 20vw"
                       loading="lazy"
-                      decoding="async"
+                      fallbackWidth={760}
                     />
                   </span>
                 ))}

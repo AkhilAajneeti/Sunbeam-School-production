@@ -18,7 +18,9 @@
  * than flat coloured ovals — that is the whole difference between a bloom and a
  * shape, and it is why the blur is not optional.
  */
-import { school } from '../../../data/site';
+import { getSchool } from '../../../lib/cms';
+
+const school = await getSchool();
 
 const facts = [
   { label: 'Range', value: school.classRange },

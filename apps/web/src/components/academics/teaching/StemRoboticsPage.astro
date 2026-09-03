@@ -61,26 +61,19 @@
  * data-drift, data-parallax, data-mask, data-zoom — plus one scoped script for
  * the gallery and one for the circuit draw.
  */
-import { Picture } from 'astro:assets';
 import Lightbox from '../../ui/Lightbox.astro';
 
 /* ── PHOTOGRAPHY ────────────────────────────────────────────────────────────
    ⚠ TEN DISTINCT FRAMES, AND THE BANNER IS AN ELEVENTH. A page about rooms is
    the easiest place on the site to show the same bench five times. */
-import pPhysics from '../../../assets/photos/sb-phy-lab.jpg';
-import pComposite from '../../../assets/composite lab/DSC_1256 copy.jpg';
-import pMicroscope from '../../../assets/photos/sb-sci-lab.jpg';
-import pBio from '../../../assets/photos/sb-bio-lab.jpg';
-import pMaths from '../../../assets/photos/sb-maths-lab.jpg';
-import pLabBusy from '../../../assets/computer lab/it-3.jpeg';
-import pLabTaught from '../../../assets/computer lab/it-10.jpeg';
-import pCompositeRoom from '../../../assets/composite lab/DSC_1258 copy.jpg';
-import pLibrary from '../../../assets/library/DSC_1224 copy.jpg';
-import pEcoScience from '../../../assets/bio lab/DSC_1275 copy.jpg';
-import pEcoCoding from '../../../assets/computer lab/it-8.jpeg';
-import pEcoMaking from '../../../assets/school-activities/summer-camp/05.jpg';
-import pEcoDiscover from '../../../assets/school-activities/taramandal-show/01.jpg';
-import pCohort from '../../../assets/photos/sunbeem-3.jpg';
+import { getAcademicTopic } from '../../../lib/cms';
+import SmartImage from '../../ui/SmartImage.astro';
+
+const ac = await getAcademicTopic('/academics/teaching-learning/stem-robotics/');
+const pComposite = ac.pic('pComposite');
+const pPhysics = ac.pic('pPhysics');
+const pMicroscope = ac.pic('pMicroscope');
+const pCohort = ac.pic('pCohort');
 
 const S = 'Sunbeam School Ballia';
 
@@ -102,32 +95,14 @@ const MARK: Record<string, string> = {
    The school's own one-line inventory, split into four. `body` is this site's
    own gloss on each item — none of it claims a capability the school has not
    listed. */
-const kit = [
-  { n: '01', mark: 'drone', k: 'Drone', v: 'The machine behind the school’s only international placing.' },
-  { n: '02', mark: 'printer', k: '3-D Printer', v: 'A design that leaves the screen as an object.' },
-  { n: '03', mark: 'telescope', k: 'Telescope', v: 'The one instrument in the room pointed away from the building.' },
-  { n: '04', mark: 'chip', k: 'Embedded Systems', v: 'Where code stops being a screen and starts being a thing that moves.' },
-] as const;
+const kit = ac.section('kit').points;
 
 /* ── THE GALLERY ────────────────────────────────────────────────────────────
    ⚠ SIX FRAMES, EVERY ONE OF THEM STUDENTS OR ROOMS THAT ACTUALLY EXIST, and
    each `cap` describes what is IN the picture rather than what the section is
    about. The empty-room frames say "between classes" so nobody reads a bench
    shot as a lesson in progress. */
-const shots = [
-  { src: pBio, cap: 'The biology laboratory — a measuring cylinder read at the bench.',
-    alt: `Two senior students of ${S} at the biology laboratory bench, one reading a measuring cylinder, anatomy charts behind them` },
-  { src: pMaths, cap: 'The mathematics laboratory — the room most schools do without.',
-    alt: `Senior students of ${S} at work in the mathematics laboratory, subject charts covering the walls behind them` },
-  { src: pLabBusy, cap: 'The senior computer laboratory, in use.',
-    alt: `Students of ${S} at the machines along both benches of the senior computer laboratory, a teacher standing at the back` },
-  { src: pLabTaught, cap: 'Taught, not just equipped — keyboard and shortcut charts on the wall.',
-    alt: `A computer room at ${S} during a lesson, wall charts of keyboard keys and PC shortcuts behind the machines` },
-  { src: pCompositeRoom, cap: 'The composite laboratory between classes — apparatus, models, reagent shelves.',
-    alt: `The composite laboratory at ${S} between classes: a long bench with an anatomy model, sink and taps, reagent shelves along the back wall` },
-  { src: pLibrary, cap: 'The Nalanda Library between classes — shelves signed by subject.',
-    alt: `The Nalanda Library at ${S} between classes: reading tables and chairs, with shelves signed “Ballia Literature”, “Mythology” and “Magazines”` },
-] as const;
+const shots = ac.section('shots').photos;
 
 /* ── THE ECOSYSTEM ──────────────────────────────────────────────────────────
    ⚠ FOUR BLOCKS OF DELIBERATELY DIFFERENT WEIGHT, AND NO PHOTOGRAPHS AT ALL.
@@ -136,45 +111,7 @@ const shots = [
    that would be honest — a chemistry bench captioned "Making" is a mislabel, and
    the Robotics Lab has no photograph at all. Type and drawn marks claim nothing.
    `w` sets each block's span so the four read as one system rather than a row. */
-const eco = [
-  {
-    mark: 'flask',
-    k: 'Science',
-    v: 'Physics, Chemistry and Biology, with board practicals from Class IX.',
-    photo: pEcoScience,
-    alt: `The biology laboratory at ${S} between classes — red stools along the bench, microscopes on the shelves and anatomy charts on the wall`,
-  },
-  {
-    /* ⚠ THE PICTURE IS CONTEXT; THE CAPTION IS NOT. There is no photograph of
-       the Robotics Lab, so this card shows a student holding something he has
-       made — genuinely hands-on, and a real Sunbeam frame. Its `alt` says
-       exactly that and never says Robotics Lab; only the body copy names that
-       room, and only for what the school itself lists in it.
-
-       ⚠ AND IT IS NOT THE COMPOSITE LAB. That was the first choice and it read
-       as the Science card's room photographed twice — two empty benches side by
-       side. Four cards need four distinguishable pictures. */
-    mark: 'cog',
-    k: 'Making',
-    v: 'The Robotics Lab — drone, 3-D printer, telescope and embedded systems.',
-    photo: pEcoMaking,
-    alt: `A young student of ${S} holding up a hand-made rocket cut-out at the Star Gazing session, the night-sky board behind him`,
-  },
-  {
-    mark: 'code',
-    k: 'Coding',
-    v: 'Two computer laboratories, junior and senior, 40+ machines each.',
-    photo: pEcoCoding,
-    alt: `Students of ${S} at work down the length of the senior computer laboratory, a teacher walking the row behind them`,
-  },
-  {
-    mark: 'bulb',
-    k: 'Discovery',
-    v: 'Vidyarthi Vigyan Manthan, the Science Congress, Inspire Award MANAK.',
-    photo: pEcoDiscover,
-    alt: `Students of ${S} seated inside the Taramandal planetarium show`,
-  },
-] as const;;;
+const eco = ac.section('eco').points;;;
 
 const SUCCESS = '/academics/student-success/';
 ---
@@ -237,10 +174,10 @@ const SUCCESS = '/academics/student-success/';
 
     <div class="st-rooms__media">
       <figure class="st-rooms__lead" data-mask data-zoom data-zoom-to="1.06">
-        <Picture
-          src={pPhysics}
-          alt={`Senior students of ${S} at the physics laboratory benches, apparatus in front of them and subject portraits along the wall`}
-          formats={['webp']}
+        <SmartImage
+          file={pPhysics}
+          alt={ac.picAlt('pPhysics')}
+         
           widths={[620, 1000, 1320]}
           sizes="(max-width: 1023px) 92vw, 46vw"
           loading="lazy"
@@ -249,10 +186,10 @@ const SUCCESS = '/academics/student-success/';
       </figure>
 
       <figure class="st-rooms__side" data-parallax data-parallax-y="26">
-        <Picture
-          src={pComposite}
-          alt={`The composite laboratory at ${S} between classes, its long benches and apparatus set out along the room`}
-          formats={['webp']}
+        <SmartImage
+          file={pComposite}
+          alt={ac.picAlt('pComposite')}
+         
           widths={[360, 620]}
           sizes="(max-width: 1023px) 46vw, 21vw"
           loading="lazy"
@@ -261,10 +198,10 @@ const SUCCESS = '/academics/student-success/';
       </figure>
 
       <figure class="st-rooms__disc" data-parallax data-parallax-y="-22">
-        <Picture
-          src={pMicroscope}
-          alt={`A student of ${S} at the microscope, conical flasks of plant cuttings and an anatomy model on the bench beside her`}
-          formats={['webp']}
+        <SmartImage
+          file={pMicroscope}
+          alt={ac.picAlt('pMicroscope')}
+         
           widths={[300, 480]}
           sizes="(max-width: 1023px) 32vw, 14vw"
           loading="lazy"
@@ -404,14 +341,11 @@ const SUCCESS = '/academics/student-success/';
         {shots.map((sh, i) => (
           <a class={`st-shot${i === 0 ? ' is-on' : ''}`} href={sh.src.src} data-gal-frame data-lb-open
             data-lb-alt={sh.alt} data-lb-cap={sh.cap} tabindex={i === 0 ? 0 : -1}>
-            <Picture
-              src={sh.src}
+            <SmartImage
+              file={sh.src}
               alt={sh.alt}
-              formats={['webp']}
-              widths={[620, 1000, 1400]}
               sizes="(max-width: 1023px) 92vw, 46vw"
-              loading={i === 0 ? 'eager' : 'lazy'}
-              decoding="async"
+              fallbackWidth={1100}
             />
             <span class="st-shot__zoom" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none">
@@ -431,14 +365,12 @@ const SUCCESS = '/academics/student-success/';
           <li>
             <button type="button" class={`st-thumb${i === 0 ? ' is-on' : ''}`} data-gal-thumb={i}>
               <span class="u-visually-hidden">{`Show photograph ${i + 1}: ${sh.cap}`}</span>
-              <Picture
-                src={sh.src}
+              <SmartImage
+                file={sh.src}
                 alt=""
-                formats={['webp']}
-                widths={[160, 260]}
                 sizes="120px"
+                fallbackWidth={1100}
                 loading="lazy"
-                decoding="async"
               />
             </button>
           </li>
@@ -519,14 +451,12 @@ const SUCCESS = '/academics/student-success/';
         {eco.map((e, i) => (
           <li class="st-card" data-pop data-pop-delay={120 + i * 110}>
             <div class="st-card__pic">
-              <Picture
-                src={e.photo}
+              <SmartImage
+                file={e.photo}
                 alt={e.alt}
-                formats={['webp']}
-                widths={[300, 480]}
                 sizes="(max-width: 767px) 92vw, 18vw"
+                fallbackWidth={1100}
                 loading="lazy"
-                decoding="async"
               />
 
               <svg class="st-card__wave" viewBox="0 0 320 30" fill="none" preserveAspectRatio="none" aria-hidden="true">
@@ -552,10 +482,10 @@ const SUCCESS = '/academics/student-success/';
 {/* ══ 05 · THE CLOSE ═════════════════════════════════════════════════════════ */}
 <section class="st-close" aria-labelledby="st-close-t">
   <div class="st-close__media" aria-hidden="true" data-parallax data-parallax-y="-40">
-    <Picture
-      src={pCohort}
-      alt=""
-      formats={['webp']}
+    <SmartImage
+      file={pCohort}
+      alt={ac.picAlt('pCohort')}
+     
       widths={[1024, 1600, 2000]}
       sizes="100vw"
       loading="lazy"

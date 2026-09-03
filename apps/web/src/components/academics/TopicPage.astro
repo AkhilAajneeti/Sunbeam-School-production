@@ -24,14 +24,14 @@
  */
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../ui/PageHero.astro';
-import { assessmentTopics, type AssessmentTopic } from '../../data/academics';
-import { philosophyTopics, structureTopics, careerTopics, parentTopics } from '../../data/academicTopics';
-import { teachingTopics } from '../../data/teachingTopics';
-import { school } from '../../data/site';
+import { getSchool, getAcademicGroup } from '../../lib/cms';
+import type { AcademicTopic } from '../../lib/cms';
 import type { ImageMetadata } from 'astro';
 
+const school = await getSchool();
+
 interface Props {
-  topic: AssessmentTopic;
+  topic: AcademicTopic;
   photo: ImageMetadata;
   alt: string;
   position?: string;
@@ -53,17 +53,23 @@ const { topic: t, photo, alt, position = '50% 45%' } = Astro.props;
  * must keep matching it — the breadcrumb and the menu naming the same place
  * differently is its own bug.
  */
-const SECTIONS: { href: string; label: string; topics: AssessmentTopic[] }[] = [
-  { href: '/academics/philosophy/', label: 'Academic Philosophy', topics: philosophyTopics },
-  { href: '/academics/structure/', label: 'Academic Structure', topics: structureTopics },
-  { href: '/academics/teaching-learning/', label: 'Teaching & Learning', topics: teachingTopics },
-  { href: '/academics/assessment/', label: 'Assessment Pattern', topics: assessmentTopics },
-  { href: '/academics/student-success/', label: 'Career Development & Student Success', topics: careerTopics },
-  { href: '/academics/parent-partnership/', label: 'Parent Partnership', topics: parentTopics },
+/**
+ * WARNING: THE SECTION LABELS STAY IN CODE AND MUST KEEP MATCHING
+ * data/navigation.ts. The breadcrumb and the menu naming the same place
+ * differently is its own bug, and navigation is held until the Pages
+ * architecture is designed. Only the TOPIC LIST is now read from the CMS.
+ */
+const SECTIONS: { href: string; label: string; group: string }[] = [
+  { href: '/academics/philosophy/', label: 'Academic Philosophy', group: 'philosophy' },
+  { href: '/academics/structure/', label: 'Academic Structure', group: 'structure' },
+  { href: '/academics/teaching-learning/', label: 'Teaching & Learning', group: 'teaching-learning' },
+  { href: '/academics/assessment/', label: 'Assessment Pattern', group: 'assessment' },
+  { href: '/academics/student-success/', label: 'Career Development & Student Success', group: 'student-success' },
+  { href: '/academics/parent-partnership/', label: 'Parent Partnership', group: 'parent-partnership' },
 ];
 
-const section = SECTIONS.find((s) => t.href?.startsWith(s.href)) ?? SECTIONS[3];
-const siblings = section.topics.filter((x) => x.id !== t.id);
+const section = SECTIONS.find((s) => t.route?.startsWith(s.href)) ?? SECTIONS[3];
+const siblings = (await getAcademicGroup(section.group)).filter((x) => x.route !== t.route);
 
 /* When a page passes its parent's movement into the slot, that movement is the
    content and this component's own body is the follow-up — so the body's head
@@ -152,7 +158,7 @@ const hasMovement = Astro.slots.has('default');
           {
             siblings.map((s) => (
               <li>
-                <a class="sib" href={s.href}>
+                <a class="sib" href={s.route}>
                   <span class="sib__t">{s.label}</span>
                   <span class="sib__d">{s.hint}</span>
                   <span class="sib__go" aria-hidden="true">

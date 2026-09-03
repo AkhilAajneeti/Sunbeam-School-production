@@ -44,26 +44,18 @@ import CurriculumPage from '../../../components/academics/CurriculumPage.astro';
 import AcClose from '../../../components/academics/system/AcClose.astro';
 
 import banner from '../../../assets/library/DSC_1225 copy.jpg';
-import pCohort from '../../../assets/photos/sunbeem-3.jpg';
+import { getAcademicTopic } from '../../../lib/cms';
+
+const ac = await getAcademicTopic('/academics/philosophy/curriculum/');
+const pCohort = ac.pic('pCohort');
 
 const school = 'Sunbeam School Ballia';
 ---
 
 <BaseLayout
-  title="Curriculum — Sunbeam School Ballia"
-  description="The CBSE curriculum at Sunbeam School Ballia, published class by class as its PRECEPT syllabus for session 2026-27 — one document for every year from Nursery to Class XII."
 >
   <PageHero
-    title="Curriculum"
-    standfirst="CBSE, published class by class — fifteen year groups, fifteen syllabus documents."
-    crumbs={[
-      { label: 'Home', href: '/' },
-      { label: 'Academics', href: '/academics/' },
-      { label: 'Academic Philosophy', href: '/academics/philosophy/' },
-    ]}
     src={banner}
-    alt="The Nalanda Library at Sunbeam School Ballia, its shelves signed by subject."
-    position="50% 48%"
   />
 
   <div class="u-page-panel ac-panel">

@@ -35,7 +35,12 @@ import SectionRail from '../../../components/academics/SectionRail.astro';
 import IndexIntro from '../../../components/news/IndexIntro.astro';
 import CardGrid from '../../../components/news/CardGrid.astro';
 
-import { workshops } from '../../../data/newsPages';
+import { getChroniclePage } from '../../../lib/cms';
+
+/* ⚠ THE SAME CHRONICLE THE /news-events/workshops/ INDEX SHOWS. This page is a
+   second view of one body of content, not a copy of it — so it reads the same
+   query rather than a parallel source. */
+const workshops = await getChroniclePage('workshops');
 import heroPhoto from '../../../assets/workshops/CriticalThinking/CriticalThinking1.jpg';
 
 /**
@@ -60,20 +65,9 @@ const FORUM = '/academics/parent-partnership/parents-forum/';
 ---
 
 <BaseLayout
-  title="Workshops & Webinars — Sunbeam School Ballia"
-  description="The professional development Sunbeam School Ballia publishes: workshop sessions in counselling, pedagogy, AI in the classroom and the CBSE capacity-building programme — run for the school's teachers and administrators."
 >
   <PageHero
-    title="Workshops & Webinars"
-    standfirst="The training the school publishes is run for the people who teach your child — named trainers, named institutions, on the record."
-    crumbs={[
-      { label: 'Home', href: '/' },
-      { label: 'Academics', href: '/academics/' },
-      { label: 'Parent Partnership', href: '/academics/parent-partnership/' },
-    ]}
     src={heroPhoto}
-    alt="A workshop session in progress at Sunbeam School Ballia, delegates seated at tables facing the speaker."
-    position="50% 45%"
   />
 
   <SectionRail items={workshops.groups.map((g) => ({ id: g.id, label: g.label }))} />

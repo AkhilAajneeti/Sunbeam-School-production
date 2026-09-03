@@ -41,18 +41,21 @@
  *   05 · PHOTO  the human moment — full width, parallaxed.
  *   06 · CREAM  the closing callout, with an orange rule under it.
  */
-import { Picture } from 'astro:assets';
+import SmartImage from '../../../components/ui/SmartImage.astro';
 import '../../../styles/assessment.css';
 import { MARK } from './marks';
 import AsRail from './AsRail.astro';
 
 /* ── PHOTOGRAPHY — six genuine Sunbeam Ballia frames, each used ONCE. ─────── */
-import pLib from '../../../assets/photos/sb-library.jpg';
-import pBench from '../../../assets/photos/sb-chem-lab.jpg';
-import pCorridor from '../../../assets/corridor and stairs/DSC_1222 copy.jpg';
-import pTables from '../../../assets/library/DSC_1230 copy.jpg';
-import pStage from '../../../assets/photos/sunbeem-5.jpg';
-import pCohort from '../../../assets/photos/sunbeem-3.jpg';
+import { getAcademicTopic } from '../../../lib/cms';
+
+const ac = await getAcademicTopic('/academics/assessment/mentoring/');
+const pCorridor = ac.pic('pCorridor');
+const pTables = ac.pic('pTables');
+const pLib = ac.pic('pLib');
+const pBench = ac.pic('pBench');
+const pStage = ac.pic('pStage');
+const pCohort = ac.pic('pCohort');
 
 const S = 'Sunbeam School Ballia';
 
@@ -63,49 +66,14 @@ const REMEDIAL = '/academics/assessment/remedial-support/';
 /* ── SECTION 02 — the four people, in the order the school lists them ─────
    ⚠ `advert: true` marks the two whose evidence is a recruitment poster rather
    than a page of copy, and the rows say so in their own text. */
-const people = [
-  {
-    n: '01',
-    mark: 'person',
-    k: 'Student mentor',
-    v: 'A member of staff who knows the student as a person, not as a row on a class list.',
-  },
-  {
-    n: '02',
-    mark: 'chat',
-    k: 'School counsellor',
-    v: 'Advertised at MA in counselling or clinical psychology, with two years’ experience as a school counsellor.',
-  },
-  {
-    n: '03',
-    mark: 'head',
-    k: 'Clinical psychology counsellor',
-    v: 'Listed with a wellness trainer among the posts the school has advertised for.',
-  },
-  {
-    n: '04',
-    mark: 'hands',
-    k: 'BCS Counsellors',
-    v: 'Trained counsellors available to students, listed among the school’s campus provision.',
-  },
-] as const;
+const people = ac.section('people').points;
 
 /* ── SECTION 03 — the journey. Four stages, and each is a consequence of the
    one before it rather than a stage in a programme the school has not named. */
-const journey = [
-  { n: '01', mark: 'person', k: 'Know', v: 'Someone in the school knows the student as a person.' },
-  { n: '02', mark: 'eye', k: 'Notice', v: 'Small changes and concerns can be recognised early.' },
-  { n: '03', mark: 'handHeart', k: 'Guide', v: 'Support can be offered at the point it matters.' },
-  { n: '04', mark: 'grow', k: 'Grow', v: 'The student is supported beyond the classroom.' },
-] as const;
+const journey = ac.section('journey').points;
 
 /* ── SECTION 04 — the same four people, stated flat ──────────────────────── */
-const roles = [
-  { n: '01', mark: 'person', k: 'Mentor', v: 'A member of staff who knows the student personally.' },
-  { n: '02', mark: 'chat', k: 'School counsellor', v: 'Counselling support available within the school structure.' },
-  { n: '03', mark: 'head', k: 'Clinical psychology counsellor', v: 'Professional counselling support, where the school has published it.' },
-  { n: '04', mark: 'hands', k: 'BCS Counsellors', v: 'Trained counsellors available to students on campus.' },
-] as const;
+const roles = ac.section('roles').points;
 ---
 
 {/* ══ 01 · SOMEONE WHO KNOWS THE CHILD ═══════════════════════════════════════
@@ -145,10 +113,10 @@ const roles = [
     <div class="mn-open__stage">
       <span class="as-dots mn-open__dots" aria-hidden="true"></span>
       <div class="mn-open__lead as-frame as-fill" data-mask>
-        <Picture
-          src={pLib}
-          alt={`Students of ${S} reading at the long tables of the library, a member of staff at the head of the row`}
-          formats={['webp']}
+        <SmartImage
+          file={pLib}
+          alt={ac.picAlt('pLib')}
+         
           widths={[520, 880, 1200]}
           sizes="(max-width: 1023px) 92vw, 42vw"
           loading="eager"
@@ -156,10 +124,10 @@ const roles = [
         />
       </div>
       <div class="mn-open__sm as-frame as-frame--float as-fill" data-pop data-pop-delay="180">
-        <Picture
-          src={pTables}
-          alt={`The reading tables of the Nalanda Library at ${S}, set out along the shelves`}
-          formats={['webp']}
+        <SmartImage
+          file={pTables}
+          alt={ac.picAlt('pTables')}
+         
           widths={[320, 560]}
           sizes="(max-width: 1023px) 44vw, 17vw"
           loading="lazy"
@@ -167,10 +135,10 @@ const roles = [
         />
       </div>
       <div class="mn-open__cir as-frame as-frame--float as-frame--round as-fill" data-pop data-pop-delay="300">
-        <Picture
-          src={pBench}
-          alt={`Students of ${S} working along the chemistry bench`}
-          formats={['webp']}
+        <SmartImage
+          file={pBench}
+          alt={ac.picAlt('pBench')}
+         
           widths={[220, 400]}
           sizes="(max-width: 1023px) 28vw, 11vw"
           loading="lazy"
@@ -189,10 +157,10 @@ const roles = [
     <div class="mn-rel__stage">
       <span class="as-dots mn-rel__dots" aria-hidden="true"></span>
       <div class="mn-rel__lead as-frame as-fill" data-zoom data-zoom-to="1.04">
-        <Picture
-          src={pCorridor}
-          alt={`A corridor at ${S}, its classroom doors running the length of the block`}
-          formats={['webp']}
+        <SmartImage
+          file={pCorridor}
+          alt={ac.picAlt('pCorridor')}
+         
           widths={[520, 880, 1200]}
           sizes="(max-width: 1023px) 92vw, 42vw"
           loading="lazy"
@@ -200,10 +168,10 @@ const roles = [
         />
       </div>
       <div class="mn-rel__sm as-frame as-frame--float as-fill" data-pop data-pop-delay="200">
-        <Picture
-          src={pStage}
-          alt={`Student council office-bearers and NCC cadets of ${S} on stage with the school’s dignitaries`}
-          formats={['webp']}
+        <SmartImage
+          file={pStage}
+          alt={ac.picAlt('pStage')}
+         
           widths={[320, 560]}
           sizes="(max-width: 1023px) 48vw, 19vw"
           loading="lazy"
@@ -300,10 +268,10 @@ const roles = [
     followed by anything other than the footer needs its own build. */}
 <section class="as-sec mn-human" aria-labelledby="mn-human-t">
   <div class="mn-human__media" aria-hidden="true" data-parallax data-parallax-y="-40">
-    <Picture
-      src={pCohort}
-      alt=""
-      formats={['webp']}
+    <SmartImage
+      file={pCohort}
+      alt={ac.picAlt('pCohort')}
+     
       widths={[1024, 1600, 2000]}
       sizes="100vw"
       loading="lazy"

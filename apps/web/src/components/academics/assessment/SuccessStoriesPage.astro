@@ -39,16 +39,22 @@
  *   03 · CREAM  the contact panel, split.
  *   04 · PHOTO  the cinematic close.
  */
-import { Picture } from 'astro:assets';
 import '../../../styles/assessment.css';
 import { MARK } from './marks';
 import AsClose from './AsClose.astro';
 import AsRailSlider from './AsRailSlider.astro';
 import Lightbox from '../../ui/Lightbox.astro';
-import { successStories, successMilestones } from '../../../data/studentSuccess';
-import { school } from '../../../data/site';
+import { getSchool } from '../../../lib/cms';
 
-import pCohort from '../../../assets/photos/sunbeem-5.jpg';
+import SmartImage from '../../ui/SmartImage.astro';
+import { getAcademicTopic } from '../../../lib/cms';
+
+const ac = await getAcademicTopic('/academics/student-success/success-stories/');
+const pCohort = ac.pic('pCohort');
+const successStories = ac.section('successStories').stories;
+const successMilestones = ac.section('successMilestones').points;
+
+const school = await getSchool();
 
 const S = 'Sunbeam School Ballia';
 const CONTACT = '/contact-us/';
@@ -115,14 +121,12 @@ const phoneShow = school.phone.admissionsDisplay;
               data-lb-alt={s.alt}
               data-lb-cap={`${s.student} · ${s.title}`}
             >
-              <Picture
-                src={s.image}
+              <SmartImage
+                file={s.image}
                 alt={s.alt}
-                formats={['webp']}
-                widths={[420, 760]}
                 sizes="(max-width: 767px) 84vw, 28vw"
+                fallbackWidth={1100}
                 loading="lazy"
-                decoding="async"
               />
               <span class="st-card__year t-tabular">{s.year}</span>
               <span class="st-card__cat">{s.category}</span>

@@ -1,0 +1,41 @@
+{
+  "kind": "singleType",
+  "collectionName": "subject_combinations_pages",
+  "info": {
+    "singularName": "subject-combinations-page",
+    "pluralName": "subject-combinations-pages",
+    "displayName": "Subject Combinations",
+    "description": "The Subject Combinations page (/academics/structure/subject-combinations/) — the streams at the top, edited once, then one named field per band of the page. ⚠ Bands cannot be reordered, added or removed."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "streams": {
+      "type": "component",
+      "repeatable": true,
+      "component": "structure.stream",
+      "description": "The four streams and the subjects in each, edited once and drawn twice — as the four worlds and again as the subject map."
+    },
+    "open": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "worlds": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "map": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "close": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    }
+  }
+}

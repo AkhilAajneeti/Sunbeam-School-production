@@ -21,8 +21,10 @@ import SectionRail from '../../../components/academics/SectionRail.astro';
 import IndexIntro from '../../../components/news/IndexIntro.astro';
 import CardGrid from '../../../components/news/CardGrid.astro';
 
-import { celebrations } from '../../../data/newsPages';
+import { getChroniclePage } from '../../../lib/cms';;
 import heroPhoto from '../../../assets/photos/sunbeem-2.jpg';
+
+const celebrations = await getChroniclePage('celebrations');
 
 const items = celebrations.groups.flatMap((g) => g.items);
 
@@ -38,19 +40,9 @@ const figures = [
 ---
 
 <BaseLayout
-  title={`${celebrations.title} — Sunbeam School Ballia`}
-  description={celebrations.standfirst}
 >
   <PageHero
-    title={celebrations.title}
-    standfirst={celebrations.standfirst}
-    crumbs={[
-      { label: 'Home', href: '/' },
-      { label: 'News & Events', href: '/news-events/' },
-    ]}
     src={heroPhoto}
-    alt="A cultural programme on stage at Sunbeam School Ballia"
-    position="50% 40%"
   />
 
   <SectionRail items={celebrations.groups.map((g) => ({ id: g.id, label: g.label }))} />

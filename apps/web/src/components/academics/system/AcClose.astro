@@ -12,14 +12,23 @@ import '../../../styles/academics.css';
  * office. A plausible-sounding invention is the most damaging thing this site
  * could print, and this is the pattern that keeps it out.
  */
-import { Picture } from 'astro:assets';
+import SmartImage from '../../ui/SmartImage.astro';
 import type { ImageMetadata } from 'astro';
-import { school } from '../../../data/site';
+import { getSchool } from '../../../lib/cms';
+import type { StrapiFile } from '../../../lib/cms';
+
+const school = await getSchool();
 
 interface Props {
   statement: string;
   body?: string;
-  photo: ImageMetadata;
+  /**
+   * WARNING: EITHER SOURCE, BECAUSE THE PHOTOGRAPH IS NOW CONTENT.
+   * The academics pages that close with this band hand over a Strapi file from
+   * their own record; the local shape stays accepted so a caller outside
+   * academics is not forced to migrate to keep using the band.
+   */
+  photo: StrapiFile | ImageMetadata | null;
   alt: string;
   /** Vertical crop of the backdrop. */
   position?: string;
@@ -34,11 +43,11 @@ const headingId = id ?? `acend-${Math.abs(statement.length * 3671 % 9973)}`;
 
 <section class="ac-section ac-section--bleed acend" aria-labelledby={headingId}>
   <figure class="acend__art" data-zoom data-zoom-to="1.1">
-    <Picture
-      src={photo}
+    <SmartImage
+      file={photo}
       alt={alt}
-      formats={['webp']}
       widths={[900, 1400, 1920]}
+      fallbackWidth={1600}
       sizes="100vw"
       loading="lazy"
       decoding="async"

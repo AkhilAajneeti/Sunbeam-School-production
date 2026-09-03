@@ -28,7 +28,7 @@ export const story = {
   checks: [
     'Founded in Varanasi in 1972 · Ballia campus since 2013',
     '2,700+ students across Science, Commerce and Humanities',
-    'Twelve laboratories, a 17,574-book library and a shooting range',
+    'Twelve laboratories, a 17,574-book library and an archery range',
   ],
 
   /** The single strongest verified proof, given the violet card. */
@@ -176,12 +176,14 @@ export const facilities = [
     brief: 'Academic blocks, 3:2',
   },
   {
-    name: 'Shooting Range',
+    name: 'Archery Range',
     qualifier: 'A facility few district schools have',
     detail:
-      'A dedicated shooting range on the Agarsanda campus — among the least common facilities at any school in the district.',
-    href: '/campus/shooting-range/',
-    brief: 'Shooting range in use — the rarest facility the school has. 16:9, min 2400px',
+      'A dedicated archery range on the Agarsanda campus — among the least common facilities at any school in the district.',
+    href: '/campus/archery-range/',
+    /* The tiles were empty for want of a photograph; these are the school's own,
+       taken on the line. See the note on the facility in campusTour.ts. */
+    photo: 'archery',
   },
   {
     name: 'Nalanda Library',

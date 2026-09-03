@@ -1,0 +1,12 @@
+{
+  "collectionName":"components_about_testimonials",
+  "info":{"displayName":"Testimonial","icon":"quote","description":"A named voice on the history page, with a portrait. ⚠ docs/07 C5 governs publishing names and photographs — a testimonial without consent recorded should not be added here."},
+  "options":{},
+  "attributes":{
+    "name":{"type":"string","required":true,"maxLength":160},
+    "role":{"type":"string","maxLength":160},
+    "portrait":{"type":"media","multiple":false,"allowedTypes":["images"]},
+    "alt":{"type":"text","maxLength":500},
+    "paragraphs":{"type":"component","repeatable":true,"component":"shared.paragraph"}
+  }
+}

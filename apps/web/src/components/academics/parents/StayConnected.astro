@@ -18,8 +18,13 @@
  * address, and the school's own email — so nothing here is a placeholder anyone
  * has to remember to swap.
  */
-import { parents } from '../../../data/academics';
-import { school } from '../../../data/site';
+import { getSchool } from '../../../lib/cms';
+import { getAcademicTopic } from '../../../lib/cms';
+
+const ac = await getAcademicTopic('/academics/parent-partnership/');
+const parents = ac.blockMap('parents');
+
+const school = await getSchool();
 
 const { cta } = parents;
 ---

@@ -1,0 +1,16 @@
+{
+  "collectionName":"components_home_stages",
+  "info":{"displayName":"Stage Card","icon":"apps","description":"One academic stage teaser on the homepage. `imageBrief` describes the photograph still to be commissioned — kept because it is an outstanding asset request, not decoration. WARNING: photo replaced a key that indexed a hardcoded map in AcademicJourney.astro; three of the five stages still have no Ballia photograph and render the brief instead, which is correct and deliberate."},
+  "options":{},
+  "attributes":{
+    "range":{"type":"string","required":true,"maxLength":80},
+    "name":{"type":"string","required":true,"maxLength":80},
+    "badge":{"type":"string","maxLength":60},
+    "years":{"type":"string","maxLength":40},
+    "detail":{"type":"text","required":true,"maxLength":600},
+    "href":{"type":"string","required":true,"maxLength":200},
+    "imageBrief":{"type":"string","maxLength":200},
+    "photo":{"type":"media","multiple":false,"allowedTypes":["images"]},
+    "photoAlt":{"type":"text","maxLength":500}
+  }
+}

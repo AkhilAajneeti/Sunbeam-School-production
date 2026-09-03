@@ -13,52 +13,35 @@
  * Nothing is rounded up, inferred or invented.
  */
 import Photo from '../ui/Photo.astro';
-import awards from '../../assets/photos/sunbeem-4.jpg';
-import trophy from '../../assets/school achivement/robo.jpg';
+import AccentHeading from '../ui/AccentHeading.astro';
+import { getHomeAchievements } from '../../lib/cms';
 
-const institutional = [
-  { title: 'Microsoft Showcase School', detail: '100 teachers certified as Microsoft Innovative Educator Experts' },
-  { title: 'Brainfeed School Excellence Award', detail: 'National recognition for school excellence' },
-  { title: 'Sunbeam Eduserve Award', detail: 'Best School of the Year' },
-  { title: 'Dr. Kalam Leadership Excellence Award', detail: 'For institutional leadership' },
-  { title: 'NCC ‘A’ and ‘B’ affiliations', detail: 'Two teachers promoted to officer rank' },
-];
+const ach = await getHomeAchievements();
 
-const student = [
-  { value: '1st', label: 'Handball', detail: 'Asmita Khelo India Women’s League' },
-  { value: '21', label: 'Taekwondo medallists', detail: 'Poomse Championship 2025 — 10 gold, 9 silver, 2 bronze' },
-  { value: '1st', label: 'AI Impact Festival', detail: 'Indian AI Impact Festival 2024' },
-  { value: '3', label: 'District handball titles', detail: 'Junior boys 1st · Senior boys 2nd · Girls 1st' },
-];
 ---
 
 <section class="ach" aria-labelledby="ach-heading">
   <div class="u-container">
     <header class="ach__head" data-reveal>
-      <p class="ach__pill"><span class="pill pill--violet">Achievements &amp; Recognition</span></p>
-      <h2 class="ach__heading t-h2-sans" data-split id="ach-heading">
-        Six years at <span class="t-squiggle">number one</span>
-      </h2>
-      <p class="ach__sub t-body-lg">
-        Ranked Ballia’s #1 co-educational day school by Education World for six consecutive
-        years, 2019-20 through 2024-25 — alongside what our students have won.
-      </p>
+      <p class="ach__pill"><span class="pill pill--violet">{ach.pill}</span></p>
+      <AccentHeading class="ach__heading t-h2-sans" id="ach-heading" split text={ach.heading} />
+      <p class="ach__sub t-body-lg">{ach.sub}</p>
     </header>
 
     <div class="ach__grid">
       {/* Lead ranking */}
       <article class="ach__lead" data-reveal>
-        <span class="ach__lead-rank">#1</span>
-        <p class="ach__lead-title">Co-educational day school in Ballia</p>
-        <p class="ach__lead-detail">Education World · six consecutive years, 2019-20 to 2024-25</p>
-        <a class="btn btn--secondary ach__lead-cta" href="/academics/board-results/">Board results</a>
+        <span class="ach__lead-rank">{ach.lead.value}</span>
+        <p class="ach__lead-title">{ach.lead.title}</p>
+        <p class="ach__lead-detail">{ach.lead.detail}</p>
+        <a class="btn btn--secondary ach__lead-cta" href={ach.leadCta.href}>{ach.leadCta.label}</a>
       </article>
 
       <figure class="ach__photo" data-reveal data-reveal-delay="80">
         <Photo
-          src={awards}
-          alt="Staff of Sunbeam School Ballia receiving awards on stage."
-          brief="Award ceremony, high resolution — audit 4.8"
+          file={ach.photos[0]?.image}
+          alt={ach.photos[0]?.alt ?? ''}
+          brief={ach.photos[0]?.brief ?? ''}
           ratio="4 / 3"
           position="50% 40%"
           sizes="(max-width: 1023px) 100vw, 34vw"
@@ -67,7 +50,7 @@ const student = [
 
       {/* Student achievement — made the hero, per the brief */}
       <ul class="ach__stats" data-reveal data-reveal-delay="140">
-        {student.map((s) => (
+        {ach.student.map((s) => (
           <li class="ach__stat">
             <span class="ach__stat-value">{s.value}</span>
             <span class="ach__stat-label">{s.label}</span>
@@ -78,9 +61,9 @@ const student = [
 
       {/* Institutional honours */}
       <div class="ach__honours" data-reveal data-reveal-delay="200">
-        <p class="ach__honours-head">Institutional recognition</p>
+        <p class="ach__honours-head">{ach.honoursHead}</p>
         <ul>
-          {institutional.map((h) => (
+          {ach.institutional.map((h) => (
             <li>
               <span class="ach__tick" aria-hidden="true">
                 <svg width="11" height="9" viewBox="0 0 12 10" fill="none">
@@ -99,9 +82,9 @@ const student = [
 
       <figure class="ach__photo ach__photo--wide" data-reveal data-reveal-delay="120">
         <Photo
-          src={trophy}
-          alt="The school’s award graphic for the RoboWunder International Robotics Championship in Kuala Lumpur, showing Deepak Kumar with his drone and the team receiving the award."
-          brief="The RoboWunder international robotics award"
+          file={ach.photos[1]?.image}
+          alt={ach.photos[1]?.alt ?? ''}
+          brief={ach.photos[1]?.brief ?? ''}
           ratio="16 / 9"
           position="58% 42%"
           sizes="(max-width: 1023px) 100vw, 40vw"

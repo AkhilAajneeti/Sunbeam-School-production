@@ -1,0 +1,12 @@
+{
+  "collectionName":"components_academics_faqs",
+  "info":{"displayName":"FAQ","icon":"question",
+    "description":"One question and its answer. ⚠ `answers` IS A LIST OF PARAGRAPHS, not one block of text — several answers run to two or three, and the page prints each as its own <p>. ⚠ THE ANSWER CARRIES EMPHASIS. It was written as HTML because the emphasis is part of the meaning ('Nursery to Class IX'); it is stored with the `**` marker and rendered by ui/RichLine.astro, so the CMS never holds raw markup. ⚠ `cta` NEEDS ITS LABEL AND ITS external FLAG, which is why it is a link component rather than a bare href — squeezing it into one it lost both."},
+  "options":{},
+  "attributes":{
+    "question":{"type":"text","required":true,"maxLength":500},
+    "answers":{"type":"component","repeatable":true,"component":"shared.paragraph"},
+    "note":{"type":"string","maxLength":300},
+    "cta":{"type":"component","repeatable":false,"component":"shared.link"}
+  }
+}

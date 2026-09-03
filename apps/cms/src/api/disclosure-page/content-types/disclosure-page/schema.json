@@ -1,0 +1,43 @@
+{
+  "kind":"singleType","collectionName":"disclosure_page",
+  "info":{"singularName":"disclosure-page","pluralName":"disclosure-pages","displayName":"Disclosure Page",
+    "description":"The CBSE Mandatory Public Disclosure at /general-info/. Replaces apps/web/src/data/disclosure.ts. ⚠ THIS IS A REGULATORY FILING, NOT MARKETING COPY. Every figure here is transcribed from the school's own documents and must continue to agree with the PDFs linked beside it — a value corrected here and not in the filing makes the page disagree with the document of record. ⚠ REFILED ANNUALLY: the board results, staff summary, teacher list, infrastructure figures and all thirteen certificates change each session, which is why they are editable rather than compiled in. ⚠ THE 131 TEACHERS ARE A SEPARATE COLLECTION (Teacher), not a component here — a 131-entry repeatable field is unusable in the admin, and the collection gives a searchable, filterable list. The designation filter on the page is DERIVED from it and is never a typed list."},
+  "options":{"draftAndPublish":true},
+  "attributes":{
+    "sections":{"type":"component","repeatable":true,"component":"disclosure.section"},
+
+    "quickInfo":{"type":"component","repeatable":true,"component":"shared.detail"},
+    "quickNote":{"type":"text","maxLength":600},
+
+    "sourcePdfHref":{"type":"string","maxLength":500},
+    "sourcePdfFile":{"type":"media","multiple":false,"allowedTypes":["files","images"]},
+    "sourcePage":{"type":"string","maxLength":500},
+    "sourceCovers":{"type":"string","maxLength":300},
+
+    "railLabel":{"type":"string","maxLength":80},
+    "railPdfTitle":{"type":"string","maxLength":120},
+    "railPdfBody":{"type":"text","maxLength":400},
+    "railPdfViewLabel":{"type":"string","maxLength":60},
+    "railPdfDownloadLabel":{"type":"string","maxLength":60},
+
+    "generalInformation":{"type":"component","repeatable":true,"component":"shared.detail"},
+    "certificates":{"type":"component","repeatable":true,"component":"shared.document"},
+    "academicDocs":{"type":"component","repeatable":true,"component":"shared.document"},
+
+    "boardResults":{"type":"component","repeatable":true,"component":"disclosure.board-result"},
+    "boardResultsNote":{"type":"text","maxLength":800},
+
+    "staffSummary":{"type":"component","repeatable":true,"component":"shared.detail"},
+    "staffLead":{"type":"text","maxLength":800},
+    "staffHeadlineCount":{"type":"integer"},
+
+    "infrastructure":{"type":"component","repeatable":true,"component":"shared.detail"},
+    "inspectionVideo":{"type":"string","maxLength":500},
+
+    "calloutHeading":{"type":"text","maxLength":400},
+    "calloutBody":{"type":"text","maxLength":1000},
+    "calloutPhoto":{"type":"component","repeatable":false,"component":"shared.photo"},
+
+    "docViewLabel":{"type":"string","maxLength":60}
+  }
+}

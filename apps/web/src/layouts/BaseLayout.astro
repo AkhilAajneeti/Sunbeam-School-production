@@ -5,15 +5,45 @@ import UtilityBar from '../components/navigation/UtilityBar.astro';
 import Masthead from '../components/navigation/Masthead.astro';
 import MobileNav from '../components/navigation/MobileNav.astro';
 import Footer from '../components/layout/Footer.astro';
-import { school } from '../data/site';
+import { getSchool, getPageMeta, composeTitle } from '../lib/cms';
 
+const school = await getSchool();
+
+/**
+ * ⚠⚠ SEO COMES FROM page-meta IN STRAPI, KEYED ON THIS PAGE'S OWN ROUTE.
+ *
+ * Every static route used to hardcode its own <title> and meta description in
+ * frontmatter — 68 of them, and 66 of those repeated " — Sunbeam School Ballia"
+ * as a literal. The layout now looks itself up by `Astro.url.pathname` and
+ * composes the title from site-settings, so the school's name lives in exactly
+ * one place and a description is edited in the admin rather than in a .astro
+ * file.
+ *
+ * ⚠ THE PROPS SURVIVE AS AN OVERRIDE, AND THEY ARE NOT VESTIGIAL. Dynamic routes
+ * — /alumni/<slug>/, the news detail pages — build their title from the record
+ * they are rendering, which is content the CMS holds against the ITEM, not
+ * against the route. They keep passing `title` and `description`, and a passed
+ * value always wins over the looked-up one.
+ */
 interface Props {
-  title: string;
-  description: string;
+  /** Overrides page-meta. Used by dynamic routes, whose SEO is per-record. */
+  title?: string;
+  description?: string;
   /** e.g. "noindex, follow". Omit on real pages — the default is indexable. */
   robots?: string;
 }
-const { title, description, robots } = Astro.props;
+const { title: titleProp, description: descProp, robots: robotsProp } = Astro.props;
+
+/* Look this page up by its own path. Null for dynamic routes, which pass props. */
+const pageMeta = await getPageMeta(Astro.url.pathname);
+
+const title = titleProp ?? composeTitle(pageMeta, school.name);
+const description = descProp ?? pageMeta?.seo?.metaDescription ?? '';
+
+/* `noIndex` is a boolean in the CMS; the tag wants the string the site has
+   always emitted. 'follow' is deliberate — a placeholder should not be indexed
+   but its outbound links should still be crawled. */
+const robots = robotsProp ?? (pageMeta?.seo?.noIndex ? 'noindex, follow' : undefined);
 ---
 
 <!doctype html>

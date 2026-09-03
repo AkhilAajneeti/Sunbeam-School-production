@@ -1,4 +1,7 @@
 ---
+import { getActivitiesData } from '../../../lib/cms';
+
+const { schoolActivities } = await getActivitiesData();
 /**
  * SCHOOL ACTIVITIES — page 1 of the index.
  *
@@ -18,12 +21,9 @@
  */
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import ActivityIndex from '../../../components/news/ActivityIndex.astro';
-import { schoolActivities } from '../../../data/schoolActivities';
 ---
 
 <BaseLayout
-  title={`${schoolActivities.title} — Sunbeam School Ballia`}
-  description={schoolActivities.standfirst}
 >
   <ActivityIndex current={1} />
 </BaseLayout>

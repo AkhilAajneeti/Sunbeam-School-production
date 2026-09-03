@@ -1,0 +1,110 @@
+{
+  "sectionOne": {
+    "kicker": "Critical Thinking & Creativity",
+    "heading": "Think critically.",
+    "headingEm": "Dream fearlessly.",
+    "quote": "",
+    "quoteAuthor": "",
+    "body": [
+      "The words are the Principal's. She describes a Sunbeam education as *“nurturing character, inspiring creativity”*, and the student it is meant to produce as one who **“thinks critically, acts responsibly, and dreams fearlessly.”**",
+      "Beyond knowing the answer is a teachable thing, so the school treated it as one: it brought in a workshop on **teaching critical thinking in the classroom** and put its own staff through it. The training went to the teachers first."
+    ],
+    "caption": "Prof. Pradeep Mishra — Lovely",
+    "captionSecond": "Professional University",
+    "image": "assets/workshops/CriticalThinking/CriticalThinking2.jpg",
+    "imageName": "CriticalThinking2",
+    "imageAlt": "Prof. Pradeep Mishra of Lovely Professional University speaking at the Critical Thinking workshop for teachers at {schoolName}"
+  },
+  "sectionTwo": {
+    "kicker": "Ideas need a voice",
+    "heading": "A position you",
+    "headingSecond": "have to",
+    "headingEm": "defend aloud.",
+    "body": [
+      "Sunbeam's students went to **CMSMUN** — which the school records as *“an experience that went beyond the classroom.”* A Model United Nations committee is the one room where a thought is no use until it has been said out loud, to people who may disagree.",
+      "The school keeps a **Model United Nations Lab** among its inquiry rooms, so the committee is not only something the delegation meets once a year at somebody else's conference."
+    ],
+    "marks": [
+      {
+        "label": "Question",
+        "mark": "search"
+      },
+      {
+        "label": "Argue",
+        "mark": "megaphone"
+      },
+      {
+        "label": "Reason",
+        "mark": "bulb"
+      },
+      {
+        "label": "Present",
+        "mark": "present"
+      },
+      {
+        "label": "Listen",
+        "mark": "chat"
+      },
+      {
+        "label": "Decide",
+        "mark": "target"
+      }
+    ],
+    "imageOne": "assets/excursions/imun-1.jpg",
+    "imageOneName": "imun-1",
+    "imageOneAlt": "The {schoolName} delegation holding the school flag at the MU20 Model United Nations conference",
+    "imageTwo": "assets/excursions/imun-3.jpg",
+    "imageTwoName": "imun-3",
+    "imageTwoAlt": "Four delegates from {schoolName} holding their Model United Nations certificates in front of the national flags"
+  },
+  "sectionThree": {
+    "kicker": "Ideas into impact",
+    "heading": "Two days, seven schools,",
+    "headingSecond": "",
+    "headingEm": "one working answer.",
+    "body": [
+      "**SUNBEAM INNOVX — Hackathon & Coding Contest 2026** is the school's own description of *“a two-day celebration of young innovators solving real-world problems through code, creativity, and collaboration.”*",
+      "Seven schools entered the preliminary round. The finals took the top three on cut-off merit — {schoolName}, Columbus International School and PM Shri Kendriya Vidyalaya."
+    ],
+    "marks": [
+      {
+        "label": "Idea",
+        "mark": "bulb"
+      },
+      {
+        "label": "Think",
+        "mark": "head"
+      },
+      {
+        "label": "Build",
+        "mark": "layers"
+      },
+      {
+        "label": "Solve",
+        "mark": "cup"
+      }
+    ],
+    "imageOne": "assets/school-event/Monash-Innovation/Monash-Innovation-01.jpg",
+    "imageOneName": "Monash-Innovation-01",
+    "imageOneAlt": "A student of {schoolName} beside the Monash University Innovation Guarantee banner at an outreach session"
+  },
+  "sectionFour": {
+    "kicker": "Ideas take shape",
+    "heading": "Create.",
+    "headingSecond": "",
+    "index": [],
+    "body": [
+      "Because ideas become powerful when students have the freedom to express them — on a stage, in a presentation, or with their hands. The school's own TED Talk put it best: *“Where ideas take the stage and voices find their power.”*"
+    ],
+    "closingLine": "Think deeply. Create boldly.",
+    "imageOne": "assets/school-event/Impetus—ClassesIII-V/Impetus—ClassesIII-V-02.jpg",
+    "imageOneName": "Impetus—ClassesIII-V-02",
+    "imageOneAlt": "A Canva Presentation activity in progress with a class at {schoolName} during Impetus, Classes III to V",
+    "imageTwo": "assets/School Activity in Uniform/Embriodery.jpg",
+    "imageTwoName": "Embriodery",
+    "imageTwoAlt": "Students of {schoolName} working on embroidery together from one shared basket of thread",
+    "imageThree": "assets/school-activities/summer-camp/05.jpg",
+    "imageThreeName": "summer-camp-05",
+    "imageThreeAlt": "A young student of {schoolName} holding a hand-made rocket cut-out at the Star Gazing session"
+  }
+}

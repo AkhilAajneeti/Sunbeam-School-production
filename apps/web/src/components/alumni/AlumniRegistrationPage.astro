@@ -38,11 +38,19 @@ import { MARK } from '../academics/assessment/marks';
 import ArForm from './ArForm.astro';
 import AlRail from './AlRail.astro';
 import Lightbox from '../ui/Lightbox.astro';
-import { featuredMeet, alumniGallery } from '../../data/alumniMeets';
+import CmsImage from '../ui/CmsImage.astro';
+import { getAlumniPageData, fileUrl } from '../../lib/cms';
 import { registrationBenefits, engagementCards, registrationSettings } from '../../data/alumniRegistration';
 
 import pCampus from '../../assets/photos/sunbeamcloudimage.png';
 import pCohort from '../../assets/photos/sunbeem-3.jpg';
+
+/* ⚠ FROM STRAPI NOW, NOT data/alumniMeets.ts. This page shows the same featured
+   meet and the same gallery strip as /alumni/, so it reads the same query rather
+   than a second one of its own — the client caches per build, so both pages
+   share one round trip. The old data file remains on disk until this is verified
+   in a production build. */
+const { featuredMeet, alumniGallery } = await getAlumniPageData();
 
 const S = 'Sunbeam School Ballia';
 const ALUMNI = '/alumni/';
@@ -186,19 +194,17 @@ const hasGallery = alumniGallery.length > 0;
           <a
             class="ar-meet__frame"
             data-lb-open
-            href={featuredMeet.cover.src}
+            href={fileUrl(featuredMeet.cover)}
             data-lb-alt={featuredMeet.coverAlt}
             data-lb-cap={`${featuredMeet.title} · ${featuredMeet.session}`}
             data-mask
           >
-            <Picture
-              src={featuredMeet.cover}
+            <CmsImage
+              file={featuredMeet.cover}
               alt={featuredMeet.coverAlt ?? `${featuredMeet.title} at ${S}.`}
-              formats={['webp']}
-              widths={[540, 900, 1280]}
               sizes="(max-width: 1023px) 92vw, 48vw"
+              fallbackWidth={1100}
               loading="lazy"
-              decoding="async"
             />
           </a>
         )}
@@ -252,15 +258,13 @@ const hasGallery = alumniGallery.length > 0;
       <AlRail label="Photographs from the alumni meet" id="ar-gal-rail" per={5} perMd={3} perSm={2}>
         {alumniGallery.map((g) => (
           <li class="ar-shot">
-            <a class="ar-shot__a" data-lb-open href={g.image.src} data-lb-alt={g.alt} data-lb-cap={g.caption ?? g.alt}>
-              <Picture
-                src={g.image}
+            <a class="ar-shot__a" data-lb-open href={fileUrl(g.image)} data-lb-alt={g.alt} data-lb-cap={g.caption ?? g.alt}>
+              <CmsImage
+                file={g.image}
                 alt={g.alt}
-                formats={['webp']}
-                widths={[320, 560]}
                 sizes="(max-width: 767px) 46vw, 19vw"
+                fallbackWidth={420}
                 loading="lazy"
-                decoding="async"
               />
             </a>
           </li>

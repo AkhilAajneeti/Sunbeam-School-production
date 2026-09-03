@@ -30,9 +30,13 @@
  */
 import '../../styles/assessment.css';
 import { MARK } from '../academics/assessment/marks';
-import { catalogues, classGroups, seasons, shoeTable, uniformNotes, uniformSource } from '../../data/uniform';
+import { getUniform } from '../../lib/cms';
+import ClipHeading from '../ui/ClipHeading.astro';
+import RichLine from '../ui/RichLine.astro';
 
-const S = 'Sunbeam School Ballia';
+const {
+  top, catalogues, classes, seasonsBlock, shoes, notes, download, source: uniformSource,
+} = await getUniform();
 ---
 
 {/* ══ 01 · THE CATALOGUES ════════════════════════════════════════════════════ */}
@@ -41,21 +45,10 @@ const S = 'Sunbeam School Ballia';
 
   <div class="u-container un-top__grid">
     <div class="un-top__copy">
-      <p class="as-kicker" data-reveal>Our catalogues</p>
-      <h2 class="as-h as-h--xl un-top__h" id="un-top-t">
-        <span data-clip data-clip-delay="0">Explore our official</span>
-        <span data-clip data-clip-delay="150"><em>uniform catalogues</em></span>
-      </h2>
-      <p class="as-body" data-reveal data-reveal-delay="200">
-        The school publishes two uniform documents. Both are reproduced here exactly as issued —
-        view them in the browser or download the original file.
-      </p>
-      <p class="as-note" data-reveal data-reveal-delay="260">
-        Everything further down this page is read out of those catalogues: the class groups they
-        are organised by, the four seasons, the shoe list and the school’s own eleven notes. The
-        source is the school’s {' '}
-        <a class="as-link" href={uniformSource} target="_blank" rel="noopener noreferrer">Uniform page</a>.
-      </p>
+      <p class="as-kicker" data-reveal>{top.kicker}</p>
+      <ClipHeading class="as-h as-h--xl un-top__h" id="un-top-t" text={top.heading} />
+      <p class="as-body" data-reveal data-reveal-delay="200">{top.body}</p>
+      <RichLine class="as-note" reveal revealDelay={260} text={top.note} />
     </div>
 
     <ul class="un-cats">
@@ -108,21 +101,15 @@ const S = 'Sunbeam School Ballia';
   <div class="u-container">
     <div class="un-head">
       <div>
-        <p class="as-kicker" data-reveal>Explore by class</p>
-        <h2 class="as-h as-h--md un-head__h" id="un-cls-t">
-          <span data-clip data-clip-delay="0">How the catalogues</span>
-          <span data-clip data-clip-delay="140"><em>are organised</em></span>
-        </h2>
+        <p class="as-kicker" data-reveal>{classes.kicker}</p>
+        <ClipHeading class="as-h as-h--md un-head__h" id="un-cls-t" stagger={140} text={classes.heading} />
         <span class="un-rule" aria-hidden="true"></span>
       </div>
-      <p class="un-head__n" data-reveal data-reveal-delay="180">
-        Every page of the current catalogue is headed with one of these three groups, then split
-        into boys and girls across the four seasons.
-      </p>
+      <p class="un-head__n" data-reveal data-reveal-delay="180">{classes.note}</p>
     </div>
 
     <ul class="un-groups">
-      {classGroups.map((g, i) => (
+      {classes.groups.map((g, i) => (
         <li class="un-group" data-pop data-pop-delay={110 + i * 90}>
           <span class="un-group__m" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none">
@@ -143,17 +130,14 @@ const S = 'Sunbeam School Ballia';
   <div class="u-container">
     <div class="un-head un-head--solo">
       <div>
-        <p class="as-kicker" data-reveal>Uniform through the year</p>
-        <h2 class="as-h as-h--md un-head__h" id="un-sea-t">
-          <span data-clip data-clip-delay="0">Seasons &amp; when</span>
-          <span data-clip data-clip-delay="140"><em>uniforms are worn</em></span>
-        </h2>
+        <p class="as-kicker" data-reveal>{seasonsBlock.kicker}</p>
+        <ClipHeading class="as-h as-h--md un-head__h" id="un-sea-t" stagger={140} text={seasonsBlock.heading} />
         <span class="un-rule" aria-hidden="true"></span>
       </div>
     </div>
 
     <ol class="un-seasons">
-      {seasons.map((s, i) => (
+      {seasonsBlock.seasons.map((s, i) => (
         <li class="un-season" data-reveal data-reveal-delay={110 + i * 80}>
           <span class="un-season__m" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none">
@@ -172,9 +156,9 @@ const S = 'Sunbeam School Ballia';
 <section class="as-sec as-sec--paper as-pad un-det" aria-labelledby="un-det-t">
   <div class="u-container un-det__grid">
     <div class="un-det__shoes">
-      <p class="as-kicker" data-reveal>Footwear</p>
+      <p class="as-kicker" data-reveal>{shoes.kicker}</p>
       <h2 class="as-h as-h--md un-det__h" id="un-det-t">
-        <span data-clip data-clip-delay="0">{shoeTable.heading}</span>
+        <span data-clip data-clip-delay="0">{shoes.heading}</span>
       </h2>
       <span class="un-rule" aria-hidden="true"></span>
 
@@ -193,7 +177,7 @@ const S = 'Sunbeam School Ballia';
             </tr>
           </thead>
           <tbody>
-            {shoeTable.rows.map((r) => (
+            {shoes.rows.map((r) => (
               <tr>
                 <th scope="row">{r.classes}</th>
                 <td>{r.boys}</td>
@@ -204,7 +188,7 @@ const S = 'Sunbeam School Ballia';
           </tbody>
         </table>
       </div>
-      <p class="un-det__src">{shoeTable.note}</p>
+      <p class="un-det__src">{shoes.note}</p>
     </div>
 
     {/* ⚠ THE ELEVEN NOTES ARE THE SCHOOL'S OWN, VERBATIM. This is the block that
@@ -217,15 +201,13 @@ const S = 'Sunbeam School Ballia';
           </svg>
         </span>
         <div>
-          <h3 class="un-note__k">Important information</h3>
-          <p class="un-note__v">
-            The catalogue’s own notes, reproduced word for word.
-          </p>
+          <h3 class="un-note__k">{notes.title}</h3>
+          <p class="un-note__v">{notes.body}</p>
         </div>
       </div>
 
       <ol class="un-notes">
-        {uniformNotes.map((n, i) => (
+        {notes.items.map((n, i) => (
           <li class="un-noteitem" data-reveal data-reveal-delay={70 + i * 28}>
             <span class="un-noteitem__n t-tabular">{String(i + 1).padStart(2, '0')}</span>
             <span class="un-noteitem__t">{n}</span>
@@ -241,11 +223,8 @@ const S = 'Sunbeam School Ballia';
   <div class="u-container">
     <div class="un-head un-head--solo">
       <div>
-        <p class="as-kicker" data-reveal>Download the complete catalogues</p>
-        <h2 class="as-h as-h--md un-head__h" id="un-dl-t">
-          <span data-clip data-clip-delay="0">View or download</span>
-          <span data-clip data-clip-delay="140"><em>the official PDFs</em></span>
-        </h2>
+        <p class="as-kicker" data-reveal>{download.kicker}</p>
+        <ClipHeading class="as-h as-h--md un-head__h" id="un-dl-t" stagger={140} text={download.heading} />
         <span class="un-rule" aria-hidden="true"></span>
       </div>
     </div>
@@ -284,11 +263,7 @@ const S = 'Sunbeam School Ballia';
       ))}
     </ul>
 
-    <p class="un-dl__note">
-      Both files are the school’s own, unaltered. {S} publishes them on its {' '}
-      <a class="as-link" href={uniformSource} target="_blank" rel="noopener noreferrer">Uniform page</a>;
-      nothing on this page replaces or redraws them.
-    </p>
+    <RichLine class="un-dl__note" text={download.note} />
   </div>
 </section>
 

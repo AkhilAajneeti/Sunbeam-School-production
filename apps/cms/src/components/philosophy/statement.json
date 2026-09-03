@@ -1,0 +1,63 @@
+{
+  "collectionName": "components_philosophy_statements",
+  "info": {
+    "displayName": "Statement section",
+    "icon": "quote",
+    "description": "One of the page's statement sections — a small label, a heading, an optional quotation and one or more paragraphs beside a photograph. ⚠ WHAT IS NOT HERE: the section's number, its washes and grids, its float ornaments, the reveal delays and the order it appears in. Those are the design and stay in the page."
+  },
+  "options": {},
+  "attributes": {
+    "kicker": {
+      "type": "string",
+      "required": true,
+      "maxLength": 80
+    },
+    "heading": {
+      "type": "string",
+      "required": true,
+      "maxLength": 120
+    },
+    "headingEm": {
+      "type": "string",
+      "maxLength": 120,
+      "description": "The second half of the heading, set in italic. Leave empty for a heading that is all one weight."
+    },
+    "quote": {
+      "type": "text",
+      "maxLength": 500
+    },
+    "quoteAuthor": {
+      "type": "string",
+      "maxLength": 120,
+      "description": "Leave empty to credit the Principal named in Site Settings."
+    },
+    "body": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.paragraph"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "imageAlt": {
+      "type": "text",
+      "required": true,
+      "maxLength": 500
+    },
+    "caption": {
+      "type": "string",
+      "maxLength": 120,
+      "description": "Optional credit under the photograph — who is in it, or where it was taken."
+    },
+    "captionSecond": {
+      "type": "string",
+      "maxLength": 120,
+      "description": "The second line of that credit. The page sets it smaller."
+    }
+  }
+}

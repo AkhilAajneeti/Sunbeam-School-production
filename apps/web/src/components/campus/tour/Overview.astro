@@ -1,4 +1,7 @@
 ---
+import { getCampusTourData } from '../../../lib/cms';
+const {overviewStats} = await getCampusTourData();
+
 /**
  * §2 · CAMPUS OVERVIEW — the figures, before any photograph.
  *
@@ -11,7 +14,7 @@
  * readable if the GSAP chunk never loads. `data-count-suffix` keeps the + and %
  * from being eaten by the textContent write.
  */
-import { overviewStats } from '../../../data/campusTour';
+
 import SectionHead from '../../academics/SectionHead.astro';
 ---
 

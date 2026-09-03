@@ -31,7 +31,7 @@
  * heritage artwork it does the opposite of its job.
  */
 import { Image } from 'astro:assets';
-import { school } from '../../data/site';
+import { getSchool } from '../../lib/cms';
 
 /* ⚠⚠ THE CLIENT'S OWN SEPIA PENCIL SET, one drawn per milestone. This replaces
    the stand-ins entirely: 1972 had line-art books because no photograph of the
@@ -43,6 +43,8 @@ import iVaranasi from '../../assets/icons/varanasi.png';
 import iSchool from '../../assets/icons/shoolsketch.png';
 import iStudents from '../../assets/icons/studentlearning.png';
 import iTrophy from '../../assets/icons/troffe.png';
+
+const school = await getSchool();
 
 type Milestone = {
   n: string;

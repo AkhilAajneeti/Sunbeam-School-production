@@ -30,8 +30,11 @@
  * id="affiliation" — the anchor the constellation used to hold.
  */
 import { Image } from 'astro:assets';
-import { affiliation as aff } from '../../data/academics';
 import figure from '../../assets/icons/thinkgirl.png';
+import { getAcademicTopic } from '../../lib/cms';
+
+const ac = await getAcademicTopic('/academics/philosophy/affiliation-details/');
+const aff = ac.section('affiliation');
 
 ---
 

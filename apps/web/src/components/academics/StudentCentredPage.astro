@@ -85,19 +85,12 @@
  * data-pop(+delay), data-parallax(+y), data-mask — handled by
  * scripts/motion-gsap.ts, already gated on prefers-reduced-motion and Save-Data.
  */
-import { Image, Picture } from 'astro:assets';
-import { school } from '../../data/site';
+import { Image } from 'astro:assets';
 
 /* ─── Photography ────────────────────────────────────────────────────────────
    Nine frames, every one opened and looked at before it was placed, and each
    given a DIFFERENT treatment: full bleed, cropped portrait, collage, panorama,
    circular mask. No frame is used twice. */
-import pOwnWork from '../../assets/School Activity in Uniform/School Activity in Uniform (5).jpeg';
-import pSpeaking from '../../assets/school-activities/investiture-ceremony/05.jpg';
-import pSash from '../../assets/school-activities/investiture-ceremony/02.jpg';
-import pFlag from '../../assets/school-activities/investiture-ceremony/03.jpg';
-import pGrowing from '../../assets/school-activities/little-agriculturists/02.jpg';
-import pCohort from '../../assets/photos/sunbeem-3.jpg';
 
 /* ─── Ornament ───────────────────────────────────────────────────────────────
    Transparent PNGs already in the repository. Used at poster scale, bleeding off
@@ -105,15 +98,14 @@ import pCohort from '../../assets/photos/sunbeem-3.jpg';
 import dKite from '../../assets/icons/kite.png';
 import dStars from '../../assets/icons/two-stars.png';
 import dStar from '../../assets/icons/star.png';
-import dBooks from '../../assets/icons/books.png';
-import dBulb from '../../assets/icons/bulb.png';
-import dBrush from '../../assets/icons/paintbrush.png';
-import dSaturn from '../../assets/icons/saturn.png';
-import dQuestion from '../../assets/icons/questions.png';
-import dFocus from '../../assets/icons/focus.png';
-import dMovement from '../../assets/icons/movement.png';
-import dCap from '../../assets/icons/graduate-cap.png';
-import dPencil from '../../assets/icons/pencill.webp';
+import { getStudentCentredLearning } from '../../lib/cms';
+import RichLine from '../ui/RichLine.astro';
+import { fileUrl } from '../../lib/cms';
+import SmartImage from '../ui/SmartImage.astro';
+
+
+const scl = await getStudentCentredLearning();
+const { one, two, three, close } = scl;
 
 /**
  * The orbit.
@@ -155,17 +147,32 @@ import dPencil from '../../assets/icons/pencill.webp';
  *
  * Dropped earlier: the paper plane and the small figure — the two thinnest pieces of art
  * in the set, illegible at this size and the weakest match to their words. */
-const orbit = [
-  { k: 'Words', art: dBooks, a: 10, r: 34, s: 1.1, o: 1 },          // stack of books
-  { k: 'Writing', art: dPencil, a: 50, r: 40, s: 0.95, o: 0.88 },   // pencil
-  { k: 'Making', art: dBrush, a: 90, r: 34, s: 1.05, o: 0.96 },     // paintbrush
-  { k: 'Questions', art: dQuestion, a: 130, r: 40, s: 0.8, o: 0.9 },// speech bubble, "?"
-  { k: 'Wonder', art: dSaturn, a: 170, r: 33, s: 1.05, o: 1 },      // ringed planet
-  { k: 'Movement', art: dMovement, a: 210, r: 40, s: 0.86, o: 0.94 },// figure striding up books
-  { k: 'Ideas', art: dBulb, a: 250, r: 34, s: 1, o: 0.9 },          // light bulb
-  { k: 'Ambition', art: dCap, a: 290, r: 40, s: 1, o: 0.96 },       // graduation cap
-  { k: 'Focus', art: dFocus, a: 330, r: 34, s: 0.78, o: 0.92 },     // head in profile, gear
+/**
+ * ⚠ THE ANGLE IS COMPUTED, NOT STORED. The nine nodes sit at 10°, 50°, 90° … —
+ * an even share of the circle with a 10° offset, so `10 + i × 360 / n`. It was
+ * stored per card, which let an editor drag a node off the ring or add a tenth
+ * that overlapped the first. The ring now re-spaces itself.
+ */
+const ORBIT_OFFSET = 10;
+
+/**
+ * ⚠ WHERE EACH NODE SITS, AND HOW BIG IT IS — DESIGN, NOT CONTENT.
+ *
+ * The angle is even (see above), but the radius, scale and opacity of each node
+ * were placed by hand for balance: the ring alternates 34 and 40, and the sizes
+ * vary so the constellation does not read as nine identical dots. None of it is
+ * something an editor should be asked about, and none of it is derivable.
+ *
+ * ⚠ IT CYCLES. A tenth card added in the admin takes the first placement rather
+ * than landing at the centre with no size at all.
+ */
+const ORBIT_PLACEMENT = [
+  { r: 34, s: 1.1,  o: 1    }, { r: 40, s: 0.95, o: 0.88 }, { r: 34, s: 1.05, o: 0.96 },
+  { r: 40, s: 0.8,  o: 0.9  }, { r: 33, s: 1.05, o: 1    }, { r: 40, s: 0.86, o: 0.94 },
+  { r: 34, s: 1,    o: 0.9  }, { r: 40, s: 1,    o: 0.96 }, { r: 34, s: 0.78, o: 0.92 },
 ];
+const placementOf = (i) => ORBIT_PLACEMENT[i % ORBIT_PLACEMENT.length];
+const angleOf = (i) => ORBIT_OFFSET + (i * 360) / three.cards.length;
 
 const at = (a: number, r: number) => ({
   x: (50 + r * Math.cos((a * Math.PI) / 180)).toFixed(2),
@@ -188,30 +195,26 @@ const at = (a: number, r: number) => ({
     <div class="u-container sc-pot__in">
       <div class="sc-pot__copy">
         <p class="sc__n" aria-hidden="true">01</p>
-        <p class="sc__k t-label" data-reveal>Every child matters</p>
+        <p class="sc__k t-label" data-reveal>{one.kicker}</p>
         <h2 class="sc-pot__h" id="sc-pot-h" data-split>
-          Every child has <em>potential.</em>
+          {one.heading} <em>{one.headingEm}</em>
         </h2>
 
+        {/* ⚠ The curly quotes are typography and stay here — an editor types the
+            sentence, the design sets the marks round it. */}
         <blockquote class="sc-quote" data-reveal data-reveal-delay="110">
-          <p>“All the students do not have the same talents and so each one will achieve success differently.”</p>
-          <cite>{school.principal} · Principal</cite>
+          <p>“{one.quote}”</p>
+          <cite>{one.quoteAuthor} · Principal</cite>
         </blockquote>
 
-        <p class="sc__p" data-reveal data-reveal-delay="200">
-          The school sets itself two aims that only work together: that every child should
-          <strong>“learn effectively and develop their full potential”</strong>, and that
-          <strong>“all children receive equal regard and equal access to the curriculum.”</strong>
-          Equal access is what keeps potential from being a word — the same curriculum is open to
-          every child on the register, and what differs is the route each takes through it.
-        </p>
+        <RichLine class="sc__p" text={one.body[0]} reveal revealDelay={200} />
       </div>
 
       <figure class="sc-pot__art" data-mask data-zoom>
-        <Picture
-          src={pOwnWork}
-          alt={`Two students of ${school.name} sharing a desk, each working on her own drawing`}
-          formats={['webp']}
+        <SmartImage
+          file={one.image}
+          alt={one.imageAlt}
+         
           widths={[520, 900]}
           sizes="(max-width: 900px) 92vw, 46vw"
           loading="eager"
@@ -235,34 +238,26 @@ const at = (a: number, r: number) => ({
 
     <div class="u-container sc-voice__in">
       <div class="sc-voice__lede">
-        <h2 class="sc-voice__h" id="sc-voice-h" data-split>“Our voice<br />matters.”</h2>
+        <h2 class="sc-voice__h" id="sc-voice-h" data-split>{two.heading}<br />{two.headingSecond}</h2>
 
         {/* The three words used to float in the gutter between the copy and the
             photographs, hung off nothing and spread over 700px of empty white.
             As a rule-separated index line under the headline they support it
             instead of drifting beside it. */}
         <ul class="sc-voice__index" data-reveal data-reveal-delay="90">
-          <li>Voice</li>
-          <li>Ideas</li>
-          <li>Participation</li>
+          {two.index.map((w) => <li>{w}</li>)}
         </ul>
 
-        <p class="sc-voice__p" data-reveal data-reveal-delay="150">
-          Students from Grades I to XII take part in the school's <strong>Children's Forum</strong>
-          — <em>“a wonderful platform for students to express their thoughts, share their ideas,
-          and engage in meaningful discussions on academics and school activities.”</em>
-        </p>
-        <p class="sc-voice__pull" data-reveal data-reveal-delay="230">
-          Not just learners but <em>active contributors</em> to the school's growth and progress.
-        </p>
+        <RichLine class="sc-voice__p" text={two.body[0]} reveal revealDelay={150} />
+        <RichLine class="sc-voice__pull" text={two.body[1]} reveal revealDelay={230} />
       </div>
 
       <div class="sc-voice__collage">
         <figure class="sc-voice__a" data-mask data-zoom>
-          <Picture
-            src={pSpeaking}
-            alt={`The Head Boy of ${school.name} speaking into a microphone at the Student Council investiture ceremony`}
-            formats={['webp']}
+          <SmartImage
+            file={two.imageOne}
+            alt={two.imageOneAlt}
+           
             widths={[420, 900]}
             sizes="(max-width: 900px) 86vw, 40vw"
             loading="lazy"
@@ -274,10 +269,10 @@ const at = (a: number, r: number) => ({
             crop of a torso peeping from behind the first — it read as a mistake
             rather than as a layer. */}
         <figure class="sc-voice__b" data-pop data-pop-delay="140" data-zoom data-zoom-to="1.16">
-          <Picture
-            src={pSash}
-            alt={`A student of ${school.name} being invested with the Head Boy sash`}
-            formats={['webp']}
+          <SmartImage
+            file={two.imageTwo}
+            alt={two.imageTwoAlt}
+           
             widths={[300, 620]}
             sizes="(max-width: 900px) 40vw, 18vw"
             loading="lazy"
@@ -286,10 +281,10 @@ const at = (a: number, r: number) => ({
         </figure>
 
         <figure class="sc-voice__c" data-pop data-pop-delay="230" data-zoom>
-          <Picture
-            src={pFlag}
-            alt={`A house captain at ${school.name} kneeling to receive the house flag`}
-            formats={['webp']}
+          <SmartImage
+            file={two.imageThree}
+            alt={two.imageThreeAlt}
+           
             widths={[280, 560]}
             sizes="(max-width: 900px) 38vw, 16vw"
             loading="lazy"
@@ -310,27 +305,18 @@ const at = (a: number, r: number) => ({
     <div class="u-container sc-many__in">
       <div class="sc-many__copy">
         <h2 class="sc-many__h" id="sc-many-h" data-split>
-          One learner.<br /><em>Many possibilities.</em>
+          {three.heading}<br /><em>{three.headingEm}</em>
         </h2>
-        <p class="sc-many__p" data-reveal data-reveal-delay="140">
-          <em>“A theory of Multiple Intelligence”</em> is named by the school as one of the three
-          things it builds into all areas of teaching. From the learner's side it says something
-          simple: the child who is quickest with words and the child who is quickest with their
-          hands are both quick.
-        </p>
-        <p class="sc-many__foot" data-reveal data-reveal-delay="220">
-          The school's stated aim for all of it is to <em>“develop in children a degree of
-          independence and self-motivation”</em> — a learner who no longer needs telling which of
-          these they are good at.
-        </p>
+        <RichLine class="sc-many__p" text={three.body[0]} reveal revealDelay={140} />
+        <RichLine class="sc-many__foot" text={three.body[1]} reveal revealDelay={220} />
       </div>
 
       <div class="sc-eco" data-reveal>
       <div class="sc-eco__core" data-zoom data-zoom-to="1.08">
-        <Picture
-          src={pGrowing}
-          alt={`A young student of ${school.name} adding kitchen scraps to the compost bin at the Little Agriculturists activity`}
-          formats={['webp']}
+        <SmartImage
+          file={three.image}
+          alt={three.imageAlt}
+         
           widths={[360, 719]}
           sizes="(max-width: 700px) 56vw, 320px"
           loading="lazy"
@@ -345,8 +331,9 @@ const at = (a: number, r: number) => ({
 
       <ul class="sc-eco__set">
         {
-          orbit.map((n) => {
-            const p = at(n.a, n.r);
+          three.cards.map((n, i) => {
+            const place = placementOf(i);
+            const p = at(angleOf(i), place.r);
             /* ⚠ NO data-pop ON THESE, DELIBERATELY. ScrollTrigger caches an
                element's position when it refreshes, and these are moved
                continuously by the orbit rotation — so the cached trigger points
@@ -358,14 +345,18 @@ const at = (a: number, r: number) => ({
             return (
               <li
                 class="sat"
-                style={`--x: ${p.x}%; --y: ${p.y}%; --s: ${n.s}; --o: ${n.o};`}
+                style={`--x: ${p.x}%; --y: ${p.y}%; --s: ${place.s}; --o: ${place.o};`}
               >
                 {/* ⚠ <Image>, NOT <img src={art.src}>. The raw files are
                     920KB, 260KB and 235KB — served unprocessed that is well over
                     a megabyte of ornament on a page whose photographs are
                     already optimised. Astro emits a ~120px webp instead. */}
-                <Image src={n.art} alt="" aria-hidden="true" width={120} />
-                <span class="sat__k">{n.k}</span>
+                <SmartImage
+                  file={n.icon}
+                  alt=""
+                  fallbackWidth={1100}
+                />
+                <span class="sat__k">{n.label}</span>
               </li>
             );
           })
@@ -380,10 +371,10 @@ const at = (a: number, r: number) => ({
   {/* ═══ CLOSE ══════════════════════════════════════════════════════════════ */}
   <section class="sc-end" aria-labelledby="sc-end-h">
     <figure class="sc-end__art" data-zoom data-zoom-to="1.1">
-      <Picture
-        src={pCohort}
-        alt={`Students and staff of ${school.name} gathered on the hall stage`}
-        formats={['webp']}
+      <SmartImage
+        file={close.image}
+        alt={close.imageAlt}
+       
         widths={[900, 1400, 1920]}
         sizes="100vw"
         loading="lazy"
@@ -394,10 +385,14 @@ const at = (a: number, r: number) => ({
 
     <div class="u-container sc-end__in">
       <h2 class="sc-end__h" id="sc-end-h" data-split>
-        Learning begins<br /><em>with the learner.</em>
+      {/* Any number of lines: the page puts the breaks in and sets the
+          last one in italic. Three lines on one page, two on another. */}
+      {close.headingLines.map((line, i) => (
+        <>{i > 0 && <br />}{i === close.headingLines.length - 1 ? <em>{line}</em> : line}</>
+      ))}
       </h2>
       <p class="sc-end__p" data-reveal data-reveal-delay="120">
-        Valued, heard, and given the same curriculum as everyone beside them.
+        {close.quote}
       </p>
     </div>
   </section>
@@ -489,14 +484,14 @@ const at = (a: number, r: number) => ({
     color: var(--sb-violet-dark);
   }
 
-  .sc__p {
+  :global(.sc__p) {
     max-width: 54ch;
     margin-top: clamp(16px, 2vw, 22px);
     font-size: clamp(15px, 1.1vw, 17px);
     line-height: 1.76;
     color: var(--sb-text-secondary);
   }
-  .sc__p strong { font-weight: 700; color: var(--sb-charcoal); }
+  :global(.sc__p strong) { font-weight: 700; color: var(--sb-charcoal); }
 
   .sc-pot__art {
     margin: 0;
@@ -609,17 +604,17 @@ const at = (a: number, r: number) => ({
     background: var(--sb-border-strong);
   }
 
-  .sc-voice__p {
+  :global(.sc-voice__p) {
     max-width: 46ch;
     margin-top: clamp(20px, 2.6vw, 30px);
     font-size: clamp(15px, 1.1vw, 17px);
     line-height: 1.76;
     color: var(--sb-text-secondary);
   }
-  .sc-voice__p strong { font-weight: 700; color: var(--sb-charcoal); }
-  .sc-voice__p em { font-style: italic; color: var(--sb-charcoal); }
+  :global(.sc-voice__p strong) { font-weight: 700; color: var(--sb-charcoal); }
+  :global(.sc-voice__p em) { font-style: italic; color: var(--sb-charcoal); }
 
-  .sc-voice__pull {
+  :global(.sc-voice__pull) {
     max-width: 30ch;
     margin-top: clamp(18px, 2.4vw, 28px);
     font-family: var(--sb-font-display);
@@ -629,7 +624,7 @@ const at = (a: number, r: number) => ({
     letter-spacing: -0.03em;
     color: var(--sb-charcoal);
   }
-  .sc-voice__pull em { font-style: normal; color: var(--sb-violet); }
+  :global(.sc-voice__pull em) { font-style: normal; color: var(--sb-violet); }
 
   .sc-voice__collage { position: relative; }
 
@@ -720,14 +715,14 @@ const at = (a: number, r: number) => ({
   }
   .sc-many__h em { font-style: normal; color: var(--sb-violet); }
 
-  .sc-many__p {
+  :global(.sc-many__p) {
     max-width: 52ch;
     margin-top: clamp(18px, 2.4vw, 28px);
     font-size: clamp(15px, 1.1vw, 17px);
     line-height: 1.76;
     color: var(--sb-text-secondary);
   }
-  .sc-many__p em { font-style: italic; color: var(--sb-charcoal); }
+  :global(.sc-many__p em) { font-style: italic; color: var(--sb-charcoal); }
 
   .sc-eco {
     position: relative;
@@ -856,14 +851,14 @@ const at = (a: number, r: number) => ({
     text-align: center;
   }
 
-  .sc-many__foot {
+  :global(.sc-many__foot) {
     max-width: 52ch;
     margin-top: clamp(20px, 2.6vw, 30px);
     font-size: clamp(14.5px, 1.05vw, 16.5px);
     line-height: 1.74;
     color: var(--sb-text-secondary);
   }
-  .sc-many__foot em { font-style: italic; color: var(--sb-charcoal); }
+  :global(.sc-many__foot em) { font-style: italic; color: var(--sb-charcoal); }
 
   .sc__f--star { bottom: 6%; left: 3%; width: clamp(38px, 4.4vw, 62px); opacity: 0.35; }
 

@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_academics_tile_sections",
+  "info": {
+    "displayName": "Tiles section",
+    "icon": "grid",
+    "description": "A section opening followed by a run of cards. ⚠ The grid, the colours and the reveal delays are design and stay in the page."
+  },
+  "options": {},
+  "attributes": {
+    "kicker": { "type": "string", "required": true, "maxLength": 80 },
+    "heading": { "type": "string", "required": true, "maxLength": 140 },
+    "headingEm": { "type": "string", "maxLength": 140, "description": "The second line, set in italic. Leave empty for a heading of one line." },
+    "tiles": { "type": "component", "repeatable": true, "component": "academics.tile" }
+  }
+}

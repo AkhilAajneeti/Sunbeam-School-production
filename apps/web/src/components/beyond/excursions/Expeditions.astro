@@ -1,4 +1,7 @@
 ---
+import { getExpeditions } from '../../../lib/cms';
+
+const expeditions = await getExpeditions();
 /**
  * NEARER HOME — the local learning expeditions, as a hovering icon grid.
  *
@@ -39,7 +42,6 @@
  * suggests an action. If the school ever publishes pages for these, each card
  * becomes an `<a>` and the styling is unchanged.
  */
-import { expeditions } from '../../../data/excursions';
 import SectionHead from '../../academics/SectionHead.astro';
 import FacIcon from '../../campus/facilities/FacIcon.astro';
 

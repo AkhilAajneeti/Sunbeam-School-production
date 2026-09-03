@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_shared_affiliations",
+  "info": {
+    "displayName": "Affiliation",
+    "icon": "shield",
+    "description": "CBSE affiliation particulars. These are regulatory identifiers printed on the Mandatory Public Disclosure page and quoted across the site; the affiliation period expires 31.03.2030 and must be editable without a deploy."
+  },
+  "options": {},
+  "attributes": {
+    "board": { "type": "string", "required": true, "maxLength": 40 },
+    "boardFull": { "type": "string", "required": true, "maxLength": 160 },
+    "affiliationNo": { "type": "string", "required": true, "maxLength": 32 },
+    "schoolCode": { "type": "string", "required": true, "maxLength": 32 },
+    "udise": { "type": "string", "required": true, "maxLength": 32 },
+    "affiliationPeriod": { "type": "string", "maxLength": 80 },
+    "affiliationLetterNo": { "type": "string", "maxLength": 120 },
+    "affiliationLetterDated": { "type": "string", "maxLength": 40 },
+    "affiliationSubject": { "type": "string", "maxLength": 240 }
+  }
+}

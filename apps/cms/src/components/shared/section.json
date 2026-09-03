@@ -1,0 +1,103 @@
+{
+  "collectionName": "components_shared_sections",
+  "info": {
+    "displayName": "Section",
+    "icon": "layer",
+    "description": "One KEYED block of editorial content on an academics page. ⚠⚠ THE KEY IS THE CONTRACT. The page looks its content up by key — `section('steps').points` — so the Astro file keeps its own bespoke layout, its GSAP timeline, its scoped CSS and its markup, and only the SOURCE of the words changes. Renaming a key silently empties whatever it fed, which is why the seed and the page must be changed together. ⚠ EVERY PART IS OPTIONAL AND MOST SECTIONS USE TWO OR THREE. The academics pages are forty bespoke designs; this is the union of the shapes they actually hold, not a template any of them fills in. ⚠ WHAT IS *NOT* HERE: tile positions, orbit radii, animation delays, tone/accent palettes and glyph geometry. Those are design, they stay in the component, and a page that needs one keys it off the content rather than storing it."
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "maxLength": 120,
+      "description": "What this block is called on the page, in words — \"03 — More Than One Way to Learn\". This is what the Content Manager shows as the row title. WARNING: IT IS A NAME, NOT AN ADDRESS. The page finds its content by `key`, never by this; renaming here is safe, renaming the key empties whatever it fed."
+    },
+    "key": {
+      "type": "string",
+      "required": true,
+      "maxLength": 60,
+      "description": "The name the page looks this block up by. Changing it empties the block on the site — set the label above instead."
+    },
+    "eyebrow": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "heading": {
+      "type": "text",
+      "maxLength": 400
+    },
+    "standfirst": {
+      "type": "text",
+      "maxLength": 1200
+    },
+    "note": {
+      "type": "text",
+      "maxLength": 1200
+    },
+    "body": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.paragraph"
+    },
+    "points": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.point"
+    },
+    "details": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.detail"
+    },
+    "facts": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.fact"
+    },
+    "figures": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.figure"
+    },
+    "stats": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.stat"
+    },
+    "photos": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.photo"
+    },
+    "links": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.link"
+    },
+    "streams": {
+      "type": "component",
+      "repeatable": true,
+      "component": "academics.stream"
+    },
+    "awards": {
+      "type": "component",
+      "repeatable": true,
+      "component": "academics.award"
+    },
+    "stories": {
+      "type": "component",
+      "repeatable": true,
+      "component": "academics.story"
+    },
+    "results": {
+      "type": "component",
+      "repeatable": true,
+      "component": "academics.result"
+    },
+    "faqs": {
+      "type": "component",
+      "repeatable": true,
+      "component": "academics.faq"
+    }
+  }
+}

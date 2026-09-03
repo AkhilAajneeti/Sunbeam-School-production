@@ -20,15 +20,17 @@
  * frame is the honest banner for an award.
  */
 import DetailPage from '../../../components/news/DetailPage.astro';
-import { achievementsPage } from '../../../data/newsEvents';
-import type { ChronicleItem } from '../../../data/newsPages';
+import { getChroniclePage } from '../../../lib/cms';
+import type { ChronicleItem } from '../../../lib/cms';
 
 /* The awards ceremony in the school hall — the one photograph in the library
    that actually depicts an achievement being received. */
 import heroPhoto from '../../../assets/photos/sunbeem-4.jpg';
 
+const achievementsPage = await getChroniclePage('achievements');
+
 export async function getStaticPaths() {
-  const { achievementsPage: page } = await import('../../../data/newsEvents');
+  const page = await getChroniclePage('achievements');
   return page.groups.flatMap((g) =>
     g.items
       .filter((i) => i.slug)

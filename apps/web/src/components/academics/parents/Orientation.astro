@@ -12,11 +12,14 @@
  */
 import Photo from '../../ui/Photo.astro';
 import Split from './Split.astro';
-import { parents } from '../../../data/academics';
 
-import entrancePhoto from '../../../assets/photos/sunbeem-2.jpg';
-import campusPhoto from '../../../assets/photos/sunbeem-1.jpg';
-import readingPhoto from '../../../assets/parents forum/parents forum (1).jpg';
+import { getAcademicTopic } from '../../../lib/cms';
+
+const ac = await getAcademicTopic('/academics/parent-partnership/');
+const readingPhoto = ac.pic('readingPhoto');
+const entrancePhoto = ac.pic('entrancePhoto');
+const campusPhoto = ac.pic('campusPhoto');
+const parents = ac.blockMap('parents');
 
 const { orientation: o } = parents;
 ---
@@ -36,8 +39,8 @@ const { orientation: o } = parents;
     <div class="ocl__frame ocl__frame--a" data-parallax data-parallax-y="52">
       <div data-mask>
         <Photo
-          src={entrancePhoto}
-          alt="Students and staff of Sunbeam School Ballia gathered at the entrance to the school."
+          file={entrancePhoto}
+          alt={ac.picAlt('entrancePhoto')}
           brief="Orientation — meeting the school"
           ratio="4 / 5"
           position="50% 42%"
@@ -49,8 +52,8 @@ const { orientation: o } = parents;
     <div class="ocl__frame ocl__frame--b" data-parallax data-parallax-y="-70">
       <div data-mask data-mask-from="left">
         <Photo
-          src={campusPhoto}
-          alt="The Sunbeam School Ballia campus at Agarsanda."
+          file={campusPhoto}
+          alt={ac.picAlt('campusPhoto')}
           brief="Orientation — the campus walk"
           ratio="1 / 1"
           position="50% 55%"
@@ -62,8 +65,8 @@ const { orientation: o } = parents;
     <div class="ocl__frame ocl__frame--c" data-parallax data-parallax-y="38">
       <div data-mask>
         <Photo
-          src={readingPhoto}
-          alt="Parents at a forum session at Sunbeam School Ballia."
+          file={readingPhoto}
+          alt={ac.picAlt('readingPhoto')}
           brief="Orientation — the handbook"
           ratio="3 / 2"
           position="50% 40%"

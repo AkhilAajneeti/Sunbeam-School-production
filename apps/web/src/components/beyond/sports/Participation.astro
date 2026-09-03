@@ -28,22 +28,28 @@
  * the record belongs. So this section has no image of students, which is the
  * honest state of the library; the figures are what carry it.
  */
-import { Picture } from 'astro:assets';
-import { figures, img } from '../../../data/sports';
+import { getSportsPage } from '../../../lib/cms';
+import CmsImage from '../../ui/CmsImage.astro';
+
+/* ⚠ THE FIVE PHOTOGRAPHS COME FROM THE CMS; THE MOSAIC DOES NOT.
+   Which tile each photograph occupies (spans a, c, e, g, i) is layout and stays
+   here; the photographs themselves are content and are editable. They are read
+   BY POSITION, so reordering them in the admin reorders the mosaic. */
+const { figures, montage } = await getSportsPage();
 import SectionHead from '../../academics/SectionHead.astro';
 
 /* The bento, declared as data so the layout classes and the content cannot
    drift apart. `span` maps to a named area class below. */
 const tiles = [
-  { kind: 'photo', span: 'a', src: img.joshArch, alt: 'The JOSH ground at Sunbeam School Ballia, seen through the school gateway arch' },
+  { kind: 'photo', span: 'a', i: 0, alt: 'The JOSH ground at Sunbeam School Ballia, seen through the school gateway arch' },
   { kind: 'fig', span: 'b', i: 0 },
-  { kind: 'photo', span: 'c', src: img.courtHoop, alt: 'The basketball court at Sunbeam School Ballia' },
+  { kind: 'photo', span: 'c', i: 1, alt: 'The basketball court at Sunbeam School Ballia' },
   { kind: 'fig', span: 'd', i: 1 },
-  { kind: 'photo', span: 'e', src: img.parkSwings, alt: 'The junior playground swings at Sunbeam School Ballia' },
+  { kind: 'photo', span: 'e', i: 2, alt: 'The junior playground swings at Sunbeam School Ballia' },
   { kind: 'fig', span: 'f', i: 2 },
-  { kind: 'photo', span: 'g', src: img.joshNetsWide, alt: 'Volleyball nets on the JOSH ground at Sunbeam School Ballia' },
+  { kind: 'photo', span: 'g', i: 3, alt: 'Volleyball nets on the JOSH ground at Sunbeam School Ballia' },
   { kind: 'fig', span: 'h', i: 3 },
-  { kind: 'photo', span: 'i', src: img.parkTube, alt: 'Climbing frames in the junior playground at Sunbeam School Ballia' },
+  { kind: 'photo', span: 'i', i: 4, alt: 'Climbing frames in the junior playground at Sunbeam School Ballia' },
   { kind: 'fig', span: 'j', i: 4 },
 ] as const;
 ---
@@ -63,15 +69,13 @@ const tiles = [
       {tiles.map((t, n) =>
         t.kind === 'photo' ? (
           <figure class:list={['spp__tile', 'spp__tile--photo', `spp__tile--${t.span}`]} data-reveal data-reveal-delay={n * 55}>
-            <Picture
-              src={t.src}
+            <CmsImage
+              file={montage[t.i]?.image}
               alt={t.alt}
-              formats={['webp']}
-              widths={[400, 800, 1200]}
               sizes="(max-width: 700px) 92vw, (max-width: 1100px) 46vw, 34vw"
               loading="lazy"
-              decoding="async"
-            />
+            fallbackWidth={760}
+          />
           </figure>
         ) : (
           <div class:list={['spp__tile', 'spp__tile--fig', `spp__tile--${t.span}`]} data-reveal data-reveal-delay={n * 55}>

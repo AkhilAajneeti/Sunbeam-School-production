@@ -28,6 +28,7 @@
  */
 import { Picture } from 'astro:assets';
 import '../../../styles/slider.css';
+import SmartImage from '../../ui/SmartImage.astro';
 
 export interface PhotoItem {
   src: ImageMetadata;
@@ -68,14 +69,10 @@ const total = String(items.length).padStart(2, '0');
           aria-hidden={i === 0 ? undefined : 'true'}
           tabindex={i === 0 ? undefined : '-1'}
         >
-          <Picture
-            src={it.src}
+          <SmartImage
+            file={it.src}
             alt={it.alt}
-            formats={['webp']}
-            widths={[560, 900, 1280]}
-            sizes={sizes}
-            loading={i === 0 ? 'eager' : 'lazy'}
-            decoding="async"
+            fallbackWidth={1100}
           />
         </a>
       ))}
@@ -103,14 +100,12 @@ const total = String(items.length).padStart(2, '0');
         <li>
           <button type="button" class="sl-thumb" data-sl-thumb aria-current={i === 0 ? 'true' : 'false'}>
             <span class="u-visually-hidden">Show photograph {i + 1}: {it.caption}</span>
-            <Picture
-              src={it.src}
+            <SmartImage
+              file={it.src}
               alt=""
-              formats={['webp']}
-              widths={[120, 200]}
               sizes="92px"
+              fallbackWidth={1100}
               loading="lazy"
-              decoding="async"
             />
           </button>
         </li>

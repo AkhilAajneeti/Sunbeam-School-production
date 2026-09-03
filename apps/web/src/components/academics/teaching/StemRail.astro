@@ -45,24 +45,16 @@
  */
 import Photo from '../../ui/Photo.astro';
 import SectionHead from '../SectionHead.astro';
-import { teachingLearning } from '../../../data/academics';
 
-import compPhoto from '../../../assets/photos/sb-comp-lab-2.jpg';
-import bioPhoto from '../../../assets/photos/sb-bio-lab.jpg';
-import mathsPhoto from '../../../assets/photos/sb-maths-lab.jpg';
-import sciPhoto from '../../../assets/photos/sb-sci-lab.jpg';
-import roboticsPhoto from '../../../assets/extra-img/robotics.jpg';
+import { getAcademicTopic } from '../../../lib/cms';
+
+const ac = await getAcademicTopic('/academics/teaching-learning/');
+const teachingLearning = ac.blockMap('teachingLearning');
 
 const { rail } = teachingLearning;
 
 /** Explicit map, not import.meta.glob — see the note in teaching-learning.astro. */
-const photos: Record<string, ImageMetadata> = {
-  'sb-comp-lab-2.jpg': compPhoto,
-  'sb-bio-lab.jpg': bioPhoto,
-  'sb-maths-lab.jpg': mathsPhoto,
-  'sb-sci-lab.jpg': sciPhoto,
-  'robotics.jpg': roboticsPhoto,
-};
+const photos = ac.section('photos').photos;
 ---
 
 {/* data-rail-scope: the progress indicator lives in the head, which is a SIBLING

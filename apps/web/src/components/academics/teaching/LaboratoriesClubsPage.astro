@@ -51,16 +51,19 @@
  * MOTION is the project's own attribute set — data-clip, data-reveal, data-pop,
  * data-count, data-drift, data-parallax, data-draw, data-mask, data-zoom.
  */
-import { Picture } from 'astro:assets';
+import SmartImage from '../../../components/ui/SmartImage.astro';
 
 /* ── PHOTOGRAPHY — six genuine Sunbeam Ballia frames, no stock, no repeats. */
-import pBench from '../../../assets/photos/sb-chem-lab.jpg';
-import pBio from '../../../assets/bio lab/DSC_1275 copy.jpg';
-import pMicro from '../../../assets/photos/sb-sci-lab.jpg';
-import pActivity from '../../../assets/activity learning lab/DSC_1218 copy.jpg';
-import pMaths from '../../../assets/photos/sb-maths-lab.jpg';
-import pTables from '../../../assets/activity learning lab/DSC_1217 copy.jpg';
-import pCohort from '../../../assets/photos/sunbeem-3.jpg';
+import { getAcademicTopic } from '../../../lib/cms';
+
+const ac = await getAcademicTopic('/academics/teaching-learning/laboratories-clubs/');
+const pBio = ac.pic('pBio');
+const pActivity = ac.pic('pActivity');
+const pTables = ac.pic('pTables');
+const pBench = ac.pic('pBench');
+const pMicro = ac.pic('pMicro');
+const pMaths = ac.pic('pMaths');
+const pCohort = ac.pic('pCohort');
 
 const S = 'Sunbeam School Ballia';
 
@@ -86,40 +89,17 @@ const MARK: Record<string, string> = {
 };
 
 /* Four indicators under section 01. Only the first is a published quantity. */
-const facts = [
-  { mark: 'flask', n: 12, k: 'Laboratories' },
-  { mark: 'door', v: 'One subject', k: 'One space' },
-  { mark: 'hand', v: 'Hands-on', k: 'Learning' },
-  { mark: 'shield', v: 'Safety & care', k: 'Always' },
-] as const;
+const facts = ac.section('facts').points;
 
 /* ── THE TWELVE, AS THE SCHOOL ENUMERATES THEM ─────────────────────────────
    ⚠ THIS LIST IS THE SCHOOL'S OWN COUNT AND NOTHING ELSE. `inquiry: true` marks
    the four that are not subject laboratories — inside the twelve, not added to
    them. No club names appear because none is published; see the header note. */
-const rooms = [
-  { mark: 'atom', k: 'Physics', v: 'Board practicals, IX–XII.', inquiry: false },
-  { mark: 'chem', k: 'Chemistry', v: 'Gas taps, reagent shelves.', inquiry: false },
-  { mark: 'leaf', k: 'Biology', v: 'Microscopes and models.', inquiry: false },
-  { mark: 'sigma', k: 'Mathematics', v: 'The room most schools skip.', inquiry: false },
-  { mark: 'headset', k: 'Language', v: 'Recorded, then reviewed.', inquiry: false },
-  { mark: 'chip', k: 'Robotics', v: 'Drone · printer · telescope.', inquiry: false },
-  { mark: 'screen', k: 'Computer lab · junior', v: '40+ machines.', inquiry: false },
-  { mark: 'code', k: 'Computer lab · senior', v: '40+ machines.', inquiry: false },
-  { mark: 'map', k: 'Geography', v: 'Maps, instruments, fieldwork.', inquiry: true },
-  { mark: 'make', k: 'Srijan', v: 'Making and design.', inquiry: true },
-  { mark: 'globe', k: 'Model United Nations', v: 'Debate and committee.', inquiry: true },
-  { mark: 'spark', k: 'Active Learning', v: 'No single right answer.', inquiry: true },
-] as const;;
+const rooms = ac.section('rooms').points;;
 
 /* ── SECTION 03 ─────────────────────────────────────────────────────────────
    Four editorial columns, divided by rules rather than boxed. */
-const spaces = [
-  { n: '01', mark: 'flask', k: 'Science laboratories', v: 'Physics, Chemistry, Biology and Mathematics — practical spaces, not a science room with a sink.' },
-  { n: '02', mark: 'screen', k: 'Computer laboratories', v: 'Junior and senior, 40+ machines each.' },
-  { n: '03', mark: 'headset', k: 'Language lab', v: 'Spoken language, practised aloud, recorded and reviewed.' },
-  { n: '04', mark: 'spark', k: 'Academic clubs & spaces', v: 'The four inquiry rooms — Geography, Srijan, Model UN and Active Learning.' },
-] as const;
+const spaces = ac.section('spaces').points;
 
 const STEM = '/academics/teaching-learning/stem-robotics/';
 const READING = '/academics/teaching-learning/reading-language/';
@@ -171,7 +151,7 @@ const READING = '/academics/teaching-learning/reading-language/';
                 </svg>
               </span>
               <p class="lb-facts__n t-tabular">
-                {'n' in f ? <span data-count={f.n} data-count-dur={1.3}>{f.n}</span> : f.v}
+                {f.n ? <span data-count={f.n} data-count-dur={1.3}>{f.n}</span> : f.v}
               </p>
               <p class="lb-facts__k">{f.k}</p>
             </li>
@@ -181,10 +161,10 @@ const READING = '/academics/teaching-learning/reading-language/';
 
       <div class="lb-rooms__media">
         <figure class="lb-rooms__lead" data-mask data-zoom data-zoom-to="1.06">
-          <Picture
-            src={pBench}
-            alt={`Students of ${S} working along the chemistry bench, test tubes held over the burners`}
-            formats={['webp']}
+          <SmartImage
+            file={pBench}
+            alt={ac.picAlt('pBench')}
+           
             widths={[620, 1000, 1320]}
             sizes="(max-width: 1023px) 92vw, 46vw"
             loading="lazy"
@@ -193,10 +173,10 @@ const READING = '/academics/teaching-learning/reading-language/';
         </figure>
 
         <figure class="lb-rooms__side" data-parallax data-parallax-y="26">
-          <Picture
-            src={pBio}
-            alt={`The biology laboratory at ${S} between classes — red stools along the bench, microscopes on the shelves and anatomy charts on the wall`}
-            formats={['webp']}
+          <SmartImage
+            file={pBio}
+            alt={ac.picAlt('pBio')}
+           
             widths={[360, 600]}
             sizes="(max-width: 1023px) 44vw, 20vw"
             loading="lazy"
@@ -205,10 +185,10 @@ const READING = '/academics/teaching-learning/reading-language/';
         </figure>
 
         <figure class="lb-rooms__disc" data-parallax data-parallax-y="-20">
-          <Picture
-            src={pMicro}
-            alt={`A student of ${S} at the microscope, conical flasks of plant cuttings and an anatomy model on the bench beside her`}
-            formats={['webp']}
+          <SmartImage
+            file={pMicro}
+            alt={ac.picAlt('pMicro')}
+           
             widths={[280, 440]}
             sizes="(max-width: 1023px) 30vw, 13vw"
             loading="lazy"
@@ -229,10 +209,10 @@ const READING = '/academics/teaching-learning/reading-language/';
   <div class="u-container lb-twelve__grid">
     <div class="lb-twelve__media">
       <figure class="lb-twelve__lead" data-mask data-zoom data-zoom-to="1.06">
-        <Picture
-          src={pActivity}
-          alt={`The activity learning laboratory at ${S}, its worktables set out for group work`}
-          formats={['webp']}
+        <SmartImage
+          file={pActivity}
+          alt={ac.picAlt('pActivity')}
+         
           widths={[560, 900, 1200]}
           sizes="(max-width: 1023px) 92vw, 40vw"
           loading="lazy"
@@ -241,10 +221,10 @@ const READING = '/academics/teaching-learning/reading-language/';
       </figure>
 
       <figure class="lb-twelve__side" data-parallax data-parallax-y="-24">
-        <Picture
-          src={pMaths}
-          alt={`The mathematics laboratory at ${S}, its models and charts set out on the working surfaces`}
-          formats={['webp']}
+        <SmartImage
+          file={pMaths}
+          alt={ac.picAlt('pMaths')}
+         
           widths={[340, 560]}
           sizes="(max-width: 1023px) 42vw, 19vw"
           loading="lazy"
@@ -253,10 +233,10 @@ const READING = '/academics/teaching-learning/reading-language/';
       </figure>
 
       <figure class="lb-twelve__disc" data-parallax data-parallax-y="22">
-        <Picture
-          src={pTables}
-          alt={`The activity learning laboratory at ${S} — one crescent table with chairs set all the way round it`}
-          formats={['webp']}
+        <SmartImage
+          file={pTables}
+          alt={ac.picAlt('pTables')}
+         
           widths={[280, 440]}
           sizes="(max-width: 1023px) 30vw, 13vw"
           loading="lazy"
@@ -368,10 +348,10 @@ const READING = '/academics/teaching-learning/reading-language/';
 {/* ══ 05 · THE CLOSE ═════════════════════════════════════════════════════════ */}
 <section class="lb-close" aria-labelledby="lb-close-t">
   <div class="lb-close__media" aria-hidden="true" data-parallax data-parallax-y="-40">
-    <Picture
-      src={pCohort}
-      alt=""
-      formats={['webp']}
+    <SmartImage
+      file={pCohort}
+      alt={ac.picAlt('pCohort')}
+     
       widths={[1024, 1600, 2000]}
       sizes="100vw"
       loading="lazy"

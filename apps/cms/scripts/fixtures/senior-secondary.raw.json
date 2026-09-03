@@ -1,0 +1,125 @@
+{
+  "open": {
+    "kicker": "Classes XI – XII",
+    "heading": "Four routes,\n{{chosen once}}",
+    "body": [
+      "The stage opens up, and the only irreversible thing on it is the choice the school asks a student to make. Four streams, each taught to CBSE board level. What each contains — and how far each of those lists can be relied on — is set out on {' '}<a class=\"ss-link\" href={COMBINATIONS}>Subject Combinations</a>."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pBench"
+      },
+      {
+        "key": "pLibrary"
+      },
+      {
+        "key": "pMicro"
+      }
+    ],
+    "runs": [
+      {
+        "field": "cells",
+        "list": "routes"
+      }
+    ]
+  },
+  "beyond": {
+    "kicker": "Beyond the classroom",
+    "heading": "and a galvanometer\n{{measured properly.}}",
+    "body": [
+      "Sunbeam students travelled to Delhi for an **international innovation project on entrepreneurship**, run with **Monash University, Australia** at K. R. Mangalam World School, G.K-II.",
+      "Closer to home and just as specific: in 2025 **Class XII-B** determined the internal resistance of a galvanometer and calculated its figure of merit by the half-deflection method. The school’s own note on it is four words — {' '}*“the practical, done properly.”*",
+      "The rest of what came back from the national and international programmes is on {' '}<a class=\"ss-link\" href={SUCCESS}>Student Success</a>."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pMonash"
+      },
+      {
+        "key": "pChem"
+      }
+    ],
+    "runs": [
+      {
+        "field": "cells",
+        "list": "beyond"
+      }
+    ]
+  },
+  "board": {
+    "kicker": "Where understanding takes shape",
+    "heading": "Board practicals\n{{start here.}}",
+    "body": [
+      "Class IX is the year the laboratory programme stops being introductory. Physics, Chemistry and Biology each carry **board practicals from Class IX to Class XII** — the same practicals a board expects a candidate to have done, in rooms built for one subject each.",
+      "The curriculum itself is published class by class as the school’s PRECEPT syllabus, session 2026-27.",
+      "<a class=\"ss-btn\" href={CURRICULUM}>View Curriculum (PRECEPT)</a>",
+      "Board outcomes are published separately, on {' '}<a class=\"ss-link\" href={RESULTS}>Board Results</a>, and are not restated here."
+    ],
+    "caption": null,
+    "shots": [],
+    "runs": [
+      {
+        "field": "cells",
+        "list": "cards"
+      }
+    ]
+  },
+  "more": {
+    "kicker": "More than books",
+    "heading": "Learning that\n{{goes further.}}",
+    "body": [
+      "Labs, libraries, digital tools and activities that turn curiosity into capability — none of them added for the board years, all of them already there.",
+      "Every room above is on the school’s own {' '}<a class=\"ss-link\" href={FACILITIES}>facilities</a> inventory; the twelve laboratories are set out on {' '}<a class=\"ss-link\" href={LABS}>Laboratories & Academic Clubs</a>."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pActivity"
+      },
+      {
+        "key": "pMachines"
+      },
+      {
+        "key": "pRoom"
+      },
+      {
+        "key": "pCourt"
+      }
+    ],
+    "runs": [
+      {
+        "field": "cells",
+        "list": "further"
+      }
+    ]
+  },
+  "jrn": {
+    "kicker": "The senior secondary journey",
+    "heading": "From learning\nto {{leadership.}}",
+    "body": [],
+    "caption": null,
+    "shots": [],
+    "runs": [
+      {
+        "field": "cells",
+        "list": "journey"
+      }
+    ]
+  },
+  "close": {
+    "kicker": "A real venture",
+    "heading": "A real venture,\n{{and a clearer direction.}}",
+    "body": [
+      "Senior Secondary is where preparation meets purpose. Four streams taught to board level, a galvanometer measured and its figure of merit calculated, and an innovation project carried to Delhi with an Australian university — every practical, every lesson and every project a step toward what comes next."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pCohort"
+      }
+    ],
+    "runs": []
+  }
+}

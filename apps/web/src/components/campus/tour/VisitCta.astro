@@ -14,8 +14,10 @@
  * motion is allowed.
  */
 import { Picture } from 'astro:assets';
-import { school } from '../../../data/site';
+import { getSchool } from '../../../lib/cms';
 import campus from '../../../assets/photos/sunbeem-1.jpg';
+
+const school = await getSchool();
 ---
 
 <section class="vst" aria-labelledby="vst-title">

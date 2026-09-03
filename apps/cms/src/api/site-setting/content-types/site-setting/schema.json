@@ -1,0 +1,118 @@
+{
+  "kind": "singleType",
+  "collectionName": "site_settings",
+  "info": {
+    "singularName": "site-setting",
+    "pluralName": "site-settings",
+    "displayName": "Site Settings",
+    "description": "Global school information. Replaces the `school` export of apps/web/src/data/site.ts, which 57 files import — by a wide margin the most-used module in the project. Field names and nesting mirror it exactly so every consumer changes only its import line."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "maxLength": 160
+    },
+    "shortName": {
+      "type": "string",
+      "required": true,
+      "maxLength": 80
+    },
+    "motto": {
+      "type": "string",
+      "required": true,
+      "maxLength": 160
+    },
+    "mottoParts": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.fact"
+    },
+    "groupPhrase": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "tagline": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "admissionsOpen": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    },
+    "established": {
+      "type": "integer",
+      "required": true
+    },
+    "groupFounded": {
+      "type": "integer"
+    },
+    "groupFoundedAt": {
+      "type": "string",
+      "maxLength": 80
+    },
+    "founders": {
+      "type": "string",
+      "maxLength": 240
+    },
+    "openingStrength": {
+      "type": "integer"
+    },
+    "currentStrength": {
+      "type": "string",
+      "maxLength": 24
+    },
+    "teachingStaff": {
+      "type": "string",
+      "maxLength": 24
+    },
+    "classRange": {
+      "type": "string",
+      "maxLength": 80
+    },
+    "principal": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "streams": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.fact"
+    },
+    "address": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.address"
+    },
+    "contact": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.contact"
+    },
+    "social": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.social"
+    },
+    "external": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.external-links"
+    },
+    "affiliation": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.affiliation"
+    },
+    "quickAccess": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.link"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "kind":"collectionType","collectionName":"excursion_sections",
+  "info":{"singularName":"excursion-section","pluralName":"excursion-sections","displayName":"Excursion Section",
+    "description":"One excursion as the school published it. Mirrors the `sections` export of apps/web/src/data/excursions.ts — body is VERBATIM per that file's header, so it is a paragraph list rather than rich text."},
+  "options":{"draftAndPublish":true},
+  "attributes":{
+    "title":{"type":"string","required":true,"maxLength":240},
+    "slug":{"type":"uid","targetField":"title","required":true},
+    "body":{"type":"component","repeatable":true,"component":"shared.paragraph"},
+    "place":{"type":"string","maxLength":200},
+    "year":{"type":"string","maxLength":32},
+    "who":{"type":"string","maxLength":240},
+    "lang":{"type":"string","maxLength":16},
+    "needs":{"type":"text","maxLength":600},
+    "alt":{"type":"text","maxLength":500},
+    "art":{"type":"media","multiple":false,"allowedTypes":["images"]},
+    "shots":{"type":"component","repeatable":true,"component":"shared.photo"},
+    "displayOrder":{"type":"integer","default":0,"required":true}
+  }
+}

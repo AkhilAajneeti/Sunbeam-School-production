@@ -12,7 +12,13 @@
  * published number. Inventing "12 awards" to fill the other three would undo the
  * one thing this section has going for it.
  */
-import { credentials } from '../../../data/achievements';
+import { getCredentials } from '../../../lib/cms';
+
+/* ⚠ FROM STRAPI NOW, NOT data/achievements.ts. `icon` is an enumeration in the
+   CMS constrained to the names SportIcon actually draws — a free-text field
+   would let an editor type one it does not know and get a silently empty glyph.
+   The old data file stays on disk until this is verified in a production build. */
+const credentials = await getCredentials();
 import SectionHead from '../../academics/SectionHead.astro';
 import SportIcon from '../sports/SportIcon.astro';
 ---

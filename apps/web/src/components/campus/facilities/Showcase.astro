@@ -1,4 +1,7 @@
 ---
+import { getCampusTourData } from '../../../lib/cms';
+const {facilities} = await getCampusTourData();
+
 /**
  * §4 · FEATURE SHOWCASE — four facilities that earn a full row.
  *
@@ -14,8 +17,8 @@
  * The highlights beside them are all published facts, so the row still argues
  * its case without the picture.
  */
-import { Picture } from 'astro:assets';
-import { facilities } from '../../../data/campusTour';
+import CmsImage from '../../ui/CmsImage.astro';
+
 import SectionHead from '../../academics/SectionHead.astro';
 import AssetPlaceholder from '../../ui/AssetPlaceholder.astro';
 import FacIcon from './FacIcon.astro';
@@ -120,15 +123,13 @@ const resolved = rows.map((r) => ({ ...r, fac: r.source ? byId.get(r.source) : u
         <div class="shw__media">
           <div class="shw__lead" data-parallax data-parallax-y="-18">
             {r.fac && r.fac.images.length ? (
-              <Picture
-                src={r.fac.images[0]}
+              <CmsImage
+                file={r.fac.images[0]}
                 alt={`${r.fac.alt} — main view`}
-                formats={['webp']}
-                widths={[600, 1000, 1400]}
                 sizes="(max-width: 1000px) 92vw, 48vw"
                 loading="lazy"
-                decoding="async"
-              />
+      fallbackWidth={760}
+    />
             ) : (
               <AssetPlaceholder ratio="4 / 3" tone="charcoal" brief={r.brief!} ref="A2" />
             )}
@@ -138,15 +139,13 @@ const resolved = rows.map((r) => ({ ...r, fac: r.source ? byId.get(r.source) : u
             <div class="shw__strip">
               {r.fac.images.slice(1, 4).map((src, k) => (
                 <div class="shw__thumb" data-reveal data-reveal-delay={k * 80}>
-                  <Picture
-                    src={src}
+                  <CmsImage
+                    file={src}
                     alt={`${r.fac!.alt} — detail ${k + 1}`}
-                    formats={['webp']}
-                    widths={[240, 480]}
                     sizes="160px"
                     loading="lazy"
-                    decoding="async"
-                  />
+      fallbackWidth={760}
+    />
                 </div>
               ))}
             </div>

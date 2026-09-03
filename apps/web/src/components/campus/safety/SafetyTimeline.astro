@@ -1,4 +1,7 @@
 ---
+import { getCampusSafetyData } from '../../../lib/cms';
+const {safetyGroups} = await getCampusSafetyData();
+
 /**
  * §1 · SAFETY TIMELINE — the measures as a walked spine, not a card grid.
  *
@@ -14,7 +17,7 @@
  * property + one IntersectionObserver-free scroll handler; if the script never
  * runs the line is simply fully drawn, which is the correct resting state.
  */
-import { safetyGroups } from '../../../data/campus';
+
 import { showBuildNotes } from '../../../data/site';
 import SectionHead from '../../academics/SectionHead.astro';
 import SafetyIcon from './SafetyIcon.astro';

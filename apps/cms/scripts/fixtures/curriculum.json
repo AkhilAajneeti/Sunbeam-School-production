@@ -1,0 +1,228 @@
+{
+  "stages": [
+    {
+      "label": "Pre-primary",
+      "range": "Nursery – KG II",
+      "blurb": "Building the foundation",
+      "mark": "grow",
+      "classes": [
+        {
+          "label": "Nursery",
+          "href": "https://sunbeamballia.edu.in/wp-content/uploads/Nursery-Syllabus-2026-27V_15-Final.pdf",
+          "sizeMb": 43
+        },
+        {
+          "label": "KG I",
+          "href": "https://sunbeamballia.edu.in/wp-content/uploads/KG-I-Syllabus-2026-27V_15-Final.pdf",
+          "sizeMb": 47
+        },
+        {
+          "label": "KG II",
+          "href": "https://sunbeamballia.edu.in/wp-content/uploads/KG-II-Syllabus-2026-27.pdf",
+          "sizeMb": 48
+        }
+      ]
+    },
+    {
+      "label": "Primary",
+      "range": "Classes I – V",
+      "blurb": "Growing with curiosity",
+      "mark": "book",
+      "classes": [
+        {
+          "label": "Class I",
+          "href": "https://sunbeamballia.edu.in/wp-content/uploads/Syllabus-Precept-Class-I-2026-27-curved-cdr-17.pdf",
+          "sizeMb": 61
+        },
+        {
+          "label": "Class II",
+          "href": "https://sunbeamballia.edu.in/wp-content/uploads/syllabus-class-2-2026-27.pdf",
+          "sizeMb": 49
+        },
+        {
+          "label": "Class III",
+          "href": "https://sunbeamballia.edu.in/wp-content/uploads/III-Syllabus-2026-27-Final.pdf",
+          "sizeMb": 3
+        },
+        {
+          "label": "Class IV",
+          "href": "https://sunbeamballia.edu.in/wp-content/uploads/Final-Syllabus-Class-IV-1-NEW.pdf",
+          "sizeMb": 46
+        },
+        {
+          "label": "Class V",
+          "href": "https://sunbeamballia.edu.in/wp-content/uploads/Syllabus-Class-V-2026-27_v17-Final.pdf",
+          "sizeMb": 103
+        }
+      ]
+    },
+    {
+      "label": "Middle",
+      "range": "Classes VI – VIII",
+      "blurb": "Exploring and expanding",
+      "mark": "cap",
+      "classes": [
+        {
+          "label": "Class VI",
+          "href": "https://sunbeamballia.edu.in/wp-content/uploads/Syllabus-Class-VI-2026-27.pdf",
+          "sizeMb": 99
+        },
+        {
+          "label": "Class VII",
+          "href": "https://sunbeamballia.edu.in/wp-content/uploads/Syllabus-VII-2026-27.pdf",
+          "sizeMb": 91
+        },
+        {
+          "label": "Class VIII",
+          "href": "https://sunbeamballia.edu.in/wp-content/uploads/Class-VIII-Syllabus-2026-27.pdf",
+          "sizeMb": 26
+        }
+      ]
+    },
+    {
+      "label": "Secondary",
+      "range": "Classes IX – X",
+      "blurb": "Preparing for tomorrow",
+      "mark": "pen",
+      "classes": [
+        {
+          "label": "Class IX",
+          "href": "https://sunbeamballia.edu.in/wp-content/uploads/Class-IX-Syllabus-2026-27.pdf",
+          "sizeMb": 2
+        },
+        {
+          "label": "Class X",
+          "href": "https://sunbeamballia.edu.in/wp-content/uploads/Class-X-Syllabus-For-April-May-1.pdf",
+          "sizeMb": 46
+        }
+      ]
+    },
+    {
+      "label": "Senior Secondary",
+      "range": "Classes XI – XII",
+      "blurb": "Choosing your path",
+      "mark": "spark",
+      "classes": [
+        {
+          "label": "Class XI",
+          "href": "https://sunbeamballia.edu.in/wp-content/uploads/XI-Syllabus-Main-for-AprilMay-2026-27.pdf",
+          "sizeMb": 1
+        },
+        {
+          "label": "Class XII",
+          "href": "https://sunbeamballia.edu.in/wp-content/uploads/Syllabus-Main-Subjects-XII-2026-27.pdf",
+          "sizeMb": 2
+        }
+      ]
+    }
+  ],
+  "sectionOne": {
+    "kicker": "Session 2026-27",
+    "heading": "One curriculum.",
+    "headingEm": "Every stage.",
+    "body": [
+      "Every Sunbeam classroom follows the CBSE curriculum. What separates one CBSE school from another is whether the syllabus is a thing you can be handed — and Sunbeam publishes its own, class by class, under a name of its own: **PRECEPT**. One document for every class from Nursery to Class XII, so parents always know what their child is learning and why."
+    ]
+  },
+  "sectionTwo": {
+    "kicker": "Explore the curriculum",
+    "heading": "One document for every class.",
+    "headingEm": "",
+    "body": [
+      "**{count} classes, {count} documents.** Each opens the school’s own PRECEPT syllabus for session 2026-27, published on sunbeamballia.edu.in. Several run to tens of megabytes, so the size is printed on the card — worth checking before opening one on mobile data. *“Syllabi”* is also item two of twelve on the Parents’ Forum agenda, a standing item any class representative may raise."
+    ]
+  },
+  "sectionThree": {
+    "kicker": "Our curriculum philosophy",
+    "heading": "More than a syllabus.",
+    "headingEm": "A way of learning.",
+    "tiles": [
+      {
+        "label": "Technology Enabled",
+        "value": "Technology is integrated into teaching and learning for deeper understanding.",
+        "mark": "desk",
+        "href": null
+      },
+      {
+        "label": "Multiple Intelligence",
+        "value": "We recognise and nurture different abilities, interests and learning strengths.",
+        "mark": "head",
+        "href": null
+      },
+      {
+        "label": "Collaborative Learning",
+        "value": "Students learn together, share ideas and grow through collaboration.",
+        "mark": "hands",
+        "href": null
+      },
+      {
+        "label": "Independence & Motivation",
+        "value": "We encourage independent, confident and self-motivated learners.",
+        "mark": "person",
+        "href": null
+      },
+      {
+        "label": "Values & Sensitivity",
+        "value": "We build tolerance, sensitivity, integrity and moral awareness.",
+        "mark": "handHeart",
+        "href": null
+      }
+    ]
+  },
+  "sectionFour": {
+    "kicker": "Four pathways after Class X",
+    "heading": "Choose your path.",
+    "headingEm": "Shape your future.",
+    "tiles": [
+      {
+        "label": "PCM",
+        "value": "Physics, Chemistry & Mathematics",
+        "mark": "atom",
+        "href": null
+      },
+      {
+        "label": "PCB",
+        "value": "Physics, Chemistry & Biology",
+        "mark": "leaf",
+        "href": null
+      },
+      {
+        "label": "Commerce",
+        "value": "Commerce stream",
+        "mark": "chart",
+        "href": null
+      },
+      {
+        "label": "Humanities",
+        "value": "Humanities stream",
+        "mark": "globe",
+        "href": null
+      }
+    ]
+  },
+  "sectionFive": {
+    "kicker": "Academic resources",
+    "heading": "Important academic documents.",
+    "headingEm": "",
+    "tiles": [
+      {
+        "label": "Academic Calendar",
+        "value": "Terms, holidays and the monthly planner",
+        "mark": "calendar",
+        "href": "/academics/academic-calendar/"
+      },
+      {
+        "label": "Assessment Pattern",
+        "value": "How the school assesses, term by term",
+        "mark": "clipboard",
+        "href": "/academics/assessment/"
+      },
+      {
+        "label": "Subject Combinations",
+        "value": "The four streams after Class X",
+        "mark": "layers",
+        "href": "/academics/structure/subject-combinations/"
+      }
+    ]
+  }
+}

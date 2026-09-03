@@ -58,23 +58,17 @@
  *   07 · SAND   a typographic achievement panel — no photograph exists.
  *   08 · PEACH  the drawn journey rail, four stages.  09 · PHOTO  the close.
  */
-import { Picture } from 'astro:assets';
+import SmartImage from '../../../components/ui/SmartImage.astro';
 
 /* ── PHOTOGRAPHY — ten genuine Sunbeam Ballia frames, each used ONCE. Every
    alt below is the description already published against that file in
    data/academics.ts, so no caption here invents what a photograph shows. */
-import pMicro from '../../../assets/photos/sb-sci-lab.jpg';
-import pMaking from '../../../assets/School Activity in Uniform/Embriodery.jpg';
-import pJunior from '../../../assets/photos/sb-comp-lab-2.jpg';
-import pLibrary from '../../../assets/photos/sb-library.jpg';
-import pMachines from '../../../assets/computer lab/it-3.jpeg';
-import pBench from '../../../assets/photos/sb-chem-lab.jpg';
-import pGlass from '../../../assets/photos/sb-bio-lab.jpg';
-import pFloor from '../../../assets/photos/sb-maths-lab.jpg';
-import pChem from '../../../assets/chem lab/DSC_1262 copy.jpg';
-import pCohort from '../../../assets/photos/sunbeem-3.jpg';
+import ClipHeading from '../../ui/ClipHeading.astro';
+import RichLine from '../../ui/RichLine.astro';
+import { getMiddleSchool } from '../../../lib/cms';
 
-const S = 'Sunbeam School Ballia';
+const { open, exp, doing, four, subj, lab, ach, jrn, close } = await getMiddleSchool();
+
 
 const LABS = '/academics/teaching-learning/laboratories-clubs/';
 const STEM = '/academics/teaching-learning/stem-robotics/';
@@ -110,61 +104,21 @@ const MARK: Record<string, string> = {
 
 /* ── SECTION 01 — the four the school names for this stage ─────────────────
    Three come from the published focus list; the fourth is the milestone. */
-const marks = [
-  { n: '01', mark: 'venture', k: 'A real venture', v: 'KIDS Entrepreneurship, Class VII.' },
-  { n: '02', mark: 'microscope', k: 'Practical science', v: 'The general science laboratory opens.' },
-  { n: '03', mark: 'hand', k: 'Independent projects', v: 'Work carried without being carried.' },
-  { n: '04', mark: 'team', k: 'Specialist teaching', v: 'One subject, one specialist.' },
-] as const;
 
 /* ── SECTION 02 — four numbered lines on horizontal rules, not cards ─────── */
-const shifts = [
-  { n: '01', k: 'Specialist teaching', v: 'A subject taught by somebody who teaches only that subject — the change that defines this stage.' },
-  { n: '02', k: 'Practical learning', v: 'The general science laboratory is the middle-school room specifically, and it opens before the board syllabus starts.' },
-  { n: '03', k: 'Laboratory work', v: 'Twelve laboratories, four of them inquiry rooms, and two computer labs with 40+ machines each.' },
-  { n: '04', k: 'A venture of their own', v: 'Class VII runs KIDS Entrepreneurship — not a simulation, not a case study, but a real venture end to end.' },
-] as const;
 
 /* ── SECTION 04 — four directions ─────────────────────────────────────────
    Each is anchored to something the school publishes for this stage, so none of
    the four is a generic verb wearing a number. */
-const directions = [
-  { n: '01', mark: 'bulb', k: 'Understand', v: 'Specialist teaching begins, and a subject stops being one strand of a general lesson.' },
-  { n: '02', mark: 'flask', k: 'Experiment', v: 'The general science laboratory is the middle-school room, used before the board years need it.' },
-  { n: '03', mark: 'make', k: 'Create', v: 'Class VII carries a real venture from start to finish under the KIDS programme.' },
-  { n: '04', mark: 'speech', k: 'Communicate', v: 'Four inquiry rooms — debate, committee procedure, making and open-ended work.' },
-] as const;
 
 /* ── SECTION 05 — SUBJECTS ────────────────────────────────────────────────
    ⚠ `hired: true` marks the five the school recruits middle-school teachers for,
    naming grades 6 to 8. The last three are ROOMS on the facilities inventory,
    not subjects the school has named for this stage, and the list says so. */
-const subjects = [
-  { n: '01', mark: 'langue', k: 'English', v: 'Named on both published recruitment notices.', hired: true },
-  { n: '02', mark: 'atom', k: 'Science', v: 'With the general science laboratory alongside it.', hired: true },
-  { n: '03', mark: 'globe', k: 'Social Science', v: 'Named on both published recruitment notices.', hired: true },
-  { n: '04', mark: 'sigma', k: 'Mathematics', v: 'And a mathematics laboratory — the room most schools skip.', hired: true },
-  { n: '05', mark: 'speech', k: 'French', v: 'Added to the middle-school list on the 2024-25 notice.', hired: true },
-  { n: '06', mark: 'screen', k: 'Computing', v: 'Two laboratories, 40+ machines each — a room, not a stated subject.', hired: false },
-  { n: '07', mark: 'ball', k: 'Physical education', v: 'Fifteen sports across the indoor and outdoor programme.', hired: false },
-  { n: '08', mark: 'brush', k: 'Art & activities', v: 'A dedicated art room, a dance room and the music programme.', hired: false },
-] as const;
 
 /* ── SECTION 06 — the data rail under the laboratories copy ───────────────── */
-const rail = [
-  { mark: 'flask', k: 'Science', v: 'Twelve laboratories in all.' },
-  { mark: 'chip', k: 'Robotics', v: 'Drone · 3-D printer · telescope.' },
-  { mark: 'screen', k: 'Computing', v: 'Junior and senior labs.' },
-  { mark: 'spark', k: 'Inquiry rooms', v: 'Four of the twelve.' },
-] as const;
 
 /* ── SECTION 08 — four stages, each anchored to something published ──────── */
-const journey = [
-  { n: '01', mark: 'ask', k: 'Question', v: 'Four inquiry rooms for the work that has no single right answer.' },
-  { n: '02', mark: 'compass', k: 'Explore', v: 'The laboratories open up, and specialist teaching begins.' },
-  { n: '03', mark: 'target', k: 'Apply', v: 'Class VII runs a real venture, end to end.' },
-  { n: '04', mark: 'present', k: 'Present', v: 'Debate, committee procedure and position papers in the MUN room.' },
-] as const;
 ---
 
 {/* ══ 01 · THE TRANSITION ════════════════════════════════════════════════════
@@ -182,34 +136,23 @@ const journey = [
           ghost word runs straight through the paragraphs. */}
       <span class="ms-open__ghost" aria-hidden="true" data-drift>VI–VIII</span>
 
-      <p class="ms-kicker" data-reveal>Classes VI – VIII</p>
-      <h2 class="ms-h ms-open__h" id="ms-open-t">
-        <span data-clip data-clip-delay="0">A real venture,</span>
-        <span data-clip data-clip-delay="150"><em>end to end.</em></span>
-      </h2>
+      <p class="ms-kicker" data-reveal>{open.kicker}</p>
+      <ClipHeading class="ms-h ms-open__h" id="ms-open-t" text={open.heading} />
 
-      <p class="ms-body" data-reveal data-reveal-delay="200">
-        The school’s description of <strong>KIDS Entrepreneurship</strong> is six words long and does
-        the whole job: <em>“a Class 7 programme that runs a real venture end to end.”</em> Not a
-        simulation and not a case study — a venture, carried from start to finish by twelve-year-olds.
-      </p>
-      <p class="ms-body" data-reveal data-reveal-delay="260">
-        Around it the stage turns academic. <strong>Specialist teaching begins</strong>, and the
-        general science laboratory — the middle-school room specifically — opens for practical work
-        well before the board syllabus needs it.
-      </p>
+      <RichLine class="ms-body" text={open.body[0]} reveal revealDelay={200} />
+      <RichLine class="ms-body" text={open.body[1]} reveal revealDelay={260} />
 
       <ul class="ms-marks">
-        {marks.map((m, i) => (
+        {open.cells.map((m, i) => (
           <li class="ms-mark" data-reveal data-reveal-delay={300 + i * 70}>
             <span class="ms-mark__m" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none">
                 <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={MARK[m.mark]} />
               </svg>
             </span>
-            <span class="ms-mark__n t-tabular">{m.n}</span>
-            <span class="ms-mark__k">{m.k}</span>
-            <span class="ms-mark__v">{m.v}</span>
+            <span class="ms-mark__n t-tabular">{String(i + 1).padStart(2, '0')}</span>
+            <span class="ms-mark__k">{m.label}</span>
+            <span class="ms-mark__v">{m.value}</span>
           </li>
         ))}
       </ul>
@@ -217,13 +160,13 @@ const journey = [
 
     <div class="ms-open__stage">
       <div class="ms-open__lead" data-mask>
-        <Picture src={pMicro} alt={`A student of ${S} using a microscope beside plant specimens in flasks`} formats={['webp']} widths={[520, 880, 1200]} sizes="(max-width: 1023px) 92vw, 42vw" loading="eager" decoding="async" />
+        <SmartImage file={open.shots[0]?.image} alt={open.shots[0]?.alt ?? ''} widths={[520, 880, 1200]} sizes="(max-width: 1023px) 92vw, 42vw" loading="eager" decoding="async" />
       </div>
       <div class="ms-open__sm" data-pop data-pop-delay="180">
-        <Picture src={pMaking} alt={`Students of ${S} working together on embroidery from one shared basket of thread`} formats={['webp']} widths={[320, 560]} sizes="(max-width: 1023px) 46vw, 18vw" loading="lazy" decoding="async" />
+        <SmartImage file={open.shots[1]?.image} alt={open.shots[1]?.alt ?? ''} widths={[320, 560]} sizes="(max-width: 1023px) 46vw, 18vw" loading="lazy" decoding="async" />
       </div>
       <div class="ms-open__cir" data-pop data-pop-delay="300">
-        <Picture src={pJunior} alt={`Younger students of ${S} working at desktop computers in the junior computer laboratory`} formats={['webp']} widths={[220, 400]} sizes="(max-width: 1023px) 30vw, 12vw" loading="lazy" decoding="async" />
+        <SmartImage file={open.shots[2]?.image} alt={open.shots[2]?.alt ?? ''} widths={[220, 400]} sizes="(max-width: 1023px) 30vw, 12vw" loading="lazy" decoding="async" />
       </div>
     </div>
   </div>
@@ -239,31 +182,25 @@ const journey = [
   <div class="u-container ms-exp__grid">
     <div class="ms-exp__stage">
       <div class="ms-exp__lead" data-zoom data-zoom-to="1.04">
-        <Picture src={pLibrary} alt={`Students of ${S} reading and working at tables in the Nalanda Library`} formats={['webp']} widths={[520, 880, 1200]} sizes="(max-width: 1023px) 92vw, 42vw" loading="lazy" decoding="async" />
+        <SmartImage file={exp.shots[0]?.image} alt={exp.shots[0]?.alt ?? ''} widths={[520, 880, 1200]} sizes="(max-width: 1023px) 92vw, 42vw" loading="lazy" decoding="async" />
       </div>
       <div class="ms-exp__sm" data-pop data-pop-delay="200">
-        <Picture src={pMachines} alt={`A class at ${S} at work in the computer laboratory, a teacher standing at the back of the room`} formats={['webp']} widths={[320, 560]} sizes="(max-width: 1023px) 52vw, 20vw" loading="lazy" decoding="async" />
+        <SmartImage file={exp.shots[1]?.image} alt={exp.shots[1]?.alt ?? ''} widths={[320, 560]} sizes="(max-width: 1023px) 52vw, 20vw" loading="lazy" decoding="async" />
       </div>
     </div>
 
     <div class="ms-exp__copy">
-      <p class="ms-kicker" data-reveal>Beyond the timetable</p>
-      <h2 class="ms-h ms-exp__h" id="ms-exp-t">
-        <span data-clip data-clip-delay="0">Learning becomes</span>
-        <span data-clip data-clip-delay="150"><em>more independent.</em></span>
-      </h2>
-      <p class="ms-body" data-reveal data-reveal-delay="200">
-        Four things change between Class V and Class VI, and the school publishes all four. None of
-        them is a promise about attitude — each is a room, a post or a programme with a name.
-      </p>
+      <p class="ms-kicker" data-reveal>{exp.kicker}</p>
+      <ClipHeading class="ms-h ms-exp__h" id="ms-exp-t" text={exp.heading} />
+      <RichLine class="ms-body" text={exp.body[0]} reveal revealDelay={200} />
 
       <ol class="ms-shifts">
-        {shifts.map((s, i) => (
+        {exp.cells.map((s, i) => (
           <li class="ms-shift" data-reveal data-reveal-delay={250 + i * 80}>
-            <p class="ms-shift__n t-tabular">{s.n}</p>
+            <p class="ms-shift__n t-tabular">{String(i + 1).padStart(2, '0')}</p>
             <div class="ms-shift__t">
-              <p class="ms-shift__k">{s.k}</p>
-              <p class="ms-shift__v">{s.v}</p>
+              <p class="ms-shift__k">{s.label}</p>
+              <p class="ms-shift__v">{s.value}</p>
             </div>
           </li>
         ))}
@@ -280,20 +217,11 @@ const journey = [
 
   <div class="u-container ms-doing__grid">
     <div class="ms-doing__copy">
-      <p class="ms-kicker" data-reveal>When the lesson leaves the page</p>
-      <h2 class="ms-h ms-doing__h" id="ms-doing-t">
-        <span data-clip data-clip-delay="0">Ideas become</span>
-        <span data-clip data-clip-delay="150"><em>something you can do.</em></span>
-      </h2>
-      <p class="ms-body" data-reveal data-reveal-delay="200">
-        The laboratories are the visible half of this stage. The school runs twelve of them, and the
-        photographs below are the three rooms in which a middle-school class most often ends up.
-      </p>
+      <p class="ms-kicker" data-reveal>{doing.kicker}</p>
+      <ClipHeading class="ms-h ms-doing__h" id="ms-doing-t" text={doing.heading} />
+      <RichLine class="ms-body" text={doing.body[0]} reveal revealDelay={200} />
       <span class="ms-doing__rule" aria-hidden="true" data-reveal data-reveal-delay="270"></span>
-      <p class="ms-note" data-reveal data-reveal-delay="320">
-        The full inventory — and which four of the twelve are inquiry rooms rather than subject
-        laboratories — is on {' '}<a class="ms-link" href={LABS}>Laboratories &amp; Academic Clubs</a>.
-      </p>
+      <RichLine class="ms-note" text={doing.body[1]} linkClass="ms-link" reveal revealDelay={320} />
     </div>
 
     <div class="ms-doing__stage">
@@ -310,24 +238,24 @@ const journey = [
       <ol class="ms-frames">
         <li class="ms-frame" data-reveal data-reveal-delay="160">
           <div class="ms-frame__pic" data-zoom data-zoom-to="1.05">
-            <Picture src={pBench} alt={`Students of ${S} at the bench in the chemistry laboratory`} formats={['webp']} widths={[340, 600, 860]} sizes="(max-width: 767px) 92vw, 20vw" loading="lazy" decoding="async" />
+            <SmartImage file={doing.shots[0]?.image} alt={doing.shots[0]?.alt ?? ''} widths={[340, 600, 860]} sizes="(max-width: 767px) 92vw, 20vw" loading="lazy" decoding="async" />
           </div>
-          <p class="ms-frame__k">Chemistry</p>
-          <p class="ms-frame__v">Students at the bench, not watching one.</p>
+          <RichLine class="ms-frame__k" text={doing.body[2]} />
+          <RichLine class="ms-frame__v" text={doing.body[3]} />
         </li>
         <li class="ms-frame" data-reveal data-reveal-delay="270">
           <div class="ms-frame__pic" data-zoom data-zoom-to="1.05">
-            <Picture src={pGlass} alt={`Two students of ${S} handling glassware in the biology laboratory`} formats={['webp']} widths={[340, 600, 860]} sizes="(max-width: 767px) 92vw, 20vw" loading="lazy" decoding="async" />
+            <SmartImage file={doing.shots[1]?.image} alt={doing.shots[1]?.alt ?? ''} widths={[340, 600, 860]} sizes="(max-width: 767px) 92vw, 20vw" loading="lazy" decoding="async" />
           </div>
-          <p class="ms-frame__k">Biology</p>
-          <p class="ms-frame__v">Glassware in hand, at twelve years old.</p>
+          <RichLine class="ms-frame__k" text={doing.body[4]} />
+          <RichLine class="ms-frame__v" text={doing.body[5]} />
         </li>
         <li class="ms-frame" data-reveal data-reveal-delay="380">
           <div class="ms-frame__pic" data-zoom data-zoom-to="1.05">
-            <Picture src={pFloor} alt={`Students of ${S} seated on the floor of a decorated activity room during a lesson`} formats={['webp']} widths={[340, 600, 860]} sizes="(max-width: 767px) 92vw, 20vw" loading="lazy" decoding="async" />
+            <SmartImage file={doing.shots[2]?.image} alt={doing.shots[2]?.alt ?? ''} widths={[340, 600, 860]} sizes="(max-width: 767px) 92vw, 20vw" loading="lazy" decoding="async" />
           </div>
-          <p class="ms-frame__k">Activity room</p>
-          <p class="ms-frame__v">A lesson that does not need desks.</p>
+          <RichLine class="ms-frame__k" text={doing.body[6]} />
+          <RichLine class="ms-frame__v" text={doing.body[7]} />
         </li>
       </ol>
     </div>
@@ -340,24 +268,21 @@ const journey = [
 <section class="ms-four" aria-labelledby="ms-four-t">
   <div class="u-container ms-four__grid">
     <div class="ms-four__head">
-      <p class="ms-kicker" data-reveal>The middle school mix</p>
-      <h2 class="ms-h ms-four__h" id="ms-four-t">
-        <span data-clip data-clip-delay="0">Four ways</span>
-        <span data-clip data-clip-delay="150"><em>students grow.</em></span>
-      </h2>
+      <p class="ms-kicker" data-reveal>{four.kicker}</p>
+      <ClipHeading class="ms-h ms-four__h" id="ms-four-t" text={four.heading} />
     </div>
 
     <ol class="ms-cols">
-      {directions.map((d, i) => (
+      {four.cells.map((d, i) => (
         <li class="ms-col" data-reveal data-reveal-delay={140 + i * 90}>
           <span class="ms-col__m" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none">
               <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={MARK[d.mark]} />
             </svg>
           </span>
-          <p class="ms-col__n t-tabular">{d.n}</p>
-          <h3 class="ms-col__k">{d.k}</h3>
-          <p class="ms-col__v">{d.v}</p>
+          <p class="ms-col__n t-tabular">{String(i + 1).padStart(2, '0')}</p>
+          <h3 class="ms-col__k">{d.label}</h3>
+          <p class="ms-col__v">{d.value}</p>
         </li>
       ))}
     </ol>
@@ -373,22 +298,10 @@ const journey = [
 
   <div class="u-container ms-subj__grid">
     <div class="ms-subj__copy">
-      <p class="ms-kicker" data-reveal>More to learn</p>
-      <h2 class="ms-h ms-subj__h" id="ms-subj-t">
-        <span data-clip data-clip-delay="0">More subjects.</span>
-        <span data-clip data-clip-delay="150">More <em>ways to think.</em></span>
-      </h2>
-      <p class="ms-body" data-reveal data-reveal-delay="200">
-        The school does not publish a middle-school subject scheme. What it publishes twice — on its
-        own recruitment notices, naming <strong>grades 6 to 8</strong> — is the list of subjects it
-        hires middle-school teachers for. Those five are marked below.
-      </p>
-      <p class="ms-note" data-reveal data-reveal-delay="270">
-        The last three are rooms on the facilities inventory rather than subjects the school has
-        named for this stage, and are set apart as that. Curriculum documents are published class by
-        class as {' '}<a class="ms-link" href={CURRICULUM}>PRECEPT</a>; the notices themselves are on
-        {' '}<a class="ms-link" href={CAREERS}>Career</a>.
-      </p>
+      <p class="ms-kicker" data-reveal>{subj.kicker}</p>
+      <ClipHeading class="ms-h ms-subj__h" id="ms-subj-t" text={subj.heading} />
+      <RichLine class="ms-body" text={subj.body[0]} reveal revealDelay={200} />
+      <RichLine class="ms-note" text={subj.body[1]} linkClass="ms-link" reveal revealDelay={270} />
     </div>
 
     {/* ⚠ ONE ORANGE THREAD RUNS THE FULL LIST and every marker sits on it. */}
@@ -397,20 +310,20 @@ const journey = [
         them; and `data-draw` scales X, which is the wrong axis for a vertical
         rule. Each item carries the segment from its own disc to the next. */}
     <ol class="ms-list">
-      {subjects.map((s, i) => (
-        <li class={`ms-subject${s.hired ? ' ms-subject--hired' : ''}`} data-reveal data-reveal-delay={140 + i * 55}>
+      {subj.cells.map((s, i) => (
+        <li class={`ms-subject${s.flag ? ' ms-subject--hired' : ''}`} data-reveal data-reveal-delay={140 + i * 55}>
           <span class="ms-subject__node" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none">
               <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={MARK[s.mark]} />
             </svg>
           </span>
-          <span class="ms-subject__n t-tabular">{s.n}</span>
+          <span class="ms-subject__n t-tabular">{String(i + 1).padStart(2, '0')}</span>
           <span class="ms-subject__t">
             <span class="ms-subject__k">
-              {s.k}
-              {!s.hired && <i class="ms-subject__flag">Room</i>}
+              {s.label}
+              {!s.flag && <i class="ms-subject__flag">Room</i>}
             </span>
-            <span class="ms-subject__v">{s.v}</span>
+            <span class="ms-subject__v">{s.value}</span>
           </span>
         </li>
       ))}
@@ -426,39 +339,28 @@ const journey = [
 
   <div class="u-container ms-lab__grid">
     <div class="ms-lab__pic" data-mask data-mask-from="left">
-      <Picture src={pChem} alt={`The chemistry laboratory at ${S}, benches laid out with reagent shelves and gas taps`} formats={['webp']} widths={[560, 900, 1280]} sizes="(max-width: 1023px) 92vw, 46vw" loading="lazy" decoding="async" />
+      <SmartImage file={lab.shots[0]?.image} alt={lab.shots[0]?.alt ?? ''} widths={[560, 900, 1280]} sizes="(max-width: 1023px) 92vw, 46vw" loading="lazy" decoding="async" />
     </div>
 
     <div class="ms-lab__copy">
-      <p class="ms-kicker" data-reveal>From classroom to lab</p>
-      <h2 class="ms-h ms-lab__h" id="ms-lab-t">
-        <span data-clip data-clip-delay="0">The room changes.</span>
-        <span data-clip data-clip-delay="150"><em>The question stays.</em></span>
-      </h2>
-      <p class="ms-body" data-reveal data-reveal-delay="200">
-        Twelve laboratories, and the school’s own count puts <strong>four of them</strong> outside
-        the subject list altogether — Geography, Srijan, Model United Nations and Active Learning.
-        They are inside the twelve, not added to it, and they are where a middle-school question goes
-        when it has no single right answer.
-      </p>
+      <p class="ms-kicker" data-reveal>{lab.kicker}</p>
+      <ClipHeading class="ms-h ms-lab__h" id="ms-lab-t" text={lab.heading} />
+      <RichLine class="ms-body" text={lab.body[0]} reveal revealDelay={200} />
 
       <ul class="ms-rail">
-        {rail.map((r, i) => (
+        {lab.cells.map((r, i) => (
           <li class="ms-rcell" data-reveal data-reveal-delay={260 + i * 80}>
             <span class="ms-rcell__m" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none">
                 <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={MARK[r.mark]} />
               </svg>
             </span>
-            <span class="ms-rcell__k">{r.k}</span>
-            <span class="ms-rcell__v">{r.v}</span>
+            <span class="ms-rcell__k">{r.label}</span>
+            <span class="ms-rcell__v">{r.value}</span>
           </li>
         ))}
       </ul>
-      <p class="ms-note" data-reveal data-reveal-delay="600">
-        What the Robotics Lab holds is set out on
-        {' '}<a class="ms-link" href={STEM}>STEM, Robotics &amp; Enrichment</a>.
-      </p>
+      <RichLine class="ms-note" text={lab.body[1]} linkClass="ms-link" reveal revealDelay={600} />
     </div>
   </div>
 </section>
@@ -476,16 +378,9 @@ const journey = [
 
   <div class="u-container ms-ach__inner">
     <div class="ms-ach__head">
-      <p class="ms-kicker" data-reveal>Learning worth remembering</p>
-      <h2 class="ms-h ms-ach__h" id="ms-ach-t">
-        <span data-clip data-clip-delay="0">Miss Ayana Pandey,</span>
-        <span data-clip data-clip-delay="150"><em>Class VIII.</em></span>
-      </h2>
-      <p class="ms-body" data-reveal data-reveal-delay="200">
-        This stage’s published achievement belongs to a named student. Ayana Pandey of Class VIII won
-        the <strong>Shining Star Kids Fashion Show</strong> in 2025 — a contest of more than seventy
-        entrants, with the award presented by <strong>Miss Universe India 2024, Riya Singha</strong>.
-      </p>
+      <p class="ms-kicker" data-reveal>{ach.kicker}</p>
+      <ClipHeading class="ms-h ms-ach__h" id="ms-ach-t" text={ach.heading} />
+      <RichLine class="ms-body" text={ach.body[0]} reveal revealDelay={200} />
     </div>
 
     <dl class="ms-facts">
@@ -507,10 +402,7 @@ const journey = [
       </div>
     </dl>
 
-    <p class="ms-note ms-ach__note" data-reveal data-reveal-delay="480">
-      No photograph of the contest has been published, so none is shown. The rest of the record, year
-      group by year group, is on {' '}<a class="ms-link" href={SUCCESS}>Student Success</a>.
-    </p>
+    <RichLine class="ms-note ms-ach__note" text={ach.body[1]} linkClass="ms-link" reveal revealDelay={480} />
   </div>
 </section>
 
@@ -519,11 +411,8 @@ const journey = [
   <span class="ms-jrn__warm" aria-hidden="true"></span>
 
   <div class="u-container ms-jrn__inner">
-    <p class="ms-kicker ms-jrn__kicker" data-reveal>The middle school journey</p>
-    <h2 class="ms-h ms-jrn__h" id="ms-jrn-t">
-      <span data-clip data-clip-delay="0">From guided learning</span>
-      <span data-clip data-clip-delay="150">to <em>independent thinking.</em></span>
-    </h2>
+    <p class="ms-kicker ms-jrn__kicker" data-reveal>{jrn.kicker}</p>
+    <ClipHeading class="ms-h ms-jrn__h" id="ms-jrn-t" text={jrn.heading} />
 
     <div class="ms-jrn__track">
       <span class="ms-jrn__rule" aria-hidden="true">
@@ -534,16 +423,16 @@ const journey = [
       </span>
 
       <ol class="ms-steps">
-        {journey.map((j, i) => (
+        {jrn.cells.map((j, i) => (
           <li class="ms-step" data-reveal data-reveal-delay={140 + i * 120}>
             <span class="ms-step__node" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none">
                 <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={MARK[j.mark]} />
               </svg>
             </span>
-            <p class="ms-step__n t-tabular">{j.n}</p>
-            <h3 class="ms-step__k">{j.k}</h3>
-            <p class="ms-step__v">{j.v}</p>
+            <p class="ms-step__n t-tabular">{String(i + 1).padStart(2, '0')}</p>
+            <h3 class="ms-step__k">{j.label}</h3>
+            <p class="ms-step__v">{j.value}</p>
           </li>
         ))}
       </ol>
@@ -585,22 +474,15 @@ const journey = [
 {/* ══ 09 · THE CLOSE ═════════════════════════════════════════════════════════ */}
 <section class="ms-close" aria-labelledby="ms-close-t">
   <div class="ms-close__media" aria-hidden="true" data-parallax data-parallax-y="-40">
-    <Picture src={pCohort} alt="" formats={['webp']} widths={[1024, 1600, 2000]} sizes="100vw" loading="lazy" decoding="async" />
+    <SmartImage file={close.shots[0]?.image} alt={close.shots[0]?.alt ?? ''} widths={[1024, 1600, 2000]} sizes="100vw" loading="lazy" decoding="async" />
   </div>
   <span class="ms-close__scrim" aria-hidden="true"></span>
   <span class="ms-close__grain" aria-hidden="true"></span>
 
   <div class="u-container ms-close__inner">
-    <p class="ms-kicker ms-kicker--dark" data-reveal>A strong beginning</p>
-    <h2 class="ms-h ms-close__h" id="ms-close-t">
-      <span data-clip data-clip-delay="0">Twelve years old,</span>
-      <span data-clip data-clip-delay="150"><em>and already building.</em></span>
-    </h2>
-    <p class="ms-close__b" data-reveal data-reveal-delay="180">
-      The school names the KIDS programme, its class, the rooms that open at this stage and the one
-      published achievement that belongs to it. What KIDS runs week to week — and photography of it —
-      are not published, and are not invented here.
-    </p>
+    <p class="ms-kicker ms-kicker--dark" data-reveal>{close.kicker}</p>
+    <ClipHeading class="ms-h ms-close__h" id="ms-close-t" text={close.heading} />
+    <RichLine class="ms-close__b" text={close.body[0]} reveal revealDelay={180} />
   </div>
 </section>
 
@@ -616,7 +498,7 @@ const journey = [
   }
   .ms-kicker--dark { color: var(--sb-lime); }
 
-  .ms-h {
+  :global(.ms-h) {
     margin: clamp(12px, 1.5vw, 18px) 0 0;
     font-family: var(--sb-font-display);
     font-weight: 700;
@@ -624,20 +506,20 @@ const journey = [
     letter-spacing: -0.04em;
     color: var(--sb-charcoal);
   }
-  .ms-h span { display: block; }
-  .ms-h em { font-style: normal; color: var(--sb-violet); }
+  :global(.ms-h span) { display: block; }
+  :global(.ms-h em) { font-style: normal; color: var(--sb-violet); }
 
-  .ms-body {
+  :global(.ms-body) {
     max-width: 47ch;
     margin: clamp(13px, 1.6vw, 19px) 0 0;
     font-size: clamp(12.5px, 0.92vw, 14.5px);
     line-height: 1.78;
     color: var(--sb-text-secondary);
   }
-  .ms-body strong { font-weight: 700; color: var(--sb-charcoal); }
-  .ms-body em { font-style: italic; color: var(--sb-charcoal); }
+  :global(.ms-body strong) { font-weight: 700; color: var(--sb-charcoal); }
+  :global(.ms-body em) { font-style: italic; color: var(--sb-charcoal); }
 
-  .ms-note {
+  :global(.ms-note) {
     max-width: 56ch;
     margin: clamp(12px, 1.4vw, 17px) 0 0;
     font-size: clamp(10px, 0.74vw, 11.5px);
@@ -645,14 +527,14 @@ const journey = [
     color: var(--sb-text-muted);
   }
 
-  .ms-link {
+  :global(.ms-link){
     color: var(--sb-violet);
     font-weight: 700;
     text-decoration: underline;
     text-underline-offset: 3px;
     text-decoration-thickness: 1px;
   }
-  .ms-link:hover { color: var(--sb-orange-bright); }
+  :global(.ms-link:hover){ color: var(--sb-orange-bright); }
 
   .ms-grid {
     position: absolute;
@@ -745,7 +627,7 @@ const journey = [
     pointer-events: none;
     user-select: none;
   }
-  .ms-open__h { font-size: clamp(28px, 3.3vw, 46px); }
+  :global(.ms-open__h) { font-size: clamp(28px, 3.3vw, 46px); }
 
   .ms-open__stage { position: relative; padding-bottom: clamp(24px, 2.8vw, 42px); }
   .ms-open__lead { width: 86%; aspect-ratio: 16 / 11; box-shadow: var(--sb-shadow-card); }
@@ -831,7 +713,7 @@ const journey = [
     border: 5px solid var(--sb-paper);
     box-shadow: var(--sb-shadow-card-hover);
   }
-  .ms-exp__h { font-size: clamp(27px, 3.1vw, 44px); }
+  :global(.ms-exp__h) { font-size: clamp(27px, 3.1vw, 44px); }
 
   /* ⚠ HORIZONTAL RULES, NOT CARDS. */
   .ms-shifts { margin: clamp(18px, 2.2vw, 28px) 0 0; padding: 0; list-style: none; }
@@ -884,7 +766,7 @@ const journey = [
     gap: clamp(24px, 3.2vw, 52px);
     align-items: center;
   }
-  .ms-doing__h { font-size: clamp(25px, 2.8vw, 38px); }
+  :global(.ms-doing__h) { font-size: clamp(25px, 2.8vw, 38px); }
   .ms-doing__rule {
     display: block;
     width: clamp(56px, 6vw, 92px);
@@ -934,7 +816,7 @@ const journey = [
   .ms-frame:nth-child(1) .ms-frame__pic :global(img) { aspect-ratio: 4 / 5; }
   .ms-frame:nth-child(2) .ms-frame__pic :global(img) { aspect-ratio: 1 / 1; }
   .ms-frame:nth-child(3) .ms-frame__pic :global(img) { aspect-ratio: 5 / 6; }
-  .ms-frame__k {
+  :global(.ms-frame__k) {
     margin: clamp(9px, 1.1vw, 13px) 0 0;
     font-family: var(--sb-font-display);
     font-size: clamp(14px, 1.2vw, 19px);
@@ -942,7 +824,7 @@ const journey = [
     letter-spacing: -0.03em;
     color: var(--sb-charcoal);
   }
-  .ms-frame__v { margin: 4px 0 0; font-size: clamp(10px, 0.74vw, 11.8px); line-height: 1.6; color: var(--sb-text-muted); }
+  :global(.ms-frame__v) { margin: 4px 0 0; font-size: clamp(10px, 0.74vw, 11.8px); line-height: 1.6; color: var(--sb-text-muted); }
 
   /* ═══ 04 · FOUR DIRECTIONS ════════════════════════════════════════════════ */
   .ms-four {
@@ -958,7 +840,7 @@ const journey = [
     gap: clamp(24px, 3.2vw, 50px);
     align-items: center;
   }
-  .ms-four__h { font-size: clamp(24px, 2.6vw, 36px); }
+  :global(.ms-four__h) { font-size: clamp(24px, 2.6vw, 36px); }
 
   .ms-cols {
     display: grid;
@@ -1011,7 +893,7 @@ const journey = [
     gap: clamp(24px, 3.2vw, 52px);
     align-items: center;
   }
-  .ms-subj__h { font-size: clamp(25px, 2.8vw, 38px); }
+  :global(.ms-subj__h) { font-size: clamp(25px, 2.8vw, 38px); }
 
   /* ⚠ TWO COLUMNS OF FOUR, ONE THREAD DOWN EACH. The thread is a single element
      spanning the list, drawn on scroll; every marker's disc sits on it. */
@@ -1119,7 +1001,7 @@ const journey = [
     object-fit: cover;
     object-position: 50% 52%;
   }
-  .ms-lab__h { font-size: clamp(26px, 3vw, 42px); }
+  :global(.ms-lab__h) { font-size: clamp(26px, 3vw, 42px); }
 
   .ms-rail {
     display: grid;
@@ -1186,7 +1068,7 @@ const journey = [
     gap: clamp(24px, 3.2vw, 50px);
     align-items: center;
   }
-  .ms-ach__h { font-size: clamp(25px, 2.8vw, 38px); }
+  :global(.ms-ach__h) { font-size: clamp(25px, 2.8vw, 38px); }
 
   .ms-facts {
     display: grid;
@@ -1214,7 +1096,7 @@ const journey = [
     letter-spacing: -0.02em;
     color: var(--sb-charcoal);
   }
-  .ms-ach__note { grid-column: 1 / -1; max-width: none; }
+  :global(.ms-ach__note) { grid-column: 1 / -1; max-width: none; }
 
   /* ═══ 08 · THE JOURNEY ════════════════════════════════════════════════════ */
   .ms-jrn {
@@ -1240,7 +1122,7 @@ const journey = [
     text-align: center;
   }
   .ms-jrn__kicker { text-align: center; }
-  .ms-jrn__h { max-width: 22ch; font-size: clamp(25px, 2.9vw, 40px); }
+  :global(.ms-jrn__h) { max-width: 22ch; font-size: clamp(25px, 2.9vw, 40px); }
 
   .ms-jrn__track { position: relative; width: 100%; margin: clamp(24px, 3vw, 42px) 0 0; }
   .ms-jrn__rule {
@@ -1338,9 +1220,9 @@ const journey = [
     background-size: 180px 180px;
   }
   .ms-close__inner { position: relative; display: grid; justify-items: center; text-align: center; }
-  .ms-close__h { max-width: 20ch; font-size: clamp(26px, 3.2vw, 46px); color: #fff; }
-  .ms-close__h em { color: var(--sb-lime); font-style: italic; }
-  .ms-close__b {
+  :global(.ms-close__h) { max-width: 20ch; font-size: clamp(26px, 3.2vw, 46px); color: #fff; }
+  :global(.ms-close__h em) { color: var(--sb-lime); font-style: italic; }
+  :global(.ms-close__b) {
     max-width: 66ch;
     margin: clamp(14px, 1.7vw, 21px) 0 0;
     font-size: clamp(12px, 0.88vw, 14px);
@@ -1367,10 +1249,10 @@ const journey = [
     .ms-open__stage,
     .ms-exp__stage,
     .ms-lab__pic { order: -1; }
-    .ms-body { max-width: 62ch; }
+    :global(.ms-body) { max-width: 62ch; }
     .ms-open__h,
     .ms-exp__h,
-    .ms-lab__h { font-size: clamp(27px, 4.8vw, 38px); }
+    :global(.ms-lab__h) { font-size: clamp(27px, 4.8vw, 38px); }
     .ms-marks { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: clamp(16px, 2.2vw, 22px); }
     .ms-mark:nth-child(3) { padding-left: 0; border-left: 0; }
     .ms-open__ghost { font-size: clamp(64px, 11vw, 110px); }

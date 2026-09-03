@@ -19,6 +19,7 @@ import '../../../styles/academics.css';
  */
 import { Image, Picture } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
+import SmartImage from '../../ui/SmartImage.astro';
 
 interface Beat {
   k: string;
@@ -58,20 +59,22 @@ const headingId = id ?? `acpath-${Math.abs(heading.length * 4231 % 9973)}`;
         <li class="acp__beat" data-reveal data-reveal-delay={i * 150}>
           {b.photo && (
             <figure class="ac-frame ac-frame--soft acp__art" data-zoom data-zoom-to="1.14">
-              <Picture
-                src={b.photo}
+              <SmartImage
+                file={b.photo}
                 alt={b.alt ?? ''}
-                formats={['webp']}
-                widths={[380, 760]}
                 sizes="(max-width: 900px) 86vw, 28vw"
+                fallbackWidth={1100}
                 loading="lazy"
-                decoding="async"
               />
             </figure>
           )}
           <span class="acp__node" aria-hidden="true">
             {b.icon
-              ? <Image src={b.icon} alt="" width={72} />
+              ? <SmartImage
+  file={b.icon}
+  alt=""
+  fallbackWidth={1100}
+/>
               : <span class="acp__dot">{String(i + 1).padStart(2, '0')}</span>}
           </span>
           <p class="acp__k">{b.k}</p>

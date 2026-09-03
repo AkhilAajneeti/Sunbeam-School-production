@@ -1,0 +1,59 @@
+{
+  "kind": "collectionType",
+  "collectionName": "achievement_majors",
+  "info": {
+    "singularName": "achievement-major",
+    "pluralName": "achievement-majors",
+    "displayName": "Major Achievement",
+    "description": "The award-graphic achievements shown at full size. Mirrors the `majors` export of apps/web/src/data/achievements.ts — the three the school itself produced an award graphic for, which is the school's own editorial decision rather than ours."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 200
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
+    },
+    "kicker": {
+      "type": "string",
+      "required": true,
+      "maxLength": 120
+    },
+    "detail": {
+      "type": "text",
+      "required": true,
+      "maxLength": 1200
+    },
+    "facts": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.fact"
+    },
+    "art": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "alt": {
+      "type": "text",
+      "required": true,
+      "maxLength": 500
+    },
+    "displayOrder": {
+      "type": "integer",
+      "default": 0,
+      "required": true
+    }
+  }
+}

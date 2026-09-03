@@ -1,0 +1,62 @@
+{
+  "kind": "collectionType",
+  "collectionName": "page_metas",
+  "info": {
+    "singularName": "page-meta",
+    "pluralName": "page-metas",
+    "displayName": "Page Meta",
+    "description": "Route-level metadata and hero content for an EXISTING page. One row per route already in the site. ⚠ THIS IS NOT A PAGE BUILDER: it carries no body content, no sections and no dynamic zone. A route's actual content lives in its own content type; this holds only what the <head> and the banner need."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "route": {
+      "type": "string",
+      "required": true,
+      "unique": true,
+      "maxLength": 200
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "required": true,
+      "component": "shared.seo"
+    },
+    "heroTitle": {
+      "type": "string",
+      "maxLength": 200
+    },
+    "heroStandfirst": {
+      "type": "text",
+      "maxLength": 500
+    },
+    "heroBanner": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "heroAlt": {
+      "type": "text",
+      "maxLength": 500
+    },
+    "heroPosition": {
+      "type": "string",
+      "maxLength": 32,
+      "default": "50% 45%"
+    },
+    "crumbs": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.link"
+    },
+    "titleStandalone": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    }
+  }
+}

@@ -57,86 +57,17 @@
  * originals in logos/ exactly as delivered. Add a logo, re-run the script.
  */
 import { Image } from "astro:assets";
-import { school } from "../../data/site";
+import { getSchool, getAffiliations } from '../../lib/cms';
+import CmsImage from '../ui/CmsImage.astro';
+import AccentHeading from '../ui/AccentHeading.astro';
 import AsRailSlider from "../academics/assessment/AsRailSlider.astro";
 import rocket from "../../assets/icons/rocketpaper.png";
 import wave from "../../assets/icons/wave.png";
 
-import cbse from "../../assets/icons/logos/trimmed/cbse.png";
-import sunbeam from "../../assets/icons/logos/trimmed/sunbeam.png";
-import microsoft from "../../assets/icons/logos/trimmed/microsoft.png";
-import microsoftMiee from "../../assets/icons/logos/trimmed/microsoftEducation.png";
-import educationWorld from "../../assets/icons/logos/trimmed/educationWorld.png";
-import brainfeed from "../../assets/icons/logos/trimmed/brainfeed.png";
-import ncc from "../../assets/icons/logos/trimmed/ncc.png";
-import npsc from "../../assets/icons/logos/trimmed/NPSC.png";
-import afs from "../../assets/icons/logos/trimmed/afs-logo.png";
-import ficci from "../../assets/icons/logos/trimmed/ficci-logo.png";
-import inspire from "../../assets/icons/logos/trimmed/inspire.png";
-import vvm from "../../assets/icons/logos/trimmed/vidyarthiVigyan.png";
-import ncsc from "../../assets/icons/logos/trimmed/nationalChildren.png";
-import hindustanOlympiad from "../../assets/icons/logos/trimmed/hindustanolympiad.png";
-import behes from "../../assets/icons/logos/trimmed/behes.png";
-import schoolCinema from "../../assets/icons/logos/trimmed/schoolCenema.png";
-import umeed from "../../assets/icons/logos/trimmed/umeed.png";
 
-interface Partner {
-  src: ImageMetadata;
-  name: string;
-  /** Optional by design — see the CAPTIONS note in the header. */
-  note?: string;
-}
+const school = await getSchool();
+const { heading, partners } = await getAffiliations();
 
-const partners: Partner[] = [
-  /* ── Affiliation and group ─────────────────────────────────────────────── */
-  {
-    src: cbse,
-    name: "Central Board of Secondary Education",
-    note: `Affiliation ${school.affiliationNo}`,
-  },
-  {
-    src: sunbeam,
-    name: "Sunbeam Group of Educational Institutions",
-    note: "Part of the group since 1972",
-  },
-
-  /* ── Memberships — PhilosophyStory: "Memberships: NPSC, AFS, FICCI." ───── */
-  { src: npsc, name: "National Progressive Schools Conference", note: "Member school" },
-  { src: afs, name: "American Field Service", note: "Member school" },
-  { src: ficci, name: "FICCI", note: "Member school" },
-
-  /* ── Microsoft — two distinct recognitions, not one mark twice ─────────── */
-  { src: microsoft, name: "Microsoft", note: "Showcase School" },
-  {
-    src: microsoftMiee,
-    name: "Microsoft Innovative Educator Expert",
-    note: "100 certified teachers",
-  },
-
-  /* ── Rankings and awards ───────────────────────────────────────────────── */
-  { src: educationWorld, name: "EducationWorld", note: "#1 in Ballia, six years" },
-  { src: brainfeed, name: "Brainfeed", note: "School Excellence Award" },
-
-  /* ── Science programmes — every note is the school's own wording ───────── */
-  { src: inspire, name: "Inspire Award MANAK", note: "Innovations selected for MANAK" },
-  { src: vvm, name: "Vidyarthi Vigyan Manthan", note: "Qualified to national level" },
-  {
-    src: ncsc,
-    name: "National Children’s Science Congress",
-    note: "National-level qualification",
-  },
-
-  /* ── Cadet corps ───────────────────────────────────────────────────────── */
-  { src: ncc, name: "National Cadet Corps", note: "‘A’ & ‘B’ certificate" },
-
-  /* ⚠ THE FOUR UNVERIFIED ONES — see the header. Notes here are transcribed
-     from the mark itself where the mark carries one, and omitted where it does
-     not. Nothing below is a statement about the school's relationship. */
-  { src: hindustanOlympiad, name: "Hindustan Olympiad" },
-  { src: behes, name: "Behes", note: "Debate for All" },
-  { src: schoolCinema, name: "School Cinema" },
-  { src: umeed, name: "UMEED", note: "A Positive Living Initiative" },
-];
 ---
 
 <section class="affil" aria-labelledby="ach-heading">
@@ -156,9 +87,7 @@ const partners: Partner[] = [
 
   <div class="u-container">
     <div class="affil__head" data-reveal>
-      <h2 class="ach__heading t-h2-sans" data-split id="ach-heading">
-        Affiliations & recognition<span class="t-squiggle"> partners</span>
-      </h2>
+      <AccentHeading class="ach__heading t-h2-sans" id="ach-heading" split text={heading} />
     </div>
 
     {/* ⚠ NO `bleed`. The section is `overflow: hidden` for the drifting rocket,
@@ -187,11 +116,11 @@ const partners: Partner[] = [
                   showed an empty white tile that filled in a beat later. These
                   are 180px marks; fetching all seventeen costs little, and low
                   priority keeps them from competing with the hero. */}
-              <Image
-                src={p.src}
+              <CmsImage
+                file={p.logo}
                 alt={`${p.name} logo`}
-                widths={[180, 360]}
                 sizes="180px"
+                fallbackWidth={420}
                 loading="eager"
                 decoding="async"
                 fetchpriority="low"

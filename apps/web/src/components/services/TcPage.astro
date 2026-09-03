@@ -26,15 +26,22 @@
  *   01 · IVORY  photograph left, the search card right.
  *   02 · PAPER  the four-item help strip.
  */
-import { Picture } from 'astro:assets';
 import '../../styles/assessment.css';
 import { MARK } from '../academics/assessment/marks';
-import { tcEndpoint, tcField, tcSourcePage, tcHelp } from '../../data/services';
-import { school } from '../../data/site';
+/* ⚠ THE ENDPOINT AND THE FIELD NAME STAY IN CODE. They are what the school's
+   records system expects, not something an editor should be able to retype. */
+import { tcEndpoint, tcField } from '../../data/services';
+import { getTcPage } from '../../lib/cms';
+import CmsImage from '../ui/CmsImage.astro';
+import { getSchool } from '../../lib/cms';
 
-import pCampus from '../../assets/photos/sunbeem-1.jpg';
 
-const S = 'Sunbeam School Ballia';
+const school = await getSchool();
+const page = await getTcPage();
+const { messages: msg } = page;
+const tcSourcePage = page.sourcePage;
+const tcHelp = page.help;
+
 ---
 
 {/* ══ 01 · THE SEARCH ════════════════════════════════════════════════════════ */}
@@ -43,14 +50,11 @@ const S = 'Sunbeam School Ballia';
 
   <div class="u-container tc-grid">
     <div class="tc-pic" data-mask>
-      <Picture
-        src={pCampus}
-        alt={`The main building of ${S} at Agarsanda, seen across its front lawn.`}
-        formats={['webp']}
-        widths={[520, 860, 1200]}
+      <CmsImage
+        file={page.photo}
+        alt={page.photoAlt}
         sizes="(max-width: 1023px) 92vw, 42vw"
-        loading="eager"
-        decoding="async"
+        fallbackWidth={1100}
       />
     </div>
 
@@ -62,21 +66,40 @@ const S = 'Sunbeam School Ballia';
           </svg>
         </span>
         <div>
-          <h2 class="tc-card__h" id="tc-main-t">Download Transfer Certificate</h2>
-          <p class="tc-card__v">Please enter the enrolment number provided at the time of admission.</p>
+          <h2 class="tc-card__h" id="tc-main-t">{page.cardHeading}</h2>
+          <p class="tc-card__v">{page.cardBody}</p>
         </div>
       </div>
 
-      <form class="tc-form" novalidate data-tc data-endpoint={tcEndpoint ?? ''} data-fallback={tcSourcePage}>
+      <form
+        class="tc-form"
+        novalidate
+        data-tc
+        data-endpoint={tcEndpoint ?? ''}
+        data-fallback={tcSourcePage}
+        data-submit-label={page.submitLabel}
+        data-busy-label={page.busyLabel}
+        data-msg-empty={msg.errEmpty}
+        data-msg-short={msg.errShort}
+        data-msg-lead={msg.noEndpointLead}
+        data-msg-link={msg.noEndpointLink}
+        data-msg-tail={msg.noEndpointTail}
+        data-msg-found={msg.found}
+        data-msg-found-link={msg.foundLink}
+        data-msg-notfound={msg.notFound}
+        data-msg-error={msg.error}
+        data-office-tel={page.officeTel}
+        data-office-phone={page.officePhone}
+      >
         <p class="tc-field">
-          <label class="tc-lab" for="tc-roll">Enrolment number</label>
+          <label class="tc-lab" for="tc-roll">{page.fieldLabel}</label>
           <span class="tc-inwrap">
             <input
               id="tc-roll"
               name={tcField}
               type="text"
               inputmode="numeric"
-              placeholder="Enter enrolment number"
+              placeholder={page.fieldPlaceholder}
               autocomplete="off"
               aria-describedby="tc-err tc-status"
             />
@@ -91,7 +114,7 @@ const S = 'Sunbeam School Ballia';
 
         <p class="tc-act">
           <button type="submit" class="tc-btn" data-tc-submit>
-            <span data-tc-label>Search</span>
+            <span data-tc-label>{page.submitLabel}</span>
             <span class="tc-spin" aria-hidden="true"></span>
           </button>
         </p>
@@ -103,7 +126,7 @@ const S = 'Sunbeam School Ballia';
               <g stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" set:html={MARK.shield} />
             </svg>
           </span>
-          The certificate search runs on the school’s own records system.
+          {page.formNote}
         </p>
 
         <p class="tc-status" id="tc-status" role="status" aria-live="polite" data-tc-status></p>
@@ -117,7 +140,7 @@ const S = 'Sunbeam School Ballia';
   <span class="as-grid as-grid--fine" aria-hidden="true"></span>
 
   <div class="u-container">
-    <h2 class="tc-help__h" id="tc-help-t">Important information</h2>
+    <h2 class="tc-help__h" id="tc-help-t">{page.helpTitle}</h2>
     <span class="tc-rule" aria-hidden="true"></span>
 
     <ul class="tc-items">
@@ -146,6 +169,37 @@ const S = 'Sunbeam School Ballia';
     const label = form.querySelector<HTMLElement>('[data-tc-label]');
     const endpoint = form.dataset.endpoint || '';
     const fallback = form.dataset.fallback || '';
+
+    /**
+     * ⚠ EVERY WORD THIS SCRIPT SHOWS NOW COMES FROM THE CMS, off the form's own
+     * data- attributes. They used to be string literals in here, which meant the
+     * school could not correct a single one of its own error messages — and one
+     * of them carried a hardcoded office number that Site Settings could not
+     * reach. The lookup itself is untouched.
+     *
+     * ⚠ THE FALLBACKS ARE THE PREVIOUS WORDING, so a missing field degrades to
+     * what the page said before rather than to an empty message.
+     */
+    const D = form.dataset;
+    const T = {
+      submit: D.submitLabel || 'Search',
+      busy: D.busyLabel || 'Searching…',
+      empty: D.msgEmpty || 'Please enter your enrolment number.',
+      short: D.msgShort || 'That enrolment number looks too short.',
+      lead: D.msgLead || 'This search is handled by the school’s own records system.',
+      link: D.msgLink || 'Continue on the school’s Transfer Certificate page',
+      tail: D.msgTail || 'to look up your certificate, or call the office on.',
+      found: D.msgFound || 'Certificate found.',
+      foundLink: D.msgFoundLink || 'View or download it',
+      notFound: D.msgNotfound || 'No certificate was found for that enrolment number. Please check it and try again.',
+      error: D.msgError || 'That search could not be completed just now. Please try again, or contact the school office.',
+      officeTel: D.officeTel || '',
+      officePhone: D.officePhone || '',
+    };
+
+    /** Escapes text before it goes near innerHTML. */
+    const esc = (v: string) =>
+      v.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
     let busy = false;
 
     const setErr = (msg: string) => {
@@ -156,10 +210,10 @@ const S = 'Sunbeam School Ballia';
 
     const check = () => {
       const v = (input?.value ?? '').trim();
-      if (!v) return 'Please enter your enrolment number.';
+      if (!v) return T.empty;
       /* Deliberately loose — the school's numbering is not published, so this
          catches an empty or obviously wrong entry and nothing more. */
-      if (v.length < 3) return 'That enrolment number looks too short.';
+      if (v.length < 3) return T.short;
       return '';
     };
 
@@ -169,7 +223,7 @@ const S = 'Sunbeam School Ballia';
       busy = on;
       form.classList.toggle('is-busy', on);
       if (btn) { btn.disabled = on; btn.setAttribute('aria-busy', on ? 'true' : 'false'); }
-      if (label) label.textContent = on ? 'Searching…' : 'Search';
+      if (label) label.textContent = on ? T.busy : T.submit;
     };
 
     form.addEventListener('submit', async (e) => {
@@ -185,11 +239,16 @@ const S = 'Sunbeam School Ballia';
          actually answer instead of being shown a fabricated result. */
       if (!endpoint) {
         if (status) {
+          const tail = T.officePhone && T.officeTel
+            ? esc(T.tail).replace(
+                esc(T.officePhone),
+                `<a href="tel:${esc(T.officeTel)}">${esc(T.officePhone)}</a>`,
+              )
+            : esc(T.tail);
           status.innerHTML =
-            'This search is handled by the school’s own records system. ' +
-            `<a href="${fallback}" target="_blank" rel="noopener noreferrer">Continue on the school’s Transfer Certificate page</a> ` +
-            'to look up your certificate, or call the office on ' +
-            '<a href="tel:' + '+917755005905' + '">+91 77550 05905</a>.';
+            `${esc(T.lead)} ` +
+            `<a href="${esc(fallback)}" target="_blank" rel="noopener noreferrer">${esc(T.link)}</a> ` +
+            tail;
           status.className = 'tc-status is-note';
           status.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
         }
@@ -207,16 +266,16 @@ const S = 'Sunbeam School Ballia';
           /* ⚠ WHATEVER THE BACKEND RETURNS IS WHAT IS SHOWN. Nothing about the
              certificate is composed here. */
           if (data && data.url) {
-            status.innerHTML = `Certificate found. <a href="${data.url}" target="_blank" rel="noopener noreferrer">View or download it</a>.`;
+            status.innerHTML = `${esc(T.found)} <a href="${esc(String(data.url))}" target="_blank" rel="noopener noreferrer">${esc(T.foundLink)}</a>.`;
             status.className = 'tc-status is-ok';
           } else {
-            status.textContent = 'No certificate was found for that enrolment number. Please check it and try again.';
+            status.textContent = T.notFound;
             status.className = 'tc-status is-err';
           }
         }
       } catch {
         if (status) {
-          status.textContent = 'That search could not be completed just now. Please try again, or contact the school office.';
+          status.textContent = T.error;
           status.className = 'tc-status is-err';
         }
       } finally {

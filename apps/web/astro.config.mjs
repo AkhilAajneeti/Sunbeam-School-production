@@ -10,7 +10,7 @@ const PLACEHOLDER_ROUTES = new Set([
   '/admissions/',
   '/admissions/campus-visit/',
   '/campus/classrooms/',
-  '/campus/shooting-range/',
+  '/campus/archery-range/',
   '/campus/library/',
   '/campus/laboratories/',
   '/campus/conference-room/',
@@ -74,6 +74,10 @@ export default defineConfig({
    * again later.
    */
   redirects: {
+    /* ⚠ /campus/shooting-range/ WAS A PUBLISHED ADDRESS. The facility is the
+       archery range and was renamed once the school confirmed it; this carries
+       anything already pointing at the old path rather than breaking it. */
+    '/campus/shooting-range': '/campus/archery-range/',
     /* The school publishes this page at /general-info/ and this project had it
        at /mandatory-public-disclosure/. The route moved to match theirs; this
        carries anything already pointing at the old path. */

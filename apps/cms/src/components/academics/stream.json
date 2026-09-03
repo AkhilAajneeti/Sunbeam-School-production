@@ -1,0 +1,61 @@
+{
+  "collectionName": "components_academics_streams",
+  "info": {
+    "displayName": "Stream",
+    "icon": "apps",
+    "description": "One Class XI–XII stream and the subjects in it. ⚠ `core`, `optional` and `additional` ARE THREE SEPARATE LISTS because CBSE treats them separately and a parent choosing a combination needs to see which is which — merging them would lose the distinction the page exists to make. ⚠ `coreUnverified` / `unverified` MARK WHAT THE SCHOOL HAS NOT PUBLISHED. The page prints a qualifier rather than presenting an assumption as fact; a school site that invents a subject offering does real damage. ⚠ `accent` AND `glyph` ARE NOT HERE — they are the tint and the icon the layout uses, they stay in the component, and they are keyed off the stream's name."
+  },
+  "options": {},
+  "attributes": {
+    "number": {
+      "type": "string",
+      "maxLength": 8
+    },
+    "key": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "name": {
+      "type": "string",
+      "required": true,
+      "maxLength": 80
+    },
+    "fullName": {
+      "type": "string",
+      "maxLength": 200
+    },
+    "body": {
+      "type": "text",
+      "maxLength": 800
+    },
+    "core": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.fact"
+    },
+    "optional": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.fact"
+    },
+    "additional": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.fact"
+    },
+    "coreUnverified": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "unverified": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "icon": {
+      "type": "string",
+      "maxLength": 40
+    }
+  }
+}

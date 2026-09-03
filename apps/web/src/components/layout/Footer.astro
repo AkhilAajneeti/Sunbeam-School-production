@@ -14,8 +14,10 @@
  * (asset request A9), and shipping a link to a dormant channel is exactly what
  * the audit warns against. They can be restored in one line in site.ts.
  */
-import { school } from "../../data/site";
+import { getSchool } from '../../lib/cms';
 import { footerUtility } from "../../data/navigation";
+
+const school = await getSchool();
 
 /**
  * Footer columns are the audit's four content sections, with every heading and

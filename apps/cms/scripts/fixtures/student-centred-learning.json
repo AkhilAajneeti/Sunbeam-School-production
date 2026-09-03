@@ -1,0 +1,122 @@
+{
+  "__doc": [
+    "THE WORDS OF /academics/philosophy/student-centred-learning/.",
+    "",
+    "Taken verbatim out of StudentCentredPage.astro, where all of it was written",
+    "into the markup. Nothing is reworded; the rendered page must stay identical.",
+    "",
+    "WARNING: TYPOGRAPHY IS NOT STORED. The curly quotation marks, the 01-03",
+    "numerals, the line breaks in the headings and the italic on their second lines",
+    "are all in the page. An editor types the words; the design sets them.",
+    "",
+    "Inline emphasis uses the marks RichLine reads across this project: *italic*",
+    "and **bold**. Raw HTML is never stored.",
+    "",
+    "{schoolName} and the Principal's name come from Site Settings at render."
+  ],
+  "sectionOne": {
+    "kicker": "Every child matters",
+    "heading": "Every child has",
+    "headingEm": "potential.",
+    "quote": "All the students do not have the same talents and so each one will achieve success differently.",
+    "quoteAuthor": "",
+    "body": [
+      "The school sets itself two aims that only work together: that every child should **“learn effectively and develop their full potential”**, and that **“all children receive equal regard and equal access to the curriculum.”** Equal access is what keeps potential from being a word — the same curriculum is open to every child on the register, and what differs is the route each takes through it."
+    ],
+    "image": "assets/School Activity in Uniform/School Activity in Uniform (5).jpeg",
+    "imageName": "School Activity in Uniform (5)",
+    "imageAlt": "Two students of {schoolName} sharing a desk, each working on her own drawing"
+  },
+  "sectionTwo": {
+    "heading": "“Our voice",
+    "headingSecond": "matters.”",
+    "index": [
+      "Voice",
+      "Ideas",
+      "Participation"
+    ],
+    "body": [
+      "Students from Grades I to XII take part in the school's **Children's Forum** — *“a wonderful platform for students to express their thoughts, share their ideas, and engage in meaningful discussions on academics and school activities.”*",
+      "Not just learners but *active contributors* to the school's growth and progress."
+    ],
+    "imageOne": "assets/school-activities/investiture-ceremony/05.jpg",
+    "imageOneName": "investiture-ceremony-05",
+    "imageOneAlt": "The Head Boy of {schoolName} speaking into a microphone at the Student Council investiture ceremony",
+    "imageTwo": "assets/school-activities/investiture-ceremony/02.jpg",
+    "imageTwoName": "investiture-ceremony-02",
+    "imageTwoAlt": "A student of {schoolName} being invested with the Head Boy sash",
+    "imageThree": "assets/school-activities/investiture-ceremony/03.jpg",
+    "imageThreeName": "investiture-ceremony-03",
+    "imageThreeAlt": "A house captain at {schoolName} kneeling to receive the house flag"
+  },
+  "sectionThree": {
+    "kicker": "",
+    "heading": "One learner.",
+    "headingEm": "Many possibilities.",
+    "body": [
+      "*“A theory of Multiple Intelligence”* is named by the school as one of the three things it builds into all areas of teaching. From the learner's side it says something simple: the child who is quickest with words and the child who is quickest with their hands are both quick.",
+      "The school's stated aim for all of it is to *“develop in children a degree of independence and self-motivation”* — a learner who no longer needs telling which of these they are good at."
+    ],
+    "image": "assets/school-activities/little-agriculturists/02.jpg",
+    "imageName": "little-agriculturists-02",
+    "imageAlt": "A young student of {schoolName} adding kitchen scraps to the compost bin at the Little Agriculturists activity",
+    "cards": [
+      {
+        "label": "Words",
+        "icon": "assets/icons/books.png",
+        "iconName": "ability-words-books"
+      },
+      {
+        "label": "Writing",
+        "icon": "assets/icons/pencill.webp",
+        "iconName": "ability-number"
+      },
+      {
+        "label": "Making",
+        "icon": "assets/icons/paintbrush.png",
+        "iconName": "ability-making"
+      },
+      {
+        "label": "Questions",
+        "icon": "assets/icons/questions.png",
+        "iconName": "ability-questions"
+      },
+      {
+        "label": "Wonder",
+        "icon": "assets/icons/saturn.png",
+        "iconName": "ability-wonder"
+      },
+      {
+        "label": "Movement",
+        "icon": "assets/icons/movement.png",
+        "iconName": "ability-movement"
+      },
+      {
+        "label": "Ideas",
+        "icon": "assets/icons/bulb.png",
+        "iconName": "ability-insight"
+      },
+      {
+        "label": "Ambition",
+        "icon": "assets/icons/graduate-cap.png",
+        "iconName": "ability-ambition-cap"
+      },
+      {
+        "label": "Focus",
+        "icon": "assets/icons/focus.png",
+        "iconName": "ability-focus"
+      }
+    ]
+  },
+  "close": {
+    "headingLines": [
+      "Learning begins",
+      "with the learner."
+    ],
+    "quote": "Valued, heard, and given the same curriculum as everyone beside them.",
+    "quoteAuthor": "",
+    "image": "assets/photos/sunbeem-3.jpg",
+    "imageName": "sunbeem-3",
+    "imageAlt": "Students and staff of {schoolName} gathered on the hall stage"
+  }
+}

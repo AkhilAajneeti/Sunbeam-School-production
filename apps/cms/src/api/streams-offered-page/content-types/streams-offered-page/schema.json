@@ -1,0 +1,41 @@
+{
+  "kind": "singleType",
+  "collectionName": "streams_offered_pages",
+  "info": {
+    "singularName": "streams-offered-page",
+    "pluralName": "streams-offered-pages",
+    "displayName": "Streams Offered",
+    "description": "The Streams Offered page (/academics/structure/streams-offered/) — the streams at the top, edited once, then one named field per band of the page. ⚠ Bands cannot be reordered, added or removed."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "streams": {
+      "type": "component",
+      "repeatable": true,
+      "component": "structure.stream",
+      "description": "The four streams, edited once and drawn four ways on this page — as cards, as a cross-comparison, as a directions list and in the closing certainty band."
+    },
+    "paths": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "x": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "dir": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "sure": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    }
+  }
+}

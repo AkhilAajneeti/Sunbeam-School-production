@@ -17,11 +17,13 @@
  * the real terms, and a plausible-sounding invention is the most damaging thing
  * this site could print.
  */
-import type { AssessmentTopic } from '../../data/academics';
-import { school } from '../../data/site';
+import type { AcademicTopic } from '../../lib/cms';
+import { getSchool } from '../../lib/cms';
+
+const school = await getSchool();
 
 interface Props {
-  topic: AssessmentTopic;
+  topic: AcademicTopic;
 }
 const { topic: t } = Astro.props;
 

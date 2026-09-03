@@ -1,0 +1,98 @@
+{
+  "roots": [
+    "C:\\Users\\aclde\\Documents\\sunbeam-assets-2\\VVM 2025"
+  ],
+  "generated": "2026-08-31T09:34:17.720Z",
+  "rows": [
+    {
+      "root": "C:\\Users\\aclde\\Documents\\sunbeam-assets-2\\VVM 2025",
+      "abs": "C:\\Users\\aclde\\Documents\\sunbeam-assets-2\\VVM 2025\\VVM-2025-1.jpg",
+      "rel": "VVM-2025-1.jpg",
+      "folder": "(root)",
+      "size": 41208,
+      "ext": ".jpg",
+      "kind": "image",
+      "w": 1156,
+      "h": 867,
+      "mp": 1,
+      "shape": "landscape",
+      "taken": null,
+      "gps": false
+    },
+    {
+      "root": "C:\\Users\\aclde\\Documents\\sunbeam-assets-2\\VVM 2025",
+      "abs": "C:\\Users\\aclde\\Documents\\sunbeam-assets-2\\VVM 2025\\VVM-2025-2.jpg",
+      "rel": "VVM-2025-2.jpg",
+      "folder": "(root)",
+      "size": 19120,
+      "ext": ".jpg",
+      "kind": "image",
+      "w": 1156,
+      "h": 517,
+      "mp": 0.6,
+      "shape": "wide",
+      "taken": null,
+      "gps": false
+    },
+    {
+      "root": "C:\\Users\\aclde\\Documents\\sunbeam-assets-2\\VVM 2025",
+      "abs": "C:\\Users\\aclde\\Documents\\sunbeam-assets-2\\VVM 2025\\VVM-2025-3.jpg",
+      "rel": "VVM-2025-3.jpg",
+      "folder": "(root)",
+      "size": 47016,
+      "ext": ".jpg",
+      "kind": "image",
+      "w": 1600,
+      "h": 900,
+      "mp": 1.4,
+      "shape": "wide",
+      "taken": null,
+      "gps": false
+    },
+    {
+      "root": "C:\\Users\\aclde\\Documents\\sunbeam-assets-2\\VVM 2025",
+      "abs": "C:\\Users\\aclde\\Documents\\sunbeam-assets-2\\VVM 2025\\VVM-2025-4.jpg",
+      "rel": "VVM-2025-4.jpg",
+      "folder": "(root)",
+      "size": 35551,
+      "ext": ".jpg",
+      "kind": "image",
+      "w": 867,
+      "h": 1156,
+      "mp": 1,
+      "shape": "portrait",
+      "taken": null,
+      "gps": false
+    },
+    {
+      "root": "C:\\Users\\aclde\\Documents\\sunbeam-assets-2\\VVM 2025",
+      "abs": "C:\\Users\\aclde\\Documents\\sunbeam-assets-2\\VVM 2025\\VVM-2025-5.jpg",
+      "rel": "VVM-2025-5.jpg",
+      "folder": "(root)",
+      "size": 39954,
+      "ext": ".jpg",
+      "kind": "image",
+      "w": 900,
+      "h": 1600,
+      "mp": 1.4,
+      "shape": "portrait",
+      "taken": null,
+      "gps": false
+    },
+    {
+      "root": "C:\\Users\\aclde\\Documents\\sunbeam-assets-2\\VVM 2025",
+      "abs": "C:\\Users\\aclde\\Documents\\sunbeam-assets-2\\VVM 2025\\VVM-2025-6.jpg",
+      "rel": "VVM-2025-6.jpg",
+      "folder": "(root)",
+      "size": 81140,
+      "ext": ".jpg",
+      "kind": "image",
+      "w": 1600,
+      "h": 900,
+      "mp": 1.4,
+      "shape": "wide",
+      "taken": null,
+      "gps": false
+    }
+  ]
+}

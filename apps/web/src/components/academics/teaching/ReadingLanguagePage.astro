@@ -57,21 +57,24 @@
  * MOTION is the project's own attribute set — data-clip, data-reveal, data-pop,
  * data-count, data-drift, data-parallax, data-mask, data-zoom.
  */
-import { Picture } from 'astro:assets';
+import SmartImage from '../../../components/ui/SmartImage.astro';
 
 /* ── PHOTOGRAPHY — eight genuine Sunbeam Ballia frames, no stock. ──────────
    ⚠ sb-library.jpg IS ALSO THE BANNER, and that is deliberate: it is the only
    published frame of children actually reading in the Nalanda Library, and
    section 01's whole argument is that the room is not empty. The banner crops it
    wide and dark behind the title; here it runs clean and full. */
-import pReading from '../../../assets/photos/sb-library.jpg';
-import pRoom from '../../../assets/library/DSC_1224 copy.jpg';
-import pTables from '../../../assets/library/DSC_1230 copy.jpg';
-import pCarnival from '../../../assets/school-event/Reading-Carnival/Reading-Carnival-01.jpg';
-import pRacks from '../../../assets/school-event/Reading-Carnival/Reading-Carnival-02.jpg';
-import pAward from '../../../assets/school-activities/ardent-reader-award/03.jpg';
-import pAssembly from '../../../assets/school-activities/ardent-reader-award/01.jpg';
-import pCohort from '../../../assets/photos/sunbeem-3.jpg';
+import { getAcademicTopic } from '../../../lib/cms';
+
+const ac = await getAcademicTopic('/academics/teaching-learning/reading-language/');
+const pRoom = ac.pic('pRoom');
+const pTables = ac.pic('pTables');
+const pCarnival = ac.pic('pCarnival');
+const pRacks = ac.pic('pRacks');
+const pAward = ac.pic('pAward');
+const pAssembly = ac.pic('pAssembly');
+const pReading = ac.pic('pReading');
+const pCohort = ac.pic('pCohort');
 
 const S = 'Sunbeam School Ballia';
 
@@ -90,33 +93,17 @@ const MARK: Record<string, string> = {
 
 /* Four small indicators under section 01. The first two count; the last two are
    facilities the school lists, so they carry a word rather than a figure. */
-const facts = [
-  { mark: 'book', n: 17574, k: 'Books' },
-  { mark: 'news', n: 25, k: 'Periodicals' },
-  { mark: 'copy', v: 'Photocopier', k: 'For easy access' },
-  { mark: 'seat', v: 'Reading space', k: 'For all' },
-] as const;
+const facts = ac.section('facts').points;
 
 /* ── THE INDEX under section 02 ─────────────────────────────────────────────
    ⚠ EDITORIAL, NOT A TABLE. Every line is the school's own published record and
    nothing is added to it — in particular no club membership, no meeting times
    and no winners' names, because none is published. */
-const index = [
-  { k: 'Nalanda Library', v: '17,574 books · 25 periodicals.' },
-  { k: 'Reading Carnival', v: 'A book fair run along the school’s own corridors, classes filing past it.' },
-  { k: 'Reading Club', v: 'Racks headed Study Skills, Storybook and New Release — read off the school’s carnival signage.' },
-  { k: 'Ardent Reader Award', v: 'For the school’s most committed readers — seventy-five photographs published, no names.' },
-  { k: 'Language laboratory', v: 'One of the twelve — spoken language, recorded and reviewed.' },
-] as const;
+const index = ac.section('index').points;
 
 /* ── SECTION 04 ─────────────────────────────────────────────────────────────
    Where the speaking ends up. Four stages, all from the published record. */
-const stages = [
-  { n: '01', mark: 'mic', k: 'Class I', v: 'Entered the Cohort Inter-Branch Attire Speak Competition — a speaking contest across Sunbeam branches, for six-year-olds.' },
-  { n: '02', mark: 'trophy', k: 'Class IV', v: 'Took the top three positions across the whole Sunbeam group at the Virtual Interbranch Declamation.' },
-  { n: '03', mark: 'headset', k: 'The language lab', v: 'Spoken language recorded and played back, at every stage in between.' },
-  { n: '04', mark: 'globe', k: 'Model United Nations', v: 'One of the four inquiry rooms — debate, position papers and committee.' },
-] as const;
+const stages = ac.section('stages').points;
 ---
 
 {/* ══ 01 · THE NALANDA LIBRARY ═══════════════════════════════════════════════
@@ -165,10 +152,10 @@ const stages = [
           circular detail breaking its lower-right. Three different sizes. */}
       <div class="rd-lib__media">
         <figure class="rd-lib__lead" data-mask data-zoom data-zoom-to="1.06">
-          <Picture
-            src={pReading}
-            alt={`Students of ${S} reading at the long tables of the Nalanda Library, a member of staff at the head of the row`}
-            formats={['webp']}
+          <SmartImage
+            file={pReading}
+            alt={ac.picAlt('pReading')}
+           
             widths={[620, 1000, 1320]}
             sizes="(max-width: 1023px) 92vw, 46vw"
             loading="lazy"
@@ -177,10 +164,10 @@ const stages = [
         </figure>
 
         <figure class="rd-lib__side" data-parallax data-parallax-y="26">
-          <Picture
-            src={pRoom}
-            alt={`The Nalanda Library at ${S} between classes — reading tables and chairs, with shelves signed “Ballia Literature”, “Mythology” and “Magazines”`}
-            formats={['webp']}
+          <SmartImage
+            file={pRoom}
+            alt={ac.picAlt('pRoom')}
+           
             widths={[360, 600]}
             sizes="(max-width: 1023px) 44vw, 20vw"
             loading="lazy"
@@ -189,10 +176,10 @@ const stages = [
         </figure>
 
         <figure class="rd-lib__disc" data-parallax data-parallax-y="-20">
-          <Picture
-            src={pTables}
-            alt={`The reading tables of the Nalanda Library at ${S}, set out beneath the periodical shelves`}
-            formats={['webp']}
+          <SmartImage
+            file={pTables}
+            alt={ac.picAlt('pTables')}
+           
             widths={[280, 440]}
             sizes="(max-width: 1023px) 30vw, 13vw"
             loading="lazy"
@@ -213,8 +200,8 @@ const stages = [
             </svg>
           </span>
           <p class="rd-facts__n t-tabular">
-            {'n' in f
-              ? <span data-count={f.n} data-count-dur={1.2 + i * 0.2}>{f.n.toLocaleString('en-IN')}</span>
+            {f.n
+              ? <span data-count={f.n} data-count-dur={1.2 + i * 0.2}>{Number(f.n).toLocaleString('en-IN')}</span>
               : f.v}
           </p>
           <p class="rd-facts__k">{f.k}</p>
@@ -233,10 +220,10 @@ const stages = [
   <div class="u-container rd-round__grid">
     <div class="rd-round__media">
       <figure class="rd-round__lead" data-mask data-zoom data-zoom-to="1.06">
-        <Picture
-          src={pCarnival}
-          alt={`Children of ${S} at the Reading Carnival racks, picking books from shelves headed “Story” and “Activity”`}
-          formats={['webp']}
+        <SmartImage
+          file={pCarnival}
+          alt={ac.picAlt('pCarnival')}
+         
           widths={[560, 900, 1200]}
           sizes="(max-width: 1023px) 92vw, 42vw"
           loading="lazy"
@@ -245,10 +232,10 @@ const stages = [
       </figure>
 
       <figure class="rd-round__side" data-parallax data-parallax-y="-24">
-        <Picture
-          src={pRacks}
-          alt={`A corridor at ${S} during the Reading Carnival, its book racks signed by section`}
-          formats={['webp']}
+        <SmartImage
+          file={pRacks}
+          alt={ac.picAlt('pRacks')}
+         
           widths={[340, 560]}
           sizes="(max-width: 1023px) 42vw, 19vw"
           loading="lazy"
@@ -257,10 +244,10 @@ const stages = [
       </figure>
 
       <figure class="rd-round__disc" data-parallax data-parallax-y="22">
-        <Picture
-          src={pAward}
-          alt={`A student of ${S} in a prefect’s sash with a member of staff, from the school’s Ardent Reader Award photographs`}
-          formats={['webp']}
+        <SmartImage
+          file={pAward}
+          alt={ac.picAlt('pAward')}
+         
           widths={[280, 440]}
           sizes="(max-width: 1023px) 30vw, 13vw"
           loading="lazy"
@@ -329,10 +316,10 @@ const stages = [
 
     <div class="rd-lab__media">
       <figure class="rd-lab__lead" data-mask data-mask-from="left" data-zoom data-zoom-to="1.05">
-        <Picture
-          src={pAssembly}
-          alt={`The whole school of ${S} seated under the canopy for an assembly, staff along the side`}
-          formats={['webp']}
+        <SmartImage
+          file={pAssembly}
+          alt={ac.picAlt('pAssembly')}
+         
           widths={[620, 1000, 1400]}
           sizes="(max-width: 1023px) 92vw, 50vw"
           loading="lazy"
@@ -397,10 +384,10 @@ const stages = [
 {/* ══ 05 · THE CLOSE ═════════════════════════════════════════════════════════ */}
 <section class="rd-close" aria-labelledby="rd-close-t">
   <div class="rd-close__media" aria-hidden="true" data-parallax data-parallax-y="-40">
-    <Picture
-      src={pCohort}
-      alt=""
-      formats={['webp']}
+    <SmartImage
+      file={pCohort}
+      alt={ac.picAlt('pCohort')}
+     
       widths={[1024, 1600, 2000]}
       sizes="100vw"
       loading="lazy"

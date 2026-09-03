@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_shared_documents",
+  "info": {
+    "displayName": "Document",
+    "icon": "file",
+    "description": "One downloadable document card — the eight certificates and the five academic filings on the disclosure page. ⚠ `file` WINS OVER `href`. Today every one of these points at a PDF on the school's own WordPress domain, which is where it publishes them; `file` exists so a refiled certificate can simply be uploaded into Strapi instead, without a developer. These documents are refiled annually, so that route needs to exist before it is needed."
+  },
+  "options": {},
+  "attributes": {
+    "key": { "type": "string", "maxLength": 16 },
+    "icon": { "type": "string", "maxLength": 40 },
+    "title": { "type": "string", "required": true, "maxLength": 200 },
+    "description": { "type": "text", "maxLength": 600 },
+    "href": { "type": "string", "maxLength": 500 },
+    "file": { "type": "media", "multiple": false, "allowedTypes": ["files", "images"] }
+  }
+}

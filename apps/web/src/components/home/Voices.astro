@@ -27,10 +27,21 @@
  * attributed to named students of a real school are not ours to write — see
  * docs/08 D19. Fill `items` in data/home.ts and every card populates.
  */
-import { voices } from '../../data/home';
-import { alumni } from '../../data/alumni';
+import { getVoices } from '../../lib/cms';
+import AccentHeading from '../ui/AccentHeading.astro';
+import { getAlumni } from '../../lib/cms';
+import CmsImage from '../ui/CmsImage.astro';
+
 import { showBuildNotes } from '../../data/site';
-import { Picture } from 'astro:assets';
+
+const voices = await getVoices();
+
+/* ⚠ FROM STRAPI NOW, NOT data/alumni.ts. The same three cards, and `a.video`
+   still drives the hover film exactly as before — it is a path on the alumnus,
+   not media, because the school supplies these as external links rather than
+   uploads. The old data file remains on disk until this is verified in a
+   production build. */
+const alumni = await getAlumni();
 
 /**
  * Cloud edges. Built from overlapping circles rather than one hand-written path
@@ -92,9 +103,7 @@ const cloudBottom = [
   <div class="u-container">
     <div class="voices__head" data-reveal>
       <p class="voices__eyebrow pill pill--violet">{voices.eyebrow}</p>
-      <h2 class="voices__heading t-h2-sans" data-split id="voices-heading">
-        Where Sunbeam students <span class="t-squiggle">end up</span>
-      </h2>
+      <AccentHeading class="voices__heading t-h2-sans" id="voices-heading" split text={voices.heading} />
       <p class="voices__deck t-body-lg">{voices.deck}</p>
     </div>
 
@@ -116,14 +125,12 @@ const cloudBottom = [
         <li>
           <article class="acard" data-acard data-video={a.video ?? undefined}>
             <div class="acard__media">
-              <Picture
-                src={a.poster}
+              <CmsImage
+                file={a.poster}
                 alt={a.alt}
-                formats={['webp']}
-                widths={[420, 840]}
                 sizes="(max-width: 640px) 78vw, 300px"
+                fallbackWidth={420}
                 loading="lazy"
-                decoding="async"
               />
 
               {/* Ships empty. The script inserts a <video> only where one is

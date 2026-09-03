@@ -23,8 +23,15 @@
  * a card with a stock icon would be the "endless gallery" the audit objects to
  * on the live site, rebuilt in a nicer font.
  */
-import { sportRecord, academicRecord } from '../../../data/achievements';
+import { getAchievementRecords } from '../../../lib/cms';
 import SectionHead from '../../academics/SectionHead.astro';
+
+/* ⚠ FROM STRAPI NOW, NOT data/achievements.ts. Both boards are one content type
+   in the CMS separated by a `category` field — their shapes were identical, and
+   two collections with the same three columns is a form an editor has to learn
+   twice. One request returns both; the split happens in the query module.
+   The old data file stays on disk until this is verified in a production build. */
+const { sportRecord, academicRecord } = await getAchievementRecords();
 
 const boards = [
   {

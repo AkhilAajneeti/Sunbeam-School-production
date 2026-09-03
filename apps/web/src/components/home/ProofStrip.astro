@@ -26,8 +26,11 @@
  * the deep orange, which also keeps the band inside the current palette.
  */
 import { Image } from 'astro:assets';
-import { heritageLede } from '../../data/site';
+import { getHeritageLede } from '../../lib/cms';
 import crest from '../../assets/icons/logos/sunbeam.png';
+
+const heritageLede = await getHeritageLede();
+
 ---
 
 <section class="proof" aria-labelledby="proof-heading">

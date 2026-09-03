@@ -41,16 +41,22 @@
  *   04 · PAPER  the contact panel, split.
  *   05 · PHOTO  the cinematic close.
  */
-import { Picture } from 'astro:assets';
 import '../../../styles/assessment.css';
 import { MARK } from './marks';
 import AsClose from './AsClose.astro';
 import AsRailSlider from './AsRailSlider.astro';
-import { scholarships, recognitionPaths } from '../../../data/studentSuccess';
-import { school } from '../../../data/site';
+import { getSchool } from '../../../lib/cms';
 
-import pAward from '../../../assets/school achivement/innoventure.jpg';
-import pCohort from '../../../assets/photos/sunbeem-5.jpg';
+import SmartImage from '../../ui/SmartImage.astro';
+import { getAcademicTopic } from '../../../lib/cms';
+
+const ac = await getAcademicTopic('/academics/student-success/scholarships/');
+const pAward = ac.pic('pAward');
+const pCohort = ac.pic('pCohort');
+const scholarships = ac.section('scholarships').facts;
+const recognitionPaths = ac.section('recognitionPaths').points;
+
+const school = await getSchool();
 
 const S = 'Sunbeam School Ballia';
 const CONTACT = '/contact-us/';
@@ -101,10 +107,10 @@ const hasScholarships = scholarships.length > 0;
     <figure class="sc-open__stage">
       <span class="as-dots sc-open__dots" aria-hidden="true"></span>
       <div class="sc-open__art as-frame as-fit" data-pop>
-        <Picture
-          src={pAward}
-          alt={`${S}'s award graphic for securing second position in Uttar Pradesh at the National School Innovation Awards, showing the citation being presented on stage`}
-          formats={['webp']}
+        <SmartImage
+          file={pAward}
+          alt={ac.picAlt('pAward')}
+         
           widths={[520, 880, 1200]}
           sizes="(max-width: 1023px) 92vw, 44vw"
           loading="eager"
@@ -168,7 +174,13 @@ const hasScholarships = scholarships.length > 0;
           <li class="sc-card">
             <a class="sc-card__in" href={s.link}>
               <span class="sc-card__pic">
-                <Picture src={s.image} alt={s.alt} formats={['webp']} widths={[340, 620]} sizes="(max-width: 767px) 84vw, 22vw" loading="lazy" decoding="async" />
+                <SmartImage
+                  file={s.image}
+                  alt={s.alt}
+                  sizes="(max-width: 767px) 84vw, 22vw"
+                  fallbackWidth={1100}
+                  loading="lazy"
+                />
                 <span class="sc-card__badge">{s.category}</span>
               </span>
               <span class="sc-card__body">

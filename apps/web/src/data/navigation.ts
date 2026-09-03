@@ -365,7 +365,7 @@ export const mainNav: NavItem[] = [
     ],
     feature: {
       eyebrow: "The Campus",
-      title: "A shooting range, and 17,574 books",
+      title: "An archery range, and 17,574 books",
       body: "Facilities most district schools simply do not have.",
       href: "/campus/",
       cta: "Take the tour",

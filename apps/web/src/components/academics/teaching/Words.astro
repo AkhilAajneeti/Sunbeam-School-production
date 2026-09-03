@@ -19,8 +19,11 @@
 import Photo from '../../ui/Photo.astro';
 import SectionHead from '../SectionHead.astro';
 import AcademicGlyph from '../AcademicGlyph.astro';
-import { teachingLearning } from '../../../data/academics';
-import libraryPhoto from '../../../assets/photos/sb-library.jpg';
+import { getAcademicTopic } from '../../../lib/cms';
+
+const ac = await getAcademicTopic('/academics/teaching-learning/');
+const libraryPhoto = ac.pic('libraryPhoto');
+const teachingLearning = ac.blockMap('teachingLearning');
 
 const { words } = teachingLearning;
 ---
@@ -31,7 +34,7 @@ const { words } = teachingLearning;
       {/* --- Photograph --- */}
       <div class="wrd__media" data-mask>
         <Photo
-          src={libraryPhoto}
+          file={libraryPhoto}
           alt={words.alt}
           brief="Nalanda Library"
           ratio="3 / 4"
@@ -44,7 +47,7 @@ const { words } = teachingLearning;
       <p class="wrd__fig" data-pop>
         <span class="wrd__fig-n t-tabular">
           <span data-count={words.figure.n} data-count-suffix={words.figure.suffix}>
-            {words.figure.n.toLocaleString('en-IN')}{words.figure.suffix}
+            {Number(words.figure.n).toLocaleString('en-IN')}{words.figure.suffix}
           </span>
         </span>
         <span class="wrd__fig-l">{words.figure.label}</span>

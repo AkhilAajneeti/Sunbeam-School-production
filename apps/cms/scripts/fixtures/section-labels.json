@@ -1,0 +1,40 @@
+{
+  "__doc": [
+    "HAND-WRITTEN NAMES FOR THE BLOCKS ON A PAGE.",
+    "",
+    "The seed derives a label from each section's key, which gives 'Three' and",
+    "'Platforms' for /academics/teaching-learning/methodology/ - true to the key and",
+    "useless to a person. These are written from what the block actually renders, so",
+    "an editor can match a row to the part of the page they are looking at.",
+    "",
+    "WARNING: A LABEL IS A NAME, NOT AN ADDRESS. The page finds its content by",
+    "`key`, never by this, so renaming here is safe and renaming a key is not.",
+    "Anything not listed keeps its derived label."
+  ],
+  "routes": {
+    "/academics/teaching-learning/methodology/": {
+      "three": "The three, each anchored to something published",
+      "platforms": "Different talents, different platforms"
+    },
+    "/academics/teaching-learning/": {
+      "photos": "Photographs on the page",
+      "facilities": "Facilities strip",
+      "teachingLearning.method": "01 — The method, in the school's words",
+      "teachingLearning.method.steps": "01 — The method · the steps",
+      "teachingLearning.method.proofs": "01 — The method · the evidence",
+      "teachingLearning.method.aside": "01 — The method · the aside",
+      "teachingLearning.room": "02 — Inside the room",
+      "teachingLearning.room.beats": "02 — Inside the room · the beats",
+      "teachingLearning.room.stats": "02 — Inside the room · the numbers",
+      "teachingLearning.handsOn": "03 — Hands on",
+      "teachingLearning.handsOn.anchors": "03 — Hands on · the anchors",
+      "teachingLearning.rail": "04 — The rooms rail",
+      "teachingLearning.rail.panels": "04 — The rooms rail · the panels",
+      "teachingLearning.words": "05 — Reading and language",
+      "teachingLearning.words.entries": "05 — Reading and language · the entries",
+      "teachingLearning.words.figure": "05 — Reading and language · the figure",
+      "teachingLearning.index": "06 — Laboratories and clubs index",
+      "teachingLearning.index.groups": "06 — Laboratories and clubs · the groups"
+    }
+  }
+}

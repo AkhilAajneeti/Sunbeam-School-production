@@ -1,4 +1,8 @@
 ---
+import { getAcademicTopic } from '../../../lib/cms';
+
+const ac = await getAcademicTopic('/academics/parent-partnership/');
+const parents = ac.blockMap('parents');
 /**
  * PARENT PARTNERSHIP · THE CLOSING SECTION — THE YEAR, AS A PARENT MEETS IT
  *
@@ -30,7 +34,6 @@
  * ONE-WAY: `unobserve` after the first crossing, so scrolling back up does not
  * un-draw the year behind the reader. A route that erases itself is a fidget.
  */
-import { parents } from '../../../data/academics';
 
 const { timeline } = parents;
 ---

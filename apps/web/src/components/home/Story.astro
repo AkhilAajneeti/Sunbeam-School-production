@@ -12,10 +12,11 @@
  * This replaces the earlier editorial split, whose floating archival inset
  * overlapped the stat row and left a dead field beneath the photograph.
  */
-import { story } from '../../data/home';
+import { getStory } from '../../lib/cms';
+import AccentHeading from '../ui/AccentHeading.astro';
 import Photo from '../ui/Photo.astro';
-import farewell from '../../assets/photos/sunbeem-3.jpg';
-import council from '../../assets/photos/sunbeem-5.jpg';
+
+const story = await getStory();
 ---
 
 <section class="story" aria-labelledby="story-heading">
@@ -27,10 +28,13 @@ import council from '../../assets/photos/sunbeem-5.jpg';
         {/* The squiggle span is inline-block, which creates a line-break
             opportunity after it — the full stop was being orphaned onto the
             next line. Binding the two in a nowrap wrapper keeps them together. */}
-        <h2 class="story__heading t-h2" data-split id="story-heading">
-          Fifty years of <span class="story__nb"><span class="t-squiggle">Sunbeam</span>.</span>
-          Thirteen in Ballia.
-        </h2>
+        <AccentHeading
+          class="story__heading t-h2"
+          id="story-heading"
+          split
+          nowrapClass="story__nb"
+          text={story.heading}
+        />
 
         <div class="story__body">
           {story.paragraphs.slice(0, 2).map((p) => <p>{p}</p>)}
@@ -64,9 +68,9 @@ import council from '../../assets/photos/sunbeem-5.jpg';
         <div class="story__bento-grid">
           <figure class="story__tile story__tile--wide">
             <Photo
-              src={farewell}
-              alt="Students and staff of Sunbeam School Ballia at the 2024-25 farewell ceremony."
-              brief={story.media.primary}
+              file={story.photos[0]?.image}
+              alt={story.photos[0]?.alt ?? ''}
+              brief={story.photos[0]?.brief ?? ''}
               ratio="16 / 9"
               position="50% 42%"
               sizes="(max-width: 1023px) 100vw, 55vw"
@@ -83,9 +87,9 @@ import council from '../../assets/photos/sunbeem-5.jpg';
 
           <figure class="story__tile story__tile--small">
             <Photo
-              src={council}
-              alt="Student council office-bearers and NCC cadets of Sunbeam School Ballia."
-              brief="Early Sunbeam Ballia photograph, 2013–2015"
+              file={story.photos[1]?.image}
+              alt={story.photos[1]?.alt ?? ''}
+              brief={story.photos[1]?.brief ?? ''}
               ratio="1 / 1"
               position="48% 38%"
               sizes="(max-width: 1023px) 50vw, 26vw"

@@ -19,13 +19,16 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Photo from '../../components/ui/Photo.astro';
 import CounterStrip from '../../components/academics/CounterStrip.astro';
-import { school } from '../../data/site';
-import { chapters, heroStats } from '../../data/academics';
+import { getSchool } from '../../lib/cms';
 
-import heroPhoto from '../../assets/photos/sb-chem-lab.jpg';
-import libraryPhoto from '../../assets/photos/sb-library.jpg';
-import mathsPhoto from '../../assets/photos/sb-maths-lab.jpg';
-import bioPhoto from '../../assets/photos/sb-bio-lab.jpg';
+import { getAcademicTopic } from '../../lib/cms';
+
+const ac = await getAcademicTopic('/academics/');
+const heroPhoto = ac.pic('heroPhoto');
+const chapters = ac.section('chapters').details;
+const heroStats = ac.section('heroStats').stats;
+
+const school = await getSchool();
 
 /**
  * Which chapters carry a photograph, and how much room each takes.
@@ -41,38 +44,32 @@ import bioPhoto from '../../assets/photos/sb-bio-lab.jpg';
  * in the middle row. Sizes still vary, so it reads as a bento rather than a
  * uniform grid — they just add up now.
  */
-const look: Record<string, { span: string; photo?: ImageMetadata; alt?: string }> = {
-  philosophy: { span: '' },
-  structure: {
-    span: 'wide',
-    photo: mathsPhoto,
-    alt: 'Students of Sunbeam School Ballia seated on the floor of a decorated activity room during a lesson.',
-  },
-  'teaching-learning': {
-    span: 'wide',
-    photo: libraryPhoto,
-    alt: 'Students of Sunbeam School Ballia reading and working at tables in the Nalanda Library.',
-  },
-  assessment: { span: '' },
-  'student-success': {
-    span: '',
-    photo: bioPhoto,
-    alt: 'Two students of Sunbeam School Ballia handling glassware in the biology laboratory.',
-  },
-  'parent-partnership': { span: 'wide' },
+/**
+ * ⚠ THE PHOTOGRAPH AND ITS ALT TEXT COME FROM THE CMS; THE TILE SPAN DOES NOT.
+ * `span` decides whether a chapter tile is wide or narrow — layout, and the one
+ * part of the old `look` table that is not editorial. It stays here, keyed by
+ * the same chapter slug, and the two are merged for the grid.
+ */
+const SPAN: Record<string, string> = {
+  philosophy: '', structure: 'wide', 'teaching-learning': 'wide',
+  assessment: '', 'student-success': '', 'parent-partnership': 'wide',
 };
+const shots = ac.section('look').byKey;
+const look = Object.fromEntries(chapters.map((c) => [c.slug, {
+  span: SPAN[c.slug] ?? '',
+  photo: shots[c.slug]?.src ?? null,
+  alt: shots[c.slug]?.alt ?? '',
+}]));
 ---
 
 <BaseLayout
-  title="Academics — Sunbeam School Ballia"
-  description="Academics at Sunbeam School Ballia: a CBSE curriculum from Nursery to Class XII, four senior-secondary streams, twelve laboratories, a 17,574-book library and 100 Microsoft-certified teachers."
 >
   {/* ══ HERO ═══════════════════════════════════════════════════════════════ */}
   <section class="ahero" aria-labelledby="ahero-title">
     <div class="ahero__media">
       <Photo
-        src={heroPhoto}
-        alt="Students of Sunbeam School Ballia working with laboratory glassware and a burner during a chemistry lesson."
+        file={heroPhoto}
+        alt={ac.picAlt('heroPhoto')}
         brief="Academics hero"
         position="50% 40%"
         sizes="100vw"
@@ -151,7 +148,7 @@ const look: Record<string, { span: string; photo?: ImageMetadata; alt?: string }
                         sits BESIDE the text rather than above it — a 16:9 strip
                         across a 4-column tile made it 470px tall and left its
                         2-column neighbour stretching to match. */}
-                    <Photo src={l.photo} alt={l.alt} brief={c.title} ratio="4 / 3"
+                    <Photo file={l.photo} alt={l.alt} brief={c.title} ratio="4 / 3"
                       sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 30vw" />
                   </div>
                 )}

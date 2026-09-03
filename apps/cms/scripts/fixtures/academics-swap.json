@@ -1,0 +1,833 @@
+{
+  "components/academics/assessment/AssessmentPage.astro": {
+    "route": "/academics/assessment/",
+    "consts": {
+      "MARKS": {
+        "part": "facts",
+        "route": "/academics/assessment/"
+      },
+      "GLOSS": {
+        "part": "facts",
+        "route": "/academics/assessment/"
+      },
+      "steps": {
+        "part": "points",
+        "route": "/academics/assessment/"
+      },
+      "facets": {
+        "part": "points",
+        "route": "/academics/assessment/"
+      },
+      "structure": {
+        "part": "points",
+        "route": "/academics/assessment/"
+      },
+      "support": {
+        "part": "points",
+        "route": "/academics/assessment/"
+      },
+      "conversation": {
+        "part": "facts",
+        "route": "/academics/assessment/"
+      },
+      "next": {
+        "part": "points",
+        "route": "/academics/assessment/"
+      }
+    }
+  },
+  "data/academics.ts": {
+    "route": "/academics/assessment/",
+    "consts": {
+      "cycle": {
+        "part": "points",
+        "route": "/academics/assessment/"
+      },
+      "supports": {
+        "part": "points",
+        "route": "/academics/assessment/"
+      },
+      "chapters": {
+        "part": "details",
+        "route": "/academics/"
+      },
+      "counters": {
+        "part": "stats",
+        "route": "/academics/"
+      },
+      "heroStats": {
+        "part": "stats",
+        "route": "/academics/"
+      },
+      "parents": {
+        "part": "blockMap",
+        "route": "/academics/parent-partnership/"
+      },
+      "partnership": {
+        "part": "points",
+        "route": "/academics/parent-partnership/"
+      },
+      "partnershipPhases": {
+        "part": "facts",
+        "route": "/academics/parent-partnership/"
+      },
+      "philosophy": {
+        "part": "points",
+        "route": "/academics/philosophy/"
+      },
+      "teachingPhilosophy": {
+        "part": "block",
+        "route": "/academics/philosophy/"
+      },
+      "affiliation": {
+        "part": "block",
+        "route": "/academics/philosophy/affiliation-details/"
+      },
+      "combinationsFootnote": {
+        "part": "scalar",
+        "route": "/academics/structure/"
+      },
+      "stages": {
+        "part": "points",
+        "route": "/academics/structure/"
+      },
+      "streamAdditional": {
+        "part": "facts",
+        "route": "/academics/structure/"
+      },
+      "streamDetail": {
+        "part": "streams",
+        "route": "/academics/structure/"
+      },
+      "streamOptional": {
+        "part": "facts",
+        "route": "/academics/structure/"
+      },
+      "awaiting": {
+        "part": "points",
+        "route": "/academics/student-success/"
+      },
+      "guidance": {
+        "part": "points",
+        "route": "/academics/student-success/"
+      },
+      "wins": {
+        "part": "points",
+        "route": "/academics/student-success/"
+      },
+      "facilities": {
+        "part": "points",
+        "route": "/academics/teaching-learning/"
+      },
+      "teachingLearning": {
+        "part": "blockMap",
+        "route": "/academics/teaching-learning/"
+      }
+    }
+  },
+  "components/academics/assessment/CompetitiveExamPage.astro": {
+    "route": "/academics/assessment/competitive-exam-preparation/",
+    "consts": {
+      "programmes": {
+        "part": "points",
+        "route": "/academics/assessment/competitive-exam-preparation/"
+      },
+      "features": {
+        "part": "points",
+        "route": "/academics/assessment/competitive-exam-preparation/"
+      },
+      "gallery": {
+        "part": "photos",
+        "route": "/academics/assessment/competitive-exam-preparation/"
+      }
+    }
+  },
+  "components/academics/assessment/HomeworkPolicyPage.astro": {
+    "route": "/academics/assessment/homework-policy/",
+    "consts": {
+      "published": {
+        "part": "points",
+        "route": "/academics/assessment/homework-policy/"
+      },
+      "assumed": {
+        "part": "points",
+        "route": "/academics/assessment/homework-policy/"
+      },
+      "framework": {
+        "part": "points",
+        "route": "/academics/assessment/homework-policy/"
+      },
+      "places": {
+        "part": "points",
+        "route": "/academics/assessment/homework-policy/"
+      },
+      "unknown": {
+        "part": "points",
+        "route": "/academics/assessment/homework-policy/"
+      },
+      "ask": {
+        "part": "facts",
+        "route": "/academics/assessment/homework-policy/"
+      }
+    }
+  },
+  "components/academics/assessment/MentoringPage.astro": {
+    "route": "/academics/assessment/mentoring/",
+    "consts": {
+      "people": {
+        "part": "points",
+        "route": "/academics/assessment/mentoring/"
+      },
+      "journey": {
+        "part": "points",
+        "route": "/academics/assessment/mentoring/"
+      },
+      "roles": {
+        "part": "points",
+        "route": "/academics/assessment/mentoring/"
+      }
+    }
+  },
+  "components/academics/assessment/ParentTeacherPage.astro": {
+    "route": "/academics/assessment/parent-teacher-meetings/",
+    "consts": {
+      "channels": {
+        "part": "points",
+        "route": "/academics/assessment/parent-teacher-meetings/"
+      },
+      "reasons": {
+        "part": "points",
+        "route": "/academics/assessment/parent-teacher-meetings/"
+      }
+    }
+  },
+  "components/academics/assessment/RemedialSupportPage.astro": {
+    "route": "/academics/assessment/remedial-support/",
+    "consts": {
+      "journey": {
+        "part": "points",
+        "route": "/academics/assessment/remedial-support/"
+      },
+      "rules": {
+        "part": "points",
+        "route": "/academics/assessment/remedial-support/"
+      }
+    }
+  },
+  "components/academics/assessment/BoardResultsPage.astro": {
+    "route": "/academics/board-results/",
+    "consts": {
+      "absent": {
+        "part": "points",
+        "route": "/academics/board-results/"
+      },
+      "strip": {
+        "part": "points",
+        "route": "/academics/board-results/"
+      }
+    }
+  },
+  "pages/academics/index.astro": {
+    "route": "/academics/",
+    "consts": {
+      "look": {
+        "part": "photoMap",
+        "route": "/academics/"
+      }
+    }
+  },
+  "components/academics/CounterStrip.astro": {
+    "route": "/academics/",
+    "consts": {
+      "items": {
+        "part": "stats",
+        "route": "/academics/"
+      }
+    }
+  },
+  "components/academics/parents/Workshops.astro": {
+    "route": "/academics/parent-partnership/",
+    "consts": {
+      "photos": {
+        "part": "photoMap",
+        "route": "/academics/parent-partnership/"
+      },
+      "cards": {
+        "part": "points",
+        "route": "/academics/parent-partnership/"
+      }
+    }
+  },
+  "components/academics/parents/Forum.astro": {
+    "route": "/academics/parent-partnership/",
+    "consts": {
+      "shots": {
+        "part": "photos",
+        "route": "/academics/parent-partnership/"
+      }
+    }
+  },
+  "pages/academics/parent-partnership/faqs.astro": {
+    "route": "/academics/parent-partnership/faqs/",
+    "consts": {
+      "facts": {
+        "part": "points",
+        "route": "/academics/parent-partnership/faqs/"
+      },
+      "faqs": {
+        "part": "faqs",
+        "route": "/academics/parent-partnership/faqs/"
+      }
+    }
+  },
+  "data/parentsForum.ts": {
+    "route": "/academics/parent-partnership/parent-engagement/",
+    "consts": {
+      "engagementFacts": {
+        "part": "points",
+        "route": "/academics/parent-partnership/parent-engagement/"
+      },
+      "agendaHeading": {
+        "part": "scalar",
+        "route": "/academics/parent-partnership/parents-forum/"
+      },
+      "forumAgenda": {
+        "part": "points",
+        "route": "/academics/parent-partnership/parents-forum/"
+      },
+      "forumBenefits": {
+        "part": "points",
+        "route": "/academics/parent-partnership/parents-forum/"
+      },
+      "forumNameplates": {
+        "part": "facts",
+        "route": "/academics/parent-partnership/parents-forum/"
+      },
+      "commsBenefits": {
+        "part": "points",
+        "route": "/academics/parent-partnership/school-parent-communication/"
+      }
+    }
+  },
+  "components/academics/ParentOrientationPage.astro": {
+    "route": "/academics/parent-partnership/parent-orientation/",
+    "consts": {
+      "stepPhoto": {
+        "part": "photoMap",
+        "route": "/academics/parent-partnership/parent-orientation/"
+      },
+      "frameAlt": {
+        "part": "labelledStrings",
+        "route": "/academics/parent-partnership/parent-orientation/"
+      },
+      "timeline": {
+        "part": "details",
+        "route": "/academics/parent-partnership/parent-orientation/"
+      },
+      "months": {
+        "part": "details",
+        "route": "/academics/parent-partnership/parent-orientation/"
+      },
+      "frames": {
+        "part": "points",
+        "route": "/academics/parent-partnership/parent-orientation/"
+      }
+    }
+  },
+  "components/academics/partnership/SchoolParentCommunicationPage.astro": {
+    "route": "/academics/parent-partnership/school-parent-communication/",
+    "consts": {
+      "channels": {
+        "part": "points",
+        "route": "/academics/parent-partnership/school-parent-communication/"
+      }
+    }
+  },
+  "components/academics/PhilosophyStory.astro": {
+    "route": "/academics/philosophy/",
+    "consts": {
+      "aims": {
+        "part": "points",
+        "route": "/academics/philosophy/"
+      },
+      "triad": {
+        "part": "points",
+        "route": "/academics/philosophy/"
+      },
+      "evidence": {
+        "part": "points",
+        "route": "/academics/philosophy/"
+      },
+      "journey": {
+        "part": "points",
+        "route": "/academics/philosophy/"
+      },
+      "facts": {
+        "part": "points",
+        "route": "/academics/philosophy/"
+      },
+      "bodies": {
+        "part": "facts",
+        "route": "/academics/philosophy/"
+      }
+    }
+  },
+  "components/academics/AffiliationDetailsPage.astro": {
+    "route": "/academics/philosophy/affiliation-details/",
+    "consts": {
+      "rows": {
+        "part": "points",
+        "route": "/academics/philosophy/affiliation-details/"
+      },
+      "points": {
+        "part": "points",
+        "route": "/academics/philosophy/affiliation-details/"
+      }
+    }
+  },
+  "components/academics/CriticalThinkingPage.astro": {
+    "route": "/academics/philosophy/critical-thinking/",
+    "consts": {
+      "verbs": {
+        "part": "points",
+        "route": "/academics/philosophy/critical-thinking/"
+      },
+      "arc": {
+        "part": "points",
+        "route": "/academics/philosophy/critical-thinking/"
+      }
+    }
+  },
+  "components/academics/CurriculumPage.astro": {
+    "route": "/academics/philosophy/curriculum/",
+    "consts": {
+      "stages": {
+        "part": "details",
+        "route": "/academics/philosophy/curriculum/"
+      },
+      "philosophy": {
+        "part": "points",
+        "route": "/academics/philosophy/curriculum/"
+      },
+      "streams": {
+        "part": "points",
+        "route": "/academics/philosophy/curriculum/"
+      },
+      "resources": {
+        "part": "points",
+        "route": "/academics/philosophy/curriculum/"
+      }
+    }
+  },
+  "components/academics/ExperientialPage.astro": {
+    "route": "/academics/philosophy/experiential-inquiry/",
+    "consts": {
+      "path": {
+        "part": "points",
+        "route": "/academics/philosophy/experiential-inquiry/"
+      },
+      "real": {
+        "part": "points",
+        "route": "/academics/philosophy/experiential-inquiry/"
+      }
+    }
+  },
+  "components/academics/StudentCentredPage.astro": {
+    "route": "/academics/philosophy/student-centred-learning/",
+    "consts": {
+      "orbit": {
+        "part": "points",
+        "route": "/academics/philosophy/student-centred-learning/"
+      }
+    }
+  },
+  "components/academics/TeachingPhilosophyPage.astro": {
+    "route": "/academics/philosophy/teaching-philosophy/",
+    "consts": {
+      "abilities": {
+        "part": "points",
+        "route": "/academics/philosophy/teaching-philosophy/"
+      }
+    }
+  },
+  "components/academics/structure/Streams.astro": {
+    "route": "/academics/structure/",
+    "consts": {
+      "shots": {
+        "part": "photos",
+        "route": "/academics/structure/"
+      }
+    }
+  },
+  "components/academics/structure/MiddleSchoolPage.astro": {
+    "route": "/academics/structure/middle-school/",
+    "consts": {
+      "marks": {
+        "part": "points",
+        "route": "/academics/structure/middle-school/"
+      },
+      "shifts": {
+        "part": "points",
+        "route": "/academics/structure/middle-school/"
+      },
+      "directions": {
+        "part": "points",
+        "route": "/academics/structure/middle-school/"
+      },
+      "subjects": {
+        "part": "points",
+        "route": "/academics/structure/middle-school/"
+      },
+      "rail": {
+        "part": "points",
+        "route": "/academics/structure/middle-school/"
+      },
+      "journey": {
+        "part": "points",
+        "route": "/academics/structure/middle-school/"
+      }
+    }
+  },
+  "components/academics/structure/PrePrimaryPage.astro": {
+    "route": "/academics/structure/pre-primary/",
+    "consts": {
+      "zone": {
+        "part": "points",
+        "route": "/academics/structure/pre-primary/"
+      },
+      "doing": {
+        "part": "points",
+        "route": "/academics/structure/pre-primary/"
+      },
+      "place": {
+        "part": "points",
+        "route": "/academics/structure/pre-primary/"
+      },
+      "first": {
+        "part": "points",
+        "route": "/academics/structure/pre-primary/"
+      },
+      "focus": {
+        "part": "facts",
+        "route": "/academics/structure/pre-primary/"
+      }
+    }
+  },
+  "components/academics/structure/PrimaryPage.astro": {
+    "route": "/academics/structure/primary/",
+    "consts": {
+      "pillars": {
+        "part": "points",
+        "route": "/academics/structure/primary/"
+      },
+      "staff": {
+        "part": "points",
+        "route": "/academics/structure/primary/"
+      },
+      "approach": {
+        "part": "points",
+        "route": "/academics/structure/primary/"
+      },
+      "record": {
+        "part": "points",
+        "route": "/academics/structure/primary/"
+      },
+      "values": {
+        "part": "points",
+        "route": "/academics/structure/primary/"
+      },
+      "spaces": {
+        "part": "facts",
+        "route": "/academics/structure/primary/"
+      },
+      "journey": {
+        "part": "points",
+        "route": "/academics/structure/primary/"
+      }
+    }
+  },
+  "components/academics/structure/SecondaryPage.astro": {
+    "route": "/academics/structure/secondary/",
+    "consts": {
+      "guest": {
+        "part": "points",
+        "route": "/academics/structure/secondary/"
+      },
+      "rooms": {
+        "part": "points",
+        "route": "/academics/structure/secondary/"
+      },
+      "deeper": {
+        "part": "points",
+        "route": "/academics/structure/secondary/"
+      },
+      "beyond": {
+        "part": "facts",
+        "route": "/academics/structure/secondary/"
+      },
+      "journey": {
+        "part": "points",
+        "route": "/academics/structure/secondary/"
+      }
+    }
+  },
+  "components/academics/structure/SeniorSecondaryPage.astro": {
+    "route": "/academics/structure/senior-secondary/",
+    "consts": {
+      "streams": {
+        "part": "facts",
+        "route": "/academics/structure/senior-secondary/"
+      },
+      "routes": {
+        "part": "points",
+        "route": "/academics/structure/senior-secondary/"
+      },
+      "beyond": {
+        "part": "points",
+        "route": "/academics/structure/senior-secondary/"
+      },
+      "cards": {
+        "part": "points",
+        "route": "/academics/structure/senior-secondary/"
+      },
+      "further": {
+        "part": "facts",
+        "route": "/academics/structure/senior-secondary/"
+      },
+      "journey": {
+        "part": "points",
+        "route": "/academics/structure/senior-secondary/"
+      }
+    }
+  },
+  "components/academics/structure/StreamsOfferedPage.astro": {
+    "route": "/academics/structure/streams-offered/",
+    "consts": {
+      "streams": {
+        "part": "points",
+        "route": "/academics/structure/streams-offered/"
+      },
+      "certainty": {
+        "part": "points",
+        "route": "/academics/structure/streams-offered/"
+      }
+    }
+  },
+  "components/academics/structure/SubjectCombinationsPage.astro": {
+    "route": "/academics/structure/subject-combinations/",
+    "consts": {
+      "META": {
+        "part": "points",
+        "route": "/academics/structure/subject-combinations/"
+      },
+      "SUBJECT_MARK": {
+        "part": "labelledStrings",
+        "route": "/academics/structure/subject-combinations/"
+      },
+      "worlds": {
+        "part": "streams",
+        "route": "/academics/structure/subject-combinations/"
+      }
+    }
+  },
+  "components/academics/assessment/CareerGuidancePage.astro": {
+    "route": "/academics/student-success/career-guidance/",
+    "consts": {
+      "record": {
+        "part": "points",
+        "route": "/academics/student-success/career-guidance/"
+      },
+      "benefits": {
+        "part": "points",
+        "route": "/academics/student-success/career-guidance/"
+      },
+      "story": {
+        "part": "photos",
+        "route": "/academics/student-success/career-guidance/"
+      }
+    }
+  },
+  "data/studentSuccess.ts": {
+    "route": "/academics/student-success/career-guidance/",
+    "consts": {
+      "careerGuidanceImages": {
+        "part": "photos",
+        "route": "/academics/student-success/career-guidance/"
+      },
+      "olympiads": {
+        "part": "awards",
+        "route": "/academics/student-success/olympiad-achievements/"
+      },
+      "recognitionPaths": {
+        "part": "points",
+        "route": "/academics/student-success/scholarships/"
+      },
+      "scholarships": {
+        "part": "facts",
+        "route": "/academics/student-success/scholarships/"
+      },
+      "successMilestones": {
+        "part": "points",
+        "route": "/academics/student-success/success-stories/"
+      },
+      "successStories": {
+        "part": "stories",
+        "route": "/academics/student-success/success-stories/"
+      },
+      "universityResults": {
+        "part": "results",
+        "route": "/academics/student-success/university-counselling/"
+      }
+    }
+  },
+  "components/academics/assessment/OlympiadPage.astro": {
+    "route": "/academics/student-success/olympiad-achievements/",
+    "consts": {
+      "facts": {
+        "part": "points",
+        "route": "/academics/student-success/olympiad-achievements/"
+      },
+      "programmes": {
+        "part": "points",
+        "route": "/academics/student-success/olympiad-achievements/"
+      },
+      "categories": {
+        "part": "facts",
+        "route": "/academics/student-success/olympiad-achievements/"
+      }
+    }
+  },
+  "components/academics/assessment/SubjectSelectionPage.astro": {
+    "route": "/academics/student-success/subject-selection/",
+    "consts": {
+      "streams": {
+        "part": "facts",
+        "route": "/academics/student-success/subject-selection/"
+      },
+      "routes": {
+        "part": "points",
+        "route": "/academics/student-success/subject-selection/"
+      },
+      "covered": {
+        "part": "facts",
+        "route": "/academics/student-success/subject-selection/"
+      },
+      "process": {
+        "part": "points",
+        "route": "/academics/student-success/subject-selection/"
+      },
+      "visual": {
+        "part": "points",
+        "route": "/academics/student-success/subject-selection/"
+      }
+    }
+  },
+  "components/academics/assessment/UniversityCounsellingPage.astro": {
+    "route": "/academics/student-success/university-counselling/",
+    "consts": {
+      "destinations": {
+        "part": "points",
+        "route": "/academics/student-success/university-counselling/"
+      }
+    }
+  },
+  "components/academics/teaching/StemRail.astro": {
+    "route": "/academics/teaching-learning/",
+    "consts": {
+      "photos": {
+        "part": "photoMap",
+        "route": "/academics/teaching-learning/"
+      }
+    }
+  },
+  "components/academics/teaching/ExperientialLearningPage.astro": {
+    "route": "/academics/teaching-learning/experiential-learning/",
+    "consts": {
+      "stops": {
+        "part": "points",
+        "route": "/academics/teaching-learning/experiential-learning/"
+      },
+      "beats": {
+        "part": "points",
+        "route": "/academics/teaching-learning/experiential-learning/"
+      }
+    }
+  },
+  "components/academics/teaching/LaboratoriesClubsPage.astro": {
+    "route": "/academics/teaching-learning/laboratories-clubs/",
+    "consts": {
+      "facts": {
+        "part": "points",
+        "route": "/academics/teaching-learning/laboratories-clubs/"
+      },
+      "rooms": {
+        "part": "points",
+        "route": "/academics/teaching-learning/laboratories-clubs/"
+      },
+      "spaces": {
+        "part": "points",
+        "route": "/academics/teaching-learning/laboratories-clubs/"
+      }
+    }
+  },
+  "components/academics/teaching/MethodologyPage.astro": {
+    "route": "/academics/teaching-learning/methodology/",
+    "consts": {
+      "three": {
+        "part": "points",
+        "route": "/academics/teaching-learning/methodology/"
+      },
+      "platforms": {
+        "part": "points",
+        "route": "/academics/teaching-learning/methodology/"
+      }
+    }
+  },
+  "components/academics/teaching/ReadingLanguagePage.astro": {
+    "route": "/academics/teaching-learning/reading-language/",
+    "consts": {
+      "facts": {
+        "part": "points",
+        "route": "/academics/teaching-learning/reading-language/"
+      },
+      "index": {
+        "part": "points",
+        "route": "/academics/teaching-learning/reading-language/"
+      },
+      "stages": {
+        "part": "points",
+        "route": "/academics/teaching-learning/reading-language/"
+      }
+    }
+  },
+  "components/academics/teaching/SmartClassroomsPage.astro": {
+    "route": "/academics/teaching-learning/smart-classrooms/",
+    "consts": {
+      "system": {
+        "part": "points",
+        "route": "/academics/teaching-learning/smart-classrooms/"
+      },
+      "beyond": {
+        "part": "points",
+        "route": "/academics/teaching-learning/smart-classrooms/"
+      }
+    }
+  },
+  "components/academics/teaching/StemRoboticsPage.astro": {
+    "route": "/academics/teaching-learning/stem-robotics/",
+    "consts": {
+      "kit": {
+        "part": "points",
+        "route": "/academics/teaching-learning/stem-robotics/"
+      },
+      "shots": {
+        "part": "photos",
+        "route": "/academics/teaching-learning/stem-robotics/"
+      },
+      "eco": {
+        "part": "points",
+        "route": "/academics/teaching-learning/stem-robotics/"
+      }
+    }
+  }
+}

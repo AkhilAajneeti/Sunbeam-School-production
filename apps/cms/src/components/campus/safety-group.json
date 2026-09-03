@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_campus_safety_groups",
+  "info": {
+    "displayName": "Safety Group",
+    "icon": "shield",
+    "description": "One numbered band of the safety page, with its measures."
+  },
+  "options": {},
+  "attributes": {
+    "groupId": { "type": "string", "required": true, "maxLength": 60 },
+    "numeral": { "type": "string", "maxLength": 8 },
+    "title": { "type": "string", "required": true, "maxLength": 200 },
+    "stand": { "type": "text", "maxLength": 800 },
+    "measures": { "type": "component", "repeatable": true, "component": "shared.measure" }
+  }
+}

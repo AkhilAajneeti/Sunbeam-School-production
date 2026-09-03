@@ -1,4 +1,8 @@
 ---
+import { getAcademicTopic } from '../../lib/cms';
+
+const ac = await getAcademicTopic('/academics/');
+const chapters = ac.section('chapters').details;
 /**
  * CHAPTER PAGER — the foot of every Academics detail page.
  *
@@ -10,7 +14,6 @@
  * Derived from `chapters`, so adding a chapter to the data updates all six
  * pagers and none of them can point at a stale neighbour.
  */
-import { chapters } from '../../data/academics';
 
 interface Props {
   /** Slug of the current chapter. */

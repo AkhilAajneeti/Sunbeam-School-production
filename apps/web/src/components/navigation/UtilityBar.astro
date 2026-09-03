@@ -6,8 +6,10 @@
  * returning user never scrolls a persuasion page to reach a notice.
  * Removes eight competing links from the main navigation.
  */
-import { school } from '../../data/site';
+import { getSchool } from '../../lib/cms';
 import { utilityLinks } from '../../data/navigation';
+
+const school = await getSchool();
 ---
 
 <div class="utility" data-utility-bar>

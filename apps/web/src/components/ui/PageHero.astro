@@ -22,37 +22,100 @@
  * it or word it differently from the heading.
  */
 import { Picture } from 'astro:assets';
+import CmsImage from './CmsImage.astro';
+import { getPageMeta } from '../../lib/cms';
+import type { StrapiFile } from '../../lib/cms';
 
 interface Crumb {
   label: string;
   href: string;
 }
 
+/**
+ * ⚠⚠ HERO CONTENT COMES FROM page-meta, KEYED ON THIS PAGE'S ROUTE.
+ *
+ * Every static route used to pass its own title, standfirst, breadcrumbs, alt
+ * text and banner import in frontmatter. All of that is editable content, and
+ * all of it now lives in the CMS against the route — so the banner photograph on
+ * /campus/ is changed by uploading one, not by editing an import.
+ *
+ * ⚠ EVERY PROP REMAINS AN OVERRIDE. Dynamic routes render a record, not a route:
+ * /alumni/<slug>/ takes its title and cover from the meet. They keep passing
+ * props, and a passed value always beats the looked-up one.
+ *
+ * ⚠ `src` IS STILL REQUIRED AND IS NOT DEAD. It is the fallback banner for a
+ * route whose page-meta row has no image — three routes legitimately have none —
+ * and for dynamic pages whose record has no cover.
+ */
 interface Props {
-  title: string;
+  /** Overrides page-meta. Dynamic routes pass these; static routes do not. */
+  title?: string;
   /** One line under the title. Optional — most pages do not need it. */
   standfirst?: string;
-  crumbs: Crumb[];
+  crumbs?: Crumb[];
+  /** Fallback banner from src/assets, for a route whose CMS row has no image. */
   src: ImageMetadata;
-  alt: string;
+  /** Overrides page-meta's heroAlt. Optional for the same reason `title` is. */
+  alt?: string;
+  /**
+   * ⚠ A CMS BANNER, WHICH WINS OVER `src` WHEN PRESENT.
+   *
+   * Added for pages whose banner is content rather than chrome — an alumni
+   * meet's cover is chosen by whoever published the meet, not by the designer.
+   * `src` stays REQUIRED on purpose: it is the fallback that renders when the
+   * CMS record has no cover, so a meet published without one still gets a hero
+   * instead of a bare band. Every existing call site passes only `src` and is
+   * unaffected.
+   */
+  file?: StrapiFile | null;
   /** object-position, to hold the focal point through the crop. */
   position?: string;
 }
 
-const { title, standfirst, crumbs, src, alt, position = '50% 45%' } = Astro.props;
+const {
+  title: titleProp,
+  standfirst: standProp,
+  crumbs: crumbsProp,
+  src,
+  alt: altProp,
+  file: fileProp,
+  position: positionProp,
+} = Astro.props;
+
+const meta = await getPageMeta(Astro.url.pathname);
+
+const title = titleProp ?? meta?.heroTitle ?? '';
+const standfirst = standProp ?? meta?.heroStandfirst ?? undefined;
+const crumbs = crumbsProp ?? meta?.crumbs ?? [];
+const alt = altProp ?? meta?.heroAlt ?? '';
+const position = positionProp ?? meta?.heroPosition ?? '50% 45%';
+
+/* The CMS banner wins; `src` is the fallback for routes that have none. */
+const file = fileProp ?? meta?.heroBanner ?? null;
 ---
 
 <header class="phero">
   <div class="phero__media" style={`--phero-pos: ${position};`}>
-    <Picture
-      src={src}
-      alt={alt}
-      formats={['webp']}
-      widths={[768, 1280, 1920]}
-      sizes="100vw"
-      loading="eager"
-      fetchpriority="high"
-    />
+    {file ? (
+      <CmsImage
+        file={file}
+        alt={alt}
+        sizes="100vw"
+        fallbackWidth={1600}
+        loading="eager"
+        fetchpriority="high"
+      />
+    ) : (
+      <Picture
+        src={src}
+        alt={alt}
+        formats={['webp']}
+        widths={[768, 1280, 1920]}
+        sizes="100vw"
+        loading="eager"
+        fetchpriority="high"
+      />
+    )}
   </div>
 
   <div class="phero__scrim" aria-hidden="true"></div>

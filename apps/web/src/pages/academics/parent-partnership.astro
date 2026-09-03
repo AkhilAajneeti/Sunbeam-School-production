@@ -66,25 +66,18 @@ import Engagement from '../../components/academics/parents/Engagement.astro';
 import Faq from '../../components/academics/parents/Faq.astro';
 import Timeline from '../../components/academics/parents/Timeline.astro';
 
-import { parents } from '../../data/academics';
 import banner from '../../assets/photos/sunbeem-3.jpg';
+import { getAcademicTopic } from '../../lib/cms';
+
+const ac = await getAcademicTopic('/academics/parent-partnership/');
+const parents = ac.blockMap('parents');
 
 ---
 
 <BaseLayout
-  title="Parent Partnership — Sunbeam School Ballia"
-  description="How Sunbeam School Ballia works with parents: orientation before the session, a parents' forum, workshops, parent–teacher meetings on the published calendar, and a report card portal."
 >
   <PageHero
-    title={parents.hero.title}
-    standfirst={parents.hero.stand}
-    crumbs={[
-      { label: 'Home', href: '/' },
-      { label: 'Academics', href: '/academics/' },
-    ]}
     src={banner}
-    alt="Students of Sunbeam School Ballia on the school campus."
-    position="50% 42%"
   />
 
   {/* A slim sticky index of the page's main sections. */}

@@ -10,8 +10,19 @@
  */
 import { Picture } from 'astro:assets';
 import AssetPlaceholder from './AssetPlaceholder.astro';
+import CmsImage from './CmsImage.astro';
+import type { StrapiFile } from '../../lib/cms';
 
 interface Props {
+  /**
+   * A Strapi file. ⚠ TAKES PRECEDENCE OVER the imported src, and is the way every migrated
+   * slot now supplies its photograph: the CMS owns which picture appears, and
+   * this component still owns the frame, the ratio, the focal point and the
+   * placeholder that shows when there is no picture at all. Passing it rather
+   * than swapping the whole component out is what keeps the markup — and so
+   * the layout — byte-for-byte what it was.
+   */
+  file?: StrapiFile | null;
   /** Imported from src/assets/photos. Omit to render the placeholder. */
   src?: ImageMetadata;
   /** Required whenever `src` is set. Descriptive, names the subject (docs/05 J3). */
@@ -31,6 +42,7 @@ interface Props {
 }
 
 const {
+  file,
   src,
   alt,
   brief,
@@ -47,13 +59,20 @@ const {
 // `alt=""` is a deliberate, valid value — it marks an image as decorative, which
 // is correct for the inactive layers of a cross-fade stack where the active
 // image already carries the description. Only a missing alt is an error.
-if (src && alt === undefined) {
+if ((src || file) && alt === undefined) {
   throw new Error(`Photo: alt is required alongside src (use alt="" if decorative). Brief: "${brief}"`);
 }
 ---
 
 {
-  src ? (
+  file ? (
+    <div
+      class:list={['photo', className]}
+      style={`--photo-position: ${position}; ${ratio ? `aspect-ratio: ${ratio};` : ''}`}
+    >
+      <CmsImage file={file} alt={alt!} sizes={sizes} loading={eager ? 'eager' : 'lazy'} decoding={eager ? 'sync' : 'async'} fetchpriority={eager ? 'high' : 'auto'} />
+    </div>
+  ) : src ? (
     <div
       class:list={['photo', className]}
       style={`--photo-position: ${position}; ${ratio ? `aspect-ratio: ${ratio};` : ''}`}

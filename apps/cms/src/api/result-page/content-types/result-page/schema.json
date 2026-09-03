@@ -1,0 +1,23 @@
+{
+  "kind":"singleType","collectionName":"result_page",
+  "info":{"singularName":"result-page","pluralName":"result-pages","displayName":"Result Page",
+    "description":"The editable copy of /result/. ⚠ THE PORTAL URL IS NOT HERE. It is Site Settings' `external.results` — the ERP address the school already owns in one place — and this page reads it from there rather than keeping a second copy that could disagree. ⚠ NO SECURITY OR TECHNICAL CLAIM IS MADE ON THIS PAGE, deliberately: the brief warned against it, so the points describe where the portal is rather than promising anything about it."},
+  "options":{"draftAndPublish":true},
+  "attributes":{
+    "openKicker":{"type":"string","maxLength":120},
+    "openHeading":{"type":"text","maxLength":300},
+    "openBody":{"type":"text","maxLength":600},
+
+    "cardKicker":{"type":"string","maxLength":120},
+    "cardHeading":{"type":"string","maxLength":200},
+    "cardBody":{"type":"text","maxLength":600},
+    "ctaLabel":{"type":"string","maxLength":80},
+
+    "cardPhoto":{"type":"component","repeatable":false,"component":"shared.photo"},
+    "closePhoto":{"type":"component","repeatable":false,"component":"shared.photo"},
+    "points":{"type":"component","repeatable":true,"component":"shared.point"},
+
+    "closeHeading":{"type":"text","maxLength":300},
+    "sourcePage":{"type":"string","maxLength":500}
+  }
+}

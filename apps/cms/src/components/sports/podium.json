@@ -1,0 +1,10 @@
+{
+  "collectionName": "components_sports_podiums",
+  "info": { "displayName": "Podium", "icon": "trophy",
+    "description": "One event and the placings the school reported for it." },
+  "options": {},
+  "attributes": {
+    "event": { "type": "string", "required": true, "maxLength": 200 },
+    "places": { "type": "component", "repeatable": true, "component": "shared.fact" }
+  }
+}

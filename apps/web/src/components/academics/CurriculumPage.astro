@@ -72,119 +72,30 @@ import { MARK } from './assessment/marks';
  * untouched beside it.
  */
 import dBooks from '../../assets/icons/bookwithcap-cut.png';
+import RichLine from '../ui/RichLine.astro';
+import { getCurriculum } from '../../lib/cms';
 
 /**
- * ⚠ href IS null EVERYWHERE UNTIL THE SCHOOL SUPPLIES THE FILES. See the header.
- * A class with a href renders "View PDF →"; a class without renders the muted
- * issued-by-the-school line. Nothing else in the component changes.
+ * ⚠ A CLASS WITH NO LINK IS NOT A BROKEN LINK. With href empty the card renders
+ * the muted issued-by-the-school line instead of "View PDF →" — not an anchor
+ * that goes nowhere. Nothing else in the component changes.
  */
-type ClassDoc = { k: string; href: string | null; mb?: number };
-type Stage = {
-  key: string;
-  label: string;
-  range: string;
-  blurb: string;
-  mark: keyof typeof MARK;
-  classes: ClassDoc[];
-};
-
-const stages: Stage[] = [
-  {
-    key: 'pre-primary',
-    label: 'Pre-primary',
-    range: 'Nursery – KG II',
-    blurb: 'Building the foundation',
-    mark: 'grow',
-    classes: [
-      { k: 'Nursery', href: 'https://sunbeamballia.edu.in/wp-content/uploads/Nursery-Syllabus-2026-27V_15-Final.pdf', mb: 43 },
-      { k: 'KG I', href: 'https://sunbeamballia.edu.in/wp-content/uploads/KG-I-Syllabus-2026-27V_15-Final.pdf', mb: 47 },
-      { k: 'KG II', href: 'https://sunbeamballia.edu.in/wp-content/uploads/KG-II-Syllabus-2026-27.pdf', mb: 48 },
-    ],
-  },
-  {
-    key: 'primary',
-    label: 'Primary',
-    range: 'Classes I – V',
-    blurb: 'Growing with curiosity',
-    mark: 'book',
-    classes: [
-      { k: 'Class I', href: 'https://sunbeamballia.edu.in/wp-content/uploads/Syllabus-Precept-Class-I-2026-27-curved-cdr-17.pdf', mb: 61 },
-      { k: 'Class II', href: 'https://sunbeamballia.edu.in/wp-content/uploads/syllabus-class-2-2026-27.pdf', mb: 49 },
-      { k: 'Class III', href: 'https://sunbeamballia.edu.in/wp-content/uploads/III-Syllabus-2026-27-Final.pdf', mb: 3 },
-      { k: 'Class IV', href: 'https://sunbeamballia.edu.in/wp-content/uploads/Final-Syllabus-Class-IV-1-NEW.pdf', mb: 46 },
-      { k: 'Class V', href: 'https://sunbeamballia.edu.in/wp-content/uploads/Syllabus-Class-V-2026-27_v17-Final.pdf', mb: 103 },
-    ],
-  },
-  {
-    key: 'middle',
-    label: 'Middle',
-    range: 'Classes VI – VIII',
-    blurb: 'Exploring and expanding',
-    mark: 'cap',
-    classes: [
-      { k: 'Class VI', href: 'https://sunbeamballia.edu.in/wp-content/uploads/Syllabus-Class-VI-2026-27.pdf', mb: 99 },
-      { k: 'Class VII', href: 'https://sunbeamballia.edu.in/wp-content/uploads/Syllabus-VII-2026-27.pdf', mb: 91 },
-      { k: 'Class VIII', href: 'https://sunbeamballia.edu.in/wp-content/uploads/Class-VIII-Syllabus-2026-27.pdf', mb: 26 },
-    ],
-  },
-  {
-    key: 'secondary',
-    label: 'Secondary',
-    range: 'Classes IX – X',
-    blurb: 'Preparing for tomorrow',
-    mark: 'pen',
-    classes: [
-      { k: 'Class IX', href: 'https://sunbeamballia.edu.in/wp-content/uploads/Class-IX-Syllabus-2026-27.pdf', mb: 2 },
-      { k: 'Class X', href: 'https://sunbeamballia.edu.in/wp-content/uploads/Class-X-Syllabus-For-April-May-1.pdf', mb: 46 },
-    ],
-  },
-  {
-    key: 'senior',
-    label: 'Senior Secondary',
-    range: 'Classes XI – XII',
-    blurb: 'Choosing your path',
-    mark: 'spark',
-    classes: [
-      { k: 'Class XI', href: 'https://sunbeamballia.edu.in/wp-content/uploads/XI-Syllabus-Main-for-AprilMay-2026-27.pdf', mb: 1 },
-      { k: 'Class XII', href: 'https://sunbeamballia.edu.in/wp-content/uploads/Syllabus-Main-Subjects-XII-2026-27.pdf', mb: 2 },
-    ],
-  },
-];
-
-const totalDocs = stages.reduce((n, s) => n + s.classes.length, 0);
+const { stages, totalDocs, one, two, three, four, five } = await getCurriculum();
 
 /**
- * ⚠ EVERY `v` BELOW IS THE SCHOOL'S OWN SENTENCE OR A DEFINITION OF ITS OWN
- * TERM. The first three are the teaching sentence; the last two are stated aims.
+ * ⚠ THE CARD COLOURS ARE DESIGN, AND THEY LIVE HERE.
+ *
+ * Each of the three runs had a `tone` stored against every card, which meant an
+ * editor adding a sixth tile had to know the palette - and a typo produced a
+ * card with no colour at all. The palette belongs to the section, so the page
+ * holds it and cycles it. Add a card and it takes the next colour.
  */
-const philosophy = [
-  { k: 'Technology Enabled', mark: 'desk', tone: 'sky', v: 'Technology is integrated into teaching and learning for deeper understanding.' },
-  { k: 'Multiple Intelligence', mark: 'head', tone: 'lilac', v: 'We recognise and nurture different abilities, interests and learning strengths.' },
-  { k: 'Collaborative Learning', mark: 'hands', tone: 'mint', v: 'Students learn together, share ideas and grow through collaboration.' },
-  { k: 'Independence & Motivation', mark: 'person', tone: 'sun', v: 'We encourage independent, confident and self-motivated learners.' },
-  { k: 'Values & Sensitivity', mark: 'handHeart', tone: 'rose', v: 'We build tolerance, sensitivity, integrity and moral awareness.' },
-] as const;
+const PHILOSOPHY_TONES = ['sky', 'lilac', 'mint', 'sun', 'rose'];
+const STREAM_TONES = ['sky', 'mint', 'peach', 'lilac'];
+const RESOURCE_TONES = ['peach', 'sky', 'mint'];
+const toneOf = (palette, i) => palette[i % palette.length];
 
-/**
- * ⚠ PCM AND PCB CARRY THEIR SUBJECT LISTS BECAUSE THE STREAM NAME IS THE LIST.
- * Commerce and Humanities do not, because the school names the streams without
- * publishing what is in them — and a guessed elective list on a curriculum page
- * is exactly the kind of invention this project does not do. Subject
- * Combinations carries what is known, labelled.
- */
-const streams = [
-  { k: 'PCM', mark: 'atom', tone: 'sky', v: 'Physics, Chemistry & Mathematics' },
-  { k: 'PCB', mark: 'leaf', tone: 'mint', v: 'Physics, Chemistry & Biology' },
-  { k: 'Commerce', mark: 'chart', tone: 'peach', v: 'Commerce stream' },
-  { k: 'Humanities', mark: 'globe', tone: 'lilac', v: 'Humanities stream' },
-] as const;
 
-/** ⚠ THREE, NOT FIVE. Every one of these goes somewhere that exists. */
-const resources = [
-  { k: 'Academic Calendar', mark: 'calendar', tone: 'peach', v: 'Terms, holidays and the monthly planner', href: '/academics/academic-calendar/' },
-  { k: 'Assessment Pattern', mark: 'clipboard', tone: 'sky', v: 'How the school assesses, term by term', href: '/academics/assessment/' },
-  { k: 'Subject Combinations', mark: 'layers', tone: 'mint', v: 'The four streams after Class X', href: '/academics/structure/subject-combinations/' },
-] as const;
 ---
 
 <div class="cu">
@@ -194,17 +105,11 @@ const resources = [
 
     <div class="u-container cu-intro__in">
       <div class="cu-intro__copy">
-        <p class="cu__k t-label" data-reveal>Session 2026-27</p>
+        <p class="cu__k t-label" data-reveal>{one.kicker}</p>
         <h2 class="cu-intro__h" id="cu-intro-h" data-split>
-          One curriculum.<br /><em>Every stage.</em>
+          {one.heading}<br /><em>{one.headingEm}</em>
         </h2>
-        <p class="cu__p" data-reveal data-reveal-delay="150">
-          Every Sunbeam classroom follows the CBSE curriculum. What separates one CBSE school from
-          another is whether the syllabus is a thing you can be handed — and Sunbeam publishes its
-          own, class by class, under a name of its own: <strong>PRECEPT</strong>. One document for
-          every class from Nursery to Class XII, so parents always know what their child is
-          learning and why.
-        </p>
+        <RichLine class="cu__p" text={one.body[0]} reveal revealDelay={150} />
         <span class="cu__rule" aria-hidden="true"></span>
       </div>
 
@@ -253,8 +158,8 @@ const resources = [
         />
 
         <header class="cu-lib__head">
-          <p class="cu__k t-label" data-reveal>Explore the curriculum</p>
-          <h2 class="cu-lib__h" id="cu-lib-h" data-split>One document for every class.</h2>
+          <p class="cu__k t-label" data-reveal>{two.kicker}</p>
+          <h2 class="cu-lib__h" id="cu-lib-h" data-split>{two.heading}</h2>
           <span class="cu__rule cu__rule--mid" aria-hidden="true"></span>
         </header>
 
@@ -280,13 +185,13 @@ const resources = [
                       that does nothing. */}
                   {c.href ? (
                     <a class="cu-card cu-card--live" href={c.href} target="_blank" rel="noopener noreferrer" data-reveal data-reveal-delay={i * 60}>
-                      <span class="cu-card__k">{c.k}</span>
+                      <span class="cu-card__k">{c.label}</span>
                       <span class="cu-card__tag">PRECEPT</span>
                       <span class="cu-card__go">
                         <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                           <g stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" set:html={MARK.doc} />
                         </svg>
-                        View PDF{c.mb ? ` · ${c.mb} MB` : ''}
+                        View PDF{c.sizeMb ? ` · ${c.sizeMb} MB` : ''}
                         <svg class="cu-card__arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                           <g stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" set:html={MARK.arrow} />
                         </svg>
@@ -294,7 +199,7 @@ const resources = [
                     </a>
                   ) : (
                     <div class="cu-card" data-reveal data-reveal-delay={i * 60}>
-                      <span class="cu-card__k">{c.k}</span>
+                      <span class="cu-card__k">{c.label}</span>
                       <span class="cu-card__tag">PRECEPT</span>
                       <span class="cu-card__go cu-card__go--pending">
                         <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -312,13 +217,9 @@ const resources = [
 
         {/* ⚠ THE PANEL SAYS OUT LOUD WHY THERE IS NO DOWNLOAD, rather than
             leaving a parent to click fifteen cards and find out. */}
-        <p class="cu-lib__note" data-reveal>
-          <strong>{totalDocs} classes, {totalDocs} documents.</strong> Each opens the school’s own
-          PRECEPT syllabus for session 2026-27, published on sunbeamballia.edu.in. Several run to
-          tens of megabytes, so the size is printed on the card — worth checking before opening one
-          on mobile data. <em>“Syllabi”</em> is also item two of twelve on the Parents’ Forum
-          agenda, a standing item any class representative may raise.
-        </p>
+        {/* The count in this sentence is filled in from how many classes there
+            actually are, so it cannot disagree with the cards above it. */}
+        <RichLine class="cu-lib__note" text={two.body[0]} reveal />
       </div>
     </div>
   </section>
@@ -327,22 +228,22 @@ const resources = [
   <section class="cu-phil" aria-labelledby="cu-phil-h">
     <div class="u-container cu-phil__in">
       <div class="cu-phil__lede">
-        <p class="cu__k t-label" data-reveal>Our curriculum philosophy</p>
+        <p class="cu__k t-label" data-reveal>{three.kicker}</p>
         <h2 class="cu-phil__h" id="cu-phil-h" data-split>
-          More than a syllabus.<br /><em>A way of learning.</em>
+          {three.heading}<br /><em>{three.headingEm}</em>
         </h2>
       </div>
 
       <ul class="cu-phil__set">
-        {philosophy.map((p, i) => (
+        {three.tiles.map((p, i) => (
           <li class="cu-tile" data-reveal data-reveal-delay={i * 80}>
-            <span class={`cu-tile__m tone tone--${p.tone}`} aria-hidden="true">
+            <span class={`cu-tile__m tone tone--${toneOf(PHILOSOPHY_TONES, i)}`} aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none">
                 <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={MARK[p.mark]} />
               </svg>
             </span>
-            <span class="cu-tile__k">{p.k}</span>
-            <span class="cu-tile__v">{p.v}</span>
+            <span class="cu-tile__k">{p.label}</span>
+            <span class="cu-tile__v">{p.value}</span>
           </li>
         ))}
       </ul>
@@ -353,22 +254,22 @@ const resources = [
   <section class="cu-path" aria-labelledby="cu-path-h">
     <div class="u-container cu-path__in">
       <div class="cu-path__lede">
-        <p class="cu__k t-label" data-reveal>Four pathways after Class X</p>
+        <p class="cu__k t-label" data-reveal>{four.kicker}</p>
         <h2 class="cu-path__h" id="cu-path-h" data-split>
-          Choose your path.<br /><em>Shape your future.</em>
+          {four.heading}<br /><em>{four.headingEm}</em>
         </h2>
       </div>
 
       <ul class="cu-path__set">
-        {streams.map((s, i) => (
+        {four.tiles.map((s, i) => (
           <li class="cu-stream" data-reveal data-reveal-delay={i * 80}>
-            <span class={`cu-stream__m tone tone--${s.tone}`} aria-hidden="true">
+            <span class={`cu-stream__m tone tone--${toneOf(STREAM_TONES, i)}`} aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none">
                 <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={MARK[s.mark]} />
               </svg>
             </span>
-            <span class="cu-stream__k">{s.k}</span>
-            <span class="cu-stream__v">{s.v}</span>
+            <span class="cu-stream__k">{s.label}</span>
+            <span class="cu-stream__v">{s.value}</span>
           </li>
         ))}
       </ul>
@@ -379,22 +280,27 @@ const resources = [
   <section class="cu-res" aria-labelledby="cu-res-h">
     <div class="u-container cu-res__in">
       <div class="cu-res__lede">
-        <p class="cu__k t-label" data-reveal>Academic resources</p>
-        <h2 class="cu-res__h" id="cu-res-h" data-split>Important academic documents.</h2>
+        <p class="cu__k t-label" data-reveal>{five.kicker}</p>
+        <h2 class="cu-res__h" id="cu-res-h" data-split>{five.heading}</h2>
       </div>
 
       <ul class="cu-res__set">
-        {resources.map((r, i) => (
+        {five.tiles.map((r, i) => (
           <li data-reveal data-reveal-delay={i * 80}>
-            <a class="cu-doc" href={r.href}>
-              <span class={`cu-doc__m tone tone--${r.tone}`} aria-hidden="true">
+            <a
+              class="cu-doc"
+              href={r.href}
+              target={r.isFile ? '_blank' : undefined}
+              rel={r.isFile ? 'noopener noreferrer' : undefined}
+            >
+              <span class={`cu-doc__m tone tone--${toneOf(RESOURCE_TONES, i)}`} aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none">
                   <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={MARK[r.mark]} />
                 </svg>
               </span>
               <span class="cu-doc__t">
-                <span class="cu-doc__k">{r.k}</span>
-                <span class="cu-doc__v">{r.v}</span>
+                <span class="cu-doc__k">{r.label}</span>
+                <span class="cu-doc__v">{r.value}</span>
               </span>
               <span class="cu-doc__go" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none">
@@ -425,15 +331,15 @@ const resources = [
 
   /* Body holds at 16.5px on a wide screen and floors at 15 — the offset form,
      not a bare vw, so a 1440 laptop actually reaches the top of the range. */
-  .cu__p {
+  :global(.cu__p) {
     max-width: 46ch;
     margin: clamp(12px, 1.5vw, 17px) 0 0;
     font-size: clamp(15px, 0.5vw + 9px, 16.5px);
     line-height: 1.75;
     color: var(--sb-text-secondary);
   }
-  .cu__p strong { font-weight: 700; color: var(--sb-charcoal); }
-  .cu__p em { font-style: italic; color: var(--sb-charcoal); }
+  :global(.cu__p strong) { font-weight: 700; color: var(--sb-charcoal); }
+  :global(.cu__p em) { font-style: italic; color: var(--sb-charcoal); }
 
   .cu__rule {
     display: block;
@@ -732,7 +638,7 @@ const resources = [
      action, and must not read as a button that failed. */
   .cu-card__go--pending { font-weight: 600; color: var(--sb-text-muted); }
 
-  .cu-lib__note {
+  :global(.cu-lib__note) {
     position: relative;
     z-index: 1;
     margin: clamp(18px, 2.4vw, 30px) 0 0;
@@ -743,8 +649,8 @@ const resources = [
     line-height: 1.7;
     color: var(--sb-text-secondary);
   }
-  .cu-lib__note strong { color: var(--sb-charcoal); }
-  .cu-lib__note em { font-style: italic; color: var(--sb-charcoal); }
+  :global(.cu-lib__note strong) { color: var(--sb-charcoal); }
+  :global(.cu-lib__note em) { font-style: italic; color: var(--sb-charcoal); }
 
   /* ═══ 03 · PHILOSOPHY · 04 · PATHWAYS · 05 · RESOURCES ═════════════════════ */
   .cu-phil { background: var(--sb-sand); padding-block: clamp(40px, 5vw, 76px); }
@@ -890,7 +796,7 @@ const resources = [
   /* ═══ RESPONSIVE ═══════════════════════════════════════════════════════════ */
   @media (max-width: 1023px) {
     .cu-intro__in { grid-template-columns: minmax(0, 1fr); }
-    .cu__p { max-width: 62ch; }
+    :global(.cu__p) { max-width: 62ch; }
     .cu-phil__in,
     .cu-path__in,
     .cu-res__in { grid-template-columns: minmax(0, 1fr); align-items: start; }

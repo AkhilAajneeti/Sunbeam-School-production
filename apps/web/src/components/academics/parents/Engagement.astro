@@ -8,10 +8,13 @@
  */
 import Photo from '../../ui/Photo.astro';
 import Split from './Split.astro';
-import { parents } from '../../../data/academics';
-/* Parents at the Forum. This was the student council and NCC cadets on stage —
+/* Parents at the Forum. This was the student council and NCC cadets on stage ï¿½
    a photograph of STUDENTS under a heading about engaging PARENTS. */
-import photo from '../../../assets/parents forum/parents forum (6).jpg';
+import { getAcademicTopic } from '../../../lib/cms';
+
+const ac = await getAcademicTopic('/academics/parent-partnership/');
+const photo = ac.pic('photo');
+const parents = ac.blockMap('parents');
 
 const { engagement: e } = parents;
 ---
@@ -30,7 +33,7 @@ const { engagement: e } = parents;
   <div class="eng" slot="media">
     <div class="eng__frame" data-mask data-mask-from="left">
       <Photo
-        src={photo}
+        file={photo}
         alt={e.alt}
         brief="Parent engagement"
         ratio="5 / 6"

@@ -1,0 +1,60 @@
+{
+  "kind": "singleType",
+  "collectionName": "middle_school_pages",
+  "info": {
+    "singularName": "middle-school-page",
+    "pluralName": "middle-school-pages",
+    "displayName": "Middle School",
+    "description": "The Middle School page (/academics/structure/middle-school/) — one named field per band of the page, in the order a reader meets them. ⚠ Every band is the same shape: a label, a heading, paragraphs, photographs and a run of cells. What differs between them is how the page lays that out, and the page owns that. Bands cannot be reordered, added or removed."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "open": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "exp": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "doing": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "four": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "subj": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "lab": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "ach": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "jrn": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "close": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    }
+  }
+}

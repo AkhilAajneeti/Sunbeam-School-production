@@ -35,17 +35,20 @@
  *   06 · PEACH  the four-step "what happens next" rail.
  *   07 · PHOTO  the cinematic close.
  */
-import { Picture } from 'astro:assets';
+import SmartImage from '../../../components/ui/SmartImage.astro';
 import '../../../styles/assessment.css';
 import { MARK } from './marks';
 import AsRail from './AsRail.astro';
 import AsClose from './AsClose.astro';
-import { cycle } from '../../../data/academics';
 
 /* ── PHOTOGRAPHY — four genuine Sunbeam Ballia frames, each used ONCE. ────── */
-import pForum from '../../../assets/parents forum/parents forum (3).jpg';
-import pSpeak from '../../../assets/parents forum/parents forum (4).jpg';
-import pCohort from '../../../assets/photos/sunbeem-3.jpg';
+import { getAcademicTopic } from '../../../lib/cms';
+
+const ac = await getAcademicTopic('/academics/assessment/');
+const pForum = ac.pic('pForum');
+const pSpeak = ac.pic('pSpeak');
+const pCohort = ac.pic('pCohort');
+const cycle = ac.section('cycle').points;
 
 const S = 'Sunbeam School Ballia';
 
@@ -60,23 +63,10 @@ const PARTNERSHIP = '/academics/parent-partnership/';
    `cycle` is the school's own wording and is imported rather than retyped, so
    the rail in 01 and the radial diagram in 02 cannot disagree. The mark and the
    longer gloss are this page's; the step name and short body are the data's. */
-const MARKS = ['book', 'hands', 'clipboard', 'speech', 'chart', 'cup'] as const;
-const GLOSS = [
-  'Taught content following the school’s curriculum, published class by class as PRECEPT.',
-  'Practical, project and laboratory work alongside classroom learning.',
-  'Regular assessment through the academic year, with the CBSE boards at Class X and XII.',
-  'Results to parents, and a parent–teacher meeting on the calendar to discuss them.',
-  'Remedial support, mentoring and a retest with published rules, where a subject needs it.',
-  'Board examinations, and the national programmes the school enters beyond them.',
-] as const;
+const MARKS = ac.section('MARKS').facts;
+const GLOSS = ac.section('GLOSS').facts;
 
-const steps = cycle.map((c, i) => ({
-  n: String(i + 1).padStart(2, '0'),
-  mark: MARKS[i],
-  k: c.step,
-  v: c.body,
-  gloss: GLOSS[i],
-}));
+const steps = ac.section('steps').points;
 
 /* Where each node sits on the ring. cx 50, cy 42, rx 36, ry 34 — computed once
    here rather than typed six times, so moving the ring moves the discs with it. */
@@ -91,44 +81,19 @@ const ringed = steps.map((s, i) => {
 });
 
 /* ── SECTION 02 — the four things an assessment looks at ─────────────────── */
-const facets = [
-  { mark: 'desk', k: 'Classroom', v: 'Learning and understanding, every day.' },
-  { mark: 'flask', k: 'Practical', v: 'Application and experimentation.' },
-  { mark: 'chart', k: 'Progress', v: 'Continuous academic development.' },
-  { mark: 'speech', k: 'Feedback', v: 'What happens next, together.' },
-] as const;
+const facets = ac.section('facets').points;
 
 /* ── SECTION 03 — what the school publishes about the structure ──────────── */
-const structure = [
-  { n: '01', mark: 'pen', k: 'Half-yearly examination', v: 'A written examination partway through the session, evaluating understanding and academic progress.' },
-  { n: '02', mark: 'doc', k: 'Annual examination', v: 'The assessment at the end of the academic session, and the one a promotion turns on.' },
-  { n: '03', mark: 'clipboard', k: 'Report card', v: 'Results reach parents on the report card, and sit in the parent portal between meetings.' },
-  { n: '04', mark: 'refresh', k: 'Retest / improvement', v: 'Additional teaching and a retest, on a timetable the school publishes in full.' },
-] as const;
+const structure = ac.section('structure').points;
 
 /* ── SECTION 04 — the four support channels, all published by name ───────── */
-const support = [
-  { n: '01', mark: 'hand', k: 'Remedial support', v: 'Additional teaching in the subject that needs it — attached to a subject, not to a student.', href: REMEDIAL },
-  { n: '02', mark: 'person', k: 'Mentoring', v: 'A member of staff who knows the child as a person rather than as a name on a class list.', href: MENTORING },
-  { n: '03', mark: 'refresh', k: 'Retest', v: 'No sooner than ten days after results, two clear days apart, and results inside two and a half weeks.', href: REMEDIAL },
-  { n: '04', mark: 'hands', k: 'Parent partnership', v: 'Meetings placed on the session calendar, and a portal carrying reports in between.', href: PTM },
-] as const;
+const support = ac.section('support').points;
 
 /* ── SECTION 05 — what a parent–teacher meeting is for ───────────────────── */
-const conversation = [
-  'Academic progress, and the strengths behind it',
-  'The areas that need attention next',
-  'Support strategies, planned together',
-  'Preparation for the examination that follows',
-] as const;
+const conversation = ac.section('conversation').facts;
 
 /* ── SECTION 06 — what happens when a difficulty appears ─────────────────── */
-const next = [
-  { n: '01', mark: 'bell', k: 'Notice', v: 'A mentor who already knows the child sees the change first.' },
-  { n: '02', mark: 'speech', k: 'Understand', v: 'The subject, not the student, is identified as the thing that needs work.' },
-  { n: '03', mark: 'handHeart', k: 'Support', v: 'Additional teaching in that subject, before any retest is sat.' },
-  { n: '04', mark: 'chart', k: 'Improve', v: 'A retest on a published timetable, and the result declared with the annual one.' },
-] as const;
+const next = ac.section('next').points;
 ---
 
 {/* ══ 01 · HOW A YEAR ACTUALLY RUNS ══════════════════════════════════════════
@@ -353,10 +318,10 @@ const next = [
   <div class="u-container ai-conv__grid">
     <figure class="ai-conv__stage">
       <div class="ai-conv__lead as-frame as-fill" data-mask>
-        <Picture
-          src={pForum}
-          alt={`Parents of ${S} seated in the hall at a Parents’ Forum session, each desk carrying a class placard`}
-          formats={['webp']}
+        <SmartImage
+          file={pForum}
+          alt={ac.picAlt('pForum')}
+         
           widths={[520, 880, 1200]}
           sizes="(max-width: 1023px) 92vw, 44vw"
           loading="lazy"
@@ -364,10 +329,10 @@ const next = [
         />
       </div>
       <div class="ai-conv__sm as-frame as-frame--float as-fill" data-pop data-pop-delay="200">
-        <Picture
-          src={pSpeak}
-          alt={`A parent of ${S} speaking into the microphone at a Parents’ Forum session`}
-          formats={['webp']}
+        <SmartImage
+          file={pSpeak}
+          alt={ac.picAlt('pSpeak')}
+         
           widths={[320, 560]}
           sizes="(max-width: 1023px) 50vw, 20vw"
           loading="lazy"

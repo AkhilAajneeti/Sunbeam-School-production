@@ -53,7 +53,7 @@
  *   school published it, typos included.
  * · SPLIT TEXT — `data-split` on the h2, except Devanagari; see below.
  */
-import { Picture } from 'astro:assets';
+import CmsImage from '../../ui/CmsImage.astro';
 import AssetPlaceholder from '../../ui/AssetPlaceholder.astro';
 
 interface Slide {
@@ -89,7 +89,9 @@ interface Props {
    * cuts off its own headline. Mutually exclusive with `slides`, and it gets no
    * stage: it is one graphic, and a one-frame gallery is a lie.
    */
-  poster?: { src: ImageMetadata; alt: string };
+  /* ⚠ src IS A CMS FILE, NOT ImageMetadata — the excursion carries its own
+     poster now. Typed loosely because CmsImage validates it. */
+  poster?: { src: any; alt: string };
   /**
    * The shot this section is owed, where no usable photograph exists. Renders a
    * labelled placeholder at the stage's ratio, so the band keeps the same
@@ -311,29 +313,30 @@ tail.forEach((para, i) => {
             /* Whole, on a mat. The mat is what stops a graphic carrying its own
                white ground from floating unbounded on the section.
 
-               ⚠ <Picture>, NOT a raw <img src={meta.src}>. An earlier build did
+               ⚠ <CmsImage>, NOT a raw <img file={meta.src}>. An earlier build did
                the latter, which ships the ORIGINAL file — these posters are
                3603×3603 — to be decoded into a 500px box, the exact waste
                docs/08 D13 sizes the whole image pipeline to avoid. */
             <figure class="band__poster">
-              <Picture
-                src={poster.src}
+              <CmsImage
+                file={poster.src}
                 alt={poster.alt}
-                formats={['webp']}
-                widths={[420, 840]}
                 sizes="(max-width: 767px) 84vw, 46vw"
                 loading="lazy"
-                decoding="async"
-              />
+              fallbackWidth={760}
+            
+            />
             </figure>
           )}
 
           {showsPlaceholder && (
             /* Same frame as the stage — radius, shadow, 3:2 — so the band reads
                as finished while the missing photograph stays unmistakably
-               missing. It swaps for a <Picture> the day the shot arrives. */
+               missing. It swaps for a <CmsImage> the day the shot arrives. */
             <figure class="band__ph">
-              <AssetPlaceholder ratio="3 / 2" tone="sand" brief={needs!} ref="A2" />
+              <AssetPlaceholder ratio="3 / 2" tone="sand" brief={needs!} ref="A2"
+              fallbackWidth={760}
+            />
             </figure>
           )}
 
@@ -353,15 +356,13 @@ tail.forEach((para, i) => {
                     data-gal-frame
                     data-on={i === 0 ? 'true' : 'false'}
                   >
-                    <Picture
-                      src={s.src}
+                    <CmsImage
+                      file={s.src}
                       alt={s.alt}
-                      formats={['webp']}
-                      widths={[560, 900, 1300]}
                       sizes="(max-width: 767px) 88vw, 46vw"
                       loading="lazy"
-                      decoding="async"
-                    />
+              fallbackWidth={760}
+            />
                   </figure>
                 ))}
               </div>
@@ -385,15 +386,13 @@ tail.forEach((para, i) => {
                         tabindex={i === 0 ? 0 : -1}
                         data-gal-tab
                       >
-                        <Picture
-                          src={s.src}
+                        <CmsImage
+                          file={s.src}
                           alt=""
-                          formats={['webp']}
-                          widths={[200, 400]}
                           sizes="120px"
                           loading="lazy"
-                          decoding="async"
-                        />
+              fallbackWidth={760}
+            />
                         <span class="u-visually-hidden">
                           Photograph {i + 1} of {slides.length}
                         </span>

@@ -49,24 +49,19 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/ui/PageHero.astro';
 import CardGrid from '../../components/news/CardGrid.astro';
 
-import { achievementsPage } from '../../data/newsEvents';
+import { getChroniclePage } from '../../lib/cms';;
 import heroPhoto from '../../assets/photos/sunbeem-4.jpg';
+
+const achievementsPage = await getChroniclePage('achievements');
 
 /* No two adjacent categories share a ground — the page's only structural rule,
    and with six near-identical sections it is doing real work. */
 ---
 
 <BaseLayout
-  title="Latest News & Events — Sunbeam School Ballia"
-  description="What is happening at Sunbeam School Ballia: recent achievements, school events, competitions, workshops for parents, celebrations, and the announcements families need."
 >
   <PageHero
-    title="Latest News & Events"
-    standfirst="Achievements, events, competitions, workshops, celebrations and the announcements that matter — what the school is doing now."
-    crumbs={[{ label: 'Home', href: '/' }]}
     src={heroPhoto}
-    alt="An award ceremony at Sunbeam School Ballia"
-    position="50% 40%"
   />
 
   {/* ⚠ THE SECTION RAIL IS GONE WITH THE OTHER STREAMS. It was a jump list

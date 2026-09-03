@@ -62,7 +62,10 @@
  * request A8, and it is the reason `classes` exists in the data at all.
  */
 import AcademicGlyph from '../AcademicGlyph.astro';
-import { stages } from '../../../data/academics';
+import { getAcademicTopic } from '../../../lib/cms';
+
+const ac = await getAcademicTopic('/academics/structure/');
+const stages = ac.section('stages').points;
 ---
 
 <section

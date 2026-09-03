@@ -16,7 +16,9 @@
  *
  * Every destination below exists on the live site (docs/01 § 5).
  */
-import { school } from '../../data/site';
+import { getSchool } from '../../lib/cms';
+
+const school = await getSchool();
 
 const notices = [
   {

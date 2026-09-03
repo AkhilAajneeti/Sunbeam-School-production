@@ -1,0 +1,42 @@
+{
+  "collectionName": "components_shared_details",
+  "info": {
+    "displayName": "Detail",
+    "icon": "bulletList",
+    "description": "A labelled value, optionally linked and optionally qualified. The most repeated shape in the regulatory and catalogue pages: the disclosure quick card, the CBSE general-information table, the staff summary, the infrastructure figures and the uniform seasons are all this and nothing more. ⚠ `note` CARRIES THE PROVENANCE on the disclosure table — 'affiliation letter', 'school letterhead' — which is why it exists as a field rather than being folded into the value: a reader must be able to tell which rows are Appendix IX and which are not. WARNING: links EXISTS FOR THE SYLLABUS DOCUMENTS. A curriculum stage carries a list of per-class syllabus PDFs - real, published documents a parent downloads. Held as a flat row they had nowhere to go and disappeared, which no count of rows would have shown. slot is the stable key a bespoke layout binds a row to. WARNING: links EXISTS FOR THE SYLLABUS DOCUMENTS. A curriculum stage carries a list of per-class syllabus PDFs - real, published documents a parent downloads. Held as a flat row they had nowhere to go and disappeared, which no count of rows would have shown. slot is the stable key a bespoke layout binds a row to."
+  },
+  "options": {},
+  "attributes": {
+    "icon": {
+      "type": "string",
+      "maxLength": 40
+    },
+    "label": {
+      "type": "string",
+      "required": true,
+      "maxLength": 200
+    },
+    "value": {
+      "type": "text",
+      "required": true,
+      "maxLength": 600
+    },
+    "href": {
+      "type": "string",
+      "maxLength": 500
+    },
+    "note": {
+      "type": "string",
+      "maxLength": 200
+    },
+    "slot": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "links": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.link"
+    }
+  }
+}

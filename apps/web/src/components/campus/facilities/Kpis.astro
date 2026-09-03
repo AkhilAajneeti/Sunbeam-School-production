@@ -1,4 +1,7 @@
 ---
+import { getFacilitiesData } from '../../../lib/cms';
+const {kpis} = await getFacilitiesData();
+
 /**
  * §2 · INFRASTRUCTURE OVERVIEW — eight KPI cards.
  *
@@ -12,7 +15,7 @@
  * plausible number would be an invention, so the card is not here — and this
  * comment is where that decision is recorded.
  */
-import { kpis } from '../../../data/facilities';
+
 import SectionHead from '../../academics/SectionHead.astro';
 import BurstCard from '../../ui/BurstCard.astro';
 import FacIcon from './FacIcon.astro';

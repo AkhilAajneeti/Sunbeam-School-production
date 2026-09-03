@@ -6,13 +6,15 @@
  * and `base` differ.
  */
 import DetailPage from '../../../components/news/DetailPage.astro';
-import { celebrations, type ChronicleItem } from '../../../data/newsPages';
+import { getChroniclePage, type ChronicleItem } from '../../../lib/cms';;
 
 /* The index's own banner — see DetailPage's `fallbackHero`. */
 import heroPhoto from '../../../assets/photos/sunbeem-2.jpg';
 
+const celebrations = await getChroniclePage('celebrations');
+
 export async function getStaticPaths() {
-  const { celebrations: c } = await import('../../../data/newsPages');
+  const c = await getChroniclePage('celebrations');
   return c.groups.flatMap((g) =>
     g.items
       .filter((i) => i.slug)

@@ -1,0 +1,332 @@
+{
+  "open": {
+    "kicker": "Foundation in action",
+    "heading": "Curious today.\n{{Confident tomorrow.}}",
+    "body": [
+      "Five classes, and five published syllabus documents. The curriculum is CBSE’s, and the school issues it class by class as its **PRECEPT** syllabus — a separate document for every year from Nursery to Class XII, for session **2026-27**. Primary is five of them.",
+      "Alongside the timetable, Classes III to V take **Impetus** — the school’s own activity programme, and the reason a nine-year-old here ends up on a stage with a microphone explaining where she finds mathematics.",
+      "The four are the school’s own, published on [Teaching & Learning](/academics/teaching-learning/) as what every class is taught against."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pMic",
+        "asset": "assets/school-event/Impetus—ClassesIII-V/Impetus—ClassesIII-V-05.jpg",
+        "name": "Impetus—ClassesIII-V-05",
+        "alt": "A student of {schoolName} presenting at the microphone during the Impetus “Math Around Me” session"
+      },
+      {
+        "key": "pCraft",
+        "asset": "assets/School Activity in Uniform/School Activity in Uniform (5).jpeg",
+        "name": "School Activity in Uniform (5)",
+        "alt": "Two students of {schoolName} sharing a desk, each working on her own drawing with colour pencils and cut paper"
+      },
+      {
+        "key": "pCitation",
+        "asset": "assets/school-event/Impetus—ClassesIII-V/Impetus—ClassesIII-V-03.jpg",
+        "name": "Impetus—ClassesIII-V-03",
+        "alt": "A student of {schoolName} receiving a Citation of Appreciation from a teacher at the Impetus session"
+      }
+    ],
+    "cells": [
+      {
+        "mark": "learner",
+        "label": "Student-centred",
+        "value": "Pace and task follow the child."
+      },
+      {
+        "mark": "hand",
+        "label": "Experiential",
+        "value": "A concept met in the hand first."
+      },
+      {
+        "mark": "bulb",
+        "label": "Critical & creative",
+        "value": "Weigh it, test it, argue it."
+      },
+      {
+        "mark": "book",
+        "label": "Curriculum",
+        "value": "CBSE, published class by class."
+      }
+    ],
+    "cellsTwo": []
+  },
+  "rail": {
+    "kicker": "Who teaches the primary years",
+    "heading": "One class teacher.\n{{Four specialists.}}",
+    "body": [
+      "The school advertises its primary posts by name, and the shape of the stage is in the wording: one **mother teacher** carrying every subject, with dance, storytelling and music taught by people hired to teach only that.",
+      "**On subjects.** The school publishes that a PRECEPT syllabus document exists for every class. It does not publish what is inside one, so no primary subject scheme is set out here — only the posts and rooms it names itself. See [Curriculum](/academics/philosophy/curriculum/)."
+    ],
+    "caption": null,
+    "shots": [],
+    "cells": [
+      {
+        "mark": "teacher",
+        "label": "All subjects",
+        "value": "The mother teacher, “with knowledge of all subjects.”"
+      },
+      {
+        "mark": "speech",
+        "label": "Storytelling",
+        "value": "An English story teller — a named post on the primary staff."
+      },
+      {
+        "mark": "music",
+        "label": "Music",
+        "value": "A music teacher, recruited for these years specifically."
+      },
+      {
+        "mark": "dance",
+        "label": "Dance",
+        "value": "A dance teacher, with a sprung-floor room to work in."
+      },
+      {
+        "mark": "screen",
+        "label": "Computing",
+        "value": "The junior computer lab — 40+ machines, one to a child."
+      },
+      {
+        "mark": "brush",
+        "label": "Art",
+        "value": "A dedicated art room for drawing, painting and craft."
+      },
+      {
+        "mark": "ball",
+        "label": "Sport",
+        "value": "Fifteen sports across the indoor and outdoor programme."
+      }
+    ],
+    "cellsTwo": []
+  },
+  "appr": {
+    "kicker": "Our approach",
+    "heading": "Think. Explore.\n{{Understand.}}",
+    "body": [
+      "The school states four commitments and measures an ordinary Tuesday morning against them. They are quoted below in its own words rather than paraphrased."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pBoard",
+        "asset": "assets/school-event/Impetus—ClassesIII-V/Impetus—ClassesIII-V-04.jpg",
+        "name": "Impetus—ClassesIII-V-04",
+        "alt": "A teacher at {schoolName} introducing the Impetus Canva Presentation session at the interactive board"
+      }
+    ],
+    "cells": [
+      {
+        "label": "Student-centred learning",
+        "value": "Pace, grouping and task follow what a particular child is ready for next — teaching organised around the learner rather than the lecture."
+      },
+      {
+        "label": "Experiential & inquiry-based learning",
+        "value": "A concept met in the hand before it is met in the exam: practical work, and lessons that open with a question rather than a conclusion."
+      },
+      {
+        "label": "Critical thinking & creativity",
+        "value": "Weighing evidence, testing a claim, arguing a position — and the room to make something new."
+      },
+      {
+        "label": "Curriculum excellence",
+        "value": "The CBSE curriculum, published class by class as the school’s PRECEPT syllabus from Nursery to Class XII."
+      }
+    ],
+    "cellsTwo": []
+  },
+  "act": {
+    "kicker": "Learning through activities",
+    "heading": "Learning doesn’t stop\n{{at the desk.}}",
+    "body": [
+      "The clearest thing about this stage is not a description of it — it is the record. Every line below names the class that did it, and each is something the school published rather than something claimed on its behalf.",
+      "The full record, year group by year group, is on [Student Success](/academics/student-success/)."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pMaking",
+        "asset": "assets/School Activity in Uniform/Embriodery.jpg",
+        "name": "Embriodery",
+        "alt": "Students of {schoolName} seated on the floor in a circle, working with embroidery hoops, thread and felt"
+      },
+      {
+        "key": "pReading",
+        "asset": "assets/school-event/Reading-Carnival/Reading-Carnival-03.jpg",
+        "name": "Reading-Carnival-03",
+        "alt": "The Reading Carnival display at {schoolName}, its Class 3–5 story book rack behind the guests"
+      },
+      {
+        "key": "pAssembly",
+        "asset": "assets/school-event/Impetus—ClassesIII-V/Impetus—ClassesIII-V-08.jpg",
+        "name": "Impetus—ClassesIII-V-08",
+        "alt": "Junior classes of {schoolName} seated together under the covered ground at an Impetus gathering"
+      },
+      {
+        "key": "pLamp",
+        "asset": "assets/school-event/Impetus—ClassesIII-V/Impetus—ClassesIII-V-07.jpg",
+        "name": "Impetus—ClassesIII-V-07",
+        "alt": "Staff of {schoolName} lighting the lamp at the inauguration of the Impetus programme"
+      }
+    ],
+    "cells": [
+      {
+        "note": "Class I",
+        "label": "Attire Speak",
+        "value": "A speaking competition across Sunbeam branches — entered by the school’s six-year-olds."
+      },
+      {
+        "note": "Nursery – II",
+        "label": "SOF Olympiad",
+        "value": "The Science Olympiad Foundation olympiad, sat from the youngest years upward."
+      },
+      {
+        "note": "Classes III–V",
+        "label": "SOF Zonal Excellence",
+        "value": "The zonal award, with a ₹500 voucher, for students in the primary years."
+      },
+      {
+        "note": "Classes III–V",
+        "label": "Indian Folk Painting",
+        "value": "“Students showed the richness of Indian folk art in their own strokes.”"
+      },
+      {
+        "note": "Classes III–V",
+        "label": "Heritage Week",
+        "value": "A week inside the culture and traditions of India — art, dance and music."
+      }
+    ],
+    "cellsTwo": []
+  },
+  "val": {
+    "kicker": "Values we build every day",
+    "heading": "Good habits.\n{{Strong character.}}",
+    "body": [
+      "Three words, read off the crest on the school gate — and the school’s own gloss on each."
+    ],
+    "caption": null,
+    "shots": [],
+    "cells": [
+      {
+        "mark": "duty",
+        "label": "Duty",
+        "value": "The work a school owes a child, and a child owes the subject."
+      },
+      {
+        "mark": "devotion",
+        "label": "Devotion",
+        "value": "Attention paid to one learner at a time, not to a class average."
+      },
+      {
+        "mark": "discipline",
+        "label": "Discipline",
+        "value": "The habit that makes ability count: turning up, and finishing."
+      }
+    ],
+    "cellsTwo": []
+  },
+  "space": {
+    "kicker": "Supportive environment",
+    "heading": "Spaces that\n{{inspire learning.}}",
+    "body": [
+      "A primary child at Sunbeam does not spend the week in one room. The rooms below are the school’s own published inventory, and the junior computer laboratory is sized so a nine-year-old works alone rather than in a group of four.",
+      "Every room above is listed on the school’s own [facilities](/campus/facilities-infrastructure/) inventory."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pLibrary",
+        "asset": "assets/library/DSC_1226 copy.jpg",
+        "name": "DSC_1226 copy",
+        "alt": "The Nalanda Library at {schoolName}, its shelves signed by subject and its reading tables set out"
+      },
+      {
+        "key": "pComputer",
+        "asset": "assets/computer lab/DSC_1206 copy.jpg",
+        "name": "DSC_1206 copy",
+        "alt": "A computer laboratory at {schoolName}, machines laid out along the benches"
+      },
+      {
+        "key": "pBio",
+        "asset": "assets/bio lab/DSC_1274 copy.jpg",
+        "name": "DSC_1274 copy",
+        "alt": "The biology laboratory at {schoolName}, microscopes and models on the benches"
+      },
+      {
+        "key": "pCourt",
+        "asset": "assets/basket ball/DSC_1280 copy.jpg",
+        "name": "DSC_1280 copy",
+        "alt": "The basketball court at {schoolName}, the hoop set against the school block"
+      }
+    ],
+    "cells": [
+      {
+        "label": "Smart classrooms — 75+ across the four floors"
+      },
+      {
+        "label": "Nalanda Library — 17,574 books and 25 periodicals"
+      },
+      {
+        "label": "Junior computer laboratory — 40+ machines"
+      },
+      {
+        "label": "Science laboratories, from the general room upward"
+      },
+      {
+        "label": "Art room, dance room and the music programme"
+      },
+      {
+        "label": "Fifteen sports, indoor and outdoor"
+      }
+    ],
+    "cellsTwo": []
+  },
+  "jrn": {
+    "kicker": "The primary journey",
+    "heading": "From curiosity\nto {{capability.}}",
+    "body": [],
+    "caption": null,
+    "shots": [],
+    "cells": [
+      {
+        "mark": "seed",
+        "label": "Explore",
+        "value": "Impetus, the school’s own activity programme for Classes III–V."
+      },
+      {
+        "mark": "book",
+        "label": "Learn",
+        "value": "PRECEPT — a syllabus document published for every class."
+      },
+      {
+        "mark": "target",
+        "label": "Apply",
+        "value": "Canva presentations, folk painting, a week inside Indian heritage."
+      },
+      {
+        "mark": "cup",
+        "label": "Grow",
+        "value": "A national olympiad from Nursery, and a zonal award in these years."
+      }
+    ],
+    "cellsTwo": []
+  },
+  "close": {
+    "kicker": "A strong beginning",
+    "heading": "Strong today.\n{{Ready for tomorrow.}}",
+    "body": [
+      "Five classes, five published syllabus documents, one activity programme of the school’s own — and a record of what each year group entered and brought home. Subject lists, period allocations and the contents of the PRECEPT documents are not published, and are not estimated here."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pCohort",
+        "asset": "assets/photos/sunbeem-3.jpg",
+        "name": "sunbeem-3",
+        "alt": ""
+      }
+    ],
+    "cells": [],
+    "cellsTwo": []
+  }
+}

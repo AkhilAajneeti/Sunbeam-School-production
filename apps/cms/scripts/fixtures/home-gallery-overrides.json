@@ -1,0 +1,40 @@
+{
+  "__doc": [
+    "PHOTOGRAPHS FOR HOMEPAGE CAMPUS CARDS, ADDED AFTER EXTRACTION.",
+    "",
+    "The homepage campus gallery is extracted from Campus.astro AT GIT HEAD - the",
+    "const was migrated into the CMS and no longer exists in the working copy, so",
+    "the extractor reads the last commit to recover it. That means it can only ever",
+    "reproduce the five keys the site already had, and a photograph the school sends",
+    "later has nowhere to enter. A hand-edit to home.json is erased by the next",
+    "extract:home.",
+    "",
+    "WARNING: A CARD WITH NO PHOTOGRAPHS IS NOT BROKEN. Two cards deliberately had",
+    "none - the panel renders their `brief` instead, which is the standing request",
+    "for the picture. Only add a key here when the photograph actually exists.",
+    "",
+    "'why' is required by the merge, for the same reason it is on the academics",
+    "photo overrides: a picture placed on a card is a claim about the place it",
+    "shows, and the reason it belongs there should survive the person who added it."
+  ],
+
+  "gallery": {
+    "archery": {
+      "why": "The card was Shooting Range with an open photo request. The school confirmed the range is for archery; the name, the copy and these photographs were corrected together.",
+      "photos": [
+        {
+          "asset": "assets/archery-range/07.jpg",
+          "alt": "Students of Sunbeam School Ballia on the archery line, four at full draw with a coach behind them."
+        },
+        {
+          "asset": "assets/archery-range/08.jpg",
+          "alt": "A student of Sunbeam School Ballia drawing a recurve bow on the archery line."
+        },
+        {
+          "asset": "assets/archery-range/02.jpg",
+          "alt": "The archery target set up on the ground at Sunbeam School Ballia, classes gathered around it."
+        }
+      ]
+    }
+  }
+}

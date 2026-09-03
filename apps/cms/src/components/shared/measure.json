@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_shared_measures",
+  "info": {
+    "displayName": "Measure",
+    "icon": "shield",
+    "description": "A stated safety or provision measure. `verified` records whether the school has published it — the site renders unverified items differently rather than dropping them, so the flag is content, not a build artefact."
+  },
+  "options": {},
+  "attributes": {
+    "label": { "type": "string", "required": true, "maxLength": 200 },
+    "body": { "type": "text", "required": true, "maxLength": 1000 },
+    "icon": { "type": "string", "maxLength": 40 },
+    "verified": { "type": "boolean", "default": true, "required": true }
+  }
+}

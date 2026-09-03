@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_philosophy_abilities",
+  "info": {
+    "displayName": "Ability",
+    "icon": "star",
+    "description": "One ability in the constellation on section 03. ⚠ ITS POSITION ON THE RING IS NOT HERE. The angle is evenly spaced around the circle and computed by the page from how many cards there are — 0°, 51°, 103° … for seven. It was stored once, and storing it meant an editor could move a node off the ring, or add an eighth card that overlapped the first."
+  },
+  "options": {},
+  "attributes": {
+    "label": { "type": "string", "required": true, "maxLength": 40 },
+    "icon": { "type": "media", "multiple": false, "required": true, "allowedTypes": ["images"] }
+  }
+}

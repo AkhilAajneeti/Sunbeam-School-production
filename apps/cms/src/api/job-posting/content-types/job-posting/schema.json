@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "job_postings",
+  "info": {
+    "singularName": "job-posting",
+    "pluralName": "job-postings",
+    "displayName": "Job Posting",
+    "description": "A recruitment poster. Mirrors the `posters` export of apps/web/src/data/career.ts. The school publishes vacancies as designed posters, never as structured text, so the poster IS the posting and the long alt text is the only machine-readable form of it."
+  },
+  "options": { "draftAndPublish": true },
+  "pluginOptions": {},
+  "attributes": {
+    "title": { "type": "string", "required": true, "maxLength": 200 },
+    "slug": { "type": "uid", "targetField": "title", "required": true },
+    "tag": { "type": "string", "required": true, "maxLength": 120 },
+    "image": { "type": "media", "multiple": false, "required": true, "allowedTypes": ["images"] },
+    "alt": { "type": "text", "required": true, "maxLength": 4000 },
+    "dated": { "type": "string", "maxLength": 120 },
+    "lang": {
+      "type": "enumeration",
+      "required": true,
+      "default": "en",
+      "enum": ["en", "hi"]
+    },
+    "displayOrder": { "type": "integer", "default": 0, "required": true }
+  }
+}

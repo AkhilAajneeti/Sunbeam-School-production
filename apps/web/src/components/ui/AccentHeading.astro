@@ -1,0 +1,136 @@
+---
+/**
+ * A SECTION HEADING WHOSE WORDS COME FROM THE CMS AND WHOSE EMPHASIS DOES NOT.
+ *
+ * ═══ THE PROBLEM THIS SOLVES ═══════════════════════════════════════════════
+ *
+ * Every band on the homepage carried its heading as literal markup:
+ *
+ *     <h2 class="voices__heading" …>
+ *       Where Sunbeam students <span class="t-squiggle">end up</span>
+ *     </h2>
+ *
+ * The words are editorial — the school should be able to change them. The
+ * hand-drawn underline is design — the school should not have to type a span to
+ * get one. Written that way the two are welded together, so the only way to
+ * reword a heading was to edit an .astro file, which is exactly what this
+ * migration exists to stop.
+ *
+ * ⚠ THE CONVENTION IS DOUBLE BRACES. The CMS field holds
+ *
+ *     Where Sunbeam students {{end up}}
+ *
+ * and this component turns what is inside the braces into the squiggle. An
+ * editor writes a sentence and marks the emphasised words; they never see a
+ * class name, and the styling can change site-wide without touching content.
+ *
+ * ⚠ NOT RICH TEXT, DELIBERATELY. A rich-text field would let an editor paste
+ * arbitrary HTML into an <h2> — colours, sizes, links — and the headings would
+ * drift apart within a term. One kind of emphasis, applied one way, is the
+ * whole point.
+ *
+ * ⚠ `nowrapClass` EXISTS FOR ONE REAL TYPOGRAPHIC BUG. Story's heading ends the
+ * emphasised word with a full stop — "…of Sunbeam. Thirteen in Ballia." — and
+ * the stop was being orphaned onto the next line on narrow widths. Binding the
+ * accent to the punctuation that follows it fixes that, and it is a layout
+ * decision, so it is a prop here rather than a character in the content.
+ */
+interface Props {
+  /** CMS text, with the emphasised span marked `{{like this}}`. */
+  text?: string | null;
+  /** Rendered when `text` is empty — the pre-CMS markup, as a fallback. */
+  class?: string;
+  id?: string;
+  /** Emits `data-split`, which the GSAP reveal splits into lines. */
+  split?: boolean;
+  /** Extra class beside `t-squiggle`, e.g. `t-squiggle--lime`. */
+  accentClass?: string;
+  /** Wraps the accent and any punctuation straight after it in this class. */
+  nowrapClass?: string;
+  /**
+   * ⚠ SET THIS AND A NEWLINE IN THE CMS TEXT BECOMES `<br class="…">`.
+   * The hero headline breaks after "Where Ballia's" and the break is styled —
+   * it disappears on narrow widths. Without this the editor would have to type
+   * a tag to keep the line where the design puts it. With it, they press
+   * return, and the class that controls when the break applies stays here.
+   */
+  breakClass?: string;
+  tag?: 'h1' | 'h2' | 'h3' | 'p';
+}
+
+const {
+  text,
+  class: className,
+  id,
+  split = false,
+  accentClass,
+  nowrapClass,
+  breakClass,
+  tag: Tag = 'h2',
+} = Astro.props;
+
+/** Punctuation that must not be orphaned from the word it follows. */
+const CLINGS = /^[.,!?;:’'”)]/;
+
+type Part =
+  | { kind: 'text'; value: string }
+  | { kind: 'break' }
+  | { kind: 'accent'; value: string; tail: string };
+
+/**
+ * Split on `{{…}}`. Anything outside the braces is printed verbatim, so an
+ * ampersand or a curly apostrophe survives exactly as typed.
+ */
+function parse(source: string): Part[] {
+  const parts: Part[] = [];
+  const re = /\{\{([\s\S]*?)\}\}/g;
+  let last = 0;
+  let m: RegExpExecArray | null;
+
+  while ((m = re.exec(source)) !== null) {
+    if (m.index > last) parts.push({ kind: 'text', value: source.slice(last, m.index) });
+
+    /* With nowrapClass, the punctuation immediately after the accent is moved
+       inside the binding wrapper rather than left to wrap away from it. */
+    let rest = source.slice(m.index + m[0].length);
+    let tail = '';
+    if (nowrapClass) {
+      const cling = rest.match(CLINGS);
+      if (cling) { tail = cling[0]; rest = rest.slice(tail.length); }
+    }
+
+    parts.push({ kind: 'accent', value: m[1], tail });
+    last = m.index + m[0].length + tail.length;
+  }
+
+  if (last < source.length) parts.push({ kind: 'text', value: source.slice(last) });
+  return parts;
+}
+
+/** Newlines become styled breaks only when the design asks for them. */
+function withBreaks(list: Part[]): Part[] {
+  if (!breakClass) return list;
+  const out: Part[] = [];
+  for (const q of list) {
+    if (q.kind !== 'text' || !q.value.includes('\n')) { out.push(q); continue; }
+    q.value.split('\n').forEach((c, i) => {
+      if (i > 0) out.push({ kind: 'break' });
+      if (c) out.push({ kind: 'text', value: c });
+    });
+  }
+  return out;
+}
+
+const parts = text ? withBreaks(parse(text)) : [];
+const accent = ['t-squiggle', accentClass].filter(Boolean).join(' ');
+---
+
+<Tag class={className} id={id} data-split={split ? '' : undefined}>
+  {parts.length === 0 ? <slot /> : parts.map((p) =>
+    p.kind === 'break' ? <br class={breakClass} />
+    : p.kind === 'text' ? p.value
+      : nowrapClass
+        ? <span class={nowrapClass}><span class={accent}>{p.value}</span>{p.tail}</span>
+        : <span class={accent}>{p.value}</span>,
+  )}
+</Tag>

@@ -1,4 +1,7 @@
 ---
+import { getCampusTourData } from '../../../lib/cms';
+const {facilities, journey} = await getCampusTourData();
+
 /**
  * §7 · A DAY ON CAMPUS — the student's route through the buildings.
  *
@@ -14,7 +17,7 @@
  * pause rather than a broken image.
  */
 import { Picture } from 'astro:assets';
-import { facilities, journey } from '../../../data/campusTour';
+
 import SectionHead from '../../academics/SectionHead.astro';
 
 const byId = new Map(facilities.map((f) => [f.id, f]));

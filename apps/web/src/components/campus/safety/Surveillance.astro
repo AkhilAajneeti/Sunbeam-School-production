@@ -1,4 +1,7 @@
 ---
+import { getCampusSafetyData } from '../../../lib/cms';
+const {surveillanceCards} = await getCampusSafetyData();
+
 /**
  * §6 · CAMPUS SURVEILLANCE — the dark close.
  *
@@ -11,7 +14,7 @@
  * after". So the ground is warm ink rather than blue-black, the sweep is slow,
  * and the copy names people before it names equipment.
  */
-import { surveillanceCards } from '../../../data/campus';
+
 import { showBuildNotes } from '../../../data/site';
 import SectionHead from '../../academics/SectionHead.astro';
 import SafetyIcon from './SafetyIcon.astro';

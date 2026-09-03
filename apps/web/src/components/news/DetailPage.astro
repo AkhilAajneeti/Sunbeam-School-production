@@ -40,11 +40,11 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../ui/PageHero.astro';
 import AssetPlaceholder from '../ui/AssetPlaceholder.astro';
 import Lightbox from '../ui/Lightbox.astro';
-import { Picture } from 'astro:assets';
-import { photosFor } from '../../data/workshopPhotos';
+import CmsImage from '../ui/CmsImage.astro';
+import { photosOf, fileUrl } from '../../lib/cms';
 
 import type { ImageMetadata } from 'astro';
-import type { ChronicleItem, ChroniclePage } from '../../data/newsPages';
+import type { ChronicleItem, ChroniclePage } from '../../lib/cms';
 import heroPhoto from '../../assets/photos/sunbeem-5.jpg';
 
 
@@ -131,7 +131,9 @@ const {
  * frame ratio, the solo-gallery hero rule, the lightbox) then works unchanged,
  * because all of it reads this one array.
  */
-const photos = item.art ? [item.art] : photosFor(item.photoDir, item.photoSkip);
+/* ⚠ THE SAME RULE, MOVED. art beats the gallery; the gallery is CMS content
+   now rather than a folder resolved by a Vite glob. */
+const photos = photosOf(item);
 
 /* ⚠ THE HERO ONLY TAKES A LANDSCAPE LEAD IMAGE. A banner is panoramic by
    definition — roughly 3:1 at desktop — so a portrait graphic dropped into it is
@@ -200,8 +202,21 @@ const lead = photos[0];
  * With more than one photograph the lead is a real choice among several, and
  * cropping one for the banner costs nothing.
  */
-const leadIsWide = lead && photos.length > 1 ? lead.width / lead.height >= 1.33 : false;
-const hero = leadIsWide ? lead! : (fallbackHero ?? heroPhoto);
+/* ⚠ width/height COME FROM STRAPI NOW AND CAN BE NULL. The aspect test used an
+   ImageMetadata, where both were guaranteed; a CMS file has them only once the
+   upload was measured. A missing dimension must fall through to "not wide"
+   rather than produce NaN >= 1.33, which is false but for the wrong reason. */
+const leadIsWide =
+  lead && photos.length > 1 && lead.width && lead.height
+    ? lead.width / lead.height >= 1.33
+    : false;
+
+/* ⚠ TWO DIFFERENT KINDS OF IMAGE END UP HERE. A promoted gallery photograph is
+   a CMS file and goes to PageHero's `file`; the fallback is still a local
+   import and goes to `src`. PageHero prefers `file` and keeps `src` as its
+   fallback, so passing both is correct rather than redundant. */
+const heroFile = leadIsWide ? lead! : null;
+const hero = fallbackHero ?? heroPhoto;
 const heroAlt = leadIsWide
   ? `${item.title} at Sunbeam School Ballia`
   : (fallbackAlt ?? 'Staff and students of Sunbeam School Ballia in the school hall');
@@ -226,6 +241,7 @@ const next = all[here + 1];
       { label: page.title, href: indexHref ?? base },
     ]}
     src={hero}
+    file={heroFile}
     alt={heroAlt}
     position="50% 42%"
   />
@@ -313,19 +329,17 @@ const next = all[here + 1];
                             set this is. */}
                         <a
                           class="shot__open"
-                          href={src.src}
+                          href={fileUrl(src)}
                           data-lb-open
                           data-lb-alt={`${item.title} at Sunbeam School Ballia — photograph ${i + 1} of ${photos.length}`}
                           data-lb-cap={item.title}
                         >
-                          <Picture
-                            src={src}
+                          <CmsImage
+                            file={src}
                             alt={`${item.title} at Sunbeam School Ballia — photograph ${i + 1} of ${photos.length}`}
-                            formats={['webp']}
-                            widths={GALLERY_WIDTHS}
                             sizes={GALLERY_SIZES}
+                            fallbackWidth={760}
                             loading={i < 3 ? 'eager' : 'lazy'}
-                            decoding="async"
                           />
                           <span class="shot__zoom" aria-hidden="true">
                             <svg width="16" height="16" viewBox="0 0 18 18" fill="none">

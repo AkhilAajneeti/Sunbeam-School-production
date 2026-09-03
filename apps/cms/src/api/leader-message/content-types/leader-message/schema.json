@@ -1,0 +1,21 @@
+{
+  "kind":"collectionType","collectionName":"leader_messages",
+  "info":{"singularName":"leader-message","pluralName":"leader-messages","displayName":"Leader Message",
+    "description":"The Director's and the Principal's messages. ONE type, two records — the pages are the same component with different content, so a second type would be the same nine fields under another name. `pending` states what the school has still to supply, which docs/07 A5 tracks for the Principal's message."},
+  "options":{"draftAndPublish":true},
+  "attributes":{
+    "role":{"type":"enumeration","required":true,"enum":["director","principal"]},
+    "slug":{"type":"uid","targetField":"name","required":true},
+    "name":{"type":"string","required":true,"maxLength":160},
+    "roleLabel":{"type":"string","maxLength":120},
+    "eyebrow":{"type":"string","maxLength":120},
+    "heading":{"type":"string","maxLength":240},
+    "pullQuote":{"type":"text","maxLength":800},
+    "paragraphs":{"type":"component","repeatable":true,"component":"shared.paragraph"},
+    "credentials":{"type":"component","repeatable":true,"component":"shared.fact"},
+    "portrait":{"type":"media","multiple":false,"allowedTypes":["images"]},
+    "portraitAlt":{"type":"text","maxLength":500},
+    "portraitBrief":{"type":"string","maxLength":200},
+    "pending":{"type":"text","maxLength":600}
+  }
+}

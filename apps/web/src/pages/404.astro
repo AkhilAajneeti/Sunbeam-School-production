@@ -27,9 +27,11 @@
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/ui/PageHero.astro';
-import { school } from '../data/site';
+import { getSchool } from '../lib/cms';
 
 import heroPhoto from '../assets/photos/sunbeem-1.jpg';
+
+const school = await getSchool();
 
 /** Real pages only — see the note above. */
 const routes = [
@@ -43,17 +45,9 @@ const routes = [
 ---
 
 <BaseLayout
-  title="Page not found — Sunbeam School Ballia"
-  description={`That address does not exist on the Sunbeam School Ballia website. Use the links here to find what you were looking for, or call the school on ${school.phone.admissionsDisplay}.`}
-  robots="noindex, follow"
 >
   <PageHero
-    title="Page not found"
-    standfirst="That address does not exist on this website."
-    crumbs={[{ label: 'Home', href: '/' }]}
     src={heroPhoto}
-    alt="The Sunbeam School Ballia campus at Agarsanda, seen across the school lawn"
-    position="50% 45%"
   />
 
   <div class="u-page-panel nf-panel">

@@ -1,4 +1,11 @@
 ---
+import { getFacilitiesData, getCampusTourData } from '../../../lib/cms';
+const {groups} = await getFacilitiesData();
+/* ⚠ `facilities: shot`, NOT `facilities as shot`. The source IMPORTED it
+   under an alias; a destructure renames with a colon. The alias is kept because
+   `shot` means "facilities that have photographs" throughout this file. */
+const { facilities: shot } = await getCampusTourData();
+
 /**
  * §3 · THE SIX GROUPS — the whole inventory, organised.
  *
@@ -16,9 +23,9 @@
  * on the brief but absent from this repository's audit of the live site, so the
  * team can check six rather than re-checking forty. Parents never see it.
  */
-import { Picture } from 'astro:assets';
-import { groups } from '../../../data/facilities';
-import { facilities as shot } from '../../../data/campusTour';
+import CmsImage from '../../ui/CmsImage.astro';
+
+
 import { showBuildNotes } from '../../../data/site';
 import FacIcon from './FacIcon.astro';
 
@@ -59,15 +66,13 @@ const frameFor = (photo: string | undefined, i: number) => {
               /* Decorative: the card's own heading already names the room, so a
                  described background would be the same information twice. */
               <span class="grp__bg" aria-hidden="true">
-                <Picture
-                  src={frame.src}
+                <CmsImage
+                  file={frame.src}
                   alt=""
-                  formats={['webp']}
-                  widths={[400, 800]}
                   sizes="(max-width: 600px) 92vw, 34vw"
                   loading="lazy"
-                  decoding="async"
-                />
+      fallbackWidth={760}
+    />
               </span>
             )}
 

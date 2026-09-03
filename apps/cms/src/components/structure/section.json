@@ -1,0 +1,49 @@
+{
+  "collectionName": "components_structure_sections",
+  "info": {
+    "displayName": "Section",
+    "icon": "layout",
+    "description": "One band of the page: the small label, the heading, the paragraphs, the photographs and the run of cells. ⚠ EVERY SECTION ON THESE PAGES IS THIS SHAPE — what differs between them is how the page LAYS IT OUT, and that stays in the page. You cannot reorder, add or remove sections; you fill in the ones that are there."
+  },
+  "options": {},
+  "attributes": {
+    "kicker": {
+      "type": "string",
+      "maxLength": 120,
+      "description": "A few words above the heading."
+    },
+    "heading": {
+      "type": "text",
+      "maxLength": 400,
+      "description": "ONE LINE PER CLIPPED LINE, and {{double braces}} around the part set in italic. The page animates the lines in on its own — type the words and the breaks, nothing else."
+    },
+    "body": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.paragraph"
+    },
+    "caption": {
+      "type": "text",
+      "maxLength": 400,
+      "description": "The small line printed under a photograph, where the design has one."
+    },
+    "shots": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.photo",
+      "description": "The photographs, IN THE ORDER THE PAGE PLACES THEM. The first is the largest frame; the ones after it fill the smaller places around it."
+    },
+    "cells": {
+      "type": "component",
+      "repeatable": true,
+      "component": "structure.cell",
+      "description": "The run of items beside or under the copy."
+    },
+    "cellsTwo": {
+      "type": "component",
+      "repeatable": true,
+      "component": "structure.cell",
+      "description": "A SECOND run, for the one or two bands that carry two. Leave it empty everywhere else."
+    }
+  }
+}

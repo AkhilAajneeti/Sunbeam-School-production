@@ -18,11 +18,14 @@
  * shows the shape of the rest.
  */
 import Photo from '../../ui/Photo.astro';
-import { parents } from '../../../data/academics';
-/* A parent asking a question at the Parents' Forum — the section is about the
+/* A parent asking a question at the Parents' Forum ï¿½ the section is about the
    questions families actually ask, and until these photographs arrived it was
    illustrated with a picture of students on the campus. */
-import photo from '../../../assets/parents forum/parents forum (4).jpg';
+import { getAcademicTopic } from '../../../lib/cms';
+
+const ac = await getAcademicTopic('/academics/parent-partnership/');
+const photo = ac.pic('photo2');
+const parents = ac.blockMap('parents');
 
 const { faq } = parents;
 ---
@@ -34,7 +37,7 @@ const { faq } = parents;
       <div class="pfa__media">
         <div class="pfa__frame" data-mask>
           <Photo
-            src={photo}
+            file={photo}
             alt={faq.alt}
             brief="Frequently asked"
             ratio="4 / 5"

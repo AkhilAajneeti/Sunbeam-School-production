@@ -1,0 +1,949 @@
+[
+  {
+    "file": "components/academics/AffiliationDetailsPage.astro",
+    "route": "/academics/philosophy/affiliation-details/",
+    "imports": 1,
+    "uses": [
+      {
+        "binding": "pCampus",
+        "asset": "sunbeem-1.jpg",
+        "component": "Picture",
+        "alt": "{`The campus of ${S}"
+      }
+    ]
+  },
+  {
+    "file": "components/academics/assessment/AcademicCalendarPage.astro",
+    "route": null,
+    "imports": 1,
+    "uses": [
+      {
+        "binding": "pCohort",
+        "asset": "sunbeem-3.jpg",
+        "component": "AsClose",
+        "alt": null
+      }
+    ]
+  },
+  {
+    "file": "components/academics/assessment/AssessmentPage.astro",
+    "route": "/academics/assessment/",
+    "imports": 1,
+    "uses": [
+      {
+        "binding": "pCohort",
+        "asset": "sunbeem-3.jpg",
+        "component": "AsClose",
+        "alt": null
+      }
+    ]
+  },
+  {
+    "file": "components/academics/assessment/BoardResultsPage.astro",
+    "route": "/academics/board-results/",
+    "imports": 5,
+    "uses": [
+      {
+        "binding": "pExam",
+        "asset": "sunbeem-students.jpg",
+        "component": "Picture",
+        "alt": "{`Students of ${S}"
+      },
+      {
+        "binding": "pCampus",
+        "asset": "sunbeem-1.jpg",
+        "component": "Picture",
+        "alt": "{`The campus of ${S}"
+      },
+      {
+        "binding": "pLib",
+        "asset": "sb-library.jpg",
+        "component": "Picture",
+        "alt": "{`Students of ${S}"
+      },
+      {
+        "binding": "pBench",
+        "asset": "sb-chem-lab.jpg",
+        "component": "Picture",
+        "alt": "{`Students of ${S}"
+      },
+      {
+        "binding": "pCohort",
+        "asset": "sunbeem-5.jpg",
+        "component": "AsClose",
+        "alt": null
+      }
+    ]
+  },
+  {
+    "file": "components/academics/assessment/CareerGuidancePage.astro",
+    "route": "/academics/student-success/career-guidance/",
+    "imports": 1,
+    "uses": [
+      {
+        "binding": "pCohort",
+        "asset": "sunbeem-5.jpg",
+        "component": "AsClose",
+        "alt": null
+      }
+    ]
+  },
+  {
+    "file": "components/academics/assessment/CompetitiveExamPage.astro",
+    "route": "/academics/assessment/competitive-exam-preparation/",
+    "imports": 2,
+    "uses": [
+      {
+        "binding": "pBench",
+        "asset": "sb-chem-lab.jpg",
+        "component": "Picture",
+        "alt": "{`Students of ${S}"
+      },
+      {
+        "binding": "pCohort",
+        "asset": "sunbeem-3.jpg",
+        "component": "AsClose",
+        "alt": null
+      }
+    ]
+  },
+  {
+    "file": "components/academics/assessment/HomeworkPolicyPage.astro",
+    "route": "/academics/assessment/homework-policy/",
+    "imports": 1,
+    "uses": [
+      {
+        "binding": "pCohort",
+        "asset": "sunbeem-3.jpg",
+        "component": "AsClose",
+        "alt": null
+      }
+    ]
+  },
+  {
+    "file": "components/academics/assessment/MentoringPage.astro",
+    "route": "/academics/assessment/mentoring/",
+    "imports": 4,
+    "uses": [
+      {
+        "binding": "pLib",
+        "asset": "sb-library.jpg",
+        "component": "Picture",
+        "alt": "{`Students of ${S}"
+      },
+      {
+        "binding": "pBench",
+        "asset": "sb-chem-lab.jpg",
+        "component": "Picture",
+        "alt": "{`Students of ${S}"
+      },
+      {
+        "binding": "pStage",
+        "asset": "sunbeem-5.jpg",
+        "component": "Picture",
+        "alt": "{`Student council office-bearers and NCC cadets of ${S}"
+      },
+      {
+        "binding": "pCohort",
+        "asset": "sunbeem-3.jpg",
+        "component": "Picture",
+        "alt": "\"\""
+      }
+    ]
+  },
+  {
+    "file": "components/academics/assessment/OlympiadPage.astro",
+    "route": "/academics/student-success/olympiad-achievements/",
+    "imports": 2,
+    "uses": [
+      {
+        "binding": "pMaths",
+        "asset": "sb-maths-lab.jpg",
+        "component": "Picture",
+        "alt": "{`The mathematics laboratory at ${S}"
+      },
+      {
+        "binding": "pCohort",
+        "asset": "sunbeem-5.jpg",
+        "component": "AsClose",
+        "alt": null
+      }
+    ]
+  },
+  {
+    "file": "components/academics/assessment/ParentTeacherPage.astro",
+    "route": "/academics/assessment/parent-teacher-meetings/",
+    "imports": 1,
+    "uses": [
+      {
+        "binding": "pCohort",
+        "asset": "sunbeem-3.jpg",
+        "component": "AsClose",
+        "alt": null
+      }
+    ]
+  },
+  {
+    "file": "components/academics/assessment/RemedialSupportPage.astro",
+    "route": "/academics/assessment/remedial-support/",
+    "imports": 3,
+    "uses": [
+      {
+        "binding": "pBench",
+        "asset": "sb-chem-lab.jpg",
+        "component": "Picture",
+        "alt": "{`Students of ${S}"
+      },
+      {
+        "binding": "pActivity",
+        "asset": "sb-maths-lab.jpg",
+        "component": "Picture",
+        "alt": "{`Students of ${S}"
+      },
+      {
+        "binding": "pCohort",
+        "asset": "sunbeem-3.jpg",
+        "component": "AsClose",
+        "alt": null
+      }
+    ]
+  },
+  {
+    "file": "components/academics/assessment/ScholarshipsPage.astro",
+    "route": "/academics/student-success/scholarships/",
+    "imports": 1,
+    "uses": [
+      {
+        "binding": "pCohort",
+        "asset": "sunbeem-5.jpg",
+        "component": "AsClose",
+        "alt": null
+      }
+    ]
+  },
+  {
+    "file": "components/academics/assessment/SubjectSelectionPage.astro",
+    "route": "/academics/student-success/subject-selection/",
+    "imports": 1,
+    "uses": [
+      {
+        "binding": "pCohort",
+        "asset": "sunbeem-5.jpg",
+        "component": "AsClose",
+        "alt": null
+      }
+    ]
+  },
+  {
+    "file": "components/academics/assessment/SuccessStoriesPage.astro",
+    "route": "/academics/student-success/success-stories/",
+    "imports": 1,
+    "uses": [
+      {
+        "binding": "pCohort",
+        "asset": "sunbeem-5.jpg",
+        "component": "AsClose",
+        "alt": null
+      }
+    ]
+  },
+  {
+    "file": "components/academics/assessment/UniversityCounsellingPage.astro",
+    "route": "/academics/student-success/university-counselling/",
+    "imports": 1,
+    "uses": [
+      {
+        "binding": "pCohort",
+        "asset": "sunbeem-5.jpg",
+        "component": "AsClose",
+        "alt": null
+      }
+    ]
+  },
+  {
+    "file": "components/academics/parents/Intro.astro",
+    "route": "/academics/parent-partnership/",
+    "imports": 1,
+    "uses": [
+      {
+        "binding": "photo",
+        "asset": "sunbeem-2.jpg",
+        "component": "Photo",
+        "alt": "\"The whole school gathered at the entrance of Sunbeam School Ballia beneath the school name.\""
+      }
+    ]
+  },
+  {
+    "file": "components/academics/parents/Orientation.astro",
+    "route": "/academics/parent-partnership/",
+    "imports": 2,
+    "uses": [
+      {
+        "binding": "entrancePhoto",
+        "asset": "sunbeem-2.jpg",
+        "component": "Photo",
+        "alt": "\"Students and staff of Sunbeam School Ballia gathered at the entrance to the school.\""
+      },
+      {
+        "binding": "campusPhoto",
+        "asset": "sunbeem-1.jpg",
+        "component": "Photo",
+        "alt": "\"The Sunbeam School Ballia campus at Agarsanda.\""
+      }
+    ]
+  },
+  {
+    "file": "components/academics/parents/Voice.astro",
+    "route": "/academics/parent-partnership/",
+    "imports": 1,
+    "uses": [
+      {
+        "binding": "portrait",
+        "asset": "sb-principal.jpg",
+        "component": "Photo",
+        "alt": "{`${voice.name}"
+      }
+    ]
+  },
+  {
+    "file": "components/academics/partnership/ParentEngagementPage.astro",
+    "route": "/academics/parent-partnership/parents-forum/",
+    "imports": 1,
+    "uses": [
+      {
+        "binding": "pCohort",
+        "asset": "sunbeem-3.jpg",
+        "component": "AsClose",
+        "alt": null
+      }
+    ]
+  },
+  {
+    "file": "components/academics/partnership/ParentsForumPage.astro",
+    "route": "/academics/parent-partnership/parents-forum/",
+    "imports": 1,
+    "uses": [
+      {
+        "binding": "pCohort",
+        "asset": "sunbeem-3.jpg",
+        "component": "AsClose",
+        "alt": null
+      }
+    ]
+  },
+  {
+    "file": "components/academics/partnership/PpCta.astro",
+    "route": null,
+    "imports": 1,
+    "uses": [
+      {
+        "binding": "pCampus",
+        "asset": "sunbeem-1.jpg",
+        "component": "Picture",
+        "alt": "{`The main building of ${S}"
+      }
+    ]
+  },
+  {
+    "file": "components/academics/partnership/SchoolParentCommunicationPage.astro",
+    "route": "/academics/parent-partnership/school-parent-communication/",
+    "imports": 2,
+    "uses": [
+      {
+        "binding": "pLib",
+        "asset": "sb-library.jpg",
+        "component": "Picture",
+        "alt": "{`The Nalanda Library at ${S}"
+      },
+      {
+        "binding": "pLib",
+        "asset": "sb-library.jpg",
+        "component": "Picture",
+        "alt": "{`Students reading at the tables of the Nalanda Library at ${S}"
+      },
+      {
+        "binding": "pCohort",
+        "asset": "sunbeem-3.jpg",
+        "component": "AsClose",
+        "alt": null
+      }
+    ]
+  },
+  {
+    "file": "components/academics/PhilosophyStory.astro",
+    "route": "/academics/philosophy/",
+    "imports": 3,
+    "uses": [
+      {
+        "binding": "campus",
+        "asset": "sunbeem-1.jpg",
+        "component": "Picture",
+        "alt": "{`The main building of ${school.name}"
+      },
+      {
+        "binding": "assembly",
+        "asset": "sunbeem-5.jpg",
+        "component": "Picture",
+        "alt": "{`Students and staff at an assembly at ${school.name}"
+      },
+      {
+        "binding": "ceremony",
+        "asset": "sunbeem-4.jpg",
+        "component": "Picture",
+        "alt": "{`An award ceremony in the hall at ${school.name}"
+      }
+    ]
+  },
+  {
+    "file": "components/academics/structure/MiddleSchoolPage.astro",
+    "route": "/academics/structure/middle-school/",
+    "imports": 7,
+    "uses": [
+      {
+        "binding": "pMicro",
+        "asset": "sb-sci-lab.jpg",
+        "component": "Picture",
+        "alt": "{`A student of ${S}"
+      },
+      {
+        "binding": "pJunior",
+        "asset": "sb-comp-lab-2.jpg",
+        "component": "Picture",
+        "alt": "{`Younger students of ${S}"
+      },
+      {
+        "binding": "pLibrary",
+        "asset": "sb-library.jpg",
+        "component": "Picture",
+        "alt": "{`Students of ${S}"
+      },
+      {
+        "binding": "pBench",
+        "asset": "sb-chem-lab.jpg",
+        "component": "Picture",
+        "alt": "{`Students of ${S}"
+      },
+      {
+        "binding": "pGlass",
+        "asset": "sb-bio-lab.jpg",
+        "component": "Picture",
+        "alt": "{`Two students of ${S}"
+      },
+      {
+        "binding": "pFloor",
+        "asset": "sb-maths-lab.jpg",
+        "component": "Picture",
+        "alt": "{`Students of ${S}"
+      },
+      {
+        "binding": "pCohort",
+        "asset": "sunbeem-3.jpg",
+        "component": "Picture",
+        "alt": "\"\""
+      }
+    ]
+  },
+  {
+    "file": "components/academics/structure/PrimaryPage.astro",
+    "route": "/academics/structure/primary/",
+    "imports": 1,
+    "uses": [
+      {
+        "binding": "pCohort",
+        "asset": "sunbeem-3.jpg",
+        "component": "Picture",
+        "alt": "\"\""
+      }
+    ]
+  },
+  {
+    "file": "components/academics/structure/SecondaryPage.astro",
+    "route": "/academics/structure/secondary/",
+    "imports": 5,
+    "uses": [
+      {
+        "binding": "pBench",
+        "asset": "sb-chem-lab.jpg",
+        "component": "Picture",
+        "alt": "{`Students of ${S}"
+      },
+      {
+        "binding": "pMachines",
+        "asset": "sb-comp-lab-2.jpg",
+        "component": "Picture",
+        "alt": "{`Younger students of ${S}"
+      },
+      {
+        "binding": "pLibrary",
+        "asset": "sb-library.jpg",
+        "component": "Picture",
+        "alt": "{`Students of ${S}"
+      },
+      {
+        "binding": "pMicro",
+        "asset": "sb-sci-lab.jpg",
+        "component": "Picture",
+        "alt": "{`A student of ${S}"
+      },
+      {
+        "binding": "pCohort",
+        "asset": "sunbeem-3.jpg",
+        "component": "Picture",
+        "alt": "\"\""
+      }
+    ]
+  },
+  {
+    "file": "components/academics/structure/SeniorSecondaryPage.astro",
+    "route": "/academics/structure/senior-secondary/",
+    "imports": 6,
+    "uses": [
+      {
+        "binding": "pBench",
+        "asset": "sb-chem-lab.jpg",
+        "component": "Picture",
+        "alt": "{`Students of ${S}"
+      },
+      {
+        "binding": "pLibrary",
+        "asset": "sb-library.jpg",
+        "component": "Picture",
+        "alt": "{`Students of ${S}"
+      },
+      {
+        "binding": "pMicro",
+        "asset": "sb-sci-lab.jpg",
+        "component": "Picture",
+        "alt": "{`A student of ${S}"
+      },
+      {
+        "binding": "pMachines",
+        "asset": "sb-comp-lab-2.jpg",
+        "component": "Picture",
+        "alt": "{`Younger students of ${S}"
+      },
+      {
+        "binding": "pActivity",
+        "asset": "sb-maths-lab.jpg",
+        "component": "Picture",
+        "alt": "{`Students of ${S}"
+      },
+      {
+        "binding": "pCohort",
+        "asset": "sunbeem-3.jpg",
+        "component": "Picture",
+        "alt": "\"\""
+      }
+    ]
+  },
+  {
+    "file": "components/academics/structure/StreamsOfferedPage.astro",
+    "route": "/academics/structure/streams-offered/",
+    "imports": 1,
+    "uses": [
+      {
+        "binding": "pLab",
+        "asset": "sb-chem-lab.jpg",
+        "component": "Picture",
+        "alt": "{`Senior students of ${school.name}"
+      }
+    ]
+  },
+  {
+    "file": "components/academics/StudentCentredPage.astro",
+    "route": "/academics/philosophy/student-centred-learning/",
+    "imports": 1,
+    "uses": [
+      {
+        "binding": "pCohort",
+        "asset": "sunbeem-3.jpg",
+        "component": "Picture",
+        "alt": "{`Students and staff of ${school.name}"
+      }
+    ]
+  },
+  {
+    "file": "components/academics/teaching/ExperientialLearningPage.astro",
+    "route": "/academics/teaching-learning/experiential-learning/",
+    "imports": 1,
+    "uses": [
+      {
+        "binding": "pCohort",
+        "asset": "sunbeem-3.jpg",
+        "component": "Picture",
+        "alt": "\"\""
+      }
+    ]
+  },
+  {
+    "file": "components/academics/teaching/HandsOn.astro",
+    "route": "/academics/teaching-learning/",
+    "imports": 3,
+    "uses": [
+      {
+        "binding": "bioPhoto",
+        "asset": "sb-bio-lab.jpg",
+        "component": "Photo",
+        "alt": "\"Two students of Sunbeam School Ballia handling glassware in the biology laboratory.\""
+      },
+      {
+        "binding": "sciPhoto",
+        "asset": "sb-sci-lab.jpg",
+        "component": "Photo",
+        "alt": "\"A student of Sunbeam School Ballia using a microscope beside plant specimens in flasks.\""
+      },
+      {
+        "binding": "mathsPhoto",
+        "asset": "sb-maths-lab.jpg",
+        "component": "Photo",
+        "alt": "\"Students of Sunbeam School Ballia seated on the floor of a decorated activity room during a lesson.\""
+      }
+    ]
+  },
+  {
+    "file": "components/academics/teaching/LaboratoriesClubsPage.astro",
+    "route": "/academics/teaching-learning/laboratories-clubs/",
+    "imports": 4,
+    "uses": [
+      {
+        "binding": "pBench",
+        "asset": "sb-chem-lab.jpg",
+        "component": "Picture",
+        "alt": "{`Students of ${S}"
+      },
+      {
+        "binding": "pMicro",
+        "asset": "sb-sci-lab.jpg",
+        "component": "Picture",
+        "alt": "{`A student of ${S}"
+      },
+      {
+        "binding": "pMaths",
+        "asset": "sb-maths-lab.jpg",
+        "component": "Picture",
+        "alt": "{`The mathematics laboratory at ${S}"
+      },
+      {
+        "binding": "pCohort",
+        "asset": "sunbeem-3.jpg",
+        "component": "Picture",
+        "alt": "\"\""
+      }
+    ]
+  },
+  {
+    "file": "components/academics/teaching/MethodologyPage.astro",
+    "route": "/academics/teaching-learning/methodology/",
+    "imports": 1,
+    "uses": [
+      {
+        "binding": "pCohort",
+        "asset": "sunbeem-3.jpg",
+        "component": "Picture",
+        "alt": "\"\""
+      }
+    ]
+  },
+  {
+    "file": "components/academics/teaching/ReadingLanguagePage.astro",
+    "route": "/academics/teaching-learning/reading-language/",
+    "imports": 2,
+    "uses": [
+      {
+        "binding": "pReading",
+        "asset": "sb-library.jpg",
+        "component": "Picture",
+        "alt": "{`Students of ${S}"
+      },
+      {
+        "binding": "pCohort",
+        "asset": "sunbeem-3.jpg",
+        "component": "Picture",
+        "alt": "\"\""
+      }
+    ]
+  },
+  {
+    "file": "components/academics/teaching/SmartClassroomsPage.astro",
+    "route": "/academics/teaching-learning/smart-classrooms/",
+    "imports": 1,
+    "uses": [
+      {
+        "binding": "pCohort",
+        "asset": "sunbeem-3.jpg",
+        "component": "Picture",
+        "alt": "\"\""
+      }
+    ]
+  },
+  {
+    "file": "components/academics/teaching/StemRoboticsPage.astro",
+    "route": "/academics/teaching-learning/stem-robotics/",
+    "imports": 3,
+    "uses": [
+      {
+        "binding": "pPhysics",
+        "asset": "sb-phy-lab.jpg",
+        "component": "Picture",
+        "alt": "{`Senior students of ${S}"
+      },
+      {
+        "binding": "pMicroscope",
+        "asset": "sb-sci-lab.jpg",
+        "component": "Picture",
+        "alt": "{`A student of ${S}"
+      },
+      {
+        "binding": "pCohort",
+        "asset": "sunbeem-3.jpg",
+        "component": "Picture",
+        "alt": "\"\""
+      }
+    ]
+  },
+  {
+    "file": "components/academics/teaching/Words.astro",
+    "route": "/academics/teaching-learning/",
+    "imports": 1,
+    "uses": [
+      {
+        "binding": "libraryPhoto",
+        "asset": "sb-library.jpg",
+        "component": "Photo",
+        "alt": "{words.alt}"
+      }
+    ]
+  },
+  {
+    "file": "components/academics/TeachingPhilosophyPage.astro",
+    "route": "/academics/philosophy/teaching-philosophy/",
+    "imports": 3,
+    "uses": [
+      {
+        "binding": "pStudents",
+        "asset": "sunbeem-3.jpg",
+        "component": "Picture",
+        "alt": "{`Students at ${school.name}"
+      },
+      {
+        "binding": "pGround",
+        "asset": "sunbeem-1.jpg",
+        "component": "Picture",
+        "alt": "{`Students together on the ground at ${school.name}"
+      },
+      {
+        "binding": "pCeremony",
+        "asset": "sunbeem-4.jpg",
+        "component": "Picture",
+        "alt": "{`Students of ${school.name}"
+      }
+    ]
+  },
+  {
+    "file": "pages/academics/assessment/competitive-exam-preparation.astro",
+    "route": null,
+    "imports": 1,
+    "uses": [
+      {
+        "binding": "banner",
+        "asset": "sb-chem-lab.jpg",
+        "component": "PageHero",
+        "alt": null
+      }
+    ]
+  },
+  {
+    "file": "pages/academics/assessment/homework-policy.astro",
+    "route": null,
+    "imports": 1,
+    "uses": [
+      {
+        "binding": "banner",
+        "asset": "sb-library.jpg",
+        "component": "PageHero",
+        "alt": null
+      }
+    ]
+  },
+  {
+    "file": "pages/academics/assessment.astro",
+    "route": null,
+    "imports": 1,
+    "uses": [
+      {
+        "binding": "banner",
+        "asset": "sunbeem-students.jpg",
+        "component": "PageHero",
+        "alt": null
+      }
+    ]
+  },
+  {
+    "file": "pages/academics/index.astro",
+    "route": "/academics/",
+    "imports": 1,
+    "uses": [
+      {
+        "binding": "heroPhoto",
+        "asset": "sb-chem-lab.jpg",
+        "component": "Photo",
+        "alt": "\"Students of Sunbeam School Ballia working with laboratory glassware and a burner during a chemistry lesson.\""
+      }
+    ]
+  },
+  {
+    "file": "pages/academics/parent-partnership/faqs.astro",
+    "route": "/academics/parent-partnership/faqs/",
+    "imports": 3,
+    "uses": [
+      {
+        "binding": "pReading",
+        "asset": "sb-library.jpg",
+        "component": "Picture",
+        "alt": "{`Students of ${S}"
+      },
+      {
+        "binding": "pCampus",
+        "asset": "sunbeem-1.jpg",
+        "component": "Picture",
+        "alt": "{`The campus of ${S}"
+      },
+      {
+        "binding": "pCohort",
+        "asset": "sunbeem-5.jpg",
+        "component": "Picture",
+        "alt": "{`Student council office-bearers and NCC cadets of ${S}"
+      }
+    ]
+  },
+  {
+    "file": "pages/academics/parent-partnership.astro",
+    "route": "/academics/parent-partnership/",
+    "imports": 1,
+    "uses": [
+      {
+        "binding": "banner",
+        "asset": "sunbeem-3.jpg",
+        "component": "PageHero",
+        "alt": null
+      }
+    ]
+  },
+  {
+    "file": "pages/academics/philosophy/curriculum.astro",
+    "route": null,
+    "imports": 1,
+    "uses": [
+      {
+        "binding": "pCohort",
+        "asset": "sunbeem-3.jpg",
+        "component": "?",
+        "alt": "{`Students and staff of ${school}"
+      }
+    ]
+  },
+  {
+    "file": "pages/academics/structure/middle-school.astro",
+    "route": null,
+    "imports": 1,
+    "uses": [
+      {
+        "binding": "banner",
+        "asset": "sb-phy-lab.jpg",
+        "component": "PageHero",
+        "alt": null
+      }
+    ]
+  },
+  {
+    "file": "pages/academics/structure/senior-secondary.astro",
+    "route": null,
+    "imports": 1,
+    "uses": [
+      {
+        "binding": "banner",
+        "asset": "sb-phy-lab.jpg",
+        "component": "PageHero",
+        "alt": null
+      }
+    ]
+  },
+  {
+    "file": "pages/academics/structure.astro",
+    "route": null,
+    "imports": 1,
+    "uses": [
+      {
+        "binding": "banner",
+        "asset": "sunbeem-3.jpg",
+        "component": "PageHero",
+        "alt": null
+      }
+    ]
+  },
+  {
+    "file": "pages/academics/student-success/alumni-interaction.astro",
+    "route": null,
+    "imports": 1,
+    "uses": [
+      {
+        "binding": "pCohort",
+        "asset": "sunbeem-5.jpg",
+        "component": "?",
+        "alt": "{`Student council office-bearers and NCC cadets of ${school}"
+      }
+    ]
+  },
+  {
+    "file": "pages/academics/student-success.astro",
+    "route": "/academics/student-success/",
+    "imports": 1,
+    "uses": [
+      {
+        "binding": "banner",
+        "asset": "sunbeem-5.jpg",
+        "component": "PageHero",
+        "alt": null
+      }
+    ]
+  },
+  {
+    "file": "pages/academics/teaching-learning/reading-language.astro",
+    "route": null,
+    "imports": 1,
+    "uses": [
+      {
+        "binding": "banner",
+        "asset": "sb-library.jpg",
+        "component": "PageHero",
+        "alt": null
+      }
+    ]
+  },
+  {
+    "file": "pages/academics/teaching-learning/stem-robotics.astro",
+    "route": null,
+    "imports": 1,
+    "uses": [
+      {
+        "binding": "banner",
+        "asset": "sb-chem-lab.jpg",
+        "component": "PageHero",
+        "alt": null
+      }
+    ]
+  },
+  {
+    "file": "pages/academics/teaching-learning.astro",
+    "route": null,
+    "imports": 1,
+    "uses": [
+      {
+        "binding": "heroPhoto",
+        "asset": "sb-comp-lab-2.jpg",
+        "component": "PageHero",
+        "alt": null
+      }
+    ]
+  }
+]

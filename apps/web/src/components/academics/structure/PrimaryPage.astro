@@ -65,25 +65,15 @@
  * same scroll-driven stroke-dashoffset the Experiential page uses — decoration
  * over an always-painted dashed route, so nothing is lost if the script fails.
  */
-import { Picture } from 'astro:assets';
+import SmartImage from '../../../components/ui/SmartImage.astro';
 
 /* ── PHOTOGRAPHY — nine genuine Sunbeam Ballia frames, each used ONCE. ────── */
-import pRoom from '../../../assets/school-event/Impetus—ClassesIII-V/Impetus—ClassesIII-V-02.jpg';
-import pMic from '../../../assets/school-event/Impetus—ClassesIII-V/Impetus—ClassesIII-V-05.jpg';
-import pCraft from '../../../assets/School Activity in Uniform/School Activity in Uniform (5).jpeg';
-import pCitation from '../../../assets/school-event/Impetus—ClassesIII-V/Impetus—ClassesIII-V-03.jpg';
-import pBoard from '../../../assets/school-event/Impetus—ClassesIII-V/Impetus—ClassesIII-V-04.jpg';
-import pMaking from '../../../assets/School Activity in Uniform/Embriodery.jpg';
-import pReading from '../../../assets/school-event/Reading-Carnival/Reading-Carnival-03.jpg';
-import pAssembly from '../../../assets/school-event/Impetus—ClassesIII-V/Impetus—ClassesIII-V-08.jpg';
-import pLamp from '../../../assets/school-event/Impetus—ClassesIII-V/Impetus—ClassesIII-V-07.jpg';
-import pLibrary from '../../../assets/library/DSC_1226 copy.jpg';
-import pComputer from '../../../assets/computer lab/DSC_1206 copy.jpg';
-import pBio from '../../../assets/bio lab/DSC_1274 copy.jpg';
-import pCourt from '../../../assets/basket ball/DSC_1280 copy.jpg';
-import pCohort from '../../../assets/photos/sunbeem-3.jpg';
+import ClipHeading from '../../ui/ClipHeading.astro';
+import RichLine from '../../ui/RichLine.astro';
+import { getPrimaryStage } from '../../../lib/cms';
 
-const S = 'Sunbeam School Ballia';
+const { open, rail, appr, act, val, space, jrn, close } = await getPrimaryStage();
+
 
 const CURRICULUM = '/academics/philosophy/curriculum/';
 const FACILITIES = '/campus/facilities-infrastructure/';
@@ -117,70 +107,23 @@ const MARK: Record<string, string> = {
    These are published on Teaching & Learning as the four things every class is
    taught against. The strip carries the school's names for them, shortened only
    where a two-word cell demands it. */
-const pillars = [
-  { n: '01', mark: 'learner', k: 'Student-centred', v: 'Pace and task follow the child.' },
-  { n: '02', mark: 'hand', k: 'Experiential', v: 'A concept met in the hand first.' },
-  { n: '03', mark: 'bulb', k: 'Critical & creative', v: 'Weigh it, test it, argue it.' },
-  { n: '04', mark: 'book', k: 'Curriculum', v: 'CBSE, published class by class.' },
-] as const;
 
 /* ── SECTION 02 — WHO TEACHES THE PRIMARY YEARS ───────────────────────────
    ⚠ NOT A SUBJECT LIST. See the header note. Every cell below is a post the
    school advertises by name, or a room it publishes by name. */
-const staff = [
-  { mark: 'teacher', k: 'All subjects', v: 'The mother teacher, “with knowledge of all subjects.”' },
-  { mark: 'speech', k: 'Storytelling', v: 'An English story teller — a named post on the primary staff.' },
-  { mark: 'music', k: 'Music', v: 'A music teacher, recruited for these years specifically.' },
-  { mark: 'dance', k: 'Dance', v: 'A dance teacher, with a sprung-floor room to work in.' },
-  { mark: 'screen', k: 'Computing', v: 'The junior computer lab — 40+ machines, one to a child.' },
-  { mark: 'brush', k: 'Art', v: 'A dedicated art room for drawing, painting and craft.' },
-  { mark: 'ball', k: 'Sport', v: 'Fifteen sports across the indoor and outdoor programme.' },
-] as const;
 
 /* ── SECTION 03 — the four commitments again, this time in full ───────────
    The strip in 01 is the headline; this is the school's own sentence for each. */
-const approach = [
-  { k: 'Student-centred learning', v: 'Pace, grouping and task follow what a particular child is ready for next — teaching organised around the learner rather than the lecture.' },
-  { k: 'Experiential & inquiry-based learning', v: 'A concept met in the hand before it is met in the exam: practical work, and lessons that open with a question rather than a conclusion.' },
-  { k: 'Critical thinking & creativity', v: 'Weighing evidence, testing a claim, arguing a position — and the room to make something new.' },
-  { k: 'Curriculum excellence', v: 'The CBSE curriculum, published class by class as the school’s PRECEPT syllabus from Nursery to Class XII.' },
-] as const;
 
 /* ── SECTION 04 — THE RECORD. Each line names the class that did it. ─────── */
-const record = [
-  { who: 'Class I', k: 'Attire Speak', v: 'A speaking competition across Sunbeam branches — entered by the school’s six-year-olds.' },
-  { who: 'Nursery – II', k: 'SOF Olympiad', v: 'The Science Olympiad Foundation olympiad, sat from the youngest years upward.' },
-  { who: 'Classes III–V', k: 'SOF Zonal Excellence', v: 'The zonal award, with a ₹500 voucher, for students in the primary years.' },
-  { who: 'Classes III–V', k: 'Indian Folk Painting', v: '“Students showed the richness of Indian folk art in their own strokes.”' },
-  { who: 'Classes III–V', k: 'Heritage Week', v: 'A week inside the culture and traditions of India — art, dance and music.' },
-] as const;
 
 /* ── SECTION 05 — the school's OWN three values, off its own crest ────────
    The words are the school's. The glosses are the ones already published on
    Teaching & Learning, verbatim. */
-const values = [
-  { n: '01', mark: 'duty', k: 'Duty', v: 'The work a school owes a child, and a child owes the subject.' },
-  { n: '02', mark: 'devotion', k: 'Devotion', v: 'Attention paid to one learner at a time, not to a class average.' },
-  { n: '03', mark: 'discipline', k: 'Discipline', v: 'The habit that makes ability count: turning up, and finishing.' },
-] as const;
 
 /* ── SECTION 06 — spaces a primary child actually uses ───────────────────── */
-const spaces = [
-  'Smart classrooms — 75+ across the four floors',
-  'Nalanda Library — 17,574 books and 25 periodicals',
-  'Junior computer laboratory — 40+ machines',
-  'Science laboratories, from the general room upward',
-  'Art room, dance room and the music programme',
-  'Fifteen sports, indoor and outdoor',
-] as const;
 
 /* ── SECTION 07 — four stages, each anchored to something published ─────── */
-const journey = [
-  { n: '01', mark: 'seed', k: 'Explore', v: 'Impetus, the school’s own activity programme for Classes III–V.' },
-  { n: '02', mark: 'book', k: 'Learn', v: 'PRECEPT — a syllabus document published for every class.' },
-  { n: '03', mark: 'target', k: 'Apply', v: 'Canva presentations, folk painting, a week inside Indian heritage.' },
-  { n: '04', mark: 'cup', k: 'Grow', v: 'A national olympiad from Nursery, and a zonal award in these years.' },
-] as const;
 ---
 
 {/* ══ 01 · FOUNDATION IN ACTION ══════════════════════════════════════════════
@@ -194,43 +137,27 @@ const journey = [
 
   <div class="u-container pr-open__grid">
     <div class="pr-open__copy">
-      <p class="pr-kicker" data-reveal>Foundation in action</p>
-      <h2 class="pr-h pr-open__h" id="pr-open-t">
-        <span data-clip data-clip-delay="0">Curious today.</span>
-        <span data-clip data-clip-delay="150"><em>Confident tomorrow.</em></span>
-      </h2>
+      <p class="pr-kicker" data-reveal>{open.kicker}</p>
+      <ClipHeading class="pr-h pr-open__h" id="pr-open-t" text={open.heading} />
 
-      <p class="pr-body" data-reveal data-reveal-delay="200">
-        Five classes, and five published syllabus documents. The curriculum is CBSE’s, and the school
-        issues it class by class as its <strong>PRECEPT</strong> syllabus — a separate document for
-        every year from Nursery to Class XII, for session <strong>2026-27</strong>. Primary is five
-        of them.
-      </p>
-      <p class="pr-body" data-reveal data-reveal-delay="260">
-        Alongside the timetable, Classes III to V take <strong>Impetus</strong> — the school’s own
-        activity programme, and the reason a nine-year-old here ends up on a stage with a microphone
-        explaining where she finds mathematics.
-      </p>
+      <RichLine class="pr-body" text={open.body[0]} reveal revealDelay={200} />
+      <RichLine class="pr-body" text={open.body[1]} reveal revealDelay={260} />
 
       <ul class="pr-pillars">
-        {pillars.map((p, i) => (
+        {open.cells.map((p, i) => (
           <li class="pr-pillar" data-reveal data-reveal-delay={300 + i * 70}>
             <span class="pr-pillar__m" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none">
                 <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={MARK[p.mark]} />
               </svg>
             </span>
-            <span class="pr-pillar__n t-tabular">{p.n}</span>
-            <span class="pr-pillar__k">{p.k}</span>
-            <span class="pr-pillar__v">{p.v}</span>
+            <span class="pr-pillar__n t-tabular">{String(i + 1).padStart(2, '0')}</span>
+            <span class="pr-pillar__k">{p.label}</span>
+            <span class="pr-pillar__v">{p.value}</span>
           </li>
         ))}
       </ul>
-      <p class="pr-note" data-reveal data-reveal-delay="600">
-        The four are the school’s own, published on
-        {' '}<a class="pr-link" href={TEACHING}>Teaching &amp; Learning</a> as what every class is
-        taught against.
-      </p>
+      <RichLine class="pr-note" text={open.body[2]} linkClass="pr-link" reveal revealDelay={600} />
     </div>
 
     {/* ⚠ THE COLLAGE IS BUILT INSIDE ITS OWN COLUMN. The overhang frame stops at
@@ -238,10 +165,9 @@ const journey = [
         overlaps without a single pixel of page overflow. */}
     <div class="pr-open__stage">
       <div class="pr-open__lead" data-mask>
-        <Picture
-          src={pMic}
-          alt={`A student of ${S} presenting at the microphone during the Impetus “Math Around Me” session`}
-          formats={['webp']}
+        <SmartImage
+          file={open.shots[0]?.image} alt={open.shots[0]?.alt ?? ''}
+         
           widths={[520, 880, 1200]}
           sizes="(max-width: 1023px) 92vw, 42vw"
           loading="eager"
@@ -249,10 +175,9 @@ const journey = [
         />
       </div>
       <div class="pr-open__sm" data-pop data-pop-delay="180">
-        <Picture
-          src={pCraft}
-          alt={`Two students of ${S} sharing a desk, each working on her own drawing with colour pencils and cut paper`}
-          formats={['webp']}
+        <SmartImage
+          file={open.shots[1]?.image} alt={open.shots[1]?.alt ?? ''}
+         
           widths={[320, 560]}
           sizes="(max-width: 1023px) 46vw, 18vw"
           loading="lazy"
@@ -260,10 +185,9 @@ const journey = [
         />
       </div>
       <div class="pr-open__cir" data-pop data-pop-delay="300">
-        <Picture
-          src={pCitation}
-          alt={`A student of ${S} receiving a Citation of Appreciation from a teacher at the Impetus session`}
-          formats={['webp']}
+        <SmartImage
+          file={open.shots[2]?.image} alt={open.shots[2]?.alt ?? ''}
+         
           widths={[220, 400]}
           sizes="(max-width: 1023px) 30vw, 12vw"
           loading="lazy"
@@ -287,28 +211,21 @@ const journey = [
 
   <div class="u-container pr-rail__grid">
     <div class="pr-rail__head">
-      <p class="pr-kicker" data-reveal>Who teaches the primary years</p>
-      <h2 class="pr-h pr-rail__h" id="pr-rail-t">
-        <span data-clip data-clip-delay="0">One class teacher.</span>
-        <span data-clip data-clip-delay="150"><em>Four specialists.</em></span>
-      </h2>
-      <p class="pr-body pr-rail__b" data-reveal data-reveal-delay="200">
-        The school advertises its primary posts by name, and the shape of the stage is in the wording:
-        one <strong>mother teacher</strong> carrying every subject, with dance, storytelling and music
-        taught by people hired to teach only that.
-      </p>
+      <p class="pr-kicker" data-reveal>{rail.kicker}</p>
+      <ClipHeading class="pr-h pr-rail__h" id="pr-rail-t" text={rail.heading} />
+      <RichLine class="pr-body pr-rail__b" text={rail.body[0]} reveal revealDelay={200} />
     </div>
 
     <ol class="pr-cells">
-      {staff.map((s, i) => (
+      {rail.cells.map((s, i) => (
         <li class="pr-cell" data-reveal data-reveal-delay={140 + i * 60}>
           <span class="pr-cell__m" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none">
               <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={MARK[s.mark]} />
             </svg>
           </span>
-          <h3 class="pr-cell__k">{s.k}</h3>
-          <p class="pr-cell__v">{s.v}</p>
+          <h3 class="pr-cell__k">{s.label}</h3>
+          <p class="pr-cell__v">{s.value}</p>
         </li>
       ))}
     </ol>
@@ -319,12 +236,7 @@ const journey = [
       wider on each side than every headline on the page. The container wraps it
       instead. */}
   <div class="u-container">
-    <p class="pr-note pr-rail__note" data-reveal data-reveal-delay="560">
-      <strong>On subjects.</strong> The school publishes that a PRECEPT syllabus document exists for
-      every class. It does not publish what is inside one, so no primary subject scheme is set out
-      here — only the posts and rooms it names itself. See
-      {' '}<a class="pr-link" href={CURRICULUM}>Curriculum</a>.
-    </p>
+    <RichLine class="pr-note pr-rail__note" text={rail.body[1]} linkClass="pr-link" reveal revealDelay={560} />
   </div>
 </section>
 
@@ -336,10 +248,9 @@ const journey = [
 
   <div class="u-container pr-appr__grid">
     <div class="pr-appr__pic" data-zoom data-zoom-to="1.04">
-      <Picture
-        src={pBoard}
-        alt={`A teacher at ${S} introducing the Impetus Canva Presentation session at the interactive board`}
-        formats={['webp']}
+      <SmartImage
+        file={appr.shots[0]?.image} alt={appr.shots[0]?.alt ?? ''}
+       
         widths={[560, 900, 1280]}
         sizes="(max-width: 1023px) 92vw, 48vw"
         loading="lazy"
@@ -348,18 +259,12 @@ const journey = [
     </div>
 
     <div class="pr-appr__copy">
-      <p class="pr-kicker" data-reveal>Our approach</p>
-      <h2 class="pr-h pr-appr__h" id="pr-appr-t">
-        <span data-clip data-clip-delay="0">Think. Explore.</span>
-        <span data-clip data-clip-delay="150"><em>Understand.</em></span>
-      </h2>
-      <p class="pr-body" data-reveal data-reveal-delay="200">
-        The school states four commitments and measures an ordinary Tuesday morning against them.
-        They are quoted below in its own words rather than paraphrased.
-      </p>
+      <p class="pr-kicker" data-reveal>{appr.kicker}</p>
+      <ClipHeading class="pr-h pr-appr__h" id="pr-appr-t" text={appr.heading} />
+      <RichLine class="pr-body" text={appr.body[0]} reveal revealDelay={200} />
 
       <ul class="pr-checks">
-        {approach.map((a, i) => (
+        {appr.cells.map((a, i) => (
           <li class="pr-check" data-reveal data-reveal-delay={250 + i * 80}>
             <span class="pr-check__i" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none">
@@ -368,8 +273,8 @@ const journey = [
               </svg>
             </span>
             <span class="pr-check__t">
-              <span class="pr-check__k">{a.k}</span>
-              <span class="pr-check__v">{a.v}</span>
+              <span class="pr-check__k">{a.label}</span>
+              <span class="pr-check__v">{a.value}</span>
             </span>
           </li>
         ))}
@@ -390,10 +295,9 @@ const journey = [
   <div class="u-container pr-act__grid">
     <div class="pr-act__stage">
       <div class="pr-act__lead" data-mask>
-        <Picture
-          src={pMaking}
-          alt={`Students of ${S} seated on the floor in a circle, working with embroidery hoops, thread and felt`}
-          formats={['webp']}
+        <SmartImage
+          file={act.shots[0]?.image} alt={act.shots[0]?.alt ?? ''}
+         
           widths={[520, 880, 1200]}
           sizes="(max-width: 1023px) 92vw, 42vw"
           loading="lazy"
@@ -401,10 +305,9 @@ const journey = [
         />
       </div>
       <div class="pr-act__f1" data-pop data-pop-delay="160">
-        <Picture
-          src={pReading}
-          alt={`The Reading Carnival display at ${S}, its Class 3–5 story book rack behind the guests`}
-          formats={['webp']}
+        <SmartImage
+          file={act.shots[1]?.image} alt={act.shots[1]?.alt ?? ''}
+         
           widths={[320, 560]}
           sizes="(max-width: 1023px) 44vw, 17vw"
           loading="lazy"
@@ -412,10 +315,9 @@ const journey = [
         />
       </div>
       <div class="pr-act__f2" data-pop data-pop-delay="260">
-        <Picture
-          src={pAssembly}
-          alt={`Junior classes of ${S} seated together under the covered ground at an Impetus gathering`}
-          formats={['webp']}
+        <SmartImage
+          file={act.shots[2]?.image} alt={act.shots[2]?.alt ?? ''}
+         
           widths={[320, 560]}
           sizes="(max-width: 1023px) 40vw, 16vw"
           loading="lazy"
@@ -423,10 +325,9 @@ const journey = [
         />
       </div>
       <div class="pr-act__cir" data-pop data-pop-delay="360">
-        <Picture
-          src={pLamp}
-          alt={`Staff of ${S} lighting the lamp at the inauguration of the Impetus programme`}
-          formats={['webp']}
+        <SmartImage
+          file={act.shots[3]?.image} alt={act.shots[3]?.alt ?? ''}
+         
           widths={[220, 400]}
           sizes="(max-width: 1023px) 28vw, 11vw"
           loading="lazy"
@@ -436,32 +337,22 @@ const journey = [
     </div>
 
     <div class="pr-act__copy">
-      <p class="pr-kicker" data-reveal>Learning through activities</p>
-      <h2 class="pr-h pr-act__h" id="pr-act-t">
-        <span data-clip data-clip-delay="0">Learning doesn’t stop</span>
-        <span data-clip data-clip-delay="150"><em>at the desk.</em></span>
-      </h2>
-      <p class="pr-body" data-reveal data-reveal-delay="200">
-        The clearest thing about this stage is not a description of it — it is the record. Every line
-        below names the class that did it, and each is something the school published rather than
-        something claimed on its behalf.
-      </p>
+      <p class="pr-kicker" data-reveal>{act.kicker}</p>
+      <ClipHeading class="pr-h pr-act__h" id="pr-act-t" text={act.heading} />
+      <RichLine class="pr-body" text={act.body[0]} reveal revealDelay={200} />
 
       <ol class="pr-record">
-        {record.map((r, i) => (
+        {act.cells.map((r, i) => (
           <li class="pr-rec" data-reveal data-reveal-delay={250 + i * 60}>
-            <p class="pr-rec__who t-tabular">{r.who}</p>
+            <p class="pr-rec__who t-tabular">{r.note}</p>
             <div class="pr-rec__t">
-              <p class="pr-rec__k">{r.k}</p>
-              <p class="pr-rec__v">{r.v}</p>
+              <p class="pr-rec__k">{r.label}</p>
+              <p class="pr-rec__v">{r.value}</p>
             </div>
           </li>
         ))}
       </ol>
-      <p class="pr-note" data-reveal data-reveal-delay="560">
-        The full record, year group by year group, is on
-        {' '}<a class="pr-link" href={SUCCESS}>Student Success</a>.
-      </p>
+      <RichLine class="pr-note" text={act.body[1]} linkClass="pr-link" reveal revealDelay={560} />
     </div>
   </div>
 </section>
@@ -476,27 +367,22 @@ const journey = [
 <section class="pr-val" aria-labelledby="pr-val-t">
   <div class="u-container pr-val__grid">
     <div class="pr-val__head">
-      <p class="pr-kicker" data-reveal>Values we build every day</p>
-      <h2 class="pr-h pr-val__h" id="pr-val-t">
-        <span data-clip data-clip-delay="0">Good habits.</span>
-        <span data-clip data-clip-delay="150"><em>Strong character.</em></span>
-      </h2>
-      <p class="pr-note pr-val__note" data-reveal data-reveal-delay="200">
-        Three words, read off the crest on the school gate — and the school’s own gloss on each.
-      </p>
+      <p class="pr-kicker" data-reveal>{val.kicker}</p>
+      <ClipHeading class="pr-h pr-val__h" id="pr-val-t" text={val.heading} />
+      <RichLine class="pr-note pr-val__note" text={val.body[0]} reveal revealDelay={200} />
     </div>
 
     <ol class="pr-vals">
-      {values.map((v, i) => (
+      {val.cells.map((v, i) => (
         <li class="pr-vcol" data-reveal data-reveal-delay={160 + i * 100}>
           <span class="pr-vcol__m" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none">
               <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={MARK[v.mark]} />
             </svg>
           </span>
-          <p class="pr-vcol__n t-tabular">{v.n}</p>
-          <h3 class="pr-vcol__k">{v.k}</h3>
-          <p class="pr-vcol__v">{v.v}</p>
+          <p class="pr-vcol__n t-tabular">{String(i + 1).padStart(2, '0')}</p>
+          <h3 class="pr-vcol__k">{v.label}</h3>
+          <p class="pr-vcol__v">{v.value}</p>
         </li>
       ))}
     </ol>
@@ -512,19 +398,12 @@ const journey = [
 
   <div class="u-container pr-space__grid">
     <div class="pr-space__copy">
-      <p class="pr-kicker" data-reveal>Supportive environment</p>
-      <h2 class="pr-h pr-space__h" id="pr-space-t">
-        <span data-clip data-clip-delay="0">Spaces that</span>
-        <span data-clip data-clip-delay="150"><em>inspire learning.</em></span>
-      </h2>
-      <p class="pr-body" data-reveal data-reveal-delay="200">
-        A primary child at Sunbeam does not spend the week in one room. The rooms below are the
-        school’s own published inventory, and the junior computer laboratory is sized so a
-        nine-year-old works alone rather than in a group of four.
-      </p>
+      <p class="pr-kicker" data-reveal>{space.kicker}</p>
+      <ClipHeading class="pr-h pr-space__h" id="pr-space-t" text={space.heading} />
+      <RichLine class="pr-body" text={space.body[0]} reveal revealDelay={200} />
 
       <ul class="pr-feats">
-        {spaces.map((s, i) => (
+        {space.cells.map((s, i) => (
           <li class="pr-feat" data-reveal data-reveal-delay={250 + i * 55}>
             <span class="pr-feat__i" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none">
@@ -532,33 +411,30 @@ const journey = [
                 <path d="m8 12.2 2.8 2.8 5.4-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
             </span>
-            {s}
+            {s.label}
           </li>
         ))}
       </ul>
-      <p class="pr-note" data-reveal data-reveal-delay="600">
-        Every room above is listed on the school’s own
-        {' '}<a class="pr-link" href={FACILITIES}>facilities</a> inventory.
-      </p>
+      <RichLine class="pr-note" text={space.body[1]} linkClass="pr-link" reveal revealDelay={600} />
     </div>
 
     {/* ⚠ FOUR DIFFERENT SHAPES. Two tall, two wide, offset by a half-step — a
         2×2 of identical squares is the card grid the brief forbids. */}
     <div class="pr-quad">
       <figure class="pr-q pr-q--a" data-pop data-pop-delay="120">
-        <Picture src={pLibrary} alt={`The Nalanda Library at ${S}, its shelves signed by subject and its reading tables set out`} formats={['webp']} widths={[340, 620]} sizes="(max-width: 767px) 46vw, 22vw" loading="lazy" decoding="async" />
+        <SmartImage file={space.shots[0]?.image} alt={space.shots[0]?.alt ?? ''} widths={[340, 620]} sizes="(max-width: 767px) 46vw, 22vw" loading="lazy" decoding="async" />
         <figcaption>Nalanda Library</figcaption>
       </figure>
       <figure class="pr-q pr-q--b" data-pop data-pop-delay="200">
-        <Picture src={pComputer} alt={`A computer laboratory at ${S}, machines laid out along the benches`} formats={['webp']} widths={[340, 620]} sizes="(max-width: 767px) 46vw, 22vw" loading="lazy" decoding="async" />
+        <SmartImage file={space.shots[1]?.image} alt={space.shots[1]?.alt ?? ''} widths={[340, 620]} sizes="(max-width: 767px) 46vw, 22vw" loading="lazy" decoding="async" />
         <figcaption>Computer laboratory</figcaption>
       </figure>
       <figure class="pr-q pr-q--c" data-pop data-pop-delay="280">
-        <Picture src={pBio} alt={`The biology laboratory at ${S}, microscopes and models on the benches`} formats={['webp']} widths={[340, 620]} sizes="(max-width: 767px) 46vw, 22vw" loading="lazy" decoding="async" />
+        <SmartImage file={space.shots[2]?.image} alt={space.shots[2]?.alt ?? ''} widths={[340, 620]} sizes="(max-width: 767px) 46vw, 22vw" loading="lazy" decoding="async" />
         <figcaption>Science laboratory</figcaption>
       </figure>
       <figure class="pr-q pr-q--d" data-pop data-pop-delay="360">
-        <Picture src={pCourt} alt={`The basketball court at ${S}, the hoop set against the school block`} formats={['webp']} widths={[340, 620]} sizes="(max-width: 767px) 46vw, 22vw" loading="lazy" decoding="async" />
+        <SmartImage file={space.shots[3]?.image} alt={space.shots[3]?.alt ?? ''} widths={[340, 620]} sizes="(max-width: 767px) 46vw, 22vw" loading="lazy" decoding="async" />
         <figcaption>Sports facilities</figcaption>
       </figure>
     </div>
@@ -573,11 +449,8 @@ const journey = [
   <span class="pr-jrn__warm" aria-hidden="true"></span>
 
   <div class="u-container pr-jrn__inner">
-    <p class="pr-kicker pr-jrn__kicker" data-reveal>The primary journey</p>
-    <h2 class="pr-h pr-jrn__h" id="pr-jrn-t">
-      <span data-clip data-clip-delay="0">From curiosity</span>
-      <span data-clip data-clip-delay="150">to <em>capability.</em></span>
-    </h2>
+    <p class="pr-kicker pr-jrn__kicker" data-reveal>{jrn.kicker}</p>
+    <ClipHeading class="pr-h pr-jrn__h" id="pr-jrn-t" text={jrn.heading} />
 
     <div class="pr-jrn__track">
       {/* ⚠ THE RULE SITS ON THE NODE CENTRES. The nodes are the first row of the
@@ -591,16 +464,16 @@ const journey = [
       </span>
 
       <ol class="pr-steps">
-        {journey.map((j, i) => (
+        {jrn.cells.map((j, i) => (
           <li class="pr-step" data-reveal data-reveal-delay={140 + i * 120}>
             <span class="pr-step__node" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none">
                 <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={MARK[j.mark]} />
               </svg>
             </span>
-            <p class="pr-step__n t-tabular">{j.n}</p>
-            <h3 class="pr-step__k">{j.k}</h3>
-            <p class="pr-step__v">{j.v}</p>
+            <p class="pr-step__n t-tabular">{String(i + 1).padStart(2, '0')}</p>
+            <h3 class="pr-step__k">{j.label}</h3>
+            <p class="pr-step__v">{j.value}</p>
           </li>
         ))}
       </ol>
@@ -644,23 +517,15 @@ const journey = [
 {/* ══ 08 · THE CLOSE ═════════════════════════════════════════════════════════ */}
 <section class="pr-close" aria-labelledby="pr-close-t">
   <div class="pr-close__media" aria-hidden="true" data-parallax data-parallax-y="-40">
-    <Picture src={pCohort} alt="" formats={['webp']} widths={[1024, 1600, 2000]} sizes="100vw" loading="lazy" decoding="async" />
+    <SmartImage file={close.shots[0]?.image} alt={close.shots[0]?.alt ?? ''} widths={[1024, 1600, 2000]} sizes="100vw" loading="lazy" decoding="async" />
   </div>
   <span class="pr-close__scrim" aria-hidden="true"></span>
   <span class="pr-close__grain" aria-hidden="true"></span>
 
   <div class="u-container pr-close__inner">
-    <p class="pr-kicker pr-kicker--dark" data-reveal>A strong beginning</p>
-    <h2 class="pr-h pr-close__h" id="pr-close-t">
-      <span data-clip data-clip-delay="0">Strong today.</span>
-      <span data-clip data-clip-delay="150"><em>Ready for tomorrow.</em></span>
-    </h2>
-    <p class="pr-close__b" data-reveal data-reveal-delay="180">
-      Five classes, five published syllabus documents, one activity programme of the school’s own —
-      and a record of what each year group entered and brought home. Subject lists, period
-      allocations and the contents of the PRECEPT documents are not published, and are not
-      estimated here.
-    </p>
+    <p class="pr-kicker pr-kicker--dark" data-reveal>{close.kicker}</p>
+    <ClipHeading class="pr-h pr-close__h" id="pr-close-t" text={close.heading} />
+    <RichLine class="pr-close__b" text={close.body[0]} reveal revealDelay={180} />
   </div>
 </section>
 
@@ -676,7 +541,7 @@ const journey = [
   }
   .pr-kicker--dark { color: var(--sb-lime); }
 
-  .pr-h {
+  :global(.pr-h) {
     margin: clamp(12px, 1.5vw, 18px) 0 0;
     font-family: var(--sb-font-display);
     font-weight: 700;
@@ -684,36 +549,36 @@ const journey = [
     letter-spacing: -0.04em;
     color: var(--sb-charcoal);
   }
-  .pr-h span { display: block; }
-  .pr-h em { font-style: normal; color: var(--sb-violet); }
+  :global(.pr-h span) { display: block; }
+  :global(.pr-h em) { font-style: normal; color: var(--sb-violet); }
 
-  .pr-body {
+  :global(.pr-body) {
     max-width: 47ch;
     margin: clamp(13px, 1.6vw, 19px) 0 0;
     font-size: clamp(12.5px, 0.92vw, 14.5px);
     line-height: 1.78;
     color: var(--sb-text-secondary);
   }
-  .pr-body strong { font-weight: 700; color: var(--sb-charcoal); }
-  .pr-body em { font-style: italic; color: var(--sb-charcoal); }
+  :global(.pr-body strong) { font-weight: 700; color: var(--sb-charcoal); }
+  :global(.pr-body em) { font-style: italic; color: var(--sb-charcoal); }
 
-  .pr-note {
+  :global(.pr-note) {
     max-width: 56ch;
     margin: clamp(12px, 1.4vw, 17px) 0 0;
     font-size: clamp(10px, 0.74vw, 11.5px);
     line-height: 1.68;
     color: var(--sb-text-muted);
   }
-  .pr-note strong { font-weight: 700; color: var(--sb-charcoal); }
+  :global(.pr-note strong) { font-weight: 700; color: var(--sb-charcoal); }
 
-  .pr-link {
+  :global(.pr-link){
     color: var(--sb-violet);
     font-weight: 700;
     text-decoration: underline;
     text-underline-offset: 3px;
     text-decoration-thickness: 1px;
   }
-  .pr-link:hover { color: var(--sb-orange-bright); }
+  :global(.pr-link:hover){ color: var(--sb-orange-bright); }
 
   /* Decorative grounds. Masked so they fade rather than stopping at an edge —
      the brief asks for decoration that is discovered, not noticed. */
@@ -827,7 +692,7 @@ const journey = [
     border-radius: 50%;
     box-shadow: var(--sb-shadow-card-hover);
   }
-  .pr-open__h { font-size: clamp(28px, 3.3vw, 46px); }
+  :global(.pr-open__h) { font-size: clamp(28px, 3.3vw, 46px); }
 
   /* ⚠ A HAIRLINE STRIP, NOT FOUR CARDS. */
   .pr-pillars {
@@ -891,8 +756,8 @@ const journey = [
     gap: clamp(22px, 3vw, 46px);
     align-items: center;
   }
-  .pr-rail__h { font-size: clamp(24px, 2.6vw, 36px); }
-  .pr-rail__b { max-width: 34ch; }
+  :global(.pr-rail__h) { font-size: clamp(24px, 2.6vw, 36px); }
+  :global(.pr-rail__b) { max-width: 34ch; }
 
   /* ⚠ ONE RAIL, SEVEN CELLS, DIVIDED BY RULES. No background, no radius, no
      shadow — the brief rules out seven cards in as many words. */
@@ -927,7 +792,7 @@ const journey = [
     line-height: 1.56;
     color: var(--sb-text-muted);
   }
-  .pr-rail__note {
+  :global(.pr-rail__note) {
     max-width: none;
     margin-top: clamp(16px, 2vw, 26px);
     padding-top: clamp(12px, 1.4vw, 17px);
@@ -959,7 +824,7 @@ const journey = [
     object-fit: cover;
     object-position: 50% 44%;
   }
-  .pr-appr__h { font-size: clamp(27px, 3.1vw, 44px); }
+  :global(.pr-appr__h) { font-size: clamp(27px, 3.1vw, 44px); }
 
   .pr-checks {
     display: grid;
@@ -1070,7 +935,7 @@ const journey = [
     border-radius: 50%;
     box-shadow: var(--sb-shadow-card-hover);
   }
-  .pr-act__h { font-size: clamp(26px, 3vw, 42px); }
+  :global(.pr-act__h) { font-size: clamp(26px, 3vw, 42px); }
 
   .pr-record {
     margin: clamp(18px, 2.2vw, 28px) 0 0;
@@ -1123,8 +988,8 @@ const journey = [
     gap: clamp(22px, 3vw, 48px);
     align-items: center;
   }
-  .pr-val__h { font-size: clamp(24px, 2.6vw, 36px); }
-  .pr-val__note { max-width: 32ch; }
+  :global(.pr-val__h) { font-size: clamp(24px, 2.6vw, 36px); }
+  :global(.pr-val__note) { max-width: 32ch; }
 
   .pr-vals {
     display: grid;
@@ -1185,7 +1050,7 @@ const journey = [
     gap: clamp(26px, 3.6vw, 54px);
     align-items: center;
   }
-  .pr-space__h { font-size: clamp(26px, 3vw, 42px); }
+  :global(.pr-space__h) { font-size: clamp(26px, 3vw, 42px); }
 
   .pr-feats {
     display: grid;
@@ -1268,7 +1133,7 @@ const journey = [
     text-align: center;
   }
   .pr-jrn__kicker { text-align: center; }
-  .pr-jrn__h { max-width: 18ch; font-size: clamp(25px, 2.9vw, 40px); }
+  :global(.pr-jrn__h) { max-width: 18ch; font-size: clamp(25px, 2.9vw, 40px); }
 
   .pr-jrn__track { position: relative; width: 100%; margin: clamp(24px, 3vw, 42px) 0 0; }
   /* ⚠ THE RULE IS PINNED TO THE NODE CENTRE, computed from the node's own size
@@ -1368,13 +1233,13 @@ const journey = [
     background-size: 180px 180px;
   }
   .pr-close__inner { position: relative; display: grid; justify-items: center; text-align: center; }
-  .pr-close__h {
+  :global(.pr-close__h) {
     max-width: 20ch;
     font-size: clamp(26px, 3.2vw, 46px);
     color: #fff;
   }
-  .pr-close__h em { color: var(--sb-lime); font-style: italic; }
-  .pr-close__b {
+  :global(.pr-close__h em) { color: var(--sb-lime); font-style: italic; }
+  :global(.pr-close__b) {
     max-width: 66ch;
     margin: clamp(14px, 1.7vw, 21px) 0 0;
     font-size: clamp(12px, 0.88vw, 14px);
@@ -1388,9 +1253,9 @@ const journey = [
      two-frame pairs on the phone; the journey turns vertical. */
   @media (max-width: 1179px) {
     .pr-rail__grid { grid-template-columns: minmax(0, 1fr); gap: clamp(20px, 2.6vw, 30px); }
-    .pr-rail__b { max-width: 62ch; }
+    :global(.pr-rail__b) { max-width: 62ch; }
     .pr-val__grid { grid-template-columns: minmax(0, 1fr); gap: clamp(20px, 2.6vw, 30px); }
-    .pr-val__note { max-width: 62ch; }
+    :global(.pr-val__note) { max-width: 62ch; }
     .pr-cells { grid-template-columns: repeat(4, minmax(0, 1fr)); row-gap: clamp(18px, 2.4vw, 26px); }
     .pr-cell:nth-child(5) { padding-left: 0; border-left: 0; }
   }
@@ -1406,11 +1271,11 @@ const journey = [
     /* The picture leads on a narrow screen wherever it was in the second column. */
     .pr-open__stage,
     .pr-act__stage { order: -1; }
-    .pr-body { max-width: 62ch; }
+    :global(.pr-body) { max-width: 62ch; }
     .pr-open__h,
     .pr-appr__h,
     .pr-act__h,
-    .pr-space__h { font-size: clamp(27px, 4.8vw, 38px); }
+    :global(.pr-space__h) { font-size: clamp(27px, 4.8vw, 38px); }
     .pr-pillars { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: clamp(16px, 2.2vw, 22px); }
     .pr-pillar:nth-child(3) { padding-left: 0; border-left: 0; }
     .pr-act__ghost { font-size: clamp(66px, 12vw, 120px); }

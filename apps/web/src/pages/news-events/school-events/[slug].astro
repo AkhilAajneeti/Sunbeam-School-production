@@ -5,10 +5,12 @@
  * Same component as the workshops detail route; only `page` and `base` differ.
  */
 import DetailPage from '../../../components/news/DetailPage.astro';
-import { schoolEvents, type ChronicleItem } from '../../../data/newsPages';
+import { getChroniclePage, type ChronicleItem } from '../../../lib/cms';;
+
+const schoolEvents = await getChroniclePage('school-events');
 
 export async function getStaticPaths() {
-  const { schoolEvents: se } = await import('../../../data/newsPages');
+  const se = await getChroniclePage('school-events');
   return se.groups.flatMap((g) =>
     g.items
       .filter((i) => i.slug)

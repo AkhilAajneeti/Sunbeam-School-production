@@ -1,0 +1,50 @@
+{
+  "kind": "collectionType",
+  "collectionName": "achievement_records",
+  "info": {
+    "singularName": "achievement-record",
+    "pluralName": "achievement-records",
+    "displayName": "Achievement Record",
+    "description": "One line of the full record, sporting or academic. Mirrors the `sportRecord` and `academicRecord` exports of apps/web/src/data/achievements.ts."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 200
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
+    },
+    "meta": {
+      "type": "string",
+      "required": true,
+      "maxLength": 120
+    },
+    "body": {
+      "type": "text",
+      "required": true,
+      "maxLength": 800
+    },
+    "category": {
+      "type": "enumeration",
+      "required": true,
+      "default": "sport",
+      "enum": [
+        "sport",
+        "academic"
+      ]
+    },
+    "displayOrder": {
+      "type": "integer",
+      "default": 0,
+      "required": true
+    }
+  }
+}

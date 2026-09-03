@@ -16,10 +16,10 @@
  * today; using a senior-school photograph to represent Nursery would misstate
  * who the school teaches, so the rest keep labelled placeholders.
  */
-import { stages } from '../../data/home';
+import { getStages } from '../../lib/cms';
 import Photo from '../ui/Photo.astro';
-import seniorPhoto from '../../assets/school achivement/robo.jpg';
-import labPhoto from '../../assets/photos/sunbeem-students.jpg';
+
+const { pill: stagesPill, heading: stagesHeading, tagline: stagesTagline, stages } = await getStages();
 
 /**
  * Keyed by the  field on each stage in data/home.ts, so adding a
@@ -29,16 +29,6 @@ import labPhoto from '../../assets/photos/sunbeem-students.jpg';
  * Photo falls back to a labelled placeholder whenever  is undefined, and
  * these stages simply have no Ballia photograph yet. See docs/08 D20.
  */
-const photos: Record<string, { src: ImageMetadata; alt: string }> = {
-  senior: {
-    src: seniorPhoto,
-    alt: 'The school’s RoboWunder International Robotics Championship award graphic.',
-  },
-  lab: {
-    src: labPhoto,
-    alt: 'Sunbeam School Ballia students in lab coats performing a chemistry practical on the law of conservation of mass.',
-  },
-};
 
 const ACTIVE = 3; // Secondary — the stage most parents are deciding about
 ---
@@ -56,8 +46,8 @@ const ACTIVE = 3; // Secondary — the stage most parents are deciding about
               brief={s.imageBrief}
               ref="A2"
               quiet
-              src={photos[(s as any).photo ?? '']?.src}
-              alt={photos[(s as any).photo ?? '']?.alt}
+              file={s.photo}
+              alt={s.photoAlt ?? ''}
               sizes="(max-width: 1023px) 60vw, 22vw"
             />
             <span class="stages__feature-badge pill">{s.badge}</span>
@@ -67,7 +57,7 @@ const ACTIVE = 3; // Secondary — the stage most parents are deciding about
 
       {/* --- Copy column ----------------------------------------------------- */}
       <div class="stages__head">
-        <p class="stages__pill"><span class="pill pill--violet">Leading Our Journey</span></p>
+        <p class="stages__pill"><span class="pill pill--violet">{stagesPill}</span></p>
 
         <div class="stages__title">
           <svg class="stages__icon" width="46" height="40" viewBox="0 0 46 40" fill="none" aria-hidden="true">
@@ -77,14 +67,10 @@ const ACTIVE = 3; // Secondary — the stage most parents are deciding about
               stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
             <path d="M44 12v11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" />
           </svg>
-          <h2 class="stages__heading t-h2-sans" id="stages-heading">
-            Fourteen years, five stages, one continuous idea
-          </h2>
+          <h2 class="stages__heading t-h2-sans" id="stages-heading">{stagesHeading}</h2>
         </div>
 
-        <p class="stages__tagline">
-          Thoughtfully crafted education, driven by excellence and innovation.
-        </p>
+        <p class="stages__tagline">{stagesTagline}</p>
 
         <div class="stages__nav">
           <button class="stages__arrow stages__arrow--ghost" type="button" data-prev
@@ -114,8 +100,8 @@ const ACTIVE = 3; // Secondary — the stage most parents are deciding about
                   brief={s.imageBrief}
                   ref="A2"
                   quiet
-                  src={photos[(s as any).photo ?? '']?.src}
-                  alt={photos[(s as any).photo ?? '']?.alt}
+                  file={s.photo}
+                  alt={s.photoAlt ?? ''}
                   sizes="(max-width: 767px) 72vw, 220px"
                 />
                 <span class="scard__badge pill">{s.badge}</span>

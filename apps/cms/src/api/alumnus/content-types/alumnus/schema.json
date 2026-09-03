@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "alumni",
+  "info": {
+    "singularName": "alumnus",
+    "pluralName": "alumni",
+    "displayName": "Alumnus",
+    "description": "One alumni placement card. Mirrors the `alumni` export of apps/web/src/data/alumni.ts."
+  },
+  "options": { "draftAndPublish": true },
+  "pluginOptions": {},
+  "attributes": {
+    "name": { "type": "string", "required": true, "maxLength": 160 },
+    "slug": { "type": "uid", "targetField": "name", "required": true },
+    "study": { "type": "string", "required": true, "maxLength": 240 },
+    "placed": { "type": "string", "required": true, "maxLength": 160 },
+    "poster": { "type": "media", "multiple": false, "required": true, "allowedTypes": ["images"] },
+    "alt": { "type": "text", "required": true, "maxLength": 500 },
+    "video": { "type": "string", "maxLength": 500 },
+    "displayOrder": { "type": "integer", "default": 0, "required": true }
+  }
+}

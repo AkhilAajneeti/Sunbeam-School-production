@@ -1,0 +1,227 @@
+{
+  "open": {
+    "kicker": "Classes IX – X",
+    "heading": "Someone who\n{{actually did it.}}",
+    "body": [
+      "The school runs **Guiding Futures, Shaping Lives** for Classes IX to XII. The 2025 session was taken by **Mr. Ashutosh Kumar Pandey, IRS, Deputy Commissioner of Income Tax**, who shared his own educational journey rather than a careers slide deck.",
+      "The measure of a programme like this is who agrees to come and speak as it is — and the school names its guests, with their office, every time."
+    ],
+    "caption": "Guests being shown the library at a Guiding Futures session. The school has published no photograph of the address itself.",
+    "shots": [
+      {
+        "key": "pGuest",
+        "asset": "assets/school-event/Guiding-Futures/Guiding-Futures-01.jpg",
+        "name": "Guiding-Futures-01",
+        "alt": "Guests at the Guiding Futures session being shown the Nalanda Library at {schoolName}"
+      }
+    ],
+    "cells": [
+      {
+        "mark": "person",
+        "label": "A named guest",
+        "value": "Mr. Ashutosh Kumar Pandey, IRS."
+      },
+      {
+        "mark": "badge",
+        "label": "His office",
+        "value": "Deputy Commissioner of Income Tax."
+      },
+      {
+        "mark": "group",
+        "label": "The audience",
+        "value": "Classes IX to XII, together."
+      },
+      {
+        "mark": "path",
+        "label": "What he brought",
+        "value": "His own educational journey."
+      }
+    ],
+    "cellsTwo": []
+  },
+  "board": {
+    "kicker": "And the reason for the rooms",
+    "heading": "Board practicals\n{{start here}}",
+    "body": [
+      "Class IX is the year the laboratory programme stops being introductory. Physics, Chemistry and Biology each carry **board practicals from Class IX to Class XII** — the same practicals a board expects a candidate to have done, in rooms built for one subject each.",
+      "The syllabus itself is published class by class as [PRECEPT](/academics/philosophy/curriculum/); board outcomes have their own page, [Board Results](/academics/board-results/)."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pRoom",
+        "asset": "assets/bio lab/DSC_1274 copy.jpg",
+        "name": "DSC_1274 copy",
+        "alt": "A subject laboratory at {schoolName}, benches and apparatus laid out along the room"
+      },
+      {
+        "key": "pBench",
+        "asset": "assets/photos/sb-chem-lab.jpg",
+        "name": "sb-chem-lab",
+        "alt": "Students of {schoolName} at the bench in the chemistry laboratory"
+      }
+    ],
+    "cells": [
+      {
+        "mark": "flask",
+        "label": "Physics · Chemistry · Biology",
+        "value": "Board practicals, Classes IX–XII — one room built for each subject."
+      },
+      {
+        "mark": "person",
+        "label": "Guiding Futures · IX–XII",
+        "value": "Mr. Ashutosh Kumar Pandey, IRS, Deputy Commissioner of Income Tax."
+      },
+      {
+        "mark": "doc",
+        "label": "PRECEPT syllabus",
+        "value": "A published document per class, session 2026-27."
+      },
+      {
+        "mark": "flag",
+        "label": "Milestone",
+        "value": "The CBSE Class X board examination."
+      }
+    ],
+    "cellsTwo": []
+  },
+  "deep": {
+    "kicker": "Learning that stands on practice",
+    "heading": "Deeper questions.\n{{Stronger answers.}}",
+    "body": [
+      "Secondary is where understanding deepens, experiments become evidence and ideas take shape — and each of the four below names a room or a programme rather than a promise."
+    ],
+    "caption": null,
+    "shots": [],
+    "cells": [
+      {
+        "mark": "layers",
+        "label": "Conceptual depth",
+        "value": "Class IX is the year the laboratory programme stops being introductory."
+      },
+      {
+        "mark": "hand",
+        "label": "Practical work",
+        "value": "Board practicals in three rooms, carried from Class IX to Class XII."
+      },
+      {
+        "mark": "ask",
+        "label": "Independent thinking",
+        "value": "Four inquiry rooms among the twelve — Geography, Srijan, MUN and Active Learning."
+      },
+      {
+        "mark": "speech",
+        "label": "Communication",
+        "value": "Model United Nations: debate, committee procedure and position papers."
+      }
+    ],
+    "cellsTwo": []
+  },
+  "beyond": {
+    "kicker": "Opportunities that stay with you",
+    "heading": "Beyond the classroom,\n{{inside the school.}}",
+    "body": [
+      "None of the rooms below is added for the board years — they are already there, and Class IX is simply the point at which a student is expected to use all of them.",
+      "Every room above is on the school’s own [facilities](/campus/facilities-infrastructure/) inventory; the twelve laboratories are set out on [Laboratories & Academic Clubs](/academics/teaching-learning/laboratories-clubs/)."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pMicro",
+        "asset": "assets/photos/sb-sci-lab.jpg",
+        "name": "sb-sci-lab",
+        "alt": "A student of {schoolName} using a microscope beside plant specimens in flasks"
+      },
+      {
+        "key": "pMachines",
+        "asset": "assets/photos/sb-comp-lab-2.jpg",
+        "name": "sb-comp-lab-2",
+        "alt": "Younger students of {schoolName} working at desktop computers in the junior computer laboratory"
+      },
+      {
+        "key": "pLibrary",
+        "asset": "assets/photos/sb-library.jpg",
+        "name": "sb-library",
+        "alt": "Students of {schoolName} reading and working at tables in the Nalanda Library"
+      },
+      {
+        "key": "pCourt",
+        "asset": "assets/basket ball/DSC_1280 copy.jpg",
+        "name": "DSC_1280 copy",
+        "alt": "The basketball court at {schoolName}, the hoop set against the school block"
+      }
+    ],
+    "cells": [
+      {
+        "label": "Science laboratories — one room for each subject"
+      },
+      {
+        "label": "Computer laboratories, junior and senior — 40+ machines each"
+      },
+      {
+        "label": "Robotics Lab — drone, 3-D printer and telescope"
+      },
+      {
+        "label": "Four inquiry rooms among the twelve laboratories"
+      },
+      {
+        "label": "Nalanda Library — 17,574 books — and the language laboratory"
+      },
+      {
+        "label": "Fifteen sports, indoor and outdoor"
+      },
+      {
+        "label": "Guiding Futures, Shaping Lives — Classes IX to XII"
+      }
+    ],
+    "cellsTwo": []
+  },
+  "jrn": {
+    "kicker": "The secondary journey",
+    "heading": "From learning\nto {{leadership.}}",
+    "body": [],
+    "caption": null,
+    "shots": [],
+    "cells": [
+      {
+        "mark": "book",
+        "label": "Learn",
+        "value": "A syllabus document published for every class, as PRECEPT."
+      },
+      {
+        "mark": "flask",
+        "label": "Practise",
+        "value": "Board practicals in Physics, Chemistry and Biology, from Class IX."
+      },
+      {
+        "mark": "lens",
+        "label": "Analyse",
+        "value": "Four inquiry rooms for the work that has no single right answer."
+      },
+      {
+        "mark": "crown",
+        "label": "Lead",
+        "value": "Committee procedure and position papers in the Model UN room."
+      }
+    ],
+    "cellsTwo": []
+  },
+  "close": {
+    "kicker": "Two years, and a first board",
+    "heading": "Board practicals,\n{{and a clearer direction.}}",
+    "body": [
+      "Secondary is where preparation meets purpose: three laboratories carrying board practicals from Class IX, a syllabus published class by class, and a serving IRS officer in the hall telling four year groups how he got there. Board outcomes are published separately, and are not restated here."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pCohort",
+        "asset": "assets/photos/sunbeem-3.jpg",
+        "name": "sunbeem-3",
+        "alt": ""
+      }
+    ],
+    "cells": [],
+    "cellsTwo": []
+  }
+}

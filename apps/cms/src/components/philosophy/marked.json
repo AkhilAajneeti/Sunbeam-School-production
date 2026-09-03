@@ -1,0 +1,70 @@
+{
+  "collectionName": "components_philosophy_marked",
+  "info": {
+    "displayName": "Word with a symbol",
+    "icon": "bulletList",
+    "description": "One word and the symbol drawn beside it. ⚠ The symbols are drawn by the site, so the list is exactly the ones it can draw — pick the one that fits the word."
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true,
+      "maxLength": 40
+    },
+    "mark": {
+      "type": "enumeration",
+      "required": true,
+      "default": "bulb",
+      "enum": [
+        "book",
+        "hands",
+        "clipboard",
+        "speech",
+        "chart",
+        "cup",
+        "calendar",
+        "doc",
+        "pen",
+        "desk",
+        "flask",
+        "sun",
+        "clock",
+        "hourglass",
+        "search",
+        "target",
+        "bulb",
+        "medal",
+        "shield",
+        "bell",
+        "handHeart",
+        "eye",
+        "person",
+        "head",
+        "grow",
+        "quote",
+        "arrow",
+        "download",
+        "external",
+        "chat",
+        "atom",
+        "present",
+        "layers",
+        "refresh",
+        "hand",
+        "megaphone",
+        "ribbon",
+        "bookmark",
+        "globe",
+        "cap",
+        "pin",
+        "seat",
+        "spark",
+        "route",
+        "leaf",
+        "scroll",
+        "phone"
+      ]
+    }
+  }
+}

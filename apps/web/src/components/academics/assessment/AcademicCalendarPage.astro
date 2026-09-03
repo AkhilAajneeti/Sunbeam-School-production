@@ -30,16 +30,29 @@
  * published as images and not as a PDF — can be read without a download. Its
  * card carries "View sheets" where the other two carry "Download".
  */
-import { Picture } from 'astro:assets';
+import SmartImage from '../../../components/ui/SmartImage.astro';
 import '../../../styles/assessment.css';
 import { MARK } from './marks';
 import AsClose from './AsClose.astro';
 import Lightbox from '../../ui/Lightbox.astro';
-import { calendars, calendarSource, calendarCarries, calendarPlanning } from '../../../data/academicCalendar';
+import CmsImage from '../../ui/CmsImage.astro';
+import { getAcademicCalendarPageData, fileUrl } from '../../../lib/cms';
 
-import pMarch from '../../../assets/calender/planner-2026-march.jpg';
-import pApril from '../../../assets/calender/planner-2026-april.jpg';
-import pCohort from '../../../assets/photos/sunbeem-3.jpg';
+/* ⚠ FROM STRAPI NOW, NOT data/academicCalendar.ts. Two shapes in one call: the
+   calendars are a Collection Type (one document per session, and the school adds
+   one a year), while `source`, `carries` and `planning` are the page's own prose
+   and live on an Academic Calendar Page Single Type beside them.
+   The old data file remains on disk until this is verified in a production
+   build. */
+const { calendars, calendarSource, calendarCarries, calendarPlanning } =
+  await getAcademicCalendarPageData();
+
+import { getAcademicTopic } from '../../../lib/cms';
+
+const ac = await getAcademicTopic('/academics/academic-calendar/');
+const pMarch = ac.pic('pMarch');
+const pApril = ac.pic('pApril');
+const pCohort = ac.pic('pCohort');
 
 const S = 'Sunbeam School Ballia';
 const CONTACT = '/contact-us/';
@@ -98,10 +111,10 @@ const has = calendars.length > 0;
           data-parallax
           data-parallax-y="-26"
         >
-          <Picture
-            src={pMarch}
-            alt={`A month page of the Sunbeam School Calendar & Monthly Planner 2026-27, ruled into weeks with the month's observances printed in each cell`}
-            formats={['webp']}
+          <SmartImage
+            file={pMarch}
+            alt={ac.picAlt('pMarch')}
+           
             widths={[420, 720, 1000]}
             sizes="(max-width: 1023px) 62vw, 30vw"
             loading="eager"
@@ -118,10 +131,10 @@ const has = calendars.length > 0;
           data-pop
           data-pop-delay="220"
         >
-          <Picture
-            src={pApril}
-            alt={`A second month page of the same planner, the month in which the session begins`}
-            formats={['webp']}
+          <SmartImage
+            file={pApril}
+            alt={ac.picAlt('pApril')}
+           
             widths={[360, 620, 900]}
             sizes="(max-width: 1023px) 46vw, 22vw"
             loading="lazy"
@@ -209,18 +222,16 @@ const has = calendars.length > 0;
               <a
                 class="ac-doc__art"
                 data-lb-open
-                href={(d.sheets?.[0]?.image ?? d.image).src}
+                href={fileUrl(d.sheets?.[0]?.image ?? d.image)}
                 data-lb-alt={d.sheets?.[0]?.alt ?? d.alt}
-                data-lb-cap={d.sheets ? `${d.type} ${d.year} · sheet 1 of ${d.sheets.length}` : `${d.type} ${d.year}`}
+                data-lb-cap={d.sheets?.length ? `${d.type} ${d.year} · sheet 1 of ${d.sheets.length}` : `${d.type} ${d.year}`}
               >
-                <Picture
-                  src={d.image}
+                <CmsImage
+                  file={d.image}
                   alt={d.alt}
-                  formats={['webp']}
-                  widths={[320, 560]}
                   sizes="(max-width: 767px) 74vw, 20vw"
+                  fallbackWidth={420}
                   loading="lazy"
-                  decoding="async"
                 />
                 {d.current && <span class="ac-doc__now">Current session</span>}
               </a>
@@ -262,12 +273,12 @@ const has = calendars.length > 0;
                 {d.sheets.slice(1).map((s, k) => (
                   <a
                     data-lb-open
-                    href={s.image.src}
+                    href={fileUrl(s.image)}
                     data-lb-alt={s.alt}
                     data-lb-cap={`${d.type} ${d.year} · sheet ${k + 2} of ${d.sheets?.length}`}
                     tabindex="-1"
                   >
-                    <img src={s.image.src} alt="" width="1" height="1" loading="lazy" decoding="async" />
+                    <img src={fileUrl(s.image)} alt="" width="1" height="1" loading="lazy" decoding="async" />
                   </a>
                 ))}
               </span>

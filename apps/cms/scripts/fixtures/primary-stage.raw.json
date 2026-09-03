@@ -1,0 +1,164 @@
+{
+  "open": {
+    "kicker": "Foundation in action",
+    "heading": "Curious today.\n{{Confident tomorrow.}}",
+    "body": [
+      "Five classes, and five published syllabus documents. The curriculum is CBSE’s, and the school issues it class by class as its **PRECEPT** syllabus — a separate document for every year from Nursery to Class XII, for session **2026-27**. Primary is five of them.",
+      "Alongside the timetable, Classes III to V take **Impetus** — the school’s own activity programme, and the reason a nine-year-old here ends up on a stage with a microphone explaining where she finds mathematics.",
+      "The four are the school’s own, published on {' '}<a class=\"pr-link\" href={TEACHING}>Teaching & Learning</a> as what every class is taught against."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pMic"
+      },
+      {
+        "key": "pCraft"
+      },
+      {
+        "key": "pCitation"
+      }
+    ],
+    "runs": [
+      {
+        "field": "cells",
+        "list": "pillars"
+      }
+    ]
+  },
+  "rail": {
+    "kicker": "Who teaches the primary years",
+    "heading": "One class teacher.\n{{Four specialists.}}",
+    "body": [
+      "The school advertises its primary posts by name, and the shape of the stage is in the wording: one **mother teacher** carrying every subject, with dance, storytelling and music taught by people hired to teach only that.",
+      "**On subjects.** The school publishes that a PRECEPT syllabus document exists for every class. It does not publish what is inside one, so no primary subject scheme is set out here — only the posts and rooms it names itself. See {' '}<a class=\"pr-link\" href={CURRICULUM}>Curriculum</a>."
+    ],
+    "caption": null,
+    "shots": [],
+    "runs": [
+      {
+        "field": "cells",
+        "list": "staff"
+      }
+    ]
+  },
+  "appr": {
+    "kicker": "Our approach",
+    "heading": "Think. Explore.\n{{Understand.}}",
+    "body": [
+      "The school states four commitments and measures an ordinary Tuesday morning against them. They are quoted below in its own words rather than paraphrased."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pBoard"
+      }
+    ],
+    "runs": [
+      {
+        "field": "cells",
+        "list": "approach"
+      }
+    ]
+  },
+  "act": {
+    "kicker": "Learning through activities",
+    "heading": "Learning doesn’t stop\n{{at the desk.}}",
+    "body": [
+      "The clearest thing about this stage is not a description of it — it is the record. Every line below names the class that did it, and each is something the school published rather than something claimed on its behalf.",
+      "The full record, year group by year group, is on {' '}<a class=\"pr-link\" href={SUCCESS}>Student Success</a>."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pMaking"
+      },
+      {
+        "key": "pReading"
+      },
+      {
+        "key": "pAssembly"
+      },
+      {
+        "key": "pLamp"
+      }
+    ],
+    "runs": [
+      {
+        "field": "cells",
+        "list": "record"
+      }
+    ]
+  },
+  "val": {
+    "kicker": "Values we build every day",
+    "heading": "Good habits.\n{{Strong character.}}",
+    "body": [
+      "Three words, read off the crest on the school gate — and the school’s own gloss on each."
+    ],
+    "caption": null,
+    "shots": [],
+    "runs": [
+      {
+        "field": "cells",
+        "list": "values"
+      }
+    ]
+  },
+  "space": {
+    "kicker": "Supportive environment",
+    "heading": "Spaces that\n{{inspire learning.}}",
+    "body": [
+      "A primary child at Sunbeam does not spend the week in one room. The rooms below are the school’s own published inventory, and the junior computer laboratory is sized so a nine-year-old works alone rather than in a group of four.",
+      "Every room above is listed on the school’s own {' '}<a class=\"pr-link\" href={FACILITIES}>facilities</a> inventory."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pLibrary"
+      },
+      {
+        "key": "pComputer"
+      },
+      {
+        "key": "pBio"
+      },
+      {
+        "key": "pCourt"
+      }
+    ],
+    "runs": [
+      {
+        "field": "cells",
+        "list": "spaces"
+      }
+    ]
+  },
+  "jrn": {
+    "kicker": "The primary journey",
+    "heading": "From curiosity\nto {{capability.}}",
+    "body": [],
+    "caption": null,
+    "shots": [],
+    "runs": [
+      {
+        "field": "cells",
+        "list": "journey"
+      }
+    ]
+  },
+  "close": {
+    "kicker": "A strong beginning",
+    "heading": "Strong today.\n{{Ready for tomorrow.}}",
+    "body": [
+      "Five classes, five published syllabus documents, one activity programme of the school’s own — and a record of what each year group entered and brought home. Subject lists, period allocations and the contents of the PRECEPT documents are not published, and are not estimated here."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pCohort"
+      }
+    ],
+    "runs": []
+  }
+}

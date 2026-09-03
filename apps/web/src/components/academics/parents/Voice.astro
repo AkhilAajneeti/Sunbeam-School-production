@@ -29,8 +29,11 @@
  * school publishing its own five stars is marketing, not testimony.
  */
 import Photo from '../../ui/Photo.astro';
-import { parents } from '../../../data/academics';
-import portrait from '../../../assets/photos/sb-principal.jpg';
+import { getAcademicTopic } from '../../../lib/cms';
+
+const ac = await getAcademicTopic('/academics/parent-partnership/');
+const portrait = ac.pic('portrait');
+const parents = ac.blockMap('parents');
 
 const { voice } = parents;
 ---
@@ -42,7 +45,7 @@ const { voice } = parents;
 
       <div class="pvo__media">
         <Photo
-          src={portrait}
+          file={portrait}
           alt={`${voice.name}, Principal of Sunbeam School Ballia.`}
           brief="Principal portrait"
           ratio="1 / 1"

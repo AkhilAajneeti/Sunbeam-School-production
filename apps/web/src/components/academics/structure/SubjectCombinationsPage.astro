@@ -58,21 +58,59 @@
  * data-drift, data-parallax, data-draw, data-mask, data-zoom. With the motion
  * chunk absent every section is complete and readable.
  */
-import { Image, Picture } from 'astro:assets';
-import { school } from '../../../data/site';
+import { Image } from 'astro:assets';
+import SmartImage from '../../../components/ui/SmartImage.astro';
+import { getSchool } from '../../../lib/cms';
 /* ⚠ THE SUBJECT LISTS COME FROM THE DATA FILE, NOT FROM THIS PAGE. Same source
    as Combinations.astro on /academics/structure/, so the two can never disagree
    about what the school teaches. */
-import { streamDetail, combinationsFootnote } from '../../../data/academics';
 
 /* ── PHOTOGRAPHY — three frames, all genuine Sunbeam Ballia. No stock, per
    docs/07, and none of the four subject panels carries one. */
-import pLead from '../../../assets/photos/sb-phy-lab.jpg';    /* seniors at the benches, subject portraits behind */
-import pCampus from '../../../assets/photos/sunbeem-1.jpg';   /* the teaching blocks — the small breaking crop */
 
 /* Two raster accents, both from the project's hand-drawn set. */
 import oBooks from '../../../assets/icons/booksparkel.png';
 import oTick from '../../../assets/icons/booktick.png';
+import ClipHeading from '../../ui/ClipHeading.astro';
+import RichLine from '../../ui/RichLine.astro';
+import { getSubjectCombinations, getAcademicTopic } from '../../../lib/cms';
+
+/**
+ * `streams` is the page-level list drawn by both the worlds band and the map;
+ * `worlds` is the BAND those cards sit in. They were one word for two things.
+ */
+const { streams, open, worlds, map, close } = await getSubjectCombinations();
+/**
+ * ⚠ A SECOND, DIFFERENT PAGE'S RECORD. `streamDetail` and the footnote belong to
+ * the Academic Structure hub at /academics/structure/, not to this page, and are
+ * read here because this page prints them too. Converting them belongs with that
+ * hub, not with this conversion.
+ */
+const ac1 = await getAcademicTopic('/academics/structure/');
+const streamDetail = ac1.section('streamDetail').streams;
+const combinationsFootnote = ac1.section('combinationsFootnote').note;
+
+const school = await getSchool();
+
+/**
+ * ⚠ WHICH SYMBOL GOES WITH WHICH SUBJECT IS DESIGN, AND IT LIVES HERE.
+ * This was stored against the content, which meant an editor adding a subject
+ * to a stream had to know the map — and one that was not in it drew nothing.
+ * Held here, an unlisted subject falls back to the book rather than vanishing.
+ */
+const SUBJECT_MARK: Record<string, string> = {
+  Physics: 'atom',
+  Chemistry: 'flask',
+  Mathematics: 'sigma',
+  Biology: 'leaf',
+  English: 'book',
+  Accountancy: 'ledger',
+  'Business Studies': 'case',
+  Economics: 'bars',
+  History: 'column',
+  'Political Science': 'scale',
+  Geography: 'globe',
+};
 
 /* ── THE MARKS ──────────────────────────────────────────────────────────────
    24-unit box, 1.5 stroke, round caps and joins, no fill, `currentColor`. Same
@@ -103,42 +141,20 @@ const MARK: Record<string, string> = {
 
    `n`, `key` and `mark` are the only things this page adds: a display numeral,
    a CSS hook and which drawing goes with which stream. */
-const META = [
-  { n: '01', key: 'pcm', mark: 'atom' },
-  { n: '02', key: 'pcb', mark: 'leaf' },
-  { n: '03', key: 'com', mark: 'bars' },
-  { n: '04', key: 'hum', mark: 'globe' },
-] as const;
 
 /* Which drawing goes with which subject. Anything unlisted falls back to the
    book — a missing mark, never a broken row. */
-const SUBJECT_MARK: Record<string, string> = {
-  Physics: 'atom',
-  Chemistry: 'flask',
-  Mathematics: 'sigma',
-  Biology: 'leaf',
-  English: 'book',
-  Accountancy: 'ledger',
-  'Business Studies': 'case',
-  Economics: 'bars',
-  History: 'column',
-  'Political Science': 'scale',
-  Geography: 'globe',
-};
 
-const worlds = streamDetail.map((s, i) => ({
-  ...META[i],
-  name: s.name,
-  body: s.body,
-  core: s.core,
-  optional: s.optional,
-  additional: s.additional,
-  /* ⚠ ONE FLAG, AND IT IS ON THE CORE, NOT THE STREAM. `coreUnverified` is set
-     on Humanities and nowhere else; `unverified` (the elective flag) is false
-     throughout, because the school supplied those lists. Stamping the whole
-     panel would say the electives are doubtful too, which they are not. */
-  coreOwed: 'coreUnverified' in s && s.coreUnverified === true,
-}));
+
+/**
+ * ⚠ THE COLOUR OF EACH STREAM IS DESIGN, AND IT LIVES HERE.
+ * `key` was stored against the editorial text and only ever used as a CSS
+ * modifier - `sc-world--${key}` - running pcm, pcb, com, hum in list order. It
+ * was never a choice anybody made per stream, and a typo produced a card with
+ * no colour at all.
+ */
+const WORLD_KEYS = ['pcm', 'pcb', 'com', 'hum'];
+const keyOf = (i) => WORLD_KEYS[i % WORLD_KEYS.length];
 
 
 const CONTACT = '/contact-us/';
@@ -172,16 +188,9 @@ const CONTACT = '/contact-us/';
 
   <div class="u-container sc-open__grid-l">
     <div class="sc-open__copy">
-      <p class="sc-kicker" data-reveal>Subject Combinations</p>
-      <h2 class="sc-h sc-open__h" id="sc-open-t">
-        <span data-clip data-clip-delay="0">A stream is more</span>
-        <span data-clip data-clip-delay="150"><em>than a name.</em></span>
-      </h2>
-      <p class="sc-body" data-reveal data-reveal-delay="200">
-        This page shows what is known about the subjects attached to each Senior Secondary stream
-        at {school.name}, and clearly highlights what is <strong>confirmed</strong> by the school
-        and what is not yet published.
-      </p>
+      <p class="sc-kicker" data-reveal>{open.kicker}</p>
+      <ClipHeading class="sc-h sc-open__h" id="sc-open-t" text={open.heading} />
+      <RichLine class="sc-body" text={open.body[0]} reveal revealDelay={200} />
     </div>
 
     {/* ONE LARGE FRAME, ONE SMALLER BREAKING ITS CORNER — not two equal images.
@@ -191,10 +200,9 @@ const CONTACT = '/contact-us/';
       <Image class="sc-open__books" src={oBooks} alt="" width={160} aria-hidden="true" loading="lazy" />
 
       <figure class="sc-open__lead" data-mask data-zoom data-zoom-to="1.06">
-        <Picture
-          src={pLead}
-          alt={`Senior students of ${school.name} at the physics laboratory benches, apparatus in front of them and subject portraits along the wall`}
-          formats={['webp']}
+        <SmartImage
+          file={open.shots[0]?.image} alt={open.shots[0]?.alt ?? ''}
+         
           widths={[620, 980]}
           sizes="(max-width: 1023px) 92vw, 40vw"
           loading="lazy"
@@ -202,10 +210,9 @@ const CONTACT = '/contact-us/';
         />
       </figure>
       <figure class="sc-open__inset" data-parallax data-parallax-y="22">
-        <Picture
-          src={pCampus}
-          alt={`The campus of ${school.name} — its teaching blocks standing around the front lawn`}
-          formats={['webp']}
+        <SmartImage
+          file={open.shots[1]?.image} alt={open.shots[1]?.alt ?? ''}
+         
           widths={[320, 560]}
           sizes="(max-width: 1023px) 46vw, 22vw"
           loading="lazy"
@@ -225,20 +232,14 @@ const CONTACT = '/contact-us/';
 
   <div class="u-container">
     <div class="sc-worlds__head">
-      <p class="sc-kicker" data-reveal>The four subject worlds</p>
-      <h2 class="sc-h sc-worlds__h" id="sc-worlds-t">
-        <span data-clip data-clip-delay="0">Four streams.</span>
-        <span data-clip data-clip-delay="150"><em>Four unique subject worlds.</em></span>
-      </h2>
-      <p class="sc-body sc-worlds__b" data-reveal data-reveal-delay="200">
-        Each stream builds a different set of skills, perspectives and opportunities. Here is what
-        each stream focuses on:
-      </p>
+      <p class="sc-kicker" data-reveal>{worlds.kicker}</p>
+      <ClipHeading class="sc-h sc-worlds__h" id="sc-worlds-t" text={worlds.heading} />
+      <RichLine class="sc-body sc-worlds__b" text={worlds.body[0]} reveal revealDelay={200} />
     </div>
 
     <ol class="sc-worlds__grid">
-      {worlds.map((w, i) => (
-        <li class={`sc-world sc-world--${w.key}`} data-pop data-pop-delay={80 + i * 90}>
+      {streams.map((w, i) => (
+        <li class={`sc-world sc-world--${keyOf(i)}`} data-pop data-pop-delay={80 + i * 90}>
           {/* The ghost of the panel's own mark, bled off its corner. */}
           <svg class="sc-world__ghost" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <g stroke="currentColor" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" set:html={MARK[w.mark]} />
@@ -248,11 +249,11 @@ const CONTACT = '/contact-us/';
             {/* NUMBER AND NAME ON ONE LINE, as the reference sets them — the
                 numeral is a marker beside the title, not a heading above it. */}
             <p class="sc-world__top">
-              <span class="sc-world__n t-tabular">{w.n}</span>
-              <span class="sc-world__k">{w.name}</span>
+              <span class="sc-world__n t-tabular">{String(i + 1).padStart(2, '0')}</span>
+              <span class="sc-world__k">{w.label}</span>
             </p>
 
-            <p class="sc-world__b">{w.body}</p>
+            <p class="sc-world__b">{w.value}</p>
 
             {/* CORE AND OPTIONAL SIDE BY SIDE, ADDITIONAL BENEATH — the shape
                 /academics/structure/ already uses for the same four lists. */}
@@ -296,7 +297,7 @@ const CONTACT = '/contact-us/';
 
             {/* ⚠ ONE PANEL CARRIES A LINK, AND IT IS THE ONE STILL WAITING ON
                 THE SCHOOL. The other three answered on the panel itself. */}
-            {w.coreOwed && (
+            {w.owed && (
               <p class="sc-world__ask">
                 <a href={CONTACT}>Ask the school office <span aria-hidden="true">→</span></a>
               </p>
@@ -368,19 +369,13 @@ const CONTACT = '/contact-us/';
 
   <div class="u-container sc-map__grid-l">
     <div class="sc-map__head">
-      <p class="sc-kicker sc-kicker--dark" data-reveal>Subjects at a glance</p>
-      <h2 class="sc-h sc-map__h" id="sc-map-t">
-        <span data-clip data-clip-delay="0">Four streams.</span>
-        <span data-clip data-clip-delay="150"><em>Four ways of thinking.</em></span>
-      </h2>
-      <p class="sc-body sc-map__b" data-reveal data-reveal-delay="200">
-        Each stream builds its own focus, but together they form a complete Senior Secondary
-        journey.
-      </p>
+      <p class="sc-kicker sc-kicker--dark" data-reveal>{map.kicker}</p>
+      <ClipHeading class="sc-h sc-map__h" id="sc-map-t" text={map.heading} />
+      <RichLine class="sc-body sc-map__b" text={map.body[0]} reveal revealDelay={200} />
     </div>
 
     <div class="sc-plan">
-      <p class="sc-plan__era" data-reveal>XI — XII</p>
+      <RichLine class="sc-plan__era" text={map.body[1]} reveal />
 
       {/* ⚠ CIRCLES THAT OVERLAP, NOT CARDS IN A GRID. The negative gap is what
           makes the four read as one field with a shared centre rather than as
@@ -391,14 +386,14 @@ const CONTACT = '/contact-us/';
             says the four belong to one decision. */}
         <span class="sc-orbits__stem" aria-hidden="true"></span>
 
-        {worlds.map((o) => (
-          <article class={`sc-orbit sc-orbit--${o.key}`} data-drift="24">
+        {streams.map((o, i) => (
+          <article class={`sc-orbit sc-orbit--${keyOf(i)}`} data-drift="24">
             <span class="sc-orbit__i" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none">
                 <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={MARK[o.mark]} />
               </svg>
             </span>
-            <h3 class="sc-orbit__k">{o.name}</h3>
+            <h3 class="sc-orbit__k">{o.label}</h3>
             {/* The core is shown on all four, unstamped — see the note on the
                 Core subjects label in section 02. */}
             <ul class="sc-orbit__subs">
@@ -437,14 +432,8 @@ const CONTACT = '/contact-us/';
 
   <div class="u-container sc-close__grid-l">
     <div class="sc-close__copy">
-      <h2 class="sc-h sc-close__h" id="sc-close-t">
-        <span data-clip data-clip-delay="0">The right stream builds the foundation.</span>
-        <span data-clip data-clip-delay="150"><em>The right combination builds the future.</em></span>
-      </h2>
-      <p class="sc-close__b" data-reveal data-reveal-delay="180">
-        For the latest subject combinations, elective availability and session-specific choices,
-        please confirm with the school.
-      </p>
+      <ClipHeading class="sc-h sc-close__h" id="sc-close-t" text={close.heading} />
+      <RichLine class="sc-close__b" text={close.body[0]} reveal revealDelay={180} />
       <p class="sc-close__act" data-reveal data-reveal-delay="260">
         <a class="btn btn--primary" href={CONTACT}>
           Contact school <span aria-hidden="true">→</span>
@@ -485,7 +474,7 @@ const CONTACT = '/contact-us/';
   }
   .sc-kicker--dark { color: var(--sb-lime); }
 
-  .sc-h {
+  :global(.sc-h) {
     margin: clamp(12px, 1.5vw, 18px) 0 0;
     font-family: var(--sb-font-display);
     font-weight: 700;
@@ -493,17 +482,17 @@ const CONTACT = '/contact-us/';
     letter-spacing: -0.04em;
     color: var(--sb-charcoal);
   }
-  .sc-h span { display: block; }
-  .sc-h em { font-style: normal; color: var(--sb-violet); }
+  :global(.sc-h span) { display: block; }
+  :global(.sc-h em) { font-style: normal; color: var(--sb-violet); }
 
-  .sc-body {
+  :global(.sc-body) {
     max-width: 46ch;
     margin: clamp(15px, 1.8vw, 22px) 0 0;
     font-size: clamp(13.5px, 0.98vw, 15.5px);
     line-height: 1.78;
     color: var(--sb-text-secondary);
   }
-  .sc-body strong { font-weight: 700; color: var(--sb-charcoal); }
+  :global(.sc-body strong) { font-weight: 700; color: var(--sb-charcoal); }
 
   /* ═══ 01 · A STREAM IS MORE THAN A NAME ═══════════════════════════════════ */
   .sc-open {
@@ -583,7 +572,7 @@ const CONTACT = '/contact-us/';
     gap: clamp(28px, 4vw, 68px);
     align-items: center;
   }
-  .sc-open__h { font-size: clamp(28px, 3.4vw, 48px); }
+  :global(.sc-open__h) { font-size: clamp(28px, 3.4vw, 48px); }
 
   .sc-open__media { position: relative; }
   .sc-open__books {
@@ -659,9 +648,9 @@ const CONTACT = '/contact-us/';
     mask-image: radial-gradient(100% 100% at 100% 0%, #000 0%, transparent 72%);
   }
 
-  .sc-worlds__head { max-width: 60ch; }
-  .sc-worlds__h { font-size: clamp(26px, 3.1vw, 44px); }
-  .sc-worlds__b { max-width: 56ch; }
+  :global(.sc-worlds__head) { max-width: 60ch; }
+  :global(.sc-worlds__h) { font-size: clamp(26px, 3.1vw, 44px); }
+  :global(.sc-worlds__b) { max-width: 56ch; }
 
   .sc-worlds__grid {
     display: grid;
@@ -1012,12 +1001,12 @@ const CONTACT = '/contact-us/';
     align-items: center;
   }
   /* Sized so "Four ways of thinking." sets on ONE line beside the diagram. */
-  .sc-map__h { font-size: clamp(26px, 3.05vw, 43px); color: #fff; }
-  .sc-map__h em { color: var(--sb-lime); font-style: italic; }
-  .sc-map__b { color: var(--sb-on-dark-78); max-width: 40ch; }
+  :global(.sc-map__h) { font-size: clamp(26px, 3.05vw, 43px); color: #fff; }
+  :global(.sc-map__h em) { color: var(--sb-lime); font-style: italic; }
+  :global(.sc-map__b) { color: var(--sb-on-dark-78); max-width: 40ch; }
 
   .sc-plan { position: relative; }
-  .sc-plan__era {
+  :global(.sc-plan__era) {
     margin: 0 0 clamp(12px, 1.6vw, 22px);
     text-align: center;
     font-size: clamp(10px, 0.76vw, 11.5px);
@@ -1258,12 +1247,12 @@ const CONTACT = '/contact-us/';
   }
   /* Wide enough for both lines to set whole. At 26ch each broke in the middle,
      giving a four-line block where the composition wants two. */
-  .sc-close__h {
+  :global(.sc-close__h) {
     max-width: 42ch;
     margin: 0;
     font-size: clamp(24px, 2.8vw, 40px);
   }
-  .sc-close__b {
+  :global(.sc-close__b) {
     max-width: 56ch;
     margin: clamp(14px, 1.7vw, 21px) 0 0;
     font-size: clamp(13px, 0.94vw, 15px);
@@ -1304,7 +1293,7 @@ const CONTACT = '/contact-us/';
       gap: clamp(30px, 4.4vw, 44px);
     }
     .sc-body,
-    .sc-map__b { max-width: 56ch; }
+    :global(.sc-map__b) { max-width: 56ch; }
     .sc-open__inset { width: clamp(120px, 24vw, 190px); }
 
     .sc-worlds__grid { grid-template-columns: minmax(0, 1fr); }

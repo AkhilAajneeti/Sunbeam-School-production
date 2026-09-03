@@ -1,0 +1,187 @@
+{
+  "__doc": [
+    "WHAT THE PRODUCTION COMPARISON IS ALLOWED TO FIND, AND WHY.",
+    "",
+    "WARNING: THE LIVE SITE IS NO LONGER THIS BRANCH'S BASELINE.",
+    "",
+    "sunbeam-school-lemon.vercel.app is built from origin/main, which on",
+    "2026-09-01 advanced seventeen commits past 53aaf25 - the commit this CMS work",
+    "is based on. Those commits took the tree back to a FLAT Astro site: no apps/,",
+    "no apps/cms, and data/navigation.ts deleted outright. It is a deliberate",
+    "frontend-only track, not a regression, and nothing in this migration caused it.",
+    "",
+    "So the two trees are cousins, not versions. Comparing them whole will always",
+    "differ, and a comparison that always differs tells you nothing. This file is",
+    "what separates the noise from the signal - and every entry names its cause, so",
+    "no difference is waved through on the grounds that it was there yesterday.",
+    "",
+    "buckets:",
+    "  baseline  - production is on the other lineage; the difference is not ours",
+    "  migration - we changed this deliberately, and it is recorded where",
+    "  anything else is an unexpected regression and must be zero"
+  ],
+  "baselineCommit": "53aaf25",
+  "productionBranch": "origin/main",
+  "productionCommitAtLastCheck": "874bb64",
+  "divergedOn": "2026-09-01",
+  "note": "local is 0 ahead / 19 behind origin/main; merge-base is 53aaf25. Since the last check origin/main added 4550d55 (mobile design) and 874bb64 (Parents’ Feedback page).",
+  "baseline": [
+    {
+      "words": [
+        "Uniform",
+        "Catalogue"
+      ],
+      "scope": "every route",
+      "why": "origin/main deleted apps/web/src/data/navigation.ts in dfb1ab1 and rebuilt the utility bar elsewhere, adding a Uniform Catalogue link to it. This branch's utilityLinks is byte-identical to 53aaf25 and never contained one. Production has the word twice per page (utility bar + footer); this branch has it once (footer).",
+      "verifiedBy": "git show dfb1ab1 -- apps/web/src/data/navigation.ts (605 deletions, 0 insertions)",
+      "wordsNote": "Single words, because the comparison is word-frequency: the phrase never appears as one token."
+    },
+    {
+      "words": [
+        "Session",
+        "2026-27",
+        "Admission",
+        "Notice",
+        "Apply",
+        "Admissions"
+      ],
+      "scope": "homepage and admissions routes",
+      "why": "origin/main added /admission-notice/ and retired /admissions/ in e1b0119, and carries an admission-notice pill this branch removed at G2. Different lineage, not a loss.",
+      "verifiedBy": "git log 53aaf25..origin/main --oneline"
+    },
+    {
+      "words": [
+        "Redirecting",
+        "Redirecting…",
+        "to:",
+        "from",
+        "moved",
+        "This",
+        "page",
+        "has",
+        "."
+      ],
+      "scope": "the 13 redirect stubs under /academics/teaching-learning/ and /admissions/",
+      "why": "origin/main rewrote the redirect stub template in e1b0119 (\"fix 13 dead redirects\"). Production renders \"Redirecting… This page has moved.\"; this branch renders \"Redirecting to: X from Y\". Same destinations, different wording.",
+      "verifiedBy": "git log 53aaf25..origin/main --oneline | grep redirect"
+    },
+    {
+      "words": [
+        "SUNBEAM",
+        "BALLIA",
+        "Sunbeam",
+        "Ballia"
+      ],
+      "scope": "/about/history-legacy/",
+      "why": "origin/main set the school name in capitals in one heading. A casing change on the other lineage, not a content loss."
+    },
+    {
+      "words": [
+        "Essential",
+        "Information"
+      ],
+      "scope": "/admissions/uniform-catalogue/",
+      "why": "origin/main renamed a heading on that page. Different lineage."
+    },
+    {
+      "words": [
+        "Parents’",
+        "Feedback"
+      ],
+      "why": "origin/main added a Parents’ Feedback page in 874bb64 (\"update new page\", +895 lines: ParentsFeedbackPage.astro, parentsFeedback.ts, parents-feedback.astro) and one nav entry for it in src/data/navigation.ts:330, inside the Parent Partnership group. The page and the entry exist ONLY on that lineage - `git grep` finds neither in 53aaf25 nor in the working tree - so every route that carries the nav loses those two words against production. Nothing in this migration removed them; they were never here.",
+      "evidence": "git show --stat 874bb64 · git grep \"Parents’ Feedback\" origin/main -- src/data/navigation.ts"
+    }
+  ],
+  "migration": [
+    {
+      "routes": [
+        "/beyond-academics/school-activities/",
+        "/beyond-academics/school-activities/**"
+      ],
+      "why": "Eighteen activities added from the school's two photograph folders; the chronicle grew from 10 to 18 and from 2 pages to 4.",
+      "recordedIn": "docs/15-client-photographs.md"
+    },
+    {
+      "routes": [
+        "/alumni/pradiptam-2-0-2026-27/"
+      ],
+      "why": "Alumni Meet gallery 5 → 21 photographs."
+    },
+    {
+      "routes": [
+        "/news-events/celebrations/independence-day/",
+        "/news-events/celebrations/teachers-day-students/"
+      ],
+      "why": "Two existing celebrations gained the photographs they were waiting for; Independence Day's page carried a 'photographs not yet supplied' placeholder."
+    },
+    {
+      "routes": [
+        "/beyond-academics/sports/"
+      ],
+      "why": "District Junior Volleyball Championship added as a sports record."
+    },
+    {
+      "routes": [
+        "/campus/archery-range/",
+        "/campus/shooting-range/",
+        "/",
+        "/campus/facilities-infrastructure/"
+      ],
+      "why": "The Shooting Range facility is the archery range, confirmed by the school. Renamed in all seven places it appeared, with a redirect off the published address.",
+      "recordedIn": "docs/15-client-photographs.md"
+    },
+    {
+      "routes": [
+        "/academics/assessment/parent-teacher-meetings/"
+      ],
+      "why": "Four Parents' Forum photographs replaced with real Parent-Teacher Day ones; descriptions changed with them."
+    },
+    {
+      "routes": [
+        "/contact-us/",
+        "/download-tc/"
+      ],
+      "why": "G7's approved data-* plumbing from the CMS to the page scripts."
+    },
+    {
+      "routes": [
+        "/campus/"
+      ],
+      "why": "The Shooting Range → Archery Range rename reaches the campus index."
+    }
+  ],
+  "baselineRoutes": [
+    {
+      "routes": [
+        "/academics/teaching-learning/academic-clubs/",
+        "/academics/teaching-learning/ai-digital-literacy/",
+        "/academics/teaching-learning/collaborative-learning/",
+        "/academics/teaching-learning/laboratories/",
+        "/academics/teaching-learning/language-development/",
+        "/academics/teaching-learning/library-programme/",
+        "/academics/teaching-learning/mathematics-science-enrichment/",
+        "/academics/teaching-learning/project-based-learning/",
+        "/academics/teaching-learning/reading-programme/",
+        "/academics/teaching-learning/robotics-coding/",
+        "/academics/teaching-learning/stem-education/",
+        "/mandatory-public-disclosure/",
+        "/admissions/"
+      ],
+      "why": "Redirect stubs. origin/main rewrote the stub template in e1b0119 and retired /admissions/. Same destinations, different wording — the whole text of these pages is the redirect notice, so the diff is the template."
+    },
+    {
+      "routes": [
+        "/campus/conference-room/"
+      ],
+      "why": "origin/main replaced the empty Conference Room slide with the Book Fair (44e7b8b) and the route no longer exists there. It still exists on this branch."
+    },
+    {
+      "routes": [
+        "/news-events/celebrations/teachers-day-staff/",
+        "/news-events/competitions/district-junior-volleyball/",
+        "/news-events/school-events/child-parent-teacher-dialogue/"
+      ],
+      "why": "PRODUCTION IS AHEAD HERE, not behind. Those three pages carry photographs on origin/main that this branch has not received — this branch still shows their \"photographs not yet supplied\" placeholder. The frontend-only track got that batch first."
+    }
+  ]
+}
