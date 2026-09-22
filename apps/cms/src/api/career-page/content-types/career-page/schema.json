@@ -1,0 +1,39 @@
+{
+  "kind": "singleType",
+  "collectionName": "career_page",
+  "info": {
+    "singularName": "career-page",
+    "pluralName": "career-pages",
+    "displayName": "Career Page",
+    "description": "Every word of /career/ that is not a job notice. The notices themselves are the Job Posting collection beside this. ⚠ `wall` AND `apply` ARE BAND HEADS — kicker = the eyebrow, the FIRST paragraph of body = the line under the heading. ⚠⚠ THE POSTING COUNT ABOVE THE WALL IS NOT HERE AND MUST NOT BE. It is rendered from the number of published Job Postings, so it can never drift from the wall below it the way a typed number would. ⚠ `applyMethods` USE shared.measure — `label` is the row's term (\"By email\") and `body` the note under it. shared.detail was the obvious choice and is wrong: its `value` is REQUIRED, and there is no value to put there. The address, the recruitment email and the office number under each one come from Site Settings — one contact detail, edited in one place, printed in 57 files. ⚠ NOT EDITABLE HERE: each notice's tag and date (they belong to the Job Posting) and the image viewer's 'Close the viewer' control."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "wall": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "ctaCvLabel": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "ctaCallLabel": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "apply": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "applyMethods": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.measure"
+    }
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "open": {
+    "kicker": "The method, in the school’s words",
+    "heading": "In all areas\n{{of teaching.}}",
+    "body": [
+      "Three things, and none of them a timetabled slot. There is no collaboration lesson and no multiple-intelligence week — the claim is that all three run through ordinary teaching, which is a harder thing to promise and a harder thing to fake."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pDesk"
+      },
+      {
+        "key": "pTables"
+      }
+    ],
+    "runs": []
+  },
+  "three": {
+    "kicker": "The three, unpacked",
+    "heading": "Named, and each one\n{{anchored to something}}",
+    "body": [
+      "A method is only worth reading if each part of it points at something checkable. All three of Sunbeam’s do — two to the Principal’s own published words, and one to a certification held by a hundred members of staff."
+    ],
+    "caption": null,
+    "shots": [],
+    "runs": [
+      {
+        "field": "cells",
+        "list": "three"
+      }
+    ]
+  },
+  "collab": {
+    "kicker": "What collaboration looks like when it is real",
+    "heading": "One basket\n{{of thread.}}",
+    "body": [
+      "The word “collaborative” survives on most school sites without ever touching a photograph. Here it does.",
+      "In the school’s own embroidery session the students are not each issued a kit — they work from **one shared basket of thread**, which means the thing a child needs next is in somebody else’s hand.",
+      "The cooking activity is built the same way: one demonstration table, a class in paper chef hats around it, and no version of the task that can be completed alone.",
+      "Neither is a lesson called Collaboration. That is the school’s point — it is in the shape of an ordinary activity rather than in a slot on the timetable."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pThread"
+      },
+      {
+        "key": "pChef"
+      }
+    ],
+    "runs": []
+  },
+  "plat": {
+    "kicker": "And the second of the three",
+    "heading": "Different talents,\n{{different platforms.}}",
+    "body": [
+      "“All the students do not have the same talents” is easy to say and expensive to act on — acting on it means running enough different things that a child who is not academic still has somewhere to be good. The school’s own published record is the evidence."
+    ],
+    "caption": null,
+    "shots": [],
+    "runs": [
+      {
+        "field": "cells",
+        "list": "platforms"
+      }
+    ]
+  },
+  "close": {
+    "kicker": null,
+    "heading": "Three things,\n{{everywhere.}}",
+    "body": [
+      "The school publishes its method, the Principal’s words behind two of the three, and the certification behind the first. It does not publish lesson plans, a scheme of work, or an observation framework — so no lesson shape is described here."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pCohort"
+      }
+    ],
+    "runs": []
+  }
+}

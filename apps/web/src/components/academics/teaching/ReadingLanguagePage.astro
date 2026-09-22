@@ -64,17 +64,11 @@ import SmartImage from '../../../components/ui/SmartImage.astro';
    published frame of children actually reading in the Nalanda Library, and
    section 01's whole argument is that the room is not empty. The banner crops it
    wide and dark behind the title; here it runs clean and full. */
-import { getAcademicTopic } from '../../../lib/cms';
+import ClipHeading from '../../ui/ClipHeading.astro';
+import RichLine from '../../ui/RichLine.astro';
+import { getReadingLanguage } from '../../../lib/cms';
 
-const ac = await getAcademicTopic('/academics/teaching-learning/reading-language/');
-const pRoom = ac.pic('pRoom');
-const pTables = ac.pic('pTables');
-const pCarnival = ac.pic('pCarnival');
-const pRacks = ac.pic('pRacks');
-const pAward = ac.pic('pAward');
-const pAssembly = ac.pic('pAssembly');
-const pReading = ac.pic('pReading');
-const pCohort = ac.pic('pCohort');
+const { lib, round, lab, stage, close } = await getReadingLanguage();
 
 const S = 'Sunbeam School Ballia';
 
@@ -93,17 +87,14 @@ const MARK: Record<string, string> = {
 
 /* Four small indicators under section 01. The first two count; the last two are
    facilities the school lists, so they carry a word rather than a figure. */
-const facts = ac.section('facts').points;
 
 /* ── THE INDEX under section 02 ─────────────────────────────────────────────
    ⚠ EDITORIAL, NOT A TABLE. Every line is the school's own published record and
    nothing is added to it — in particular no club membership, no meeting times
    and no winners' names, because none is published. */
-const index = ac.section('index').points;
 
 /* ── SECTION 04 ─────────────────────────────────────────────────────────────
    Where the speaking ends up. Four stages, all from the published record. */
-const stages = ac.section('stages').points;
 ---
 
 {/* ══ 01 · THE NALANDA LIBRARY ═══════════════════════════════════════════════
@@ -126,26 +117,11 @@ const stages = ac.section('stages').points;
   <div class="u-container">
     <div class="rd-lib__grid">
       <div class="rd-lib__copy">
-        <p class="rd-kicker" data-reveal>The Nalanda Library</p>
-        <h2 class="rd-h rd-lib__h" id="rd-lib-t">
-          <span data-clip data-clip-delay="0">Counted,</span>
-          <span data-clip data-clip-delay="130">counted,</span>
-          <span data-clip data-clip-delay="240"><em>not estimated.</em></span>
-        </h2>
-        <p class="rd-body" data-reveal data-reveal-delay="200">
-          The school does not say “over fifteen thousand books”. It says
-          {' '}<strong>17,574</strong>, alongside <strong>25 periodicals</strong> — a figure with a
-          units digit on it, which means somebody counted rather than rounded.
-        </p>
-        <p class="rd-body" data-reveal data-reveal-delay="270">
-          The periodicals are the quieter half and the more useful one. A library of books alone is
-          a place you go for something you were already sent to find; a shelf of periodicals is
-          where a reader meets a subject nobody assigned them.
-        </p>
-        <p class="rd-body" data-reveal data-reveal-delay="340">
-          And the photograph is the argument. The room is not empty in it: long tables, a full class
-          reading, and a member of staff at the head of the row.
-        </p>
+        <p class="rd-kicker" data-reveal>{lib.kicker}</p>
+        <ClipHeading class="rd-h rd-lib__h" id="rd-lib-t" text={lib.heading} delays={[0, 130, 240]} />
+        <RichLine class="rd-body" text={lib.body[0]} reveal revealDelay={200} />
+        <RichLine class="rd-body" text={lib.body[1]} reveal revealDelay={270} />
+        <RichLine class="rd-body" text={lib.body[2]} reveal revealDelay={340} />
       </div>
 
       {/* THE CLUSTER — one dominant frame, one overlapping its lower-left, one
@@ -153,8 +129,7 @@ const stages = ac.section('stages').points;
       <div class="rd-lib__media">
         <figure class="rd-lib__lead" data-mask data-zoom data-zoom-to="1.06">
           <SmartImage
-            file={pReading}
-            alt={ac.picAlt('pReading')}
+            file={lib.shots[0]?.image} alt={lib.shots[0]?.alt ?? ''}
            
             widths={[620, 1000, 1320]}
             sizes="(max-width: 1023px) 92vw, 46vw"
@@ -165,8 +140,7 @@ const stages = ac.section('stages').points;
 
         <figure class="rd-lib__side" data-parallax data-parallax-y="26">
           <SmartImage
-            file={pRoom}
-            alt={ac.picAlt('pRoom')}
+            file={lib.shots[1]?.image} alt={lib.shots[1]?.alt ?? ''}
            
             widths={[360, 600]}
             sizes="(max-width: 1023px) 44vw, 20vw"
@@ -177,8 +151,7 @@ const stages = ac.section('stages').points;
 
         <figure class="rd-lib__disc" data-parallax data-parallax-y="-20">
           <SmartImage
-            file={pTables}
-            alt={ac.picAlt('pTables')}
+            file={lib.shots[2]?.image} alt={lib.shots[2]?.alt ?? ''}
            
             widths={[280, 440]}
             sizes="(max-width: 1023px) 30vw, 13vw"
@@ -192,7 +165,7 @@ const stages = ac.section('stages').points;
     {/* THE FOUR INDICATORS — small, on one hairline, under the whole
         text-and-image relationship rather than inside either half. */}
     <ul class="rd-facts">
-      {facts.map((f, i) => (
+      {lib.cells.map((f, i) => (
         <li data-reveal data-reveal-delay={120 + i * 90}>
           <span class="rd-facts__i" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none">
@@ -200,11 +173,11 @@ const stages = ac.section('stages').points;
             </svg>
           </span>
           <p class="rd-facts__n t-tabular">
-            {f.n
-              ? <span data-count={f.n} data-count-dur={1.2 + i * 0.2}>{Number(f.n).toLocaleString('en-IN')}</span>
-              : f.v}
+            {f.number
+              ? <span data-count={f.number} data-count-dur={1.2 + i * 0.2}>{Number(f.number).toLocaleString('en-IN')}</span>
+              : f.value}
           </p>
-          <p class="rd-facts__k">{f.k}</p>
+          <p class="rd-facts__k">{f.label}</p>
         </li>
       ))}
     </ul>
@@ -221,8 +194,7 @@ const stages = ac.section('stages').points;
     <div class="rd-round__media">
       <figure class="rd-round__lead" data-mask data-zoom data-zoom-to="1.06">
         <SmartImage
-          file={pCarnival}
-          alt={ac.picAlt('pCarnival')}
+          file={round.shots[0]?.image} alt={round.shots[0]?.alt ?? ''}
          
           widths={[560, 900, 1200]}
           sizes="(max-width: 1023px) 92vw, 42vw"
@@ -233,8 +205,7 @@ const stages = ac.section('stages').points;
 
       <figure class="rd-round__side" data-parallax data-parallax-y="-24">
         <SmartImage
-          file={pRacks}
-          alt={ac.picAlt('pRacks')}
+          file={round.shots[1]?.image} alt={round.shots[1]?.alt ?? ''}
          
           widths={[340, 560]}
           sizes="(max-width: 1023px) 42vw, 19vw"
@@ -245,8 +216,7 @@ const stages = ac.section('stages').points;
 
       <figure class="rd-round__disc" data-parallax data-parallax-y="22">
         <SmartImage
-          file={pAward}
-          alt={ac.picAlt('pAward')}
+          file={round.shots[2]?.image} alt={round.shots[2]?.alt ?? ''}
          
           widths={[280, 440]}
           sizes="(max-width: 1023px) 30vw, 13vw"
@@ -257,29 +227,16 @@ const stages = ac.section('stages').points;
     </div>
 
     <div class="rd-round__copy">
-      <p class="rd-kicker" data-reveal>What is run around the collection</p>
-      <h2 class="rd-h rd-round__h" id="rd-round-t">
-        <span data-clip data-clip-delay="0">A carnival,</span>
-        <span data-clip data-clip-delay="150"><em>and a club with racks.</em></span>
-      </h2>
-      <p class="rd-body" data-reveal data-reveal-delay="200">
-        The school runs a <strong>Reading Carnival</strong> — a book fair set up along its own
-        corridors rather than in a hall, so classes file past it on the way to lessons. Its racks
-        are signed by section, and the signage names something the site had not recorded: a
-        {' '}<strong>Reading Club</strong>, with racks headed <em>Study Skills</em>,
-        {' '}<em>Storybook</em> and <em>New Release</em>.
-      </p>
-      <p class="rd-body" data-reveal data-reveal-delay="270">
-        Alongside it the school gives an <strong>Ardent Reader Award</strong> to its most committed
-        readers, published in seventy-five photographs — though not, notably, with the winners’
-        names, so none is given here.
-      </p>
+      <p class="rd-kicker" data-reveal>{round.kicker}</p>
+      <ClipHeading class="rd-h rd-round__h" id="rd-round-t" text={round.heading} />
+      <RichLine class="rd-body" text={round.body[0]} reveal revealDelay={200} />
+      <RichLine class="rd-body" text={round.body[1]} reveal revealDelay={270} />
 
       <dl class="rd-index">
-        {index.map((row, i) => (
+        {round.cells.map((row, i) => (
           <div class="rd-index__row" data-reveal data-reveal-delay={140 + i * 80}>
-            <dt>{row.k}</dt>
-            <dd>{row.v}</dd>
+            <dt>{row.label}</dt>
+            <dd>{row.value}</dd>
           </div>
         ))}
       </dl>
@@ -296,29 +253,16 @@ const stages = ac.section('stages').points;
 
   <div class="u-container rd-lab__grid">
     <div class="rd-lab__copy">
-      <p class="rd-kicker" data-reveal>The half a book cannot do</p>
-      <h2 class="rd-h rd-lab__h" id="rd-lab-t">
-        <span data-clip data-clip-delay="0">Recorded,</span>
-        <span data-clip data-clip-delay="150"><em>then reviewed.</em></span>
-      </h2>
-      <p class="rd-body" data-reveal data-reveal-delay="200">
-        Reading is the input. The school’s <strong>language laboratory</strong> — one of its twelve
-        laboratories — exists for the output, and its description is precise about what makes it
-        different: <em>spoken language, practised aloud and recorded, which is the part a textbook
-        cannot do.</em>
-      </p>
-      <p class="rd-body" data-reveal data-reveal-delay="270">
-        The recording is the whole point. A student who has only ever been corrected in the moment
-        has never heard themselves; a student who has been recorded has, and that is a different
-        kind of learning from reading a page about pronunciation.
-      </p>
+      <p class="rd-kicker" data-reveal>{lab.kicker}</p>
+      <ClipHeading class="rd-h rd-lab__h" id="rd-lab-t" text={lab.heading} />
+      <RichLine class="rd-body" text={lab.body[0]} reveal revealDelay={200} />
+      <RichLine class="rd-body" text={lab.body[1]} reveal revealDelay={270} />
     </div>
 
     <div class="rd-lab__media">
       <figure class="rd-lab__lead" data-mask data-mask-from="left" data-zoom data-zoom-to="1.05">
         <SmartImage
-          file={pAssembly}
-          alt={ac.picAlt('pAssembly')}
+          file={lab.shots[0]?.image} alt={lab.shots[0]?.alt ?? ''}
          
           widths={[620, 1000, 1400]}
           sizes="(max-width: 1023px) 92vw, 50vw"
@@ -332,14 +276,15 @@ const stages = ac.section('stages').points;
           badge states what the room is and the line beneath says what the
           photograph actually shows. */}
       <p class="rd-lab__badge" data-reveal data-reveal-delay="180">
-        <span class="rd-lab__badge-k">Language laboratory</span>
-        <span class="rd-lab__badge-v">One of the school’s twelve laboratories</span>
+        {lab.cellsTwo.map((b) => (
+          <>
+            <span class="rd-lab__badge-k">{b.label}</span>
+            <span class="rd-lab__badge-v">{b.value}</span>
+          </>
+        ))}
       </p>
 
-      <p class="rd-lab__cap" data-reveal data-reveal-delay="260">
-        Above: the school assembled for the Ardent Reader Award. The school has published no
-        photograph of the language laboratory itself.
-      </p>
+      <RichLine class="rd-lab__cap" text={lab.body[2]} reveal revealDelay={260} />
     </div>
   </div>
 </section>
@@ -351,30 +296,23 @@ const stages = ac.section('stages').points;
 
   <div class="u-container rd-stage__grid" data-draw-scope>
     <div class="rd-stage__copy">
-      <p class="rd-kicker" data-reveal>And where the speaking ends up</p>
-      <h2 class="rd-h rd-stage__h" id="rd-stage-t">
-        <span data-clip data-clip-delay="0">On a platform,</span>
-        <span data-clip data-clip-delay="150"><em>from Class I.</em></span>
-      </h2>
-      <p class="rd-body" data-reveal data-reveal-delay="200">
-        The test of a language programme is not the room — it is whether children are put in front
-        of an audience, and how early. Sunbeam’s published record answers both, and the first
-        answer is Class I.
-      </p>
+      <p class="rd-kicker" data-reveal>{stage.kicker}</p>
+      <ClipHeading class="rd-h rd-stage__h" id="rd-stage-t" text={stage.heading} />
+      <RichLine class="rd-body" text={stage.body[0]} reveal revealDelay={200} />
     </div>
 
     <ol class="rd-stage__list">
       <span class="rd-stage__rule" aria-hidden="true"><span data-draw></span></span>
-      {stages.map((st, i) => (
+      {stage.cells.map((st, i) => (
         <li class="rd-plate" data-reveal data-reveal-delay={120 + i * 110}>
           <span class="rd-plate__i" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none">
               <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={MARK[st.mark]} />
             </svg>
           </span>
-          <p class="rd-plate__n t-tabular">{st.n}</p>
-          <h3 class="rd-plate__k">{st.k}</h3>
-          <p class="rd-plate__b">{st.v}</p>
+          <p class="rd-plate__n t-tabular">{String(i + 1).padStart(2, '0')}</p>
+          <h3 class="rd-plate__k">{st.label}</h3>
+          <p class="rd-plate__b">{st.value}</p>
         </li>
       ))}
     </ol>
@@ -385,8 +323,7 @@ const stages = ac.section('stages').points;
 <section class="rd-close" aria-labelledby="rd-close-t">
   <div class="rd-close__media" aria-hidden="true" data-parallax data-parallax-y="-40">
     <SmartImage
-      file={pCohort}
-      alt={ac.picAlt('pCohort')}
+      file={close.shots[0]?.image} alt={close.shots[0]?.alt ?? ''}
      
       widths={[1024, 1600, 2000]}
       sizes="100vw"
@@ -398,16 +335,9 @@ const stages = ac.section('stages').points;
   <span class="rd-close__grain" aria-hidden="true"></span>
 
   <div class="u-container rd-close__inner">
-    <p class="rd-kicker rd-kicker--dark" data-reveal>The book is not a cupboard</p>
-    <h2 class="rd-h rd-close__h" id="rd-close-t">
-      <span data-clip data-clip-delay="0">Seventeen thousand,</span>
-      <span data-clip data-clip-delay="150"><em>five hundred</em> and seventy-four.</span>
-    </h2>
-    <p class="rd-close__b" data-reveal data-reveal-delay="180">
-      The school publishes its collection to the book, its reading events and its language
-      laboratory. It does not publish borrowing rights, opening hours, the Reading Club’s
-      membership, or the names of its Ardent Reader winners.
-    </p>
+    <p class="rd-kicker rd-kicker--dark" data-reveal>{close.kicker}</p>
+    <ClipHeading class="rd-h rd-close__h" id="rd-close-t" text={close.heading} />
+    <RichLine class="rd-close__b" text={close.body[0]} reveal revealDelay={180} />
   </div>
 </section>
 
@@ -423,7 +353,7 @@ const stages = ac.section('stages').points;
   }
   .rd-kicker--dark { color: var(--sb-lime); }
 
-  .rd-h {
+  :global(.rd-h) {
     margin: clamp(12px, 1.5vw, 18px) 0 0;
     font-family: var(--sb-font-display);
     font-weight: 700;
@@ -431,18 +361,18 @@ const stages = ac.section('stages').points;
     letter-spacing: -0.04em;
     color: var(--sb-charcoal);
   }
-  .rd-h span { display: block; }
-  .rd-h em { font-style: normal; color: var(--sb-violet); }
+  :global(.rd-h span) { display: block; }
+  :global(.rd-h em) { font-style: normal; color: var(--sb-violet); }
 
-  .rd-body {
+  :global(.rd-body) {
     max-width: 46ch;
     margin: clamp(13px, 1.6vw, 19px) 0 0;
     font-size: clamp(12.5px, 0.92vw, 14.5px);
     line-height: 1.78;
     color: var(--sb-text-secondary);
   }
-  .rd-body strong { font-weight: 700; color: var(--sb-charcoal); }
-  .rd-body em { font-style: italic; color: var(--sb-charcoal); }
+  :global(.rd-body strong) { font-weight: 700; color: var(--sb-charcoal); }
+  :global(.rd-body em) { font-style: italic; color: var(--sb-charcoal); }
 
   /* The page's decorative language: a very light grid, thin right-angled traces
      with terminal nodes, and a dot field. Never above 12% opacity. */
@@ -508,7 +438,7 @@ const stages = ac.section('stages').points;
     gap: clamp(28px, 4vw, 62px);
     align-items: center;
   }
-  .rd-lib__h { font-size: clamp(28px, 3.4vw, 48px); }
+  :global(.rd-lib__h) { font-size: clamp(28px, 3.4vw, 48px); }
 
   .rd-lib__media { position: relative; }
   .rd-lib__lead {
@@ -624,7 +554,7 @@ const stages = ac.section('stages').points;
     gap: clamp(28px, 4vw, 62px);
     align-items: center;
   }
-  .rd-round__h { font-size: clamp(26px, 3.1vw, 44px); }
+  :global(.rd-round__h) { font-size: clamp(26px, 3.1vw, 44px); }
 
   .rd-round__media { position: relative; }
   .rd-round__lead {
@@ -721,7 +651,7 @@ const stages = ac.section('stages').points;
     gap: clamp(26px, 3.6vw, 58px);
     align-items: center;
   }
-  .rd-lab__h { font-size: clamp(28px, 3.4vw, 48px); }
+  :global(.rd-lab__h) { font-size: clamp(28px, 3.4vw, 48px); }
 
   .rd-lab__media { position: relative; }
   .rd-lab__lead {
@@ -766,7 +696,7 @@ const stages = ac.section('stages').points;
     color: rgba(255, 255, 255, 0.86);
   }
   /* ⚠ THE HONEST CAPTION. Says what the photograph is and what is missing. */
-  .rd-lab__cap {
+  :global(.rd-lab__cap) {
     max-width: 54ch;
     margin: clamp(12px, 1.4vw, 17px) 0 0;
     font-size: clamp(10px, 0.76vw, 12px);
@@ -797,7 +727,7 @@ const stages = ac.section('stages').points;
     gap: clamp(26px, 3.4vw, 54px);
     align-items: center;
   }
-  .rd-stage__h { font-size: clamp(26px, 3.1vw, 42px); }
+  :global(.rd-stage__h) { font-size: clamp(26px, 3.1vw, 42px); }
   .rd-stage__copy .rd-body { max-width: 34ch; }
 
   .rd-stage__list {
@@ -910,13 +840,13 @@ const stages = ac.section('stages').points;
     justify-items: center;
     text-align: center;
   }
-  .rd-close__h {
+  :global(.rd-close__h) {
     max-width: 24ch;
     font-size: clamp(26px, 3.2vw, 46px);
     color: #fff;
   }
-  .rd-close__h em { color: var(--sb-lime); font-style: italic; }
-  .rd-close__b {
+  :global(.rd-close__h em) { color: var(--sb-lime); font-style: italic; }
+  :global(.rd-close__b) {
     max-width: 66ch;
     margin: clamp(14px, 1.7vw, 21px) 0 0;
     font-size: clamp(12px, 0.88vw, 14px);

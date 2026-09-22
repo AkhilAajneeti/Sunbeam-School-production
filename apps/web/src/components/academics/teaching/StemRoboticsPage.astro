@@ -66,14 +66,12 @@ import Lightbox from '../../ui/Lightbox.astro';
 /* ── PHOTOGRAPHY ────────────────────────────────────────────────────────────
    ⚠ TEN DISTINCT FRAMES, AND THE BANNER IS AN ELEVENTH. A page about rooms is
    the easiest place on the site to show the same bench five times. */
-import { getAcademicTopic } from '../../../lib/cms';
+import ClipHeading from '../../ui/ClipHeading.astro';
+import RichLine from '../../ui/RichLine.astro';
+import { getStemRobotics } from '../../../lib/cms';
 import SmartImage from '../../ui/SmartImage.astro';
 
-const ac = await getAcademicTopic('/academics/teaching-learning/stem-robotics/');
-const pComposite = ac.pic('pComposite');
-const pPhysics = ac.pic('pPhysics');
-const pMicroscope = ac.pic('pMicroscope');
-const pCohort = ac.pic('pCohort');
+const { rooms, bots, use, eco, close } = await getStemRobotics();
 
 const S = 'Sunbeam School Ballia';
 
@@ -95,14 +93,12 @@ const MARK: Record<string, string> = {
    The school's own one-line inventory, split into four. `body` is this site's
    own gloss on each item — none of it claims a capability the school has not
    listed. */
-const kit = ac.section('kit').points;
 
 /* ── THE GALLERY ────────────────────────────────────────────────────────────
    ⚠ SIX FRAMES, EVERY ONE OF THEM STUDENTS OR ROOMS THAT ACTUALLY EXIST, and
    each `cap` describes what is IN the picture rather than what the section is
    about. The empty-room frames say "between classes" so nobody reads a bench
    shot as a lesson in progress. */
-const shots = ac.section('shots').photos;
 
 /* ── THE ECOSYSTEM ──────────────────────────────────────────────────────────
    ⚠ FOUR BLOCKS OF DELIBERATELY DIFFERENT WEIGHT, AND NO PHOTOGRAPHS AT ALL.
@@ -111,7 +107,6 @@ const shots = ac.section('shots').photos;
    that would be honest — a chemistry bench captioned "Making" is a mislabel, and
    the Robotics Lab has no photograph at all. Type and drawn marks claim nothing.
    `w` sets each block's span so the four read as one system rather than a row. */
-const eco = ac.section('eco').points;;;
 
 const SUCCESS = '/academics/student-success/';
 ---
@@ -136,22 +131,10 @@ const SUCCESS = '/academics/student-success/';
 
   <div class="u-container st-rooms__grid">
     <div class="st-rooms__copy">
-      <p class="st-kicker" data-reveal>Where science happens</p>
-      <h2 class="st-h st-rooms__h" id="st-rooms-t">
-        <span data-clip data-clip-delay="0">Rooms built for</span>
-        <span data-clip data-clip-delay="150"><em>one subject each.</em></span>
-      </h2>
-      <p class="st-body" data-reveal data-reveal-delay="200">
-        Sunbeam’s STEM provision is a set of named rooms rather than a claim about a culture.
-        Physics, Chemistry and Biology each have a laboratory of their own, carrying
-        {' '}<strong>board practicals from Class IX to Class XII</strong> — a chemistry bench with
-        gas taps and reagent shelves is a different object from a science room with a sink in it.
-      </p>
-      <p class="st-body" data-reveal data-reveal-delay="270">
-        The <strong>mathematics laboratory</strong> is the one most schools do without. Its purpose
-        is to make mathematics a practical subject — something handled rather than only argued on
-        paper — which is a harder room to justify and a more revealing one to have.
-      </p>
+      <p class="st-kicker" data-reveal>{rooms.kicker}</p>
+      <ClipHeading class="st-h st-rooms__h" id="st-rooms-t" text={rooms.heading} />
+      <RichLine class="st-body" text={rooms.body[0]} reveal revealDelay={200} />
+      <RichLine class="st-body" text={rooms.body[1]} reveal revealDelay={270} />
 
       <ul class="st-rooms__tags">
         {[
@@ -175,8 +158,7 @@ const SUCCESS = '/academics/student-success/';
     <div class="st-rooms__media">
       <figure class="st-rooms__lead" data-mask data-zoom data-zoom-to="1.06">
         <SmartImage
-          file={pPhysics}
-          alt={ac.picAlt('pPhysics')}
+          file={rooms.shots[0]?.image} alt={rooms.shots[0]?.alt ?? ''}
          
           widths={[620, 1000, 1320]}
           sizes="(max-width: 1023px) 92vw, 46vw"
@@ -187,8 +169,7 @@ const SUCCESS = '/academics/student-success/';
 
       <figure class="st-rooms__side" data-parallax data-parallax-y="26">
         <SmartImage
-          file={pComposite}
-          alt={ac.picAlt('pComposite')}
+          file={rooms.shots[1]?.image} alt={rooms.shots[1]?.alt ?? ''}
          
           widths={[360, 620]}
           sizes="(max-width: 1023px) 46vw, 21vw"
@@ -199,8 +180,7 @@ const SUCCESS = '/academics/student-success/';
 
       <figure class="st-rooms__disc" data-parallax data-parallax-y="-22">
         <SmartImage
-          file={pMicroscope}
-          alt={ac.picAlt('pMicroscope')}
+          file={rooms.shots[2]?.image} alt={rooms.shots[2]?.alt ?? ''}
          
           widths={[300, 480]}
           sizes="(max-width: 1023px) 32vw, 14vw"
@@ -240,17 +220,9 @@ const SUCCESS = '/academics/student-success/';
 
   <div class="u-container st-bots__inner">
     <div class="st-bots__head">
-      <p class="st-kicker st-kicker--dark" data-reveal>The Robotics Lab</p>
-      <h2 class="st-h st-bots__h" id="st-bots-t">
-        <span data-clip data-clip-delay="0">Four things</span>
-        <span data-clip data-clip-delay="150"><em>in one room.</em></span>
-      </h2>
-      <p class="st-body st-body--dark" data-reveal data-reveal-delay="200">
-        The school’s description of its Robotics Lab is a single line of four items, and it is more
-        specific than most schools manage: <strong>a drone, a 3-D printer, a telescope and embedded
-        systems</strong>. No “state-of-the-art”, no “cutting-edge” — four objects, each of which
-        either exists in a room or does not.
-      </p>
+      <p class="st-kicker st-kicker--dark" data-reveal>{bots.kicker}</p>
+      <ClipHeading class="st-h st-bots__h" id="st-bots-t" text={bots.heading} />
+      <RichLine class="st-body st-body--dark" text={bots.body[0]} reveal revealDelay={200} />
     </div>
 
     <div class="st-rail">
@@ -265,16 +237,16 @@ const SUCCESS = '/academics/student-success/';
       </svg>
 
       <ol class="st-rail__list">
-        {kit.map((k, i) => (
+        {bots.cells.map((k, i) => (
           <li class="st-node" data-drift="24" style={`--i: ${i};`}>
-            <span class="st-node__n t-tabular" data-pop data-pop-delay={i * 110}>{k.n}</span>
+            <span class="st-node__n t-tabular" data-pop data-pop-delay={i * 110}>{String(i + 1).padStart(2, '0')}</span>
             <span class="st-node__i" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none">
                 <g stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" set:html={MARK[k.mark]} />
               </svg>
             </span>
-            <h3 class="st-node__k">{k.k}</h3>
-            <p class="st-node__b">{k.v}</p>
+            <h3 class="st-node__k">{k.label}</h3>
+            <p class="st-node__b">{k.value}</p>
           </li>
         ))}
       </ol>
@@ -293,8 +265,7 @@ const SUCCESS = '/academics/student-success/';
           </g>
         </svg>
       </span>
-      The school has published no photograph of this laboratory, so the four items are set as type
-      rather than illustrated with somebody else’s room.
+      <RichLine tag="span" text={bots.caption} />
     </p>
   </div>
 </section>
@@ -307,15 +278,9 @@ const SUCCESS = '/academics/student-success/';
 
   <div class="u-container st-use__grid">
     <div class="st-use__copy">
-      <p class="st-kicker" data-reveal>STEM in practice</p>
-      <h2 class="st-h st-use__h" id="st-use-t">
-        <span data-clip data-clip-delay="0">Not just equipment.</span>
-        <span data-clip data-clip-delay="150"><em>Students using it.</em></span>
-      </h2>
-      <p class="st-body" data-reveal data-reveal-delay="200">
-        Laboratories are only useful when they are in use. Six frames from the school’s own
-        rooms — each caption says what is actually in the picture.
-      </p>
+      <p class="st-kicker" data-reveal>{use.kicker}</p>
+      <ClipHeading class="st-h st-use__h" id="st-use-t" text={use.heading} />
+      <RichLine class="st-body" text={use.body[0]} reveal revealDelay={200} />
 
       <div class="st-use__ctrl" data-reveal data-reveal-delay="280">
         <button type="button" class="st-use__nav" data-gal-prev>
@@ -324,7 +289,7 @@ const SUCCESS = '/academics/student-success/';
             <path d="M5 1 1 5l4 4M1 5h12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         </button>
-        <p class="st-use__count t-tabular"><span data-gal-n>01</span> / {String(shots.length).padStart(2, '0')}</p>
+        <p class="st-use__count t-tabular"><span data-gal-n>01</span> / {String(use.cells.length).padStart(2, '0')}</p>
         <button type="button" class="st-use__nav" data-gal-next>
           <span class="u-visually-hidden">Next photograph</span>
           <svg viewBox="0 0 14 10" fill="none" aria-hidden="true">
@@ -338,11 +303,11 @@ const SUCCESS = '/academics/student-success/';
 
     <div class="st-use__stage" data-gal-scope>
       <div class="st-use__frames">
-        {shots.map((sh, i) => (
-          <a class={`st-shot${i === 0 ? ' is-on' : ''}`} href={sh.src.src} data-gal-frame data-lb-open
-            data-lb-alt={sh.alt} data-lb-cap={sh.cap} tabindex={i === 0 ? 0 : -1}>
+        {use.cells.map((sh, i) => (
+          <a class={`st-shot${i === 0 ? ' is-on' : ''}`} href={sh.image.src} data-gal-frame data-lb-open
+            data-lb-alt={sh.alt} data-lb-cap={sh.caption} tabindex={i === 0 ? 0 : -1}>
             <SmartImage
-              file={sh.src}
+              file={sh.image}
               alt={sh.alt}
               sizes="(max-width: 1023px) 92vw, 46vw"
               fallbackWidth={1100}
@@ -358,15 +323,15 @@ const SUCCESS = '/academics/student-success/';
         ))}
       </div>
 
-      <p class="st-use__cap" data-gal-cap>{shots[0].cap}</p>
+      <p class="st-use__cap" data-gal-cap>{use.cells[0]?.caption ?? ''}</p>
 
       <ol class="st-rail-thumbs">
-        {shots.map((sh, i) => (
+        {use.cells.map((sh, i) => (
           <li>
             <button type="button" class={`st-thumb${i === 0 ? ' is-on' : ''}`} data-gal-thumb={i}>
-              <span class="u-visually-hidden">{`Show photograph ${i + 1}: ${sh.cap}`}</span>
+              <span class="u-visually-hidden">{`Show photograph ${i + 1}: ${sh.caption}`}</span>
               <SmartImage
-                file={sh.src}
+                file={sh.image}
                 alt=""
                 sizes="120px"
                 fallbackWidth={1100}
@@ -411,19 +376,10 @@ const SUCCESS = '/academics/student-success/';
 
   <div class="u-container st-eco__grid">
     <div class="st-eco__head">
-      <p class="st-kicker" data-reveal>The enrichment ecosystem</p>
-      <h2 class="st-h st-eco__h" id="st-eco-t">
-        <span data-clip data-clip-delay="0">Many rooms.</span>
-        <span data-clip data-clip-delay="150"><em>One purpose.</em></span>
-      </h2>
-      <p class="st-body st-eco__b" data-reveal data-reveal-delay="200">
-        Different spaces, different tools. One connected idea of learning through doing.
-      </p>
-      <p class="st-eco__note" data-reveal data-reveal-delay="270">
-        Out of the Robotics Lab: <strong>second place at the RoboWunder International Robotics
-        Championship, Kuala Lumpur</strong>. The rest is on
-        {' '}<a class="st-link" href={SUCCESS}>Student Success</a>.
-      </p>
+      <p class="st-kicker" data-reveal>{eco.kicker}</p>
+      <ClipHeading class="st-h st-eco__h" id="st-eco-t" text={eco.heading} />
+      <RichLine class="st-body st-eco__b" text={eco.body[0]} reveal revealDelay={200} />
+      <RichLine class="st-eco__note" text={eco.body[1]} linkClass="st-link" reveal revealDelay={270} />
     </div>
 
     <div class="st-eco__stage">
@@ -448,11 +404,11 @@ const SUCCESS = '/academics/student-success/';
       </span>
 
       <ol class="st-eco__list">
-        {eco.map((e, i) => (
+        {eco.cells.map((e, i) => (
           <li class="st-card" data-pop data-pop-delay={120 + i * 110}>
             <div class="st-card__pic">
               <SmartImage
-                file={e.photo}
+                file={e.image}
                 alt={e.alt}
                 sizes="(max-width: 767px) 92vw, 18vw"
                 fallbackWidth={1100}
@@ -470,8 +426,8 @@ const SUCCESS = '/academics/student-success/';
                   <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={MARK[e.mark]} />
                 </svg>
               </span>
-              <h3 class="st-card__k">{e.k}</h3>
-              <p class="st-card__b">{e.v}</p>
+              <h3 class="st-card__k">{e.label}</h3>
+              <p class="st-card__b">{e.value}</p>
             </div>
           </li>
         ))}
@@ -483,8 +439,7 @@ const SUCCESS = '/academics/student-success/';
 <section class="st-close" aria-labelledby="st-close-t">
   <div class="st-close__media" aria-hidden="true" data-parallax data-parallax-y="-40">
     <SmartImage
-      file={pCohort}
-      alt={ac.picAlt('pCohort')}
+      file={close.shots[0]?.image} alt={close.shots[0]?.alt ?? ''}
      
       widths={[1024, 1600, 2000]}
       sizes="100vw"
@@ -496,16 +451,9 @@ const SUCCESS = '/academics/student-success/';
   <span class="st-close__glow" aria-hidden="true"></span>
 
   <div class="u-container st-close__inner">
-    <p class="st-kicker st-kicker--dark" data-reveal>Learning beyond the book</p>
-    <h2 class="st-h st-close__h" id="st-close-t">
-      <span data-clip data-clip-delay="0">Explore. Build.</span>
-      <span data-clip data-clip-delay="150"><em>Discover.</em></span>
-    </h2>
-    <p class="st-close__b" data-reveal data-reveal-delay="180">
-      The school names the rooms, their contents and the programmes it enters. It does not publish
-      a coding curriculum, which classes take robotics, or club hours — and it has published no
-      photograph of the Robotics Lab itself.
-    </p>
+    <p class="st-kicker st-kicker--dark" data-reveal>{close.kicker}</p>
+    <ClipHeading class="st-h st-close__h" id="st-close-t" text={close.heading} />
+    <RichLine class="st-close__b" text={close.body[0]} reveal revealDelay={180} />
 
     <ul class="st-close__beats">
       {[
@@ -663,7 +611,7 @@ const SUCCESS = '/academics/student-success/';
   }
   .st-kicker--dark { color: var(--sb-lime); }
 
-  .st-h {
+  :global(.st-h) {
     margin: clamp(12px, 1.5vw, 18px) 0 0;
     font-family: var(--sb-font-display);
     font-weight: 700;
@@ -671,27 +619,27 @@ const SUCCESS = '/academics/student-success/';
     letter-spacing: -0.04em;
     color: var(--sb-charcoal);
   }
-  .st-h span { display: block; }
-  .st-h em { font-style: normal; color: var(--sb-violet); }
+  :global(.st-h span) { display: block; }
+  :global(.st-h em) { font-style: normal; color: var(--sb-violet); }
 
-  .st-body {
+  :global(.st-body) {
     max-width: 46ch;
     margin: clamp(13px, 1.6vw, 19px) 0 0;
     font-size: clamp(12.5px, 0.92vw, 14.5px);
     line-height: 1.78;
     color: var(--sb-text-secondary);
   }
-  .st-body strong { font-weight: 700; color: var(--sb-charcoal); }
-  .st-body--dark { color: var(--sb-on-dark-78); }
-  .st-body--dark strong { color: #fff; }
+  :global(.st-body strong) { font-weight: 700; color: var(--sb-charcoal); }
+  :global(.st-body--dark) { color: var(--sb-on-dark-78); }
+  :global(.st-body--dark strong) { color: #fff; }
 
-  .st-link {
+  :global(.st-link) {
     font-weight: 700;
     color: var(--sb-violet);
     text-decoration: none;
     border-bottom: 1px solid rgba(201, 60, 10, 0.4);
   }
-  .st-link:hover { border-bottom-color: var(--sb-violet); }
+  :global(.st-link:hover) { border-bottom-color: var(--sb-violet); }
 
   /* The page's decorative language: a fine technical grid, right-angled traces
      with terminal nodes, and a dot field. Never above 14% opacity. */
@@ -757,7 +705,7 @@ const SUCCESS = '/academics/student-success/';
     gap: clamp(28px, 4vw, 64px);
     align-items: center;
   }
-  .st-rooms__h { font-size: clamp(26px, 3.2vw, 46px); }
+  :global(.st-rooms__h) { font-size: clamp(26px, 3.2vw, 46px); }
 
   .st-rooms__tags {
     display: flex;
@@ -906,9 +854,9 @@ const SUCCESS = '/academics/student-success/';
   .st-bots__circuit--r { right: clamp(-20px, -0.6vw, -4px); }
 
   .st-bots__inner { position: relative; }
-  .st-bots__head { max-width: 62ch; }
-  .st-bots__h { font-size: clamp(26px, 3.2vw, 46px); color: #fff; }
-  .st-bots__h em { color: var(--sb-lime); font-style: italic; }
+  :global(.st-bots__head) { max-width: 62ch; }
+  :global(.st-bots__h) { font-size: clamp(26px, 3.2vw, 46px); color: #fff; }
+  :global(.st-bots__h em) { color: var(--sb-lime); font-style: italic; }
 
   /* THE BUS. The four nodes hang off one drawn line. */
   .st-rail {
@@ -1041,7 +989,7 @@ const SUCCESS = '/academics/student-success/';
     gap: clamp(26px, 3.4vw, 56px);
     align-items: center;
   }
-  .st-use__h { font-size: clamp(24px, 2.9vw, 40px); }
+  :global(.st-use__h) { font-size: clamp(24px, 2.9vw, 40px); }
   .st-use__copy .st-body { max-width: 34ch; }
 
   .st-use__ctrl {
@@ -1216,9 +1164,9 @@ const SUCCESS = '/academics/student-success/';
     gap: clamp(20px, 2.6vw, 44px);
     align-items: center;
   }
-  .st-eco__h { font-size: clamp(24px, 2.8vw, 38px); }
-  .st-eco__b { max-width: 24ch; }
-  .st-eco__note {
+  :global(.st-eco__h) { font-size: clamp(24px, 2.8vw, 38px); }
+  :global(.st-eco__b) { max-width: 24ch; }
+  :global(.st-eco__note) {
     max-width: 28ch;
     margin: clamp(11px, 1.3vw, 16px) 0 0;
     padding-top: clamp(11px, 1.3vw, 16px);
@@ -1227,7 +1175,7 @@ const SUCCESS = '/academics/student-success/';
     line-height: 1.66;
     color: var(--sb-text-muted);
   }
-  .st-eco__note strong { font-weight: 700; color: var(--sb-charcoal); }
+  :global(.st-eco__note strong) { font-weight: 700; color: var(--sb-charcoal); }
 
   .st-eco__stage { position: relative; }
 
@@ -1391,20 +1339,20 @@ const SUCCESS = '/academics/student-success/';
     justify-items: center;
     text-align: center;
   }
-  .st-close__h {
+  :global(.st-close__h) {
     max-width: 22ch;
     font-size: clamp(26px, 3.2vw, 46px);
     color: #fff;
   }
-  .st-close__h em { color: var(--sb-lime); font-style: normal; }
-  .st-close__b {
+  :global(.st-close__h em) { color: var(--sb-lime); font-style: normal; }
+  :global(.st-close__b) {
     max-width: 66ch;
     margin: clamp(14px, 1.7vw, 21px) 0 0;
     font-size: clamp(12px, 0.88vw, 14px);
     line-height: 1.78;
     color: var(--sb-on-dark-82);
   }
-  .st-close__beats {
+  :global(.st-close__beats) {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -1414,7 +1362,7 @@ const SUCCESS = '/academics/student-success/';
     padding: 0;
     list-style: none;
   }
-  .st-close__beats li {
+  :global(.st-close__beats li) {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -1424,7 +1372,7 @@ const SUCCESS = '/academics/student-success/';
     text-transform: uppercase;
     color: #fff;
   }
-  .st-close__beats li + li::before {
+  :global(.st-close__beats li + li::before) {
     content: '';
     width: clamp(20px, 3vw, 54px);
     height: 1px;
@@ -1432,7 +1380,7 @@ const SUCCESS = '/academics/student-success/';
     background-image: linear-gradient(to right, rgba(255, 138, 92, 0.6) 52%, transparent 52%);
     background-size: 7px 1px;
   }
-  .st-close__beats span {
+  :global(.st-close__beats span) {
     display: grid;
     place-items: center;
     width: clamp(26px, 2.4vw, 34px);
@@ -1441,7 +1389,7 @@ const SUCCESS = '/academics/student-success/';
     border-radius: 50%;
     color: var(--sb-lime);
   }
-  .st-close__beats svg { width: 52%; height: auto; }
+  :global(.st-close__beats svg) { width: 52%; height: auto; }
 
   /* ═══ RESPONSIVE ══════════════════════════════════════════════════════════ */
   @media (max-width: 1023px) {
@@ -1465,7 +1413,7 @@ const SUCCESS = '/academics/student-success/';
        it goes and the nodes go with it — a line that connects a wrap is worse
        than none. */
     .st-eco__grid { grid-template-columns: minmax(0, 1fr); gap: clamp(26px, 4vw, 40px); }
-    .st-eco__b, .st-eco__note { max-width: 58ch; }
+    :global(.st-eco__b), :global(.st-eco__note) { max-width: 58ch; }
     .st-eco__list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(12px, 1.6vw, 20px); }
     /* Two-up doubles the card width, so the crop has to flatten with it — see
        the same correction in the 767 block. */
@@ -1529,8 +1477,8 @@ const SUCCESS = '/academics/student-success/';
        the spare one goes rather than floating past the last. */
     .st-eco__nodes i:nth-child(5) { display: none; }
 
-    .st-close__beats { gap: clamp(10px, 3vw, 16px); }
-    .st-close__beats li + li::before { display: none; }
+    :global(.st-close__beats) { gap: clamp(10px, 3vw, 16px); }
+    :global(.st-close__beats li + li::before) { display: none; }
 
     .st-bots__circuit,
     .st-rooms__trace,

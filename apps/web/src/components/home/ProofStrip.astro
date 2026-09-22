@@ -84,7 +84,11 @@ const heritageLede = await getHeritageLede();
     width: clamp(210px, 27vw, 440px);
     display: grid;
     place-items: center;
-    background: rgba(28, 14, 8, 0.032);
+    /* ⚠ NO WASH. This used to be rgba(28, 14, 8, .032) — faint, but enough to
+       draw a hard vertical edge down the section wherever the panel began,
+       which read as two differently-coloured halves rather than one section.
+       The crest behind it already marks the area; the tint only fenced it. */
+    background: none;
     pointer-events: none;
     height:100%;
   }

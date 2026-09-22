@@ -48,13 +48,18 @@ import AsRail from './AsRail.astro';
 import AsClose from './AsClose.astro';
 
 /* ── PHOTOGRAPHY — three genuine Sunbeam Ballia frames, each used ONCE. ───── */
-import { getAcademicTopic } from '../../../lib/cms';
+import ClipHeading from '../../ui/ClipHeading.astro';
+import RichLine from '../../ui/RichLine.astro';
+import { getRemedialSupport } from '../../../lib/cms';
 import RichLine from '../../ui/RichLine.astro';
 
-const ac = await getAcademicTopic('/academics/assessment/remedial-support/');
-const pBench = ac.pic('pBench');
-const pActivity = ac.pic('pActivity');
-const pCohort = ac.pic('pCohort');
+const { open, journey, rules, note, close } = await getRemedialSupport();
+
+/* AsClose takes its headline as two props; the record stores the same two
+   lines with {{…}} that every other heading uses. */
+const [closeLead = '', closeAccent = ''] = (close.heading ?? '')
+  .split('\n')
+  .map((l) => l.replace(/^\{\{|\}\}$/g, '').trim());
 
 const S = 'Sunbeam School Ballia';
 
@@ -63,10 +68,8 @@ const MENTORING = '/academics/assessment/mentoring/';
 const PTM = '/academics/assessment/parent-teacher-meetings/';
 
 /* ── SECTION 02 — the journey, in the order it happens ───────────────────── */
-const journey = ac.section('journey').points;
 
 /* ── SECTION 03 — the published rules, one row each ──────────────────────── */
-const rules = ac.section('rules').points;
 ---
 
 {/* ══ 01 · ONE SUBJECT, NOT THE WHOLE YEAR ═══════════════════════════════════
@@ -78,23 +81,11 @@ const rules = ac.section('rules').points;
 
   <div class="u-container rs-open__grid">
     <div>
-      <p class="as-kicker" data-reveal>Where it applies</p>
-      <h2 class="as-h as-h--xl rs-open__h" id="rs-open-t">
-        <span data-clip data-clip-delay="0">One subject,</span>
-        <span data-clip data-clip-delay="150"><em>not the whole year.</em></span>
-      </h2>
+      <p class="as-kicker" data-reveal>{open.kicker}</p>
+      <ClipHeading class="as-h as-h--xl rs-open__h" id="rs-open-t" text={open.heading} />
 
-      <p class="as-body" data-reveal data-reveal-delay="200">
-        Remedial support at Sunbeam is attached to a subject, not to a student. It runs where a
-        result in <strong>Classes VIII and IX</strong> falls below the threshold in a single subject,
-        and in <strong>Class XI</strong> where one subject is failed — additional teaching in that
-        subject, followed by a retest.
-      </p>
-      <p class="as-body" data-reveal data-reveal-delay="260">
-        The threshold mark itself is not published, and no percentage is quoted here. What
-        <em>is</em> published, unusually, is the timetable the retest has to obey — and that turns out
-        to be the part a family can actually use.
-      </p>
+      <RichLine class="as-body" text={open.body[0]} reveal revealDelay={200} />
+      <RichLine class="as-body" text={open.body[1]} reveal revealDelay={260} />
 
       <ul class="as-strip rs-open__strip" style="--n: 3;">
         <li class="as-cell" data-reveal data-reveal-delay="320">
@@ -119,8 +110,7 @@ const rules = ac.section('rules').points;
       <span class="rs-open__glow" aria-hidden="true"></span>
       <div class="rs-open__lead as-frame as-fill" data-mask>
         <SmartImage
-          file={pBench}
-          alt={ac.picAlt('pBench')}
+          file={open.shots[0]?.image} alt={open.shots[0]?.alt ?? ''}
          
           widths={[520, 880, 1200]}
           sizes="(max-width: 1023px) 92vw, 44vw"
@@ -130,8 +120,7 @@ const rules = ac.section('rules').points;
       </div>
       <div class="rs-open__sm as-frame as-frame--float as-fill" data-pop data-pop-delay="200">
         <SmartImage
-          file={pActivity}
-          alt={ac.picAlt('pActivity')}
+          file={open.shots[1]?.image} alt={open.shots[1]?.alt ?? ''}
          
           widths={[320, 560]}
           sizes="(max-width: 1023px) 46vw, 18vw"
@@ -154,12 +143,10 @@ const rules = ac.section('rules').points;
   <span class="as-ghost rs-journey__g2" aria-hidden="true" data-drift>Chance</span>
 
   <div class="u-container rs-journey__inner">
-    <p class="as-kicker rs-journey__kick" data-reveal>The remedial journey</p>
-    <h2 class="as-h as-h--md rs-journey__h" id="rs-journey-t">
-      <span data-clip data-clip-delay="0">A fair <em>second chance.</em></span>
-    </h2>
+    <p class="as-kicker rs-journey__kick" data-reveal>{journey.kicker}</p>
+    <ClipHeading class="as-h as-h--md rs-journey__h" id="rs-journey-t" text={journey.heading} />
 
-    <AsRail steps={journey} ground="peach" label="The remedial journey, four stages" class="rs-journey__rail" />
+    <AsRail steps={journey.cells} ground="peach" label="The remedial journey, four stages" class="rs-journey__rail" />
   </div>
 </section>
 
@@ -171,25 +158,14 @@ const rules = ac.section('rules').points;
 
   <div class="u-container rs-rules__grid">
     <div class="rs-rules__head">
-      <p class="as-kicker" data-reveal>The published rules</p>
-      <h2 class="as-h as-h--lg" id="rs-rules-t">
-        <span data-clip data-clip-delay="0">Support first.</span>
-        <span data-clip data-clip-delay="150"><em>Then a fair retest.</em></span>
-      </h2>
-      <p class="as-body rs-rules__b" data-reveal data-reveal-delay="200">
-        Most schools promise extra help. Few publish the calendar it has to run to. Everything on the
-        right comes from that published policy, and each rule exists to stop a retest becoming a
-        formality.
-      </p>
-      <p class="as-note" data-reveal data-reveal-delay="270">
-        <strong>Not published:</strong> the pass threshold itself, the form the additional teaching
-        takes, or who delivers it. None is estimated here. The wider cycle is on
-        {' '}<a class="as-link" href={ASSESSMENT}>Assessment &amp; Support</a>.
-      </p>
+      <p class="as-kicker" data-reveal>{rules.kicker}</p>
+      <ClipHeading class="as-h as-h--lg" id="rs-rules-t" text={rules.heading} />
+      <RichLine class="as-body rs-rules__b" text={rules.body[0]} reveal revealDelay={200} />
+      <RichLine class="as-note" text={rules.body[1]} linkClass="as-link" reveal revealDelay={270} />
     </div>
 
     <ol class="as-rows rs-rules__list">
-      {rules.map((r, i) => (
+      {rules.cells.map((r, i) => (
         <li class="as-row" data-reveal data-reveal-delay={180 + i * 80}>
           <span class="as-row__m" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none">
@@ -197,11 +173,11 @@ const rules = ac.section('rules').points;
             </svg>
           </span>
           <div class="as-row__t">
-            <p class="as-row__k">{r.k}</p>
+            <p class="as-row__k">{r.label}</p>
             <RichLine
   tag="p"
   class="as-row__v"
-  text={r.v}
+  text={r.value}
 />
           </div>
         </li>
@@ -222,29 +198,21 @@ const rules = ac.section('rules').points;
           <g stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" set:html={MARK.handHeart} />
         </svg>
       </span>
-      <p class="rs-note__t">
-        Remedial support is about giving the student
-        <em>another opportunity to learn</em> —
-        <strong>not simply repeating an examination.</strong>
-      </p>
+      <RichLine class="rs-note__t" text={note.body[0]} />
       <span class="as-dots rs-note__dots" aria-hidden="true"></span>
     </div>
 
-    <p class="as-note rs-note__foot" data-reveal data-reveal-delay="140">
-      Where the difficulty is noticed rather than measured, it reaches
-      {' '}<a class="as-link" href={MENTORING}>mentoring</a> first; results and next steps are
-      discussed at the {' '}<a class="as-link" href={PTM}>parent–teacher meeting</a> that follows.
-    </p>
+    <RichLine class="as-note rs-note__foot" text={note.body[1]} linkClass="as-link" reveal revealDelay={140} />
   </div>
 </section>
 
 <AsClose
   id="rs-close-t"
-  kicker="A retest with dates attached"
-  lead="Not a second sitting,"
-  accent="a second chance."
-  body="The school publishes the retest calendar, the classes it applies to and the conditions around the additional teaching. It does not publish the pass threshold, the form the extra teaching takes, or who delivers it — and none of those is estimated here."
-  photo={pCohort}
+  kicker={close.kicker}
+  lead={closeLead}
+  accent={closeAccent}
+  body={close.body[0]}
+  photo={close.shots[0]?.image ?? null}
 />
 
 <style>
@@ -257,7 +225,7 @@ const rules = ac.section('rules').points;
     gap: clamp(26px, 3.6vw, 56px);
     align-items: center;
   }
-  .rs-open__h { max-width: 13ch; }
+  :global(.rs-open__h) { max-width: 13ch; }
   .rs-open__strip { --n: 3; }
 
   .rs-open__stage { position: relative; padding-bottom: clamp(26px, 3vw, 46px); }
@@ -297,7 +265,7 @@ const rules = ac.section('rules').points;
     text-align: center;
   }
   .rs-journey__kick { text-align: center; }
-  .rs-journey__h em { font-style: italic; }
+  :global(.rs-journey__h em) { font-style: italic; }
   .rs-journey__rail { margin-top: clamp(26px, 3.2vw, 44px); }
 
   /* ═══ 03 · THE PUBLISHED RULES ════════════════════════════════════════════ */
@@ -308,7 +276,7 @@ const rules = ac.section('rules').points;
     gap: clamp(26px, 3.6vw, 54px);
     align-items: center;
   }
-  .rs-rules__b { max-width: 36ch; }
+  :global(.rs-rules__b) { max-width: 36ch; }
   .rs-rules__list { margin-top: 0; }
 
   /* ═══ 04 · THE CALLOUT ════════════════════════════════════════════════════ */
@@ -334,7 +302,7 @@ const rules = ac.section('rules').points;
     color: #fff;
   }
   .rs-note__m svg { width: 52%; height: auto; }
-  .rs-note__t {
+  :global(.rs-note__t) {
     margin: 0;
     max-width: 62ch;
     font-family: var(--sb-font-display);
@@ -344,21 +312,21 @@ const rules = ac.section('rules').points;
     letter-spacing: -0.028em;
     color: var(--sb-charcoal);
   }
-  .rs-note__t em { font-style: normal; color: var(--sb-violet); }
-  .rs-note__t strong { font-weight: 700; }
+  :global(.rs-note__t em) { font-style: normal; color: var(--sb-violet); }
+  :global(.rs-note__t strong) { font-weight: 700; }
   .rs-note__dots { top: 50%; right: 2%; translate: 0 -50%; width: clamp(60px, 6vw, 96px); }
-  .rs-note__foot { max-width: 68ch; margin-top: clamp(14px, 1.7vw, 20px); }
+  :global(.rs-note__foot) { max-width: 68ch; margin-top: clamp(14px, 1.7vw, 20px); }
 
   /* ═══ RESPONSIVE ══════════════════════════════════════════════════════════ */
   @media (max-width: 1179px) {
     .rs-rules__grid { grid-template-columns: minmax(0, 1fr); gap: clamp(22px, 3vw, 32px); }
-    .rs-rules__b { max-width: 62ch; }
+    :global(.rs-rules__b) { max-width: 62ch; }
   }
 
   @media (max-width: 1023px) {
     .rs-open__grid { grid-template-columns: minmax(0, 1fr); gap: clamp(28px, 4vw, 40px); }
     .rs-open__stage { order: -1; }
-    .rs-open__h { max-width: none; }
+    :global(.rs-open__h) { max-width: none; }
     .rs-journey__g1,
     .rs-journey__g2 { font-size: clamp(62px, 12vw, 108px); }
   }

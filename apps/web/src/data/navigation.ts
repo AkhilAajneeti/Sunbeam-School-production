@@ -24,6 +24,9 @@ import imgCampus from "../assets/photos/sunbeem-1.jpg";
 import imgChairman from "../assets/photos/Chairman-sunbeam.jpg";
 import imgDirector from "../assets/photos/directorImage.jpeg";
 import imgPrincipal from "../assets/photos/sb-principal.jpg";
+import imgVicePrincipal from "../assets/photos/vicePrincipal.jpeg";
+import imgCorridor from "../assets/corridor and stairs/DSC_1210 copy.jpg";
+import imgInvestiture from "../assets/school-activities/investiture-ceremony/04.jpg";
 import imgLibrary from "../assets/library/DSC_1224 copy.jpg";
 import imgChem from "../assets/chem lab/DSC_1262 copy.jpg";
 import imgComputer from "../assets/computer lab/DSC_1204 copy.jpg";
@@ -172,6 +175,19 @@ export const mainNav: NavItem[] = [
           desc: "Mrs. Arpita Singh on daily school life.",
           img: imgPrincipal,
         },
+        /* ⚠ COLUMN LEVEL, NOT NESTED UNDER ANOTHER ENTRY. MobileNav renders
+           item.columns.flat() and never descends into `children`, so anything a
+           level deeper than this is desktop-only and invisible on a phone.
+           ⚠ NO `img` YET — the Vice Principal's portrait has not been supplied
+           (A17), and the nav card falls back to its own default rather than
+           borrowing the Principal's photograph. */
+        {
+          label: "Vice Principal's Message",
+          href: "/about/vice-principals-message/",
+          icon: "teacher",
+          desc: "Mr. Pankaj Singh on academics and resilience.",
+          img: imgVicePrincipal,
+        },
         // { label: 'Achievements & Recognition', href: '/about/achievements/' },
       ],
     ],
@@ -223,6 +239,22 @@ export const mainNav: NavItem[] = [
             { label: "Secondary", href: "/academics/structure/secondary/", icon: "compass" },
             { label: "Senior Secondary", href: "/academics/structure/senior-secondary/", icon: "badge" },
           ],
+        },
+        {
+          /**
+           * ⚠⚠ THIS SITS AT COLUMN LEVEL, NOT NESTED AS A CHILD, AND THAT IS
+           * NOT A TIDINESS CHOICE. The mobile drawer renders `columns.flat()`
+           * and NEVER DESCENDS INTO `children` — anything a level deeper is a
+           * desktop-only link. Class Corner is a parent-facing utility (class
+           * teachers, timetable, monitors, exam dates), so it has to be
+           * reachable on a phone. It originally shipped nested and was
+           * invisible on mobile.
+           */
+          label: "Class Corner",
+          href: "/academics/class-corner/",
+          icon: "badge",
+          desc: "Class teachers, timetables, monitors and exam dates.",
+          img: imgCorridor,
         },
         {
           label: "Teaching & Learning",
@@ -317,6 +349,11 @@ export const mainNav: NavItem[] = [
             { label: "School–Parent Communication", href: "/academics/parent-partnership/school-parent-communication/", icon: "mail" },
             { label: "Parent Engagement Initiatives", href: "/academics/parent-partnership/parent-engagement/", icon: "star" },
             { label: "Frequently Asked Questions", href: "/academics/parent-partnership/faqs/", icon: "bulb" },
+            /* ⚠ THE ONE ENTRY IN THIS GROUP WHOSE PATH SITS OUTSIDE THE SECTION.
+               /parents-feedback/ is a top-level route on the client’s
+               instruction; it is listed here because this is where a parent
+               looks for it, and without the entry the page is an orphan. */
+            { label: "Parents’ Feedback", href: "/parents-feedback/", icon: "speech" },
           ],
         },
         // §8, kept as the single item the audit names it.
@@ -407,6 +444,43 @@ export const mainNav: NavItem[] = [
           icon: "globe",
           desc: "Trips, expeditions and field visits.",
           img: imgJosh,
+        },
+        /* ⚠ THE LABEL IS ONE OF FOUR THINGS THAT MOVE TOGETHER — see the header
+           of src/pages/beyond-academics/ncc-scouts-guides.astro. If this is
+           ever narrowed to just "NCC" or just "Scouts", the page titles, the
+           meta description and the CMS group names all have to follow.
+           ⚠ COLUMN LEVEL, NOT NESTED. MobileNav renders item.columns.flat()
+           and never descends into `children`, so a deeper entry would be
+           desktop-only and invisible on a phone. */
+        {
+          label: "NCC, Scouts & Guides",
+          href: "/beyond-academics/ncc-scouts-guides/",
+          icon: "shield",
+          desc: "Cadets, the troop, and the district meeting.",
+        },
+        /* ⚠ COLUMN LEVEL, NOT NESTED — same reason as the entry above: the
+           mobile drawer renders columns.flat() and never descends into
+           `children`. A page naming twenty-six students by name has to be
+           reachable on the phone those students' parents are holding. */
+        {
+          label: "Student Council",
+          href: "/beyond-academics/student-council/",
+          icon: "badge",
+          desc: "The senior and junior councils, and the posts they hold.",
+          img: imgInvestiture,
+        },
+        /* UNDER BEYOND ACADEMICS BECAUSE THAT IS WHERE THE SCHOOL PUTS IT —
+           the live site's footer lists Publications in its BEYOND ACADEMICS
+           column. The path matches the live URL, /publications/, so it sits
+           outside this branch's directory; that is deliberate and the same
+           exception /parents-feedback/ makes. Without this entry the page is an
+           orphan. */
+        {
+          label: "Publications",
+          href: "/publications/",
+          icon: "book",
+          desc: "Club newsletters, magazines and the e-newspaper.",
+          img: imgLibrary,
         },
       ],
     ],

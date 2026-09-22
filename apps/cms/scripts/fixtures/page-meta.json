@@ -105,6 +105,32 @@
       "wasInterpolated": []
     },
     {
+      "route": "/about/vice-principals-message/",
+      "file": "about/vice-principals-message.astro",
+      "seo": {
+        "metaTitle": "Vice Principal's Message",
+        "metaDescription": "A message from Mr. Pankaj Singh, Vice Principal of Sunbeam School Ballia, on academic excellence, active learning and building resilient young minds.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "Vice Principal's Message",
+      "heroStandfirst": null,
+      "heroAlt": "The Sunbeam School Ballia campus at Agarsanda.",
+      "heroPosition": "50% 58%",
+      "banner": "assets/photos/sunbeem-1.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "About",
+          "href": "/about/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
       "route": "/about/vision-mission/",
       "file": "about/vision-mission.astro",
       "seo": {
@@ -1588,6 +1614,32 @@
       "heroAlt": "Sunbeam School Ballia students and staff with the school banner at the IMUN conference",
       "heroPosition": "50% 38%",
       "banner": "assets/excursions/imun-1.jpg",
+      "crumbs": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Beyond Academics",
+          "href": "/beyond-academics/sports/"
+        }
+      ],
+      "wasInterpolated": []
+    },
+    {
+      "route": "/beyond-academics/ncc-scouts-guides/",
+      "file": "beyond-academics/ncc-scouts-guides.astro",
+      "seo": {
+        "metaTitle": "NCC, Scouts & Guides",
+        "metaDescription": "The National Cadet Corps and the Scouts & Guides troop at Sunbeam School Ballia — certificate affiliations, the annual training camp, and the district meeting of CBSE schools held at Agarsanda.",
+        "noIndex": false
+      },
+      "titleStandalone": false,
+      "heroTitle": "NCC, Scouts & Guides",
+      "heroStandfirst": null,
+      "heroAlt": "The Scout troop of Sunbeam School Ballia assembled in uniform in the school yard.",
+      "heroPosition": "50% 38%",
+      "banner": "assets/scouts-and-guides/scouts-and-guides-3.jpeg",
       "crumbs": [
         {
           "label": "Home",

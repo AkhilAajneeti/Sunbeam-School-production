@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_publications_myra_pages",
+  "info": {
+    "displayName": "MYRA Page",
+    "icon": "file",
+    "description": "One page of the MYRA STEM Lab newsletter — the scan, and what it shows. ⚠ THE ORDER OF THESE ROWS IS THE ORDER ON THE PAGE, and the rail numbers itself from it (\"page 3 of 5\"), so dragging a row renumbers the caption too. ⚠ `alt` IS NOT OPTIONAL AND IS NOT THE TITLE. It describes what is ON the scan for a reader who cannot see it. The school’s own widget ships all five with empty alt; these were written for this site and should stay written."
+  },
+  "options": {},
+  "attributes": {
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "alt": {
+      "type": "text",
+      "required": true,
+      "maxLength": 300
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "kind": "singleType",
+  "collectionName": "achievements_pages",
+  "info": {
+    "singularName": "achievements-page",
+    "pluralName": "achievements-pages",
+    "displayName": "Achievements Page",
+    "description": "The three band headings on Beyond Academics → Achievements. ⚠ THIS IS THE PAGE FURNITURE ONLY — the achievements themselves live in three separate collections: Achievement Majors, Credentials and Achievement Records. Editing a heading here never changes what is listed under it. ⚠ THE BANNER, PAGE TITLE AND SEO ARE NOT HERE EITHER — they are on the Page Meta row for /beyond-academics/achievements/, which is where every page on the site keeps them, banner upload included."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "majors": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "recognition": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "record": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "recordBoards": {
+      "type": "component",
+      "repeatable": true,
+      "component": "achievements.record-board",
+      "max": 2
+    }
+  }
+}

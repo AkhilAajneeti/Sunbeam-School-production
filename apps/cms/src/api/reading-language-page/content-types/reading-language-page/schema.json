@@ -1,0 +1,40 @@
+{
+  "kind": "singleType",
+  "collectionName": "reading_language_pages",
+  "info": {
+    "singularName": "reading-language-page",
+    "pluralName": "reading-language-pages",
+    "displayName": "Reading & Language",
+    "description": "The Reading & Language page (/academics/teaching-learning/reading-language/) — one named field per band of the page, in the order a reader meets them. ⚠ Every band is the same shape: a label, a heading, paragraphs, photographs and a run of cells. What differs is how the page lays that out, and the page owns it. Bands cannot be reordered, added or removed."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "lib": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "round": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "lab": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "stage": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "close": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    }
+  }
+}

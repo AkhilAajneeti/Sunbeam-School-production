@@ -54,18 +54,12 @@
 import SmartImage from '../../../components/ui/SmartImage.astro';
 
 /* ── PHOTOGRAPHY — six genuine Sunbeam Ballia frames, no stock, no repeats. */
-import { getAcademicTopic } from '../../../lib/cms';
+import ClipHeading from '../../ui/ClipHeading.astro';
+import RichLine from '../../ui/RichLine.astro';
+import { getLaboratoriesClubs } from '../../../lib/cms';
 
-const ac = await getAcademicTopic('/academics/teaching-learning/laboratories-clubs/');
-const pBio = ac.pic('pBio');
-const pActivity = ac.pic('pActivity');
-const pTables = ac.pic('pTables');
-const pBench = ac.pic('pBench');
-const pMicro = ac.pic('pMicro');
-const pMaths = ac.pic('pMaths');
-const pCohort = ac.pic('pCohort');
+const { rooms, twelve, spaces, interlude, close } = await getLaboratoriesClubs();
 
-const S = 'Sunbeam School Ballia';
 
 /* ── THE MARKS ──────────────────────────────────────────────────────────────
    24-unit box, 1.5 stroke, round caps and joins, no fill, `currentColor`. */
@@ -89,17 +83,14 @@ const MARK: Record<string, string> = {
 };
 
 /* Four indicators under section 01. Only the first is a published quantity. */
-const facts = ac.section('facts').points;
 
 /* ── THE TWELVE, AS THE SCHOOL ENUMERATES THEM ─────────────────────────────
    ⚠ THIS LIST IS THE SCHOOL'S OWN COUNT AND NOTHING ELSE. `inquiry: true` marks
    the four that are not subject laboratories — inside the twelve, not added to
    them. No club names appear because none is published; see the header note. */
-const rooms = ac.section('rooms').points;;
 
 /* ── SECTION 03 ─────────────────────────────────────────────────────────────
    Four editorial columns, divided by rules rather than boxed. */
-const spaces = ac.section('spaces').points;
 
 const STEM = '/academics/teaching-learning/stem-robotics/';
 const READING = '/academics/teaching-learning/reading-language/';
@@ -125,25 +116,13 @@ const READING = '/academics/teaching-learning/reading-language/';
   <div class="u-container">
     <div class="lb-rooms__grid">
       <div class="lb-rooms__copy">
-        <p class="lb-kicker" data-reveal>One subject, one space</p>
-        <h2 class="lb-h lb-rooms__h" id="lb-rooms-t">
-          <span data-clip data-clip-delay="0">A room for</span>
-          <span data-clip data-clip-delay="150"><em>one subject.</em></span>
-        </h2>
-        <p class="lb-body" data-reveal data-reveal-delay="200">
-          Twelve is only a number until you know what kind of rooms they are. The distinction that
-          matters is <strong>specialised against general</strong>: a chemistry laboratory with gas
-          taps, a fume path and reagent shelves is a different object from a science room with a
-          sink at the back — and only one of them lets a class run a practical the board expects.
-        </p>
-        <p class="lb-body" data-reveal data-reveal-delay="270">
-          Physics, Chemistry and Biology each carry <strong>board practicals from Class IX to Class
-          XII</strong>. The mathematics laboratory is the one most schools do without: its purpose
-          is to make mathematics something handled rather than only argued on paper.
-        </p>
+        <p class="lb-kicker" data-reveal>{rooms.kicker}</p>
+        <ClipHeading class="lb-h lb-rooms__h" id="lb-rooms-t" text={rooms.heading} />
+        <RichLine class="lb-body" text={rooms.body[0]} reveal revealDelay={200} />
+        <RichLine class="lb-body" text={rooms.body[1]} reveal revealDelay={270} />
 
         <ul class="lb-facts">
-          {facts.map((f, i) => (
+          {rooms.cells.map((f, i) => (
             <li data-reveal data-reveal-delay={330 + i * 80}>
               <span class="lb-facts__i" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none">
@@ -151,9 +130,9 @@ const READING = '/academics/teaching-learning/reading-language/';
                 </svg>
               </span>
               <p class="lb-facts__n t-tabular">
-                {f.n ? <span data-count={f.n} data-count-dur={1.3}>{f.n}</span> : f.v}
+                {f.number ? <span data-count={f.number} data-count-dur={1.3}>{f.number}</span> : f.value}
               </p>
-              <p class="lb-facts__k">{f.k}</p>
+              <p class="lb-facts__k">{f.label}</p>
             </li>
           ))}
         </ul>
@@ -162,8 +141,7 @@ const READING = '/academics/teaching-learning/reading-language/';
       <div class="lb-rooms__media">
         <figure class="lb-rooms__lead" data-mask data-zoom data-zoom-to="1.06">
           <SmartImage
-            file={pBench}
-            alt={ac.picAlt('pBench')}
+            file={rooms.shots[0]?.image} alt={rooms.shots[0]?.alt ?? ''}
            
             widths={[620, 1000, 1320]}
             sizes="(max-width: 1023px) 92vw, 46vw"
@@ -174,8 +152,7 @@ const READING = '/academics/teaching-learning/reading-language/';
 
         <figure class="lb-rooms__side" data-parallax data-parallax-y="26">
           <SmartImage
-            file={pBio}
-            alt={ac.picAlt('pBio')}
+            file={rooms.shots[1]?.image} alt={rooms.shots[1]?.alt ?? ''}
            
             widths={[360, 600]}
             sizes="(max-width: 1023px) 44vw, 20vw"
@@ -186,8 +163,7 @@ const READING = '/academics/teaching-learning/reading-language/';
 
         <figure class="lb-rooms__disc" data-parallax data-parallax-y="-20">
           <SmartImage
-            file={pMicro}
-            alt={ac.picAlt('pMicro')}
+            file={rooms.shots[2]?.image} alt={rooms.shots[2]?.alt ?? ''}
            
             widths={[280, 440]}
             sizes="(max-width: 1023px) 30vw, 13vw"
@@ -210,8 +186,7 @@ const READING = '/academics/teaching-learning/reading-language/';
     <div class="lb-twelve__media">
       <figure class="lb-twelve__lead" data-mask data-zoom data-zoom-to="1.06">
         <SmartImage
-          file={pActivity}
-          alt={ac.picAlt('pActivity')}
+          file={twelve.shots[0]?.image} alt={twelve.shots[0]?.alt ?? ''}
          
           widths={[560, 900, 1200]}
           sizes="(max-width: 1023px) 92vw, 40vw"
@@ -222,8 +197,7 @@ const READING = '/academics/teaching-learning/reading-language/';
 
       <figure class="lb-twelve__side" data-parallax data-parallax-y="-24">
         <SmartImage
-          file={pMaths}
-          alt={ac.picAlt('pMaths')}
+          file={twelve.shots[1]?.image} alt={twelve.shots[1]?.alt ?? ''}
          
           widths={[340, 560]}
           sizes="(max-width: 1023px) 42vw, 19vw"
@@ -234,8 +208,7 @@ const READING = '/academics/teaching-learning/reading-language/';
 
       <figure class="lb-twelve__disc" data-parallax data-parallax-y="22">
         <SmartImage
-          file={pTables}
-          alt={ac.picAlt('pTables')}
+          file={twelve.shots[2]?.image} alt={twelve.shots[2]?.alt ?? ''}
          
           widths={[280, 440]}
           sizes="(max-width: 1023px) 30vw, 13vw"
@@ -246,25 +219,15 @@ const READING = '/academics/teaching-learning/reading-language/';
     </div>
 
     <div class="lb-twelve__copy">
-      <p class="lb-kicker" data-reveal>The spirit of academic clubs</p>
-      <h2 class="lb-h lb-twelve__h" id="lb-twelve-t">
-        <span data-clip data-clip-delay="0">Twelve,</span>
-        <span data-clip data-clip-delay="130"><em>and four of them</em></span>
-        <span data-clip data-clip-delay="230"><em>are not labs.</em></span>
-      </h2>
-      <p class="lb-body" data-reveal data-reveal-delay="200">
-        The school enumerates its twelve rooms by name, and
-        {' '}<strong>four of the twelve are inquiry rooms rather than subject laboratories</strong> —
-        counted inside the twelve, not added to it. A school that spends four of twelve on debate,
-        making, maps and open-ended work has chosen to give space to the subjects that do not sit an
-        exam.
-      </p>
+      <p class="lb-kicker" data-reveal>{twelve.kicker}</p>
+      <ClipHeading class="lb-h lb-twelve__h" id="lb-twelve-t" text={twelve.heading} delays={[0, 130, 230]} />
+      <RichLine class="lb-body" text={twelve.body[0]} reveal revealDelay={200} />
 
       {/* ⚠ A LIST ON HAIRLINES, TWO COLUMNS — not twelve cards. The four inquiry
           rooms carry a small orange flag so the count is legible at a glance. */}
       <ol class="lb-list">
-        {rooms.map((r, i) => (
-          <li class={`lb-room${r.inquiry ? ' lb-room--inq' : ''}`} data-reveal data-reveal-delay={100 + i * 45}>
+        {twelve.cells.map((r, i) => (
+          <li class={`lb-room${r.flag ? ' lb-room--inq' : ''}`} data-reveal data-reveal-delay={100 + i * 45}>
             <span class="lb-room__i" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none">
                 <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={MARK[r.mark]} />
@@ -272,20 +235,16 @@ const READING = '/academics/teaching-learning/reading-language/';
             </span>
             <div class="lb-room__t">
               <p class="lb-room__k">
-                {r.k}
-                {r.inquiry && <span class="lb-room__flag">Inquiry</span>}
+                {r.label}
+                {r.flag && <span class="lb-room__flag">Inquiry</span>}
               </p>
-              <p class="lb-room__v">{r.v}</p>
+              <p class="lb-room__v">{r.value}</p>
             </div>
           </li>
         ))}
       </ol>
 
-      <p class="lb-note" data-reveal data-reveal-delay="640">
-        The Robotics Lab is set out on <a class="lb-link" href={STEM}>STEM, Robotics &amp;
-        Enrichment</a>; the language laboratory on <a class="lb-link" href={READING}>Reading,
-        Language &amp; Library</a>.
-      </p>
+      <RichLine class="lb-note" text={twelve.body[1]} linkClass="lb-link" reveal revealDelay={640} />
     </div>
   </div>
 </section>
@@ -299,29 +258,22 @@ const READING = '/academics/teaching-learning/reading-language/';
 
   <div class="u-container">
     <div class="lb-spaces__head">
-      <p class="lb-kicker" data-reveal>Built to support real learning</p>
-      <h2 class="lb-h lb-spaces__h" id="lb-spaces-t">
-        <span data-clip data-clip-delay="0">Rooms for the work</span>
-        <span data-clip data-clip-delay="150"><em>with no right answer.</em></span>
-      </h2>
-      <p class="lb-body lb-spaces__b" data-reveal data-reveal-delay="200">
-        Great learning does not come from memorising. It comes from asking, trying, failing safely
-        and trying again — which needs rooms built for experimentation, discussion, making and
-        practical work rather than for listening.
-      </p>
+      <p class="lb-kicker" data-reveal>{spaces.kicker}</p>
+      <ClipHeading class="lb-h lb-spaces__h" id="lb-spaces-t" text={spaces.heading} />
+      <RichLine class="lb-body lb-spaces__b" text={spaces.body[0]} reveal revealDelay={200} />
     </div>
 
     <ol class="lb-cols">
-      {spaces.map((sp, i) => (
+      {spaces.cells.map((sp, i) => (
         <li class="lb-col" data-reveal data-reveal-delay={120 + i * 110}>
           <span class="lb-col__i" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none">
               <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={MARK[sp.mark]} />
             </svg>
           </span>
-          <p class="lb-col__n t-tabular">{sp.n}</p>
-          <h3 class="lb-col__k">{sp.k}</h3>
-          <p class="lb-col__b">{sp.v}</p>
+          <p class="lb-col__n t-tabular">{String(i + 1).padStart(2, '0')}</p>
+          <h3 class="lb-col__k">{sp.label}</h3>
+          <p class="lb-col__b">{sp.value}</p>
         </li>
       ))}
     </ol>
@@ -337,11 +289,7 @@ const READING = '/academics/teaching-learning/reading-language/';
   <span class="lb-break__ghost lb-break__ghost--b" aria-hidden="true" data-parallax data-parallax-y="-18">Questions</span>
 
   <div class="u-container lb-break__inner">
-    <h2 class="lb-h lb-break__h" id="lb-break-t">
-      <span data-clip data-clip-delay="0">Different rooms.</span>
-      <span data-clip data-clip-delay="130">Different questions.</span>
-      <span data-clip data-clip-delay="240"><em>One connected idea of learning.</em></span>
-    </h2>
+    <ClipHeading class="lb-h lb-break__h" id="lb-break-t" text={interlude.heading} delays={[0, 130, 240]} />
   </div>
 </section>
 
@@ -349,8 +297,7 @@ const READING = '/academics/teaching-learning/reading-language/';
 <section class="lb-close" aria-labelledby="lb-close-t">
   <div class="lb-close__media" aria-hidden="true" data-parallax data-parallax-y="-40">
     <SmartImage
-      file={pCohort}
-      alt={ac.picAlt('pCohort')}
+      file={close.shots[0]?.image} alt={close.shots[0]?.alt ?? ''}
      
       widths={[1024, 1600, 2000]}
       sizes="100vw"
@@ -362,16 +309,9 @@ const READING = '/academics/teaching-learning/reading-language/';
   <span class="lb-close__grain" aria-hidden="true"></span>
 
   <div class="u-container lb-close__inner">
-    <p class="lb-kicker lb-kicker--dark" data-reveal>Learning beyond textbooks</p>
-    <h2 class="lb-h lb-close__h" id="lb-close-t">
-      <span data-clip data-clip-delay="0">Four of twelve,</span>
-      <span data-clip data-clip-delay="150">spent on the <em>open questions.</em></span>
-    </h2>
-    <p class="lb-close__b" data-reveal data-reveal-delay="180">
-      The school enumerates its twelve rooms and names the four inquiry rooms among them. It does
-      not publish club membership, meeting times or who runs each one — and it has published no
-      photograph of the Robotics Lab or of the four inquiry rooms in use.
-    </p>
+    <p class="lb-kicker lb-kicker--dark" data-reveal>{close.kicker}</p>
+    <ClipHeading class="lb-h lb-close__h" id="lb-close-t" text={close.heading} />
+    <RichLine class="lb-close__b" text={close.body[0]} reveal revealDelay={180} />
   </div>
 </section>
 
@@ -387,7 +327,7 @@ const READING = '/academics/teaching-learning/reading-language/';
   }
   .lb-kicker--dark { color: var(--sb-lime); }
 
-  .lb-h {
+  :global(.lb-h) {
     margin: clamp(12px, 1.5vw, 18px) 0 0;
     font-family: var(--sb-font-display);
     font-weight: 700;
@@ -395,25 +335,25 @@ const READING = '/academics/teaching-learning/reading-language/';
     letter-spacing: -0.04em;
     color: var(--sb-charcoal);
   }
-  .lb-h span { display: block; }
-  .lb-h em { font-style: normal; color: var(--sb-violet); }
+  :global(.lb-h span) { display: block; }
+  :global(.lb-h em) { font-style: normal; color: var(--sb-violet); }
 
-  .lb-body {
+  :global(.lb-body) {
     max-width: 46ch;
     margin: clamp(13px, 1.6vw, 19px) 0 0;
     font-size: clamp(12.5px, 0.92vw, 14.5px);
     line-height: 1.78;
     color: var(--sb-text-secondary);
   }
-  .lb-body strong { font-weight: 700; color: var(--sb-charcoal); }
+  :global(.lb-body strong) { font-weight: 700; color: var(--sb-charcoal); }
 
-  .lb-link {
+  :global(.lb-link) {
     font-weight: 700;
     color: var(--sb-violet);
     text-decoration: none;
     border-bottom: 1px solid rgba(201, 60, 10, 0.38);
   }
-  .lb-link:hover { border-bottom-color: var(--sb-violet); }
+  :global(.lb-link:hover) { border-bottom-color: var(--sb-violet); }
 
   .lb-grid {
     position: absolute;
@@ -482,7 +422,7 @@ const READING = '/academics/teaching-learning/reading-language/';
     gap: clamp(28px, 4vw, 62px);
     align-items: center;
   }
-  .lb-rooms__h { font-size: clamp(28px, 3.4vw, 48px); }
+  :global(.lb-rooms__h) { font-size: clamp(28px, 3.4vw, 48px); }
 
   /* Four indicators, inside the copy column and on their own hairline. */
   .lb-facts {
@@ -589,7 +529,7 @@ const READING = '/academics/teaching-learning/reading-language/';
     gap: clamp(28px, 4vw, 60px);
     align-items: center;
   }
-  .lb-twelve__h { font-size: clamp(26px, 3.1vw, 42px); }
+  :global(.lb-twelve__h) { font-size: clamp(26px, 3.1vw, 42px); }
 
   .lb-twelve__media { position: relative; }
   .lb-twelve__lead {
@@ -699,7 +639,7 @@ const READING = '/academics/teaching-learning/reading-language/';
     line-height: 1.55;
     color: var(--sb-text-muted);
   }
-  .lb-note {
+  :global(.lb-note) {
     margin: clamp(14px, 1.7vw, 20px) 0 0;
     font-size: clamp(10px, 0.76vw, 12px);
     line-height: 1.62;
@@ -730,9 +670,9 @@ const READING = '/academics/teaching-learning/reading-language/';
     -webkit-mask-image: linear-gradient(230deg, #000 0%, transparent 92%);
     mask-image: linear-gradient(230deg, #000 0%, transparent 92%);
   }
-  .lb-spaces__head { max-width: 62ch; }
-  .lb-spaces__h { font-size: clamp(26px, 3.1vw, 42px); }
-  .lb-spaces__b { max-width: 58ch; }
+  :global(.lb-spaces__head) { max-width: 62ch; }
+  :global(.lb-spaces__h) { font-size: clamp(26px, 3.1vw, 42px); }
+  :global(.lb-spaces__b) { max-width: 58ch; }
 
   /* ⚠ COLUMNS DIVIDED BY RULES, NOT CARDS. No plate, no border box, no shadow —
      one hairline between each pair, which is what makes them read as one row of
@@ -809,7 +749,7 @@ const READING = '/academics/teaching-learning/reading-language/';
   .lb-break__ghost--a { top: -8%; left: calc(var(--sb-margin) * -0.5); }
   .lb-break__ghost--b { bottom: -10%; right: calc(var(--sb-margin) * -0.5); }
   .lb-break__inner { position: relative; text-align: center; }
-  .lb-break__h {
+  :global(.lb-break__h) {
     margin: 0 auto;
     /* Wide enough for the third line to set whole — at 20ch it broke after
        "idea of" and left "learning." alone on a fourth. */
@@ -856,13 +796,13 @@ const READING = '/academics/teaching-learning/reading-language/';
     justify-items: center;
     text-align: center;
   }
-  .lb-close__h {
+  :global(.lb-close__h) {
     max-width: 22ch;
     font-size: clamp(26px, 3.2vw, 46px);
     color: #fff;
   }
-  .lb-close__h em { color: var(--sb-lime); font-style: italic; }
-  .lb-close__b {
+  :global(.lb-close__h em) { color: var(--sb-lime); font-style: italic; }
+  :global(.lb-close__b) {
     max-width: 66ch;
     margin: clamp(14px, 1.7vw, 21px) 0 0;
     font-size: clamp(12px, 0.88vw, 14px);
@@ -877,7 +817,7 @@ const READING = '/academics/teaching-learning/reading-language/';
       grid-template-columns: minmax(0, 1fr);
       gap: clamp(32px, 4.6vw, 48px);
     }
-    .lb-body { max-width: 58ch; }
+    :global(.lb-body) { max-width: 58ch; }
     .lb-rooms__lead,
     .lb-twelve__lead { width: 100%; }
     .lb-rooms__side,

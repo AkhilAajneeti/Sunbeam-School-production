@@ -443,6 +443,7 @@ const school = await getSchool();
     .masthead__apply { padding-inline: 13px; font-size: 11px; }
   }
 
+
   @media (max-width: 767px) {
     .brand { gap: 10px; }
     .brand__emblem { height: 38px; }
@@ -451,6 +452,27 @@ const school = await getSchool();
     .masthead.is-scrolled .brand__wordmark { height: 28px; }
     .masthead__toggle-text { display: none; }
   }
+  /* ⚠⚠ THE LOGO GIVES WAY AT 359, NOT THE BUTTON. At 320 the row needs 320px
+     inside 280px of usable width — brand 173 + gap 12 + actions 135 — and it
+     pushed the document 20px sideways on EVERY page, not just the homepage.
+
+     The pill was already trimmed at 479 and there is nothing left to take from
+     it: shrinking “Admissions” further makes the one action in the header
+     illegible, and the burger is a 30px tap target that should not go below 24.
+     The wordmark is the compressible element — it is 113px of artwork that
+     still reads at 88 — so it is what steps aside. */
+  @media (max-width: 359px) {
+    .brand { gap: 7px; }
+    .brand__emblem,
+    .masthead.is-scrolled .brand__emblem { height: 30px; }
+    .brand__wordmark,
+    .masthead.is-scrolled .brand__wordmark { height: 26px; }
+    .masthead__inner { gap: 8px; }
+  }
+
+  /* ⚠ THE 359 BLOCK MUST STAY BELOW THE 767 ONE. Both match at 320px and both
+     are one class deep, so source order decides — written above, the 767 rule
+     re-set the emblem to 38px and the overflow came straight back. */
 </style>
 
 <script>

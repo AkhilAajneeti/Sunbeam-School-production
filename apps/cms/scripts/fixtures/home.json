@@ -407,26 +407,6 @@
     },
     {
       "image": {
-        "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\banners\\banner4.jpg"
-      },
-      "alt": "The students and staff of Sunbeam School Ballia assembled in rows on the steps beneath the school’s Sunbeam Ballia sign.",
-      "caption": "The whole school, assembled",
-      "brief": "The whole school in rows on the steps under the school sign",
-      "focalPoint": "50% 44%",
-      "tone": "charcoal"
-    },
-    {
-      "image": {
-        "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\banners\\banner2.jpg"
-      },
-      "alt": "Office-bearers of the Sunbeam School Ballia student council standing with a hand on their hearts to take the oath, their sashes reading Head Boy, Head Girl and Captain, while a member of staff speaks at the lectern.",
-      "caption": "The student council, invested",
-      "brief": "Student council office-bearers taking the oath beside the lectern",
-      "focalPoint": "50% 50%",
-      "tone": "maroon"
-    },
-    {
-      "image": {
         "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\banners\\banner9.jpg"
       },
       "alt": "The youngest classes of Sunbeam School Ballia on stage in graduation caps and striped sashes, each holding a rolled certificate, with their teachers standing behind them.",
@@ -434,16 +414,6 @@
       "brief": "The youngest classes on stage in caps, certificates in hand",
       "focalPoint": "50% 46%",
       "tone": "ink"
-    },
-    {
-      "image": {
-        "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\banners\\banner7.jpg"
-      },
-      "alt": "Students of Sunbeam School Ballia on stage holding framed certificates and the house flags, their sashes reading Head and Vice, with staff standing behind them.",
-      "caption": "The houses and their flags",
-      "brief": "House office-bearers with their certificates and house flags",
-      "focalPoint": "50% 48%",
-      "tone": "maroon"
     },
     {
       "image": {
@@ -457,33 +427,33 @@
     },
     {
       "image": {
-        "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\banners\\banner3.jpg"
+        "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\banners\\banner4.jpg"
       },
-      "alt": "Two office-bearers of Sunbeam School Ballia, their sashes reading Vice Head and Asst Discipline, standing with two adults on the lit set of a podcast studio, softboxes and a camera either side.",
-      "caption": "Office-bearers at the podcast studio",
-      "brief": "Two office-bearers with two adults on a podcast studio set",
+      "alt": "The students and staff of Sunbeam School Ballia assembled in rows on the steps beneath the school’s Sunbeam Ballia sign.",
+      "caption": "The whole school, assembled",
+      "brief": "The whole school in rows on the steps under the school sign",
       "focalPoint": "50% 44%",
-      "tone": "ink"
-    },
-    {
-      "image": {
-        "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\banners\\banner6.jpg"
-      },
-      "alt": "A line of guests and staff on stage at Sunbeam School Ballia, each holding a framed memento, with a police officer in uniform at the end of the row.",
-      "caption": "Guests with their mementoes",
-      "brief": "Guests and staff in a line on stage, each with a framed memento",
-      "focalPoint": "50% 50%",
       "tone": "charcoal"
     },
     {
       "image": {
-        "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\banners\\banner5.jpg"
+        "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\banners\\banner7.jpg"
       },
-      "alt": "Guests and staff on stage at Sunbeam School Ballia holding up copies of a publication at its release, the title screen behind them reading Hamar Ballia.",
-      "caption": "A publication, released",
-      "brief": "A publication held up on stage at its release",
-      "focalPoint": "50% 52%",
+      "alt": "Students of Sunbeam School Ballia on stage holding framed certificates and the house flags, their sashes reading Head and Vice, with staff standing behind them.",
+      "caption": "The houses and their flags",
+      "brief": "House office-bearers with their certificates and house flags",
+      "focalPoint": "50% 48%",
       "tone": "maroon"
+    },
+    {
+      "image": {
+        "absolutePath": "C:\\Users\\aclde\\Desktop\\Sunbeam-School\\apps\\web\\src\\assets\\photos\\sunbeem-2.jpg"
+      },
+      "alt": "Students of Sunbeam School Ballia assembled for a group photograph under the portico, in school blazers and lanyards, with their teachers standing at either end of the rows.",
+      "caption": "Together, under the portico",
+      "brief": "A whole-cohort group photograph under the portico",
+      "focalPoint": "50% 45%",
+      "tone": "charcoal"
     }
   ],
   "director": {
@@ -587,5 +557,11 @@
         }
       }
     ]
+  },
+  "heroSlidesExcluded": {
+    "banner2.jpg": "Duplicate of banner7 — the same investiture, one frame earlier.",
+    "banner3.jpg": "A camera timestamp (2024.11.16 16:22) is burned into the pixels.",
+    "banner5.jpg": "No students in the frame — twelve adults on a dark stage.",
+    "banner6.jpg": "Duplicate subject of banner5 — staff holding plaques."
   }
 }

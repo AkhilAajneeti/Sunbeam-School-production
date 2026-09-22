@@ -192,3 +192,20 @@ export const progression = [
   { label: 'Leadership', body: 'MUN committee, student council, or the KIDS venture in Class 7.', icon: 'gavel' },
   { label: 'Graduation', body: 'Out through Class XII, with counselling on where next.', icon: 'cap' },
 ] as const;
+
+
+/**
+ * The one editable band head on /campus/facilities-infrastructure/.
+ *
+ * ⚠ THE OTHER TWO BANDS ON THAT PAGE ARE SHARED WITH /campus/ — the photo wall
+ * and the visit call-to-action are the same components, and their copy is
+ * edited in Campus Tour Page. Duplicating them here is how one heading becomes
+ * two that disagree.
+ */
+export const facilitiesBands = {
+  figures: {
+    eyebrow: 'The campus in figures',
+    heading: 'What the school actually has',
+    stand: 'Every number below is one Sunbeam Ballia publishes.',
+  },
+} as const;

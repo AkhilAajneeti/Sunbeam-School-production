@@ -26,6 +26,8 @@ if (mode !== 'apply') {
 
 const SECONDARY = 'api::secondary-stage-page.secondary-stage-page';
 const STREAMS = 'api::streams-offered-page.streams-offered-page';
+const SMART = 'api::smart-classrooms-page.smart-classrooms-page';
+const MENTOR = 'api::mentoring-page.mentoring-page';
 
 const bandPopulate = {
   populate: {
@@ -46,10 +48,14 @@ const bare = (b) => ({
   cells: (b?.cells ?? []).map((c) => ({
     label: c.label, value: c.value, mark: c.mark, note: c.note,
     sub: c.sub, caption: c.caption, flag: c.flag, image: id(c.image), alt: c.alt,
+    /* ⚠ Carried through, or writing a band back would wipe the figures. */
+    number: c.number, suffix: c.suffix, state: c.state,
   })),
   cellsTwo: (b?.cellsTwo ?? []).map((c) => ({
     label: c.label, value: c.value, mark: c.mark, note: c.note,
     sub: c.sub, caption: c.caption, flag: c.flag, image: id(c.image), alt: c.alt,
+    /* ⚠ Carried through, or writing a band back would wipe the figures. */
+    number: c.number, suffix: c.suffix, state: c.state,
   })),
 });
 
@@ -103,10 +109,61 @@ await withStrapi(async (app) => {
     status: 'published',
   });
 
+  /* ── Smart Classrooms: the figure, and what follows it ─────────────────── */
+  const sm = await app.documents(SMART).findFirst({
+    populate: Object.fromEntries(
+      ['room', 'sys', 'beyond', 'prac', 'close'].map((s) => [s, bandPopulate]),
+    ),
+    status: 'draft',
+  });
+  if (!sm) throw new Error('no Smart Classrooms document to mutate');
+
+  const sys = bare(sm.sys);
+  await app.documents(SMART).update({
+    documentId: sm.documentId,
+    data: {
+      sys: {
+        ...sys,
+        /* ⚠ THE FIGURE IS CONTENT HERE, not a position in the run. The seed
+           dropped it once and "75+" rendered as nothing at all. */
+        cells: sys.cells.map((c, i) => (i === 0 ? { ...c, number: '9999', suffix: '%' } : c)),
+      },
+    },
+    status: 'published',
+  });
+
+  /* ── Mentoring: a rail that numbers its own steps ──────────────────────── */
+  const mn = await app.documents(MENTOR).findFirst({
+    populate: Object.fromEntries(
+      ['open', 'rel', 'jrn', 'roles', 'human', 'final'].map((s) => [s, bandPopulate]),
+    ),
+    status: 'draft',
+  });
+  if (!mn) throw new Error('no Mentoring document to mutate');
+
+  const jrn = bare(mn.jrn);
+  await app.documents(MENTOR).update({
+    documentId: mn.documentId,
+    data: {
+      jrn: {
+        ...jrn,
+        /* ⚠ THE RAIL NUMBERS ITS OWN STEPS. Four stages down to three must end
+           at 03 — the number is not stored on the cell. */
+        cells: jrn.cells.slice(0, 3).map((c, i) => (
+          i === 0 ? { ...c, label: 'Mutation proof five' } : c
+        )),
+      },
+    },
+    status: 'published',
+  });
+
   console.log('\n  applied:');
   console.log('    Secondary open.heading   "Mutation proof one" + {{in italic.}}');
   console.log('    Secondary open.body[0]   "Mutation proof two."');
   console.log('    Secondary open.cells     4 -> 3   (expect the run to end at 03)');
   console.log('    Streams  streams[0]      "Mutation proof three"');
-  console.log('                             (expect it in EVERY band that draws the streams)\n');
+  console.log('                             (expect it in EVERY band that draws the streams)');
+  console.log('    Smart    sys.cells[0]     number 9999, suffix %   (expect "9999%" on the card)');
+  console.log('    Mentor   jrn.cells        4 -> 3, first "Mutation proof five"');
+  console.log('                             (expect the rail to end at 03)\n');
 });

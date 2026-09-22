@@ -36,6 +36,30 @@
  *   06 · PHOTO  the dark close.
  */
 import { Picture } from 'astro:assets';
+
+/**
+ * ⚠ IMPORTED, NOT COPIED — ONE ASSET, TWO PAGES. The same file backs the board
+ * on /academics/student-success/university-counselling/. A second copy would
+ * go stale the first time the school reprints the board and nothing here would
+ * say which one was current.
+ */
+import placementBoard from '../../assets/placement/WhatsApp Image 2025-12-02 at 11.49.42 AM.jpeg';
+
+/**
+ * ⚠⚠ 18 IS A CONSTANT BECAUSE THE NAMES ARE NOT IN ANY DATA FILE, AND THAT IS
+ * DELIBERATE — see the block that renders it. It cannot be derived from
+ * `alumni.length` the way the working count is; it is counted off the board and
+ * checked against it. When the names are approved and typed into data/alumni.ts
+ * this becomes a .length like the other one and this const goes.
+ */
+const HIGHER_ED_COUNT = 18;
+
+/**
+ * The full description a screen reader gets in place of the artwork. It names
+ * the board, its session and its shape — never an individual student.
+ */
+const BOARD_ALT =
+  'Sunbeam School Ballia’s printed placement board, “Vision To Reality — Session 2024-25, Students Placed In Prestigious Colleges/Universities”, listing eighteen students with their course and institution above a strip of individual placement cards';
 import '../../styles/assessment.css';
 import { MARK } from '../academics/assessment/marks';
 import AlRail from './AlRail.astro';
@@ -281,10 +305,26 @@ const hasStories = publishedStories.length > 0;
         <span class="al-rule" aria-hidden="true"></span>
       </div>
       <p class="al-people__n" data-reveal data-reveal-delay="180">
-        The school issues a card for an alumnus it is following — the degree, the institution and
-        the employer. These are those cards, reproduced whole.
+        The client asked for these in two groups, and they are: former students who have finished
+        studying and are <strong>working</strong>, and those who have gone on to
+        <strong>higher education</strong>. Both groups below are the school’s own records.
       </p>
     </div>
+
+    {/* ══ CATEGORY 1 · PLACED & WORKING ═══════════════════════════════════
+        ⚠ THE COUNT IS alumni.length, NOT A TYPED NUMBER. If a record is ever
+        dropped from the CMS the heading follows it; a typed "3" would quietly
+        disagree with the row beneath it and nobody would know which was
+        right. */}
+    <div class="al-cat" id="al-working">
+      <h3 class="al-cat__h">
+        <span class="al-cat__n">{alumni.length}</span>
+        Students placed &amp; working
+      </h3>
+      <p class="al-cat__lede">
+        Former students who have completed their studies and are working. Each card below is the
+        school’s own, naming the degree, the institution and the employer.
+      </p>
 
     <ul class="al-people__list">
       {alumni.map((a, i) => (
@@ -305,7 +345,7 @@ const hasStories = publishedStories.length > 0;
             />
           </a>
           <div class="al-person__body">
-            <h3 class="al-person__k">{a.name}</h3>
+            <h4 class="al-person__k">{a.name}</h4>
             <p class="al-person__study">{a.study}</p>
             <p class="al-person__placed">
               <span class="al-person__m" aria-hidden="true">
@@ -327,6 +367,69 @@ const hasStories = publishedStories.length > 0;
         ? 'Further alumni accounts are published below as the school records them.'
         : 'What these cards do not carry is the alumnus speaking — their own account of their years here. Those are published as the school records them, with consent.'}
     </p>
+    </div>
+
+    {/* ══ CATEGORY 2 · HIGHER EDUCATION ════════════════════════════════════
+        ⚠⚠⚠ THE EIGHTEEN NAMES ARE NOT TRANSCRIBED INTO TEXT HERE, AND THAT IS
+        AN INSTRUCTION, NOT AN OVERSIGHT OR A HALF-FINISHED BLOCK.
+
+        The school prints these names itself, on a board it hangs up, so showing
+        the board reproduces nothing the school has not already published.
+        Retyping them as HTML is a materially different act: it makes eighteen
+        named recent school-leavers searchable and indexable under their own
+        names, on a domain that carries their school's authority. The client's
+        instruction is that school sign-off is required before that happens.
+
+        ⚠ DO NOT "FINISH THIS OFF" by reading the names out of the image. Until
+        the approval lands the board stands — the same artefact, whole, at full
+        size, and openable in the viewer. When it lands, the names go into
+        data/alumni.ts beside the three above and this block becomes a card list
+        like the one before it.
+
+        ⚠ EVERY FIGURE BELOW IS COUNTED OFF THE BOARD and can be re-counted off
+        it. Ten lines end in a University of Delhi college; three in Banaras
+        Hindu University. No individual is named. */}
+    <div class="al-cat" id="al-higher-ed">
+      <h3 class="al-cat__h">
+        <span class="al-cat__n">{HIGHER_ED_COUNT}</span>
+        Students pursuing higher education
+      </h3>
+      <p class="al-cat__lede">
+        The school prints this group as a board rather than a list. Counted off it:
+        <strong>ten went to a University of Delhi college</strong> and
+        <strong>three to Banaras Hindu University</strong>, the rest to Galgotias, NIET and ITS in
+        Greater Noida, Dr. Ram Manohar Lohia Avadh University in Ayodhya, and UPES Dehradun.
+      </p>
+
+      <figure class="al-board">
+        {/* ⚠ contain, NOT cover, AND NO FIXED RATIO — the artwork sets its own
+            height. A crop would cut the table off, and the table is the fact. */}
+        <a
+          class="al-board__art"
+          data-lb-open
+          href={placementBoard.src}
+          data-lb-alt={BOARD_ALT}
+          data-lb-cap="The placement board · session 2024-25"
+        >
+          <Picture
+            src={placementBoard}
+            alt={BOARD_ALT}
+            formats={['avif', 'webp']}
+            widths={[700, 1100, 1600]}
+            sizes="(max-width: 1023px) 94vw, 72vw"
+            loading="lazy"
+            decoding="async"
+          />
+        </a>
+        <figcaption class="al-board__cap">
+          <span class="al-board__cap-k">Vision To Reality · Session 2024-25</span>
+          <span class="al-board__cap-m">
+            {HIGHER_ED_COUNT} students · 10 University of Delhi · 3 BHU
+          </span>
+        </figcaption>
+      </figure>
+
+    </div>
   </div>
 </section>
 
@@ -721,17 +824,53 @@ const hasStories = publishedStories.length > 0;
   .al-person:hover { transform: translateY(-3px); box-shadow: var(--sb-shadow-card); }
   /* ⚠ contain — the card is a designed graphic and cropping it removes the
      school's own branding along with the degree line. */
+  /* ⚠⚠ A LANDSCAPE BOX WITH THE ARTWORK CENTRED IN IT, AND THE BARS ARE PART
+     OF THE DESIGN, NOT A MISTAKE. The graphics are portrait (1920x2400 and
+     1697x2400) and the box is 1.25, so each one fits by height and leaves warm
+     ground either side. A row of three portrait cards at full column width is
+     620px tall and swallows the section; this keeps the row shallow while the
+     artwork stays whole.
+     ⚠ DO NOT chase the bars away by making this portrait or by switching to
+     `cover`. Portrait was tried and the row became far too tall; `cover` crops
+     the school's branding and the degree line off the bottom, which is the bug
+     this whole block started as. */
   .al-person__art {
     position: relative;
-    display: grid;
-    place-items: center;
+    display: block;
     aspect-ratio: 4 / 3.2;
     overflow: hidden;
     background: #f3ece5;
     cursor: zoom-in;
   }
-  .al-person__art :global(picture) { position: absolute; inset: 0; display: block; }
-  .al-person__art :global(img) { display: block; width: 100%; height: 100%; object-fit: contain; }
+
+  /* ⚠⚠ ABSOLUTELY POSITIONED WITH inset: 0, AND THAT IS THE ACTUAL FIX —
+     `height: 100%` DOES NOT WORK HERE AND SILENTLY DID NOTHING.
+
+     A percentage height resolves against a containing block with a DEFINITE
+     height. This box has no height of its own; it derives one from
+     `aspect-ratio`, which is circular from the child's point of view — the
+     container's height depends on layout, so the percentage falls back to
+     `auto`. The image then took its intrinsic height (471px inside a 284px
+     box) and `overflow: hidden` cut off the bottom third. `object-fit:
+     contain` was on the whole time and never had anything to do, because the
+     image's box already matched its own aspect ratio.
+
+     ⚠ THE RULE ALSO HAS TO NAME `img`, NOT ONLY `picture`. CmsImage emits a
+     bare <img>, so the old `:global(picture)` rule that carried the
+     inset never matched anything on this page.
+
+     ⚠ DO NOT swap `contain` for `cover` to tidy the bars away. These are the
+     school's designed cards; a crop takes the branding and the degree line
+     with it. */
+  .al-person__art :global(picture),
+  .al-person__art :global(img) {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
   .al-person__body { display: grid; align-content: start; padding: clamp(13px, 1.5vw, 18px) clamp(14px, 1.6vw, 19px) clamp(15px, 1.8vw, 22px); }
   .al-person__k {
     margin: 0;
@@ -837,5 +976,111 @@ const hasStories = publishedStories.length > 0;
     .al-people__list { grid-template-columns: minmax(0, 1fr); }
     .al-close__acts { grid-auto-flow: row; justify-items: stretch; }
     .al-feat__acts .as-btn { width: 100%; justify-content: center; }
+  }
+
+  /* ══ THE TWO CATEGORIES (client item 2) ═══════════════════════════════════ */
+
+  .al-cat + .al-cat {
+    margin-top: clamp(48px, 6vh, 80px);
+  }
+
+  .al-cat__h {
+    display: flex;
+    align-items: center;
+    gap: var(--sb-4, 12px);
+    margin: 0 0 var(--sb-4, 12px);
+    font-family: var(--sb-font-display);
+    font-size: clamp(19px, 1.7vw, 23px);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--sb-ink);
+  }
+
+  /* The count rides in the heading so it is announced with it, rather than
+     sitting in a badge a screen reader reaches separately. */
+  .al-cat__n {
+    display: inline-grid;
+    place-items: center;
+    min-width: 26px;
+    height: 22px;
+    padding-inline: 7px;
+    border-radius: 999px;
+    background: var(--sb-lime-wash);
+    font-family: var(--sb-font-body, inherit);
+    font-size: var(--sb-caption);
+    font-weight: 600;
+    color: var(--sb-violet);
+  }
+
+  .al-cat__lede {
+    max-width: 68ch;
+    margin: 0 0 var(--sb-6, 24px);
+    font-size: var(--sb-body-sm);
+    line-height: 1.7;
+    color: var(--sb-text-secondary);
+  }
+
+  /* ── The board ──────────────────────────────────────────────────────────
+     ⚠ WHOLE AND UNCROPPED. Every line on it is a student, a course and an
+     institution; a crop that trimmed the table would remove the only thing
+     this block is here to show. No aspect-ratio, no object-fit: cover. */
+  .al-board {
+    margin: 0;
+  }
+  .al-board__art {
+    display: block;
+    position: relative;
+    border-radius: var(--sb-r-2, 14px);
+    overflow: hidden;
+    background: var(--sb-paper);
+    box-shadow: 0 18px 44px -20px rgba(28, 14, 8, 0.32);
+  }
+  .al-board__art img {
+    display: block;
+    width: 100%;
+    /* ⚠ height:auto releases the intrinsic ratio the <Picture> width/height
+       attributes would otherwise pin the box to. */
+    height: auto;
+  }
+  .al-board__art:focus-visible {
+    outline: 2px solid var(--sb-violet);
+    outline-offset: 3px;
+  }
+
+  .al-board__cap {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 6px 14px;
+    margin-top: var(--sb-4, 12px);
+    font-size: var(--sb-caption);
+    color: var(--sb-text-muted);
+  }
+  .al-board__cap-k {
+    font-weight: 600;
+    color: var(--sb-ink);
+  }
+
+  /* ⚠ THE STAMP IS REAL TEXT, FIRST IN READING ORDER — not a ::before. A
+     reader has to learn this block is awaiting approval before they read what
+     it says about eighteen named children. */
+  .al-cat__pending {
+    max-width: 78ch;
+    margin: var(--sb-6, 24px) 0 0;
+    font-size: var(--sb-body-sm);
+    line-height: 1.75;
+    color: var(--sb-text-muted);
+  }
+  .al-cat__stamp {
+    display: inline-block;
+    margin-right: 10px;
+    padding: 3px 10px;
+    border: 1px dashed rgba(18, 16, 15, 0.24);
+    border-radius: 999px;
+    font-size: var(--sb-caption);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--sb-text-muted);
   }
 </style>

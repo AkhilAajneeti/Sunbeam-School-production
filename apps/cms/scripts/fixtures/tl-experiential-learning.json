@@ -1,0 +1,154 @@
+{
+  "open": {
+    "kicker": "The claim, and the test of it",
+    "heading": "In the hand\n{{before the exam.}}",
+    "body": [
+      "Sunbeam’s stated approach is that a topic is **met in the hand before it is met in the exam**. Every school says something like it, so the only useful question is what a reader can check.",
+      "Here the check is unusually strong. In September 2025 the school **hosted the CBSE Capacity Building Programme on Experiential Learning** — two days, taken by two visiting principals. Sunbeam Ballia was the venue other schools came to. Running experiential learning is a claim; being the place it is taught is a fact with a date on it."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pCanva",
+        "asset": "assets/school-event/Impetus—ClassesIII-V/Impetus—ClassesIII-V-02.jpg",
+        "name": "Impetus—ClassesIII-V-02",
+        "alt": "A class at {schoolName} during the Canva Presentation session of the Impetus programme"
+      },
+      {
+        "key": "pOwnWork",
+        "asset": "assets/School Activity in Uniform/School Activity in Uniform (5).jpeg",
+        "name": "School Activity in Uniform (5)",
+        "alt": "Two students of {schoolName} sharing a desk, each working on her own drawing"
+      },
+      {
+        "key": "pCompost",
+        "asset": "assets/school-activities/little-agriculturists/03.jpg",
+        "name": "little-agriculturists-03",
+        "alt": "A child of {schoolName} in gloves at the Little Agriculturists compost activity"
+      }
+    ],
+    "cells": [],
+    "cellsTwo": []
+  },
+  "path": {
+    "kicker": null,
+    "heading": "Experiences that become learning",
+    "body": [],
+    "caption": null,
+    "shots": [],
+    "cells": [
+      {
+        "label": "Little Agriculturists",
+        "value": "A planting plot the youngest children dig, sow and water themselves.",
+        "image": "assets/school-activities/little-agriculturists/03.jpg",
+        "alt": "Children of Sunbeam School Ballia and their teacher, in gloves, sorting kitchen peelings into compost trays beneath a hand-painted “Little Agriculturist — Compost making” sign",
+        "flag": false,
+        "imageName": "little-agriculturists-03"
+      },
+      {
+        "label": "Gallery Walks",
+        "value": "The school’s words — work “turning the classroom into a mini exhibition hall.”",
+        "image": "assets/School Activity in Uniform/School Activity in Uniform (5).jpeg",
+        "alt": "Two students of Sunbeam School Ballia sharing a desk, each working on her own drawing with the colour pencils open between them",
+        "flag": false,
+        "imageName": "school-activity-in-uniform-school-activity-in-uniform-(5)"
+      },
+      {
+        "label": "Impetus · Classes III–V",
+        "value": "The school’s own programme: folk painting, presentation software, heritage week.",
+        "image": "assets/school-event/Impetus—ClassesIII-V/Impetus—ClassesIII-V-02.jpg",
+        "alt": "A class at Sunbeam School Ballia during the Canva Presentation session of the Impetus programme, the activity poster standing on the teacher’s table",
+        "flag": false,
+        "imageName": "impetus—classesiii-v-impetus—classesiii-v-02"
+      },
+      {
+        "label": "Stargazing",
+        "value": "The school’s words — “a breathtaking view of the Moon through a telescope.”",
+        "image": "assets/school-activities/summer-camp/05.jpg",
+        "alt": "A young student of Sunbeam School Ballia holding up a hand-made rocket cut-out at the Star Gazing session, the night-sky board behind him",
+        "flag": false,
+        "imageName": "summer-camp-05"
+      },
+      {
+        "label": "Taramandal",
+        "value": "A planetarium show, published in eleven photographs — the school did not say where.",
+        "image": "assets/school-activities/taramandal-show/01.jpg",
+        "alt": "Students of Sunbeam School Ballia seated inside the Taramandal planetarium dome, the projected sky above them",
+        "flag": false,
+        "imageName": "taramandal-show-01"
+      },
+      {
+        "label": "CBSE Capacity Building",
+        "value": "Experiential Learning, two days, hosted at Ballia · 20–21 September 2025.",
+        "image": null,
+        "alt": "",
+        "flag": true
+      }
+    ],
+    "cellsTwo": []
+  },
+  "proj": {
+    "kicker": "Projects leave the classroom",
+    "heading": "From making\nto {{understanding.}}",
+    "body": [
+      "Project work here has two published endpoints, and both are worth more than any account of the method.",
+      "The first is **KIDS Entrepreneurship**, and the school’s description of it is six words long: *“a Class 7 programme that runs a real venture end to end.”* Not a simulation and not a case study — a venture, carried from start to finish by twelve-year-olds.",
+      "The second left the state. Students travelled to Delhi for an **international innovation project on entrepreneurship run with Monash University, Australia**, held at K.R. Mangalam World School, G.K-II. A project judged outside the building is judged by people who owe the school nothing.",
+      "Neither is an extra activity bolted onto the timetable. They are how the school says it teaches."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pMonash",
+        "asset": "assets/school-event/Monash-Innovation/Monash-Innovation-01.jpg",
+        "name": "Monash-Innovation-01",
+        "alt": "A student of {schoolName} standing beside the Monash University “Innovation Guarantee” banner at the outreach session in Delhi"
+      },
+      {
+        "key": "pChef",
+        "asset": "assets/School Activity in Uniform/School Activity in Uniform (1).jpg",
+        "name": "School Activity in Uniform (1)",
+        "alt": "A teacher at {schoolName} demonstrating at the table during the papadi chaat activity, her class in paper chef hats around her"
+      },
+      {
+        "key": "pThread",
+        "asset": "assets/School Activity in Uniform/Embriodery.jpg",
+        "name": "Embriodery",
+        "alt": "Students of {schoolName} embroidering from one shared basket of thread"
+      }
+    ],
+    "cells": [],
+    "cellsTwo": []
+  },
+  "close": {
+    "kicker": "Experiential learning in practice",
+    "heading": "See it. Make it.\n{{Understand it.}}",
+    "body": [
+      "The school publishes the plot, the programme, the Monash project and the CBSE programme it hosted. What KIDS runs week to week, how many students travelled to Delhi, and where the planetarium show was held are not published — so none of those is described here."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pCohort",
+        "asset": "assets/photos/sunbeem-3.jpg",
+        "name": "sunbeem-3",
+        "alt": ""
+      }
+    ],
+    "cells": [
+      {
+        "mark": "eye",
+        "label": "Observe"
+      },
+      {
+        "mark": "hand",
+        "label": "Create"
+      },
+      {
+        "mark": "spark",
+        "label": "Reflect"
+      }
+    ],
+    "cellsTwo": []
+  }
+}

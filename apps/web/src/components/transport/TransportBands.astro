@@ -1,6 +1,9 @@
 ---
 import { getTransportData } from '../../lib/cms';
-const {stats, transportContact, safety} = await getTransportData();
+const {
+  stats, transportContact, safety,
+  overviewBand, overviewCta, overviewFigures, safetyHeadBand, contactHeadBand,
+} = await getTransportData();
 
 /**
  * THE SUPPORTING BANDS — overview, safety, contact and questions.
@@ -31,10 +34,16 @@ const ICON: Record<string, string> = {
   message: '<path d="M4.5 6.5A2 2 0 0 1 6.5 5h11a2 2 0 0 1 2 1.5v8a2 2 0 0 1-2 1.5H9l-4 3v-3a2 2 0 0 1-.5-1.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>',
 };
 
+/**
+ * ⚠⚠ THE NUMBERS ARE COMPUTED, THE CAPTIONS COME FROM THE CMS. `stats` is
+ * derived from the Bus Route collection, so adding a route updates the page;
+ * only the caption and the note beneath each figure are editable. Storing the
+ * numbers too would give one fact two owners.
+ */
 const figures = [
-  { n: String(stats.buses), k: 'Buses on published routes', note: 'From a stated fleet of 29 and more' },
-  { n: String(stats.runs), k: 'Route runs', note: 'Several buses make two trips' },
-  { n: String(stats.stops), k: 'Boarding points', note: 'Across Ballia and the surrounding blocks' },
+  { n: String(stats.buses), k: overviewFigures[0]?.label ?? '', note: overviewFigures[0]?.note ?? '' },
+  { n: String(stats.runs), k: overviewFigures[1]?.label ?? '', note: overviewFigures[1]?.note ?? '' },
+  { n: String(stats.stops), k: overviewFigures[2]?.label ?? '', note: overviewFigures[2]?.note ?? '' },
 ];
 ---
 
@@ -42,16 +51,13 @@ const figures = [
 <section class="tov" id="overview" aria-labelledby="tov-t">
   <div class="u-container tov__in">
     <div class="tov__copy">
-      <p class="tov__eyebrow t-label">Transport</p>
-      <h2 class="tov__h" id="tov-t" data-split>A bus from most of Ballia</h2>
-      <p class="tov__b" data-reveal>
-        The school runs {stats.buses} buses over {stats.runs} route runs, calling at
-        {stats.stops} published boarding points. Every route names its driver and
-        prints a direct mobile number for them — so the person driving your child
-        is someone you can reach.
-      </p>
+      <p class="tov__eyebrow t-label">{overviewBand.eyebrow}</p>
+      <h2 class="tov__h" id="tov-t" data-split>{overviewBand.heading}</h2>
+      {/* The counts are already substituted into this string by the query
+          layer — see `fill()` there. */}
+      <p class="tov__b" data-reveal>{overviewBand.stand}</p>
       <a class="tov__cta" href="#routes">
-        <span>Find your route</span>
+        <span>{overviewCta}</span>
         <svg width="16" height="11" viewBox="0 0 14 10" fill="none" aria-hidden="true">
           <path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.7" />
         </svg>
@@ -86,11 +92,9 @@ const figures = [
 {/* ═══ SAFETY ═════════════════════════════════════════════════════════════ */}
 <section class="tsf" id="safety" aria-labelledby="tsf-t">
   <div class="u-container">
-    <p class="tsf__eyebrow t-label">Safety</p>
-    <h2 class="tsf__h" id="tsf-t" data-split>What is fitted, and what we can confirm</h2>
-    <p class="tsf__stand">
-      Every line below is stated on the school’s own pages.
-    </p>
+    <p class="tsf__eyebrow t-label">{safetyHeadBand.eyebrow}</p>
+    <h2 class="tsf__h" id="tsf-t" data-split>{safetyHeadBand.heading}</h2>
+    <p class="tsf__stand">{safetyHeadBand.stand}</p>
 
     <ul class="tsf__grid">
       {
@@ -127,12 +131,9 @@ const figures = [
 <section class="tct" id="transport-contact" aria-labelledby="tct-t">
   <div class="u-container tct__in">
     <div>
-      <p class="tct__eyebrow t-label">Contact</p>
-      <h2 class="tct__h" id="tct-t">Anything the routes don’t answer</h2>
-      <p class="tct__b">
-        Allocation, stop changes, timings, charges and complaints all go to the
-        transport in-charge — not to the driver.
-      </p>
+      <p class="tct__eyebrow t-label">{contactHeadBand.eyebrow}</p>
+      <h2 class="tct__h" id="tct-t">{contactHeadBand.heading}</h2>
+      <p class="tct__b">{contactHeadBand.stand}</p>
     </div>
 
     <div class="tcard">

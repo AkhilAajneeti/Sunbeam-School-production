@@ -3,11 +3,40 @@
   "collectionName": "campus_tour_page",
   "info": {
     "singularName": "campus-tour-page", "pluralName": "campus-tour-pages", "displayName": "Campus Tour Page",
-    "description": "The overview stats and journey band of /campus/. The facilities themselves are a Collection beside this."
+    "description": "Every word of /campus/ that is not a facility. The facilities themselves are the Campus Facility collection beside this; the band headings, the six featured rooms and the visit call-to-action are here. ⚠ FIELD NAMES MATCH THE BANDS ON THE PAGE, in page order: overview, categories, gallery, featured, journey, visit. ⚠ WHAT IS DELIBERATELY NOT HERE: the section-rail labels and anchors (they are tied to DOM ids — an edit would break the in-page links), the gallery's own heading (it counts the photographs and must stay derived), and interface labels such as All / Load more / Close (chrome, not content)."
   },
   "options": { "draftAndPublish": true },
   "attributes": {
+    "overview": {
+      "type": "component", "repeatable": false, "component": "structure.section"
+    },
     "overviewStats": { "type": "component", "repeatable": true, "component": "shared.stat" },
-    "journey": { "type": "component", "repeatable": true, "component": "shared.point" }
+
+    "categories": {
+      "type": "component", "repeatable": false, "component": "structure.section"
+    },
+
+    "gallery": {
+      "type": "component", "repeatable": false, "component": "structure.section"
+    },
+
+    "featuredHead": {
+      "type": "component", "repeatable": false, "component": "structure.section"
+    },
+    "featured": {
+      "type": "component", "repeatable": true, "component": "shared.point"
+    },
+
+    "journeyHead": {
+      "type": "component", "repeatable": false, "component": "structure.section"
+    },
+    "journey": { "type": "component", "repeatable": true, "component": "shared.point" },
+
+    "visit": {
+      "type": "component", "repeatable": false, "component": "structure.section"
+    },
+    "visitCtaLabel": { "type": "string", "maxLength": 60 },
+    "visitCtaHref": { "type": "string", "maxLength": 200 },
+    "visitCallLabel": { "type": "string", "maxLength": 60 }
   }
 }

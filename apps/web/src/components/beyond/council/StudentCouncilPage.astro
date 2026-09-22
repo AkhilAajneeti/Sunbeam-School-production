@@ -1,0 +1,196 @@
+---
+/**
+ * ═══ STUDENT COUNCIL — THE ROLL ════════════════════════════════════════════
+ *
+ * Two bodies, senior and junior. Each opens with its four head offices set
+ * large, then the rest of its posts in a plain four-up grid.
+ *
+ * ⚠ NOTHING HERE REWRITES WHAT THE SCHOOL PUBLISHED. The posts are uppercased
+ * by CSS, not in the markup, so the stored string stays the record; the names
+ * are printed exactly as they are stored, with no casing applied at all. See
+ * the header of data/studentCouncil.ts before touching either.
+ */
+import { councils, councilIntro } from '../../../data/studentCouncil';
+---
+
+<section class="stc" aria-labelledby="stc-intro">
+  <div class="u-container">
+    <p class="stc__intro" id="stc-intro">{councilIntro}</p>
+
+    {
+      councils.map((body) => (
+        <div class="stc__body" id={body.id}>
+          <h2 class="stc__h">{body.label}</h2>
+
+          {/* The four head offices. A separate list, not a styled first row of
+              the grid below — they are a different size and would otherwise
+              have to be excluded from the grid's own rules one by one. */}
+          <ul class="stc__offices" role="list">
+            {body.offices.map((o) => (
+              <li class="stc__card stc__card--office">
+                <span class="stc__post stc__post--office">{o.post}</span>
+                <span class="stc__name stc__name--office">{o.name}</span>
+              </li>
+            ))}
+          </ul>
+
+          <ul class="stc__grid" role="list">
+            {body.posts.map((o) => (
+              <li class="stc__card">
+                <span class="stc__post">
+                  {/* ⚠ THE DOT IS DECORATION AND IS HIDDEN FROM ASSISTIVE TECH.
+                      The house is already in the post's own text — "Captain,
+                      Red House" — so announcing it again would say "red red".
+                      Colour alone never carries meaning here. */}
+                  {o.house && (
+                    <span
+                      class:list={['stc__dot', `stc__dot--${o.house}`]}
+                      aria-hidden="true"
+                    />
+                  )}
+                  {o.post}
+                </span>
+                <span class="stc__name">{o.name}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  /* The page panel this sits in already carries the stacking contract against
+     the pinned banner (see .u-page-panel in base.css): position, an explicit
+     z-index and an opaque ground. This section adds none of its own so there
+     is one place that owns it. */
+  .stc {
+    padding-block: 0;
+  }
+
+  .stc__intro {
+    max-width: 64ch;
+    margin: 0 auto clamp(48px, 6vh, 76px);
+    font-size: var(--sb-body-lg, 17px);
+    line-height: 1.7;
+    text-align: center;
+    color: var(--sb-text-secondary);
+  }
+
+  .stc__body + .stc__body {
+    margin-top: clamp(48px, 6vh, 76px);
+  }
+
+  /* The rule leads the heading, as it does on the rest of this section. */
+  .stc__h {
+    display: flex;
+    align-items: center;
+    gap: var(--sb-5);
+    margin: 0 0 var(--sb-6);
+    font-family: var(--sb-font-display);
+    font-size: clamp(20px, 1.9vw, 25px);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--sb-ink);
+  }
+  .stc__h::before {
+    content: '';
+    width: clamp(20px, 2.2vw, 30px);
+    height: 2px;
+    flex: none;
+    background: var(--sb-violet);
+  }
+
+  .stc__offices,
+  .stc__grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--sb-4, 12px);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .stc__offices {
+    margin-bottom: var(--sb-5);
+  }
+
+  .stc__card {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 14px 18px;
+    border: 1px solid rgba(18, 16, 15, 0.08);
+    border-radius: 10px;
+    background: var(--sb-paper);
+  }
+  .stc__card--office {
+    padding: 18px 20px;
+    border-color: rgba(201, 60, 10, 0.18);
+  }
+
+  .stc__post {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12px;
+    line-height: 1.4;
+    letter-spacing: 0.02em;
+    color: var(--sb-text-muted);
+  }
+  /* ⚠ UPPERCASED IN CSS, NOT IN THE DATA. The stored string is the school's
+     record of the post; this is only how it is set. */
+  .stc__post--office {
+    font-size: var(--sb-caption);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--sb-violet);
+  }
+
+  /* ⚠ NO text-transform ON A NAME, EVER. 'Miss vaishnavi Kaur' is published
+     with a lower-case v and stays that way; capitalising it here would be this
+     page quietly correcting a child's name. */
+  .stc__name {
+    font-weight: 600;
+    font-size: var(--sb-body-sm);
+    line-height: 1.4;
+    color: var(--sb-ink);
+  }
+  .stc__name--office {
+    font-family: var(--sb-font-display);
+    font-size: clamp(16px, 1.3vw, 19px);
+    letter-spacing: -0.01em;
+  }
+
+  .stc__dot {
+    width: 7px;
+    height: 7px;
+    flex: none;
+    border-radius: 50%;
+  }
+  .stc__dot--red {
+    background: #d64541;
+  }
+  .stc__dot--yellow {
+    background: #e0a92b;
+  }
+  .stc__dot--green {
+    background: #3a9a55;
+  }
+
+  /* The last row of a grid of twenty or six is often short; cards keep their
+     own width rather than stretching to fill it. */
+  @media (max-width: 1023px) {
+    .stc__offices,
+    .stc__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 559px) {
+    .stc__offices,
+    .stc__grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

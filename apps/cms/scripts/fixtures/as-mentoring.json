@@ -1,0 +1,170 @@
+{
+  "open": {
+    "kicker": "What the school publishes",
+    "heading": "Someone who knows\n{{the child.}}",
+    "body": [
+      "Sunbeam states one thing about mentoring: that every student has ** a member of staff who knows them as a person rather than as a name on a class list**. It is a single line, and it is not expanded here into a programme that has not been described.",
+      "What that line is for is easy to say without inventing anything. A subject teacher seeing a child four times a week may not notice a change in them. Someone who already knows the child does — and the years in which a student is least likely to raise a problem themselves are exactly the years in which that difference matters.",
+      "The line sits under Assessment & Support on the school’s own [assessment](/academics/assessment/) pages. It does not say how a mentor is assigned, how often they meet, or how a parent reaches one."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pLib",
+        "asset": "assets/photos/sb-library.jpg",
+        "name": "sb-library",
+        "alt": "Students of {schoolName} reading at the long tables of the library, a member of staff at the head of the row"
+      },
+      {
+        "key": "pTables",
+        "asset": "assets/library/DSC_1230 copy.jpg",
+        "name": "DSC_1230 copy",
+        "alt": "The reading tables of the Nalanda Library at {schoolName}, set out along the shelves"
+      },
+      {
+        "key": "pBench",
+        "asset": "assets/photos/sb-chem-lab.jpg",
+        "name": "sb-chem-lab",
+        "alt": "Students of {schoolName} working along the chemistry bench"
+      }
+    ],
+    "cells": [],
+    "cellsTwo": []
+  },
+  "rel": {
+    "kicker": "The relationship",
+    "heading": "More than\n{{a name on a list.}}",
+    "body": [
+      "The firmer evidence is in the school’s own recruitment posters, where a school states what it will and will not accept. Four kinds of person are named across them and its campus inventory.",
+      "Rows two and three are read off the school’s published recruitment notices, which are on [Career](/career/)."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pCorridor",
+        "asset": "assets/corridor and stairs/DSC_1222 copy.jpg",
+        "name": "DSC_1222 copy",
+        "alt": "A corridor at {schoolName}, its classroom doors running the length of the block"
+      },
+      {
+        "key": "pStage",
+        "asset": "assets/photos/sunbeem-5.jpg",
+        "name": "sunbeem-5",
+        "alt": "Student council office-bearers and NCC cadets of {schoolName} on stage with the school’s dignitaries"
+      }
+    ],
+    "cells": [
+      {
+        "mark": "person",
+        "label": "Student mentor",
+        "value": "A member of staff who knows the student as a person, not as a row on a class list."
+      },
+      {
+        "mark": "chat",
+        "label": "School counsellor",
+        "value": "Advertised at MA in counselling or clinical psychology, with two years’ experience as a school counsellor."
+      },
+      {
+        "mark": "head",
+        "label": "Clinical psychology counsellor",
+        "value": "Listed with a wellness trainer among the posts the school has advertised for."
+      },
+      {
+        "mark": "hands",
+        "label": "BCS Counsellors",
+        "value": "Trained counsellors available to students, listed among the school’s campus provision."
+      }
+    ],
+    "cellsTwo": []
+  },
+  "jrn": {
+    "kicker": "The mentoring journey",
+    "heading": "Known first.\n{{Then noticed.}}",
+    "body": [],
+    "caption": null,
+    "shots": [],
+    "cells": [
+      {
+        "mark": "person",
+        "label": "Know",
+        "value": "Someone in the school knows the student as a person."
+      },
+      {
+        "mark": "eye",
+        "label": "Notice",
+        "value": "Small changes and concerns can be recognised early."
+      },
+      {
+        "mark": "handHeart",
+        "label": "Guide",
+        "value": "Support can be offered at the point it matters."
+      },
+      {
+        "mark": "grow",
+        "label": "Grow",
+        "value": "The student is supported beyond the classroom."
+      }
+    ],
+    "cellsTwo": []
+  },
+  "roles": {
+    "kicker": "People who support",
+    "heading": "Different people.\n{{One purpose.}}",
+    "body": [],
+    "caption": null,
+    "shots": [],
+    "cells": [
+      {
+        "mark": "person",
+        "label": "Mentor",
+        "value": "A member of staff who knows the student personally."
+      },
+      {
+        "mark": "chat",
+        "label": "School counsellor",
+        "value": "Counselling support available within the school structure."
+      },
+      {
+        "mark": "head",
+        "label": "Clinical psychology counsellor",
+        "value": "Professional counselling support, where the school has published it."
+      },
+      {
+        "mark": "hands",
+        "label": "BCS Counsellors",
+        "value": "Trained counsellors available to students on campus."
+      }
+    ],
+    "cellsTwo": []
+  },
+  "human": {
+    "kicker": null,
+    "heading": "Noticed before\n{{it is a result.}}",
+    "body": [
+      "The school publishes that every student has a mentor, and its own adverts show what it requires of a counsellor. It does not publish a ratio, a programme name, a meeting frequency, or how a parent reaches a child’s mentor — and none of those is estimated here."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pCohort",
+        "asset": "assets/photos/sunbeem-3.jpg",
+        "name": "sunbeem-3",
+        "alt": ""
+      }
+    ],
+    "cells": [],
+    "cellsTwo": []
+  },
+  "final": {
+    "kicker": null,
+    "heading": null,
+    "body": [
+      "Knowing a student *changes what support can mean.*",
+      "Where a difficulty turns out to be a subject rather than a state of mind, it goes to [remedial support](/academics/assessment/remedial-support/)."
+    ],
+    "caption": null,
+    "shots": [],
+    "cells": [],
+    "cellsTwo": []
+  }
+}

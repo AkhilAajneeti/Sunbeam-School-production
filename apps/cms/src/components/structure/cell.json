@@ -64,6 +64,21 @@
         "info"
       ],
       "description": "How firmly the school has published this — fully (yes), in part (part), or as background only (info). The page prints a different mark for each."
+    },
+    "number": {
+      "type": "string",
+      "maxLength": 40,
+      "description": "A figure the page prints — 17,574 books, 75 classrooms. ⚠ Only where the number is a REAL VALUE. Where a run is simply numbered 01, 02, 03 the page counts it and there is nothing to type."
+    },
+    "suffix": {
+      "type": "string",
+      "maxLength": 8,
+      "description": "What follows the figure — a plus sign, a percent. Kept apart so the number stays a number."
+    },
+    "href": {
+      "type": "string",
+      "maxLength": 300,
+      "description": "Where the card goes when clicked. A page on this site (/academics/assessment/) or a full web address. Leave empty for a card that is not a link."
     }
   }
 }

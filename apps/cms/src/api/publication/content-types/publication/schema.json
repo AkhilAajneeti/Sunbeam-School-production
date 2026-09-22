@@ -1,0 +1,48 @@
+{
+  "kind": "collectionType",
+  "collectionName": "publications",
+  "info": {
+    "singularName": "publication",
+    "pluralName": "publications",
+    "displayName": "Publication",
+    "description": "One downloadable publication on /publications/ — a club newsletter, a magazine edition or an e-newspaper issue. ⚠⚠ THIS IS THE LIST THE SCHOOL ADDS TO. A new e-newspaper is one new row here; nothing else needs touching. ⚠ `href` IS THE SCHOOL'S OWN URL — a PDF on its server or a Google Drive viewer link. Every one was transcribed from the school's live page, not composed. Do not invent a link to fill a gap: a row with no file is worse than no row. ⚠ `group` DECIDES WHICH BAND IT APPEARS IN, and `displayOrder` its position within that band. The school's own order is preserved — it is NOT a ranking, so do not re-sort by date."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 200
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
+    },
+    "href": {
+      "type": "string",
+      "required": true,
+      "maxLength": 500
+    },
+    "group": {
+      "type": "enumeration",
+      "enum": [
+        "entrepreneurial-chronicles",
+        "quiz-club",
+        "moon-club",
+        "heritage-club",
+        "financial-literacy-club",
+        "school-magazine",
+        "e-newspaper"
+      ],
+      "required": true
+    },
+    "displayOrder": {
+      "type": "integer",
+      "default": 0
+    }
+  }
+}

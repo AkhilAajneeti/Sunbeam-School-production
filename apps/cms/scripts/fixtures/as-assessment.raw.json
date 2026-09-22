@@ -1,0 +1,113 @@
+{
+  "open": {
+    "kicker": "Chapter 04",
+    "heading": "How a year actually\n{{runs}}",
+    "body": [
+      "Six steps, repeating. Content is taught, practised, assessed and fed back — and where a subject needs more, the support is named rather than assumed."
+    ],
+    "caption": null,
+    "shots": [],
+    "runs": [
+      {
+        "field": "cells",
+        "list": "steps"
+      }
+    ]
+  },
+  "cycle": {
+    "kicker": "The learning cycle",
+    "heading": "Assessment is\n{{more than a paper.}}",
+    "body": [
+      "A result is one reading of a year. The school assesses across the whole of it — understanding in the room, application in the laboratory, progress across terms, and the feedback that follows each."
+    ],
+    "caption": null,
+    "shots": [],
+    "runs": [
+      {
+        "field": "cells",
+        "list": "facets"
+      }
+    ]
+  },
+  "struct": {
+    "kicker": "Published when it matters",
+    "heading": "Our assessment\n{{structure.}}",
+    "body": [
+      "Four things the school states about how a year is examined. The marks a promotion turns on are set out in the policy itself rather than paraphrased here."
+    ],
+    "caption": null,
+    "shots": [],
+    "runs": [
+      {
+        "field": "cells",
+        "list": "structure"
+      }
+    ]
+  },
+  "sup": {
+    "kicker": "Support that makes a difference",
+    "heading": "Support begins\n{{where a difficulty appears.}}",
+    "body": [
+      "Every student learns differently. What matters is that each of the four channels below is published by name and has rules attached — so a family can check what happens next rather than hope that something will."
+    ],
+    "caption": null,
+    "shots": [],
+    "runs": [
+      {
+        "field": "cells",
+        "list": "support"
+      }
+    ]
+  },
+  "conv": {
+    "kicker": "Parent–teacher connection",
+    "heading": "Progress is\n{{a conversation.}}",
+    "body": [
+      "Parent–teacher meetings are placed on the **academic calendar for the session**, alongside the examination dates, the terms and the holidays — so a parent knows the date months in advance and can read it against the paper it follows.",
+      "Meeting dates sit on the {' '}<a class=\"as-link\" href={CALENDAR}>academic calendar</a>; the wider parent channels are on {' '}<a class=\"as-link\" href={PARTNERSHIP}>Parent Partnership</a>."
+    ],
+    "caption": "Photographs: the school’s Parents’ Forum. No photograph of a parent–teacher meeting has been published.",
+    "shots": [
+      {
+        "key": "pForum"
+      },
+      {
+        "key": "pSpeak"
+      }
+    ],
+    "runs": [
+      {
+        "field": "cells",
+        "list": "conversation"
+      }
+    ]
+  },
+  "next": {
+    "kicker": "What happens next?",
+    "heading": "Noticed, understood,\nand {{acted on.}}",
+    "body": [],
+    "caption": null,
+    "shots": [],
+    "runs": [
+      {
+        "field": "cells",
+        "list": "next"
+      }
+    ]
+  },
+  "close": {
+    "kicker": "Assessment with purpose",
+    "heading": "Assessment tells us\n{{where to go next.}}",
+    "body": [
+      "Learning continues through feedback, support and the opportunity to improve. The school publishes the cycle, the support channels and the retest calendar. It does not publish examination dates, weightings or the promotion threshold — and none is estimated here."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pCohort",
+        "alt": ""
+      }
+    ],
+    "runs": []
+  }
+}

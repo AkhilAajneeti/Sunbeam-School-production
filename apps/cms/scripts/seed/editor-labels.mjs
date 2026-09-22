@@ -119,6 +119,59 @@ const STAGE_BANDS = {
     open: 'A Stream Is More', worlds: 'Four Streams', map: 'The Subject Map',
     close: 'Closing Band',
   },
+
+  /* ── Teaching & Learning ─────────────────────────────────────────────── */
+  'methodology-page': {
+    open: 'How a Lesson Is Taught', three: 'Three Things Built In',
+    collab: 'Learning Together', plat: 'The Platforms', close: 'Closing Band',
+  },
+  'smart-classrooms-page': {
+    room: 'The Room', sys: 'The Digital Classroom System',
+    beyond: 'Beyond the Screen', prac: 'Technology in Practice', close: 'Closing Band',
+  },
+  'experiential-learning-page': {
+    open: 'Learning by Doing', path: 'Experiences That Become Learning',
+    proj: 'The Projects', close: 'Closing Band',
+  },
+  'stem-robotics-page': {
+    rooms: 'The Rooms', bots: 'The Robotics Kit', use: 'What Gets Built',
+    eco: 'The Wider Programme', close: 'Closing Band',
+  },
+  'reading-language-page': {
+    lib: 'The Library', round: 'Reading Aloud', lab: 'The Language Laboratory',
+    stage: 'Reading by Stage', close: 'Closing Band',
+  },
+  'laboratories-clubs-page': {
+    rooms: 'The Laboratories', twelve: 'Twelve Rooms', spaces: 'The Club Spaces',
+    interlude: 'Different Rooms, One Idea', close: 'Closing Band',
+  },
+
+  /* ── Assessment & Support ─────────────────────────────────────────────── */
+  'assessment-page': {
+    open: 'How a Year Runs', cycle: 'The Six Steps', struct: 'What the School Publishes',
+    sup: 'Where a Subject Needs More', conv: 'The Conversation', next: 'What Happens Next',
+    close: 'Closing Band',
+  },
+  'homework-policy-page': {
+    open: 'Published, and Often Assumed', item: 'A Standing Agenda Item',
+    frame: 'The Four-Step Framework', clear: 'What Is Clear',
+    gap: 'What Is Not Published', ask: 'What to Ask', close: 'Closing Band',
+  },
+  'remedial-support-page': {
+    open: 'Attached to a Subject', journey: 'The Retest Journey',
+    rules: 'The Published Rules', note: 'What Is Not Published', close: 'Closing Band',
+  },
+  'mentoring-page': {
+    open: 'Someone Who Knows Them', rel: 'The Four People', jrn: 'The Mentoring Journey',
+    roles: 'What the Posters Say', human: 'A Single Line', final: 'Closing Band',
+  },
+  'parent-teacher-page': {
+    open: 'The Meeting', agenda: 'The Agenda', why: 'Why It Matters', close: 'Closing Band',
+  },
+  'competitive-exam-page': {
+    open: 'Four Programmes', list: 'The Programmes', feat: 'At a Glance',
+    gal: 'The Gallery', close: 'Closing Band',
+  },
 };
 
 /** The page-level stream list, on the two pages that carry one. */
@@ -144,6 +197,9 @@ const BAND_FIELDS = {
   shots: ['Photographs', '⚠ IN THE ORDER THE PAGE PLACES THEM. The first is the largest frame; the ones after it fill the smaller places around it.'],
   cells: ['The run of items', 'One row each. ⚠ The 01, 02, 03 is counted by the page — do not type it.'],
   cellsTwo: ['A second run', 'Only one or two bands have one. Leave it empty otherwise.'],
+  number: ['The figure', '⚠ ONLY where the page prints a real number — 17,574 books, 75 classrooms. A run that simply counts 01, 02, 03 is numbered by the page and needs nothing here.'],
+  suffix: ['After the figure', 'A plus sign, a percent. Kept apart so the number stays a number and can count up.'],
+  state: ['How firmly this is published', 'Fully (yes), in part (part), or as background only (info). The page prints a different mark for each.'],
 };
 
 const FIELDS = {

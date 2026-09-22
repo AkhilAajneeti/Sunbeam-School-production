@@ -1,0 +1,44 @@
+{
+  "collectionName": "components_uniformed_groups",
+  "info": {
+    "displayName": "Uniformed Group",
+    "icon": "shield",
+    "description": "One uniformed group on Beyond Academics → NCC, Scouts & Guides. ⚠ `slug` IS THE PAGE ANCHOR (#ncc, #scouts-guides) and may be linked from outside the site — rename the group freely, but change the slug only if you mean to break those links. ⚠⚠ EVERY FACT ON THIS PAGE HAS A SOURCE, and `verified` on each fact is what says whether it is the school describing itself or something independently evidenced. A claim about OTHER schools — \"first in the district\", \"first of its kind\" — must stay unverified so the page keeps attributing it."
+  },
+  "options": {},
+  "attributes": {
+    "slug": {
+      "type": "string",
+      "required": true,
+      "maxLength": 60
+    },
+    "name": {
+      "type": "string",
+      "required": true,
+      "maxLength": 80
+    },
+    "blurb": {
+      "type": "text",
+      "maxLength": 400
+    },
+    "facts": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.measure"
+    },
+    "record": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.point"
+    },
+    "photos": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.photo"
+    },
+    "pending": {
+      "type": "string",
+      "maxLength": 160
+    }
+  }
+}

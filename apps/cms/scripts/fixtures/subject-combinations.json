@@ -73,15 +73,17 @@
         "Hindi",
         "Physical Education",
         "Applied Maths",
-        "Geography"
+        "Geography",
+        "Sanskrit"
       ],
       "additional": [
         "Artificial Intelligence",
         "Kathak",
-        "Fine Arts",
+        "Painting",
         "Legal Studies",
         "Agriculture",
-        "Entrepreneurship"
+        "Entrepreneurship",
+        "Yoga"
       ],
       "owed": false
     },
@@ -100,15 +102,17 @@
         "Hindi",
         "Physical Education",
         "Applied Maths",
-        "Geography"
+        "Geography",
+        "Sanskrit"
       ],
       "additional": [
         "Artificial Intelligence",
         "Kathak",
-        "Fine Arts",
+        "Painting",
         "Legal Studies",
         "Agriculture",
-        "Entrepreneurship"
+        "Entrepreneurship",
+        "Yoga"
       ],
       "owed": false
     },
@@ -127,15 +131,17 @@
         "Hindi",
         "Physical Education",
         "Applied Maths",
-        "Geography"
+        "Geography",
+        "Sanskrit"
       ],
       "additional": [
         "Artificial Intelligence",
         "Kathak",
-        "Fine Arts",
+        "Painting",
         "Legal Studies",
         "Agriculture",
-        "Entrepreneurship"
+        "Entrepreneurship",
+        "Yoga"
       ],
       "owed": false
     },
@@ -146,7 +152,7 @@
       "core": [
         "History",
         "Political Science",
-        "Geography",
+        "Economics",
         "English"
       ],
       "optional": [
@@ -154,15 +160,16 @@
         "Hindi",
         "Physical Education",
         "Applied Maths",
-        "Geography"
+        "Sanskrit"
       ],
       "additional": [
         "Artificial Intelligence",
         "Kathak",
-        "Fine Arts",
+        "Painting",
         "Legal Studies",
         "Agriculture",
-        "Entrepreneurship"
+        "Entrepreneurship",
+        "Yoga"
       ],
       "owed": true
     }

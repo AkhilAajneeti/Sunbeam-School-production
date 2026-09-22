@@ -1,0 +1,136 @@
+{
+  "open": {
+    "kicker": "The method, in the school’s words",
+    "heading": "In all areas\n{{of teaching.}}",
+    "body": [
+      "Three things, and none of them a timetabled slot. There is no collaboration lesson and no multiple-intelligence week — the claim is that all three run through ordinary teaching, which is a harder thing to promise and a harder thing to fake."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pDesk",
+        "asset": "assets/School Activity in Uniform/School Activity in Uniform (5).jpeg",
+        "name": "School Activity in Uniform (5)",
+        "alt": "Two students of {schoolName} sharing a desk, one reaching across for a colour pencil while the other works on her own drawing"
+      },
+      {
+        "key": "pTables",
+        "asset": "assets/activity learning lab/DSC_1217 copy.jpg",
+        "name": "DSC_1217 copy",
+        "alt": "The activity learning laboratory at {schoolName} — one crescent table with chairs set all the way round it"
+      }
+    ],
+    "cells": [],
+    "cellsTwo": []
+  },
+  "three": {
+    "kicker": "The three, unpacked",
+    "heading": "Named, and each one\n{{anchored to something}}",
+    "body": [
+      "A method is only worth reading if each part of it points at something checkable. All three of Sunbeam’s do — two to the Principal’s own published words, and one to a certification held by a hundred members of staff."
+    ],
+    "caption": null,
+    "shots": [],
+    "cells": [
+      {
+        "mark": "screen",
+        "label": "Technology",
+        "note": "100 Microsoft Innovative Educator Experts",
+        "value": "The certification that makes Sunbeam a Microsoft Showcase School. The rooms it runs in are set out on Smart Classrooms & Digital Literacy.",
+        "flag": false
+      },
+      {
+        "mark": "mind",
+        "label": "Multiple Intelligence",
+        "note": "“All the students do not have the same talents.”",
+        "value": "Teaching that looks for different strengths, not a single mould.",
+        "flag": true
+      },
+      {
+        "mark": "group",
+        "label": "Collaborative Learning",
+        "note": "Classrooms as “places of curiosity and collaboration.”",
+        "value": "Learning with others, from others, because others think differently.",
+        "flag": true
+      }
+    ],
+    "cellsTwo": []
+  },
+  "collab": {
+    "kicker": "What collaboration looks like when it is real",
+    "heading": "One basket\n{{of thread.}}",
+    "body": [
+      "The word “collaborative” survives on most school sites without ever touching a photograph. Here it does.",
+      "In the school’s own embroidery session the students are not each issued a kit — they work from **one shared basket of thread**, which means the thing a child needs next is in somebody else’s hand.",
+      "The cooking activity is built the same way: one demonstration table, a class in paper chef hats around it, and no version of the task that can be completed alone.",
+      "Neither is a lesson called Collaboration. That is the school’s point — it is in the shape of an ordinary activity rather than in a slot on the timetable."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pThread",
+        "asset": "assets/School Activity in Uniform/Embriodery.jpg",
+        "name": "Embriodery",
+        "alt": "Students of {schoolName} sitting in a circle on the floor, embroidering from one shared basket of thread between them"
+      },
+      {
+        "key": "pChef",
+        "asset": "assets/School Activity in Uniform/School Activity in Uniform (1).jpg",
+        "name": "School Activity in Uniform (1)",
+        "alt": "A teacher at {schoolName} demonstrating at the table during the papadi chaat activity, her class in paper chef hats gathered around her"
+      }
+    ],
+    "cells": [],
+    "cellsTwo": []
+  },
+  "plat": {
+    "kicker": "And the second of the three",
+    "heading": "Different talents,\n{{different platforms.}}",
+    "body": [
+      "“All the students do not have the same talents” is easy to say and expensive to act on — acting on it means running enough different things that a child who is not academic still has somewhere to be good. The school’s own published record is the evidence."
+    ],
+    "caption": null,
+    "shots": [],
+    "cells": [
+      {
+        "mark": "speak",
+        "label": "Speaking",
+        "value": "Class I entered an inter-branch Attire Speak competition; Class IV took the top three places in a group-wide declamation."
+      },
+      {
+        "mark": "make",
+        "label": "Making",
+        "value": "Folk painting under Impetus, embroidery, and the Srijan making-and-design room."
+      },
+      {
+        "mark": "build",
+        "label": "Building",
+        "value": "The Robotics Lab, and a second place at an international robotics championship."
+      },
+      {
+        "mark": "field",
+        "label": "The field",
+        "value": "Kho-kho gold, chess, handball, taekwondo — a sporting record stronger than most."
+      }
+    ],
+    "cellsTwo": []
+  },
+  "close": {
+    "kicker": null,
+    "heading": "Three things,\n{{everywhere.}}",
+    "body": [
+      "The school publishes its method, the Principal’s words behind two of the three, and the certification behind the first. It does not publish lesson plans, a scheme of work, or an observation framework — so no lesson shape is described here."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pCohort",
+        "asset": "assets/photos/sunbeem-3.jpg",
+        "name": "sunbeem-3",
+        "alt": ""
+      }
+    ],
+    "cells": [],
+    "cellsTwo": []
+  }
+}

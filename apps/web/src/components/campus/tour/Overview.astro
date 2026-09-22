@@ -1,6 +1,6 @@
 ---
 import { getCampusTourData } from '../../../lib/cms';
-const {overviewStats} = await getCampusTourData();
+const { overviewStats, overviewBand } = await getCampusTourData();
 
 /**
  * §2 · CAMPUS OVERVIEW — the figures, before any photograph.
@@ -22,8 +22,8 @@ import SectionHead from '../../academics/SectionHead.astro';
   <div class="u-container">
     <SectionHead
       id="cov-title"
-      eyebrow="The campus at a glance"
-      heading="Twelve laboratories, a library, and room to run"
+      eyebrow={overviewBand.eyebrow}
+      heading={overviewBand.heading}
       stand="Sixty-eight photographs of the Agarsanda campus, organised by the place they were taken."
       measure={22}
     />

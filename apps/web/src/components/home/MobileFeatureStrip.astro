@@ -1,0 +1,135 @@
+---
+/**
+ * MOBILE FEATURE STRIP — four features on a cream card, directly under the hero.
+ *
+ * ⚠⚠ MOBILE ONLY. `display: none` from 768px up. The desktop homepage already
+ * carries this material at length further down the page; repeating it in a strip
+ * there would be the same four facts twice on one screen. On a phone the reader
+ * has just met a 250px band of film and one headline, and this is what tells
+ * them what kind of school it is before they commit to scrolling.
+ *
+ * ⚠⚠ THE CONTENT IS SOURCED, NOT WRITTEN FOR THIS STRIP. All four come from
+ * `whyCards` in data/facilities.ts, which is drawn from the school's own
+ * published record — thirty-plus smart rooms, the drone and 3-D printer, the
+ * tracked buses and CCTV, the fifteen sports and the Class 7 venture.
+ *
+ * ⚠ FOUR OF THE SIX, CHOSEN BY NAME. `whyCards` holds six; the two omitted here
+ * (Technology, Creativity) overlap what the other four already say at this size.
+ * Selecting BY TITLE rather than by `.slice(0, 4)` means an editor reordering
+ * that array cannot silently change which four a phone sees.
+ *
+ * ⚠ NO "EXPERIENCED FACULTY" AND NO "WORLD-CLASS CAMPUS". Both appear on
+ * reference designs for this strip. Neither is a claim the school has made
+ * anywhere, so neither ships.
+ */
+import { getFacilitiesData } from '../../lib/cms';
+import FacIcon from '../campus/facilities/FacIcon.astro';
+
+const { whyCards } = await getFacilitiesData();
+
+const WANTED = ['Modern Learning', 'Innovation', 'Safety', 'Holistic Development'];
+
+/* Ordered by WANTED, not by the source array — see the header. */
+const features = WANTED
+  .map((t) => whyCards.find((c) => c.title === t))
+  .filter(Boolean) as typeof whyCards;
+---
+
+{features.length > 0 && (
+  <section class="mfs" aria-label="What Sunbeam offers">
+    <div class="u-container">
+      <ul class="mfs__grid">
+        {features.map((f) => (
+          <li class="mfs__item">
+            <span class="mfs__icon" aria-hidden="true">
+              <FacIcon name={f.icon} size={22} />
+            </span>
+            <span class="mfs__title">{f.title}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+)}
+
+<style>
+  /* ⚠ HIDDEN BY DEFAULT, SHOWN ONLY BELOW 768. Written this way round so that
+     adding the component to a page cannot change the desktop layout. */
+  .mfs { display: none; }
+
+  @media (max-width: 767px) {
+    .mfs {
+      display: block;
+      padding-block: var(--sb-6) 0;
+      background: var(--sb-paper);
+    }
+
+    .mfs__grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: var(--sb-3);
+      margin: 0;
+      padding: var(--sb-6) var(--sb-5);
+      list-style: none;
+      background: var(--sb-ivory);
+      border: 1px solid var(--sb-border);
+      /* ⚠ --sb-r-2 (24px), not --sb-r-1. --sb-r-1 is the 999px full pill and
+         turns a card into a lozenge. */
+      border-radius: var(--sb-r-2);
+      box-shadow: 0 14px 34px -26px rgba(28, 14, 8, 0.4);
+    }
+
+    .mfs__item {
+      display: grid;
+      justify-items: center;
+      align-content: start;
+      gap: 7px;
+      min-width: 0;
+      text-align: center;
+    }
+
+    .mfs__icon {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: color-mix(in srgb, var(--sb-orange-bright) 12%, transparent);
+      color: var(--sb-violet);
+    }
+
+    .mfs__title {
+      font-size: 10.5px;
+      font-weight: 700;
+      line-height: 1.25;
+      letter-spacing: 0.01em;
+      color: var(--sb-charcoal);
+      text-wrap: balance;
+    }
+  }
+
+  /* ⚠⚠ A SCROLLER BELOW ~340px, NEVER A 2×2 GRID. Four columns at 320px leaves
+     about 58px a column, which "Holistic Development" cannot live in. Reflowing
+     to 2×2 was the obvious alternative and was rejected: it doubles the strip's
+     height on the smallest screen there is, pushing the rest of the page down
+     for the readers who can least afford it. A scroller keeps it one row tall
+     and lets the fourth item peek, which also signals that it scrolls. */
+  @media (max-width: 359px) {
+    .mfs__grid {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .mfs__grid::-webkit-scrollbar { display: none; }
+    .mfs__item {
+      flex: 0 0 27%;
+      scroll-snap-align: start;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mfs__grid { scroll-behavior: auto; }
+  }
+</style>

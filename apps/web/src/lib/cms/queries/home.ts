@@ -83,6 +83,7 @@ interface RawSlide {
 interface RawMark { id: number; name: string; note: string | null; logo: StrapiFile | null }
 
 interface RawHomepage {
+  heroEyebrow: string | null;
   heroTitle: string | null; heroDeck: string | null;
   heroActions: RawLink[] | null; heroStats: RawFigure[] | null;
   heroSlides: RawSlide[] | null;
@@ -149,8 +150,20 @@ function homepage(): Promise<RawHomepage | null> {
  * card both print the school roll, which Site Settings owns; `{currentStrength}`
  * is substituted at build time so the two can never disagree.
  *
- * ⚠ `eyebrow` IS THE MOTTO, STILL READ FROM Site Settings. It was already
- * CMS-driven and stays where it is rather than being copied onto the homepage.
+ * ⚠⚠ THE MOTTO IS NO LONGER THE EYEBROW. It used to be the line above the
+ * <h1>; the client asked for it below the deck instead, with a plain welcome
+ * line above the headline. So there are now two fields where there was one, and
+ * they come from different places on purpose:
+ *
+ *   eyebrow  — homepage.heroEyebrow, because it is homepage copy and nothing
+ *              else on the site says it
+ *   tagline  — school.motto, because the footer and the About pages print the
+ *              same three words and a second copy is a second thing to forget
+ *
+ * ⚠ THE MOTTO IS READ OFF THE CREST RING on the official logo artwork. Text
+ * extraction never surfaced it — it exists only in the emblem — so if Site
+ * Settings is ever reseeded from scraped copy, this line is the one that
+ * quietly goes missing.
  */
 export async function getHero() {
   const [h, school] = await Promise.all([homepage(), getSchool()]);
@@ -160,13 +173,20 @@ export async function getHero() {
     schoolName: school?.name,
   };
   return {
-    eyebrow: school?.motto ?? '',
+    eyebrow: h?.heroEyebrow ?? '',
+    tagline: school?.motto ?? '',
     title: fillTokens(h?.heroTitle, vars),
     deck: fillTokens(h?.heroDeck, vars),
     actions: asLinks(h?.heroActions),
     stats: (h?.heroStats ?? []).map((f) => ({
       value: fillTokens(f.figure, vars), label: f.label, note: f.note,
     })),
+    /**
+     * ⚠ THESE ARE THE PHOTOGRAPH SLIDES ONLY. The hero also opens with two
+     * drone films, and those are NOT in here — Hero.astro owns them, because
+     * their sources are fixed build artefacts in public/video/ rather than
+     * anything an editor picks. See the FILMS note in that file.
+     */
     slides: (h?.heroSlides ?? []).map((s) => ({
       image: s.image ?? null, alt: s.alt, caption: s.caption,
       brief: s.brief ?? '', position: s.focalPoint ?? '50% 50%',
@@ -347,20 +367,32 @@ export async function getHomeAchievements() {
 
 /* ── ABOUT ───────────────────────────────────────────────────────────────── */
 
+/** ⚠ 'vice-principal' IS IN THIS UNION. The VP page passes it, and tsc does not
+    read .astro files — so a role missing here fails silently at runtime, not in
+    a typecheck. */
+export type LeaderRole = 'director' | 'principal' | 'vice-principal';
+
 export interface LeaderMessage {
-  role: 'director' | 'principal';
+  role: LeaderRole;
   name: string; roleLabel: string | null;
   eyebrow: string | null; heading: string | null; pullQuote: string | null;
-  paragraphs: string[]; credentials: string[];
+  /** The homepage extract. */
+  paragraphs: string[];
+  /** The whole signed message, where the school has supplied it. */
+  fullMessage: string[];
+  credentials: string[];
   portrait: StrapiFile | null; portraitAlt: string | null;
   portraitBrief: string | null; pending: string | null;
 }
-interface RawLeader extends Omit<LeaderMessage, 'paragraphs' | 'credentials'> {
-  slug: string; paragraphs: RawParagraph[] | null; credentials: RawFact[] | null;
+interface RawLeader extends Omit<LeaderMessage, 'paragraphs' | 'fullMessage' | 'credentials'> {
+  slug: string;
+  paragraphs: RawParagraph[] | null;
+  fullMessage: RawParagraph[] | null;
+  credentials: RawFact[] | null;
 }
 
 /** One record, by role — the Director's and the Principal's pages take one each. */
-export async function getLeaderMessage(role: 'director' | 'principal'): Promise<LeaderMessage | null> {
+export async function getLeaderMessage(role: LeaderRole): Promise<LeaderMessage | null> {
   const all = await cmsFetchAll<RawLeader>('/api/leader-messages', {
     populate: LEADER_MESSAGE_POPULATE, filters: { role: { $eq: role } },
   });
@@ -369,7 +401,8 @@ export async function getLeaderMessage(role: 'director' | 'principal'): Promise<
   return {
     role: l.role, name: l.name, roleLabel: l.roleLabel,
     eyebrow: l.eyebrow, heading: l.heading, pullQuote: l.pullQuote,
-    paragraphs: texts(l.paragraphs), credentials: values(l.credentials),
+    paragraphs: texts(l.paragraphs), fullMessage: texts(l.fullMessage),
+    credentials: values(l.credentials),
     portrait: l.portrait ?? null, portraitAlt: l.portraitAlt,
     portraitBrief: l.portraitBrief, pending: l.pending,
   };

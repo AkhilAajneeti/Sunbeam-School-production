@@ -24,6 +24,8 @@ interface RawCell {
   label: string | null; value: string | null; mark: string | null;
   note: string | null; sub: string | null; caption: string | null;
   flag: boolean | null; image?: StrapiFile | null; alt?: string | null;
+  number: string | null; suffix: string | null; state: string | null;
+  href: string | null;
 }
 interface RawBand {
   kicker: string | null; heading: string | null;
@@ -36,6 +38,16 @@ export interface Cell {
   label: string; value: string; mark: string;
   note: string; sub: string; caption: string; flag: boolean;
   image: StrapiFile | null; alt: string;
+  /**
+   * ⚠ A FIGURE THE PAGE PRINTS — 17,574 books, 75 classrooms — with whatever
+   * follows it. Empty on a run that is simply numbered 01, 02, 03: the page
+   * counts those itself.
+   */
+  number: string; suffix: string;
+  /** How firmly the school has published the row: yes | part | info. */
+  state: string;
+  /** Where the card goes, on the runs that are links. */
+  href: string;
 }
 export interface Band {
   kicker: string; heading: string; body: string[]; caption: string;
@@ -92,6 +104,7 @@ export async function getStructurePage<K extends string>(
     label: t(c.label), value: t(c.value), mark: c.mark ?? '',
     note: t(c.note), sub: t(c.sub), caption: t(c.caption),
     flag: Boolean(c.flag), image: c.image ?? null, alt: t(c.alt),
+    number: c.number ?? '', suffix: c.suffix ?? '', state: c.state ?? '', href: c.href ?? '',
   }));
 
   const band = (b: RawBand | null | undefined): Band => ({
@@ -143,6 +156,7 @@ async function getStreamPage<K extends string>(endpoint: string, sections: reado
     label: t(c.label), value: t(c.value), mark: c.mark ?? '',
     note: t(c.note), sub: t(c.sub), caption: t(c.caption),
     flag: Boolean(c.flag), image: c.image ?? null, alt: t(c.alt),
+    number: c.number ?? '', suffix: c.suffix ?? '', state: c.state ?? '', href: c.href ?? '',
   }));
 
   const band = (b: RawBand | null | undefined): Band => ({
@@ -168,6 +182,38 @@ async function getStreamPage<K extends string>(endpoint: string, sections: reado
 
 export const getStreamsOffered = () => getStreamPage('/api/streams-offered-page', STREAMS_OFFERED);
 export const getSubjectCombinations = () => getStreamPage('/api/subject-combinations-page', SUBJECT_COMBINATIONS);
+
+/* ── Teaching & Learning: the same shape, six more pages ──────────────────── */
+
+const METHODOLOGY = ['open', 'three', 'collab', 'plat', 'close'] as const;
+const SMART_CLASSROOMS = ['room', 'sys', 'beyond', 'prac', 'close'] as const;
+const EXPERIENTIAL_LEARNING = ['open', 'path', 'proj', 'close'] as const;
+const STEM_ROBOTICS = ['rooms', 'bots', 'use', 'eco', 'close'] as const;
+const READING_LANGUAGE = ['lib', 'round', 'lab', 'stage', 'close'] as const;
+const LABORATORIES_CLUBS = ['rooms', 'twelve', 'spaces', 'interlude', 'close'] as const;
+
+export const getMethodology = () => getStructurePage('/api/methodology-page', METHODOLOGY);
+export const getSmartClassrooms = () => getStructurePage('/api/smart-classrooms-page', SMART_CLASSROOMS);
+export const getExperientialLearning = () => getStructurePage('/api/experiential-learning-page', EXPERIENTIAL_LEARNING);
+export const getStemRobotics = () => getStructurePage('/api/stem-robotics-page', STEM_ROBOTICS);
+export const getReadingLanguage = () => getStructurePage('/api/reading-language-page', READING_LANGUAGE);
+export const getLaboratoriesClubs = () => getStructurePage('/api/laboratories-clubs-page', LABORATORIES_CLUBS);
+
+/* ── Assessment & Support: the same shape, six more pages ─────────────────── */
+
+const ASSESSMENT = ['open', 'cycle', 'struct', 'sup', 'conv', 'next', 'close'] as const;
+const HOMEWORK_POLICY = ['open', 'item', 'frame', 'clear', 'gap', 'ask', 'close'] as const;
+const REMEDIAL_SUPPORT = ['open', 'journey', 'rules', 'note', 'close'] as const;
+const MENTORING = ['open', 'rel', 'jrn', 'roles', 'human', 'final'] as const;
+const PARENT_TEACHER = ['open', 'agenda', 'why', 'close'] as const;
+const COMPETITIVE_EXAM = ['open', 'list', 'feat', 'gal', 'close'] as const;
+
+export const getAssessment = () => getStructurePage('/api/assessment-page', ASSESSMENT);
+export const getHomeworkPolicy = () => getStructurePage('/api/homework-policy-page', HOMEWORK_POLICY);
+export const getRemedialSupport = () => getStructurePage('/api/remedial-support-page', REMEDIAL_SUPPORT);
+export const getMentoring = () => getStructurePage('/api/mentoring-page', MENTORING);
+export const getParentTeacher = () => getStructurePage('/api/parent-teacher-page', PARENT_TEACHER);
+export const getCompetitiveExam = () => getStructurePage('/api/competitive-exam-page', COMPETITIVE_EXAM);
 
 export const getPrePrimary = () => getStructurePage('/api/pre-primary-page', PRE_PRIMARY);
 export const getPrimaryStage = () => getStructurePage('/api/primary-stage-page', PRIMARY);

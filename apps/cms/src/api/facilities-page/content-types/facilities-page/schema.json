@@ -2,14 +2,39 @@
   "kind": "singleType",
   "collectionName": "facilities_page",
   "info": {
-    "singularName": "facilities-page", "pluralName": "facilities-pages", "displayName": "Facilities Page",
-    "description": "The infrastructure page. Mirrors apps/web/src/data/facilities.ts — KPIs, grouped inventory, rationale cards and the growth progression."
+    "singularName": "facilities-page",
+    "pluralName": "facilities-pages",
+    "displayName": "Facilities Page",
+    "description": "The infrastructure page. Mirrors apps/web/src/data/facilities.ts — KPIs, grouped inventory, rationale cards and the growth progression. ⚠ `figures` IS THE HEAD OF THE KPI BAND on /campus/facilities-infrastructure/ — kicker = eyebrow, first body paragraph = standfirst. The other two bands on that page (the photo wall and the visit call-to-action) are SHARED WITH /campus/ and are edited in Campus Tour Page, not here."
   },
-  "options": { "draftAndPublish": true },
+  "options": {
+    "draftAndPublish": true
+  },
   "attributes": {
-    "kpis": { "type": "component", "repeatable": true, "component": "shared.stat" },
-    "groups": { "type": "component", "repeatable": true, "component": "campus.facility-group" },
-    "whyCards": { "type": "component", "repeatable": true, "component": "shared.point" },
-    "progression": { "type": "component", "repeatable": true, "component": "shared.point" }
+    "figures": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "kpis": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.stat"
+    },
+    "groups": {
+      "type": "component",
+      "repeatable": true,
+      "component": "campus.facility-group"
+    },
+    "whyCards": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.point"
+    },
+    "progression": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.point"
+    }
   }
 }

@@ -308,5 +308,12 @@ export interface AcademicCalendarPage {
   source: string | null;
   carries: PointItem[];
   planning: PointItem[];
+  /**
+   * The page's photographs, IN THE ORDER IT PLACES THEM — the two calendar
+   * sheets, then the frame that closes the page. They used to come from the
+   * shared academics record, which meant this page's words were edited here and
+   * its pictures somewhere else entirely.
+   */
+  shots: PhotoComponent[];
   seo: SeoComponent | null;
 }

@@ -43,14 +43,19 @@ import AsClose from './AsClose.astro';
 import Lightbox from '../../ui/Lightbox.astro';
 
 /* ── PHOTOGRAPHY — six genuine Sunbeam Ballia frames, each used ONCE. ─────── */
-import { getAcademicTopic } from '../../../lib/cms';
+import ClipHeading from '../../ui/ClipHeading.astro';
+import RichLine from '../../ui/RichLine.astro';
+import { getCompetitiveExam, fileUrl } from '../../../lib/cms';
 import SmartImage from '../../ui/SmartImage.astro';
 import RichLine from '../../ui/RichLine.astro';
 
-const ac = await getAcademicTopic('/academics/assessment/competitive-exam-preparation/');
-const pComposite = ac.pic('pComposite');
-const pBench = ac.pic('pBench');
-const pCohort = ac.pic('pCohort');
+const { open, list, feat, gal, close } = await getCompetitiveExam();
+
+/* AsClose takes its headline as two props; the record stores the same two
+   lines with {{…}} that every other heading uses. */
+const [closeLead = '', closeAccent = ''] = (close.heading ?? '')
+  .split('\n')
+  .map((l) => l.replace(/^\{\{|\}\}$/g, '').trim());
 
 const S = 'Sunbeam School Ballia';
 
@@ -63,13 +68,10 @@ const STEM = '/academics/teaching-learning/stem-robotics/';
    participation in other nationally notified programmes from time to time
    without naming them in a list, so the row says exactly that rather than
    inventing a sixth name to round the set out. */
-const programmes = ac.section('programmes').points;
 
 /* ── SECTION 03 — the same four, at a glance ─────────────────────────────── */
-const features = ac.section('features').points;
 
 /* ── SECTION 04 — the gallery. One large, two smaller, one circular. ─────── */
-const gallery = ac.section('gallery').photos;
 ---
 
 {/* ══ 01 · FOUR PAPERS NOBODY HAS TO SIT ═════════════════════════════════════
@@ -82,8 +84,7 @@ const gallery = ac.section('gallery').photos;
     <div class="ce-open__stage">
       <div class="ce-open__lead as-frame as-fill" data-mask>
         <SmartImage
-          file={pBench}
-          alt={ac.picAlt('pBench')}
+          file={open.shots[0]?.image} alt={open.shots[0]?.alt ?? ''}
          
           widths={[520, 880, 1200]}
           sizes="(max-width: 1023px) 92vw, 42vw"
@@ -93,8 +94,7 @@ const gallery = ac.section('gallery').photos;
       </div>
       <div class="ce-open__sm as-frame as-frame--float as-fill" data-pop data-pop-delay="200">
         <SmartImage
-          file={pComposite}
-          alt={ac.picAlt('pComposite')}
+          file={open.shots[1]?.image} alt={open.shots[1]?.alt ?? ''}
          
           widths={[320, 560]}
           sizes="(max-width: 1023px) 46vw, 18vw"
@@ -107,26 +107,12 @@ const gallery = ac.section('gallery').photos;
     <div class="ce-open__copy">
       <span class="as-dots ce-open__dots" aria-hidden="true"></span>
 
-      <p class="as-kicker" data-reveal>Beyond the board syllabus</p>
-      <h2 class="as-h as-h--lg" id="ce-open-t">
-        <span data-clip data-clip-delay="0">Four papers</span>
-        <span data-clip data-clip-delay="150"><em>nobody has to sit</em></span>
-      </h2>
+      <p class="as-kicker" data-reveal>{open.kicker}</p>
+      <ClipHeading class="as-h as-h--lg" id="ce-open-t" text={open.heading} />
 
-      <p class="as-body" data-reveal data-reveal-delay="200">
-        None of the programmes below is compulsory, and none of them counts towards a board result.
-        That is what makes entering them a decision — and the school names which ones it enters
-        rather than describing a culture of enrichment in the abstract.
-      </p>
-      <p class="as-body" data-reveal data-reveal-delay="260">
-        What each asks for is different in kind, which is the useful part for a family reading this:
-        one is a written talent search, one is a defended project, one is an original idea, and one is
-        a paper set from the primary years.
-      </p>
-      <p class="as-body" data-reveal data-reveal-delay="320">
-        What has come back from them — the national qualifications and the placings — is recorded on
-        {' '}<a class="as-link" href={OLYMPIADS}>Olympiad Achievements</a> rather than repeated here.
-      </p>
+      <RichLine class="as-body" text={open.body[0]} reveal revealDelay={200} />
+      <RichLine class="as-body" text={open.body[1]} reveal revealDelay={260} />
+      <RichLine class="as-body" text={open.body[2]} linkClass="as-link" reveal revealDelay={320} />
     </div>
   </div>
 </section>
@@ -139,33 +125,22 @@ const gallery = ac.section('gallery').photos;
 
   <div class="u-container ce-list__grid">
     <div class="ce-list__head">
-      <p class="as-kicker" data-reveal>What each one asks</p>
-      <h2 class="as-h as-h--lg" id="ce-list-t">
-        <span data-clip data-clip-delay="0">A search, a defence,</span>
-        <span data-clip data-clip-delay="150"><em>an idea, a paper</em></span>
-      </h2>
-      <p class="as-body ce-list__b" data-reveal data-reveal-delay="200">
-        Read side by side, the four programmes ask for four different things — and between them they
-        cover most of what a science education is supposed to produce. A student who can sit a talent
-        search may not be the one who can defend a project in front of a panel.
-      </p>
-      <p class="as-note" data-reveal data-reveal-delay="270">
-        Where the work is actually done is on
-        {' '}<a class="as-link" href={STEM}>STEM, Robotics &amp; Enrichment</a>; CUET destinations
-        are on {' '}<a class="as-link" href={UNIVERSITY}>University Counselling</a>.
-      </p>
+      <p class="as-kicker" data-reveal>{list.kicker}</p>
+      <ClipHeading class="as-h as-h--lg" id="ce-list-t" text={list.heading} />
+      <RichLine class="as-body ce-list__b" text={list.body[0]} reveal revealDelay={200} />
+      <RichLine class="as-note" text={list.body[1]} linkClass="as-link" reveal revealDelay={270} />
     </div>
 
     <ol class="ce-progs">
-      {programmes.map((p, i) => (
+      {list.cells.map((p, i) => (
         <li class="ce-prog" data-reveal data-reveal-delay={180 + i * 70}>
-          <span class="ce-prog__n t-tabular">{p.n}</span>
+          <span class="ce-prog__n t-tabular">{String(i + 1).padStart(2, '0')}</span>
           <div class="ce-prog__t">
-            <p class="ce-prog__k">{p.k}</p>
+            <p class="ce-prog__k">{p.label}</p>
             <RichLine
   tag="p"
   class="ce-prog__v"
-  text={p.v}
+  text={p.value}
 />
           </div>
         </li>
@@ -173,12 +148,8 @@ const gallery = ac.section('gallery').photos;
       <li class="ce-prog ce-prog--soft" data-reveal data-reveal-delay="560">
         <span class="ce-prog__n t-tabular">06</span>
         <div class="ce-prog__t">
-          <p class="ce-prog__k">Other officially published opportunities</p>
-          <p class="ce-prog__v">
-            From time to time the school enables participation in other nationally notified science
-            and academic programmes. It does not publish them as a standing list, so none is named
-            here.
-          </p>
+          <RichLine class="ce-prog__k" text={list.body[2]} />
+          <RichLine class="ce-prog__v" text={list.body[3]} />
         </div>
       </li>
     </ol>
@@ -190,20 +161,20 @@ const gallery = ac.section('gallery').photos;
     light shadow, generous whitespace. Architectural rather than card-like. */}
 <section class="as-sec as-sec--cream as-pad--sm ce-feat" aria-labelledby="ce-feat-t">
   <div class="u-container">
-    <p class="as-kicker" data-reveal id="ce-feat-t">Programmes, at a glance</p>
+    <p class="as-kicker" data-reveal id="ce-feat-t">{feat.kicker}</p>
 
     <ol class="ce-feats">
-      {features.map((f, i) => (
+      {feat.cells.map((f, i) => (
         <li class="ce-fcard" data-pop data-pop-delay={130 + i * 90}>
-          <p class="ce-fcard__n t-tabular">{f.n}</p>
+          <p class="ce-fcard__n t-tabular">{String(i + 1).padStart(2, '0')}</p>
           <span class="ce-fcard__m" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none">
               <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={MARK[f.mark]} />
             </svg>
           </span>
-          <h3 class="ce-fcard__k">{f.k}</h3>
+          <h3 class="ce-fcard__k">{f.label}</h3>
           <p class="ce-fcard__s">{f.sub}</p>
-          <p class="ce-fcard__v">{f.v}</p>
+          <p class="ce-fcard__v">{f.value}</p>
           <span class="ce-fcard__go" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none">
               <g stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" set:html={MARK.arrow} />
@@ -225,14 +196,14 @@ const gallery = ac.section('gallery').photos;
     <a
       class="ce-gal__a as-frame as-fill"
       data-lb-open
-      href={gallery[0].src.src}
-      data-lb-alt={gallery[0].alt}
-      data-lb-cap={gallery[0].cap}
+      href={fileUrl(gal.cells[0].image)}
+      data-lb-alt={gal.cells[0].alt}
+      data-lb-cap={gal.cells[0].caption}
       data-pop
     >
       <SmartImage
-        file={gallery[0].src}
-        alt={gallery[0].alt}
+        file={gal.cells[0].image}
+        alt={gal.cells[0].alt}
         sizes="(max-width: 767px) 92vw, 30vw"
         fallbackWidth={1100}
         loading="lazy"
@@ -242,15 +213,15 @@ const gallery = ac.section('gallery').photos;
     <a
       class="ce-gal__b as-frame as-frame--float as-fill"
       data-lb-open
-      href={gallery[1].src.src}
-      data-lb-alt={gallery[1].alt}
-      data-lb-cap={gallery[1].cap}
+      href={fileUrl(gal.cells[1].image)}
+      data-lb-alt={gal.cells[1].alt}
+      data-lb-cap={gal.cells[1].caption}
       data-pop
       data-pop-delay="120"
     >
       <SmartImage
-        file={gallery[1].src}
-        alt={gallery[1].alt}
+        file={gal.cells[1].image}
+        alt={gal.cells[1].alt}
         sizes="(max-width: 767px) 46vw, 22vw"
         fallbackWidth={1100}
         loading="lazy"
@@ -260,15 +231,15 @@ const gallery = ac.section('gallery').photos;
     <a
       class="ce-gal__c as-frame as-frame--float as-fill"
       data-lb-open
-      href={gallery[2].src.src}
-      data-lb-alt={gallery[2].alt}
-      data-lb-cap={gallery[2].cap}
+      href={fileUrl(gal.cells[2].image)}
+      data-lb-alt={gal.cells[2].alt}
+      data-lb-cap={gal.cells[2].caption}
       data-pop
       data-pop-delay="220"
     >
       <SmartImage
-        file={gallery[2].src}
-        alt={gallery[2].alt}
+        file={gal.cells[2].image}
+        alt={gal.cells[2].alt}
         sizes="(max-width: 767px) 46vw, 22vw"
         fallbackWidth={1100}
         loading="lazy"
@@ -278,15 +249,15 @@ const gallery = ac.section('gallery').photos;
     <a
       class="ce-gal__d as-frame as-frame--float as-frame--round as-fill"
       data-lb-open
-      href={gallery[3].src.src}
-      data-lb-alt={gallery[3].alt}
-      data-lb-cap={gallery[3].cap}
+      href={fileUrl(gal.cells[3].image)}
+      data-lb-alt={gal.cells[3].alt}
+      data-lb-cap={gal.cells[3].caption}
       data-pop
       data-pop-delay="320"
     >
       <SmartImage
-        file={gallery[3].src}
-        alt={gallery[3].alt}
+        file={gal.cells[3].image}
+        alt={gal.cells[3].alt}
         sizes="(max-width: 767px) 40vw, 14vw"
         fallbackWidth={1100}
         loading="lazy"
@@ -297,11 +268,11 @@ const gallery = ac.section('gallery').photos;
 
 <AsClose
   id="ce-close-t"
-  kicker="Four national programmes"
-  lead="Named,"
-  accent="so it can be checked."
-  body="The school names the programmes it enters and the classes eligible for them. It does not publish a coaching timetable, how students are selected for entry, or whether preparation runs inside or outside the school day — and none of that is invented here."
-  photo={pCohort}
+  kicker={close.kicker}
+  lead={closeLead}
+  accent={closeAccent}
+  body={close.body[0]}
+  photo={close.shots[0]?.image ?? null}
 />
 
 <Lightbox />
@@ -336,7 +307,7 @@ const gallery = ac.section('gallery').photos;
     gap: clamp(26px, 3.6vw, 54px);
     align-items: center;
   }
-  .ce-list__b { max-width: 40ch; }
+  :global(.ce-list__b) { max-width: 40ch; }
 
   .ce-progs { margin: 0; padding: 0; list-style: none; }
   .ce-prog {
@@ -355,7 +326,7 @@ const gallery = ac.section('gallery').photos;
     color: var(--sb-orange-bright);
   }
   .ce-prog__t { display: grid; gap: 3px; }
-  .ce-prog__k {
+  :global(.ce-prog__k) {
     margin: 0;
     font-size: clamp(9.5px, 0.72vw, 11.2px);
     font-weight: 700;
@@ -363,7 +334,7 @@ const gallery = ac.section('gallery').photos;
     text-transform: uppercase;
     color: var(--sb-charcoal);
   }
-  .ce-prog__v { margin: 0; font-size: clamp(10.5px, 0.78vw, 12.4px); line-height: 1.64; color: var(--sb-text-muted); }
+  :global(.ce-prog__v) { margin: 0; font-size: clamp(10.5px, 0.78vw, 12.4px); line-height: 1.64; color: var(--sb-text-muted); }
   /* The catch-all row is set back a shade, because it names nothing. */
   .ce-prog--soft .ce-prog__n { color: color-mix(in srgb, var(--sb-orange-bright) 58%, transparent); }
   .ce-prog--soft .ce-prog__k { color: var(--sb-text-muted); }
@@ -475,7 +446,7 @@ const gallery = ac.section('gallery').photos;
   /* ═══ RESPONSIVE ══════════════════════════════════════════════════════════ */
   @media (max-width: 1179px) {
     .ce-list__grid { grid-template-columns: minmax(0, 1fr); gap: clamp(22px, 3vw, 32px); }
-    .ce-list__b { max-width: 62ch; }
+    :global(.ce-list__b) { max-width: 62ch; }
     .ce-feats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
 

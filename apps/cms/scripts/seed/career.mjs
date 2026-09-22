@@ -20,7 +20,7 @@ import { dirname, resolve } from 'node:path';
 import { withStrapi } from '../lib/strapi.mjs';
 import { loadWebData } from '../lib/load-web-data.mjs';
 import { uploadMedia } from '../lib/media.mjs';
-import { upsertBySlug } from '../lib/upsert.mjs';
+import { upsertBySlug, upsertSingle } from '../lib/upsert.mjs';
 import { slugify } from '../lib/slug.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
@@ -32,7 +32,7 @@ const FORCE_MEDIA = args.has('--force-media');
 const DRY = args.has('--dry');
 
 await withStrapi(async (strapi) => {
-  const { posters } = await loadWebData(DATA_FILE);
+  const { posters, careerCopy } = await loadWebData(DATA_FILE);
 
   if (!Array.isArray(posters) || posters.length === 0) {
     throw new Error(`Expected a non-empty "posters" array in ${DATA_FILE}`);
@@ -89,6 +89,29 @@ await withStrapi(async (strapi) => {
 
     outcome === 'created' ? created++ : updated++;
     console.log(`    ${outcome.padEnd(7)}  ${slug}`);
+  }
+
+  /* ── THE PAGE'S OWN COPY ───────────────────────────────────────
+     ⚠ THE STANDFIRST BECOMES body[0], because structure.section has no
+     single-line stand field. The query layer reads it back from there. Getting
+     it wrong is silent — the band simply keeps showing its built-in default. */
+  if (!DRY && careerCopy) {
+    const band = (b) =>
+      b ? { heading: b.heading || null, body: b.stand ? [{ text: b.stand }] : [] } : null;
+
+    await upsertSingle(strapi, 'api::career-page.career-page', {
+      wall: band(careerCopy.wall),
+      ctaCvLabel: careerCopy.ctaCvLabel ?? null,
+      ctaCallLabel: careerCopy.ctaCallLabel ?? null,
+      apply: band(careerCopy.apply),
+      /* ⚠ shared.measure, NOT shared.detail — detail's `value` is required and
+         there is no value here; the address, email and phone come from Site
+         Settings. `verified` is required too and is true of all three. */
+      applyMethods: (careerCopy.applyMethods ?? []).map((m) => ({
+        label: m.label, body: m.note ?? '', verified: true,
+      })),
+    });
+    console.log('    Career Page         updated');
   }
 
   console.log(

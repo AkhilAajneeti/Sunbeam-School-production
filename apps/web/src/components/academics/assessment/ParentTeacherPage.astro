@@ -38,14 +38,17 @@ import AsClose from './AsClose.astro';
 import { getSchool } from '../../../lib/cms';
 
 /* ── PHOTOGRAPHY — five genuine Sunbeam Ballia frames, each used ONCE. ────── */
-import { getAcademicTopic } from '../../../lib/cms';
+import ClipHeading from '../../ui/ClipHeading.astro';
+import RichLine from '../../ui/RichLine.astro';
+import { getParentTeacher } from '../../../lib/cms';
 
-const ac = await getAcademicTopic('/academics/assessment/parent-teacher-meetings/');
-const pHall = ac.pic('pHall');
-const pTiers = ac.pic('pTiers');
-const pPanel = ac.pic('pPanel');
-const pSpeak = ac.pic('pSpeak');
-const pCohort = ac.pic('pCohort');
+const { open, agenda, why, close } = await getParentTeacher();
+
+/* AsClose takes its headline as two props; the record stores the same two
+   lines with {{…}} that every other heading uses. */
+const [closeLead = '', closeAccent = ''] = (close.heading ?? '')
+  .split('\n')
+  .map((l) => l.replace(/^\{\{|\}\}$/g, '').trim());
 
 const school = await getSchool();
 
@@ -57,10 +60,8 @@ const ASSESSMENT = '/academics/assessment/';
 const PORTAL = school.external.results;
 
 /* ── SECTION 02 — the four channels ──────────────────────────────────────── */
-const channels = ac.section('channels').points;
 
 /* ── SECTION 03 — four reasons, each one anchored to something published ─── */
-const reasons = ac.section('reasons').points;
 ---
 
 {/* ══ 01 · THE DATE COMES FIRST ══════════════════════════════════════════════
@@ -71,28 +72,12 @@ const reasons = ac.section('reasons').points;
 
   <div class="u-container pt-open__grid">
     <div>
-      <p class="as-kicker" data-reveal>Scheduled, not called</p>
-      <h2 class="as-h as-h--xl pt-open__h" id="pt-open-t">
-        <span data-clip data-clip-delay="0">The date comes first,</span>
-        <span data-clip data-clip-delay="150"><em>not the problem.</em></span>
-      </h2>
+      <p class="as-kicker" data-reveal>{open.kicker}</p>
+      <ClipHeading class="as-h as-h--xl pt-open__h" id="pt-open-t" text={open.heading} />
 
-      <p class="as-body" data-reveal data-reveal-delay="200">
-        Sunbeam places its parent–teacher meetings on the <strong>academic calendar for the
-        session</strong>, alongside the examination dates, the terms and the holidays. The
-        consequence is small and worth stating: a parent knows the date months before the meeting,
-        and can read it against the examination it follows.
-      </p>
-      <p class="as-body" data-reveal data-reveal-delay="260">
-        A meeting called at short notice has already said something before anyone speaks — that
-        something has gone wrong. A meeting that was always in the calendar has not, which is what
-        makes it possible to sit down about a child who is doing perfectly well.
-      </p>
-      <p class="as-note" data-reveal data-reveal-delay="330">
-        The dates themselves are not published online. The
-        {' '}<a class="as-link" href={CALENDAR}>academic calendar</a> page sets out what the school
-        says the calendar carries.
-      </p>
+      <RichLine class="as-body" text={open.body[0]} reveal revealDelay={200} />
+      <RichLine class="as-body" text={open.body[1]} reveal revealDelay={260} />
+      <RichLine class="as-note" text={open.body[2]} linkClass="as-link" reveal revealDelay={330} />
     </div>
 
     <div class="pt-open__stage">
@@ -101,8 +86,7 @@ const reasons = ac.section('reasons').points;
 
       <div class="pt-open__lead as-frame as-fill" data-mask>
         <SmartImage
-          file={pHall}
-          alt={ac.picAlt('pHall')}
+          file={open.shots[0]?.image} alt={open.shots[0]?.alt ?? ''}
          
           widths={[520, 880, 1200]}
           sizes="(max-width: 1023px) 92vw, 44vw"
@@ -112,8 +96,7 @@ const reasons = ac.section('reasons').points;
       </div>
       <div class="pt-open__sm as-frame as-frame--float as-fill" data-pop data-pop-delay="200">
         <SmartImage
-          file={pTiers}
-          alt={ac.picAlt('pTiers')}
+          file={open.shots[1]?.image} alt={open.shots[1]?.alt ?? ''}
          
           widths={[320, 560]}
           sizes="(max-width: 1023px) 46vw, 18vw"
@@ -134,8 +117,7 @@ const reasons = ac.section('reasons').points;
       <span class="as-dots pt-agenda__dots" aria-hidden="true"></span>
       <div class="pt-agenda__lead as-frame as-fill" data-zoom data-zoom-to="1.04">
         <SmartImage
-          file={pPanel}
-          alt={ac.picAlt('pPanel')}
+          file={agenda.shots[0]?.image} alt={agenda.shots[0]?.alt ?? ''}
          
           widths={[520, 880, 1200]}
           sizes="(max-width: 1023px) 92vw, 42vw"
@@ -145,8 +127,7 @@ const reasons = ac.section('reasons').points;
       </div>
       <div class="pt-agenda__cir as-frame as-frame--float as-frame--round as-fill" data-pop data-pop-delay="220">
         <SmartImage
-          file={pSpeak}
-          alt={ac.picAlt('pSpeak')}
+          file={agenda.shots[1]?.image} alt={agenda.shots[1]?.alt ?? ''}
          
           widths={[240, 430]}
           sizes="(max-width: 1023px) 32vw, 13vw"
@@ -154,27 +135,16 @@ const reasons = ac.section('reasons').points;
           decoding="async"
         />
       </div>
-      <figcaption class="pt-agenda__cap">
-        Photographs: the Parents’ Forum for Classes IX to XII, session 2025-26 — not a parent–teacher
-        meeting. The school has published no photograph of one.
-      </figcaption>
+      <figcaption class="pt-agenda__cap">{agenda.caption}</figcaption>
     </figure>
 
     <div class="pt-agenda__copy">
-      <p class="as-kicker" data-reveal>With a printed agenda</p>
-      <h2 class="as-h as-h--lg" id="pt-agenda-t">
-        <span data-clip data-clip-delay="0">With a printed</span>
-        <span data-clip data-clip-delay="150"><em>agenda.</em></span>
-      </h2>
-      <p class="as-body" data-reveal data-reveal-delay="200">
-        The forum is a panel session, and its agenda is projected in the room rather than kept at the
-        front. That agenda is worth reading: <strong>four of its twelve items</strong> are the ones
-        parents rarely get a formal channel for — <em>quality of classroom teaching, pace of
-        teaching, quality of assignment,</em> and <em>correction of notebooks.</em>
-      </p>
+      <p class="as-kicker" data-reveal>{agenda.kicker}</p>
+      <ClipHeading class="as-h as-h--lg" id="pt-agenda-t" text={agenda.heading} />
+      <RichLine class="as-body" text={agenda.body[0]} reveal revealDelay={200} />
 
       <ol class="as-rows pt-agenda__rows">
-        {channels.map((c, i) => (
+        {agenda.cells.map((c, i) => (
           <li class="as-row" data-reveal data-reveal-delay={250 + i * 80}>
             <span class="as-row__m" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none">
@@ -182,17 +152,13 @@ const reasons = ac.section('reasons').points;
               </svg>
             </span>
             <div class="as-row__t">
-              <p class="as-row__k">{c.k}</p>
-              <p class="as-row__v">{c.v}</p>
+              <p class="as-row__k">{c.label}</p>
+              <p class="as-row__v">{c.value}</p>
             </div>
           </li>
         ))}
       </ol>
-      <p class="as-note" data-reveal data-reveal-delay="580">
-        The forum has its own page under
-        {' '}<a class="as-link" href={FORUM}>Parent Partnership</a>; reports sit in the
-        {' '}<a class="as-link" href={PORTAL} rel="noopener">parent portal</a>.
-      </p>
+      <RichLine class="as-note" text={agenda.body[1]} linkClass="as-link" reveal revealDelay={580} />
     </div>
   </div>
 </section>
@@ -205,24 +171,21 @@ const reasons = ac.section('reasons').points;
 
   <div class="u-container">
     <div class="pt-why__head">
-      <p class="as-kicker" data-reveal>Four reasons it works</p>
-      <h2 class="as-h as-h--md" id="pt-why-t">
-        <span data-clip data-clip-delay="0">Four things,</span>
-        <span data-clip data-clip-delay="150"><em>and the reason for each</em></span>
-      </h2>
+      <p class="as-kicker" data-reveal>{why.kicker}</p>
+      <ClipHeading class="as-h as-h--md" id="pt-why-t" text={why.heading} />
     </div>
 
     <ol class="as-cols pt-why__cols" style="--n: 4;">
-      {reasons.map((r, i) => (
+      {why.cells.map((r, i) => (
         <li class="as-col" data-reveal data-reveal-delay={140 + i * 90}>
           <span class="as-col__m" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none">
               <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={MARK[r.mark]} />
             </svg>
           </span>
-          <p class="as-col__n t-tabular">{r.n}</p>
-          <h3 class="as-col__k">{r.k}</h3>
-          <p class="as-col__v">{r.v}</p>
+          <p class="as-col__n t-tabular">{String(i + 1).padStart(2, '0')}</p>
+          <h3 class="as-col__k">{r.label}</h3>
+          <p class="as-col__v">{r.value}</p>
           <span class="as-col__go" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none">
               <g stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" set:html={MARK.arrow} />
@@ -232,20 +195,17 @@ const reasons = ac.section('reasons').points;
       ))}
     </ol>
 
-    <p class="as-note pt-why__foot" data-reveal data-reveal-delay="500">
-      The cycle these meetings sit inside is on
-      {' '}<a class="as-link" href={ASSESSMENT}>Assessment &amp; Support</a>.
-    </p>
+    <RichLine class="as-note pt-why__foot" text={why.body[0]} linkClass="as-link" reveal revealDelay={500} />
   </div>
 </section>
 
 <AsClose
   id="pt-close-t"
-  kicker="On the calendar, in advance"
-  lead="Read it against"
-  accent="the calendar."
-  body="The school publishes that PTMs are on the session calendar and that reports sit in the parent portal. How many meetings a year, how long they run and whether they are by appointment are not published — and no photograph of a PTM exists on the school's site."
-  photo={pCohort}
+  kicker={close.kicker}
+  lead={closeLead}
+  accent={closeAccent}
+  body={close.body[0]}
+  photo={close.shots[0]?.image ?? null}
 />
 
 <style>
@@ -257,7 +217,7 @@ const reasons = ac.section('reasons').points;
     gap: clamp(26px, 3.6vw, 56px);
     align-items: center;
   }
-  .pt-open__h { max-width: 15ch; }
+  :global(.pt-open__h) { max-width: 15ch; }
   .pt-open__stage { position: relative; padding-bottom: clamp(24px, 2.8vw, 44px); }
   .pt-open__ghost {
     bottom: clamp(-16px, -1vw, -4px);
@@ -307,7 +267,7 @@ const reasons = ac.section('reasons').points;
 
   /* ═══ 03 · FOUR REASONS ═══════════════════════════════════════════════════ */
   .pt-why__cols { margin-top: clamp(22px, 2.8vw, 36px); }
-  .pt-why__foot { max-width: none; margin-top: clamp(20px, 2.4vw, 30px); padding-top: clamp(14px, 1.6vw, 20px); border-top: 1px solid var(--sb-border); }
+  :global(.pt-why__foot) { max-width: none; margin-top: clamp(20px, 2.4vw, 30px); padding-top: clamp(14px, 1.6vw, 20px); border-top: 1px solid var(--sb-border); }
 
   /* ═══ RESPONSIVE ══════════════════════════════════════════════════════════ */
   @media (max-width: 1023px) {
@@ -315,7 +275,7 @@ const reasons = ac.section('reasons').points;
     .pt-agenda__grid { grid-template-columns: minmax(0, 1fr); gap: clamp(28px, 4vw, 40px); }
     .pt-open__stage,
     .pt-agenda__stage { order: -1; }
-    .pt-open__h { max-width: none; }
+    :global(.pt-open__h) { max-width: none; }
     .pt-open__ghost { font-size: clamp(58px, 11vw, 100px); }
   }
 

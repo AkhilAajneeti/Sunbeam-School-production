@@ -32,7 +32,7 @@
  * so the three read as one family with a clear first among them.
  */
 import CmsImage from '../../ui/CmsImage.astro';
-import { getMajors } from '../../../lib/cms';
+import { getMajors, getAchievementsBands } from '../../../lib/cms';
 import SectionHead from '../../academics/SectionHead.astro';
 
 /* ⚠ FROM STRAPI NOW, NOT data/achievements.ts. `m.slug` replaces the old `m.id`
@@ -42,15 +42,18 @@ import SectionHead from '../../academics/SectionHead.astro';
    unchanged. The old data file stays on disk until this is verified in a
    production build. */
 const majors = await getMajors();
+
+/* The band's heading, from the Achievements Page single type. */
+const { majors: bandCopy } = await getAchievementsBands();
 ---
 
 <section class="maj" id="major" aria-labelledby="maj-title">
   <div class="u-container">
     <SectionHead
       id="maj-title"
-      eyebrow="First, and at full size"
-      heading="Major achievements"
-      stand="An international robotics placing, a national innovation ranking and a cluster championship — the three the school has published award graphics for."
+      eyebrow={bandCopy.eyebrow}
+      heading={bandCopy.heading}
+      stand={bandCopy.stand}
       align="start"
       tone="dark"
       measure={18}

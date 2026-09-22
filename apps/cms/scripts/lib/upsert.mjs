@@ -129,11 +129,112 @@ export default upsertBySlug;
  * @param {boolean} [opts.publish=true]
  * @returns {Promise<'created'|'updated'>}
  */
+/**
+ * ═══ ⚠⚠ A SEED MUST NOT SILENTLY DISCARD SOMEBODY'S EDIT ═══════════════════
+ *
+ * THIS GUARD EXISTS BECAUSE IT ALREADY HAPPENED. The homepage banner was
+ * edited in the admin — the slides, the buttons, the stat figures — and a
+ * later run of `npm run seed:home`, made to update something else entirely
+ * (the leadership messages), rewrote the WHOLE homepage record from the
+ * fixture and wiped it. Strapi CE keeps no content history, so there was
+ * nothing to restore from.
+ *
+ * ⚠ THE SHAPE OF THE TRAP: these seeds are whole-record writes. A script that
+ * only means to touch one field still sends every other field with it, so
+ * "re-seed the leader messages" quietly means "restore the hero to the
+ * fixture". Nothing in the output said so.
+ *
+ * ═══ WHY THIS COMPARES TIMESTAMPS AND NOT CONTENT ══════════════════════════
+ *
+ * ⚠⚠ A FIELD-BY-FIELD DIFF WAS TRIED FIRST AND IT DOES NOT WORK. Strapi
+ * returns components with ids, timestamps and explicit nulls; it returns a
+ * media field as a whole file object where the seed sends a bare id; key order
+ * differs; and `findFirst` omits components entirely unless populated, which
+ * silently made every component field look "empty, so fill it in" — the very
+ * fields the banner was made of. Each fix produced a new false positive, and a
+ * guard that fires on an untouched page teaches everyone to pass --force and
+ * leave it there.
+ *
+ * The record's own `updatedAt` has none of those problems. If it is newer than
+ * the moment this seed last wrote it, something else wrote it — which is
+ * exactly the question being asked.
+ *
+ * ⚠ THE STATE FILE IS NOT A CACHE AND DELETING IT IS NOT HARMLESS. With no
+ * stored timestamp a record is treated as never seeded, and the next run
+ * overwrites it without asking. It belongs in the repo, next to the seeds.
+ */
+import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const STATE_FILE = resolve(dirname(fileURLToPath(import.meta.url)), '../.seed-state.json');
+
+function readState() {
+  try {
+    return JSON.parse(readFileSync(STATE_FILE, 'utf8'));
+  } catch {
+    return {};
+  }
+}
+
+function writeState(uid, stamp) {
+  const state = readState();
+  state[uid] = stamp;
+  try {
+    mkdirSync(dirname(STATE_FILE), { recursive: true });
+    writeFileSync(STATE_FILE, `${JSON.stringify(state, null, 2)}\n`, 'utf8');
+  } catch {
+    /* A read-only checkout must not fail the seed; the guard simply cannot
+       arm itself, and says so the next time it is asked to protect this uid. */
+  }
+}
+
+function refuse(uid, seededAt, updatedAt) {
+  throw new Error(
+    [
+      '',
+      `  \u2716 Refusing to overwrite ${uid}.`,
+      '',
+      `    This record was changed after the last seed wrote it:`,
+      '',
+      `      last seeded : ${seededAt}`,
+      `      last changed: ${updatedAt}`,
+      '',
+      '    Seeds write the WHOLE record, so running this to update one thing',
+      '    would restore every other field to the fixture and that change would',
+      '    be gone. Strapi CE keeps no history \u2014 there is nothing to undo it with.',
+      '',
+      '    Open the record in the admin and copy whatever is wanted into the',
+      '    fixture or the seed. Then re-run with --force to write it.',
+      '',
+    ].join('\n'),
+  );
+}
+
+/** Re-read the record and remember when this seed left it. */
+async function stamp(strapi, uid) {
+  const after = await strapi.documents(uid).findFirst({ status: 'draft' });
+  if (after?.updatedAt) writeState(uid, after.updatedAt);
+}
+
 export async function upsertSingle(strapi, uid, data, opts = {}) {
-  const { publish = true } = opts;
+  const { publish = true, force = process.argv.includes('--force') } = opts;
 
   const existing = await strapi.documents(uid).findFirst({ status: 'draft' });
-  /* Same trap as upsertByKey: a draft's publishedAt is always null. */
+
+  if (existing && !force) {
+    const state = readState();
+    const seededAt = state[uid];
+    const updatedAt = existing.updatedAt;
+    /* No stored stamp means this uid has never been seeded by a build that
+       carried the guard — allow it, and arm it below. */
+    if (seededAt && updatedAt && new Date(updatedAt) > new Date(seededAt)) {
+      refuse(uid, seededAt, updatedAt);
+    }
+  }
+
+  /* ⚠ A DRAFT'S publishedAt IS ALWAYS null, so "is this published?" has to be
+     asked of the published version, not of the draft in hand. */
   const existingPublished = existing
     ? await strapi.documents(uid).findFirst({ status: 'published' })
     : null;
@@ -146,6 +247,7 @@ export async function upsertSingle(strapi, uid, data, opts = {}) {
       data,
       status: existingPublished ? 'published' : 'draft',
     });
+    await stamp(strapi, uid);
     return 'updated';
   }
 
@@ -153,5 +255,6 @@ export async function upsertSingle(strapi, uid, data, opts = {}) {
     data,
     status: publish ? 'published' : 'draft',
   });
+  await stamp(strapi, uid);
   return 'created';
 }

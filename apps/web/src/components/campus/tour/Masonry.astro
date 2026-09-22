@@ -1,6 +1,6 @@
 ---
 import { getCampusTourData, fileUrl } from '../../../lib/cms';
-const {allFrames, shot} = await getCampusTourData();
+const { allFrames, shot, galleryBand } = await getCampusTourData();
 
 /**
  * §4 · MASONRY GALLERY + LIGHTBOX — every frame on the campus, one wall.
@@ -48,7 +48,7 @@ const frames = allFrames.map((f) => ({ ...f, full: fileUrl(f.src) }));
   <div class="u-container">
     <SectionHead
       id="gal-title"
-      eyebrow="The whole wall"
+      eyebrow={galleryBand.eyebrow}
       heading={`${frames.length} frames of the campus`}
       stand="Filter by facility, or open any frame full screen."
       measure={20}

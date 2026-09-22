@@ -17,7 +17,9 @@
     "token:read-only": "node scripts/token.mjs",
     "seed:notices": "node scripts/seed/notices.mjs",
     "seed:achievements": "node scripts/seed/achievements.mjs",
-    "seed": "npm run seed:site && npm run seed:page-meta && npm run seed:notices && npm run seed:achievements && npm run seed:career && npm run seed:alumni && npm run seed:calendar && npm run seed:news && npm run seed:campus && npm run seed:sports && npm run seed:home && npm run seed:pages && npm run seed:academics && npm run seed:new-activities && npm run seed:teaching-philosophy && npm run seed:student-centred-learning && npm run seed:experiential-inquiry && npm run seed:critical-thinking && npm run seed:curriculum && npm run seed:structure && npm run seed:editor-labels",
+    "seed:achievements-page": "node scripts/seed/achievements-page.mjs",
+    "seed:uniformed-groups": "node scripts/seed/uniformed-groups.mjs",
+    "seed": "npm run seed:site && npm run seed:page-meta && npm run seed:notices && npm run seed:achievements && npm run seed:achievements-page && npm run seed:uniformed-groups && npm run seed:career && npm run seed:publications && npm run seed:alumni && npm run seed:calendar && npm run seed:news && npm run seed:campus && npm run seed:sports && npm run seed:home && npm run seed:pages && npm run seed:academics && npm run seed:new-activities && npm run seed:teaching-philosophy && npm run seed:student-centred-learning && npm run seed:experiential-inquiry && npm run seed:critical-thinking && npm run seed:curriculum && npm run seed:structure && npm run seed:editor-labels",
     "seed:career": "node scripts/seed/career.mjs",
     "seed:alumni": "node scripts/seed/alumni.mjs",
     "seed:calendar": "node scripts/seed/calendar.mjs",
@@ -63,7 +65,9 @@
     "seed:experiential-inquiry": "node scripts/seed/experiential-inquiry.mjs",
     "seed:critical-thinking": "node scripts/seed/critical-thinking.mjs",
     "seed:curriculum": "node scripts/seed/curriculum.mjs",
-    "seed:structure": "node scripts/seed/structure.mjs"
+    "seed:structure": "node scripts/seed/structure.mjs",
+    "seed:publications": "node scripts/seed/publications.mjs",
+    "verify:poster-upload": "node scripts/verify/poster-upload.mjs"
   },
   "dependencies": {
     "@strapi/database": "5.52.1",

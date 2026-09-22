@@ -91,6 +91,10 @@ export function siteTokens(school: School): Record<string, string> {
     currentStrength: school.currentStrength ?? '',
     affiliationNo: school.affiliationNo ?? '',
     schoolCode: school.schoolCode ?? '',
+    /* ⚠ THE RESULTS PORTAL IS A SITE SETTING, NOT A ROUTE. A sentence that links
+       to it should say {resultsUrl} rather than carry the address, so the
+       address stays in the one place that owns it. */
+    resultsUrl: school.external?.results ?? '',
   };
 }
 

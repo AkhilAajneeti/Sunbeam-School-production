@@ -1,0 +1,83 @@
+{
+  "rooms": {
+    "kicker": "Where science happens",
+    "heading": "Rooms built for\n{{one subject each.}}",
+    "body": [
+      "Sunbeam’s STEM provision is a set of named rooms rather than a claim about a culture. Physics, Chemistry and Biology each have a laboratory of their own, carrying {' '}**board practicals from Class IX to Class XII** — a chemistry bench with gas taps and reagent shelves is a different object from a science room with a sink in it.",
+      "The **mathematics laboratory** is the one most schools do without. Its purpose is to make mathematics a practical subject — something handled rather than only argued on paper — which is a harder room to justify and a more revealing one to have."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pPhysics"
+      },
+      {
+        "key": "pComposite"
+      },
+      {
+        "key": "pMicroscope"
+      }
+    ],
+    "runs": []
+  },
+  "bots": {
+    "kicker": "The Robotics Lab",
+    "heading": "Four things\n{{in one room.}}",
+    "body": [
+      "The school’s description of its Robotics Lab is a single line of four items, and it is more specific than most schools manage: **a drone, a 3-D printer, a telescope and embedded systems**. No “state-of-the-art”, no “cutting-edge” — four objects, each of which either exists in a room or does not."
+    ],
+    "caption": "The school has published no photograph of this laboratory, so the four items are set as type rather than illustrated with somebody else’s room.",
+    "shots": [],
+    "runs": [
+      {
+        "field": "cells",
+        "list": "kit"
+      }
+    ]
+  },
+  "use": {
+    "kicker": "STEM in practice",
+    "heading": "Not just equipment.\n{{Students using it.}}",
+    "body": [
+      "Laboratories are only useful when they are in use. Six frames from the school’s own rooms — each caption says what is actually in the picture."
+    ],
+    "caption": null,
+    "shots": [],
+    "runs": [
+      {
+        "field": "cells",
+        "list": "shots"
+      }
+    ]
+  },
+  "eco": {
+    "kicker": "The enrichment ecosystem",
+    "heading": "Many rooms.\n{{One purpose.}}",
+    "body": [
+      "Different spaces, different tools. One connected idea of learning through doing.",
+      "Out of the Robotics Lab: **second place at the RoboWunder International Robotics Championship, Kuala Lumpur**. The rest is on {' '}<a class=\"st-link\" href={SUCCESS}>Student Success</a>."
+    ],
+    "caption": null,
+    "shots": [],
+    "runs": [
+      {
+        "field": "cells",
+        "list": "eco"
+      }
+    ]
+  },
+  "close": {
+    "kicker": "Learning beyond the book",
+    "heading": "Explore. Build.\n{{Discover.}}",
+    "body": [
+      "The school names the rooms, their contents and the programmes it enters. It does not publish a coding curriculum, which classes take robotics, or club hours — and it has published no photograph of the Robotics Lab itself."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pCohort"
+      }
+    ],
+    "runs": []
+  }
+}

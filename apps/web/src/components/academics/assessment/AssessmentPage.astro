@@ -42,13 +42,17 @@ import AsRail from './AsRail.astro';
 import AsClose from './AsClose.astro';
 
 /* ── PHOTOGRAPHY — four genuine Sunbeam Ballia frames, each used ONCE. ────── */
-import { getAcademicTopic } from '../../../lib/cms';
+import ClipHeading from '../../ui/ClipHeading.astro';
+import RichLine from '../../ui/RichLine.astro';
+import { getAssessment } from '../../../lib/cms';
 
-const ac = await getAcademicTopic('/academics/assessment/');
-const pForum = ac.pic('pForum');
-const pSpeak = ac.pic('pSpeak');
-const pCohort = ac.pic('pCohort');
-const cycle = ac.section('cycle').points;
+const { open, cycle, struct, sup, conv, next, close } = await getAssessment();
+
+/* AsClose takes its headline as two props; the record stores the same two
+   lines with {{…}} that every other heading uses. */
+const [closeLead = '', closeAccent = ''] = (close.heading ?? '')
+  .split('\n')
+  .map((l) => l.replace(/^\{\{|\}\}$/g, '').trim());
 
 const S = 'Sunbeam School Ballia';
 
@@ -63,15 +67,14 @@ const PARTNERSHIP = '/academics/parent-partnership/';
    `cycle` is the school's own wording and is imported rather than retyped, so
    the rail in 01 and the radial diagram in 02 cannot disagree. The mark and the
    longer gloss are this page's; the step name and short body are the data's. */
-const MARKS = ac.section('MARKS').facts;
-const GLOSS = ac.section('GLOSS').facts;
 
-const steps = ac.section('steps').points;
 
 /* Where each node sits on the ring. cx 50, cy 42, rx 36, ry 34 — computed once
    here rather than typed six times, so moving the ring moves the discs with it. */
 const RING = { cx: 50, cy: 42, rx: 36, ry: 34 };
-const ringed = steps.map((s, i) => {
+/* ⚠ THE RAIL IN 01 AND THE RING IN 02 ARE THE SAME SIX STEPS. They are held
+   once, on the opening band, so the two cannot disagree. */
+const ringed = open.cells.map((s, i) => {
   const a = (-90 + i * 60) * (Math.PI / 180);
   return {
     ...s,
@@ -81,19 +84,14 @@ const ringed = steps.map((s, i) => {
 });
 
 /* ── SECTION 02 — the four things an assessment looks at ─────────────────── */
-const facets = ac.section('facets').points;
 
 /* ── SECTION 03 — what the school publishes about the structure ──────────── */
-const structure = ac.section('structure').points;
 
 /* ── SECTION 04 — the four support channels, all published by name ───────── */
-const support = ac.section('support').points;
 
 /* ── SECTION 05 — what a parent–teacher meeting is for ───────────────────── */
-const conversation = ac.section('conversation').facts;
 
 /* ── SECTION 06 — what happens when a difficulty appears ─────────────────── */
-const next = ac.section('next').points;
 ---
 
 {/* ══ 01 · HOW A YEAR ACTUALLY RUNS ══════════════════════════════════════════
@@ -107,21 +105,15 @@ const next = ac.section('next').points;
   <div class="u-container">
     <div class="ai-open__grid">
       <div>
-        <p class="as-kicker" data-reveal>Chapter 04</p>
-        <h2 class="as-h as-h--xl ai-open__h" id="ai-open-t">
-          <span data-clip data-clip-delay="0">How a year actually</span>
-          <span data-clip data-clip-delay="150"><em>runs</em></span>
-        </h2>
+        <p class="as-kicker" data-reveal>{open.kicker}</p>
+        <ClipHeading class="as-h as-h--xl ai-open__h" id="ai-open-t" text={open.heading} />
       </div>
 
-      <p class="as-body ai-open__stand" data-reveal data-reveal-delay="180">
-        Six steps, repeating. Content is taught, practised, assessed and fed back — and where a
-        subject needs more, the support is named rather than assumed.
-      </p>
+      <RichLine class="as-body ai-open__stand" text={open.body[0]} reveal revealDelay={180} />
     </div>
 
     <div class="ai-open__rail">
-      <AsRail steps={steps} ground="ivory" label="The assessment cycle, six steps" />
+      <AsRail steps={open.cells} ground="ivory" label="The assessment cycle, six steps" />
     </div>
   </div>
 </section>
@@ -143,7 +135,7 @@ const next = ac.section('next').points;
     <span class="ai-cycle__panel" aria-hidden="true"></span>
 
     <div class="ai-cycle__stage">
-      <p class="as-kicker ai-cycle__kick" data-reveal>The learning cycle</p>
+      <p class="as-kicker ai-cycle__kick" data-reveal>{cycle.kicker}</p>
 
       <div class="ai-ring">
         <svg class="ai-ring__path" viewBox="0 0 100 100" fill="none" preserveAspectRatio="none" aria-hidden="true">
@@ -167,9 +159,9 @@ const next = ac.section('next').points;
         <ol class="ai-ring__list">
           {ringed.map((r, i) => (
             <li class="ai-node" style={`--x: ${r.x}%; --y: ${r.y}%;`} data-pop data-pop-delay={120 + i * 90}>
-              <span class="ai-node__disc t-tabular" aria-hidden="true">{r.n}</span>
-              <h3 class="ai-node__k">{r.k}</h3>
-              <p class="ai-node__v">{r.gloss}</p>
+              <span class="ai-node__disc t-tabular" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+              <h3 class="ai-node__k">{r.label}</h3>
+              <p class="ai-node__v">{r.sub}</p>
             </li>
           ))}
         </ol>
@@ -178,18 +170,11 @@ const next = ac.section('next').points;
 
     <div class="ai-cycle__copy">
       <p class="as-kicker" data-reveal>Assessment is more than an exam</p>
-      <h2 class="as-h as-h--lg" id="ai-cycle-t">
-        <span data-clip data-clip-delay="0">Assessment is</span>
-        <span data-clip data-clip-delay="150"><em>more than a paper.</em></span>
-      </h2>
-      <p class="as-body" data-reveal data-reveal-delay="200">
-        A result is one reading of a year. The school assesses across the whole of it — understanding
-        in the room, application in the laboratory, progress across terms, and the feedback that
-        follows each.
-      </p>
+      <ClipHeading class="as-h as-h--lg" id="ai-cycle-t" text={cycle.heading} />
+      <RichLine class="as-body" text={cycle.body[0]} reveal revealDelay={200} />
 
       <ul class="ai-facets">
-        {facets.map((f, i) => (
+        {cycle.cells.map((f, i) => (
           <li class="ai-facet" data-reveal data-reveal-delay={250 + i * 80}>
             <span class="ai-facet__m" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none">
@@ -197,8 +182,8 @@ const next = ac.section('next').points;
               </svg>
             </span>
             <span class="ai-facet__t">
-              <span class="ai-facet__k">{f.k}</span>
-              <span class="ai-facet__v">{f.v}</span>
+              <span class="ai-facet__k">{f.label}</span>
+              <span class="ai-facet__v">{f.value}</span>
             </span>
           </li>
         ))}
@@ -216,28 +201,22 @@ const next = ac.section('next').points;
 
   <div class="u-container ai-struct__grid">
     <div class="ai-struct__head">
-      <p class="as-kicker" data-reveal>Published when it matters</p>
-      <h2 class="as-h as-h--lg" id="ai-struct-t">
-        <span data-clip data-clip-delay="0">Our assessment</span>
-        <span data-clip data-clip-delay="150"><em>structure.</em></span>
-      </h2>
-      <p class="as-body ai-struct__b" data-reveal data-reveal-delay="200">
-        Four things the school states about how a year is examined. The marks a promotion turns on
-        are set out in the policy itself rather than paraphrased here.
-      </p>
+      <p class="as-kicker" data-reveal>{struct.kicker}</p>
+      <ClipHeading class="as-h as-h--lg" id="ai-struct-t" text={struct.heading} />
+      <RichLine class="as-body ai-struct__b" text={struct.body[0]} reveal revealDelay={200} />
     </div>
 
     <ol class="ai-blocks">
-      {structure.map((s, i) => (
+      {struct.cells.map((s, i) => (
         <li class="ai-block" data-pop data-pop-delay={140 + i * 90}>
           <span class="ai-block__m" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none">
               <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={MARK[s.mark]} />
             </svg>
           </span>
-          <p class="ai-block__n t-tabular">{s.n}</p>
-          <h3 class="ai-block__k">{s.k}</h3>
-          <p class="ai-block__v">{s.v}</p>
+          <p class="ai-block__n t-tabular">{String(i + 1).padStart(2, '0')}</p>
+          <h3 class="ai-block__k">{s.label}</h3>
+          <p class="ai-block__v">{s.value}</p>
         </li>
       ))}
 
@@ -271,31 +250,24 @@ const next = ac.section('next').points;
 
   <div class="u-container ai-sup__grid">
     <div>
-      <p class="as-kicker as-kicker--dark" data-reveal>Support that makes a difference</p>
-      <h2 class="as-h as-h--lg ai-sup__h" id="ai-sup-t">
-        <span data-clip data-clip-delay="0">Support begins</span>
-        <span data-clip data-clip-delay="150"><em>where a difficulty appears.</em></span>
-      </h2>
-      <p class="ai-sup__b" data-reveal data-reveal-delay="200">
-        Every student learns differently. What matters is that each of the four channels below is
-        published by name and has rules attached — so a family can check what happens next rather
-        than hope that something will.
-      </p>
+      <p class="as-kicker as-kicker--dark" data-reveal>{sup.kicker}</p>
+      <ClipHeading class="as-h as-h--lg ai-sup__h" id="ai-sup-t" text={sup.heading} />
+      <RichLine class="ai-sup__b" text={sup.body[0]} reveal revealDelay={200} />
     </div>
 
     <ol class="ai-sup__list">
-      {support.map((s, i) => (
+      {sup.cells.map((s, i) => (
         <li class="ai-srow" data-reveal data-reveal-delay={200 + i * 90}>
           <a class="ai-srow__in" href={s.href}>
-            <span class="ai-srow__n t-tabular">{s.n}</span>
+            <span class="ai-srow__n t-tabular">{String(i + 1).padStart(2, '0')}</span>
             <span class="ai-srow__m" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none">
                 <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={MARK[s.mark]} />
               </svg>
             </span>
             <span class="ai-srow__t">
-              <span class="ai-srow__k">{s.k}</span>
-              <span class="ai-srow__v">{s.v}</span>
+              <span class="ai-srow__k">{s.label}</span>
+              <span class="ai-srow__v">{s.value}</span>
             </span>
             <span class="ai-srow__go" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none">
@@ -319,8 +291,7 @@ const next = ac.section('next').points;
     <figure class="ai-conv__stage">
       <div class="ai-conv__lead as-frame as-fill" data-mask>
         <SmartImage
-          file={pForum}
-          alt={ac.picAlt('pForum')}
+          file={conv.shots[0]?.image} alt={conv.shots[0]?.alt ?? ''}
          
           widths={[520, 880, 1200]}
           sizes="(max-width: 1023px) 92vw, 44vw"
@@ -330,8 +301,7 @@ const next = ac.section('next').points;
       </div>
       <div class="ai-conv__sm as-frame as-frame--float as-fill" data-pop data-pop-delay="200">
         <SmartImage
-          file={pSpeak}
-          alt={ac.picAlt('pSpeak')}
+          file={conv.shots[1]?.image} alt={conv.shots[1]?.alt ?? ''}
          
           widths={[320, 560]}
           sizes="(max-width: 1023px) 50vw, 20vw"
@@ -339,26 +309,16 @@ const next = ac.section('next').points;
           decoding="async"
         />
       </div>
-      <figcaption class="ai-conv__cap">
-        Photographs: the school’s Parents’ Forum. No photograph of a parent–teacher meeting has been
-        published.
-      </figcaption>
+      <figcaption class="ai-conv__cap">{conv.caption}</figcaption>
     </figure>
 
     <div class="ai-conv__copy">
-      <p class="as-kicker" data-reveal>Parent–teacher connection</p>
-      <h2 class="as-h as-h--lg" id="ai-conv-t">
-        <span data-clip data-clip-delay="0">Progress is</span>
-        <span data-clip data-clip-delay="150"><em>a conversation.</em></span>
-      </h2>
-      <p class="as-body" data-reveal data-reveal-delay="200">
-        Parent–teacher meetings are placed on the <strong>academic calendar for the session</strong>,
-        alongside the examination dates, the terms and the holidays — so a parent knows the date
-        months in advance and can read it against the paper it follows.
-      </p>
+      <p class="as-kicker" data-reveal>{conv.kicker}</p>
+      <ClipHeading class="as-h as-h--lg" id="ai-conv-t" text={conv.heading} />
+      <RichLine class="as-body" text={conv.body[0]} reveal revealDelay={200} />
 
       <ul class="as-checks">
-        {conversation.map((c, i) => (
+        {conv.cells.map((c, i) => (
           <li class="as-check" data-reveal data-reveal-delay={250 + i * 70}>
             <span class="as-check__i" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none">
@@ -366,14 +326,11 @@ const next = ac.section('next').points;
                 <path d="m8 12.2 2.8 2.8 5.4-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
             </span>
-            {c}
+            {c.label}
           </li>
         ))}
       </ul>
-      <p class="as-note" data-reveal data-reveal-delay="540">
-        Meeting dates sit on the {' '}<a class="as-link" href={CALENDAR}>academic calendar</a>; the
-        wider parent channels are on {' '}<a class="as-link" href={PARTNERSHIP}>Parent Partnership</a>.
-      </p>
+      <RichLine class="as-note" text={conv.body[1]} linkClass="as-link" reveal revealDelay={540} />
     </div>
   </div>
 </section>
@@ -381,23 +338,20 @@ const next = ac.section('next').points;
 {/* ══ 06 · WHAT HAPPENS NEXT ═════════════════════════════════════════════════ */}
 <section class="as-sec as-sec--peach as-pad--sm ai-next" aria-labelledby="ai-next-t">
   <div class="u-container ai-next__inner">
-    <p class="as-kicker ai-next__kick" data-reveal>What happens next?</p>
-    <h2 class="as-h as-h--md ai-next__h" id="ai-next-t">
-      <span data-clip data-clip-delay="0">Noticed, understood,</span>
-      <span data-clip data-clip-delay="150">and <em>acted on.</em></span>
-    </h2>
+    <p class="as-kicker ai-next__kick" data-reveal>{next.kicker}</p>
+    <ClipHeading class="as-h as-h--md ai-next__h" id="ai-next-t" text={next.heading} />
 
-    <AsRail steps={next} ground="peach" label="What happens next, four steps" class="ai-next__rail" />
+    <AsRail steps={next.cells} ground="peach" label="What happens next, four steps" class="ai-next__rail" />
   </div>
 </section>
 
 <AsClose
   id="ai-close-t"
-  kicker="Assessment with purpose"
-  lead="Assessment tells us"
-  accent="where to go next."
-  body="Learning continues through feedback, support and the opportunity to improve. The school publishes the cycle, the support channels and the retest calendar. It does not publish examination dates, weightings or the promotion threshold — and none is estimated here."
-  photo={pCohort}
+  kicker={close.kicker}
+  lead={closeLead}
+  accent={closeAccent}
+  body={close.body[0]}
+  photo={close.shots[0]?.image ?? null}
 />
 
 <style>
@@ -409,8 +363,8 @@ const next = ac.section('next').points;
     gap: clamp(24px, 3.2vw, 52px);
     align-items: end;
   }
-  .ai-open__h { max-width: 14ch; }
-  .ai-open__stand { max-width: 46ch; margin-block: 0 clamp(4px, 0.6vw, 8px); }
+  :global(.ai-open__h) { max-width: 14ch; }
+  :global(.ai-open__stand) { max-width: 46ch; margin-block: 0 clamp(4px, 0.6vw, 8px); }
   .ai-open__rail { margin-top: clamp(28px, 3.4vw, 48px); }
 
   /* ═══ 02 · THE LEARNING CYCLE ═════════════════════════════════════════════ */
@@ -592,7 +546,7 @@ const next = ac.section('next').points;
     gap: clamp(24px, 3.2vw, 50px);
     align-items: center;
   }
-  .ai-struct__b { max-width: 34ch; }
+  :global(.ai-struct__b) { max-width: 34ch; }
 
   .ai-blocks {
     display: grid;
@@ -683,9 +637,9 @@ const next = ac.section('next').points;
     gap: clamp(24px, 3.4vw, 56px);
     align-items: center;
   }
-  .ai-sup__h { color: #fff; }
-  .ai-sup__h em { color: var(--sb-lime); }
-  .ai-sup__b {
+  :global(.ai-sup__h) { color: #fff; }
+  :global(.ai-sup__h em) { color: var(--sb-lime); }
+  :global(.ai-sup__b) {
     max-width: 44ch;
     margin: clamp(14px, 1.7vw, 20px) 0 0;
     font-size: clamp(12px, 0.88vw, 14px);
@@ -762,13 +716,13 @@ const next = ac.section('next').points;
     text-align: center;
   }
   .ai-next__kick { text-align: center; }
-  .ai-next__h { max-width: 20ch; }
+  :global(.ai-next__h) { max-width: 20ch; }
   .ai-next__rail { margin-top: clamp(24px, 3vw, 40px); }
 
   /* ═══ RESPONSIVE ══════════════════════════════════════════════════════════ */
   @media (max-width: 1179px) {
     .ai-struct__grid { grid-template-columns: minmax(0, 1fr); gap: clamp(20px, 2.8vw, 30px); }
-    .ai-struct__b { max-width: 62ch; }
+    :global(.ai-struct__b) { max-width: 62ch; }
     .ai-blocks { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   }
 
@@ -785,7 +739,7 @@ const next = ac.section('next').points;
     .ai-sup__grid,
     .ai-conv__grid { grid-template-columns: minmax(0, 1fr); gap: clamp(26px, 3.6vw, 40px); }
     .ai-conv__stage { order: -1; }
-    .ai-sup__b { max-width: 62ch; }
+    :global(.ai-sup__b) { max-width: 62ch; }
   }
 
   @media (max-width: 767px) {

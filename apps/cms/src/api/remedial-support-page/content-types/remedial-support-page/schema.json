@@ -1,0 +1,40 @@
+{
+  "kind": "singleType",
+  "collectionName": "remedial_support_pages",
+  "info": {
+    "singularName": "remedial-support-page",
+    "pluralName": "remedial-support-pages",
+    "displayName": "Remedial Support",
+    "description": "The Remedial Support page (/academics/assessment/remedial-support/) — one named field per band of the page, in the order a reader meets them. ⚠ Every band is the same shape: a label, a heading, paragraphs, photographs and a run of cells. These pages carry no photographs; what differs between bands is how the page draws them, and the page owns that. Bands cannot be reordered, added or removed."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "open": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "journey": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "rules": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "note": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "close": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    }
+  }
+}

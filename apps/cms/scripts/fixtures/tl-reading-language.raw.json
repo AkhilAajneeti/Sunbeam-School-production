@@ -1,0 +1,110 @@
+{
+  "lib": {
+    "kicker": "The Nalanda Library",
+    "heading": "Counted,\ncounted,\n{{not estimated.}}",
+    "body": [
+      "The school does not say “over fifteen thousand books”. It says {' '}**17,574**, alongside **25 periodicals** — a figure with a units digit on it, which means somebody counted rather than rounded.",
+      "The periodicals are the quieter half and the more useful one. A library of books alone is a place you go for something you were already sent to find; a shelf of periodicals is where a reader meets a subject nobody assigned them.",
+      "And the photograph is the argument. The room is not empty in it: long tables, a full class reading, and a member of staff at the head of the row."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pReading"
+      },
+      {
+        "key": "pRoom"
+      },
+      {
+        "key": "pTables"
+      }
+    ],
+    "runs": [
+      {
+        "field": "cells",
+        "list": "facts"
+      }
+    ]
+  },
+  "round": {
+    "kicker": "What is run around the collection",
+    "heading": "A carnival,\n{{and a club with racks.}}",
+    "body": [
+      "The school runs a **Reading Carnival** — a book fair set up along its own corridors rather than in a hall, so classes file past it on the way to lessons. Its racks are signed by section, and the signage names something the site had not recorded: a {' '}**Reading Club**, with racks headed *Study Skills*, {' '}*Storybook* and *New Release*.",
+      "Alongside it the school gives an **Ardent Reader Award** to its most committed readers, published in seventy-five photographs — though not, notably, with the winners’ names, so none is given here."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pCarnival"
+      },
+      {
+        "key": "pRacks"
+      },
+      {
+        "key": "pAward"
+      }
+    ],
+    "runs": [
+      {
+        "field": "cells",
+        "list": "index"
+      }
+    ]
+  },
+  "lab": {
+    "kicker": "The half a book cannot do",
+    "heading": "Recorded,\n{{then reviewed.}}",
+    "body": [
+      "Reading is the input. The school’s **language laboratory** — one of its twelve laboratories — exists for the output, and its description is precise about what makes it different: *spoken language, practised aloud and recorded, which is the part a textbook cannot do.*",
+      "The recording is the whole point. A student who has only ever been corrected in the moment has never heard themselves; a student who has been recorded has, and that is a different kind of learning from reading a page about pronunciation.",
+      "Above: the school assembled for the Ardent Reader Award. The school has published no photograph of the language laboratory itself."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pAssembly"
+      }
+    ],
+    "runs": [
+      {
+        "field": "cellsTwo",
+        "rows": [
+          {
+            "k": "Language laboratory",
+            "v": "One of the school’s twelve laboratories"
+          }
+        ]
+      }
+    ]
+  },
+  "stage": {
+    "kicker": "And where the speaking ends up",
+    "heading": "On a platform,\n{{from Class I.}}",
+    "body": [
+      "The test of a language programme is not the room — it is whether children are put in front of an audience, and how early. Sunbeam’s published record answers both, and the first answer is Class I."
+    ],
+    "caption": null,
+    "shots": [],
+    "runs": [
+      {
+        "field": "cells",
+        "list": "stages"
+      }
+    ]
+  },
+  "close": {
+    "kicker": "The book is not a cupboard",
+    "heading": "Seventeen thousand,\n{{five hundred}} and seventy-four.",
+    "body": [
+      "The school publishes its collection to the book, its reading events and its language laboratory. It does not publish borrowing rights, opening hours, the Reading Club’s membership, or the names of its Ardent Reader winners."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pCohort"
+      }
+    ],
+    "runs": []
+  }
+}

@@ -2,17 +2,79 @@
   "kind": "singleType",
   "collectionName": "campus_safety_page",
   "info": {
-    "singularName": "campus-safety-page", "pluralName": "campus-safety-pages", "displayName": "Campus Safety Page",
-    "description": "Safety bands, the security plan's markers, and the emergency procedure. Mirrors apps/web/src/data/campus.ts."
+    "singularName": "campus-safety-page",
+    "pluralName": "campus-safety-pages",
+    "displayName": "Campus Safety Page",
+    "description": "Safety bands, the security plan's markers, and the emergency procedure. Mirrors apps/web/src/data/campus.ts. ⚠ THE FIVE BAND HEADS — timeline, plan, transport, wellbeing, surveillance — are the eyebrow, heading and standfirst of each band on /campus/safety-security/, in page order. kicker = the eyebrow; the FIRST paragraph of body = the standfirst. ⚠ NOT EDITABLE HERE, on purpose: the section-rail labels and anchors (tied to DOM ids), the plan's zoom buttons and its 'Select a point on the plan.' empty state — interface, not content. ⚠ `transportFigures` ARE THE THREE COUNTS under the transport band — fleet size, routes, and the tracked proportion. They are TYPED, not computed: the fleet figure (29+) is larger than the number of distinct vehicles on the published routes (22), so deriving them from Bus Route would silently republish a different number. If the fleet changes, edit it here AND check the band's standfirst, which states the route count in words."
   },
-  "options": { "draftAndPublish": true },
+  "options": {
+    "draftAndPublish": true
+  },
   "attributes": {
-    "safetyGroups": { "type": "component", "repeatable": true, "component": "campus.safety-group" },
-    "mapPoints": { "type": "component", "repeatable": true, "component": "campus.map-point" },
-    "emergencySteps": { "type": "component", "repeatable": true, "component": "shared.point" },
-    "emergencyPoints": { "type": "component", "repeatable": true, "component": "shared.measure" },
-    "transportFeatures": { "type": "component", "repeatable": true, "component": "shared.measure" },
-    "wellbeingCards": { "type": "component", "repeatable": true, "component": "shared.point" },
-    "surveillanceCards": { "type": "component", "repeatable": true, "component": "shared.point" }
+    "timeline": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "plan": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "transport": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "transportFigures": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.figure"
+    },
+    "wellbeing": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "surveillance": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "safetyGroups": {
+      "type": "component",
+      "repeatable": true,
+      "component": "campus.safety-group"
+    },
+    "mapPoints": {
+      "type": "component",
+      "repeatable": true,
+      "component": "campus.map-point"
+    },
+    "emergencySteps": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.point"
+    },
+    "emergencyPoints": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.measure"
+    },
+    "transportFeatures": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.measure"
+    },
+    "wellbeingCards": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.point"
+    },
+    "surveillanceCards": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.point"
+    }
   }
 }

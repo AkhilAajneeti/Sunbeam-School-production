@@ -1,0 +1,124 @@
+{
+  "open": {
+    "kicker": "Scheduled, not called",
+    "heading": "The date comes first,\n{{not the problem.}}",
+    "body": [
+      "Sunbeam places its parent–teacher meetings on the **academic calendar for the session**, alongside the examination dates, the terms and the holidays. The consequence is small and worth stating: a parent knows the date months before the meeting, and can read it against the examination it follows.",
+      "A meeting called at short notice has already said something before anyone speaks — that something has gone wrong. A meeting that was always in the calendar has not, which is what makes it possible to sit down about a child who is doing perfectly well.",
+      "The dates themselves are not published online. The [academic calendar](/academics/academic-calendar/) page sets out what the school says the calendar carries."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pHall",
+        "asset": "assets/parent-teacher-day/ptd-welcome.jpg",
+        "name": "ptd-welcome",
+        "alt": "The entrance to {schoolName} on Parent-Teacher Day, the Head Boy and Head Girl standing at the welcome board with parents arriving at the help desks beyond"
+      },
+      {
+        "key": "pTiers",
+        "asset": "assets/parent-teacher-day/ptd-junior-family.jpg",
+        "name": "ptd-junior-family",
+        "alt": "A mother and father at {schoolName} completing a form with the class teacher, their child at the desk beside them and other parents waiting their turn"
+      }
+    ],
+    "cells": [],
+    "cellsTwo": []
+  },
+  "agenda": {
+    "kicker": "With a printed agenda",
+    "heading": "With a printed\n{{agenda.}}",
+    "body": [
+      "The forum is a panel session, and its agenda is projected in the room rather than kept at the front. That agenda is worth reading: **four of its twelve items** are the ones parents rarely get a formal channel for — *quality of classroom teaching, pace of teaching, quality of assignment,* and *correction of notebooks.*",
+      "The forum has its own page under [Parent Partnership](/academics/parent-partnership/parents-forum/); reports sit in the [parent portal]({resultsUrl})."
+    ],
+    "caption": "Photographs: the Parents’ Forum for Classes IX to XII, session 2025-26 — not a parent–teacher meeting. The school has published no photograph of one.",
+    "shots": [
+      {
+        "key": "pPanel",
+        "asset": "assets/parent-teacher-day/ptd-senior-desk.jpg",
+        "name": "ptd-senior-desk",
+        "alt": "A class teacher at {schoolName} going through a student's record with both parents across the desk, the student sitting beside them"
+      },
+      {
+        "key": "pSpeak",
+        "asset": "assets/parent-teacher-day/ptd-report.jpg",
+        "name": "ptd-report",
+        "alt": "A teacher at {schoolName} going through a report with parents at a classroom desk on Parent-Teacher Day"
+      }
+    ],
+    "cells": [
+      {
+        "mark": "hands",
+        "label": "Parent–teacher meetings",
+        "value": "On the academic calendar for the session, published in advance rather than called when there is a problem."
+      },
+      {
+        "mark": "clock",
+        "label": "Between meetings",
+        "value": "The parent portal carries term reports and results at any hour."
+      },
+      {
+        "mark": "calendar",
+        "label": "On the same calendar",
+        "value": "Examination dates, terms and holidays — so a meeting can be read against the paper it follows."
+      },
+      {
+        "mark": "chat",
+        "label": "Parents’ Forum · IX–XII",
+        "value": "A panel session with a twelve-item agenda, projected in the room. Session 2025-26."
+      }
+    ],
+    "cellsTwo": []
+  },
+  "why": {
+    "kicker": "Four reasons it works",
+    "heading": "Four things,\n{{and the reason for each}}",
+    "body": [
+      "The cycle these meetings sit inside is on [Assessment & Support](/academics/assessment/)."
+    ],
+    "caption": null,
+    "shots": [],
+    "cells": [
+      {
+        "mark": "calendar",
+        "label": "Scheduled early",
+        "value": "The date is placed on the session calendar before the year starts, so a family plans around it rather than reacting to it."
+      },
+      {
+        "mark": "chat",
+        "label": "Conversations that help",
+        "value": "A meeting that was always in the calendar carries no message of its own — which is what makes it possible to sit down about a child who is doing perfectly well."
+      },
+      {
+        "mark": "chart",
+        "label": "Aligned on progress",
+        "value": "Four of the twelve forum items are academic quality: classroom teaching, pace, assignments and the correction of notebooks."
+      },
+      {
+        "mark": "doc",
+        "label": "A record that stays",
+        "value": "Term reports and results sit in the parent portal between meetings, so the conversation has something to be read against."
+      }
+    ],
+    "cellsTwo": []
+  },
+  "close": {
+    "kicker": "On the calendar, in advance",
+    "heading": "Read it against\n{{the calendar.}}",
+    "body": [
+      "The school publishes that PTMs are on the session calendar and that reports sit in the parent portal. How many meetings a year, how long they run and whether they are by appointment are not published — and no photograph of a PTM exists on the school's site."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pCohort",
+        "asset": "assets/photos/sunbeem-3.jpg",
+        "name": "sunbeem-3",
+        "alt": ""
+      }
+    ],
+    "cells": [],
+    "cellsTwo": []
+  }
+}

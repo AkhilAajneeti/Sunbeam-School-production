@@ -357,6 +357,11 @@ await withStrapi(async (strapi) => {
       { key: 'cf-subject', label: 'Subject', error: null, required: false },
       { key: 'cf-phone', label: 'Phone number', error: null, required: false },
       { key: 'cf-city', label: 'City', error: null, required: false },
+      /* ⚠ THE MESSAGE BOX. The form shipped without one for a while: the page
+         offered "a message form that reaches the office" and gave a parent
+         nowhere to write the message. Its label and error live here with the
+         rest so the school can reword them. */
+      { key: 'cf-message', label: 'Message', error: 'Please write your message.', required: true },
     ],
     /* ⚠ NOT DERIVED FROM `school.classRange`. That string is "Nursery to Class
        XII", a different granularity; splitting it here would invent a grouping

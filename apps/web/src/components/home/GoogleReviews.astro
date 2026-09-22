@@ -1,0 +1,661 @@
+---
+/**
+ * PARENT & STUDENT VOICES — the school's real Google reviews.
+ *
+ * Heading, a rail of review cards, a closing stat strip, over full-bleed
+ * artwork. Every figure and every word of every review comes from
+ * data/googleReviews.ts, which is the transcript and carries the rules about
+ * what must not be added. Read that file before changing anything here.
+ *
+ * ═══ WHY THE CARD IS SHAPED THE WAY IT IS ══════════════════════════════════
+ *
+ * ⚠⚠ THESE REVIEWS ARE ONE TO SIX WORDS LONG. That is the whole design
+ * problem. "Good" sitting at the top of a tall card with a separate stars row
+ * left two thirds of the card empty and read as a rendering fault. Hence:
+ *
+ *   · stars sit BESIDE the name, not on their own row — a whole row removed;
+ *   · the quote is the card's body, `flex: 1` and vertically centred, so four
+ *     words sit in the middle of the space rather than at the top of it;
+ *   · a footer rule and "Posted on Google" anchor the bottom — factual, and the
+ *     one thing every card can say without inventing anything about the writer;
+ *   · a 104px quote glyph at 0.06 opacity fills the air that is left.
+ *
+ * ⚠ THE QUOTE GLYPH IS WHY THE TEXT CARRIES NO QUOTATION MARKS. One pair per
+ * card, not two. It sits inside the quote block rather than on the card,
+ * because anchored to the card it cuts across the footer hairline and reads as
+ * a mistake.
+ *
+ * ⚠ AVATARS ARE A TINT, NOT A SOLID. Six saturated discs in a row read as a pie
+ * chart. The letter keeps the full hue; the disc is a 13% tint of it.
+ *
+ * ═══ WHAT IS DELIBERATELY ABSENT ═══════════════════════════════════════════
+ *
+ * ⚠ NO SectionHead. Its `heading` prop is a plain string, so the two-tone
+ * heading and the rule-flanked eyebrow cannot come out of it without changing a
+ * component every Academics section depends on. The head is written locally and
+ * keeps the shared type scale.
+ *
+ * ⚠ NO RATING PILL ABOVE THE CARDS. An earlier version had one; it cost about
+ * 120px of height for figures the closing strip already carries, and the band
+ * has to fit one screen — see the note on padding-block.
+ */
+import { Picture } from 'astro:assets';
+import { reviews, rating, strip } from '../../data/googleReviews';
+import bg from '../../assets/icons/googel-review-bg.png';
+
+/**
+ * ⚠ INLINED, NOT FETCHED, AND NOT `currentColor`. Google's mark is four fixed
+ * brand colours; rendering it with the page's colour would be wrong, and
+ * loading it over the network would be a request per card for 500 bytes.
+ */
+const GOOGLE_G = `<svg viewBox="0 0 48 48" width="16" height="16" aria-hidden="true" focusable="false"><path fill="#4285F4" d="M45.1 24.5c0-1.6-.1-2.8-.4-4H24v7.3h12.1c-.2 2-1.6 5-4.5 7l-.1.3 6.5 5 .5.1c4.1-3.8 6.6-9.4 6.6-15.7"/><path fill="#34A853" d="M24 46c5.9 0 10.9-1.9 14.5-5.3l-6.9-5.4c-1.8 1.3-4.3 2.2-7.6 2.2-5.8 0-10.7-3.8-12.5-9.1l-.3 0-6.7 5.2-.1.3C8 40.4 15.4 46 24 46"/><path fill="#FBBC05" d="M11.5 28.4c-.5-1.4-.7-2.9-.7-4.4s.3-3 .7-4.4l0-.3-6.8-5.3-.2.1C2.9 17 2 20.4 2 24s.9 7 2.5 9.9z"/><path fill="#EA4335" d="M24 9.5c4.1 0 6.9 1.8 8.5 3.3l6.2-6C34.9 3.4 29.9 1 24 1 15.4 1 8 6.6 4.5 14.1l7 5.5C13.3 14.3 18.2 9.5 24 9.5"/></svg>`;
+
+/**
+ * ⚠ DETERMINISTIC, SO A REVIEWER KEEPS THE SAME DISC EVERY BUILD. A random or
+ * index-based colour would reshuffle whenever a review is added, which looks
+ * like the data changed when it did not.
+ */
+const DISC = ['#7b53c1', '#c93c0a', '#1a73e8', '#0b8043', '#c5221f', '#b06000'];
+const discFor = (name: string) =>
+  DISC[[...name].reduce((a, c) => a + c.charCodeAt(0), 0) % DISC.length];
+
+const STRIP_ICONS: Record<string, string> = {
+  people: `<path d="M9 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/><path d="M17 11.5a2.6 2.6 0 1 0 0-5.2"/><path d="M18 14.2c2.1.5 3.5 2.2 3.5 4.6"/>`,
+  star: `<path d="m12 3.5 2.6 5.4 5.9.8-4.3 4.1 1 5.9-5.2-2.8-5.2 2.8 1-5.9L3.5 9.7l5.9-.8L12 3.5Z"/>`,
+  heart: `<path d="M12 20s-7-4.4-7-9.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7 3.2C19 15.6 12 20 12 20Z"/>`,
+};
+
+/** Announced per card, so the rating is not carried by decoration alone. */
+const srFor = (r: (typeof reviews)[number]) =>
+  `${r.stars} out of 5 stars, reviewed by ${r.name} on Google.`;
+---
+
+<section class="grv" id="reviews" aria-labelledby="grv-title">
+  <Picture
+    class="grv__bg"
+    src={bg}
+    alt=""
+    aria-hidden="true"
+    widths={[900, 1280, 1600]}
+    sizes="100vw"
+    formats={['avif', 'webp']}
+    loading="lazy"
+    decoding="async"
+  />
+
+  <p class="grv__flourish" aria-hidden="true">
+    <span>Real Stories</span>
+    <span class="grv__flourish-2">Real Impact<i class="grv__swoosh"></i></span>
+  </p>
+
+  <div class="u-container grv__wrap">
+    <div class="grv__head-block">
+      <p class="grv__eyebrow t-label" data-reveal>
+        <span class="grv__eyebrow-rule" aria-hidden="true"></span>
+        Parent &amp; Student Voices
+        <span class="grv__eyebrow-rule" aria-hidden="true"></span>
+      </p>
+      <h2 class="grv__h" id="grv-title" data-split>
+        What <span>Our Community</span> Says
+      </h2>
+      <p class="grv__standfirst" data-reveal>
+        Real experiences from parents, students and well-wishers on Google. Their words are
+        shown here exactly as they were written.
+      </p>
+    </div>
+
+    <div class="grv__deck" data-grv>
+      <button type="button" class="grv__nav grv__nav--prev" data-grv-prev aria-label="Previous reviews" hidden>
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 5 8 12l7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+
+      {/* The card's parts are commented above this map, never inside it — a
+          JSX comment in the return position of an arrow body is a parse error. */}
+      <ul class="grv__rail" data-grv-rail>
+        {reviews.map((r) => (
+          <li class="grv__card" data-reveal>
+            <div class="grv__card-top">
+              <span
+                class="grv__disc"
+                aria-hidden="true"
+                style={`--disc: ${discFor(r.name)}`}
+              >{r.name.trim().charAt(0).toUpperCase()}</span>
+
+              <span class="grv__who">
+                <span class="grv__name">{r.name}</span>
+                <span class="grv__stars" aria-hidden="true">
+                  <span class="grv__stars-bg">★★★★★</span>
+                  <span class="grv__stars-fg" style={`width: ${(r.stars / 5) * 100}%`}>★★★★★</span>
+                </span>
+              </span>
+
+              <span class="grv__g" aria-hidden="true" set:html={GOOGLE_G} />
+            </div>
+
+            <blockquote class="grv__quote">
+              <span class="grv__mark" aria-hidden="true">”</span>
+              <p class="grv__text">{r.text}</p>
+            </blockquote>
+
+            <p class="grv__posted">Posted on Google</p>
+            <span class="u-visually-hidden">{srFor(r)}</span>
+          </li>
+        ))}
+      </ul>
+
+      <button type="button" class="grv__nav grv__nav--next" data-grv-next aria-label="More reviews" hidden>
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 5 7 7-7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+
+    <div class="grv__dots" data-grv-dots role="tablist" aria-label="Review pages"></div>
+
+    <ul class="grv__strip" data-reveal>
+      {strip.map((s) => (
+        <li class="grv__tile">
+          <span class="grv__tile-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                 stroke-linecap="round" stroke-linejoin="round" set:html={STRIP_ICONS[s.icon]} />
+          </span>
+          <span class="grv__tile-body">
+            <span class="grv__tile-value">{s.value}</span>
+            <span class="grv__tile-label">{s.label}</span>
+          </span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  /**
+   * ⚠⚠ THE LOCAL clamp() IS WHY THIS BAND FITS ONE SCREEN, AND THE SHARED TOKEN
+   * IS NOT USED HERE ON PURPOSE. `--sb-section-y-viewport` is
+   * clamp(40px, 8vh, 88px) — 61px a side on a 768px laptop, which pushes this
+   * band over the fold. Measured with the value below: 666px at 1366×768
+   * against 671px available, and 686px at 1440×900. Leave the shared token
+   * alone; Campus depends on it.
+   *
+   * ⚠ `isolation: isolate` IS LOAD-BEARING. The background sits at z-index -1;
+   * without a stacking context here it would paint behind the section's own
+   * ivory and vanish.
+   */
+  .grv {
+    position: relative;
+    padding-block: clamp(32px, 6vh, 88px);
+    background: var(--sb-ivory);
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  /**
+   * ⚠ THROUGH <Picture>, NOT A CSS url(). The artwork is a ~1 MB PNG; as a
+   * background-image every visitor downloads all of it at full size. As a
+   * picture it is served as AVIF/WebP at the width the viewport needs.
+   *
+   * ⚠ ON A PHONE THIS READS AS A PLAIN CREAM WASH, AND THAT IS ACCEPTED. The
+   * decoration lives in the corners of a 1672×941 image; `cover` on a 390-wide
+   * band shows the middle ~18%, which is empty field. Stretching it instead
+   * smears the blobs into vertical streaks. --sb-ivory behind it matches the
+   * artwork's ground, so nothing looks broken.
+   */
+  .grv__bg {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .grv__wrap { position: relative; z-index: 1; }
+
+  /* ── Head ────────────────────────────────────────────────────────────── */
+  .grv__head-block { text-align: center; }
+
+  .grv__eyebrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 0;
+    color: var(--sb-violet);
+    letter-spacing: 0.22em;
+    font-size: clamp(10.5px, 0.2vw + 9px, 12px);
+  }
+  .grv__eyebrow-rule {
+    width: clamp(18px, 3vw, 42px);
+    height: 1px;
+    background: color-mix(in srgb, var(--sb-violet) 45%, transparent);
+  }
+
+  .grv__h {
+    margin: var(--sb-4) 0 0;
+    font-family: var(--sb-font-display);
+    font-size: clamp(25px, 2.6vw, 40px);
+    font-weight: 700;
+    line-height: 1.14;
+    letter-spacing: -0.02em;
+    color: var(--sb-ink);
+    text-wrap: balance;
+  }
+  .grv__h span { color: var(--sb-violet); }
+
+  .grv__standfirst {
+    max-width: 62ch;
+    margin: var(--sb-4) auto 0;
+    font-size: clamp(13.5px, 0.3vw + 12px, 15.5px);
+    line-height: 1.62;
+    color: var(--sb-text-secondary);
+  }
+
+  /* ── Rail ────────────────────────────────────────────────────────────── */
+  .grv__deck { position: relative; margin-top: var(--sb-7); }
+
+  .grv__rail {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: calc((100% - var(--sb-5) * 3) / 4);
+    gap: var(--sb-5);
+    /* ⚠ THE VERTICAL PADDING IS NOT COSMETIC. `overflow-x: auto` forces
+       `overflow-y` to compute to auto, so a card lifting on hover would be
+       clipped — or would summon a vertical scrollbar. */
+    padding: 10px 2px 14px;
+    margin: 0;
+    list-style: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .grv__rail::-webkit-scrollbar { display: none; }
+
+  @media (max-width: 1199px) {
+    .grv__rail { grid-auto-columns: calc((100% - var(--sb-5) * 2) / 3); }
+  }
+  @media (max-width: 899px) {
+    .grv__rail { grid-auto-columns: calc((100% - var(--sb-5)) / 2); }
+  }
+  @media (max-width: 639px) {
+    .grv__rail { grid-auto-columns: 86%; }
+  }
+
+  /* ── Card ────────────────────────────────────────────────────────────── */
+  .grv__card {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    scroll-snap-align: start;
+    padding: var(--sb-5);
+    border-radius: var(--sb-r-2);
+    border: 1px solid rgba(18, 16, 15, 0.07);
+    background: var(--sb-paper);
+    box-shadow: 0 12px 30px -26px rgba(28, 14, 8, 0.34);
+    transition: transform 220ms var(--sb-ease), box-shadow 220ms var(--sb-ease);
+  }
+  .grv__card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 40px -28px rgba(28, 14, 8, 0.44);
+  }
+
+  .grv__card-top { display: flex; align-items: center; gap: 10px; }
+
+  /* See the header: tint, not solid. */
+  .grv__disc {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    flex: 0 0 auto;
+    border-radius: var(--sb-r-full);
+    background: color-mix(in srgb, var(--disc) 13%, #fff);
+    color: var(--disc);
+    font-family: var(--sb-font-display);
+    font-size: 17px;
+    font-weight: 700;
+  }
+
+  .grv__who { min-width: 0; flex: 1 1 auto; }
+  .grv__name {
+    display: block;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--sb-ink);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /**
+   * ⚠⚠ TWO STACKED COPIES, THE TOP ONE WIDTH-CLIPPED. This is what lets a
+   * rating show honestly instead of being rounded to whole glyphs — 4 of 5 is
+   * 80% of the row's width, not "four stars and a guess". Both are aria-hidden;
+   * the real rating is the visually-hidden sentence on the card.
+   */
+  .grv__stars {
+    position: relative;
+    display: inline-block;
+    font-size: 13px;
+    line-height: 1;
+    letter-spacing: 1px;
+    color: rgba(18, 16, 15, 0.16);
+  }
+  .grv__stars-fg {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    color: #f4b400;
+  }
+
+  .grv__g { display: inline-flex; flex: 0 0 auto; }
+
+  /* The body: one to six words, centred in whatever space is left. */
+  .grv__quote {
+    position: relative;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: var(--sb-5) 0;
+    padding: 0;
+    min-height: 64px;
+  }
+  .grv__mark {
+    position: absolute;
+    right: -4px;
+    bottom: -18px;
+    z-index: 0;
+    font-family: var(--sb-font-serif);
+    font-size: 104px;
+    line-height: 1;
+    color: var(--sb-violet);
+    opacity: 0.06;
+    pointer-events: none;
+  }
+  .grv__text {
+    position: relative;
+    z-index: 1;
+    margin: 0;
+    text-align: center;
+    font-size: clamp(15px, 1.1vw, 17px);
+    line-height: 1.5;
+    color: var(--sb-charcoal);
+    text-wrap: pretty;
+  }
+
+  .grv__posted {
+    margin: 0;
+    padding-top: var(--sb-4);
+    border-top: 1px solid rgba(18, 16, 15, 0.08);
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--sb-text-muted);
+  }
+
+  /* ── Arrows ──────────────────────────────────────────────────────────── */
+  .grv__nav {
+    position: absolute;
+    top: 50%;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    margin-top: -23px;
+    border-radius: var(--sb-r-full);
+    border: 1px solid var(--sb-border);
+    background: var(--sb-paper);
+    color: var(--sb-ink);
+    cursor: pointer;
+    box-shadow: 0 8px 22px -16px rgba(28, 14, 8, 0.5);
+    transition: background 180ms var(--sb-ease), color 180ms var(--sb-ease);
+  }
+  .grv__nav svg { width: 18px; height: 18px; }
+  .grv__nav:hover { background: var(--sb-violet); color: #fff; }
+  .grv__nav--prev { left: calc(var(--sb-6) * -1); }
+  .grv__nav--next { right: calc(var(--sb-6) * -1); }
+
+  /* ⚠⚠ RESTATED. `[hidden]` reaches `display: none` only through the UA sheet,
+     and the `display: grid` above outranks it — so the buttons would sit there
+     visible while marked hidden from the accessibility tree. */
+  .grv__nav[hidden] { display: none; }
+
+  @media (max-width: 639px) {
+    .grv__nav { display: none; }
+  }
+
+  /* ── Dots ─────────────────────────────────────────────────────────────────
+     ⚠⚠ EVERY RULE HANGS OFF THE TEMPLATE-RENDERED PARENT. The dots are built in
+     JS, so they never receive Astro's data-astro-cid-… attribute: a plain
+     `.grv__dot` rule compiles to `.grv__dot[data-astro-cid-…]` and matches
+     nothing. They then render perfectly and are invisible. */
+  .grv__dots {
+    display: flex;
+    justify-content: center;
+    gap: 7px;
+    margin-top: var(--sb-5);
+    min-height: 8px;
+  }
+  .grv__dots :global(.grv__dot) {
+    width: 8px;
+    height: 8px;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--sb-ink) 18%, transparent);
+    cursor: pointer;
+    transition: width 220ms var(--sb-ease), background 220ms var(--sb-ease);
+  }
+  .grv__dots :global(.grv__dot[aria-selected='true']) {
+    width: 22px;
+    background: var(--sb-violet);
+  }
+
+  /* ── Strip ───────────────────────────────────────────────────────────── */
+  .grv__strip {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: clamp(16px, 3vw, 54px);
+    width: fit-content;
+    margin: var(--sb-7) auto 0;
+    padding: var(--sb-4) var(--sb-8);
+    list-style: none;
+    border-radius: var(--sb-r-full);
+    border: 1px solid rgba(18, 16, 15, 0.07);
+    background: color-mix(in srgb, var(--sb-paper) 78%, transparent);
+    backdrop-filter: blur(8px);
+  }
+  .grv__tile { display: flex; align-items: center; gap: 11px; }
+  .grv__tile-icon {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    flex: 0 0 auto;
+    border-radius: var(--sb-r-full);
+    background: var(--sb-lime-wash);
+    color: var(--sb-violet);
+  }
+  .grv__tile-icon svg { width: 19px; height: 19px; }
+  .grv__tile-value {
+    display: block;
+    font-family: var(--sb-font-display);
+    font-size: clamp(15px, 1.1vw, 18px);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--sb-ink);
+  }
+  .grv__tile-label {
+    display: block;
+    font-size: 11.5px;
+    line-height: 1.4;
+    color: var(--sb-text-muted);
+  }
+
+  /* ── Flourish ────────────────────────────────────────────────────────── */
+  .grv__flourish {
+    position: absolute;
+    top: clamp(18px, 4vh, 54px);
+    left: clamp(12px, 3vw, 58px);
+    z-index: 1;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Caveat Variable', var(--sb-font-serif), cursive;
+    font-size: clamp(22px, 2vw, 32px);
+    font-weight: 600;
+    line-height: 1.05;
+    color: color-mix(in srgb, var(--sb-charcoal) 62%, transparent);
+    transform: rotate(-6deg);
+    pointer-events: none;
+  }
+  .grv__flourish-2 { position: relative; padding-left: 0.5em; }
+
+  /**
+   * ⚠ A SKEWED BAR, NOT AN SVG PATH. The swoosh sits under a word whose width
+   * changes with the viewport; a fixed path overshoots or falls short at every
+   * size but the one it was drawn for. A bar sized in `em` tracks the text.
+   */
+  .grv__swoosh {
+    position: absolute;
+    left: 0.4em;
+    right: -0.1em;
+    bottom: -0.12em;
+    height: 0.09em;
+    border-radius: 999px;
+    background: var(--sb-orange-bright);
+    transform: rotate(-1.5deg);
+  }
+
+  /* ⚠ OFF BELOW 1200px, where the container reaches the viewport edge and there
+     is no margin left for it to sit in without crossing the cards. */
+  @media (max-width: 1199px) {
+    .grv__flourish { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .grv__card,
+    .grv__dots :global(.grv__dot) { transition: none; }
+    .grv__card:hover { transform: none; }
+  }
+</style>
+
+<script>
+  /**
+   * THE REVIEW RAIL.
+   *
+   * ⚠⚠ SCROLL POSITION IS THE SINGLE SOURCE OF TRUTH. Nothing keeps an "active
+   * index" of its own, so a swipe, an arrow, a dot and the autoplay tick all
+   * converge on the same paint and can never disagree.
+   *
+   * ⚠⚠ AUTOPLAY STOPS ON ANY INTERACTION, AND THAT IS NOT OPTIONAL. Moving
+   * content a reader cannot pause is WCAG 2.2.2. Hover, focus and pointerdown
+   * all hold it; leaving or blurring releases it. It never runs at all under
+   * prefers-reduced-motion, or when the rail does not overflow.
+   */
+  function wire(deck: HTMLElement) {
+    const rail = deck.querySelector<HTMLElement>('[data-grv-rail]');
+    const dots = deck.parentElement?.querySelector<HTMLElement>('[data-grv-dots]');
+    const prev = deck.querySelector<HTMLButtonElement>('[data-grv-prev]');
+    const next = deck.querySelector<HTMLButtonElement>('[data-grv-next]');
+    if (!rail || !dots) return;
+
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const behavior: ScrollBehavior = reduce ? 'auto' : 'smooth';
+    const DWELL = 5200;
+
+    const maxScroll = () => rail.scrollWidth - rail.clientWidth;
+    const overflows = () => maxScroll() > 4;
+
+    /**
+     * ⚠ `round` IS SAFE HERE AND ONLY HERE. This rail is eight cards — several
+     * screens wide — so rounding never collapses to one page. A rail only
+     * slightly wider than one screen needs `ceil`: round(1.15) is 1, and you
+     * get a single useless dot. The publications rail is that case.
+     */
+    const pages = () => Math.max(1, Math.round(rail.scrollWidth / rail.clientWidth));
+
+    let held = false;
+    let timer: number | undefined;
+
+    function paint() {
+      const max = maxScroll();
+      const n = dots!.children.length;
+      if (!n) return;
+      const ratio = max > 0 ? rail!.scrollLeft / max : 0;
+      const i = Math.min(n - 1, Math.max(0, Math.round(ratio * (n - 1))));
+      for (let k = 0; k < n; k++) {
+        (dots!.children[k] as HTMLElement).setAttribute('aria-selected', String(k === i));
+      }
+    }
+
+    function build() {
+      const on = overflows();
+      prev?.toggleAttribute('hidden', !on);
+      next?.toggleAttribute('hidden', !on);
+
+      dots!.replaceChildren();
+      if (!on) return;
+
+      const n = pages();
+      for (let i = 0; i < n; i++) {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'grv__dot';
+        b.setAttribute('role', 'tab');
+        b.setAttribute('aria-selected', String(i === 0));
+        b.setAttribute('aria-label', `Reviews, page ${i + 1} of ${n}`);
+        b.addEventListener('click', () => {
+          rail!.scrollTo({ left: Math.min(i * rail!.clientWidth, maxScroll()), behavior });
+        });
+        dots!.appendChild(b);
+      }
+      paint();
+    }
+
+    function tick() {
+      if (held || !overflows()) return;
+      const atEnd = rail!.scrollLeft >= maxScroll() - 4;
+      rail!.scrollTo({ left: atEnd ? 0 : rail!.scrollLeft + rail!.clientWidth, behavior });
+    }
+
+    function start() {
+      if (reduce) return;
+      stop();
+      timer = window.setInterval(tick, DWELL);
+    }
+    function stop() {
+      if (timer !== undefined) window.clearInterval(timer);
+      timer = undefined;
+    }
+
+    const hold = () => { held = true; };
+    const release = () => { held = false; };
+
+    deck.addEventListener('mouseenter', hold);
+    deck.addEventListener('mouseleave', release);
+    deck.addEventListener('focusin', hold);
+    deck.addEventListener('focusout', release);
+    deck.addEventListener('pointerdown', hold);
+
+    prev?.addEventListener('click', () => rail.scrollBy({ left: -rail.clientWidth, behavior }));
+    next?.addEventListener('click', () => rail.scrollBy({ left: rail.clientWidth, behavior }));
+    rail.addEventListener('scroll', paint, { passive: true });
+
+    build();
+    new ResizeObserver(build).observe(rail);
+
+    /* Only run while the band is actually on screen — a carousel advancing in a
+       section nobody is looking at is wasted work and a wasted battery. */
+    new IntersectionObserver(
+      (entries) => { entries[0]?.isIntersecting ? start() : stop(); },
+      { threshold: 0.2 },
+    ).observe(deck);
+  }
+
+  document.querySelectorAll<HTMLElement>('[data-grv]').forEach(wire);
+</script>

@@ -1,21 +1,84 @@
 {
-  "kind":"collectionType","collectionName":"leader_messages",
-  "info":{"singularName":"leader-message","pluralName":"leader-messages","displayName":"Leader Message",
-    "description":"The Director's and the Principal's messages. ONE type, two records — the pages are the same component with different content, so a second type would be the same nine fields under another name. `pending` states what the school has still to supply, which docs/07 A5 tracks for the Principal's message."},
-  "options":{"draftAndPublish":true},
-  "attributes":{
-    "role":{"type":"enumeration","required":true,"enum":["director","principal"]},
-    "slug":{"type":"uid","targetField":"name","required":true},
-    "name":{"type":"string","required":true,"maxLength":160},
-    "roleLabel":{"type":"string","maxLength":120},
-    "eyebrow":{"type":"string","maxLength":120},
-    "heading":{"type":"string","maxLength":240},
-    "pullQuote":{"type":"text","maxLength":800},
-    "paragraphs":{"type":"component","repeatable":true,"component":"shared.paragraph"},
-    "credentials":{"type":"component","repeatable":true,"component":"shared.fact"},
-    "portrait":{"type":"media","multiple":false,"allowedTypes":["images"]},
-    "portraitAlt":{"type":"text","maxLength":500},
-    "portraitBrief":{"type":"string","maxLength":200},
-    "pending":{"type":"text","maxLength":600}
+  "kind": "collectionType",
+  "collectionName": "leader_messages",
+  "info": {
+    "singularName": "leader-message",
+    "pluralName": "leader-messages",
+    "displayName": "Leader Message",
+    "description": "A signed message from a member of the school’s leadership. ⚠⚠ `paragraphs` IS THE HOMEPAGE EXTRACT; `fullMessage` IS THE WHOLE THING. The homepage panel is designed around the pull quote and two paragraphs; the dedicated /about/ page runs the full message. Where `fullMessage` is set, the dedicated page uses it and drops the pull quote — the quoted sentence is inside the full text and would otherwise be read twice in a row. ⚠ EVERY EXTRACT PARAGRAPH MUST APPEAR VERBATIM IN `fullMessage`. The page checks this at build time and fails if the two ever drift, so the extract can never quietly say something the message does not."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "role": {
+      "type": "enumeration",
+      "required": true,
+      "enum": [
+        "director",
+        "principal",
+        "vice-principal"
+      ]
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name",
+      "required": true
+    },
+    "name": {
+      "type": "string",
+      "required": true,
+      "maxLength": 160
+    },
+    "roleLabel": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "eyebrow": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "heading": {
+      "type": "string",
+      "maxLength": 240
+    },
+    "pullQuote": {
+      "type": "text",
+      "maxLength": 800
+    },
+    "paragraphs": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.paragraph"
+    },
+    "fullMessage": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.paragraph"
+    },
+    "credentials": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.fact"
+    },
+    "portrait": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "portraitAlt": {
+      "type": "text",
+      "maxLength": 500
+    },
+    "portraitBrief": {
+      "type": "string",
+      "maxLength": 200
+    },
+    "pending": {
+      "type": "text",
+      "maxLength": 600
+    }
   }
 }

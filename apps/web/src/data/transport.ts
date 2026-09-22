@@ -235,3 +235,68 @@ export const safety = [
   { label: 'A fleet of 29+', body: 'Twenty-two buses run the published routes; the school states a fleet of 29 and more.', icon: 'bus', verified: true },
 ];
 
+/**
+ * ═══ THE BAND HEADS ON /campus/transport/ ══════════════════════════════════
+ *
+ * Every eyebrow, heading and paragraph on that page, in page order. These used
+ * to be string literals inside TransportBands.astro and RouteFinder.astro.
+ *
+ * ⚠⚠ `{buses}`, `{runs}` AND `{stops}` ARE TOKENS, NOT TYPOS. The query layer
+ * replaces them with counts computed from the Bus Route collection, so adding a
+ * route updates the sentence. Typing the numbers instead freezes three facts the
+ * routes already know — which is the exact bug transportCountsSentence() was
+ * written to undo.
+ *
+ * ⚠ THE QUERY LAYER HOLDS A COPY as TRANSPORT_DEFAULTS in
+ * lib/cms/queries/campus.ts — the fallback for an unseeded CMS. This file is
+ * what the seed writes. Change one, change both, or seed again.
+ *
+ * ⚠ `figures` ARE CAPTIONS ONLY. The number above each is computed; only the
+ * caption and its note are stored.
+ */
+export const transportBands = {
+  overview: {
+    eyebrow: 'Transport',
+    heading: 'A bus from most of Ballia',
+    stand:
+      'The school runs {buses} buses over {runs} route runs, calling at {stops} published ' +
+      'boarding points. Every route names its driver and prints a direct mobile number for ' +
+      'them — so the person driving your child is someone you can reach.',
+  },
+  cta: 'Find your route',
+  finder: {
+    eyebrow: 'Route finder',
+    heading: 'Find the bus that stops near you',
+    stand: 'Type a locality, or pick one below. {stops} boarding points across {runs} runs.',
+  },
+  safetyHead: {
+    eyebrow: 'Safety',
+    heading: 'What is fitted, and what we can confirm',
+    stand: 'Every line below is stated on the school’s own pages.',
+  },
+  contactHead: {
+    eyebrow: 'Contact',
+    heading: 'Anything the routes don’t answer',
+    stand:
+      'Allocation, stop changes, timings, charges and complaints all go to the transport ' +
+      'in-charge — not to the driver.',
+  },
+  /* The route finder's own prose. Its data labels — First stop, Driver, /stop —
+     stay in the component: they label the route data rather than say anything. */
+  finderCopy: {
+    searchLabel: 'Search by area or boarding point',
+    areasHeading: 'Areas we cover',
+    staffNote: 'As published in the school’s route list.',
+    driverNote: 'The number below still reaches this vehicle’s driver.',
+    emptyHeading: 'No published stop matches',
+    emptyBody:
+      'Routes are set each session and the published list may not name every pick-up point. ' +
+      'Speak to the transport in-charge before assuming your area is not covered.',
+    emptyCta: 'Contact the transport in-charge',
+  },
+  figures: [
+    { label: 'Buses on published routes', body: 'From a stated fleet of 29 and more' },
+    { label: 'Route runs', body: 'Several buses make two trips' },
+    { label: 'Boarding points', body: 'Across Ballia and the surrounding blocks' },
+  ],
+} as const;

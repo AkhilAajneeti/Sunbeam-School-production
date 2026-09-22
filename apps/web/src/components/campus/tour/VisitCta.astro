@@ -14,10 +14,11 @@
  * motion is allowed.
  */
 import { Picture } from 'astro:assets';
-import { getSchool } from '../../../lib/cms';
+import { getSchool, getCampusTourData } from '../../../lib/cms';
 import campus from '../../../assets/photos/sunbeem-1.jpg';
 
 const school = await getSchool();
+const { visitBand, visitCtaLabel, visitCtaHref, visitCallLabel } = await getCampusTourData();
 ---
 
 <section class="vst" aria-labelledby="vst-title">
@@ -38,17 +39,17 @@ const school = await getSchool();
   <span class="vst__mark vst__mark--2" aria-hidden="true"></span>
 
   <div class="u-container vst__inner">
-    <p class="vst__eyebrow t-label" data-reveal>Come and see it</p>
-    <h2 class="vst__h" id="vst-title" data-split>Experience our campus in person</h2>
+    <p class="vst__eyebrow t-label" data-reveal>{visitBand.eyebrow}</p>
+    <h2 class="vst__h" id="vst-title" data-split>{visitBand.heading}</h2>
     <p class="vst__stand" data-reveal data-reveal-delay="80">
       Photographs can only show you the rooms. Book a visit and walk the corridors,
       meet the staff, and see an ordinary school day as it actually runs.
     </p>
 
     <div class="vst__actions" data-reveal data-reveal-delay="150">
-      <a class="btn btn--primary" href="/admissions/campus-visit/">Book a campus visit</a>
+      <a class="btn btn--primary" href={visitCtaHref}>{visitCtaLabel}</a>
       <a class="vst__call" href={`tel:${school.phone.admissions}`}>
-        Or call admissions
+        {visitCallLabel}
         <strong class="t-tabular">{school.phone.admissionsDisplay}</strong>
       </a>
     </div>

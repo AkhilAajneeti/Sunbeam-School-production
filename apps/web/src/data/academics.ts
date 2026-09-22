@@ -492,15 +492,38 @@ export const streamOptional = [
   'Physical Education',
   'Applied Maths',
   'Geography',
+  'Sanskrit',
 ] as const;
+
+/**
+ * ⚠⚠ HUMANITIES, AND ONLY HUMANITIES, DROPS GEOGRAPHY FROM THE OPTIONAL LIST.
+ *
+ * Economics replaced Geography in the Humanities CORE at the school's request.
+ * Geography then stayed visible on the Humanities card anyway, because it is
+ * also in the shared optional list above — so the card showed the subject that
+ * had just been removed from it. The school confirmed: remove it from
+ * Humanities only.
+ *
+ * ⚠ DO NOT DELETE 'Geography' FROM streamOptional TO ACHIEVE THIS. That would
+ * withdraw it from PCM, PCB and Commerce as well, which nobody asked for. The
+ * expected result is Geography on three stream cards and absent from the
+ * fourth.
+ *
+ * ⚠ AND IT IS DERIVED, NOT RETYPED. Writing the remaining names out by hand is
+ * exactly how the next revision gets applied to one list and not the other.
+ */
+export const humanitiesOptional = streamOptional.filter((s) => s !== 'Geography');
 
 export const streamAdditional = [
   'Artificial Intelligence',
   'Kathak',
-  'Fine Arts',
+  /* ⚠ 'Painting', NOT 'Fine Arts' — the school's own word, given at the
+     September meeting. Do not restore the broader term. */
+  'Painting',
   'Legal Studies',
   'Agriculture',
   'Entrepreneurship',
+  'Yoga',
 ] as const;
 /**
  * ⚠ `coreUnverified` IS SET ON HUMANITIES AND NOWHERE ELSE, ON PURPOSE.
@@ -548,10 +571,13 @@ export const streamDetail = [
     name: 'Humanities',
     accent: 'violet',
     glyph: 'language',
-    full: 'History · Political Science · Geography',
+    /* ⚠ THE SUMMARY LINE TRACKS THE CORE. It named Geography too, so leaving
+       it would have printed the removed subject at the top of the card while
+       the list below no longer carried it. */
+    full: 'History · Political Science · Economics',
     body: 'Law, civil services, design, media and the social sciences.',
-    core: ['History', 'Political Science', 'Geography', 'English'],
-    optional: streamOptional,
+    core: ['History', 'Political Science', 'Economics', 'English'],
+    optional: humanitiesOptional,
     additional: streamAdditional,
     unverified: false,
     /* ⚠ THE ONE UNCONFIRMED LINE LEFT IN THIS BLOCK. The elective lists came

@@ -1,0 +1,44 @@
+---
+/**
+ * BEYOND ACADEMICS → NCC, SCOUTS & GUIDES.
+ *
+ * Both groups are full sections. The provenance of every fact is recorded in
+ * apps/web/src/data/uniformedGroups.ts — read that before changing any of it.
+ *
+ * ⚠ FOUR THINGS MOVE TOGETHER if this page is ever renamed: the group names in
+ * the CMS, this page's two titles on Page Meta, its meta description, and the
+ * nav label in src/data/navigation.ts ("NCC, Scouts & Guides"). Narrow one and
+ * you have to do all four.
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/ui/PageHero.astro';
+import SectionRail from '../../components/academics/SectionRail.astro';
+import UniformedGroupsPage from '../../components/beyond/groups/UniformedGroupsPage.astro';
+import banner from '../../assets/scouts-and-guides/scouts-and-guides-3.jpeg';
+---
+
+<BaseLayout>
+  <PageHero src={banner} />
+
+  <SectionRail
+    items={[
+      { id: 'ncc', label: 'NCC' },
+      { id: 'scouts-guides', label: 'Scouts & Guides' },
+    ]}
+  />
+
+  {/* padding-block: 0 — each section carries its own --sb-section-y, and the
+      panel adding its own on top is what put a 183px void under the hero on
+      three earlier pages. */}
+  <div class="u-page-panel ung-panel">
+    <UniformedGroupsPage />
+  </div>
+</BaseLayout>
+
+<style>
+  div.ung-panel { padding-block: 0; }
+
+  .ung-panel :global(section[id]) {
+    scroll-margin-top: calc(var(--sb-masthead-h) + 24px);
+  }
+</style>

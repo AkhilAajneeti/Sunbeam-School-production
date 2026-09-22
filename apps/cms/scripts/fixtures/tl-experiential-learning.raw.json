@@ -1,0 +1,78 @@
+{
+  "open": {
+    "kicker": "The claim, and the test of it",
+    "heading": "In the hand\n{{before the exam.}}",
+    "body": [
+      "Sunbeam’s stated approach is that a topic is **met in the hand before it is met in the exam**. Every school says something like it, so the only useful question is what a reader can check.",
+      "Here the check is unusually strong. In September 2025 the school {' '}**hosted the CBSE Capacity Building Programme on Experiential Learning** — two days, taken by two visiting principals. Sunbeam Ballia was the venue other schools came to. Running experiential learning is a claim; being the place it is taught is a fact with a date on it."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pCanva"
+      },
+      {
+        "key": "pOwnWork"
+      },
+      {
+        "key": "pCompost"
+      }
+    ],
+    "runs": []
+  },
+  "path": {
+    "kicker": null,
+    "heading": "Experiences that become learning",
+    "body": [],
+    "caption": null,
+    "shots": [],
+    "runs": [
+      {
+        "field": "cells",
+        "list": "stops"
+      }
+    ]
+  },
+  "proj": {
+    "kicker": "Projects leave the classroom",
+    "heading": "From making\nto {{understanding.}}",
+    "body": [
+      "Project work here has two published endpoints, and both are worth more than any account of the method.",
+      "The first is **KIDS Entrepreneurship**, and the school’s description of it is six words long: *“a Class 7 programme that runs a real venture end to end.”* Not a simulation and not a case study — a venture, carried from start to finish by twelve-year-olds.",
+      "The second left the state. Students travelled to Delhi for an {' '}**international innovation project on entrepreneurship run with Monash University, Australia**, held at K.R. Mangalam World School, G.K-II. A project judged outside the building is judged by people who owe the school nothing.",
+      "Neither is an extra activity bolted onto the timetable. They are how the school says it teaches."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pMonash"
+      },
+      {
+        "key": "pChef"
+      },
+      {
+        "key": "pThread"
+      }
+    ],
+    "runs": []
+  },
+  "close": {
+    "kicker": "Experiential learning in practice",
+    "heading": "See it. Make it.\n{{Understand it.}}",
+    "body": [
+      "The school publishes the plot, the programme, the Monash project and the CBSE programme it hosted. What KIDS runs week to week, how many students travelled to Delhi, and where the planetarium show was held are not published — so none of those is described here."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pCohort"
+      }
+    ],
+    "runs": [
+      {
+        "field": "cells",
+        "list": "beats"
+      }
+    ]
+  }
+}

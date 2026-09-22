@@ -7,12 +7,35 @@
     "displayName": "Academic Calendar Page",
     "description": "The prose and card content of /academics/academic-calendar/ — everything on that page that is NOT one of the calendar documents themselves. A Single Type because there is exactly one such page; the calendars it lists are a Collection Type beside it."
   },
-  "options": { "draftAndPublish": true },
+  "options": {
+    "draftAndPublish": true
+  },
   "pluginOptions": {},
   "attributes": {
-    "source": { "type": "string", "maxLength": 500 },
-    "carries": { "type": "component", "repeatable": true, "component": "shared.point" },
-    "planning": { "type": "component", "repeatable": true, "component": "shared.point" },
-    "seo": { "type": "component", "repeatable": false, "component": "shared.seo" }
+    "source": {
+      "type": "string",
+      "maxLength": 500
+    },
+    "carries": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.point"
+    },
+    "planning": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.point"
+    },
+    "shots": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.photo",
+      "description": "The photographs on this page, IN THE ORDER IT PLACES THEM — the two calendar sheets, then the full-width frame that closes the page. ⚠ They were the last thing on this page still living in the old shared academics record, which meant its words were edited here and its pictures somewhere else."
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo"
+    }
   }
 }

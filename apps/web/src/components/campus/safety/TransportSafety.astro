@@ -1,6 +1,6 @@
 ---
 import { getCampusSafetyData } from '../../../lib/cms';
-const {transportFeatures} = await getCampusSafetyData();
+const { transportFeatures, transportBand, transportFigures } = await getCampusSafetyData();
 
 /**
  * §4 · TRANSPORT SAFETY — the fleet band.
@@ -58,20 +58,36 @@ const briefs: Record<string, string> = {
   'Parent Communication': 'A parent reading a route notice on a phone, 16:10 — or the notice board in use',
 };
 
-const figures = [
+/**
+ * ⚠⚠ CMS FIRST, THESE LITERALS ONLY AS A FALLBACK. `transportFigures` is what
+ * the school edits in Campus Safety Page; the array below is what used to be
+ * hardcoded here and stays so an unseeded or unpublished CMS does not render a
+ * band with three empty figures.
+ *
+ * ⚠ DELETE `FALLBACK_FIGURES` ONCE THE CMS IS SEEDED IN EVERY ENVIRONMENT, not
+ * before — while both exist they can disagree, and the CMS is the one that wins.
+ *
+ * ⚠⚠ THESE COUNTS ARE STATED THREE TIMES ON THIS PAGE — here, in words in the
+ * band's own standfirst ("Twenty-two routes across Ballia"), and inside the
+ * "Bus Zone" map point ("29+ buses across 22 routes"). All three are editable
+ * and none derives from the others, so a fleet change needs all three.
+ */
+const FALLBACK_FIGURES = [
   { value: '29+', label: 'Buses in the fleet' },
   { value: '22', label: 'Routes across Ballia' },
   { value: '100%', label: 'GPS and speed-governed' },
 ];
+
+const figures = transportFigures.length > 0 ? transportFigures : FALLBACK_FIGURES;
 ---
 
 <section class="tsf" aria-labelledby="tsf-title">
   <div class="u-container">
     <SectionHead
       id="tsf-title"
-      eyebrow="Getting there and back"
-      heading="The journey is part of the school day"
-      stand="Twenty-two routes across Ballia, and a fleet that is tracked and speed-limited on every one of them."
+      eyebrow={transportBand.eyebrow}
+      heading={transportBand.heading}
+      stand={transportBand.stand}
       tone="dark"
       measure={20}
     />

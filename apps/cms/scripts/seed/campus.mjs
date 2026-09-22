@@ -52,6 +52,30 @@ const FORCE_MEDIA = args.has('--force-media');
 
 const facts = (arr) => (arr ?? []).map((value) => ({ value }));
 
+/**
+ * {eyebrow, heading} → structure.section.
+ *
+ * ⚠ `eyebrow` BECOMES `kicker`. The component calls the top line `kicker`; the
+ * page and the data file call it an eyebrow. This is the one place the two
+ * names meet, and getting it wrong is silent — the band just keeps showing its
+ * built-in default.
+ *
+ * Returns null for a missing band so Strapi clears the field rather than
+ * writing an empty component nobody can tell apart from a real one.
+ */
+const band = (b) =>
+  b
+    ? {
+        kicker: b.eyebrow ?? null,
+        heading: b.heading || null,
+        /* ⚠ THE STANDFIRST IS body[0], because structure.section has no
+           single-line stand field. The query layer reads body[0].text back. An
+           empty stand writes no paragraph rather than an empty one, so the
+           admin shows an empty list instead of a blank row. */
+        body: b.stand ? [{ text: b.stand }] : [],
+      }
+    : null;
+
 /** {count, suffix, label, icon?, note?} → shared.stat */
 const stats = (arr) =>
   (arr ?? []).map((s) => ({
@@ -149,6 +173,19 @@ await withStrapi(async (strapi) => {
   /* ── 3 · THE FOUR PAGE SINGLES ──────────────────────────────────────────── */
   const singles = [
     ['Transport Page', TRANSPORT_PAGE, {
+      overview: band(transport.transportBands?.overview),
+      overviewCta: transport.transportBands?.cta ?? null,
+      overviewFigures: measures(transport.transportBands?.figures),
+      finder: band(transport.transportBands?.finder),
+      finderSearchLabel: transport.transportBands?.finderCopy?.searchLabel ?? null,
+      finderAreasHeading: transport.transportBands?.finderCopy?.areasHeading ?? null,
+      finderStaffNote: transport.transportBands?.finderCopy?.staffNote ?? null,
+      finderDriverNote: transport.transportBands?.finderCopy?.driverNote ?? null,
+      finderEmptyHeading: transport.transportBands?.finderCopy?.emptyHeading ?? null,
+      finderEmptyBody: transport.transportBands?.finderCopy?.emptyBody ?? null,
+      finderEmptyCta: transport.transportBands?.finderCopy?.emptyCta ?? null,
+      safetyHead: band(transport.transportBands?.safetyHead),
+      contactHead: band(transport.transportBands?.contactHead),
       safety: measures(transport.safety),
       /* A plain map of misspelling → canonical stop. JSON because it is a
          lookup table, not a list an editor adds rows to one at a time. */
@@ -165,10 +202,33 @@ await withStrapi(async (strapi) => {
       })),
       whyCards: points(facilities.whyCards),
       progression: points(facilities.progression),
+      figures: band(facilities.facilitiesBands?.figures),
     }],
+    /*
+     * ⚠ `band()` MAPS eyebrow → kicker. structure.section calls its top line
+     * `kicker`; the page calls it an eyebrow. Same line, two names, and the
+     * query layer maps it back — so a field seeded as `eyebrow` lands nowhere
+     * and the band silently shows its default for ever.
+     *
+     * ⚠ THE SIX FEATURED ROOMS GO IN AS shared.point, with `icon` carrying the
+     * facility id and `tags` the highlights — the same shape `journey` already
+     * uses, which is why `points()` handles it unchanged apart from the tags.
+     */
     ['Campus Tour Page', TOUR_PAGE, {
+      overview: band(tour.bands?.overview),
       overviewStats: stats(tour.overviewStats),
+      categories: band(tour.bands?.categories),
+      gallery: band(tour.bands?.gallery),
+      featuredHead: band(tour.bands?.featured),
+      featured: (tour.featured ?? []).map((r) => ({
+        icon: r.id, title: r.title, body: r.body, tags: facts(r.highlights),
+      })),
+      journeyHead: band(tour.bands?.journey),
       journey: points(tour.journey),
+      visitCtaLabel: tour.visitCta?.label ?? null,
+      visitCtaHref: tour.visitCta?.href ?? null,
+      visitCallLabel: tour.visitCta?.callLabel ?? null,
+      visit: band(tour.bands?.visit),
     }],
     ['Campus Safety Page', SAFETY_PAGE, {
       safetyGroups: (campus.safetyGroups ?? []).map((g) => ({
@@ -182,6 +242,15 @@ await withStrapi(async (strapi) => {
       emergencySteps: points(campus.emergencySteps),
       emergencyPoints: measures(campus.emergencyPoints),
       transportFeatures: measures(campus.transportFeatures),
+      timeline: band(campus.safetyBands?.timeline),
+      plan: band(campus.safetyBands?.plan),
+      transport: band(campus.safetyBands?.transport),
+      /* shared.figure keeps `figure` a STRING, so "29+" and "100%" survive. */
+      transportFigures: (campus.transportFigures ?? []).map((f) => ({
+        figure: f.value, label: f.label, note: f.note ?? null,
+      })),
+      wellbeing: band(campus.safetyBands?.wellbeing),
+      surveillance: band(campus.safetyBands?.surveillance),
       wellbeingCards: points(campus.wellbeingCards),
       surveillanceCards: points(campus.surveillanceCards),
     }],

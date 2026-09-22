@@ -1,0 +1,52 @@
+---
+/**
+ * ACADEMICS → CLASS CORNER
+ *
+ * The four class-level documents a parent actually needs — class teachers,
+ * timetable, monitors, examination schedule — as a grid of link cards, followed
+ * by the school's two mounted Academic Excellence boards.
+ *
+ * ═══ WHAT IS NOT ON THIS PAGE ══════════════════════════════════════════════
+ *
+ * The brief listed five items. Two of them are deliberately absent:
+ *
+ *   · EXAM IN-CHARGE DETAILS — never published by the school. It shipped once
+ *     as a pending placeholder and the client had it removed. Still owed; see
+ *     site.ts → gaps.A14. DO NOT RE-ADD WITHOUT ASKING.
+ *
+ *   · ACADEMIC EXCELLENCE AS A CARD — a card whose only destination was further
+ *     down this same page is the page duplicating itself. It is a section.
+ *
+ * ⚠ THE BANNER IS THE SCHOOL'S OWN CORRIDOR, classroom doors running the length
+ * of the block, which is what a "class corner" is. It is also the Mentoring
+ * page's banner. A photograph that earns its place twice is not a duplicate.
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/ui/PageHero.astro';
+import ClassCornerPage from '../../components/academics/ClassCornerPage.astro';
+import Toppers from '../../components/academics/Toppers.astro';
+
+import banner from '../../assets/corridor and stairs/DSC_1210 copy.jpg';
+---
+
+<BaseLayout
+  title="Class Corner — Sunbeam School Ballia"
+  description="Class teachers, class timetables, the student monitors' list and the examination schedule for Sunbeam School Ballia, Nursery to Class XII."
+>
+  <PageHero
+    title="Class Corner"
+    standfirst="Class teachers, timetables, monitors and the examination schedule."
+    crumbs={[
+      { label: 'Home', href: '/' },
+      { label: 'Academics', href: '/academics/' },
+    ]}
+    src={banner}
+    alt="A corridor at Sunbeam School Ballia, its classroom doors running the length of the block."
+    position="50% 50%"
+  />
+
+  <ClassCornerPage />
+  {/* Renders nothing until the two boards are transcribed — see
+      data/toppers.ts. The page is complete without it. */}
+  <Toppers />
+</BaseLayout>

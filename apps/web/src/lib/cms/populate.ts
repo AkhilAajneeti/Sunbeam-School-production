@@ -43,12 +43,38 @@ export const MAJOR_POPULATE: QueryObject = {
    components, no media — so they need no populate at all. Named here anyway so
    the absence is visibly a decision rather than an oversight. */
 export const CREDENTIAL_POPULATE: QueryObject = {};
+/**
+ * The three band headings on Beyond Academics → Achievements, plus the two
+ * record-board headers.
+ *
+ * ⚠ `body: true` IS THE STANDFIRST. structure.section keeps its standfirst as
+ * body[0].text — a repeatable paragraph component — so without populating it
+ * every band loses its opening line and silently falls back to the default.
+ */
+export const ACHIEVEMENTS_PAGE_POPULATE = {
+  majors: { populate: { body: true } },
+  recognition: { populate: { body: true } },
+  record: { populate: { body: true } },
+  recordBoards: true,
+} as const;
+
 export const ACHIEVEMENT_RECORD_POPULATE: QueryObject = {};
 
 /* ── CAREER ──────────────────────────────────────────────────────────────── */
 
 export const JOB_POSTING_POPULATE: QueryObject = {
   image: true,
+};
+
+/**
+ * ⚠ THE TWO BAND HEADS NEED `body` POPULATED — it is shared.paragraph[] and
+ * carries the line under each heading. `wall: true` returns the head with an
+ * undefined stand, which then shows the default for ever.
+ */
+export const CAREER_PAGE_POPULATE: QueryObject = {
+  wall: { populate: { body: true } },
+  apply: { populate: { body: true } },
+  applyMethods: true,
 };
 
 /* ── ALUMNI ──────────────────────────────────────────────────────────────── */
@@ -89,6 +115,7 @@ export const CALENDAR_DOCUMENT_POPULATE: QueryObject = {
 export const ACADEMIC_CALENDAR_PAGE_POPULATE: QueryObject = {
   carries: true,
   planning: true,
+  shots: { populate: { image: true } },
   seo: { populate: { ogImage: true } },
 };
 
@@ -144,22 +171,62 @@ export const CAMPUS_FACILITY_POPULATE: QueryObject = {
   gallery: { populate: { image: true } },
 };
 
-export const TRANSPORT_PAGE_POPULATE: QueryObject = { safety: true };
+/**
+ * ⚠ THE BAND HEADS NEED `body` POPULATED, NOT JUST THE COMPONENT. `body` is
+ * shared.paragraph[] and carries the standfirst; `timeline: true` returns the
+ * head with its eyebrow and heading and an undefined stand, which then falls
+ * back to the default for ever and looks like the CMS value is ignored.
+ */
+const BAND = { populate: { body: true } };
+
+export const TRANSPORT_PAGE_POPULATE: QueryObject = {
+  overview: BAND,
+  overviewFigures: true,
+  finder: BAND,
+  safetyHead: BAND,
+  contactHead: BAND,
+  safety: true,
+};
 
 /** `groups` contains a repeatable component of its own, so it needs naming too. */
 export const FACILITIES_PAGE_POPULATE: QueryObject = {
+  figures: BAND,
   kpis: true,
   groups: { populate: { items: true } },
   whyCards: true,
   progression: true,
 };
 
+/**
+ * ⚠ THE BAND HEADINGS ARE COMPONENTS, SO THEY MUST BE NAMED HERE. Strapi
+ * returns a component field as `undefined` unless it is populated — there is no
+ * error and no warning, so a heading added to the schema but forgotten here
+ * simply falls back to its default for ever and looks like the CMS value is
+ * being ignored.
+ *
+ * ⚠ `featured` NEEDS ITS `tags` POPULATED TOO. `tags` is itself a component
+ * (shared.fact[]) inside shared.point; `featured: true` returns the points with
+ * their highlights missing.
+ */
 export const CAMPUS_TOUR_PAGE_POPULATE: QueryObject = {
+  overview: true,
   overviewStats: true,
+  categories: true,
+  gallery: true,
+  featuredHead: true,
+  featured: { populate: { tags: true } },
+  journeyHead: true,
   journey: true,
+  visit: true,
 };
 
 export const CAMPUS_SAFETY_PAGE_POPULATE: QueryObject = {
+  timeline: BAND,
+  plan: BAND,
+  transport: BAND,
+  transportFigures: true,
+  wellbeing: BAND,
+  surveillance: BAND,
   safetyGroups: { populate: { measures: true } },
   mapPoints: true,
   emergencySteps: true,
@@ -241,6 +308,7 @@ export const HOMEPAGE_POPULATE: QueryObject = {
 
 export const LEADER_MESSAGE_POPULATE: QueryObject = {
   paragraphs: true,
+  fullMessage: true,
   credentials: true,
   portrait: true,
 };
@@ -374,4 +442,36 @@ export const STUDENT_CENTRED_POPULATE: QueryObject = {
   sectionTwo: { populate: { index: true, body: true, imageOne: true, imageTwo: true, imageThree: true } },
   sectionThree: { populate: { body: true, image: true, cards: { populate: { icon: true } } } },
   close: { populate: { headingLines: true, image: true } },
+};
+
+/* ── PUBLICATIONS ───────────────────────────────────────────── */
+
+/**
+ * The Publication collection is entirely scalar — title, href, group, order —
+ * so it needs no populate at all. Only the page's two component lists do.
+ */
+/**
+ * NCC, Scouts & Guides.
+ *
+ * ⚠ THE NESTED MEDIA MUST BE NAMED. `groups` is a component holding components,
+ * one of which carries an image; populating `groups: true` returns the groups
+ * with empty photo rows and no error.
+ */
+export const UNIFORMED_GROUPS_POPULATE = {
+  intro: { populate: { body: true } },
+  groups: {
+    populate: {
+      facts: true,
+      record: true,
+      photos: { populate: { image: true } },
+    },
+  },
+} as const;
+
+export const PUBLICATIONS_PAGE_POPULATE: QueryObject = {
+  groupHeadings: true,
+  /* ⚠ `image` MUST BE NAMED. myraPages is a component carrying a media field,
+     and a component populated with `true` comes back without its media — the
+     rail would render five alt strings attached to nothing. */
+  myraPages: { populate: { image: true } },
 };

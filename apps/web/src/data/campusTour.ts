@@ -251,3 +251,105 @@ export const journey = [
   { id: 'activity', label: 'Activities', body: 'Clubs, the activity lab, and whatever the house is rehearsing.' },
   { id: 'medical', label: 'Medical Support', body: 'And on the days it is needed, someone to look after them.' },
 ] as const;
+
+/**
+ * ═══ THE BAND HEADINGS ═════════════════════════════════════════════════════
+ *
+ * Every eyebrow and heading on /campus/, in page order. These used to be string
+ * literals inside the seven tour components; they live here so the seed can put
+ * them in the CMS, where the school can edit them.
+ *
+ * ⚠ THE QUERY LAYER ALSO HOLDS A COPY, as TOUR_DEFAULTS in
+ * lib/cms/queries/campus.ts. That is the fallback for an unseeded or
+ * unpublished CMS — this file is what the seed writes. If you change one,
+ * change both, or seed again.
+ *
+ * ⚠ THE GALLERY HAS NO HEADING HERE ON PURPOSE. Masonry's heading counts the
+ * photographs it is about to render ("N frames of the campus"); a number typed
+ * by hand would go stale the moment a photograph is added. Only its eyebrow is
+ * editable.
+ */
+export const bands = {
+  overview: { eyebrow: 'The campus at a glance', heading: 'Twelve laboratories, a library, and room to run' },
+  categories: { eyebrow: 'Where to look', heading: 'Every facility, by the room it is' },
+  gallery: { eyebrow: 'The whole wall', heading: '' },
+  featured: { eyebrow: 'Worth stopping at', heading: 'Six rooms, and what each one is for' },
+  journey: { eyebrow: 'A day, end to end', heading: 'How a student meets the campus' },
+  visit: { eyebrow: 'Come and see it', heading: 'Experience our campus in person' },
+} as const;
+
+/**
+ * The visit call-to-action.
+ *
+ * ⚠ THE PHONE NUMBER IS NOT HERE. VisitCta reads it from site settings
+ * (`school.phone.admissions`), which is where all fifty-seven references to it
+ * come from. Only the words around it are editable.
+ */
+export const visitCta = {
+  label: 'Book a campus visit',
+  href: '/admissions/campus-visit/',
+  callLabel: 'Or call admissions',
+} as const;
+
+/**
+ * §5 — the six featured rooms.
+ *
+ * ⚠ `id` MATCHES A FACILITY SLUG, exactly as `journey` above does. The row
+ * supplies the words; the photographs come from that facility's gallery, and a
+ * row whose id matches nothing simply does not render.
+ *
+ * ⚠ TRANSCRIBED FROM Featured.astro, WHERE THESE WERE HARDCODED. The prose is
+ * unchanged — em dashes and all. The component keeps the same array as a
+ * fallback until the CMS is seeded everywhere; see the note there.
+ */
+export const featured = [
+  {
+    id: 'library',
+    title: 'Nalanda Library',
+    body:
+      'Fifteen thousand books, a magazine rack, and shelving that runs from mythology to a ' +
+      'Ballia literature section of its own. Round tables at the centre for group reading, ' +
+      'long tables along the wall for the ones who want quiet.',
+    highlights: ['17,574 volumes', 'Dedicated reading programme', 'Ballia literature collection'],
+  },
+  {
+    id: 'chemistry',
+    title: 'Chemistry Laboratory',
+    body:
+      'Bench room for a full practical class at once, with reagent shelving along the wall and ' +
+      'preparation space behind. Senior practicals run here through the board year.',
+    highlights: ['Full-class bench capacity', 'Reagent and apparatus store', 'Board practical ready'],
+  },
+  {
+    id: 'biology',
+    title: 'Biology Laboratory',
+    body:
+      'Microscope benches, specimen models and charts, and the dissection tables behind them — ' +
+      'a room set up so a class can work in pairs rather than watch a demonstration.',
+    highlights: ['Microscope stations', 'Specimen and model collection', 'Paired practical layout'],
+  },
+  {
+    id: 'computer',
+    title: 'Computer Laboratories',
+    body:
+      'Two laboratories of networked desktops — one sized for the junior school, one for board-year ' +
+      'practicals. Part of what a Microsoft Showcase School is expected to have, and does.',
+    highlights: ['Two networked labs', 'Junior and senior provision', 'Microsoft Showcase School'],
+  },
+  {
+    id: 'composite',
+    title: 'Composite Science Lab',
+    body:
+      'The junior science room, where the first experiments happen before physics, chemistry and ' +
+      'biology separate into rooms of their own.',
+    highlights: ['Middle-school science', 'All three disciplines', 'First practical experience'],
+  },
+  {
+    id: 'josh',
+    title: 'JOSH Ground',
+    body:
+      'The main field. Morning assembly happens here, and so do athletics, inter-house fixtures and ' +
+      'the games period for most of the school.',
+    highlights: ['Morning assembly', 'Inter-house fixtures', 'Athletics and games'],
+  },
+] as const;

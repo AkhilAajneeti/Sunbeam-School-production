@@ -2,12 +2,79 @@
   "kind": "singleType",
   "collectionName": "transport_page",
   "info": {
-    "singularName": "transport-page", "pluralName": "transport-pages", "displayName": "Transport Page",
-    "description": "The prose of /campus/transport/. ⚠ IT HOLDS NO COUNTS. Buses, runs and boarding points are computed from Bus Route at query time — storing them would give the same fact two owners and go stale the day a route is added."
+    "singularName": "transport-page",
+    "pluralName": "transport-pages",
+    "displayName": "Transport Page",
+    "description": "The prose of /campus/transport/. ⚠ IT HOLDS NO COUNTS. Buses, runs and boarding points are computed from Bus Route at query time — storing them would give the same fact two owners and go stale the day a route is added. ⚠ THE BAND HEADS — overview, finder, safetyHead, contactHead — are the eyebrow, heading and body of each band on /campus/transport/. kicker = the eyebrow; the FIRST paragraph of body = the prose under it. ⚠⚠ TWO OF THOSE BODIES CARRY TOKENS: {buses}, {runs} and {stops} are replaced at build time with counts computed from the Bus Route collection. Type the words, keep the braces — a number typed in their place is frozen the day a route changes. ⚠ overviewFigures ARE CAPTIONS ONLY. The numbers above them are computed from Bus Route and are NOT stored; `label` is the caption and `body` the note beneath it. ⚠ NOT EDITABLE HERE: the section-rail labels (tied to DOM ids) and the route finder's interface — its search placeholder, A–Z jump, 'First stop' / 'Last stop' / 'Driver' labels and its empty state. ⚠ THE SEVEN `finder*` STRINGS are the route finder's own prose — its search label, the 'Areas we cover' heading, the staff-bus and driver notes, and the empty state with its call to action. What is STILL not editable there is data labelling only: 'First stop', 'Last stop', 'Driver', '/stop', 'Single run' and the A–Z jump, which label the route data rather than say anything."
   },
-  "options": { "draftAndPublish": true },
+  "options": {
+    "draftAndPublish": true
+  },
   "attributes": {
-    "safety": { "type": "component", "repeatable": true, "component": "shared.measure" },
-    "stopAliases": { "type": "json" }
+    "overview": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "overviewCta": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "overviewFigures": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.measure"
+    },
+    "finder": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "finderSearchLabel": {
+      "type": "string",
+      "maxLength": 90
+    },
+    "finderAreasHeading": {
+      "type": "string",
+      "maxLength": 90
+    },
+    "finderStaffNote": {
+      "type": "string",
+      "maxLength": 180
+    },
+    "finderDriverNote": {
+      "type": "string",
+      "maxLength": 180
+    },
+    "finderEmptyHeading": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "finderEmptyBody": {
+      "type": "text",
+      "maxLength": 400
+    },
+    "finderEmptyCta": {
+      "type": "string",
+      "maxLength": 80
+    },
+    "safetyHead": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "contactHead": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "safety": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.measure"
+    },
+    "stopAliases": {
+      "type": "json"
+    }
   }
 }

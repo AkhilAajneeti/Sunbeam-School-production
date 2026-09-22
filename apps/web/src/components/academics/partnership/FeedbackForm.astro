@@ -1,0 +1,631 @@
+---
+/**
+ * "YOUR VOICE MATTERS" — the parents' feedback form.
+ *
+ * Content and settings are in data/parentsFeedbackForm.ts; read that file's
+ * header first, because the two rules that shape this component are stated
+ * there: nothing typed here may ever reach the page above, and the form does
+ * not pretend to submit while `endpoint` is null.
+ *
+ * ⚠ THIS MIRRORS components/alumni/ArForm.astro DELIBERATELY. Same
+ * `data-required` marking, same `check` / `paint` pair, same live region, same
+ * endpoint-or-honest-note ending. Two forms on one site that behave differently
+ * when they fail is a worse outcome than either design on its own.
+ *
+ * ═══ THE TWO ACCESSIBILITY REQUIREMENTS ════════════════════════════════════
+ *
+ * ⚠⚠ 1. THE STARS ARE A RADIO GROUP WEARING STARS. Five real <input
+ * type="radio"> in a <fieldset>, in DOM order 5→1 with `flex-direction:
+ * row-reverse` so they read 1→5 on screen. That order is what lets a pure-CSS
+ * "fill this star and every star before the checked one" selector work with no
+ * JavaScript at all — `:checked ~ label` reaches later siblings, which are the
+ * LOWER ratings in DOM order and the ones to its LEFT on screen.
+ *
+ * ⚠⚠ 2. VALIDATION IS CUSTOM, NOT `required` ALONE. Native bubbles cannot be
+ * styled, vanish on scroll, and show only the first error. This shows every
+ * error at once, ties each to its field with `aria-describedby`, sets
+ * `aria-invalid`, and moves focus to the first one.
+ *
+ * ═══ TRAPS THIS FILE IS WRITTEN AROUND ═════════════════════════════════════
+ *
+ * ⚠⚠ `data-required` GOES ON CONTROLS, NEVER ON A WRAPPER. It was once on the
+ * stars' <span>, which has no `.value` — so every submit painted its errors
+ * correctly and then threw "Cannot read properties of undefined (reading
+ * 'trim')", killing the handler before it wrote the status line. Silent in the
+ * UI, fatal underneath. `check()` below is guarded as a second line of defence,
+ * but the real fix is keeping non-controls out of the control list.
+ *
+ * ⚠⚠ NO `:global()` ON ANYTHING THIS COMPONENT RENDERS. Inside
+ * `:has(:global(input:checked))` it stops matching entirely — the stars never
+ * fill, the radios keep their browser default look, and "Tap to rate" never
+ * hides. Every element here is in this template, so none of it is wrapped.
+ *
+ * ⚠ NO "WRITE A GOOGLE REVIEW" BUTTON. The reference comp has one beside
+ * Submit; the client asked for it to be left out. The office phone and email
+ * sit there instead — which is also where the form points a parent when there
+ * is no endpoint, so they have to be on screen either way.
+ */
+import {
+  feedbackSettings,
+  feedbackFields,
+  feedbackBand,
+  ratingOptions,
+  recommendOptions,
+} from '../../../data/parentsFeedbackForm';
+
+const { endpoint, successMessage, contactPhoneDisplay, contactPhone, contactEmail } =
+  feedbackSettings;
+
+/**
+ * ⚠⚠ THE COMP INTERLEAVES THE STAR RATING INTO THE TWO-COLUMN FLOW — it is the
+ * fifth cell, with "What do you appreciate most?" beside it. Rendering
+ * `feedbackFields` in array order would put the stars after the selects and
+ * break that pairing, so the slots are named explicitly here. The array stays
+ * the single source of each field's label, placeholder and rules.
+ */
+const F = Object.fromEntries(feedbackFields.map((f) => [f.name, f]));
+const ORDER = ['parentName', 'studentName', 'studentClass', 'phone'] as const;
+---
+
+<form
+  class="pff"
+  data-pff
+  data-endpoint={endpoint ?? ''}
+  data-success={successMessage}
+  data-phone={contactPhoneDisplay}
+  data-email={contactEmail}
+  novalidate
+  aria-describedby="pff-live"
+>
+  <div class="pff__grid">
+    {/* One cell template for every field. `__rating` is a sentinel so the star
+        fieldset lands in its comp position without a second copy of the cell
+        markup below it. */}
+    {['parentName', 'studentName', 'studentClass', 'phone', '__rating', 'appreciate', 'feedback'].map((key) => {
+      if (key === '__rating') {
+        return (
+          <fieldset class="pff__f pff__stars">
+            <legend class="pff__lb">
+              {feedbackBand.ratingLabel}<span class="pff__req" aria-hidden="true">*</span>
+            </legend>
+            <div class="pff__starrow">
+              {ratingOptions.map((o) => (
+                <span class="pff__star">
+                  <input
+                    type="radio"
+                    id={`pff-rating-${o.value}`}
+                    name="rating"
+                    value={o.value}
+                    data-required="true"
+                    aria-describedby="pff-rating-err"
+                  />
+                  <label for={`pff-rating-${o.value}`}>
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                      <path d="m12 3.6 2.6 5.3 5.8.8-4.2 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.2-4.1 5.8-.8L12 3.6Z"/>
+                    </svg>
+                    <span class="u-visually-hidden">{o.value} — {o.label}</span>
+                  </label>
+                </span>
+              ))}
+            </div>
+            <span class="pff__hintrate">{feedbackBand.ratingHint}</span>
+            <p class="pff__err" id="pff-rating-err" data-err-for="rating"></p>
+          </fieldset>
+        );
+      }
+
+      const f = F[key];
+      const id = `pff-${f.name}`;
+      const err = `${id}-err`;
+      return (
+        <div class:list={['pff__f', f.wide && 'pff__f--wide']}>
+          <label class="pff__lb" for={id}>
+            {f.label}
+            {f.required && <span class="pff__req" aria-hidden="true">*</span>}
+            {!f.required && <span class="pff__opt">optional</span>}
+          </label>
+
+          {f.type === 'textarea' && (
+            <textarea
+              class="pff__in pff__in--area"
+              id={id}
+              name={f.name}
+              rows="4"
+              placeholder={f.hint}
+              data-required={f.required ? 'true' : undefined}
+              aria-describedby={err}
+            />
+          )}
+
+          {f.type === 'select' && (
+            <select
+              class="pff__in pff__in--sel"
+              id={id}
+              name={f.name}
+              data-required={f.required ? 'true' : undefined}
+              aria-describedby={err}
+            >
+              <option value="">{f.placeholder ?? 'Please choose…'}</option>
+              {f.options?.map((o) => <option value={o}>{o}</option>)}
+            </select>
+          )}
+
+          {(f.type === 'text' || f.type === 'tel') && (
+            <input
+              class="pff__in"
+              id={id}
+              name={f.name}
+              type={f.type}
+              placeholder={f.hint}
+              autocomplete={f.auto}
+              data-required={f.required ? 'true' : undefined}
+              data-rule={f.rule}
+              aria-describedby={err}
+            />
+          )}
+
+          <p class="pff__err" id={err} data-err-for={f.name}></p>
+        </div>
+      );
+    })}
+
+    {/* ══ RECOMMEND — optional, so no "no answer" choice is offered ═════ */}
+    <fieldset class="pff__f pff__f--wide">
+      <legend class="pff__lb">{feedbackBand.recommendLabel}</legend>
+      <div class="pff__choices">
+        {recommendOptions.map((o) => (
+          <span class="pff__choice">
+            <input type="radio" id={`pff-rec-${o}`} name="recommend" value={o} />
+            <label for={`pff-rec-${o}`}>{o}</label>
+          </span>
+        ))}
+      </div>
+    </fieldset>
+  </div>
+
+  {/* ⚠⚠ THE HONEYPOT. No human sees or reaches this: it is parked off-screen,
+      taken out of the tab order, hidden from assistive tech and told not to
+      autofill. A bot that fills every input it finds fills this one, and the
+      server then answers 200 and writes nothing — see the CMS controller for
+      why a silent success beats a 400.
+
+      ⚠ IT MUST NOT BE `display: none` OR `hidden`. The better scrapers skip
+      fields that are genuinely not rendered; an off-screen one looks real to
+      them and is invisible to everyone else.
+
+      ⚠⚠ THE NAME MUST LOOK WORTH FILLING TO A BOT AND MEAN NOTHING TO A
+      BROWSER. It was `company` with a "Company" label — a real autofill token,
+      so Chrome filled it for any visitor with a company saved and the server
+      silently discarded their message as spam. `autocomplete="off"`, the
+      off-screen position and tabindex="-1" do not prevent that; only the name
+      and the label do. Never `honeypot`, and never an address-book word. */}
+  <div class="pff__hp" aria-hidden="true">
+    <label for="pff-topicref">Topic reference</label>
+    <input id="pff-topicref" name="topicRef" type="text" tabindex="-1" autocomplete="off" />
+  </div>
+
+  <div class="pff__foot">
+    <button type="submit" class="pff__submit" data-pff-submit>
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M21 3 10.5 13.5M21 3l-6.8 18-3.7-7.5L3 9.8 21 3Z" stroke="currentColor"
+              stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span data-pff-label>{feedbackBand.submitLabel}</span>
+    </button>
+
+    {/* Where the form sends a parent when there is no endpoint — so it has to
+        be visible whether or not they ever press Submit. */}
+    <p class="pff__reach">
+      {feedbackBand.reachLabel}
+      <a href={`tel:${contactPhone}`}>{contactPhoneDisplay}</a>
+      <span aria-hidden="true"> · </span>
+      <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
+    </p>
+  </div>
+
+  {/* One live region for the whole form — status and failure both land here. */}
+  <p class="pff__live" id="pff-live" role="status" aria-live="polite" data-pff-live></p>
+</form>
+
+<style>
+  .pff { width: 100%; }
+
+  .pff__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--sb-5);
+  }
+  .pff__f { display: flex; flex-direction: column; gap: 7px; min-width: 0; border: 0; padding: 0; margin: 0; }
+  .pff__f--wide { grid-column: 1 / -1; }
+
+  @media (max-width: 767px) {
+    .pff__grid { grid-template-columns: minmax(0, 1fr); }
+  }
+
+  .pff__lb {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--sb-charcoal);
+  }
+  .pff__req { color: var(--sb-violet); }
+  .pff__opt {
+    font-size: 11.5px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: var(--sb-text-muted);
+  }
+
+  .pff__in {
+    width: 100%;
+    padding: 13px 15px;
+    border: 1px solid var(--sb-border);
+    border-radius: 12px;
+    background: var(--sb-paper);
+    font: inherit;
+    font-size: 14px;
+    color: var(--sb-charcoal);
+    transition: border-color 160ms var(--sb-ease), box-shadow 160ms var(--sb-ease);
+  }
+  .pff__in::placeholder { color: var(--sb-text-muted); }
+  .pff__in:focus-visible {
+    outline: none;
+    border-color: var(--sb-violet);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--sb-violet) 16%, transparent);
+  }
+  .pff__in[aria-invalid='true'] { border-color: #c5221f; }
+  .pff__in--area { resize: vertical; min-height: 128px; }
+
+  /* ⚠ THE CHEVRON IS A BACKGROUND, NOT AN EXTRA ELEMENT. A <select> cannot
+     hold a child of its own, and an absolutely-positioned arrow beside it drifts
+     the moment the field's height changes. */
+  .pff__in--sel {
+    appearance: none;
+    padding-right: 40px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236f6862' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 17px;
+  }
+
+  .pff__err {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.4;
+    color: #c5221f;
+    display: none;
+  }
+  .pff__err.is-on { display: block; }
+
+  /* ── Stars ──────────────────────────────────────────────────────────────
+     ⚠⚠ DOM ORDER IS 5→1 AND THE ROW IS REVERSED. That is what makes the
+     fill work in pure CSS: `~` only reaches LATER siblings, which here are the
+     lower ratings, which `row-reverse` places to the LEFT on screen. Re-order
+     the markup 1→5 and every star after the checked one fills instead. */
+  .pff__starrow {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 4px;
+  }
+  .pff__star { display: inline-flex; }
+  .pff__star input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .pff__star label {
+    display: inline-flex;
+    padding: 2px;
+    cursor: pointer;
+    color: var(--sb-orange-tint);
+    transition: color 140ms var(--sb-ease), transform 140ms var(--sb-ease);
+  }
+  /* ⚠⚠ OUTLINE STARS, NOT SOLID — the comp draws them hollow in peach and
+     fills them on selection. `fill: none` with a stroke is what gives the empty
+     state; the checked rule below swaps both at once. */
+  .pff__star label svg {
+    width: 28px;
+    height: 28px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.6;
+    stroke-linejoin: round;
+  }
+
+  /* The checked star, and every star before it on screen. */
+  .pff__star input:checked ~ label,
+  .pff__star:has(input:checked) ~ .pff__star label { color: var(--sb-violet); }
+  .pff__star input:checked ~ label svg,
+  .pff__star:has(input:checked) ~ .pff__star label svg { fill: currentColor; }
+
+  /* Keyboard focus must be visible — the input itself is off-screen. */
+  .pff__star input:focus-visible ~ label {
+    outline: 2px solid var(--sb-violet);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  .pff__starrow:hover .pff__star label { transform: none; }
+
+  /* ⚠ `:has()` ON THE ROW, NOT `:global()`. Everything here is rendered by this
+     template, so a :global() wrapper would break the match entirely. */
+  /* ⚠ UNDER THE ROW, NOT BESIDE IT — and therefore a SIBLING of .pff__starrow,
+     which is why the :has() below hangs off the fieldset rather than the row. */
+  .pff__hintrate {
+    display: block;
+    margin-top: 6px;
+    font-size: 12px;
+    color: var(--sb-text-muted);
+  }
+  .pff__stars:has(input:checked) .pff__hintrate { display: none; }
+
+  /* ── Recommend ─────────────────────────────────────────────────────────── */
+  .pff__choices { display: flex; flex-wrap: wrap; gap: var(--sb-5); }
+
+  /* ⚠ THE GAP IS ON THE ROW, NOT ON THE LABEL. In a radio the <input> and
+     <label> are siblings; a gap set on the label only spaces the label's own
+     contents, and the circle sits flush against its word. */
+  .pff__choice { display: inline-flex; align-items: center; gap: 7px; }
+  .pff__choice input { accent-color: var(--sb-violet); width: 16px; height: 16px; }
+  .pff__choice label { font-size: 13.5px; color: var(--sb-text-secondary); cursor: pointer; }
+
+  /* ⚠⚠ THE HONEYPOT'S HIDING PLACE — AND IT IS NOT `display: none`.
+     A field that is genuinely not rendered is skipped by the bots worth
+     defending against; one parked off-screen looks ordinary to a scraper and is
+     unreachable for everyone else. The element also carries aria-hidden and
+     tabindex="-1", so nothing but a script finds it. */
+  .pff__hp {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  /* ── Foot ──────────────────────────────────────────────────────────────── */
+  .pff__foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sb-5);
+    margin-top: var(--sb-6);
+  }
+  .pff__submit {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 26px;
+    border: 0;
+    border-radius: var(--sb-r-full);
+    background: var(--sb-violet);
+    color: #fff;
+    font-family: var(--sb-font-display);
+    font-size: 14.5px;
+    font-weight: 700;
+    white-space: nowrap;
+    cursor: pointer;
+    box-shadow: 0 12px 26px -16px rgba(201, 60, 10, 0.75);
+    transition: background 180ms var(--sb-ease), transform 180ms var(--sb-ease);
+  }
+  .pff__submit svg { width: 17px; height: 17px; }
+  .pff__submit:hover { background: color-mix(in srgb, var(--sb-violet) 88%, #000); transform: translateY(-1px); }
+  .pff__reach {
+    margin: 0;
+    font-size: 12.5px;
+    line-height: 1.6;
+    color: var(--sb-text-muted);
+  }
+  .pff__reach a { color: var(--sb-violet); font-weight: 600; text-decoration: underline; }
+
+  .pff__live {
+    display: none;
+    margin: var(--sb-5) 0 0;
+    padding: 12px 14px;
+    border-radius: var(--sb-r-0);
+    font-size: 13.5px;
+    line-height: 1.6;
+  }
+  .pff__live.is-ok,
+  .pff__live.is-err,
+  .pff__live.is-note { display: block; }
+  .pff__live.is-ok { background: color-mix(in srgb, #0b8043 10%, transparent); color: #0b6135; }
+  .pff__live.is-err { background: color-mix(in srgb, #c5221f 10%, transparent); color: #a11b18; }
+  .pff__live.is-note {
+    background: color-mix(in srgb, var(--sb-orange-bright) 10%, transparent);
+    color: var(--sb-charcoal);
+  }
+  .pff__live :global(strong) { font-weight: 700; }
+
+  .pff.is-sending .pff__submit { opacity: 0.7; pointer-events: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pff__in,
+    .pff__submit,
+    .pff__star label { transition: none; }
+    .pff__submit:hover { transform: none; }
+  }
+</style>
+
+<script>
+  /**
+   * Same contract as components/alumni/ArForm.astro — see this component's
+   * frontmatter for why the two must not diverge.
+   */
+  document.querySelectorAll<HTMLFormElement>('[data-pff]').forEach((form) => {
+    const live = form.querySelector<HTMLElement>('[data-pff-live]');
+    const submit = form.querySelector<HTMLButtonElement>('[data-pff-submit]');
+    const label = form.querySelector<HTMLElement>('[data-pff-label]');
+    const endpoint = form.dataset.endpoint || '';
+    const phone = form.dataset.phone || 'the school office';
+    const email = form.dataset.email || '';
+    let sending = false;
+
+    const controls = Array.from(
+      form.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>(
+        '[data-required], [data-rule]',
+      ),
+    );
+
+    const errorFor = (name: string) => form.querySelector<HTMLElement>(`[data-err-for="${name}"]`);
+
+    /**
+     * One field's complaint, or '' when it is fine.
+     *
+     * ⚠⚠ THE RADIO BRANCH COMES FIRST AND THE `.value` READ IS GUARDED. A
+     * `data-required` that lands on a wrapper — which has no `.value` — used to
+     * throw here and kill the whole submit handler after the errors had already
+     * been painted: the page looked validated and the status line never
+     * appeared. The guard means a stray marker degrades to "no complaint"
+     * instead of taking the form down.
+     */
+    const check = (el: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement): string => {
+      const required = el.dataset.required === 'true';
+      const rule = (el as HTMLInputElement).dataset.rule;
+
+      if (el instanceof HTMLInputElement && el.type === 'radio') {
+        if (!required) return '';
+        const group = form.querySelectorAll<HTMLInputElement>(`input[name="${el.name}"]`);
+        return Array.from(group).some((r) => r.checked) ? '' : 'Please choose a rating.';
+      }
+
+      if (el instanceof HTMLInputElement && el.type === 'checkbox') {
+        return required && !el.checked ? 'Please tick this to continue.' : '';
+      }
+
+      const raw = (el as { value?: unknown }).value;
+      if (typeof raw !== 'string') return '';
+      const value = raw.trim();
+
+      if (required && !value) return 'This field is required.';
+      if (!value) return '';
+
+      /* Permissive on purpose — the job is to catch a typo, not to police a
+         number format the school will read with its own eyes anyway. */
+      if (rule === 'phone') {
+        const digits = value.replace(/\D/g, '');
+        if (digits.length < 10 || digits.length > 13) return 'Please enter a valid phone number.';
+      }
+      return '';
+    };
+
+    const paint = (el: HTMLElement, msg: string) => {
+      const name = (el as HTMLInputElement).name;
+      const box = errorFor(name);
+      if (box) {
+        box.textContent = msg;
+        box.classList.toggle('is-on', Boolean(msg));
+      }
+      el.setAttribute('aria-invalid', msg ? 'true' : 'false');
+      el.closest('.pff__f')?.classList.toggle('has-err', Boolean(msg));
+    };
+
+    /* Validate on blur, then live once a field has already complained — so a
+       reader is corrected as they fix it, but never scolded mid-word. */
+    controls.forEach((el) => {
+      el.addEventListener('blur', () => paint(el, check(el)));
+      el.addEventListener('input', () => {
+        if (el.getAttribute('aria-invalid') === 'true') paint(el, check(el));
+      });
+      el.addEventListener('change', () => {
+        if (el.getAttribute('aria-invalid') === 'true' || el instanceof HTMLSelectElement) {
+          paint(el, check(el));
+        }
+        if (el instanceof HTMLInputElement && el.type === 'radio') paint(el, check(el));
+      });
+    });
+
+    const setBusy = (on: boolean) => {
+      form.classList.toggle('is-sending', on);
+      if (submit) submit.setAttribute('aria-busy', on ? 'true' : 'false');
+      if (label) label.textContent = on ? 'Sending…' : 'Submit feedback';
+    };
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (sending) return;
+
+      /* Radios share a name; painting per-control would write the same error
+         five times. Only the first of each group is checked. */
+      const seen = new Set<string>();
+      let firstBad: HTMLElement | null = null;
+
+      controls.forEach((el) => {
+        const name = (el as HTMLInputElement).name;
+        if (el instanceof HTMLInputElement && el.type === 'radio') {
+          if (seen.has(name)) return;
+          seen.add(name);
+        }
+        const msg = check(el);
+        paint(el, msg);
+        if (msg && !firstBad) firstBad = el;
+      });
+
+      if (firstBad) {
+        if (live) {
+          live.textContent = 'Please correct the highlighted fields.';
+          live.className = 'pff__live is-err';
+        }
+        (firstBad as HTMLElement).focus();
+        return;
+      }
+
+      /* ⚠⚠ NO ENDPOINT — SAY SO, DO NOT PRETEND. See the data file's header. */
+      if (!endpoint) {
+        if (live) {
+          live.innerHTML =
+            'Your feedback is complete, but this form is <strong>not connected yet</strong> — nothing was sent and nothing was stored. ' +
+            'Please call the school office on ' + phone +
+            (email ? ', or send it to ' + email : '') +
+            ', and it will reach the right person.';
+          live.className = 'pff__live is-note';
+          live.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+        }
+        return;
+      }
+
+      sending = true;
+      setBusy(true);
+      try {
+        /* ⚠ `sourcePage` IS ADDED HERE, NOT A HIDDEN INPUT. A hidden field with
+           the path in it is one more thing a bot can rewrite; the browser knows
+           where it is. Everything else comes straight off the form, so the
+           field names below ARE the CMS column names — rename one in
+           parentsFeedbackForm.ts and it must be renamed in the schema too. */
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            data: {
+              ...Object.fromEntries(new FormData(form).entries()),
+              sourcePage: location.pathname,
+            },
+          }),
+        });
+        if (!res.ok) throw new Error(String(res.status));
+        if (live) {
+          live.textContent = form.dataset.success || 'Thank you.';
+          live.className = 'pff__live is-ok';
+        }
+        form.reset();
+        controls.forEach((el) => paint(el, ''));
+      } catch {
+        if (live) {
+          live.textContent =
+            'Sorry — that could not be sent just now. Please try again, or call the school office on ' + phone + '.';
+          live.className = 'pff__live is-err';
+        }
+      } finally {
+        sending = false;
+        setBusy(false);
+      }
+    });
+  });
+</script>

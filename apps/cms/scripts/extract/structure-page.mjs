@@ -79,6 +79,34 @@ const SECTIONS = {
     prefix: 'sc', fixture: 'subject-combinations', query: 'getSubjectCombinations',
     pageRun: 'worlds', sections: ['open', 'worlds', 'map', 'close'],
   },
+
+  /* ── Teaching & Learning ─────────────────────────────────────────────────
+     Same six conventions as the structure pages — xx-kicker, xx-body, an h2 of
+     clipped spans, ac.pic/ac.picAlt pairs and one or two runs a band — so the
+     same codemod lifts them. They live in a different folder, which is all
+     `dir` says. */
+  MethodologyPage: { dir: 'teaching', prefix: 'tm', fixture: 'tl-methodology', query: 'getMethodology', sections: ['open', 'three', 'collab', 'plat', 'close'] },
+  SmartClassroomsPage: { dir: 'teaching', prefix: 'sc', fixture: 'tl-smart-classrooms', query: 'getSmartClassrooms', sections: ['room', 'sys', 'beyond', 'prac', 'close'] },
+  ExperientialLearningPage: { dir: 'teaching', prefix: 'ex', fixture: 'tl-experiential-learning', query: 'getExperientialLearning', sections: ['open', 'path', 'proj', 'close'] },
+  StemRoboticsPage: { dir: 'teaching', prefix: 'st', fixture: 'tl-stem-robotics', query: 'getStemRobotics', sections: ['rooms', 'bots', 'use', 'eco', 'close'] },
+  ReadingLanguagePage: { dir: 'teaching', prefix: 'rd', fixture: 'tl-reading-language', query: 'getReadingLanguage', sections: ['lib', 'round', 'lab', 'stage', 'close'] },
+  LaboratoriesClubsPage: {
+    dir: 'teaching', prefix: 'lb', fixture: 'tl-laboratories-clubs', query: 'getLaboratoriesClubs',
+    sections: ['rooms', 'twelve', 'spaces', 'interlude', 'close'],
+    /* `break` is a reserved word and cannot be destructured. */
+    classOf: { interlude: 'break' },
+  },
+
+  /* ── Assessment & Support ────────────────────────────────────────────────
+     A third family, and the first with no photographs at all: these are pages
+     of lists and diagrams. They share one set of styles — as-kicker, as-body,
+     as-note — and write the band name as the LAST class on the section. */
+  AssessmentPage: { dir: 'assessment', prefix: 'ai', fixture: 'as-assessment', query: 'getAssessment', sections: ['open', 'cycle', 'struct', 'sup', 'conv', 'next', 'close'], closeComponent: 'close' },
+  HomeworkPolicyPage: { dir: 'assessment', prefix: 'hp', fixture: 'as-homework-policy', query: 'getHomeworkPolicy', sections: ['open', 'item', 'frame', 'clear', 'gap', 'ask', 'close'], closeComponent: 'close' },
+  RemedialSupportPage: { dir: 'assessment', prefix: 'rs', fixture: 'as-remedial-support', query: 'getRemedialSupport', sections: ['open', 'journey', 'rules', 'note', 'close'], closeComponent: 'close' },
+  MentoringPage: { dir: 'assessment', prefix: 'mn', fixture: 'as-mentoring', query: 'getMentoring', sections: ['open', 'rel', 'jrn', 'roles', 'human', 'final'] },
+  ParentTeacherPage: { dir: 'assessment', prefix: 'pt', fixture: 'as-parent-teacher', query: 'getParentTeacher', sections: ['open', 'agenda', 'why', 'close'], closeComponent: 'close' },
+  CompetitiveExamPage: { dir: 'assessment', prefix: 'ce', fixture: 'as-competitive-exam', query: 'getCompetitiveExam', sections: ['open', 'list', 'feat', 'gal', 'close'], closeComponent: 'close' },
 };
 
 /** What each field on the page's own list objects is called on structure.cell. */
@@ -88,6 +116,9 @@ const FIELD = {
   /* the two stream pages */
   name: 'label', line: 'value', dir: 'note', body: 'value', state: 'state',
   core: 'core', optional: 'optional', additional: 'additional', coreOwed: 'owed',
+  /* Teaching & Learning */
+  anchor: 'note', quote: 'flag', owed: 'flag', inquiry: 'flag',
+  src: 'image', suffix: 'suffix', href: 'href', gloss: 'sub',
 };
 /**
  * Fields that leave the CMS because the page derives them.
@@ -95,13 +126,48 @@ const FIELD = {
  * both run pcm, pcb, com, hum in list order, so they are a palette the page
  * indexes rather than anything an editor should be asked to type.
  */
-const DERIVED = new Set(['n', 'nx', 'ny', 'tint', 'key']);
+const DERIVED = new Set(['nx', 'ny', 'tint', 'key', 'dur']);
+
+/**
+ * ⚠ `n` IS DECIDED FROM THE DATA, NOT ASSUMED.
+ *
+ * Every numbered run on the structure pages was a plain 01, 02, 03 sequence, so
+ * the page counts it. Three runs under Teaching & Learning are not: the library
+ * prints 17,574 books, Smart Classrooms prints 75 classrooms. Treating those as
+ * a sequence would have printed "01" where the figure belongs — a change no
+ * build and no count of cards would have noticed.
+ */
+const isSequence = (rows) => Array.isArray(rows) && rows.length > 0
+  && rows.every((r, i) => String(r?.n) === String(i + 1).padStart(2, '0'));
 
 const cfg = SECTIONS[PAGE];
 if (!cfg) { console.error(`unknown page: ${PAGE}`); process.exit(1); }
 
-const FILE = `${WEB}/components/academics/structure/${PAGE}.astro`;
+/* A band name is destructured straight out of the query, so it has to be a
+   usable identifier. Caught here rather than as "Unexpected break" from a
+   bundler two steps later. */
+const RESERVED = new Set(['break', 'case', 'catch', 'class', 'const', 'continue', 'default',
+  'delete', 'do', 'else', 'export', 'extends', 'finally', 'for', 'function', 'if', 'import',
+  'in', 'instanceof', 'new', 'return', 'super', 'switch', 'this', 'throw', 'try', 'typeof',
+  'var', 'void', 'while', 'with', 'yield', 'let', 'static', 'enum', 'await', 'implements',
+  'package', 'protected', 'interface', 'private', 'public']);
+for (const s of cfg.sections) {
+  if (RESERVED.has(s)) {
+    console.error(`
+  "${s}" is a reserved word and cannot be a band name — give it a`
+      + ` different name and map it with classOf.
+`);
+    process.exit(1);
+  }
+}
+
+const FILE = `${WEB}/components/academics/${cfg.dir ?? 'structure'}/${PAGE}.astro`;
 let src = readFileSync(FILE, 'utf8');
+
+/** The page's own declared lists, so `n` can be judged rather than guessed. */
+const LISTS = JSON.parse(readFileSync(`${OUT}/academics.json`, 'utf8'))[
+  `components/academics/${cfg.dir ?? 'structure'}/${PAGE}.astro`
+] ?? {};
 
 const tok = (s) => s.split('Sunbeam School Ballia').join('{schoolName}');
 
@@ -122,15 +188,45 @@ const onlyProse = (html) => [...html.matchAll(/<\/?([a-zA-Z][\w-]*)/g)].every((m
 const fixture = {};
 const misses = [];
 let swaps = 0;
+/** Set when the page closes with <AsClose />, whose headline needs splitting. */
+let closeSplitFor = null;
 
 const template = src.slice(src.indexOf('---', 3) + 3, src.indexOf('<style>'));
 
 for (const name of cfg.sections) {
   if (SKIP.has(name)) { console.log(`    (skipping ${cfg.prefix}-${name})`); continue; }
-  const open = template.indexOf(`<section class="${cfg.prefix}-${name}"`);
-  if (open < 0) { misses.push(`section ${cfg.prefix}-${name} not found`); continue; }
+  /**
+   * ⚠ THE CMS FIELD NAME AND THE CSS CLASS ARE ALLOWED TO DIFFER. Laboratories &
+   * Clubs has a band whose class is `lb-break`, and `break` is a reserved word —
+   * destructured out of the query it is a syntax error, which is why `classOf`
+   * exists. The class is what finds the band; the field name is what the page
+   * and the editor read.
+   */
+  const cls = (cfg.classOf ?? {})[name] ?? name;
+
+  /**
+   * ⚠ THE BAND NAME IS A CLASS IN THE LIST, NOT THE WHOLE ATTRIBUTE.
+   * The structure pages write `<section class="sc-open">`; the assessment pages
+   * write `<section class="as-sec as-sec--ivory as-pad ai-open">` — same idea,
+   * band name last. Matching the attribute's opening quote found neither of the
+   * assessment family, so the class is looked for as a word anywhere in the list.
+   */
+  const sectionAt = (n) => {
+    const want = `${cfg.prefix}-${(cfg.classOf ?? {})[n] ?? n}`;
+    const re = new RegExp(`<section[^>]*\\bclass="[^"]*\\b${want}\\b`);
+    const m = re.exec(template);
+    return m ? m.index : -1;
+  };
+
+  const open = sectionAt(name);
+  if (open < 0) {
+    /* The closing band is a component call, not a <section>; it is captured
+       separately below. */
+    if (name !== cfg.closeComponent) misses.push(`section ${cfg.prefix}-${cls} not found`);
+    continue;
+  }
   const next = cfg.sections
-    .map((n) => template.indexOf(`<section class="${cfg.prefix}-${n}"`))
+    .map(sectionAt)
     .filter((i) => i > open)
     .sort((a, b) => a - b)[0] ?? template.length;
 
@@ -142,6 +238,23 @@ for (const name of cfg.sections) {
   const edit = (from, to, all = false) => {
     if (!out.includes(from)) { misses.push(at(`no match: ${from.slice(0, 56).replace(/\s+/g, ' ')}`)); return; }
     out = all ? out.split(from).join(to) : out.replace(from, to);
+    swaps += 1;
+  };
+
+  /**
+   * ⚠ A FIELD READ IS REPLACED ON WORD BOUNDARIES, NOT AS A SUBSTRING.
+   *
+   * Rewriting `s.k` to `s.label` with a plain replace also hit `sys.kicker`,
+   * which contains `s.k`, and turned it into `sys.labelicker`. The page still
+   * built; the kicker simply rendered as nothing. Anchored on both sides, an
+   * identifier can only be replaced whole.
+   */
+  const editField = (v, from, to) => {
+    /* ⚠ DOUBLED BACKSLASHES. Inside a template literal `\b` is a backspace, not
+       a word boundary — written singly this matched nothing like it should. */
+    const pattern = `(?<![\\w$.])${v}\\.${from}\\b`;
+    if (!new RegExp(pattern).test(out)) { misses.push(at(`no match: ${v}.${from}`)); return; }
+    out = out.replace(new RegExp(pattern, 'g'), `${v}.${to}`);
     swaps += 1;
   };
 
@@ -169,7 +282,10 @@ for (const name of cfg.sections) {
 
   const movable = [];
   for (const m of statics) {
-    const rest = m[2].replace(/\s*data-reveal(-delay="\d+")?/g, '').trim();
+    const rest = m[2]
+      .replace(/\s*data-reveal(-delay="\d+")?/g, '')
+      .replace(/\s*id="[^"]*"/, '')
+      .trim();
     if (rest) { misses.push(at(`<p class="${m[1]}"> carries ${rest} — cannot reproduce`)); continue; }
     if (!onlyProse(m[3])) { misses.push(at(`<p class="${m[1]}"> holds markup, not just prose`)); continue; }
     movable.push(m);
@@ -181,7 +297,10 @@ for (const name of cfg.sections) {
   movable.filter((m) => !/kicker/.test(m[1])).forEach((m, i) => {
     F.body.push(inline(m[3]));
     const delay = (m[2].match(/data-reveal-delay="(\d+)"/) || [])[1];
-    edit(m[0], `<RichLine class="${m[1]}" text={${S}.body[${i}]}`
+    /* A paragraph that labels its section carries the id aria-labelledby points
+       at, so it has to come back out on the other side. */
+    const pid = (m[2].match(/id="([^"]*)"/) || [])[1];
+    edit(m[0], `<RichLine class="${m[1]}"${pid ? ` id="${pid}"` : ''} text={${S}.body[${i}]}`
       + `${/data-reveal\b/.test(m[2]) ? ' reveal' : ''}${delay ? ` revealDelay={${delay}}` : ''} />`);
   });
 
@@ -189,11 +308,25 @@ for (const name of cfg.sections) {
   const hm = band.match(/<h2([^>]*)>([\s\S]*?)<\/h2>/);
   if (hm) {
     const spans = [...hm[2].matchAll(/<span data-clip data-clip-delay="(\d+)"[^>]*>([\s\S]*?)<\/span>/g)];
-    if (!spans.length) misses.push(at('h2 is not a run of clipped spans'));
-    else {
+    if (!spans.length) {
+      /**
+       * ⚠ NOT EVERY HEADING IS CLIPPED. Experiential Learning's second band is
+       * a plain eyebrow h2 — and `aria-labelledby` points at it, so it keeps its
+       * tag, its id and its classes exactly; only the words come from the CMS.
+       */
+      if (onlyProse(hm[2])) {
+        F.heading = inline(hm[2]);
+        edit(hm[0], `<h2${hm[1]}>{${S}.heading}</h2>`);
+      } else {
+        misses.push(at('h2 is neither clipped spans nor plain prose'));
+      }
+    } else {
       const delays = spans.map((m) => Number(m[1]));
       F.heading = spans.map((m) => tok(m[2]
         .replace(/<em>([\s\S]*?)<\/em>/g, (x, v) => `{{${v.trim()}}}`)
+        /* ⚠ The entity is decoded here as it is in a paragraph. Left encoded,
+           the heading prints a literal &amp; where the ampersand belongs. */
+        .replace(/&amp;/g, '&')
         .replace(/\s+/g, ' ').trim())).join('\n');
       /* An even 150 stagger is ClipHeading's default; 0/150/290 passes its own. */
       const even = delays.every((d, i) => d === i * 150);
@@ -217,7 +350,24 @@ for (const name of cfg.sections) {
   });
 
   /* ── the runs of cells ─────────────────────────────────────────────────── */
-  const found = [...new Set([...band.matchAll(/\{(\w+)\.map\(/g)].map((m) => m[1]))];
+  /**
+   * ⚠ A RUN HAS TO BE A LIST THE PAGE DECLARED, not merely something mapped
+   * over. The assessment index maps `ringed`, which is `steps` with a ring
+   * position computed onto it — claiming `ringed` as the CMS run would have
+   * pointed the band at a list that does not exist and left `steps` behind.
+   */
+  /**
+   * ⚠ A RUN IS NOT ALWAYS MAPPED. Three of these pages hand a list straight to a
+   * component — `<AsRail steps={journey} />` — and one reads its gallery by
+   * index, `gallery[0]`. Neither is a `.map(`, so neither was claimed, while the
+   * frontmatter cleanup took the declaration anyway and left the page reading a
+   * name nothing defined.
+   */
+  const found = [...new Set([
+    ...[...band.matchAll(/\{(\w+)\.map\(/g)].map((m) => m[1]),
+    ...[...band.matchAll(/=\{(\w+)\}/g)].map((m) => m[1]),
+    ...[...band.matchAll(/\{(\w+)\[\d+\]/g)].map((m) => m[1]),
+  ])].filter((r) => r === cfg.pageRun || Array.isArray(LISTS[r]));
   /* The page-level list keeps its own name; only band runs become cells. */
   const runs = found.filter((r) => r !== cfg.pageRun);
   const all = cfg.pageRun && found.includes(cfg.pageRun) ? [cfg.pageRun, ...runs] : runs;
@@ -246,22 +396,91 @@ for (const name of cfg.sections) {
       for (const f of used) {
         if (seen.has(`${v}.${f}`)) continue;
         seen.add(`${v}.${f}`);
-        if (DERIVED.has(f)) {
-          if (f !== 'n') { misses.push(at(`${list}.${f} is a position — the page must own it`)); continue; }
-          if (!ix) { misses.push(at(`${list} numbers its items but the callback has no index`)); continue; }
-          edit(`{${v}.n}`, `{String(${ix} + 1).padStart(2, '0')}`, true);
+        if (f === 'n') {
+          if (isSequence(LISTS[list])) {
+            if (!ix) { misses.push(at(`${list} is numbered but its callback has no index`)); continue; }
+            edit(`{${v}.n}`, `{String(${ix} + 1).padStart(2, '0')}`, true);
+          } else {
+            /* A real figure, not a position in the run. */
+            editField(v, 'n', 'number');
+          }
+        } else if (DERIVED.has(f)) {
+          misses.push(at(`${list}.${f} is design — the page must own it`));
         } else if (!FIELD[f]) {
           misses.push(at(`${list}.${f} has nowhere to go on a cell`));
         } else if (FIELD[f] !== f) {
-          edit(`${v}.${f}`, `${v}.${FIELD[f]}`, true);
+          editField(v, f, FIELD[f]);
         }
       }
     }
-    if (field) edit(`{${list}.map(`, `{${S}.${field}.map(`, true);
+    if (field) {
+      /* All three ways a run is reached, so nothing is left pointing at the
+         name the frontmatter cleanup removed. */
+      const target = `${S}.${field}`;
+      if (out.includes(`{${list}.map(`)) edit(`{${list}.map(`, `{${target}.map(`, true);
+      if (out.includes(`={${list}}`)) edit(`={${list}}`, `={${target}}`, true);
+      if (new RegExp(`\\{${list}\\[\\d`).test(out)) {
+        out = out.split(`{${list}[`).join(`{${target}[`);
+        swaps += 1;
+      }
+    }
   });
 
   fixture[S] = F;
   if (out !== band) src = src.replace(band, out);
+}
+
+/**
+ * ── THE SHARED CLOSING BAND ────────────────────────────────────────────────
+ *
+ * ⚠ ITS CONTENT IS IN PROPS, NOT IN THE MARKUP. Eighteen assessment pages end
+ * with `<AsClose kicker="…" lead="…" accent="…" body="…" photo={pCohort} />`,
+ * so nothing the band scanner looks for — a kicker paragraph, an h2, a <p> —
+ * is there to find. Left alone it also orphaned `pCohort`, whose declaration
+ * the frontmatter cleanup had already taken.
+ *
+ * The headline is two props because the component sets the second half orange
+ * and italic. The CMS stores it as the same two lines with {{…}} that every
+ * other heading uses, and the page splits it back.
+ */
+if (cfg.closeComponent) {
+  const S = cfg.closeComponent;
+  const cm = src.match(/<AsClose\b[\s\S]*?\/>/);
+  if (!cm) {
+    misses.push(`${S}: no <AsClose /> found`);
+  } else {
+    const prop = (name) => (cm[0].match(new RegExp(`\\b${name}="([^"]*)"`)) || [])[1];
+    const photo = (cm[0].match(/\bphoto=\{(\w+)\}/) || [])[1];
+    const lead = prop('lead') ?? '';
+    const accent = prop('accent') ?? '';
+
+    fixture[S] = {
+      kicker: inline(prop('kicker') ?? ''),
+      heading: `${tok(lead)}\n{{${tok(accent)}}}`,
+      body: [inline(prop('body') ?? '')],
+      caption: null,
+      /* ⚠ AsClose HARDCODES alt="" — the photograph is decoration and its
+         subject is never the sentence beside it. Recorded as empty rather than
+         missing, so the fixture builder can tell the two apart. */
+      shots: photo ? [{ key: photo, alt: '' }] : [],
+      runs: [],
+    };
+
+    const rebuilt = cm[0]
+      .replace(/\bkicker="[^"]*"/, `kicker={${S}.kicker}`)
+      .replace(/\blead="[^"]*"/, `lead={closeLead}`)
+      .replace(/\baccent="[^"]*"/, `accent={closeAccent}`)
+      .replace(/\bbody="[^"]*"/, `body={${S}.body[0]}`)
+      .replace(/\bphoto=\{\w+\}/, `photo={${S}.shots[0]?.image ?? null}`);
+    src = src.replace(cm[0], rebuilt);
+    swaps += 1;
+
+    /* ⚠ THE SPLIT IS WRITTEN WHERE THE DESTRUCTURE IS. At this point the
+       frontmatter still reads `const ac = await getAcademicTopic(...)` — the
+       query call these two lines depend on is written further down, so the
+       insertion is deferred to there. */
+    closeSplitFor = S;
+  }
 }
 
 /* ── the frontmatter: one query call in place of the topic reads ──────────── */
@@ -271,12 +490,49 @@ for (const name of cfg.sections) {
 
   /* Every `const pX = ac.pic('pX')` and `const list = ac.section(...)` goes:
      the photographs live in their band's `shots` now, and the runs in `cells`. */
-  const dead = [...src.matchAll(/^const \w+ = ac\.(?:pic|section)\([^\n]*\n/gm)].map((m) => m[0]);
-  for (const d of dead) { src = src.replace(d, ''); swaps += 1; }
+  const dead = [...src.matchAll(/^const (\w+) = ac\.(?:pic|section)\([^\n]*\n/gm)];
+  for (const d of dead) { src = src.replace(d[0], ''); swaps += 1; }
+
+  /**
+   * ⚠ NOTHING MAY BE REMOVED WHILE THE PAGE STILL READS IT.
+   *
+   * This cleanup is unconditional but band capture is not: Competitive Exams
+   * reads its gallery as `gallery[0]`, never `gallery.map(`, so the run was
+   * never claimed and the declaration went anyway. The build got as far as that
+   * page and said "gallery is not defined". Caught here instead, where the fix
+   * is obvious.
+   */
+  const bandNames = new Set([...cfg.sections, cfg.pageRun].filter(Boolean));
+  /* Only the template, and only outside comments: a name in prose is not a read,
+     and a band field legitimately carries the same word the old list did. */
+  /* ⚠ ONLY WHAT IS INSIDE AN EXPRESSION IS A READ. "None of the programmes
+     below is compulsory" is prose that happens to contain a list's name, and
+     flagging it would train whoever runs this to ignore the warning. */
+  const live = (src.slice(src.indexOf('---', 3) + 3)
+    .replace(/\/\*[\s\S]*?\*\//g, '')
+    .replace(/\{\/\*[\s\S]*?\*\/\}/g, '')
+    .match(/\{[^{}]*\}/g) ?? []).join(' ');
+  for (const [, name] of dead) {
+    if (bandNames.has(name)) continue;
+    if (new RegExp(`(?<![\\w$.])${name}(?![\\w$])`).test(live)) {
+      misses.push(`frontmatter: ${name} was removed but the page still reads it`);
+    }
+  }
 
   const topic = src.match(/^const ac = await getAcademicTopic\([^\n]*\n/m);
   if (!topic) misses.push('frontmatter: no getAcademicTopic call to replace');
-  else { src = src.replace(topic[0], `const { ${fields} } = await ${q}();\n`); swaps += 1; }
+  else {
+    let head = `const { ${fields} } = await ${q}();\n`;
+    if (closeSplitFor) {
+      head += '\n/* AsClose takes its headline as two props; the record stores the same two\n'
+        + '   lines with {{…}} that every other heading uses. */\n'
+        + `const [closeLead = '', closeAccent = ''] = (${closeSplitFor}.heading ?? '')\n`
+        + "  .split('\\n')\n"
+        + "  .map((l) => l.replace(/^\\{\\{|\\}\\}$/g, '').trim());\n";
+    }
+    src = src.replace(topic[0], head);
+    swaps += 1;
+  }
 
   const imp = src.match(/^import \{ getAcademicTopic \} from '([^']+)';$/m);
   if (!imp) misses.push('frontmatter: no getAcademicTopic import to replace');

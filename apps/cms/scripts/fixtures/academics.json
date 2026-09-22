@@ -4804,10 +4804,11 @@
     "streamAdditional": [
       "Artificial Intelligence",
       "Kathak",
-      "Fine Arts",
+      "Painting",
       "Legal Studies",
       "Agriculture",
-      "Entrepreneurship"
+      "Entrepreneurship",
+      "Yoga"
     ],
     "streamDetail": [
       {
@@ -4827,15 +4828,17 @@
           "Hindi",
           "Physical Education",
           "Applied Maths",
-          "Geography"
+          "Geography",
+          "Sanskrit"
         ],
         "additional": [
           "Artificial Intelligence",
           "Kathak",
-          "Fine Arts",
+          "Painting",
           "Legal Studies",
           "Agriculture",
-          "Entrepreneurship"
+          "Entrepreneurship",
+          "Yoga"
         ],
         "unverified": false
       },
@@ -4856,15 +4859,17 @@
           "Hindi",
           "Physical Education",
           "Applied Maths",
-          "Geography"
+          "Geography",
+          "Sanskrit"
         ],
         "additional": [
           "Artificial Intelligence",
           "Kathak",
-          "Fine Arts",
+          "Painting",
           "Legal Studies",
           "Agriculture",
-          "Entrepreneurship"
+          "Entrepreneurship",
+          "Yoga"
         ],
         "unverified": false
       },
@@ -4885,15 +4890,17 @@
           "Hindi",
           "Physical Education",
           "Applied Maths",
-          "Geography"
+          "Geography",
+          "Sanskrit"
         ],
         "additional": [
           "Artificial Intelligence",
           "Kathak",
-          "Fine Arts",
+          "Painting",
           "Legal Studies",
           "Agriculture",
-          "Entrepreneurship"
+          "Entrepreneurship",
+          "Yoga"
         ],
         "unverified": false
       },
@@ -4901,12 +4908,12 @@
         "name": "Humanities",
         "accent": "violet",
         "glyph": "language",
-        "full": "History · Political Science · Geography",
+        "full": "History · Political Science · Economics",
         "body": "Law, civil services, design, media and the social sciences.",
         "core": [
           "History",
           "Political Science",
-          "Geography",
+          "Economics",
           "English"
         ],
         "optional": [
@@ -4914,15 +4921,16 @@
           "Hindi",
           "Physical Education",
           "Applied Maths",
-          "Geography"
+          "Sanskrit"
         ],
         "additional": [
           "Artificial Intelligence",
           "Kathak",
-          "Fine Arts",
+          "Painting",
           "Legal Studies",
           "Agriculture",
-          "Entrepreneurship"
+          "Entrepreneurship",
+          "Yoga"
         ],
         "unverified": false,
         "coreUnverified": true
@@ -4933,7 +4941,8 @@
       "Hindi",
       "Physical Education",
       "Applied Maths",
-      "Geography"
+      "Geography",
+      "Sanskrit"
     ],
     "supports": [
       {
@@ -6202,7 +6211,35 @@
         "score": "UPES Dehradun",
         "description": "One of the five placements outside Delhi and Varanasi on the board."
       }
-    ]
+    ],
+    "careerGuidanceOpen": {
+      "kicker": "A conversation that counts",
+      "heading": "It opens\n{{with a room.}}",
+      "body": [
+        "The programme begins as a single session for the whole senior school. A visiting speaker takes the hall on a lapel microphone under a deck headed **“Dream BIG aim HIGH”**, opening on a line from Swami Vivekananda — *“knowledge does not mean simply intellectual assent, it means realisation.”*",
+        "Beside the stage the school has chalked one word on a blackboard and left it there: **CAREER**. Twenty-six photographs of the day were published, and a second day separately.",
+        "The school does not publish who spoke or what was covered — his name is printed on the slide behind him but cannot be read with certainty, so it is not guessed at here. The full gallery is under [School Activities](/beyond-academics/school-activities/career-counselling/)."
+      ]
+    },
+    "careerGuidanceMain": {
+      "kicker": "One student, one counsellor",
+      "heading": "One\n{{at a time.}}",
+      "body": [
+        "The school’s own hand-painted banner sets the audience, and it is a specific one: **“Career Counseling — Class X & XI — Your Journey.”** Behind that banner the day stops being an assembly. Each student takes a chair opposite a counsellor working from a laptop, and several bring a parent or an elder sibling to sit alongside."
+      ]
+    },
+    "careerGuidanceGive": {
+      "kicker": "What it gives",
+      "heading": "Clarity today,\n{{confidence tomorrow.}}",
+      "body": []
+    },
+    "careerGuidanceClose": {
+      "kicker": "A day, in two halves",
+      "heading": "Your journey,\n{{in their words.}}",
+      "body": [
+        "The school publishes the programme, the year groups it is for, and twenty-six photographs of the first day. It does not publish who spoke, what was covered, or how a family books a session — and none of that is invented here."
+      ]
+    }
   },
   "data/parentsForum.ts": {
     "agendaHeading": "Agenda for Parents Forum: Session 2025-26 Class IX to XII",

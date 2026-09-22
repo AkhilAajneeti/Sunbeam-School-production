@@ -1,0 +1,125 @@
+{
+  "open": {
+    "kicker": "Where it applies",
+    "heading": "One subject,\n{{not the whole year.}}",
+    "body": [
+      "Remedial support at Sunbeam is attached to a subject, not to a student. It runs where a result in **Classes VIII and IX** falls below the threshold in a single subject, and in **Class XI** where one subject is failed — additional teaching in that subject, followed by a retest.",
+      "The threshold mark itself is not published, and no percentage is quoted here. What *is* published, unusually, is the timetable the retest has to obey — and that turns out to be the part a family can actually use."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pBench",
+        "asset": "assets/photos/sb-chem-lab.jpg",
+        "name": "sb-chem-lab",
+        "alt": "Students of {schoolName} working along the chemistry bench, test tubes held over the burners"
+      },
+      {
+        "key": "pActivity",
+        "asset": "assets/photos/sb-maths-lab.jpg",
+        "name": "sb-maths-lab",
+        "alt": "Students of {schoolName} seated on the floor of a decorated activity room during a lesson"
+      }
+    ],
+    "cells": [],
+    "cellsTwo": []
+  },
+  "journey": {
+    "kicker": "The remedial journey",
+    "heading": "A fair {{second chance.}}",
+    "body": [],
+    "caption": null,
+    "shots": [],
+    "cells": [
+      {
+        "mark": "search",
+        "label": "Identify",
+        "value": "A result falls below the required mark in one subject — Classes VIII and IX — or one subject is failed in Class XI."
+      },
+      {
+        "mark": "hand",
+        "label": "Support",
+        "value": "Additional teaching is provided in that subject. The support is attached to the subject, not to the student."
+      },
+      {
+        "mark": "hourglass",
+        "label": "Prepare",
+        "value": "At least ten days pass before the retest, so the additional teaching has actually happened."
+      },
+      {
+        "mark": "clipboard",
+        "label": "Retest",
+        "value": "The student sits the retest on the published schedule, and the result is declared with the annual one."
+      }
+    ],
+    "cellsTwo": []
+  },
+  "rules": {
+    "kicker": "The published rules",
+    "heading": "Support first.\n{{Then a fair retest.}}",
+    "body": [
+      "Most schools promise extra help. Few publish the calendar it has to run to. Everything on the right comes from that published policy, and each rule exists to stop a retest becoming a formality.",
+      "**Not published:** the pass threshold itself, the form the additional teaching takes, or who delivers it. None is estimated here. The wider cycle is on [Assessment & Support](/academics/assessment/)."
+    ],
+    "caption": null,
+    "shots": [],
+    "cells": [
+      {
+        "mark": "hands",
+        "label": "Applicable classes",
+        "value": "Classes VIII and IX where a single subject falls below the threshold, and Class XI where one subject is failed."
+      },
+      {
+        "mark": "book",
+        "label": "Additional teaching",
+        "value": "Extra teaching is provided in that subject before any retest is sat — the second chance is to learn it, not to sit it again."
+      },
+      {
+        "mark": "calendar",
+        "label": "Preparation time",
+        "value": "A retest sits no sooner than **ten days** after results are announced, with **two clear days** between papers where a student sits more than one."
+      },
+      {
+        "mark": "megaphone",
+        "label": "Results window",
+        "value": "Results are published within **two and a half weeks** of the main examination — short enough for the ten-day clock to be useful."
+      },
+      {
+        "mark": "shield",
+        "label": "Medical absence",
+        "value": "A medical certificate does not waive the retest. A promotion is not given on the half-yearly alone."
+      }
+    ],
+    "cellsTwo": []
+  },
+  "note": {
+    "kicker": null,
+    "heading": null,
+    "body": [
+      "Remedial support is about giving the student *another opportunity to learn* — **not simply repeating an examination.**",
+      "Where the difficulty is noticed rather than measured, it reaches [mentoring](/academics/assessment/mentoring/) first; results and next steps are discussed at the [parent–teacher meeting](/academics/assessment/parent-teacher-meetings/) that follows."
+    ],
+    "caption": null,
+    "shots": [],
+    "cells": [],
+    "cellsTwo": []
+  },
+  "close": {
+    "kicker": "A retest with dates attached",
+    "heading": "Not a second sitting,\n{{a second chance.}}",
+    "body": [
+      "The school publishes the retest calendar, the classes it applies to and the conditions around the additional teaching. It does not publish the pass threshold, the form the extra teaching takes, or who delivers it — and none of those is estimated here."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pCohort",
+        "asset": "assets/photos/sunbeem-3.jpg",
+        "name": "sunbeem-3",
+        "alt": ""
+      }
+    ],
+    "cells": [],
+    "cellsTwo": []
+  }
+}

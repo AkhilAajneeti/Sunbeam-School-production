@@ -63,15 +63,12 @@ import SmartImage from '../../../components/ui/SmartImage.astro';
 
 /* ── PHOTOGRAPHY ────────────────────────────────────────────────────────────
    Each frame was chosen because it shows the thing its section is about. */
-import { getAcademicTopic } from '../../../lib/cms';
+import ClipHeading from '../../ui/ClipHeading.astro';
+import RichLine from '../../ui/RichLine.astro';
+import { getMethodology } from '../../../lib/cms';
 import RichLine from '../../ui/RichLine.astro';
 
-const ac = await getAcademicTopic('/academics/teaching-learning/methodology/');
-const pDesk = ac.pic('pDesk');
-const pTables = ac.pic('pTables');
-const pThread = ac.pic('pThread');
-const pChef = ac.pic('pChef');
-const pCohort = ac.pic('pCohort');
+const { open, three, collab, plat, close } = await getMethodology();
 
 const S = 'Sunbeam School Ballia';
 
@@ -100,11 +97,9 @@ const MARK: Record<string, string> = {
    the Principal's own published sentences and one certification held by a
    hundred members of staff. A method is only worth printing if each part of it
    points at something a reader can go and verify. */
-const three = ac.section('three').points;
 
 /* ── THE FOUR PLATFORMS ─────────────────────────────────────────────────────
    The school's own published record, and nothing beyond it. */
-const platforms = ac.section('platforms').points;
 
 const SMART = '/academics/teaching-learning/smart-classrooms/';
 ---
@@ -127,11 +122,8 @@ const SMART = '/academics/teaching-learning/smart-classrooms/';
 
   <div class="u-container tm-open__grid">
     <div class="tm-open__copy">
-      <p class="tm-kicker" data-reveal>The method, in the school’s words</p>
-      <h2 class="tm-h tm-open__h" id="tm-open-t">
-        <span data-clip data-clip-delay="0">In all areas</span>
-        <span data-clip data-clip-delay="150"><em>of teaching.</em></span>
-      </h2>
+      <p class="tm-kicker" data-reveal>{open.kicker}</p>
+      <ClipHeading class="tm-h tm-open__h" id="tm-open-t" text={open.heading} />
 
       <p class="tm-body" data-reveal data-reveal-delay="200">
         {S} states its method in one sentence, and the last few words are the part that matters:
@@ -147,11 +139,7 @@ const SMART = '/academics/teaching-learning/smart-classrooms/';
         </p>
       </blockquote>
 
-      <p class="tm-body" data-reveal data-reveal-delay="340">
-        Three things, and none of them a timetabled slot. There is no collaboration lesson and no
-        multiple-intelligence week — the claim is that all three run through ordinary teaching,
-        which is a harder thing to promise and a harder thing to fake.
-      </p>
+      <RichLine class="tm-body" text={open.body[0]} reveal revealDelay={340} />
     </div>
 
     <div class="tm-open__media">
@@ -160,8 +148,7 @@ const SMART = '/academics/teaching-learning/smart-classrooms/';
 
       <figure class="tm-open__lead" data-mask data-zoom data-zoom-to="1.06">
         <SmartImage
-          file={pDesk}
-          alt={ac.picAlt('pDesk')}
+          file={open.shots[0]?.image} alt={open.shots[0]?.alt ?? ''}
          
           widths={[560, 900, 1200]}
           sizes="(max-width: 1023px) 92vw, 46vw"
@@ -173,8 +160,7 @@ const SMART = '/academics/teaching-learning/smart-classrooms/';
       {/* The circular crop breaking the picture's bottom-left corner. */}
       <figure class="tm-open__disc" data-parallax data-parallax-y="24">
         <SmartImage
-          file={pTables}
-          alt={ac.picAlt('pTables')}
+          file={open.shots[1]?.image} alt={open.shots[1]?.alt ?? ''}
          
           widths={[320, 520]}
           sizes="(max-width: 1023px) 40vw, 18vw"
@@ -205,20 +191,13 @@ const SMART = '/academics/teaching-learning/smart-classrooms/';
 
   <div class="u-container tm-three__grid" data-draw-scope>
     <div class="tm-three__copy">
-      <p class="tm-kicker" data-reveal>The three, unpacked</p>
-      <h2 class="tm-h tm-three__h" id="tm-three-t">
-        <span data-clip data-clip-delay="0">Named, and each one</span>
-        <span data-clip data-clip-delay="150"><em>anchored to something</em></span>
-      </h2>
-      <p class="tm-body" data-reveal data-reveal-delay="200">
-        A method is only worth reading if each part of it points at something checkable. All three
-        of Sunbeam’s do — two to the Principal’s own published words, and one to a certification
-        held by a hundred members of staff.
-      </p>
+      <p class="tm-kicker" data-reveal>{three.kicker}</p>
+      <ClipHeading class="tm-h tm-three__h" id="tm-three-t" text={three.heading} />
+      <RichLine class="tm-body" text={three.body[0]} reveal revealDelay={200} />
     </div>
 
     <ol class="tm-three__list">
-      {three.map((t, i) => (
+      {three.cells.map((t, i) => (
         <li class="tm-pillar" data-reveal data-reveal-delay={120 + i * 130}>
           {/* ⚠ THE TILE AND THE RULE ARE ONE ROW. That is what makes the three
               read as a system rather than as three cards standing near each
@@ -232,15 +211,15 @@ const SMART = '/academics/teaching-learning/smart-classrooms/';
             <span class="tm-pillar__rule" aria-hidden="true"><span data-draw></span></span>
           </div>
 
-          <h3 class="tm-pillar__k">{t.k}</h3>
+          <h3 class="tm-pillar__k">{t.label}</h3>
           <RichLine
   tag="p"
-  text={t.anchor}
+  text={t.note}
 />
           <RichLine
   tag="p"
   class="tm-pillar__b"
-  text={t.body}
+  text={t.value}
 />
 
           {t.mark === 'screen' && (
@@ -268,28 +247,12 @@ const SMART = '/academics/teaching-learning/smart-classrooms/';
 
   <div class="u-container tm-collab__grid">
     <div class="tm-collab__copy">
-      <p class="tm-kicker" data-reveal>What collaboration looks like when it is real</p>
-      <h2 class="tm-h tm-collab__h" id="tm-collab-t">
-        <span data-clip data-clip-delay="0">One basket</span>
-        <span data-clip data-clip-delay="150"><em>of thread.</em></span>
-      </h2>
-      <p class="tm-body" data-reveal data-reveal-delay="200">
-        The word “collaborative” survives on most school sites without ever touching a photograph.
-        Here it does.
-      </p>
-      <p class="tm-body" data-reveal data-reveal-delay="270">
-        In the school’s own embroidery session the students are not each issued a kit — they work
-        from <strong>one shared basket of thread</strong>, which means the thing a child needs next
-        is in somebody else’s hand.
-      </p>
-      <p class="tm-body" data-reveal data-reveal-delay="340">
-        The cooking activity is built the same way: one demonstration table, a class in paper chef
-        hats around it, and no version of the task that can be completed alone.
-      </p>
-      <p class="tm-body tm-collab__pt" data-reveal data-reveal-delay="410">
-        Neither is a lesson called Collaboration. That is the school’s point — it is in the shape of
-        an ordinary activity rather than in a slot on the timetable.
-      </p>
+      <p class="tm-kicker" data-reveal>{collab.kicker}</p>
+      <ClipHeading class="tm-h tm-collab__h" id="tm-collab-t" text={collab.heading} />
+      <RichLine class="tm-body" text={collab.body[0]} reveal revealDelay={200} />
+      <RichLine class="tm-body" text={collab.body[1]} reveal revealDelay={270} />
+      <RichLine class="tm-body" text={collab.body[2]} reveal revealDelay={340} />
+      <RichLine class="tm-body tm-collab__pt" text={collab.body[3]} reveal revealDelay={410} />
     </div>
 
     {/* THE STACK. Two frames at different depths, the second overlapping the
@@ -297,8 +260,7 @@ const SMART = '/academics/teaching-learning/smart-classrooms/';
     <div class="tm-collab__media">
       <figure class="tm-collab__lead" data-mask data-zoom data-zoom-to="1.07">
         <SmartImage
-          file={pThread}
-          alt={ac.picAlt('pThread')}
+          file={collab.shots[0]?.image} alt={collab.shots[0]?.alt ?? ''}
          
           widths={[620, 1000, 1320]}
           sizes="(max-width: 1023px) 92vw, 44vw"
@@ -308,8 +270,7 @@ const SMART = '/academics/teaching-learning/smart-classrooms/';
       </figure>
       <figure class="tm-collab__inset" data-parallax data-parallax-y="-26">
         <SmartImage
-          file={pChef}
-          alt={ac.picAlt('pChef')}
+          file={collab.shots[1]?.image} alt={collab.shots[1]?.alt ?? ''}
          
           widths={[360, 620]}
           sizes="(max-width: 1023px) 46vw, 22vw"
@@ -329,29 +290,22 @@ const SMART = '/academics/teaching-learning/smart-classrooms/';
 
   <div class="u-container tm-plat__grid">
     <div class="tm-plat__copy">
-      <p class="tm-kicker" data-reveal>And the second of the three</p>
-      <h2 class="tm-h tm-plat__h" id="tm-plat-t">
-        <span data-clip data-clip-delay="0">Different talents,</span>
-        <span data-clip data-clip-delay="150"><em>different platforms.</em></span>
-      </h2>
-      <p class="tm-body" data-reveal data-reveal-delay="200">
-        “All the students do not have the same talents” is easy to say and expensive to act on —
-        acting on it means running enough different things that a child who is not academic still
-        has somewhere to be good. The school’s own published record is the evidence.
-      </p>
+      <p class="tm-kicker" data-reveal>{plat.kicker}</p>
+      <ClipHeading class="tm-h tm-plat__h" id="tm-plat-t" text={plat.heading} />
+      <RichLine class="tm-body" text={plat.body[0]} reveal revealDelay={200} />
     </div>
 
     <ol class="tm-plat__list">
-      {platforms.map((p, i) => (
+      {plat.cells.map((p, i) => (
         <li class="tm-plat__item" data-drift="26" style={`--i: ${i};`}>
-          <p class="tm-plat__n t-tabular">{p.n}</p>
+          <p class="tm-plat__n t-tabular">{String(i + 1).padStart(2, '0')}</p>
           <span class="tm-plat__i" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none">
               <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={MARK[p.mark]} />
             </svg>
           </span>
-          <h3 class="tm-plat__k">{p.k}</h3>
-          <p class="tm-plat__b">{p.body}</p>
+          <h3 class="tm-plat__k">{p.label}</h3>
+          <p class="tm-plat__b">{p.value}</p>
         </li>
       ))}
     </ol>
@@ -364,8 +318,7 @@ const SMART = '/academics/teaching-learning/smart-classrooms/';
 <section class="tm-close" aria-labelledby="tm-close-t">
   <div class="tm-close__media" aria-hidden="true" data-parallax data-parallax-y="-40">
     <SmartImage
-      file={pCohort}
-      alt={ac.picAlt('pCohort')}
+      file={close.shots[0]?.image} alt={close.shots[0]?.alt ?? ''}
      
       widths={[1024, 1600, 2000]}
       sizes="100vw"
@@ -381,15 +334,8 @@ const SMART = '/academics/teaching-learning/smart-classrooms/';
         stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" />
     </svg>
 
-    <h2 class="tm-h tm-close__h" id="tm-close-t">
-      <span data-clip data-clip-delay="0">Three things,</span>
-      <span data-clip data-clip-delay="150"><em>everywhere.</em></span>
-    </h2>
-    <p class="tm-close__b" data-reveal data-reveal-delay="180">
-      The school publishes its method, the Principal’s words behind two of the three, and the
-      certification behind the first. It does not publish lesson plans, a scheme of work, or an
-      observation framework — so no lesson shape is described here.
-    </p>
+    <ClipHeading class="tm-h tm-close__h" id="tm-close-t" text={close.heading} />
+    <RichLine class="tm-close__b" text={close.body[0]} reveal revealDelay={180} />
   </div>
 </section>
 
@@ -404,7 +350,7 @@ const SMART = '/academics/teaching-learning/smart-classrooms/';
     color: var(--sb-violet);
   }
 
-  .tm-h {
+  :global(.tm-h) {
     margin: clamp(12px, 1.5vw, 18px) 0 0;
     font-family: var(--sb-font-display);
     font-weight: 700;
@@ -412,17 +358,17 @@ const SMART = '/academics/teaching-learning/smart-classrooms/';
     letter-spacing: -0.04em;
     color: var(--sb-charcoal);
   }
-  .tm-h span { display: block; }
-  .tm-h em { font-style: normal; color: var(--sb-violet); }
+  :global(.tm-h span) { display: block; }
+  :global(.tm-h em) { font-style: normal; color: var(--sb-violet); }
 
-  .tm-body {
+  :global(.tm-body) {
     max-width: 44ch;
     margin: clamp(14px, 1.7vw, 20px) 0 0;
     font-size: clamp(13px, 0.95vw, 15px);
     line-height: 1.78;
     color: var(--sb-text-secondary);
   }
-  .tm-body strong { font-weight: 700; color: var(--sb-charcoal); }
+  :global(.tm-body strong) { font-weight: 700; color: var(--sb-charcoal); }
 
   /* The four-point sparkle. One drawing, three placements. */
   .tm-spark {
@@ -486,7 +432,7 @@ const SMART = '/academics/teaching-learning/smart-classrooms/';
     gap: clamp(28px, 4vw, 66px);
     align-items: center;
   }
-  .tm-open__h { font-size: clamp(30px, 3.6vw, 52px); }
+  :global(.tm-open__h) { font-size: clamp(30px, 3.6vw, 52px); }
 
   /* ⚠ THE QUOTATION IS THE SCHOOL'S OWN SENTENCE and is set as an object: an
      orange rule down its left edge, italic, at reading size. Folded into a
@@ -599,7 +545,7 @@ const SMART = '/academics/teaching-learning/smart-classrooms/';
     gap: clamp(28px, 3.6vw, 60px);
     align-items: start;
   }
-  .tm-three__h { font-size: clamp(25px, 2.85vw, 38px); }
+  :global(.tm-three__h) { font-size: clamp(25px, 2.85vw, 38px); }
   .tm-three__copy .tm-body { max-width: 38ch; }
 
   .tm-three__list {
@@ -670,7 +616,7 @@ const SMART = '/academics/teaching-learning/smart-classrooms/';
     color: var(--sb-charcoal);
   }
   .tm-pillar__a--q { font-style: italic; font-weight: 600; }
-  .tm-pillar__b {
+  :global(.tm-pillar__b) {
     max-width: 32ch;
     margin: clamp(9px, 1vw, 13px) 0 0;
     font-size: clamp(11.5px, 0.86vw, 13.5px);
@@ -718,10 +664,10 @@ const SMART = '/academics/teaching-learning/smart-classrooms/';
     gap: clamp(28px, 4vw, 66px);
     align-items: center;
   }
-  .tm-collab__h { font-size: clamp(28px, 3.4vw, 48px); }
+  :global(.tm-collab__h) { font-size: clamp(28px, 3.4vw, 48px); }
   /* The last paragraph is the school's point, so it is set apart on a rule
      rather than run on as a fourth identical block. */
-  .tm-collab__pt {
+  :global(.tm-collab__pt) {
     margin-top: clamp(16px, 1.9vw, 24px);
     padding-top: clamp(14px, 1.6vw, 20px);
     border-top: 1px solid var(--sb-border);
@@ -791,7 +737,7 @@ const SMART = '/academics/teaching-learning/smart-classrooms/';
     gap: clamp(28px, 3.6vw, 60px);
     align-items: start;
   }
-  .tm-plat__h { font-size: clamp(25px, 2.85vw, 38px); }
+  :global(.tm-plat__h) { font-size: clamp(25px, 2.85vw, 38px); }
   .tm-plat__copy .tm-body { max-width: 38ch; }
 
   .tm-plat__list {
@@ -894,14 +840,14 @@ const SMART = '/academics/teaching-learning/smart-classrooms/';
     color: var(--sb-lime);
     opacity: 0.9;
   }
-  .tm-close__h {
+  :global(.tm-close__h) {
     max-width: 20ch;
     margin: 0;
     font-size: clamp(28px, 3.4vw, 48px);
     color: #fff;
   }
-  .tm-close__h em { color: var(--sb-lime); font-style: italic; }
-  .tm-close__b {
+  :global(.tm-close__h em) { color: var(--sb-lime); font-style: italic; }
+  :global(.tm-close__b) {
     max-width: 62ch;
     margin: clamp(15px, 1.8vw, 22px) 0 0;
     font-size: clamp(12.5px, 0.92vw, 14.5px);

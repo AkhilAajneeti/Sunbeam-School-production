@@ -73,16 +73,15 @@ import SmartImage from '../../../components/ui/SmartImage.astro';
 /* ── PHOTOGRAPHY ────────────────────────────────────────────────────────────
    ⚠ SIX DISTINCT FRAMES, and the banner is a seventh. A page about one subject
    is the easiest place on the site to end up showing the same room five times. */
-import { getAcademicTopic } from '../../../lib/cms';
+import ClipHeading from '../../ui/ClipHeading.astro';
+import RichLine from '../../ui/RichLine.astro';
+import { getSmartClassrooms } from '../../../lib/cms';
 
-const ac = await getAcademicTopic('/academics/teaching-learning/smart-classrooms/');
-const pLabBusy = ac.pic('pLabBusy');
-const pCanva = ac.pic('pCanva');
-const pLabRow = ac.pic('pLabRow');
-const pLabEmpty = ac.pic('pLabEmpty2');
-const pLabTaught = ac.pic('pLabTaught');
-const pCarnival = ac.pic('pCarnival');
-const pCohort = ac.pic('pCohort');
+const { room, sys, beyond, prac, close } = await getSmartClassrooms();
+/* ⚠ TWO SLOTS, ONE PHOTOGRAPH. pLabEmpty and pLabEmpty2 both resolve to the
+   computer-laboratory frame; they exist only because the two placements describe
+   it differently. One variable was bound to the other's slot, so a frame was
+   drawn with its neighbour's description. Each placement now takes its own. */
 
 const S = 'Sunbeam School Ballia';
 
@@ -113,12 +112,10 @@ const COUNT_DUR: Record<string, number> = {
   'Junior computer lab computers': 1.35,
   'Senior computer lab computers': 1.6,
 };
-const system = ac.section('system').points.map((p) => ({ ...p, dur: COUNT_DUR[p.k] ?? 1.4 }));
 
 /* ── THE THREE CONCEPTS ─────────────────────────────────────────────────────
    ⚠ THE LABELS ARE DESIGN, THE LINES UNDER THEM ARE EVIDENCE. Each `body` is a
    published fact and nothing more — no capability, no outcome, no percentage. */
-const beyond = ac.section('beyond').points;
 
 const STEM = '/academics/teaching-learning/stem-robotics/';
 ---
@@ -147,25 +144,15 @@ const STEM = '/academics/teaching-learning/stem-robotics/';
 
   <div class="u-container sc-room__grid">
     <div class="sc-room__copy">
-      <p class="sc-kicker" data-reveal>The room</p>
-      <h2 class="sc-h sc-room__h" id="sc-room-t">
-        <span data-clip data-clip-delay="0">A smart classroom</span>
-        <span data-clip data-clip-delay="130">is more than</span>
-        <span data-clip data-clip-delay="240"><em>a screen.</em></span>
-      </h2>
-      <p class="sc-body" data-reveal data-reveal-delay="200">
-        The useful question about a smart classroom is not whether a school has one. It is whether
-        a teacher can <strong>assume</strong> it.
-      </p>
+      <p class="sc-kicker" data-reveal>{room.kicker}</p>
+      <ClipHeading class="sc-h sc-room__h" id="sc-room-t" text={room.heading} delays={[0, 130, 240]} />
+      <RichLine class="sc-body" text={room.body[0]} reveal revealDelay={200} />
       <p class="sc-body" data-reveal data-reveal-delay="270">
         {S} publishes <strong>75+ digitally smart classrooms</strong> and
         {' '}<strong>49+ interactive flat panels</strong> — figures at the scale of the whole
         school rather than of a demonstration suite booked by rotation.
       </p>
-      <p class="sc-body" data-reveal data-reveal-delay="340">
-        Alongside them it runs <strong>two computer laboratories</strong>, junior and senior,
-        carrying <strong>40+ machines each</strong>.
-      </p>
+      <RichLine class="sc-body" text={room.body[1]} reveal revealDelay={340} />
     </div>
 
     <div class="sc-room__media">
@@ -173,8 +160,7 @@ const STEM = '/academics/teaching-learning/stem-robotics/';
 
       <figure class="sc-room__lead" data-mask data-zoom data-zoom-to="1.06">
         <SmartImage
-          file={pLabBusy}
-          alt={ac.picAlt('pLabBusy')}
+          file={room.shots[0]?.image} alt={room.shots[0]?.alt ?? ''}
          
           widths={[560, 900, 1200]}
           sizes="(max-width: 1023px) 92vw, 46vw"
@@ -185,8 +171,7 @@ const STEM = '/academics/teaching-learning/stem-robotics/';
 
       <figure class="sc-room__inset" data-parallax data-parallax-y="24">
         <SmartImage
-          file={pCanva}
-          alt={ac.picAlt('pCanva')}
+          file={room.shots[1]?.image} alt={room.shots[1]?.alt ?? ''}
          
           widths={[340, 560]}
           sizes="(max-width: 1023px) 44vw, 20vw"
@@ -211,15 +196,12 @@ const STEM = '/academics/teaching-learning/stem-robotics/';
 
   <div class="u-container" data-draw-scope>
     <div class="sc-sys__head">
-      <p class="sc-kicker" data-reveal>The digital classroom system</p>
-      <h2 class="sc-h sc-sys__h" id="sc-sys-t">
-        <span data-clip data-clip-delay="0">Four numbers,</span>
-        <span data-clip data-clip-delay="150"><em>and one of them is a gap.</em></span>
-      </h2>
+      <p class="sc-kicker" data-reveal>{sys.kicker}</p>
+      <ClipHeading class="sc-h sc-sys__h" id="sc-sys-t" text={sys.heading} />
     </div>
 
     <ol class="sc-sys__list">
-      {system.map((s, i) => (
+      {sys.cells.map((s, i) => (
         <li class="sc-stat" data-reveal data-reveal-delay={100 + i * 110}>
           {/* ⚠ A WIRE ON BOTH SIDES OF THE NODE, not a trailing one. With the
               wire only to the right every icon sat off-centre above its own
@@ -240,9 +222,9 @@ const STEM = '/academics/teaching-learning/stem-robotics/';
           </div>
 
           <p class="sc-stat__n t-tabular">
-            <span data-count={s.n} data-count-suffix={s.suffix} data-count-dur={s.dur}>{`${s.n}${s.suffix}`}</span>
+            <span data-count={s.number} data-count-suffix={s.suffix} data-count-dur={COUNT_DUR[s.label] ?? 1.4}>{`${s.number}${s.suffix}`}</span>
           </p>
-          <p class="sc-stat__k">{s.k}</p>
+          <p class="sc-stat__k">{s.label}</p>
         </li>
       ))}
     </ol>
@@ -250,12 +232,7 @@ const STEM = '/academics/teaching-learning/stem-robotics/';
     {/* ⚠ THE HONEST LINE, AND IT IS NOT SET AS SMALL PRINT. 49 is fewer than 75.
         The school publishes both figures, so a reader can already see it; saying
         it plainly is what makes the rest of the page worth believing. */}
-    <p class="sc-sys__note" data-reveal data-reveal-delay="220">
-      Read together the first two say something a marketing sentence would not:
-      {' '}<strong>the panels do not yet reach every room.</strong> This is a rollout in progress
-      rather than a finished one — and a school that publishes both numbers has already given a
-      parent the means to work that out.
-    </p>
+    <RichLine class="sc-sys__note" text={sys.body[0]} reveal revealDelay={220} />
   </div>
 </section>
 
@@ -269,8 +246,7 @@ const STEM = '/academics/teaching-learning/stem-robotics/';
     <div class="sc-beyond__media">
       <figure class="sc-beyond__lead" data-mask data-zoom data-zoom-to="1.07">
         <SmartImage
-          file={pLabRow}
-          alt={ac.picAlt('pLabRow')}
+          file={beyond.shots[0]?.image} alt={beyond.shots[0]?.alt ?? ''}
          
           widths={[560, 900, 1200]}
           sizes="(max-width: 1023px) 92vw, 44vw"
@@ -280,8 +256,7 @@ const STEM = '/academics/teaching-learning/stem-robotics/';
       </figure>
       <figure class="sc-beyond__disc" data-parallax data-parallax-y="22">
         <SmartImage
-          file={pLabEmpty}
-          alt={ac.picAlt('pLabEmpty')}
+          file={beyond.shots[1]?.image} alt={beyond.shots[1]?.alt ?? ''}
          
           widths={[300, 480]}
           sizes="(max-width: 1023px) 34vw, 15vw"
@@ -292,17 +267,14 @@ const STEM = '/academics/teaching-learning/stem-robotics/';
     </div>
 
     <div class="sc-beyond__copy">
-      <p class="sc-kicker" data-reveal>Beyond the screen</p>
-      <h2 class="sc-h sc-beyond__h" id="sc-beyond-t">
-        <span data-clip data-clip-delay="0">Technology is the tool.</span>
-        <span data-clip data-clip-delay="150"><em>Learning</em> is the point.</span>
-      </h2>
+      <p class="sc-kicker" data-reveal>{beyond.kicker}</p>
+      <ClipHeading class="sc-h sc-beyond__h" id="sc-beyond-t" text={beyond.heading} />
 
       <ol class="sc-path">
-        {beyond.map((b, i) => (
+        {beyond.cells.map((b, i) => (
           <li class="sc-step" data-reveal data-reveal-delay={140 + i * 130}>
             <div class="sc-step__rail">
-              <span class="sc-step__n t-tabular">{b.n}</span>
+              <span class="sc-step__n t-tabular">{String(i + 1).padStart(2, '0')}</span>
               <span class="sc-step__i" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none">
                   <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={MARK[b.mark]} />
@@ -310,8 +282,8 @@ const STEM = '/academics/teaching-learning/stem-robotics/';
               </span>
               <span class="sc-step__wire" aria-hidden="true"><span data-draw></span></span>
             </div>
-            <h3 class="sc-step__k">{b.k}</h3>
-            <p class="sc-step__b">{b.body}</p>
+            <h3 class="sc-step__k">{b.label}</h3>
+            <p class="sc-step__b">{b.value}</p>
           </li>
         ))}
       </ol>
@@ -341,24 +313,16 @@ const STEM = '/academics/teaching-learning/stem-robotics/';
 
   <div class="u-container sc-prac__grid">
     <div class="sc-prac__copy">
-      <p class="sc-kicker" data-reveal>Technology in practice</p>
-      <h2 class="sc-h sc-prac__h" id="sc-prac-t">
-        <span data-clip data-clip-delay="0">Real rooms.</span>
-        <span data-clip data-clip-delay="130">Real lessons.</span>
-        <span data-clip data-clip-delay="240"><em>Nothing staged.</em></span>
-      </h2>
-      <p class="sc-body" data-reveal data-reveal-delay="200">
-        Every photograph below is the school's own, and each caption says what is actually in it.
-        None of them is a stock picture of somebody else's laboratory.
-      </p>
+      <p class="sc-kicker" data-reveal>{prac.kicker}</p>
+      <ClipHeading class="sc-h sc-prac__h" id="sc-prac-t" text={prac.heading} delays={[0, 130, 240]} />
+      <RichLine class="sc-body" text={prac.body[0]} reveal revealDelay={200} />
     </div>
 
     {/* ONE DOMINANT FRAME, TWO SMALLER ONES BREAKING ITS EDGES. */}
     <div class="sc-prac__stage">
       <figure class="sc-frame sc-frame--lead" data-mask data-zoom data-zoom-to="1.06">
         <SmartImage
-          file={pLabTaught}
-          alt={ac.picAlt('pLabTaught')}
+          file={prac.shots[0]?.image} alt={prac.shots[0]?.alt ?? ''}
          
           widths={[620, 1000, 1320]}
           sizes="(max-width: 1023px) 92vw, 54vw"
@@ -370,8 +334,7 @@ const STEM = '/academics/teaching-learning/stem-robotics/';
 
       <figure class="sc-frame sc-frame--side" data-parallax data-parallax-y="-24">
         <SmartImage
-          file={pCarnival}
-          alt={ac.picAlt('pCarnival')}
+          file={prac.shots[1]?.image} alt={prac.shots[1]?.alt ?? ''}
          
           widths={[380, 640]}
           sizes="(max-width: 1023px) 46vw, 24vw"
@@ -383,8 +346,7 @@ const STEM = '/academics/teaching-learning/stem-robotics/';
 
       <figure class="sc-frame sc-frame--disc" data-parallax data-parallax-y="20">
         <SmartImage
-          file={pLabEmpty}
-          alt={ac.picAlt('pLabEmpty2')}
+          file={prac.shots[2]?.image} alt={prac.shots[2]?.alt ?? ''}
          
           widths={[280, 440]}
           sizes="(max-width: 1023px) 32vw, 14vw"
@@ -404,8 +366,7 @@ const STEM = '/academics/teaching-learning/stem-robotics/';
 <section class="sc-close" aria-labelledby="sc-close-t">
   <div class="sc-close__media" aria-hidden="true" data-parallax data-parallax-y="-40">
     <SmartImage
-      file={pCohort}
-      alt={ac.picAlt('pCohort')}
+      file={close.shots[0]?.image} alt={close.shots[0]?.alt ?? ''}
      
       widths={[1024, 1600, 2000]}
       sizes="100vw"
@@ -427,15 +388,8 @@ const STEM = '/academics/teaching-learning/stem-robotics/';
       <path d="M12 4v16M4 12h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
     </svg>
 
-    <h2 class="sc-h sc-close__h" id="sc-close-t">
-      <span data-clip data-clip-delay="0">The classroom</span>
-      <span data-clip data-clip-delay="150"><em>keeps changing.</em></span>
-    </h2>
-    <p class="sc-close__b" data-reveal data-reveal-delay="180">
-      The school publishes its room counts, its panel count and the certification behind them. It
-      does not publish a device-per-child ratio, a rollout schedule for the remaining rooms, or
-      which classes take digital literacy and for how long — so none of those is described here.
-    </p>
+    <ClipHeading class="sc-h sc-close__h" id="sc-close-t" text={close.heading} />
+    <RichLine class="sc-close__b" text={close.body[0]} reveal revealDelay={180} />
   </div>
 </section>
 
@@ -450,7 +404,7 @@ const STEM = '/academics/teaching-learning/stem-robotics/';
     color: var(--sb-violet);
   }
 
-  .sc-h {
+  :global(.sc-h) {
     margin: clamp(12px, 1.5vw, 18px) 0 0;
     font-family: var(--sb-font-display);
     font-weight: 700;
@@ -458,17 +412,17 @@ const STEM = '/academics/teaching-learning/stem-robotics/';
     letter-spacing: -0.04em;
     color: var(--sb-charcoal);
   }
-  .sc-h span { display: block; }
-  .sc-h em { font-style: normal; color: var(--sb-violet); }
+  :global(.sc-h span) { display: block; }
+  :global(.sc-h em) { font-style: normal; color: var(--sb-violet); }
 
-  .sc-body {
+  :global(.sc-body) {
     max-width: 44ch;
     margin: clamp(13px, 1.6vw, 19px) 0 0;
     font-size: clamp(13px, 0.95vw, 15px);
     line-height: 1.78;
     color: var(--sb-text-secondary);
   }
-  .sc-body strong { font-weight: 700; color: var(--sb-charcoal); }
+  :global(.sc-body strong) { font-weight: 700; color: var(--sb-charcoal); }
 
   /* ── THE PAGE'S OWN DECORATIVE LANGUAGE ───────────────────────────────────
      A fine technical grid, right-angled traces with terminal nodes, small `+`
@@ -559,7 +513,7 @@ const STEM = '/academics/teaching-learning/stem-robotics/';
     gap: clamp(28px, 4vw, 66px);
     align-items: center;
   }
-  .sc-room__h { font-size: clamp(28px, 3.4vw, 48px); }
+  :global(.sc-room__h) { font-size: clamp(28px, 3.4vw, 48px); }
 
   .sc-room__media { position: relative; }
   .sc-room__lead {
@@ -618,9 +572,9 @@ const STEM = '/academics/teaching-learning/stem-robotics/';
       radial-gradient(62% 70% at 50% 4%, rgba(255, 255, 255, 0.72) 0%, rgba(255, 255, 255, 0) 70%),
       radial-gradient(50% 60% at 6% 94%, rgba(255, 138, 92, 0.12) 0%, rgba(255, 138, 92, 0) 72%);
   }
-  .sc-sys__head { text-align: center; }
-  .sc-sys__h { font-size: clamp(24px, 2.7vw, 38px); }
-  .sc-sys__head .sc-h span { display: inline; }
+  :global(.sc-sys__head) { text-align: center; }
+  :global(.sc-sys__h) { font-size: clamp(24px, 2.7vw, 38px); }
+  :global(.sc-sys__head .sc-h span) { display: inline; }
 
   .sc-sys__list {
     display: grid;
@@ -700,7 +654,7 @@ const STEM = '/academics/teaching-learning/stem-robotics/';
     color: var(--sb-text-secondary);
   }
 
-  .sc-sys__note {
+  :global(.sc-sys__note) {
     max-width: 78ch;
     margin: clamp(26px, 3.2vw, 44px) auto 0;
     padding-top: clamp(18px, 2.2vw, 28px);
@@ -710,7 +664,7 @@ const STEM = '/academics/teaching-learning/stem-robotics/';
     line-height: 1.78;
     color: var(--sb-text-secondary);
   }
-  .sc-sys__note strong { font-weight: 700; color: var(--sb-charcoal); }
+  :global(.sc-sys__note strong) { font-weight: 700; color: var(--sb-charcoal); }
 
   /* ═══ 03 · BEYOND THE SCREEN ══════════════════════════════════════════════ */
   .sc-beyond {
@@ -738,7 +692,7 @@ const STEM = '/academics/teaching-learning/stem-robotics/';
     gap: clamp(28px, 4vw, 62px);
     align-items: center;
   }
-  .sc-beyond__h { font-size: clamp(25px, 2.9vw, 40px); }
+  :global(.sc-beyond__h) { font-size: clamp(25px, 2.9vw, 40px); }
 
   .sc-beyond__media { position: relative; }
   .sc-beyond__lead {
@@ -880,7 +834,7 @@ const STEM = '/academics/teaching-learning/stem-robotics/';
     gap: clamp(28px, 3.6vw, 58px);
     align-items: center;
   }
-  .sc-prac__h { font-size: clamp(25px, 2.9vw, 40px); }
+  :global(.sc-prac__h) { font-size: clamp(25px, 2.9vw, 40px); }
   .sc-prac__copy .sc-body { max-width: 34ch; }
 
   .sc-prac__stage { position: relative; }
@@ -998,14 +952,14 @@ const STEM = '/academics/teaching-learning/stem-robotics/';
     color: var(--sb-lime);
     opacity: 0.9;
   }
-  .sc-close__h {
+  :global(.sc-close__h) {
     max-width: 20ch;
     margin: 0;
     font-size: clamp(28px, 3.4vw, 48px);
     color: #fff;
   }
-  .sc-close__h em { color: var(--sb-lime); font-style: italic; }
-  .sc-close__b {
+  :global(.sc-close__h em) { color: var(--sb-lime); font-style: italic; }
+  :global(.sc-close__b) {
     max-width: 66ch;
     margin: clamp(15px, 1.8vw, 22px) 0 0;
     font-size: clamp(12.5px, 0.92vw, 14.5px);

@@ -1,6 +1,6 @@
 ---
 import { getCampusTourData } from '../../../lib/cms';
-const {facilities} = await getCampusTourData();
+const { facilities, featured, featuredBand } = await getCampusTourData();
 
 /**
  * §5 · FEATURED FACILITIES — alternating showcase, one facility per row.
@@ -81,8 +81,22 @@ const rows: Row[] = [
   },
 ];
 
+
+/**
+ * ⚠⚠ CMS FIRST, THE LOCAL ROWS ONLY AS A FALLBACK.
+ *
+ * `featured` is the six rooms as the school edits them in Campus Tour Page. The
+ * `rows` array above is what used to be hardcoded here, and it stays as the
+ * fallback for one reason: this band is six rooms of prose, and an unseeded or
+ * unpublished CMS would otherwise render an empty band on the campus tour.
+ *
+ * ⚠ DELETE `rows` ONCE THE CMS IS SEEDED IN EVERY ENVIRONMENT, not before.
+ * While both exist they can disagree, and the CMS is the one that wins.
+ */
+const source: Row[] = featured.length > 0 ? featured : rows;
+
 const byId = new Map(facilities.map((f) => [f.id, f]));
-const shown = rows
+const shown = source
   .map((r) => ({ row: r, fac: byId.get(r.id)! }))
   .filter((x) => x.fac && x.fac.images.length >= 2);
 ---
@@ -91,8 +105,8 @@ const shown = rows
   <div class="u-container">
     <SectionHead
       id="ftr-title"
-      eyebrow="Worth stopping at"
-      heading="Six rooms, and what each one is for"
+      eyebrow={featuredBand.eyebrow}
+      heading={featuredBand.heading}
       measure={20}
     />
   </div>

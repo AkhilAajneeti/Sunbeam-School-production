@@ -1,0 +1,166 @@
+---
+/**
+ * ONE PUBLICATION — the card every band on /publications/ uses.
+ *
+ * Seven sections, 33 cards, one component: the club newsletters, Our School
+ * Magazine and the E-Newspaper all render through here, so a change to the
+ * hover or the pill reaches all of them at once.
+ *
+ * ⚠⚠ THE WHOLE CARD IS THE <a>, AND THE ORANGE PILL IS A <span> INSIDE IT.
+ * Two reasons, both load-bearing. A 40px pill inside a 150px card is a poor
+ * thumb target (WCAG 2.5.8 Target Size), and nothing else on the card would be
+ * clickable — so the card itself is the anchor and the pill is painted, not
+ * interactive. It also means exactly ONE focus stop per publication: a card
+ * with both a wrapping link and a real button inside makes a keyboard user tab
+ * twice through 33 cards to reach the section below.
+ *
+ * ⚠ EVERY HREF LEAVES THIS SITE — a PDF on the school's old WordPress host, or
+ * a Google Drive viewer. `target="_blank"` keeps this page behind a 16 MB PDF
+ * instead of navigating away from it, `rel="noopener"` is the safe default for
+ * a target we do not control, and the visually-hidden tail is what tells a
+ * screen-reader user the link opens a new tab BEFORE they activate it. A new
+ * tab that arrives unannounced is a well-known orientation failure.
+ */
+interface Props {
+  title: string;
+  href: string;
+  /** Chooses the disc's glyph only. Nothing else varies. */
+  icon?: 'doc' | 'news';
+}
+
+const { title, href, icon = 'doc' } = Astro.props;
+
+/* Inline rather than an icon component: two fixed glyphs used on one page, and
+   keeping them as markup leaves them in the card's own stacking context. */
+const GLYPHS: Record<NonNullable<Props['icon']>, string> = {
+  doc: `<path d="M4 4.5A1.5 1.5 0 0 1 5.5 3H14l5 5v11.5A1.5 1.5 0 0 1 17.5 21h-12A1.5 1.5 0 0 1 4 19.5v-15Z"/><path d="M14 3v5h5"/><path d="M8 13h7M8 17h5"/>`,
+  news: `<path d="M4 5.5A1.5 1.5 0 0 1 5.5 4h10A1.5 1.5 0 0 1 17 5.5v13A1.5 1.5 0 0 0 18.5 20H6a2 2 0 0 1-2-2v-12.5Z"/><path d="M17 8h2.5A1.5 1.5 0 0 1 21 9.5v9A1.5 1.5 0 0 1 19.5 20"/><path d="M7 8h7M7 11.5h7M7 15h4"/>`,
+};
+---
+
+<a class="pcard" {href} target="_blank" rel="noopener">
+  <span class="pcard__dots" aria-hidden="true"></span>
+
+  <span class="pcard__disc" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+         stroke-linecap="round" stroke-linejoin="round" set:html={GLYPHS[icon]} />
+  </span>
+
+  <span class="pcard__body">
+    <span class="pcard__title">{title}</span>
+    <span class="pcard__pill">
+      Download
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12 4v11m0 0 4-4m-4 4-4-4M5 19h14" stroke="currentColor" stroke-width="1.9"
+              stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </span>
+  </span>
+
+  <span class="u-visually-hidden"> — download, opens in a new tab</span>
+</a>
+
+<style>
+  .pcard {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(10px, 1vw, 14px);
+    height: 100%;
+    padding: clamp(16px, 1.5vw, 22px);
+    border-radius: 16px;
+    border: 1px solid rgba(18, 16, 15, 0.07);
+    background: var(--sb-paper);
+    box-shadow: 0 10px 28px -24px rgba(28, 14, 8, 0.36);
+    text-decoration: none;
+    transition:
+      transform 220ms var(--sb-ease),
+      box-shadow 220ms var(--sb-ease),
+      border-color 220ms var(--sb-ease);
+  }
+
+  .pcard:where(:hover, :focus-visible) {
+    transform: translateY(-3px);
+    border-color: rgba(201, 60, 10, 0.24);
+    box-shadow: 0 18px 38px -26px rgba(28, 14, 8, 0.46);
+  }
+
+  /* Three dots in one gradient — cheaper than three elements, and it cannot
+     reflow. Decorative: the card carries no meaning here. */
+  .pcard__dots {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 16px;
+    height: 4px;
+    background-image: radial-gradient(circle, var(--sb-orange-tint) 48%, transparent 52%);
+    background-size: 6px 4px;
+    background-repeat: repeat-x;
+    opacity: 0.6;
+  }
+
+  .pcard__disc {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    flex: 0 0 auto;
+    border-radius: var(--sb-r-full);
+    background: var(--sb-lime-wash);
+    color: var(--sb-violet);
+  }
+  .pcard__disc svg { width: 21px; height: 21px; }
+
+  /* ⚠⚠ THIS IS WHAT LINES THE PILLS UP ACROSS A ROW. The grid stretches every
+     card to the tallest in its row, `flex: 1` makes the body absorb that extra
+     height, and `space-between` drives the pill to the bottom of it. Without
+     this a card whose title wraps to two lines sits its pill one line lower
+     than its neighbours, and a row of four looks broken. */
+  .pcard__body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: clamp(10px, 1vw, 14px);
+    min-width: 0;
+  }
+
+  .pcard__title {
+    font-size: var(--sb-body-sm);
+    font-weight: 700;
+    line-height: 1.34;
+    letter-spacing: -0.006em;
+    color: var(--sb-ink);
+    text-wrap: pretty;
+  }
+
+  /* Compact on purpose. The old page's full-width orange bars turn the screen
+     into a wall of orange; the brief wants orange as accent only. */
+  .pcard__pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: var(--sb-violet);
+    font-family: var(--sb-font-display);
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    color: #fff;
+    transition: background 200ms var(--sb-ease);
+  }
+  .pcard__pill svg { width: 13px; height: 13px; transition: transform 200ms var(--sb-ease); }
+  .pcard:where(:hover, :focus-visible) .pcard__pill {
+    background: color-mix(in srgb, var(--sb-violet) 88%, #000);
+  }
+  .pcard:where(:hover, :focus-visible) .pcard__pill svg { transform: translateY(2px); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pcard,
+    .pcard__pill,
+    .pcard__pill svg { transition: none; }
+    .pcard:where(:hover, :focus-visible) { transform: none; }
+  }
+</style>

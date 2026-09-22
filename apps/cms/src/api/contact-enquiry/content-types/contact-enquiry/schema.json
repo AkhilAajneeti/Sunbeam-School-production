@@ -1,0 +1,71 @@
+{
+  "kind": "collectionType",
+  "collectionName": "contact_enquiries",
+  "info": {
+    "singularName": "contact-enquiry",
+    "pluralName": "contact-enquiries",
+    "displayName": "Contact Enquiry",
+    "description": "A message sent through the form on /contact-us/. WRITTEN BY VISITORS, NOT BY EDITORS — nothing here is authored in the admin panel, and no page on the site reads it back. Fields mirror the form's own inputs one-for-one; see apps/web/src/pages/contact-us.astro. `message` IS THE POINT OF THE FORM and is required at every layer — the textarea, the controller whitelist and this schema. It was added late: the textarea shipped first and for a while enquiries reached the office with every field EXCEPT what the parent had written. If any one of those three layers drops it again, that happens again and nothing says so. draftAndPublish is OFF because an enquiry is a record of something that happened, not a document with a draft state."
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "maxLength": 120
+    },
+    "email": {
+      "type": "email",
+      "required": true,
+      "maxLength": 200
+    },
+    "phone": {
+      "type": "string",
+      "maxLength": 40
+    },
+    "subject": {
+      "type": "string",
+      "maxLength": 200
+    },
+    "message": {
+      "type": "text",
+      "required": true,
+      "maxLength": 4000
+    },
+    "city": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "studentClass": {
+      "type": "string",
+      "maxLength": 80
+    },
+    "consent": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "new",
+        "read",
+        "replied",
+        "closed"
+      ],
+      "default": "new",
+      "required": true
+    },
+    "officeNotes": {
+      "type": "text",
+      "maxLength": 5000
+    },
+    "sourcePage": {
+      "type": "string",
+      "maxLength": 200
+    }
+  }
+}

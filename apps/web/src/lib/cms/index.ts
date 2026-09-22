@@ -55,10 +55,15 @@ export {
   getMajors,
   getCredentials,
   getAchievementRecords,
+  getAchievementsBands,
+  getRecordBoards,
 } from './queries/achievements';
 
 /* Content — career */
-export { getJobPostings, getCareerPageData } from './queries/career';
+export { getJobPostings, getCareerPageData, getCareerCopy } from './queries/career';
+export { getPublicationsData } from './queries/publications';
+export { getUniformedGroups } from './queries/uniformedGroups';
+export type { Publication, PublicationGroup } from './queries/publications';
 
 /* Content — alumni */
 export {
@@ -85,6 +90,14 @@ export {
   getPrePrimary, getPrimaryStage, getMiddleSchool, getSecondaryStage, getSeniorSecondary,
 } from './queries/structure';
 export { getStreamsOffered, getSubjectCombinations } from './queries/structure';
+export {
+  getMethodology, getSmartClassrooms, getExperientialLearning,
+  getStemRobotics, getReadingLanguage, getLaboratoriesClubs,
+} from './queries/structure';
+export {
+  getAssessment, getHomeworkPolicy, getRemedialSupport,
+  getMentoring, getParentTeacher, getCompetitiveExam,
+} from './queries/structure';
 export type { Band, Cell, Shot, Stream } from './queries/structure';
 export { getCurriculum } from './queries/curriculum';
 export type { Curriculum, Stage, ClassDoc, Tile, TileSection, Lede } from './queries/curriculum';

@@ -4,12 +4,22 @@
  *
  * Audit 1.10 keeps this as its own page rather than folding it into About.
  *
- * COPY — the passages below are the school's own published words, used verbatim.
- * Audit 1.12 requires the published page to be "thoroughly proofread to
- * eliminate grammatical and spelling errors": these particular passages read
- * cleanly, which is why they are the ones extracted for the homepage too. The
- * FULL message has not been supplied in a proofread form — asset request A5 —
- * so what is here is an accurate extract, not an invented expansion of it.
+ * ⚠⚠ THE FULL MESSAGE IS NOW PUBLISHED, VERBATIM. This page used to carry an
+ * accurate two-paragraph EXTRACT, because the complete message had not been
+ * supplied in a proofread form (asset request A5). The school has since sent it
+ * and A5 is closed. It is signed by a named person: do not tighten it,
+ * re-order it, re-punctuate it or shorten it.
+ *
+ * ⚠ THE PULL QUOTE IS DROPPED WHERE THE FULL MESSAGE EXISTS, and that is not an
+ * oversight. The quoted line — "education is not merely about imparting
+ * knowledge…" — is the opening sentence of the first paragraph. Setting it
+ * above the body would print it twice in a row; cutting it out of the paragraph
+ * to avoid that would be editing the school's prose. So the message runs whole.
+ *
+ * ⚠ THE HOMEPAGE PANEL STILL SHOWS THE EXTRACT. PrincipalSpeak is designed
+ * around the quote and two paragraphs; five would bury the rest of the page.
+ * That extract lives in `paragraphs` on the same CMS record — and the guard
+ * below is what stops the two ever drifting apart.
  */
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/ui/PageHero.astro';
@@ -19,14 +29,58 @@ import banner from '../../assets/photos/sunbeem-1.jpg';
 
 const leader = await getLeaderMessage('principal');
 
+/* Where the school has supplied the whole message, that is what this page
+   shows; otherwise it falls back to the extract, as it did before. */
+const hasFull = (leader?.fullMessage?.length ?? 0) > 0;
+const body = hasFull ? leader!.fullMessage : (leader?.paragraphs ?? []);
 
+/**
+ * ═══ THE EXTRACT MUST BE A SUBSET OF THE MESSAGE ═══════════════════════════
+ *
+ * ⚠⚠ TWO PLACES HOLD THIS PROSE — the homepage panel's extract and the full
+ * message here — and that is a deliberate editorial choice, not duplication by
+ * accident. What makes it safe is that the extract can never say something the
+ * message does not: every extract paragraph, and the pull quote, must appear
+ * VERBATIM inside the full text, or this build fails.
+ *
+ * Without it, someone corrects a sentence in the full message, the homepage
+ * keeps quoting the old wording under the same signature, and nobody notices.
+ *
+ * ⚠ WHITESPACE IS NORMALISED BEFORE COMPARING, because the CMS stores these as
+ * separate fields and a stray double space is not a drift worth failing a build
+ * over. Anything else is.
+ */
+if (hasFull) {
+  const flat = (s: string) => s.replace(/\s+/g, ' ').trim();
+  const whole = flat(leader!.fullMessage.join(' '));
+
+  for (const para of leader?.paragraphs ?? []) {
+    if (!whole.includes(flat(para))) {
+      throw new Error(
+        `principals-message: the homepage extract has drifted from the full message.\n` +
+          `This paragraph is in \`paragraphs\` but appears nowhere in \`fullMessage\`:\n\n` +
+          `  ${flat(para).slice(0, 160)}…\n\n` +
+          `The homepage would keep printing it under Mrs. Arpita Singh's signature while ` +
+          `the message itself says something else. Re-cut the extract from the current ` +
+          `full message in apps/cms/scripts/seed/home.mjs, then re-seed.`,
+      );
+    }
+  }
+
+  if (leader?.pullQuote && !whole.includes(flat(leader.pullQuote))) {
+    throw new Error(
+      `principals-message: the pull quote is not in the full message.\n\n` +
+        `  ${flat(leader.pullQuote).slice(0, 160)}…\n\n` +
+        `The homepage sets it in large type above the message as the Principal's own ` +
+        `words. Either it was edited out of the message, or the message was rewritten ` +
+        `around it — check which before publishing.`,
+    );
+  }
+}
 ---
 
-<BaseLayout
->
-  <PageHero
-    src={banner}
-  />
+<BaseLayout>
+  <PageHero src={banner} />
 
   <div class="u-page-panel">
     <LeaderMessage
@@ -37,8 +91,8 @@ const leader = await getLeaderMessage('principal');
       portrait={leader?.portrait}
       portraitAlt={leader?.portraitAlt}
       portraitBrief={leader?.portraitBrief}
-      pullQuote={leader?.pullQuote}
-      paragraphs={leader?.paragraphs ?? []}
+      pullQuote={hasFull ? undefined : leader?.pullQuote}
+      paragraphs={body}
       credentials={leader?.credentials ?? []}
       pending={leader?.pending}
     />

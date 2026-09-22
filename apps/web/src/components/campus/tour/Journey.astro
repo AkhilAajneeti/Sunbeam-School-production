@@ -1,6 +1,6 @@
 ---
 import { getCampusTourData } from '../../../lib/cms';
-const {facilities, journey} = await getCampusTourData();
+const { facilities, journey, journeyBand } = await getCampusTourData();
 
 /**
  * §7 · A DAY ON CAMPUS — the student's route through the buildings.
@@ -31,8 +31,8 @@ const stops = journey.map((s, i) => {
   <div class="u-container">
     <SectionHead
       id="jny-title"
-      eyebrow="A day, end to end"
-      heading="How a student meets the campus"
+      eyebrow={journeyBand.eyebrow}
+      heading={journeyBand.heading}
       stand="Assembly to the last bell, in the order the buildings actually come."
       measure={20}
     />

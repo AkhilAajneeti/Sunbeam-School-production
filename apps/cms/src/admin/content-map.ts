@@ -128,13 +128,57 @@ export const CONTENT_MAP: Branch[] = [
       },
       {
         label: 'Teaching & Learning',
-        leaves: [{ label: 'All teaching pages', to: list(TOPIC, { group: 'teaching-learning' }), note: 'Methodology, Smart Classrooms, Experiential, STEM & Robotics, Reading & Library, Laboratories & Clubs.' }],
+        leaves: [
+          { label: 'Methodology', to: single('api::methodology-page.methodology-page'), note: 'Edited band by band — 01 to 05.' },
+          { label: 'Smart Classrooms', to: single('api::smart-classrooms-page.smart-classrooms-page'), note: 'Edited band by band — 01 to 05.' },
+          { label: 'Experiential Learning', to: single('api::experiential-learning-page.experiential-learning-page'), note: 'Edited band by band — 01 to 04.' },
+          { label: 'STEM & Robotics', to: single('api::stem-robotics-page.stem-robotics-page'), note: 'Edited band by band — 01 to 05.' },
+          { label: 'Reading & Language', to: single('api::reading-language-page.reading-language-page'), note: 'Edited band by band — 01 to 05.' },
+          { label: 'Laboratories & Clubs', to: single('api::laboratories-clubs-page.laboratories-clubs-page'), note: 'Edited band by band — 01 to 05.' },
+          /**
+           * WARNING: THE SIX ROWS ABOVE ARE FILTERED OUT OF THE LIST BELOW.
+           * Each moved to its own single type and Astro reads only that. The old
+           * academic-topic records still hold their runs and photographs, but
+           * NOTHING READS THEM — an editor who found one would change a page and
+           * see nothing happen. The records are NOT deleted, only kept out of
+           * the list an editor is meant to navigate by.
+           */
+          { label: 'All other teaching pages', to: list(TOPIC, { group: 'teaching-learning' }, [
+            ['route', '/academics/teaching-learning/methodology/'],
+            ['route', '/academics/teaching-learning/smart-classrooms/'],
+            ['route', '/academics/teaching-learning/experiential-learning/'],
+            ['route', '/academics/teaching-learning/stem-robotics/'],
+            ['route', '/academics/teaching-learning/reading-language/'],
+            ['route', '/academics/teaching-learning/laboratories-clubs/'],
+          ]), note: 'The Teaching & Learning hub itself. Every page above now has its own editor.' },
+        ],
       },
       {
         label: 'Assessment',
         leaves: [
-          { label: 'All assessment pages', to: list(TOPIC, { group: 'assessment' }), note: 'Assessment System, Competitive Exams, Homework Policy, Mentoring, Parent–Teacher Meetings, Remedial Support.' },
-          { label: 'Academic Calendar', to: single('api::academic-calendar-page.academic-calendar-page') },
+          { label: 'Assessment System', to: single('api::assessment-page.assessment-page'), note: 'Edited band by band — 01 to 06.' },
+          { label: 'Homework Policy', to: single('api::homework-policy-page.homework-policy-page'), note: 'Edited band by band — 01 to 06.' },
+          { label: 'Remedial Support', to: single('api::remedial-support-page.remedial-support-page'), note: 'Edited band by band — 01 to 03.' },
+          { label: 'Mentoring', to: single('api::mentoring-page.mentoring-page'), note: 'Edited band by band — 01 to 05.' },
+          { label: 'Parent–Teacher Meetings', to: single('api::parent-teacher-page.parent-teacher-page'), note: 'Edited band by band — 01 to 03.' },
+          { label: 'Competitive Exam Preparation', to: single('api::competitive-exam-page.competitive-exam-page'), note: 'Edited band by band — 01 to 02.' },
+          { label: 'Academic Calendar', to: single('api::academic-calendar-page.academic-calendar-page'), note: 'The sessions, the two card strips and the page’s three photographs.' },
+          /**
+           * WARNING: THE SIX ROWS ABOVE ARE FILTERED OUT OF THE LIST BELOW.
+           * Each moved to its own single type and Astro reads only that. The old
+           * academic-topic records still hold their runs, but NOTHING READS THEM
+           * — an editor who found one would change a page and see nothing
+           * happen. They are NOT deleted, only kept out of the list an editor is
+           * meant to navigate by.
+           */
+          { label: 'All other assessment pages', to: list(TOPIC, { group: 'assessment' }, [
+            ['route', '/academics/assessment/'],
+            ['route', '/academics/assessment/homework-policy/'],
+            ['route', '/academics/assessment/remedial-support/'],
+            ['route', '/academics/assessment/mentoring/'],
+            ['route', '/academics/assessment/parent-teacher-meetings/'],
+            ['route', '/academics/assessment/competitive-exam-preparation/'],
+          ]), note: 'Anything in this group without an editor of its own.' },
         ],
       },
       {
@@ -173,8 +217,51 @@ export const CONTENT_MAP: Branch[] = [
       {
         label: 'Excursions',
         leaves: [
-          { label: 'Excursion Sections', to: list('api::excursion-section.excursion-section') },
-          { label: 'Expeditions', to: list('api::expedition.expedition') },
+          {
+            label: 'Excursion Sections',
+            to: list('api::excursion-section.excursion-section'),
+            note: 'The whole page. Each row is one band — text, poster and photographs. The banner and page title are on Page Meta.',
+          },
+          /* ⚠⚠ NOT CURRENTLY ON THE SITE, AND THE LABEL HAS TO SAY SO.
+             The "Learning Expeditions" section was removed from the excursions
+             page at the client's instruction, re-added once in a redesigned
+             form, and removed again on the same instruction. The seven rows and
+             the component that renders them were both kept so it can come back
+             — but until it does, anything edited here changes nothing a visitor
+             can see, and an editor has no way of knowing that from the CMS.
+             ⚠ IF THE SECTION IS EVER RESTORED, delete this note with the same
+             commit. A stale "not shown" warning on a section that IS shown is
+             worse than none. */
+          {
+            label: 'Expeditions (not shown)',
+            to: list('api::expedition.expedition'),
+            note: 'Kept for a section that was removed from the page. Editing these changes nothing on the site today.',
+          },
+        ],
+      },
+      {
+        label: 'NCC, Scouts & Guides',
+        leaves: [
+          {
+            label: 'NCC, Scouts & Guides Page',
+            to: single('api::uniformed-groups-page.uniformed-groups-page'),
+            note: 'Both groups, their facts, their record and their photographs. The banner and page title are on Page Meta.',
+          },
+        ],
+      },
+      {
+        label: 'Publications',
+        leaves: [
+          {
+            label: 'Publications',
+            to: list('api::publication.publication'),
+            note: 'One row per newsletter, magazine or e-paper. `group` decides which band it appears under.',
+          },
+          {
+            label: 'Publications Page',
+            to: single('api::publications-page.publications-page'),
+            note: 'The band headings, and the MYRA STEM Lab newsletter pages. The banner and page title are on Page Meta.',
+          },
         ],
       },
       {
@@ -184,6 +271,15 @@ export const CONTENT_MAP: Branch[] = [
       {
         label: 'Achievements',
         leaves: [
+          /* ⚠ THE PAGE ROW FIRST, because it is the only SINGLE type here and
+             the three below are the lists it wraps. It holds the three band
+             headings and nothing else — editing it never changes what is
+             listed underneath. */
+          {
+            label: 'Achievements Page',
+            to: single('api::achievements-page.achievements-page'),
+            note: 'The three band headings. The banner and page title are on Page Meta.',
+          },
           { label: 'Major Achievements', to: list('api::achievement-major.achievement-major') },
           { label: 'Achievement Records', to: list('api::achievement-record.achievement-record') },
           { label: 'Credentials', to: list('api::credential.credential') },

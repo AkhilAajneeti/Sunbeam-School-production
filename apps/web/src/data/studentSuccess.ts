@@ -54,6 +54,58 @@ export const careerGuidanceImages: PhotoRecord[] = [
   { src: cg7, alt: `The career counselling programme at ${S}, tables set out beneath the school's own hand-painted banner`, caption: 'The room, set out' },
 ];
 
+/* ── CAREER GUIDANCE · THE PAGE'S OWN PROSE ─────────────────────────────────
+   ⚠⚠ MOVED OUT OF CareerGuidancePage.astro VERBATIM. Every line below was
+   written in that component's markup, which meant the school could not correct
+   a word of its own careers programme without a developer. Nothing here is new
+   copy and nothing was tidied on the way across.
+
+   ⚠ THE MARKUP SURVIVED THE MOVE, IT WAS NOT DROPPED. `**bold**`, `*italic*`
+   and `[label](/href)` are the three marks ui/RichLine.astro parses — the same
+   three the rest of the migrated copy uses. The emphasis in these paragraphs is
+   doing real work (it quotes the school's own banner and its own blackboard),
+   so flattening it to plain text would have lost the point of the sentence.
+
+   ⚠ A HEADING IS TWO LINES, `{{…}}` FOR THE ITALIC HALF — ui/ClipHeading.astro
+   renders one clipped span per line. The line break is editorial: it is where
+   the sentence turns. */
+
+export const careerGuidanceOpen = {
+  kicker: 'A conversation that counts',
+  heading: 'It opens\n{{with a room.}}',
+  body: [
+    'The programme begins as a single session for the whole senior school. A visiting speaker takes the hall on a lapel microphone under a deck headed **\u201cDream BIG aim HIGH\u201d**, opening on a line from Swami Vivekananda \u2014 *\u201cknowledge does not mean simply intellectual assent, it means realisation.\u201d*',
+    'Beside the stage the school has chalked one word on a blackboard and left it there: **CAREER**. Twenty-six photographs of the day were published, and a second day separately.',
+    'The school does not publish who spoke or what was covered \u2014 his name is printed on the slide behind him but cannot be read with certainty, so it is not guessed at here. The full gallery is under [School Activities](/beyond-academics/school-activities/career-counselling/).',
+  ],
+};
+
+export const careerGuidanceMain = {
+  kicker: 'One student, one counsellor',
+  heading: 'One\n{{at a time.}}',
+  body: [
+    'The school\u2019s own hand-painted banner sets the audience, and it is a specific one: **\u201cCareer Counseling \u2014 Class X & XI \u2014 Your Journey.\u201d** Behind that banner the day stops being an assembly. Each student takes a chair opposite a counsellor working from a laptop, and several bring a parent or an elder sibling to sit alongside.',
+  ],
+};
+
+export const careerGuidanceGive = {
+  kicker: 'What it gives',
+  heading: 'Clarity today,\n{{confidence tomorrow.}}',  /* ⚠ EMPTY ON PURPOSE, AND IT HAS TO BE HERE. This band is a heading over
+     four columns and carries no prose of its own — but a block of nothing but
+     plain strings is read by the seed's classifier as a key→prose map rather
+     than an editorial block, and its kicker and heading are then dropped
+     without a word. One non-string value is what tells the two apart. */
+  body: [] as string[],
+};
+
+export const careerGuidanceClose = {
+  kicker: 'A day, in two halves',
+  heading: 'Your journey,\n{{in their words.}}',
+  body: [
+    'The school publishes the programme, the year groups it is for, and twenty-six photographs of the first day. It does not publish who spoke, what was covered, or how a family books a session \u2014 and none of that is invented here.',
+  ],
+};
+
 /* ── OLYMPIADS ──────────────────────────────────────────────────────────────
    ⚠ NO AWARD TOTAL, ANYWHERE. The original client brief asked for "100+
    Olympiad awards". The school publishes no total, so there is none here and

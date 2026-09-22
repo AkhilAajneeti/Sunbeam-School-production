@@ -1,14 +1,47 @@
 {
-  "collectionName":"components_home_slides",
-  "info":{"displayName":"Hero Slide","icon":"picture",
-    "description":"One photograph in the homepage hero carousel. ⚠ `focalPoint` AND `tone` LIVE HERE, NOT IN ASTRO, even though both look like styling: they are properties of THIS photograph, not of the layout. The crop that keeps faces in frame is wrong the moment the picture changes, and the placeholder tone is chosen to sit under this image. An editor swapping a slide must be able to bring them with it. ⚠ `caption` is what the carousel prints under the image; where it is absent the panel falls back to `brief` and marks it as an outstanding asset (docs/07 A2)."},
-  "options":{},
-  "attributes":{
-    "image":{"type":"media","multiple":false,"allowedTypes":["images"]},
-    "alt":{"type":"text","required":true,"maxLength":800},
-    "caption":{"type":"string","maxLength":160},
-    "brief":{"type":"string","maxLength":200},
-    "focalPoint":{"type":"string","maxLength":24,"default":"50% 50%"},
-    "tone":{"type":"enumeration","enum":["ink","charcoal","maroon","sand","ivory"],"default":"charcoal"}
+  "collectionName": "components_home_slides",
+  "info": {
+    "displayName": "Hero Slide",
+    "icon": "picture",
+    "description": "One photograph in the homepage hero carousel. ⚠ `focalPoint` AND `tone` LIVE HERE, NOT IN ASTRO, even though both look like styling: they are properties of THIS photograph, not of the layout. The crop that keeps faces in frame is wrong the moment the picture changes, and the placeholder tone is chosen to sit under this image. An editor swapping a slide must be able to bring them with it. ⚠ `caption` is what the carousel prints under the image; where it is absent the panel falls back to `brief` and marks it as an outstanding asset (docs/07 A2)."
+  },
+  "options": {},
+  "attributes": {
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "alt": {
+      "type": "text",
+      "required": true,
+      "maxLength": 800
+    },
+    "caption": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "brief": {
+      "type": "string",
+      "maxLength": 200
+    },
+    "focalPoint": {
+      "type": "string",
+      "maxLength": 24,
+      "default": "50% 50%"
+    },
+    "tone": {
+      "type": "enumeration",
+      "enum": [
+        "ink",
+        "charcoal",
+        "maroon",
+        "sand",
+        "ivory"
+      ],
+      "default": "charcoal"
+    }
   }
 }

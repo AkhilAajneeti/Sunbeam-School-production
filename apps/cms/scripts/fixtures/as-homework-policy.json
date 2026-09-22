@@ -1,0 +1,217 @@
+{
+  "open": {
+    "kicker": "What the school publishes",
+    "heading": "A pattern,\n{{not a policy.}}",
+    "body": [
+      "The school states one thing about homework: that it is **set to a published pattern** rather than assigned subject by subject on the day. That is the whole of it, and the whole of it is what appears here.",
+      "No minutes per night, no days per subject, no weekend rule, no holiday rule — because none of those is published, and a family that plans its evenings around an invented figure would be planning around us rather than around the school."
+    ],
+    "caption": "Published\nOften assumed",
+    "shots": [],
+    "cells": [
+      {
+        "label": "The pattern",
+        "value": "Homework is set to a published pattern rather than assigned subject by subject on the day."
+      },
+      {
+        "label": "The channel",
+        "value": "Two of the twelve items on the Parents’ Forum agenda are the quality of assignments and the correction of notebooks."
+      }
+    ],
+    "cellsTwo": [
+      {
+        "label": "Minutes per night",
+        "value": "Not published for any class."
+      },
+      {
+        "label": "Days per subject",
+        "value": "Not published — no weekly grid exists on the school’s site."
+      },
+      {
+        "label": "A weekend rule",
+        "value": "Not published."
+      },
+      {
+        "label": "A holiday rule",
+        "value": "Not published."
+      }
+    ]
+  },
+  "item": {
+    "kicker": "Where the question is actually answered",
+    "heading": "Item five,\n{{and item eleven.}}",
+    "body": [
+      "The more useful fact is not on the school’s homework page at all — it is projected on a screen in its Parents’ Forum. The agenda runs to **twelve items**, and two of them are this subject.",
+      "A parent who wants to know how much homework is set, and whether it comes back marked, has a standing item on a published agenda to raise it under. That is a better answer than a paragraph describing a policy this site cannot verify."
+    ],
+    "caption": "The Parents’ Forum for Classes IX to XII, session 2025-26 — its agenda projected in the room.",
+    "shots": [
+      {
+        "key": "pPanel",
+        "asset": "assets/parents forum/parents forum (5).jpg",
+        "name": "parents forum (5)",
+        "alt": "The leadership panel at a Parents’ Forum session at {schoolName}, the session’s twelve-item agenda projected on the screen beside them"
+      },
+      {
+        "key": "pTiers",
+        "asset": "assets/parents forum/parents forum (6).jpg",
+        "name": "parents forum (6)",
+        "alt": "Parents of {schoolName} seated in the tiered rows of the hall during a Parents’ Forum session"
+      }
+    ],
+    "cells": [],
+    "cellsTwo": []
+  },
+  "frame": {
+    "kicker": "The homework framework",
+    "heading": "What parents can\n{{actually expect.}}",
+    "body": [
+      "Steps three and four describe a published *channel* — the forum agenda — rather than a rule about marking turnaround, because the school publishes the channel and not the rule."
+    ],
+    "caption": null,
+    "shots": [],
+    "cells": [
+      {
+        "mark": "pen",
+        "label": "Set",
+        "value": "Homework is assigned to the school’s published pattern rather than subject by subject on the day."
+      },
+      {
+        "mark": "book",
+        "label": "Complete",
+        "value": "Students work on the tasks expected for their class and their subject."
+      },
+      {
+        "mark": "clipboard",
+        "label": "Review",
+        "value": "Correction of notebooks is item eleven on the forum agenda — so it is a thing the school answers for."
+      },
+      {
+        "mark": "chat",
+        "label": "Raise",
+        "value": "A parent raises the question under item five, on a published agenda, in the forum."
+      }
+    ],
+    "cellsTwo": []
+  },
+  "clear": {
+    "kicker": "For parents",
+    "heading": "Less guessing.\n{{More clarity.}}",
+    "body": [
+      "Homework at Sunbeam follows the school’s published approach. Where there is a question about it, the three places on the right are where it can be put — and each of them is a channel the school names itself."
+    ],
+    "caption": null,
+    "shots": [],
+    "cells": [
+      {
+        "mark": "doc",
+        "label": "The published pattern",
+        "value": "What the school actually states: homework is set to a pattern, not assigned on the day.",
+        "href": "/academics/assessment/"
+      },
+      {
+        "mark": "hands",
+        "label": "The Parents’ Forum",
+        "value": "A panel session with a twelve-item agenda, two items of which are this subject.",
+        "href": "/academics/parent-partnership/parents-forum/"
+      },
+      {
+        "mark": "calendar",
+        "label": "The academic calendar",
+        "value": "Terms, holidays and examination dates — the frame the week is set inside.",
+        "href": "/academics/academic-calendar/"
+      }
+    ],
+    "cellsTwo": []
+  },
+  "gap": {
+    "kicker": "What is not published",
+    "heading": "What the page\n{{doesn’t pretend to know.}}",
+    "body": [
+      "Each of the four was checked for on the school’s site and is genuinely absent. We do not assume, estimate or invent any of them."
+    ],
+    "caption": null,
+    "shots": [],
+    "cells": [
+      {
+        "mark": "clock",
+        "label": "Fixed minutes per night"
+      },
+      {
+        "mark": "layers",
+        "label": "Identical homework for every subject"
+      },
+      {
+        "mark": "calendar",
+        "label": "A universal weekend rule"
+      },
+      {
+        "mark": "sun",
+        "label": "Holiday homework expectations"
+      }
+    ],
+    "cellsTwo": []
+  },
+  "ask": {
+    "kicker": "When a question needs an answer",
+    "heading": "Ask the school,\n{{not the assumption.}}",
+    "body": [
+      "The Parents’ Forum, parent–teacher interaction and the school office are the three channels the school names. Between them they cover homework practice, feedback, correction and the support that follows.",
+      "Meeting dates are on the [parent–teacher meetings](/academics/assessment/parent-teacher-meetings/) page; the office line is on [Contact](/contact-us/)."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pSeated",
+        "asset": "assets/parents forum/parents forum (2).jpg",
+        "name": "parents forum (2)",
+        "alt": "Parents of {schoolName} seated in the hall during a Parents’ Forum session"
+      },
+      {
+        "key": "pHall",
+        "asset": "assets/parents forum/parents forum (3).jpg",
+        "name": "parents forum (3)",
+        "alt": "Parents of {schoolName} in the hall at a Parents’ Forum, each desk carrying a class placard"
+      },
+      {
+        "key": "pLibrary",
+        "asset": "assets/library/DSC_1226 copy.jpg",
+        "name": "DSC_1226 copy",
+        "alt": "The Nalanda Library at {schoolName}, its shelves signed by subject and its reading tables set out"
+      }
+    ],
+    "cells": [
+      {
+        "label": "Homework practice, and how much is set"
+      },
+      {
+        "label": "Feedback and the correction of notebooks"
+      },
+      {
+        "label": "Planning together for improvement"
+      },
+      {
+        "label": "Support for better learning outcomes"
+      }
+    ],
+    "cellsTwo": []
+  },
+  "close": {
+    "kicker": "One sentence, one agenda item",
+    "heading": "Published clearly.\n{{Discussed openly.}}",
+    "body": [
+      "The school publishes that homework follows a pattern, and gives parents two standing agenda items to raise it under. The pattern itself — the load, the days, the weekend and holiday rules — is not published anywhere on its site, and nothing has been invented to fill the gap."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pCohort",
+        "asset": "assets/photos/sunbeem-3.jpg",
+        "name": "sunbeem-3",
+        "alt": ""
+      }
+    ],
+    "cells": [],
+    "cellsTwo": []
+  }
+}

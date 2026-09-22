@@ -22,6 +22,7 @@
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve, join, basename } from 'node:path';
 import { access } from 'node:fs/promises';
+import { readFileSync } from 'node:fs';
 
 import { withStrapi } from '../lib/strapi.mjs';
 import { loadWebData } from '../lib/load-web-data.mjs';
@@ -31,6 +32,7 @@ import { buildPhotoComponents, toPoints } from '../lib/components.mjs';
 import { slugify } from '../lib/slug.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
+const WEB_SRC = resolve(HERE, '../../../web/src');
 const DATA_FILE = resolve(HERE, '../../../web/src/data/academicCalendar.ts');
 const PUBLIC_DIR = resolve(HERE, '../../../web/public');
 const UID = 'api::calendar-document.calendar-document';
@@ -133,10 +135,38 @@ await withStrapi(async (strapi) => {
      shared.point, whose `{ n, mark, k, v }` shape these two arrays already
      have and which recurs in a dozen other data files. */
   if (!DRY) {
+    /**
+     * ⚠ THE PAGE'S THREE PHOTOGRAPHS, IN THE ORDER IT PLACES THEM.
+     * They were the last thing here still living in the shared academics record,
+     * which left this page's words edited on its own form and its pictures on a
+     * record an editor had no reason to open. The plan holds the asset and the
+     * alt; the closing frame is decorative and its alt is empty on purpose.
+     */
+    const PAGE_SHOTS = [
+      { key: 'pMarch', name: 'planner-2026-march' },
+      { key: 'pApril', name: 'planner-2026-april' },
+      { key: 'pCohort', name: 'sunbeem-3' },
+    ];
+    const plan = JSON.parse(
+      readFileSync(resolve(HERE, '../fixtures/academics-photo-plan.json'), 'utf8'),
+    )['/academics/academic-calendar/'] ?? [];
+
+    const shots = [];
+    for (const want of PAGE_SHOTS) {
+      const row = plan.find((r) => r.key === want.key);
+      if (!row) throw new Error(`no photo-plan row for ${want.key}`);
+      const abs = join(WEB_SRC, row.asset);
+      const up = await uploadMedia(strapi, {
+        absolutePath: abs, name: want.name, alternativeText: row.alt || null,
+      });
+      shots.push({ image: up.file.id, alt: row.alt ?? '' });
+    }
+
     const outcome = await upsertSingle(strapi, PAGE_UID, {
       source: calendarSource ?? null,
       carries: toPoints(calendarCarries),
       planning: toPoints(calendarPlanning),
+      shots,
       seo: {
         metaTitle: 'Academic Calendar — Sunbeam School Ballia',
         metaDescription:

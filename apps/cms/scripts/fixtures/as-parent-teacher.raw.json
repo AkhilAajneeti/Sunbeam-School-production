@@ -1,0 +1,74 @@
+{
+  "open": {
+    "kicker": "Scheduled, not called",
+    "heading": "The date comes first,\n{{not the problem.}}",
+    "body": [
+      "Sunbeam places its parent–teacher meetings on the **academic calendar for the session**, alongside the examination dates, the terms and the holidays. The consequence is small and worth stating: a parent knows the date months before the meeting, and can read it against the examination it follows.",
+      "A meeting called at short notice has already said something before anyone speaks — that something has gone wrong. A meeting that was always in the calendar has not, which is what makes it possible to sit down about a child who is doing perfectly well.",
+      "The dates themselves are not published online. The {' '}<a class=\"as-link\" href={CALENDAR}>academic calendar</a> page sets out what the school says the calendar carries."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pHall"
+      },
+      {
+        "key": "pTiers"
+      }
+    ],
+    "runs": []
+  },
+  "agenda": {
+    "kicker": "With a printed agenda",
+    "heading": "With a printed\n{{agenda.}}",
+    "body": [
+      "The forum is a panel session, and its agenda is projected in the room rather than kept at the front. That agenda is worth reading: **four of its twelve items** are the ones parents rarely get a formal channel for — *quality of classroom teaching, pace of teaching, quality of assignment,* and *correction of notebooks.*",
+      "The forum has its own page under {' '}<a class=\"as-link\" href={FORUM}>Parent Partnership</a>; reports sit in the {' '}<a class=\"as-link\" href={PORTAL} rel=\"noopener\">parent portal</a>."
+    ],
+    "caption": "Photographs: the Parents’ Forum for Classes IX to XII, session 2025-26 — not a parent–teacher meeting. The school has published no photograph of one.",
+    "shots": [
+      {
+        "key": "pPanel"
+      },
+      {
+        "key": "pSpeak"
+      }
+    ],
+    "runs": [
+      {
+        "field": "cells",
+        "list": "channels"
+      }
+    ]
+  },
+  "why": {
+    "kicker": "Four reasons it works",
+    "heading": "Four things,\n{{and the reason for each}}",
+    "body": [
+      "The cycle these meetings sit inside is on {' '}<a class=\"as-link\" href={ASSESSMENT}>Assessment & Support</a>."
+    ],
+    "caption": null,
+    "shots": [],
+    "runs": [
+      {
+        "field": "cells",
+        "list": "reasons"
+      }
+    ]
+  },
+  "close": {
+    "kicker": "On the calendar, in advance",
+    "heading": "Read it against\n{{the calendar.}}",
+    "body": [
+      "The school publishes that PTMs are on the session calendar and that reports sit in the parent portal. How many meetings a year, how long they run and whether they are by appointment are not published — and no photograph of a PTM exists on the school's site."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pCohort",
+        "alt": ""
+      }
+    ],
+    "runs": []
+  }
+}

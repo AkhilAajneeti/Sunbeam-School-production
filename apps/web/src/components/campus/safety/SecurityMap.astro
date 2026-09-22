@@ -1,7 +1,7 @@
 ---
 import { getCampusTourData, getCampusSafetyData } from '../../../lib/cms';
 const {facilities} = await getCampusTourData();
-const {mapPoints} = await getCampusSafetyData();
+const { mapPoints, planBand } = await getCampusSafetyData();
 
 /**
  * §2 · CAMPUS SECURITY PLAN — an interactive schematic with hotspots.
@@ -56,9 +56,9 @@ const icons: Record<string, string> = {
   <div class="u-container">
     <SectionHead
       id="cmap-title"
-      eyebrow="Where things are"
-      heading="The campus, point by point"
-      stand="A schematic — it shows what sits where, not what the buildings look like."
+      eyebrow={planBand.eyebrow}
+      heading={planBand.heading}
+      stand={planBand.stand}
       measure={20}
     />
 

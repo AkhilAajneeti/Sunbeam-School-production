@@ -70,17 +70,12 @@ import Lightbox from '../../ui/Lightbox.astro';
 
 /* ── PHOTOGRAPHY — every frame is a genuine Sunbeam Ballia photograph, and each
    alt says what is IN it rather than what the section is about. */
-import { getAcademicTopic } from '../../../lib/cms';
+import ClipHeading from '../../ui/ClipHeading.astro';
+import RichLine from '../../ui/RichLine.astro';
+import { getExperientialLearning } from '../../../lib/cms';
 import SmartImage from '../../ui/SmartImage.astro';
 
-const ac = await getAcademicTopic('/academics/teaching-learning/experiential-learning/');
-const pCompost = ac.pic('pCompost');
-const pOwnWork = ac.pic('pOwnWork');
-const pCanva = ac.pic('pCanva');
-const pMonash = ac.pic('pMonash');
-const pChef = ac.pic('pChef');
-const pThread = ac.pic('pThread');
-const pCohort = ac.pic('pCohort');
+const { open, path, proj, close } = await getExperientialLearning();
 
 const S = 'Sunbeam School Ballia';
 
@@ -101,10 +96,8 @@ const MARK: Record<string, string> = {
    with their own drawings" is honest, a stop captioned "a gallery walk" would
    not be. `owed: true` marks the stop with no photograph rather than borrowing
    one from another activity. */
-const stops = ac.section('stops').points;
 
 /* The three design labels on the dark close. */
-const beats = ac.section('beats').points;
 ---
 
 {/* ══ 01 · IN THE HAND BEFORE THE EXAM ═══════════════════════════════════════
@@ -117,23 +110,10 @@ const beats = ac.section('beats').points;
 
   <div class="u-container ex-open__grid">
     <div class="ex-open__copy">
-      <p class="ex-kicker" data-reveal>The claim, and the test of it</p>
-      <h2 class="ex-h ex-open__h" id="ex-open-t">
-        <span data-clip data-clip-delay="0">In the hand</span>
-        <span data-clip data-clip-delay="150"><em>before the exam.</em></span>
-      </h2>
-      <p class="ex-body" data-reveal data-reveal-delay="200">
-        Sunbeam’s stated approach is that a topic is <strong>met in the hand before it is met in
-        the exam</strong>. Every school says something like it, so the only useful question is
-        what a reader can check.
-      </p>
-      <p class="ex-body" data-reveal data-reveal-delay="270">
-        Here the check is unusually strong. In September 2025 the school
-        {' '}<strong>hosted the CBSE Capacity Building Programme on Experiential Learning</strong> —
-        two days, taken by two visiting principals. Sunbeam Ballia was the venue other schools came
-        to. Running experiential learning is a claim; being the place it is taught is a fact with a
-        date on it.
-      </p>
+      <p class="ex-kicker" data-reveal>{open.kicker}</p>
+      <ClipHeading class="ex-h ex-open__h" id="ex-open-t" text={open.heading} />
+      <RichLine class="ex-body" text={open.body[0]} reveal revealDelay={200} />
+      <RichLine class="ex-body" text={open.body[1]} reveal revealDelay={270} />
 
       <ul class="ex-open__tags">
         <li data-reveal data-reveal-delay="340">
@@ -161,8 +141,7 @@ const beats = ac.section('beats').points;
 
       <figure class="ex-open__lead" data-mask data-zoom data-zoom-to="1.06">
         <SmartImage
-          file={pCanva}
-          alt={ac.picAlt('pCanva')}
+          file={open.shots[0]?.image} alt={open.shots[0]?.alt ?? ''}
          
           widths={[560, 900, 1200]}
           sizes="(max-width: 1023px) 92vw, 44vw"
@@ -173,8 +152,7 @@ const beats = ac.section('beats').points;
 
       <figure class="ex-open__mid" data-parallax data-parallax-y="26">
         <SmartImage
-          file={pOwnWork}
-          alt={ac.picAlt('pOwnWork')}
+          file={open.shots[1]?.image} alt={open.shots[1]?.alt ?? ''}
          
           widths={[320, 540]}
           sizes="(max-width: 1023px) 42vw, 19vw"
@@ -185,8 +163,7 @@ const beats = ac.section('beats').points;
 
       <figure class="ex-open__disc" data-parallax data-parallax-y="-20">
         <SmartImage
-          file={pCompost}
-          alt={ac.picAlt('pCompost')}
+          file={open.shots[2]?.image} alt={open.shots[2]?.alt ?? ''}
          
           widths={[260, 420]}
           sizes="(max-width: 1023px) 30vw, 13vw"
@@ -245,9 +222,7 @@ const beats = ac.section('beats').points;
   </svg>
 
   <div class="u-container">
-    <h2 class="ex-kicker ex-path__eyebrow" id="ex-path-t" data-reveal>
-      Experiences that become learning
-    </h2>
+    <h2 class="ex-kicker ex-path__eyebrow" id="ex-path-t" data-reveal>{path.heading}</h2>
 
     <div class="ex-path__scroller">
       <div class="ex-path__stage">
@@ -279,23 +254,23 @@ const beats = ac.section('beats').points;
             one band. Placed in percentages of the stage so they land on the
             curve's crossings at every width. */}
         <span class="ex-path__nodes" aria-hidden="true">
-          {stops.map((s, i) => (
+          {path.cells.map((s, i) => (
             <i class="t-tabular" style={`--n: ${i}; --ny: ${i % 2 === 0 ? '52.56%' : '46.09%'};`}
-              data-pop data-pop-delay={i * 90}>{s.n}</i>
+              data-pop data-pop-delay={i * 90}>{String(i + 1).padStart(2, '0')}</i>
           ))}
         </span>
 
         <ol class="ex-path__list">
-          {stops.map((s, i) => (
-            <li class={`ex-stop ex-stop--${i % 2 === 0 ? 'up' : 'down'}${s.owed ? ' ex-stop--owed' : ''}`}
+          {path.cells.map((s, i) => (
+            <li class={`ex-stop ex-stop--${i % 2 === 0 ? 'up' : 'down'}${s.flag ? ' ex-stop--owed' : ''}`}
               style={`--c: ${i + 1}; --k: ${[0, 0.96, 0.04, 1, 0.02, 0.94][i]};`}>
-              <p class="ex-stop__n t-tabular" data-pop data-pop-delay={i * 90}>{s.n}</p>
+              <p class="ex-stop__n t-tabular" data-pop data-pop-delay={i * 90}>{String(i + 1).padStart(2, '0')}</p>
 
-              {s.photo ? (
-                <a class="ex-stop__shot" href={s.photo.src} data-lb-open
-                  data-lb-alt={s.alt} data-lb-cap={s.k} data-drift="26">
+              {s.image ? (
+                <a class="ex-stop__shot" href={s.image.src} data-lb-open
+                  data-lb-alt={s.alt} data-lb-cap={s.label} data-drift="26">
                   <SmartImage
-                    file={s.photo}
+                    file={s.image}
                     alt={s.alt}
                     sizes="(max-width: 767px) 40vw, 16vw"
                     fallbackWidth={1100}
@@ -321,9 +296,9 @@ const beats = ac.section('beats').points;
                 </span>
               )}
 
-              <h3 class="ex-stop__k" data-reveal data-reveal-delay={120 + i * 60}>{s.k}</h3>
-              <p class="ex-stop__b" data-reveal data-reveal-delay={200 + i * 60}>{s.body}</p>
-              {s.owed && <p class="ex-stop__flag">No photography published</p>}
+              <h3 class="ex-stop__k" data-reveal data-reveal-delay={120 + i * 60}>{s.label}</h3>
+              <p class="ex-stop__b" data-reveal data-reveal-delay={200 + i * 60}>{s.value}</p>
+              {s.flag && <p class="ex-stop__flag">No photography published</p>}
             </li>
           ))}
         </ol>
@@ -379,38 +354,18 @@ const beats = ac.section('beats').points;
 
   <div class="u-container ex-proj__grid">
     <div class="ex-proj__copy">
-      <p class="ex-kicker" data-reveal>Projects leave the classroom</p>
-      <h2 class="ex-h ex-proj__h" id="ex-proj-t">
-        <span data-clip data-clip-delay="0">From making</span>
-        <span data-clip data-clip-delay="150">to <em>understanding.</em></span>
-      </h2>
-      <p class="ex-body" data-reveal data-reveal-delay="200">
-        Project work here has two published endpoints, and both are worth more than any account of
-        the method.
-      </p>
-      <p class="ex-body" data-reveal data-reveal-delay="270">
-        The first is <strong>KIDS Entrepreneurship</strong>, and the school’s description of it is
-        six words long: <em>“a Class 7 programme that runs a real venture end to end.”</em> Not a
-        simulation and not a case study — a venture, carried from start to finish by
-        twelve-year-olds.
-      </p>
-      <p class="ex-body" data-reveal data-reveal-delay="340">
-        The second left the state. Students travelled to Delhi for an
-        {' '}<strong>international innovation project on entrepreneurship run with Monash
-        University, Australia</strong>, held at K.R. Mangalam World School, G.K-II. A project
-        judged outside the building is judged by people who owe the school nothing.
-      </p>
-      <p class="ex-body ex-proj__pt" data-reveal data-reveal-delay="410">
-        Neither is an extra activity bolted onto the timetable. They are how the school says it
-        teaches.
-      </p>
+      <p class="ex-kicker" data-reveal>{proj.kicker}</p>
+      <ClipHeading class="ex-h ex-proj__h" id="ex-proj-t" text={proj.heading} />
+      <RichLine class="ex-body" text={proj.body[0]} reveal revealDelay={200} />
+      <RichLine class="ex-body" text={proj.body[1]} reveal revealDelay={270} />
+      <RichLine class="ex-body" text={proj.body[2]} reveal revealDelay={340} />
+      <RichLine class="ex-body ex-proj__pt" text={proj.body[3]} reveal revealDelay={410} />
     </div>
 
     <div class="ex-proj__stack">
       <figure class="ex-proj__lead" data-mask data-zoom data-zoom-to="1.06">
         <SmartImage
-          file={pMonash}
-          alt={ac.picAlt('pMonash')}
+          file={proj.shots[0]?.image} alt={proj.shots[0]?.alt ?? ''}
          
           widths={[480, 800, 1100]}
           sizes="(max-width: 1023px) 84vw, 34vw"
@@ -422,8 +377,7 @@ const beats = ac.section('beats').points;
 
       <figure class="ex-proj__side" data-parallax data-parallax-y="-30">
         <SmartImage
-          file={pChef}
-          alt={ac.picAlt('pChef')}
+          file={proj.shots[1]?.image} alt={proj.shots[1]?.alt ?? ''}
          
           widths={[340, 560]}
           sizes="(max-width: 1023px) 44vw, 20vw"
@@ -435,8 +389,7 @@ const beats = ac.section('beats').points;
 
       <figure class="ex-proj__disc" data-parallax data-parallax-y="22">
         <SmartImage
-          file={pThread}
-          alt={ac.picAlt('pThread')}
+          file={proj.shots[2]?.image} alt={proj.shots[2]?.alt ?? ''}
          
           widths={[240, 400]}
           sizes="(max-width: 1023px) 28vw, 12vw"
@@ -452,8 +405,7 @@ const beats = ac.section('beats').points;
 <section class="ex-close" aria-labelledby="ex-close-t">
   <div class="ex-close__media" aria-hidden="true" data-parallax data-parallax-y="-40">
     <SmartImage
-      file={pCohort}
-      alt={ac.picAlt('pCohort')}
+      file={close.shots[0]?.image} alt={close.shots[0]?.alt ?? ''}
      
       widths={[1024, 1600, 2000]}
       sizes="100vw"
@@ -465,28 +417,21 @@ const beats = ac.section('beats').points;
   <span class="ex-close__glow" aria-hidden="true"></span>
 
   <div class="u-container ex-close__inner">
-    <p class="ex-kicker ex-kicker--dark" data-reveal>Experiential learning in practice</p>
-    <h2 class="ex-h ex-close__h" id="ex-close-t">
-      <span data-clip data-clip-delay="0">See it. Make it.</span>
-      <span data-clip data-clip-delay="150"><em>Understand it.</em></span>
-    </h2>
-    <p class="ex-close__b" data-reveal data-reveal-delay="180">
-      The school publishes the plot, the programme, the Monash project and the CBSE programme it
-      hosted. What KIDS runs week to week, how many students travelled to Delhi, and where the
-      planetarium show was held are not published — so none of those is described here.
-    </p>
+    <p class="ex-kicker ex-kicker--dark" data-reveal>{close.kicker}</p>
+    <ClipHeading class="ex-h ex-close__h" id="ex-close-t" text={close.heading} />
+    <RichLine class="ex-close__b" text={close.body[0]} reveal revealDelay={180} />
 
     {/* ⚠ DESIGN LABELS, NOT A QUOTED FRAMEWORK. The school does not publish a
         three-step model, so these are set as marks rather than as its words. */}
     <ul class="ex-close__beats">
-      {beats.map((b, i) => (
+      {close.cells.map((b, i) => (
         <li data-reveal data-reveal-delay={260 + i * 90}>
           <span aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none">
               <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={MARK[b.mark]} />
             </svg>
           </span>
-          {b.k}
+          {b.label}
         </li>
       ))}
     </ul>
@@ -508,7 +453,7 @@ const beats = ac.section('beats').points;
   }
   .ex-kicker--dark { color: var(--sb-lime); }
 
-  .ex-h {
+  :global(.ex-h) {
     margin: clamp(12px, 1.5vw, 18px) 0 0;
     font-family: var(--sb-font-display);
     font-weight: 700;
@@ -516,18 +461,18 @@ const beats = ac.section('beats').points;
     letter-spacing: -0.04em;
     color: var(--sb-charcoal);
   }
-  .ex-h span { display: block; }
-  .ex-h em { font-style: normal; color: var(--sb-violet); }
+  :global(.ex-h span) { display: block; }
+  :global(.ex-h em) { font-style: normal; color: var(--sb-violet); }
 
-  .ex-body {
+  :global(.ex-body) {
     max-width: 44ch;
     margin: clamp(13px, 1.6vw, 19px) 0 0;
     font-size: clamp(13px, 0.95vw, 15px);
     line-height: 1.78;
     color: var(--sb-text-secondary);
   }
-  .ex-body strong { font-weight: 700; color: var(--sb-charcoal); }
-  .ex-body em { font-style: italic; color: var(--sb-charcoal); }
+  :global(.ex-body strong) { font-weight: 700; color: var(--sb-charcoal); }
+  :global(.ex-body em) { font-style: italic; color: var(--sb-charcoal); }
 
   .ex-grid {
     position: absolute;
@@ -592,7 +537,7 @@ const beats = ac.section('beats').points;
     gap: clamp(28px, 4vw, 64px);
     align-items: center;
   }
-  .ex-open__h { font-size: clamp(28px, 3.4vw, 48px); }
+  :global(.ex-open__h) { font-size: clamp(28px, 3.4vw, 48px); }
 
   .ex-open__tags {
     display: flex;
@@ -982,8 +927,8 @@ const beats = ac.section('beats').points;
     gap: clamp(28px, 4vw, 66px);
     align-items: center;
   }
-  .ex-proj__h { font-size: clamp(28px, 3.4vw, 48px); }
-  .ex-proj__pt {
+  :global(.ex-proj__h) { font-size: clamp(28px, 3.4vw, 48px); }
+  :global(.ex-proj__pt) {
     margin-top: clamp(16px, 1.9vw, 24px);
     padding-top: clamp(14px, 1.6vw, 20px);
     border-top: 1px solid var(--sb-border);
@@ -1098,14 +1043,14 @@ const beats = ac.section('beats').points;
     justify-items: center;
     text-align: center;
   }
-  .ex-close__h {
+  :global(.ex-close__h) {
     max-width: 20ch;
     margin: clamp(12px, 1.5vw, 18px) 0 0;
     font-size: clamp(28px, 3.4vw, 48px);
     color: #fff;
   }
-  .ex-close__h em { color: var(--sb-lime); font-style: normal; }
-  .ex-close__b {
+  :global(.ex-close__h em) { color: var(--sb-lime); font-style: normal; }
+  :global(.ex-close__b) {
     max-width: 64ch;
     margin: clamp(15px, 1.8vw, 22px) 0 0;
     font-size: clamp(12.5px, 0.92vw, 14.5px);
@@ -1113,7 +1058,7 @@ const beats = ac.section('beats').points;
     color: var(--sb-on-dark-82);
   }
 
-  .ex-close__beats {
+  :global(.ex-close__beats) {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -1123,7 +1068,7 @@ const beats = ac.section('beats').points;
     padding: 0;
     list-style: none;
   }
-  .ex-close__beats li {
+  :global(.ex-close__beats li) {
     display: flex;
     align-items: center;
     gap: 9px;
@@ -1134,7 +1079,7 @@ const beats = ac.section('beats').points;
     color: #fff;
   }
   /* The rule between the three, drawn on the gap rather than on the items. */
-  .ex-close__beats li + li::before {
+  :global(.ex-close__beats li + li::before) {
     content: '';
     width: clamp(20px, 3vw, 52px);
     height: 1px;
@@ -1142,7 +1087,7 @@ const beats = ac.section('beats').points;
     background-image: linear-gradient(to right, rgba(255, 138, 92, 0.6) 52%, transparent 52%);
     background-size: 7px 1px;
   }
-  .ex-close__beats span {
+  :global(.ex-close__beats span) {
     display: grid;
     place-items: center;
     width: clamp(28px, 2.6vw, 36px);
@@ -1151,7 +1096,7 @@ const beats = ac.section('beats').points;
     border-radius: 50%;
     color: var(--sb-lime);
   }
-  .ex-close__beats svg { width: 52%; height: auto; }
+  :global(.ex-close__beats svg) { width: 52%; height: auto; }
 
   /* ═══ RESPONSIVE ══════════════════════════════════════════════════════════ */
   @media (max-width: 1279px) {
@@ -1185,7 +1130,7 @@ const beats = ac.section('beats').points;
       grid-template-columns: minmax(0, 1fr);
       gap: clamp(34px, 5vw, 52px);
     }
-    .ex-body { max-width: 58ch; }
+    :global(.ex-body) { max-width: 58ch; }
     .ex-open__lead,
     .ex-proj__lead { width: 100%; }
     .ex-open__mid { width: clamp(118px, 26vw, 180px); }
@@ -1259,7 +1204,7 @@ const beats = ac.section('beats').points;
       font-size: clamp(8px, 2.2vw, 9.5px);
     }
 
-    .ex-close__beats { gap: clamp(10px, 3vw, 16px); }
-    .ex-close__beats li + li::before { display: none; }
+    :global(.ex-close__beats) { gap: clamp(10px, 3vw, 16px); }
+    :global(.ex-close__beats li + li::before) { display: none; }
   }
 </style>

@@ -1,0 +1,69 @@
+---
+/**
+ * PARENTS' FEEDBACK — /parents-feedback/
+ *
+ * ⚠ THE URL IS /parents-feedback/, NOT UNDER /academics/parent-partnership/.
+ * It is linked from the Parent Partnership mega-menu all the same — the one
+ * entry in that group whose path sits outside the section, on the client's
+ * instruction. Without that nav entry the page would be an orphan.
+ *
+ * ⚠⚠ `crumbs` EXCLUDES THE CURRENT PAGE. PageHero appends it from `title` and
+ * marks it aria-current. Passing "Parents' Feedback" in the array prints it
+ * twice.
+ *
+ * ⚠ STOCK PageHero, CENTRED. No left-aligned split hero. An earlier pass
+ * matched a left-aligned comp, which needed an `align` prop on PageHero plus
+ * page-level overrides reaching into a shared component's scoped styles. Both
+ * were reverted, and PageHero is untouched.
+ *
+ * ⚠⚠ THE BANNER IS NOT THE ONE THE BRIEF NAMES, BECAUSE THAT FILE DOES NOT
+ * EXIST. The brief asks for src/assets/photos/campus-entrance-wall.jpg — the
+ * drive with the school's name carved into the brick wall. That path is not in
+ * the repository and never has been (checked against git history, not just the
+ * working tree), and the only photograph of that wall in the project is
+ * alumni-meets/…/06-entrance-before-the-meet.jpg, which is dressed for an
+ * alumni meet: red carpet, house banners and an "Alumni Meet 2026" standee. A
+ * parents' feedback page is the wrong place for it, and its alt text could not
+ * honestly be the one the brief supplies.
+ *
+ * So this keeps the Parents' Forum photograph, which is at least about parents.
+ * When the real file is added, this route needs exactly two lines changed — the
+ * import and the alt — and the brief's alt text is recorded here ready for it:
+ *
+ *   "The drive inside Sunbeam School Ballia at Agarsanda, the school's name
+ *    carved into the brick wall with palms and potted plants along it."
+ *
+ * ⚠ TITLE AND CRUMBS ARE PASSED EXPLICITLY. Most static routes take their SEO
+ * from a CMS page-meta row keyed on the path; this route has no such row yet.
+ * Seed one and these props can come out.
+ *
+ * The panel's padding-block is an inline style — a scoped rule can skew against
+ * its build hash and reopen the white band above the footer.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/ui/PageHero.astro';
+import ParentsFeedbackPage from '../components/academics/partnership/ParentsFeedbackPage.astro';
+
+import banner from '../assets/parents forum/parents forum (5).jpg';
+---
+
+<BaseLayout
+  title="Parents’ Feedback — Sunbeam School Ballia"
+  description="How parents take part at Sunbeam School Ballia — the Parents’ Forum, the Child Parent Teacher Dialogue, the orientation programmes, and a form for sending the school your own feedback."
+>
+  <PageHero
+    title="Parents’ Feedback"
+    standfirst="Voices from our school community"
+    crumbs={[
+      { label: 'Home', href: '/' },
+      { label: 'Parent Partnership', href: '/academics/parent-partnership/' },
+    ]}
+    src={banner}
+    alt="Parents seated at the Parents’ Forum at Sunbeam School Ballia."
+    position="46% 58%"
+  />
+
+  <div class="u-page-panel" style="padding-block: 0;">
+    <ParentsFeedbackPage />
+  </div>
+</BaseLayout>

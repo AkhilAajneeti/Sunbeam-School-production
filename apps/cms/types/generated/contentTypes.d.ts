@@ -469,6 +469,7 @@ export interface ApiAcademicCalendarPageAcademicCalendarPage
     planning: Schema.Attribute.Component<'shared.point', true>;
     publishedAt: Schema.Attribute.DateTime;
     seo: Schema.Attribute.Component<'shared.seo', false>;
+    shots: Schema.Attribute.Component<'shared.photo', true>;
     source: Schema.Attribute.String &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 500;
@@ -667,6 +668,48 @@ export interface ApiAchievementRecordAchievementRecord
   };
 }
 
+export interface ApiAchievementsPageAchievementsPage
+  extends Struct.SingleTypeSchema {
+  collectionName: 'achievements_pages';
+  info: {
+    description: 'The three band headings on Beyond Academics \u2192 Achievements. \u26A0 THIS IS THE PAGE FURNITURE ONLY \u2014 the achievements themselves live in three separate collections: Achievement Majors, Credentials and Achievement Records. Editing a heading here never changes what is listed under it. \u26A0 THE BANNER, PAGE TITLE AND SEO ARE NOT HERE EITHER \u2014 they are on the Page Meta row for /beyond-academics/achievements/, which is where every page on the site keeps them, banner upload included.';
+    displayName: 'Achievements Page';
+    pluralName: 'achievements-pages';
+    singularName: 'achievements-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::achievements-page.achievements-page'
+    > &
+      Schema.Attribute.Private;
+    majors: Schema.Attribute.Component<'structure.section', false>;
+    publishedAt: Schema.Attribute.DateTime;
+    recognition: Schema.Attribute.Component<'structure.section', false>;
+    record: Schema.Attribute.Component<'structure.section', false>;
+    recordBoards: Schema.Attribute.Component<
+      'achievements.record-board',
+      true
+    > &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 2;
+        },
+        number
+      >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiAlumniMeetAlumniMeet extends Struct.CollectionTypeSchema {
   collectionName: 'alumni_meets';
   info: {
@@ -848,6 +891,42 @@ export interface ApiAlumnusAlumnus extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 500;
       }>;
+  };
+}
+
+export interface ApiAssessmentPageAssessmentPage
+  extends Struct.SingleTypeSchema {
+  collectionName: 'assessment_pages';
+  info: {
+    description: 'The Assessment System page (/academics/assessment/) \u2014 one named field per band of the page, in the order a reader meets them. \u26A0 Every band is the same shape: a label, a heading, paragraphs, photographs and a run of cells. These pages carry no photographs; what differs between bands is how the page draws them, and the page owns that. Bands cannot be reordered, added or removed.';
+    displayName: 'Assessment System';
+    pluralName: 'assessment-pages';
+    singularName: 'assessment-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    close: Schema.Attribute.Component<'structure.section', false>;
+    conv: Schema.Attribute.Component<'structure.section', false>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    cycle: Schema.Attribute.Component<'structure.section', false>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::assessment-page.assessment-page'
+    > &
+      Schema.Attribute.Private;
+    next: Schema.Attribute.Component<'structure.section', false>;
+    open: Schema.Attribute.Component<'structure.section', false>;
+    publishedAt: Schema.Attribute.DateTime;
+    struct: Schema.Attribute.Component<'structure.section', false>;
+    sup: Schema.Attribute.Component<'structure.section', false>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
@@ -1036,7 +1115,7 @@ export interface ApiCampusSafetyPageCampusSafetyPage
   extends Struct.SingleTypeSchema {
   collectionName: 'campus_safety_page';
   info: {
-    description: "Safety bands, the security plan's markers, and the emergency procedure. Mirrors apps/web/src/data/campus.ts.";
+    description: "Safety bands, the security plan's markers, and the emergency procedure. Mirrors apps/web/src/data/campus.ts. \u26A0 THE FIVE BAND HEADS \u2014 timeline, plan, transport, wellbeing, surveillance \u2014 are the eyebrow, heading and standfirst of each band on /campus/safety-security/, in page order. kicker = the eyebrow; the FIRST paragraph of body = the standfirst. \u26A0 NOT EDITABLE HERE, on purpose: the section-rail labels and anchors (tied to DOM ids), the plan's zoom buttons and its 'Select a point on the plan.' empty state \u2014 interface, not content. \u26A0 `transportFigures` ARE THE THREE COUNTS under the transport band \u2014 fleet size, routes, and the tracked proportion. They are TYPED, not computed: the fleet figure (29+) is larger than the number of distinct vehicles on the published routes (22), so deriving them from Bus Route would silently republish a different number. If the fleet changes, edit it here AND check the band's standfirst, which states the route count in words.";
     displayName: 'Campus Safety Page';
     pluralName: 'campus-safety-pages';
     singularName: 'campus-safety-page';
@@ -1057,13 +1136,19 @@ export interface ApiCampusSafetyPageCampusSafetyPage
     > &
       Schema.Attribute.Private;
     mapPoints: Schema.Attribute.Component<'campus.map-point', true>;
+    plan: Schema.Attribute.Component<'structure.section', false>;
     publishedAt: Schema.Attribute.DateTime;
     safetyGroups: Schema.Attribute.Component<'campus.safety-group', true>;
+    surveillance: Schema.Attribute.Component<'structure.section', false>;
     surveillanceCards: Schema.Attribute.Component<'shared.point', true>;
+    timeline: Schema.Attribute.Component<'structure.section', false>;
+    transport: Schema.Attribute.Component<'structure.section', false>;
     transportFeatures: Schema.Attribute.Component<'shared.measure', true>;
+    transportFigures: Schema.Attribute.Component<'shared.figure', true>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    wellbeing: Schema.Attribute.Component<'structure.section', false>;
     wellbeingCards: Schema.Attribute.Component<'shared.point', true>;
   };
 }
@@ -1072,7 +1157,7 @@ export interface ApiCampusTourPageCampusTourPage
   extends Struct.SingleTypeSchema {
   collectionName: 'campus_tour_page';
   info: {
-    description: 'The overview stats and journey band of /campus/. The facilities themselves are a Collection beside this.';
+    description: "Every word of /campus/ that is not a facility. The facilities themselves are the Campus Facility collection beside this; the band headings, the six featured rooms and the visit call-to-action are here. \u26A0 FIELD NAMES MATCH THE BANDS ON THE PAGE, in page order: overview, categories, gallery, featured, journey, visit. \u26A0 WHAT IS DELIBERATELY NOT HERE: the section-rail labels and anchors (they are tied to DOM ids \u2014 an edit would break the in-page links), the gallery's own heading (it counts the photographs and must stay derived), and interface labels such as All / Load more / Close (chrome, not content).";
     displayName: 'Campus Tour Page';
     pluralName: 'campus-tour-pages';
     singularName: 'campus-tour-page';
@@ -1081,18 +1166,184 @@ export interface ApiCampusTourPageCampusTourPage
     draftAndPublish: true;
   };
   attributes: {
+    categories: Schema.Attribute.Component<'structure.section', false>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    featured: Schema.Attribute.Component<'shared.point', true>;
+    featuredHead: Schema.Attribute.Component<'structure.section', false>;
+    gallery: Schema.Attribute.Component<'structure.section', false>;
     journey: Schema.Attribute.Component<'shared.point', true>;
+    journeyHead: Schema.Attribute.Component<'structure.section', false>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::campus-tour-page.campus-tour-page'
     > &
       Schema.Attribute.Private;
+    overview: Schema.Attribute.Component<'structure.section', false>;
     overviewStats: Schema.Attribute.Component<'shared.stat', true>;
     publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    visit: Schema.Attribute.Component<'structure.section', false>;
+    visitCallLabel: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    visitCtaHref: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    visitCtaLabel: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+  };
+}
+
+export interface ApiCareerPageCareerPage extends Struct.SingleTypeSchema {
+  collectionName: 'career_page';
+  info: {
+    description: "Every word of /career/ that is not a job notice. The notices themselves are the Job Posting collection beside this. \u26A0 `wall` AND `apply` ARE BAND HEADS \u2014 kicker = the eyebrow, the FIRST paragraph of body = the line under the heading. \u26A0\u26A0 THE POSTING COUNT ABOVE THE WALL IS NOT HERE AND MUST NOT BE. It is rendered from the number of published Job Postings, so it can never drift from the wall below it the way a typed number would. \u26A0 `applyMethods` USE shared.measure \u2014 `label` is the row's term (\"By email\") and `body` the note under it. shared.detail was the obvious choice and is wrong: its `value` is REQUIRED, and there is no value to put there. The address, the recruitment email and the office number under each one come from Site Settings \u2014 one contact detail, edited in one place, printed in 57 files. \u26A0 NOT EDITABLE HERE: each notice's tag and date (they belong to the Job Posting) and the image viewer's 'Close the viewer' control.";
+    displayName: 'Career Page';
+    pluralName: 'career-pages';
+    singularName: 'career-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    apply: Schema.Attribute.Component<'structure.section', false>;
+    applyMethods: Schema.Attribute.Component<'shared.measure', true>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    ctaCallLabel: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    ctaCvLabel: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::career-page.career-page'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    wall: Schema.Attribute.Component<'structure.section', false>;
+  };
+}
+
+export interface ApiCompetitiveExamPageCompetitiveExamPage
+  extends Struct.SingleTypeSchema {
+  collectionName: 'competitive_exam_pages';
+  info: {
+    description: 'The Competitive Exam Preparation page (/academics/assessment/competitive-exam-preparation/) \u2014 one named field per band of the page, in the order a reader meets them. \u26A0 Every band is the same shape: a label, a heading, paragraphs, photographs and a run of cells. These pages carry no photographs; what differs between bands is how the page draws them, and the page owns that. Bands cannot be reordered, added or removed.';
+    displayName: 'Competitive Exam Preparation';
+    pluralName: 'competitive-exam-pages';
+    singularName: 'competitive-exam-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    close: Schema.Attribute.Component<'structure.section', false>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    feat: Schema.Attribute.Component<'structure.section', false>;
+    gal: Schema.Attribute.Component<'structure.section', false>;
+    list: Schema.Attribute.Component<'structure.section', false>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::competitive-exam-page.competitive-exam-page'
+    > &
+      Schema.Attribute.Private;
+    open: Schema.Attribute.Component<'structure.section', false>;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiContactEnquiryContactEnquiry
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'contact_enquiries';
+  info: {
+    description: "A message sent through the form on /contact-us/. WRITTEN BY VISITORS, NOT BY EDITORS \u2014 nothing here is authored in the admin panel, and no page on the site reads it back. Fields mirror the form's own inputs one-for-one; see apps/web/src/pages/contact-us.astro. `message` IS THE POINT OF THE FORM and is required at every layer \u2014 the textarea, the controller whitelist and this schema. It was added late: the textarea shipped first and for a while enquiries reached the office with every field EXCEPT what the parent had written. If any one of those three layers drops it again, that happens again and nothing says so. draftAndPublish is OFF because an enquiry is a record of something that happened, not a document with a draft state.";
+    displayName: 'Contact Enquiry';
+    pluralName: 'contact-enquiries';
+    singularName: 'contact-enquiry';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    city: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 120;
+      }>;
+    consent: Schema.Attribute.Boolean &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<false>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    email: Schema.Attribute.Email &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::contact-enquiry.contact-enquiry'
+    > &
+      Schema.Attribute.Private;
+    message: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 4000;
+      }>;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 120;
+      }>;
+    officeNotes: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 5000;
+      }>;
+    phone: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 40;
+      }>;
+    publishedAt: Schema.Attribute.DateTime;
+    sourcePage: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    status: Schema.Attribute.Enumeration<['new', 'read', 'replied', 'closed']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'new'>;
+    studentClass: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 80;
+      }>;
+    subject: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1584,11 +1835,44 @@ export interface ApiExperientialInquiryPageExperientialInquiryPage
   };
 }
 
+export interface ApiExperientialLearningPageExperientialLearningPage
+  extends Struct.SingleTypeSchema {
+  collectionName: 'experiential_learning_pages';
+  info: {
+    description: 'The Experiential Learning page (/academics/teaching-learning/experiential-learning/) \u2014 one named field per band of the page, in the order a reader meets them. \u26A0 Every band is the same shape: a label, a heading, paragraphs, photographs and a run of cells. What differs is how the page lays that out, and the page owns it. Bands cannot be reordered, added or removed.';
+    displayName: 'Experiential Learning';
+    pluralName: 'experiential-learning-pages';
+    singularName: 'experiential-learning-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    close: Schema.Attribute.Component<'structure.section', false>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::experiential-learning-page.experiential-learning-page'
+    > &
+      Schema.Attribute.Private;
+    open: Schema.Attribute.Component<'structure.section', false>;
+    path: Schema.Attribute.Component<'structure.section', false>;
+    proj: Schema.Attribute.Component<'structure.section', false>;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiFacilitiesPageFacilitiesPage
   extends Struct.SingleTypeSchema {
   collectionName: 'facilities_page';
   info: {
-    description: 'The infrastructure page. Mirrors apps/web/src/data/facilities.ts \u2014 KPIs, grouped inventory, rationale cards and the growth progression.';
+    description: 'The infrastructure page. Mirrors apps/web/src/data/facilities.ts \u2014 KPIs, grouped inventory, rationale cards and the growth progression. \u26A0 `figures` IS THE HEAD OF THE KPI BAND on /campus/facilities-infrastructure/ \u2014 kicker = eyebrow, first body paragraph = standfirst. The other two bands on that page (the photo wall and the visit call-to-action) are SHARED WITH /campus/ and are edited in Campus Tour Page, not here.';
     displayName: 'Facilities Page';
     pluralName: 'facilities-pages';
     singularName: 'facilities-page';
@@ -1600,6 +1884,7 @@ export interface ApiFacilitiesPageFacilitiesPage
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    figures: Schema.Attribute.Component<'structure.section', false>;
     groups: Schema.Attribute.Component<'campus.facility-group', true>;
     kpis: Schema.Attribute.Component<'shared.stat', true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
@@ -1808,6 +2093,10 @@ export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 800;
       }>;
+    heroEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 80;
+      }>;
     heroSlides: Schema.Attribute.Component<'home.slide', true>;
     heroStats: Schema.Attribute.Component<'shared.figure', true>;
     heroTitle: Schema.Attribute.Text &
@@ -1899,6 +2188,42 @@ export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiHomeworkPolicyPageHomeworkPolicyPage
+  extends Struct.SingleTypeSchema {
+  collectionName: 'homework_policy_pages';
+  info: {
+    description: 'The Homework Policy page (/academics/assessment/homework-policy/) \u2014 one named field per band of the page, in the order a reader meets them. \u26A0 Every band is the same shape: a label, a heading, paragraphs, photographs and a run of cells. These pages carry no photographs; what differs between bands is how the page draws them, and the page owns that. Bands cannot be reordered, added or removed.';
+    displayName: 'Homework Policy';
+    pluralName: 'homework-policy-pages';
+    singularName: 'homework-policy-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    ask: Schema.Attribute.Component<'structure.section', false>;
+    clear: Schema.Attribute.Component<'structure.section', false>;
+    close: Schema.Attribute.Component<'structure.section', false>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    frame: Schema.Attribute.Component<'structure.section', false>;
+    gap: Schema.Attribute.Component<'structure.section', false>;
+    item: Schema.Attribute.Component<'structure.section', false>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::homework-policy-page.homework-policy-page'
+    > &
+      Schema.Attribute.Private;
+    open: Schema.Attribute.Component<'structure.section', false>;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiJobPostingJobPosting extends Struct.CollectionTypeSchema {
   collectionName: 'job_postings';
   info: {
@@ -1954,11 +2279,45 @@ export interface ApiJobPostingJobPosting extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiLaboratoriesClubsPageLaboratoriesClubsPage
+  extends Struct.SingleTypeSchema {
+  collectionName: 'laboratories_clubs_pages';
+  info: {
+    description: 'The Laboratories & Clubs page (/academics/teaching-learning/laboratories-clubs/) \u2014 one named field per band of the page, in the order a reader meets them. \u26A0 Every band is the same shape: a label, a heading, paragraphs, photographs and a run of cells. What differs is how the page lays that out, and the page owns it. Bands cannot be reordered, added or removed.';
+    displayName: 'Laboratories & Clubs';
+    pluralName: 'laboratories-clubs-pages';
+    singularName: 'laboratories-clubs-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    close: Schema.Attribute.Component<'structure.section', false>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    interlude: Schema.Attribute.Component<'structure.section', false>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::laboratories-clubs-page.laboratories-clubs-page'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    rooms: Schema.Attribute.Component<'structure.section', false>;
+    spaces: Schema.Attribute.Component<'structure.section', false>;
+    twelve: Schema.Attribute.Component<'structure.section', false>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiLeaderMessageLeaderMessage
   extends Struct.CollectionTypeSchema {
   collectionName: 'leader_messages';
   info: {
-    description: "The Director's and the Principal's messages. ONE type, two records \u2014 the pages are the same component with different content, so a second type would be the same nine fields under another name. `pending` states what the school has still to supply, which docs/07 A5 tracks for the Principal's message.";
+    description: 'A signed message from a member of the school\u2019s leadership. \u26A0\u26A0 `paragraphs` IS THE HOMEPAGE EXTRACT; `fullMessage` IS THE WHOLE THING. The homepage panel is designed around the pull quote and two paragraphs; the dedicated /about/ page runs the full message. Where `fullMessage` is set, the dedicated page uses it and drops the pull quote \u2014 the quoted sentence is inside the full text and would otherwise be read twice in a row. \u26A0 EVERY EXTRACT PARAGRAPH MUST APPEAR VERBATIM IN `fullMessage`. The page checks this at build time and fails if the two ever drift, so the extract can never quietly say something the message does not.';
     displayName: 'Leader Message';
     pluralName: 'leader-messages';
     singularName: 'leader-message';
@@ -1975,6 +2334,7 @@ export interface ApiLeaderMessageLeaderMessage
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 120;
       }>;
+    fullMessage: Schema.Attribute.Component<'shared.paragraph', true>;
     heading: Schema.Attribute.String &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 240;
@@ -2009,13 +2369,83 @@ export interface ApiLeaderMessageLeaderMessage
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 800;
       }>;
-    role: Schema.Attribute.Enumeration<['director', 'principal']> &
+    role: Schema.Attribute.Enumeration<
+      ['director', 'principal', 'vice-principal']
+    > &
       Schema.Attribute.Required;
     roleLabel: Schema.Attribute.String &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 120;
       }>;
     slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiMentoringPageMentoringPage extends Struct.SingleTypeSchema {
+  collectionName: 'mentoring_pages';
+  info: {
+    description: 'The Mentoring page (/academics/assessment/mentoring/) \u2014 one named field per band of the page, in the order a reader meets them. \u26A0 Every band is the same shape: a label, a heading, paragraphs, photographs and a run of cells. These pages carry no photographs; what differs between bands is how the page draws them, and the page owns that. Bands cannot be reordered, added or removed.';
+    displayName: 'Mentoring';
+    pluralName: 'mentoring-pages';
+    singularName: 'mentoring-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    final: Schema.Attribute.Component<'structure.section', false>;
+    human: Schema.Attribute.Component<'structure.section', false>;
+    jrn: Schema.Attribute.Component<'structure.section', false>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::mentoring-page.mentoring-page'
+    > &
+      Schema.Attribute.Private;
+    open: Schema.Attribute.Component<'structure.section', false>;
+    publishedAt: Schema.Attribute.DateTime;
+    rel: Schema.Attribute.Component<'structure.section', false>;
+    roles: Schema.Attribute.Component<'structure.section', false>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiMethodologyPageMethodologyPage
+  extends Struct.SingleTypeSchema {
+  collectionName: 'methodology_pages';
+  info: {
+    description: 'The Methodology page (/academics/teaching-learning/methodology/) \u2014 one named field per band of the page, in the order a reader meets them. \u26A0 Every band is the same shape: a label, a heading, paragraphs, photographs and a run of cells. What differs is how the page lays that out, and the page owns it. Bands cannot be reordered, added or removed.';
+    displayName: 'Methodology';
+    pluralName: 'methodology-pages';
+    singularName: 'methodology-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    close: Schema.Attribute.Component<'structure.section', false>;
+    collab: Schema.Attribute.Component<'structure.section', false>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::methodology-page.methodology-page'
+    > &
+      Schema.Attribute.Private;
+    open: Schema.Attribute.Component<'structure.section', false>;
+    plat: Schema.Attribute.Component<'structure.section', false>;
+    publishedAt: Schema.Attribute.DateTime;
+    three: Schema.Attribute.Component<'structure.section', false>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -2305,6 +2735,117 @@ export interface ApiPageMetaPageMeta extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiParentFeedbackParentFeedback
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'parent_feedbacks';
+  info: {
+    description: "Feedback sent through the 'Your Voice Matters' form on /parents-feedback/. WRITTEN BY PARENTS, NOT BY EDITORS. \u26A0\u26A0 NOTHING HERE IS EVER PUBLISHED TO THE SITE. The voices carousel on that page is fed by data/parentsFeedback.ts, which a human fills in after checking the feedback and obtaining written consent \u2014 no page reads this collection. Treat every row as private correspondence about a named child. draftAndPublish is OFF because a submission is a record of something that happened, not a document with a draft state.";
+    displayName: 'Parent Feedback';
+    pluralName: 'parent-feedbacks';
+    singularName: 'parent-feedback';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    appreciate: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 120;
+      }>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    feedback: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 5000;
+      }>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::parent-feedback.parent-feedback'
+    > &
+      Schema.Attribute.Private;
+    officeNotes: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 5000;
+      }>;
+    parentName: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 120;
+      }>;
+    phone: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 40;
+      }>;
+    publishedAt: Schema.Attribute.DateTime;
+    rating: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 5;
+          min: 1;
+        },
+        number
+      >;
+    recommend: Schema.Attribute.Enumeration<['Yes', 'Maybe', 'No']>;
+    sourcePage: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    status: Schema.Attribute.Enumeration<['new', 'read', 'replied', 'closed']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'new'>;
+    studentClass: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 40;
+      }>;
+    studentName: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 120;
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiParentTeacherPageParentTeacherPage
+  extends Struct.SingleTypeSchema {
+  collectionName: 'parent_teacher_pages';
+  info: {
+    description: 'The Parent\u2013Teacher Meetings page (/academics/assessment/parent-teacher-meetings/) \u2014 one named field per band of the page, in the order a reader meets them. \u26A0 Every band is the same shape: a label, a heading, paragraphs, photographs and a run of cells. These pages carry no photographs; what differs between bands is how the page draws them, and the page owns that. Bands cannot be reordered, added or removed.';
+    displayName: 'Parent\u2013Teacher Meetings';
+    pluralName: 'parent-teacher-pages';
+    singularName: 'parent-teacher-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    agenda: Schema.Attribute.Component<'structure.section', false>;
+    close: Schema.Attribute.Component<'structure.section', false>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::parent-teacher-page.parent-teacher-page'
+    > &
+      Schema.Attribute.Private;
+    open: Schema.Attribute.Component<'structure.section', false>;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    why: Schema.Attribute.Component<'structure.section', false>;
+  };
+}
+
 export interface ApiPrePrimaryPagePrePrimaryPage
   extends Struct.SingleTypeSchema {
   collectionName: 'pre_primary_pages';
@@ -2376,6 +2917,157 @@ export interface ApiPrimaryStagePagePrimaryStagePage
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     val: Schema.Attribute.Component<'structure.section', false>;
+  };
+}
+
+export interface ApiPublicationPublication extends Struct.CollectionTypeSchema {
+  collectionName: 'publications';
+  info: {
+    description: "One downloadable publication on /publications/ \u2014 a club newsletter, a magazine edition or an e-newspaper issue. \u26A0\u26A0 THIS IS THE LIST THE SCHOOL ADDS TO. A new e-newspaper is one new row here; nothing else needs touching. \u26A0 `href` IS THE SCHOOL'S OWN URL \u2014 a PDF on its server or a Google Drive viewer link. Every one was transcribed from the school's live page, not composed. Do not invent a link to fill a gap: a row with no file is worse than no row. \u26A0 `group` DECIDES WHICH BAND IT APPEARS IN, and `displayOrder` its position within that band. The school's own order is preserved \u2014 it is NOT a ranking, so do not re-sort by date.";
+    displayName: 'Publication';
+    pluralName: 'publications';
+    singularName: 'publication';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    displayOrder: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    group: Schema.Attribute.Enumeration<
+      [
+        'entrepreneurial-chronicles',
+        'quiz-club',
+        'moon-club',
+        'heritage-club',
+        'financial-literacy-club',
+        'school-magazine',
+        'e-newspaper',
+      ]
+    > &
+      Schema.Attribute.Required;
+    href: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 500;
+      }>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::publication.publication'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID<'title'> & Schema.Attribute.Required;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiPublicationsPagePublicationsPage
+  extends Struct.SingleTypeSchema {
+  collectionName: 'publications_page';
+  info: {
+    description: 'The headings on /publications/, and the MYRA STEM Lab newsletter pages. \u26A0 THE PUBLICATIONS THEMSELVES ARE NOT HERE \u2014 each newsletter, magazine and e-paper is a row in the Publications collection, because the school adds to that list regularly and a 33-entry nested list is not something anyone should have to scroll. This holds only what wraps them. \u26A0 THE BANNER, PAGE TITLE AND SEO ARE ON PAGE META for /publications/, which is where every page on the site keeps them, banner upload included.';
+    displayName: 'Publications Page';
+    pluralName: 'publications-pages';
+    singularName: 'publications-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    groupHeadings: Schema.Attribute.Component<'shared.detail', true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::publications-page.publications-page'
+    > &
+      Schema.Attribute.Private;
+    myraPages: Schema.Attribute.Component<'publications.myra-page', true>;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiReadingLanguagePageReadingLanguagePage
+  extends Struct.SingleTypeSchema {
+  collectionName: 'reading_language_pages';
+  info: {
+    description: 'The Reading & Language page (/academics/teaching-learning/reading-language/) \u2014 one named field per band of the page, in the order a reader meets them. \u26A0 Every band is the same shape: a label, a heading, paragraphs, photographs and a run of cells. What differs is how the page lays that out, and the page owns it. Bands cannot be reordered, added or removed.';
+    displayName: 'Reading & Language';
+    pluralName: 'reading-language-pages';
+    singularName: 'reading-language-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    close: Schema.Attribute.Component<'structure.section', false>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    lab: Schema.Attribute.Component<'structure.section', false>;
+    lib: Schema.Attribute.Component<'structure.section', false>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::reading-language-page.reading-language-page'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    round: Schema.Attribute.Component<'structure.section', false>;
+    stage: Schema.Attribute.Component<'structure.section', false>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiRemedialSupportPageRemedialSupportPage
+  extends Struct.SingleTypeSchema {
+  collectionName: 'remedial_support_pages';
+  info: {
+    description: 'The Remedial Support page (/academics/assessment/remedial-support/) \u2014 one named field per band of the page, in the order a reader meets them. \u26A0 Every band is the same shape: a label, a heading, paragraphs, photographs and a run of cells. These pages carry no photographs; what differs between bands is how the page draws them, and the page owns that. Bands cannot be reordered, added or removed.';
+    displayName: 'Remedial Support';
+    pluralName: 'remedial-support-pages';
+    singularName: 'remedial-support-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    close: Schema.Attribute.Component<'structure.section', false>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    journey: Schema.Attribute.Component<'structure.section', false>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::remedial-support-page.remedial-support-page'
+    > &
+      Schema.Attribute.Private;
+    note: Schema.Attribute.Component<'structure.section', false>;
+    open: Schema.Attribute.Component<'structure.section', false>;
+    publishedAt: Schema.Attribute.DateTime;
+    rules: Schema.Attribute.Component<'structure.section', false>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
@@ -2605,6 +3297,40 @@ export interface ApiSiteSettingSiteSetting extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiSmartClassroomsPageSmartClassroomsPage
+  extends Struct.SingleTypeSchema {
+  collectionName: 'smart_classrooms_pages';
+  info: {
+    description: 'The Smart Classrooms page (/academics/teaching-learning/smart-classrooms/) \u2014 one named field per band of the page, in the order a reader meets them. \u26A0 Every band is the same shape: a label, a heading, paragraphs, photographs and a run of cells. What differs is how the page lays that out, and the page owns it. Bands cannot be reordered, added or removed.';
+    displayName: 'Smart Classrooms';
+    pluralName: 'smart-classrooms-pages';
+    singularName: 'smart-classrooms-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    beyond: Schema.Attribute.Component<'structure.section', false>;
+    close: Schema.Attribute.Component<'structure.section', false>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::smart-classrooms-page.smart-classrooms-page'
+    > &
+      Schema.Attribute.Private;
+    prac: Schema.Attribute.Component<'structure.section', false>;
+    publishedAt: Schema.Attribute.DateTime;
+    room: Schema.Attribute.Component<'structure.section', false>;
+    sys: Schema.Attribute.Component<'structure.section', false>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiSportFacilitySportFacility
   extends Struct.CollectionTypeSchema {
   collectionName: 'sport_facilities';
@@ -2749,6 +3475,40 @@ export interface ApiSportsRecordSportsRecord
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+  };
+}
+
+export interface ApiStemRoboticsPageStemRoboticsPage
+  extends Struct.SingleTypeSchema {
+  collectionName: 'stem_robotics_pages';
+  info: {
+    description: 'The STEM & Robotics page (/academics/teaching-learning/stem-robotics/) \u2014 one named field per band of the page, in the order a reader meets them. \u26A0 Every band is the same shape: a label, a heading, paragraphs, photographs and a run of cells. What differs is how the page lays that out, and the page owns it. Bands cannot be reordered, added or removed.';
+    displayName: 'STEM & Robotics';
+    pluralName: 'stem-robotics-pages';
+    singularName: 'stem-robotics-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    bots: Schema.Attribute.Component<'structure.section', false>;
+    close: Schema.Attribute.Component<'structure.section', false>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    eco: Schema.Attribute.Component<'structure.section', false>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::stem-robotics-page.stem-robotics-page'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    rooms: Schema.Attribute.Component<'structure.section', false>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    use: Schema.Attribute.Component<'structure.section', false>;
   };
 }
 
@@ -3038,7 +3798,7 @@ export interface ApiTeachingPhilosophyPageTeachingPhilosophyPage
 export interface ApiTransportPageTransportPage extends Struct.SingleTypeSchema {
   collectionName: 'transport_page';
   info: {
-    description: 'The prose of /campus/transport/. \u26A0 IT HOLDS NO COUNTS. Buses, runs and boarding points are computed from Bus Route at query time \u2014 storing them would give the same fact two owners and go stale the day a route is added.';
+    description: "The prose of /campus/transport/. \u26A0 IT HOLDS NO COUNTS. Buses, runs and boarding points are computed from Bus Route at query time \u2014 storing them would give the same fact two owners and go stale the day a route is added. \u26A0 THE BAND HEADS \u2014 overview, finder, safetyHead, contactHead \u2014 are the eyebrow, heading and body of each band on /campus/transport/. kicker = the eyebrow; the FIRST paragraph of body = the prose under it. \u26A0\u26A0 TWO OF THOSE BODIES CARRY TOKENS: {buses}, {runs} and {stops} are replaced at build time with counts computed from the Bus Route collection. Type the words, keep the braces \u2014 a number typed in their place is frozen the day a route changes. \u26A0 overviewFigures ARE CAPTIONS ONLY. The numbers above them are computed from Bus Route and are NOT stored; `label` is the caption and `body` the note beneath it. \u26A0 NOT EDITABLE HERE: the section-rail labels (tied to DOM ids) and the route finder's interface \u2014 its search placeholder, A\u2013Z jump, 'First stop' / 'Last stop' / 'Driver' labels and its empty state. \u26A0 THE SEVEN `finder*` STRINGS are the route finder's own prose \u2014 its search label, the 'Areas we cover' heading, the staff-bus and driver notes, and the empty state with its call to action. What is STILL not editable there is data labelling only: 'First stop', 'Last stop', 'Driver', '/stop', 'Single run' and the A\u2013Z jump, which label the route data rather than say anything.";
     displayName: 'Transport Page';
     pluralName: 'transport-pages';
     singularName: 'transport-page';
@@ -3047,17 +3807,54 @@ export interface ApiTransportPageTransportPage extends Struct.SingleTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    contactHead: Schema.Attribute.Component<'structure.section', false>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    finder: Schema.Attribute.Component<'structure.section', false>;
+    finderAreasHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 90;
+      }>;
+    finderDriverNote: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 180;
+      }>;
+    finderEmptyBody: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 400;
+      }>;
+    finderEmptyCta: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 80;
+      }>;
+    finderEmptyHeading: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 120;
+      }>;
+    finderSearchLabel: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 90;
+      }>;
+    finderStaffNote: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 180;
+      }>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::transport-page.transport-page'
     > &
       Schema.Attribute.Private;
+    overview: Schema.Attribute.Component<'structure.section', false>;
+    overviewCta: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    overviewFigures: Schema.Attribute.Component<'shared.measure', true>;
     publishedAt: Schema.Attribute.DateTime;
     safety: Schema.Attribute.Component<'shared.measure', true>;
+    safetyHead: Schema.Attribute.Component<'structure.section', false>;
     stopAliases: Schema.Attribute.JSON;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -3168,6 +3965,37 @@ export interface ApiUniformPageUniformPage extends Struct.SingleTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 800;
       }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiUniformedGroupsPageUniformedGroupsPage
+  extends Struct.SingleTypeSchema {
+  collectionName: 'uniformed_groups_pages';
+  info: {
+    description: 'Beyond Academics \u2192 NCC, Scouts & Guides. Both groups, their facts, their record and their photographs. \u26A0 THE BANNER, PAGE TITLE AND SEO ARE ON PAGE META for /beyond-academics/ncc-scouts-guides/, as they are for every page on this site. \u26A0\u26A0 FOUR THINGS MOVE TOGETHER if this page is ever renamed: the group names here, the page\u2019s two titles on Page Meta, its meta description, and the nav label in src/data/navigation.ts ("NCC, Scouts & Guides"). Narrow one and you have to do all four.';
+    displayName: 'NCC, Scouts & Guides Page';
+    pluralName: 'uniformed-groups-pages';
+    singularName: 'uniformed-groups-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    groups: Schema.Attribute.Component<'uniformed.group', true>;
+    intro: Schema.Attribute.Component<'structure.section', false>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::uniformed-groups-page.uniformed-groups-page'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -3720,14 +4548,19 @@ declare module '@strapi/strapi' {
       'api::academic-topic.academic-topic': ApiAcademicTopicAcademicTopic;
       'api::achievement-major.achievement-major': ApiAchievementMajorAchievementMajor;
       'api::achievement-record.achievement-record': ApiAchievementRecordAchievementRecord;
+      'api::achievements-page.achievements-page': ApiAchievementsPageAchievementsPage;
       'api::alumni-meet.alumni-meet': ApiAlumniMeetAlumniMeet;
       'api::alumni-story.alumni-story': ApiAlumniStoryAlumniStory;
       'api::alumnus.alumnus': ApiAlumnusAlumnus;
+      'api::assessment-page.assessment-page': ApiAssessmentPageAssessmentPage;
       'api::bus-route.bus-route': ApiBusRouteBusRoute;
       'api::calendar-document.calendar-document': ApiCalendarDocumentCalendarDocument;
       'api::campus-facility.campus-facility': ApiCampusFacilityCampusFacility;
       'api::campus-safety-page.campus-safety-page': ApiCampusSafetyPageCampusSafetyPage;
       'api::campus-tour-page.campus-tour-page': ApiCampusTourPageCampusTourPage;
+      'api::career-page.career-page': ApiCareerPageCareerPage;
+      'api::competitive-exam-page.competitive-exam-page': ApiCompetitiveExamPageCompetitiveExamPage;
+      'api::contact-enquiry.contact-enquiry': ApiContactEnquiryContactEnquiry;
       'api::contact-page.contact-page': ApiContactPageContactPage;
       'api::credential.credential': ApiCredentialCredential;
       'api::critical-thinking-page.critical-thinking-page': ApiCriticalThinkingPageCriticalThinkingPage;
@@ -3736,26 +4569,39 @@ declare module '@strapi/strapi' {
       'api::excursion-section.excursion-section': ApiExcursionSectionExcursionSection;
       'api::expedition.expedition': ApiExpeditionExpedition;
       'api::experiential-inquiry-page.experiential-inquiry-page': ApiExperientialInquiryPageExperientialInquiryPage;
+      'api::experiential-learning-page.experiential-learning-page': ApiExperientialLearningPageExperientialLearningPage;
       'api::facilities-page.facilities-page': ApiFacilitiesPageFacilitiesPage;
       'api::game.game': ApiGameGame;
       'api::history-page.history-page': ApiHistoryPageHistoryPage;
       'api::homepage.homepage': ApiHomepageHomepage;
+      'api::homework-policy-page.homework-policy-page': ApiHomeworkPolicyPageHomeworkPolicyPage;
       'api::job-posting.job-posting': ApiJobPostingJobPosting;
+      'api::laboratories-clubs-page.laboratories-clubs-page': ApiLaboratoriesClubsPageLaboratoriesClubsPage;
       'api::leader-message.leader-message': ApiLeaderMessageLeaderMessage;
+      'api::mentoring-page.mentoring-page': ApiMentoringPageMentoringPage;
+      'api::methodology-page.methodology-page': ApiMethodologyPageMethodologyPage;
       'api::middle-school-page.middle-school-page': ApiMiddleSchoolPageMiddleSchoolPage;
       'api::news-category-page.news-category-page': ApiNewsCategoryPageNewsCategoryPage;
       'api::news-item.news-item': ApiNewsItemNewsItem;
       'api::notice.notice': ApiNoticeNotice;
       'api::page-meta.page-meta': ApiPageMetaPageMeta;
+      'api::parent-feedback.parent-feedback': ApiParentFeedbackParentFeedback;
+      'api::parent-teacher-page.parent-teacher-page': ApiParentTeacherPageParentTeacherPage;
       'api::pre-primary-page.pre-primary-page': ApiPrePrimaryPagePrePrimaryPage;
       'api::primary-stage-page.primary-stage-page': ApiPrimaryStagePagePrimaryStagePage;
+      'api::publication.publication': ApiPublicationPublication;
+      'api::publications-page.publications-page': ApiPublicationsPagePublicationsPage;
+      'api::reading-language-page.reading-language-page': ApiReadingLanguagePageReadingLanguagePage;
+      'api::remedial-support-page.remedial-support-page': ApiRemedialSupportPageRemedialSupportPage;
       'api::result-page.result-page': ApiResultPageResultPage;
       'api::secondary-stage-page.secondary-stage-page': ApiSecondaryStagePageSecondaryStagePage;
       'api::senior-secondary-page.senior-secondary-page': ApiSeniorSecondaryPageSeniorSecondaryPage;
       'api::site-setting.site-setting': ApiSiteSettingSiteSetting;
+      'api::smart-classrooms-page.smart-classrooms-page': ApiSmartClassroomsPageSmartClassroomsPage;
       'api::sport-facility.sport-facility': ApiSportFacilitySportFacility;
       'api::sports-page.sports-page': ApiSportsPageSportsPage;
       'api::sports-record.sports-record': ApiSportsRecordSportsRecord;
+      'api::stem-robotics-page.stem-robotics-page': ApiStemRoboticsPageStemRoboticsPage;
       'api::streams-offered-page.streams-offered-page': ApiStreamsOfferedPageStreamsOfferedPage;
       'api::student-centred-learning-page.student-centred-learning-page': ApiStudentCentredLearningPageStudentCentredLearningPage;
       'api::subject-combinations-page.subject-combinations-page': ApiSubjectCombinationsPageSubjectCombinationsPage;
@@ -3764,6 +4610,7 @@ declare module '@strapi/strapi' {
       'api::teaching-philosophy-page.teaching-philosophy-page': ApiTeachingPhilosophyPageTeachingPhilosophyPage;
       'api::transport-page.transport-page': ApiTransportPageTransportPage;
       'api::uniform-page.uniform-page': ApiUniformPageUniformPage;
+      'api::uniformed-groups-page.uniformed-groups-page': ApiUniformedGroupsPageUniformedGroupsPage;
       'api::vision-mission-page.vision-mission-page': ApiVisionMissionPageVisionMissionPage;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;

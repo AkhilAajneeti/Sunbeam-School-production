@@ -48,15 +48,22 @@ import AsRail from './AsRail.astro';
 import AsClose from './AsClose.astro';
 
 /* ── PHOTOGRAPHY — five genuine Sunbeam Ballia frames, each used ONCE. ────── */
-import { getAcademicTopic } from '../../../lib/cms';
+import ClipHeading from '../../ui/ClipHeading.astro';
+import RichLine from '../../ui/RichLine.astro';
+import { getHomeworkPolicy } from '../../../lib/cms';
 
-const ac = await getAcademicTopic('/academics/assessment/homework-policy/');
-const pPanel = ac.pic('pPanel');
-const pTiers = ac.pic('pTiers');
-const pSeated = ac.pic('pSeated');
-const pHall = ac.pic('pHall');
-const pLibrary = ac.pic('pLibrary');
-const pCohort = ac.pic('pCohort');
+const { open, item, frame, clear, gap, ask, close } = await getHomeworkPolicy();
+
+/* The ledger has two columns and each carries a heading. The band already spends
+   both of its runs on the two columns themselves, so the headings travel
+   together in its caption, one per line. */
+const ledgerLabels = (open.caption ?? '').split('\n');
+
+/* AsClose takes its headline as two props; the record stores the same two
+   lines with {{…}} that every other heading uses. */
+const [closeLead = '', closeAccent = ''] = (close.heading ?? '')
+  .split('\n')
+  .map((l) => l.replace(/^\{\{|\}\}$/g, '').trim());
 
 const S = 'Sunbeam School Ballia';
 
@@ -69,23 +76,17 @@ const CONTACT = '/contact-us/';
 /* ── SECTION 01 — the two columns of the ledger ───────────────────────────
    ⚠ THE LEFT COLUMN IS THE WHOLE OF WHAT IS PUBLISHED. It is one row long
    because the school's homework copy is one sentence long. */
-const published = ac.section('published').points;
 
-const assumed = ac.section('assumed').points;
 
 /* ── SECTION 03 — the framework. Four steps, and each one is only as strong as
    what the school actually states; `soft` marks the two that describe a
    channel rather than a rule. */
-const framework = ac.section('framework').points;
 
 /* ── SECTION 04 — where a parent actually looks ───────────────────────────── */
-const places = ac.section('places').points;
 
 /* ── SECTION 05 — the four absences, checked one at a time ────────────────── */
-const unknown = ac.section('unknown').points;
 
 /* ── SECTION 06 — the four things the channels are for ────────────────────── */
-const ask = ac.section('ask').facts;
 ---
 
 {/* ══ 01 · A PATTERN, NOT A POLICY ═══════════════════════════════════════════
@@ -102,22 +103,11 @@ const ask = ac.section('ask').facts;
     <div class="hp-open__copy">
       <span class="as-ghost hp-open__ghost" aria-hidden="true" data-drift>Pattern</span>
 
-      <p class="as-kicker" data-reveal>What the school publishes</p>
-      <h2 class="as-h as-h--xl hp-open__h" id="hp-open-t">
-        <span data-clip data-clip-delay="0">A pattern,</span>
-        <span data-clip data-clip-delay="150"><em>not a policy.</em></span>
-      </h2>
+      <p class="as-kicker" data-reveal>{open.kicker}</p>
+      <ClipHeading class="as-h as-h--xl hp-open__h" id="hp-open-t" text={open.heading} />
 
-      <p class="as-body" data-reveal data-reveal-delay="200">
-        The school states one thing about homework: that it is <strong>set to a published pattern</strong>
-        rather than assigned subject by subject on the day. That is the whole of it, and the whole of
-        it is what appears here.
-      </p>
-      <p class="as-body" data-reveal data-reveal-delay="260">
-        No minutes per night, no days per subject, no weekend rule, no holiday rule — because none of
-        those is published, and a family that plans its evenings around an invented figure would be
-        planning around us rather than around the school.
-      </p>
+      <RichLine class="as-body" text={open.body[0]} reveal revealDelay={200} />
+      <RichLine class="as-body" text={open.body[1]} reveal revealDelay={260} />
     </div>
 
     {/* ⚠ TWO LEDGERS, SIDE BY SIDE, AND THE LEFT ONE IS SHORTER. That asymmetry
@@ -131,13 +121,13 @@ const ask = ac.section('ask').facts;
               <path d="m8 12.2 2.8 2.8 5.4-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
           </span>
-          Published
+          {ledgerLabels[0]}
         </p>
         <dl class="hp-ledger__list">
-          {published.map((p) => (
+          {open.cells.map((p) => (
             <div class="hp-ledger__row">
-              <dt>{p.k}</dt>
-              <dd>{p.v}</dd>
+              <dt>{p.label}</dt>
+              <dd>{p.value}</dd>
             </div>
           ))}
         </dl>
@@ -151,13 +141,13 @@ const ask = ac.section('ask').facts;
               <path d="M8.6 12h6.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
             </svg>
           </span>
-          Often assumed
+          {ledgerLabels[1]}
         </p>
         <dl class="hp-ledger__list">
-          {assumed.map((a) => (
+          {open.cellsTwo.map((a) => (
             <div class="hp-ledger__row">
-              <dt>{a.k}</dt>
-              <dd>{a.v}</dd>
+              <dt>{a.label}</dt>
+              <dd>{a.value}</dd>
             </div>
           ))}
         </dl>
@@ -176,8 +166,7 @@ const ask = ac.section('ask').facts;
     <figure class="hp-item__stage">
       <div class="hp-item__lead as-frame as-fill" data-zoom data-zoom-to="1.04">
         <SmartImage
-          file={pPanel}
-          alt={ac.picAlt('pPanel')}
+          file={item.shots[0]?.image} alt={item.shots[0]?.alt ?? ''}
          
           widths={[520, 880, 1200]}
           sizes="(max-width: 1023px) 92vw, 44vw"
@@ -187,8 +176,7 @@ const ask = ac.section('ask').facts;
       </div>
       <div class="hp-item__sm as-frame as-frame--float as-fill" data-pop data-pop-delay="200">
         <SmartImage
-          file={pTiers}
-          alt={ac.picAlt('pTiers')}
+          file={item.shots[1]?.image} alt={item.shots[1]?.alt ?? ''}
          
           widths={[320, 560]}
           sizes="(max-width: 1023px) 50vw, 20vw"
@@ -196,22 +184,13 @@ const ask = ac.section('ask').facts;
           decoding="async"
         />
       </div>
-      <figcaption class="hp-item__cap">
-        The Parents’ Forum for Classes IX to XII, session 2025-26 — its agenda projected in the room.
-      </figcaption>
+      <figcaption class="hp-item__cap">{item.caption}</figcaption>
     </figure>
 
     <div class="hp-item__copy">
-      <p class="as-kicker" data-reveal>Where the question is actually answered</p>
-      <h2 class="as-h as-h--lg" id="hp-item-t">
-        <span data-clip data-clip-delay="0">Item five,</span>
-        <span data-clip data-clip-delay="150"><em>and item eleven.</em></span>
-      </h2>
-      <p class="as-body" data-reveal data-reveal-delay="200">
-        The more useful fact is not on the school’s homework page at all — it is projected on a screen
-        in its Parents’ Forum. The agenda runs to <strong>twelve items</strong>, and two of them are
-        this subject.
-      </p>
+      <p class="as-kicker" data-reveal>{item.kicker}</p>
+      <ClipHeading class="as-h as-h--lg" id="hp-item-t" text={item.heading} />
+      <RichLine class="as-body" text={item.body[0]} reveal revealDelay={200} />
 
       {/* ⚠ QUOTED WITH THEIR NUMBERS, AND SPELLED AS THE SLIDE SPELLS THEM.
           "Learner's Comate" is the school's own wording and is not expanded. */}
@@ -226,11 +205,7 @@ const ask = ac.section('ask').facts;
         </li>
       </ol>
 
-      <p class="as-body" data-reveal data-reveal-delay="380">
-        A parent who wants to know how much homework is set, and whether it comes back marked, has a
-        standing item on a published agenda to raise it under. That is a better answer than a
-        paragraph describing a policy this site cannot verify.
-      </p>
+      <RichLine class="as-body" text={item.body[1]} reveal revealDelay={380} />
     </div>
   </div>
 </section>
@@ -238,18 +213,12 @@ const ask = ac.section('ask').facts;
 {/* ══ 03 · THE HOMEWORK FRAMEWORK ════════════════════════════════════════════ */}
 <section class="as-sec as-sec--cream as-pad--sm hp-frame" aria-labelledby="hp-frame-t">
   <div class="u-container hp-frame__inner">
-    <p class="as-kicker hp-frame__kick" data-reveal>The homework framework</p>
-    <h2 class="as-h as-h--md hp-frame__h" id="hp-frame-t">
-      <span data-clip data-clip-delay="0">What parents can</span>
-      <span data-clip data-clip-delay="150"><em>actually expect.</em></span>
-    </h2>
+    <p class="as-kicker hp-frame__kick" data-reveal>{frame.kicker}</p>
+    <ClipHeading class="as-h as-h--md hp-frame__h" id="hp-frame-t" text={frame.heading} />
 
-    <AsRail steps={framework} ground="cream" label="The homework framework, four steps" class="hp-frame__rail" />
+    <AsRail steps={frame.cells} ground="cream" label="The homework framework, four steps" class="hp-frame__rail" />
 
-    <p class="as-note hp-frame__note" data-reveal data-reveal-delay="480">
-      Steps three and four describe a published <em>channel</em> — the forum agenda — rather than a
-      rule about marking turnaround, because the school publishes the channel and not the rule.
-    </p>
+    <RichLine class="as-note hp-frame__note" text={frame.body[0]} reveal revealDelay={480} />
   </div>
 </section>
 
@@ -261,20 +230,13 @@ const ask = ac.section('ask').facts;
 
   <div class="u-container hp-clear__grid">
     <div>
-      <p class="as-kicker" data-reveal>For parents</p>
-      <h2 class="as-h as-h--lg" id="hp-clear-t">
-        <span data-clip data-clip-delay="0">Less guessing.</span>
-        <span data-clip data-clip-delay="150"><em>More clarity.</em></span>
-      </h2>
-      <p class="as-body" data-reveal data-reveal-delay="200">
-        Homework at Sunbeam follows the school’s published approach. Where there is a question about
-        it, the three places on the right are where it can be put — and each of them is a channel the
-        school names itself.
-      </p>
+      <p class="as-kicker" data-reveal>{clear.kicker}</p>
+      <ClipHeading class="as-h as-h--lg" id="hp-clear-t" text={clear.heading} />
+      <RichLine class="as-body" text={clear.body[0]} reveal revealDelay={200} />
     </div>
 
     <ul class="hp-cards">
-      {places.map((p, i) => (
+      {clear.cells.map((p, i) => (
         <li class="hp-card" data-pop data-pop-delay={140 + i * 100}>
           <a class="hp-card__in" href={p.href}>
             <span class="hp-card__m" aria-hidden="true">
@@ -282,8 +244,8 @@ const ask = ac.section('ask').facts;
                 <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={MARK[p.mark]} />
               </svg>
             </span>
-            <h3 class="hp-card__k">{p.k}</h3>
-            <p class="hp-card__v">{p.v}</p>
+            <h3 class="hp-card__k">{p.label}</h3>
+            <p class="hp-card__v">{p.value}</p>
             <span class="hp-card__go" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none">
                 <g stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" set:html={MARK.arrow} />
@@ -304,26 +266,20 @@ const ask = ac.section('ask').facts;
 
   <div class="u-container hp-gap__grid">
     <div>
-      <p class="as-kicker as-kicker--dark" data-reveal>What is not published</p>
-      <h2 class="as-h as-h--md hp-gap__h" id="hp-gap-t">
-        <span data-clip data-clip-delay="0">What the page</span>
-        <span data-clip data-clip-delay="150"><em>doesn’t pretend to know.</em></span>
-      </h2>
-      <p class="hp-gap__b" data-reveal data-reveal-delay="200">
-        Each of the four was checked for on the school’s site and is genuinely absent. We do not
-        assume, estimate or invent any of them.
-      </p>
+      <p class="as-kicker as-kicker--dark" data-reveal>{gap.kicker}</p>
+      <ClipHeading class="as-h as-h--md hp-gap__h" id="hp-gap-t" text={gap.heading} />
+      <RichLine class="hp-gap__b" text={gap.body[0]} reveal revealDelay={200} />
     </div>
 
     <ul class="hp-gap__list">
-      {unknown.map((u, i) => (
+      {gap.cells.map((u, i) => (
         <li class="hp-gcell" data-reveal data-reveal-delay={200 + i * 80}>
           <span class="hp-gcell__m" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none">
               <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={MARK[u.mark]} />
             </svg>
           </span>
-          <span class="hp-gcell__k">{u.k}</span>
+          <span class="hp-gcell__k">{u.label}</span>
         </li>
       ))}
     </ul>
@@ -336,19 +292,12 @@ const ask = ac.section('ask').facts;
 <section class="as-sec as-sec--paper as-pad hp-ask" aria-labelledby="hp-ask-t">
   <div class="u-container hp-ask__grid">
     <div class="hp-ask__copy">
-      <p class="as-kicker" data-reveal>When a question needs an answer</p>
-      <h2 class="as-h as-h--lg" id="hp-ask-t">
-        <span data-clip data-clip-delay="0">Ask the school,</span>
-        <span data-clip data-clip-delay="150"><em>not the assumption.</em></span>
-      </h2>
-      <p class="as-body" data-reveal data-reveal-delay="200">
-        The Parents’ Forum, parent–teacher interaction and the school office are the three channels
-        the school names. Between them they cover homework practice, feedback, correction and the
-        support that follows.
-      </p>
+      <p class="as-kicker" data-reveal>{ask.kicker}</p>
+      <ClipHeading class="as-h as-h--lg" id="hp-ask-t" text={ask.heading} />
+      <RichLine class="as-body" text={ask.body[0]} reveal revealDelay={200} />
 
       <ul class="as-checks">
-        {ask.map((a, i) => (
+        {ask.cells.map((a, i) => (
           <li class="as-check" data-reveal data-reveal-delay={250 + i * 70}>
             <span class="as-check__i" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none">
@@ -356,14 +305,11 @@ const ask = ac.section('ask').facts;
                 <path d="m8 12.2 2.8 2.8 5.4-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
             </span>
-            {a}
+            {a.label}
           </li>
         ))}
       </ul>
-      <p class="as-note" data-reveal data-reveal-delay="540">
-        Meeting dates are on the {' '}<a class="as-link" href={PTM}>parent–teacher meetings</a> page;
-        the office line is on {' '}<a class="as-link" href={CONTACT}>Contact</a>.
-      </p>
+      <RichLine class="as-note" text={ask.body[1]} linkClass="as-link" reveal revealDelay={540} />
     </div>
 
     {/* ⚠ THREE FRAMES, NOT TWO. The other image section on this page is a lead
@@ -371,13 +317,13 @@ const ask = ac.section('ask').facts;
         two reading as the same build twice. */}
     <div class="hp-ask__stage">
       <div class="hp-ask__a as-frame as-fill" data-mask data-mask-from="left">
-        <SmartImage file={pSeated} alt={ac.picAlt('pSeated')} widths={[480, 820]} sizes="(max-width: 1023px) 92vw, 30vw" loading="lazy" decoding="async" />
+        <SmartImage file={ask.shots[0]?.image} alt={ask.shots[0]?.alt ?? ''} widths={[480, 820]} sizes="(max-width: 1023px) 92vw, 30vw" loading="lazy" decoding="async" />
       </div>
       <div class="hp-ask__b as-frame as-frame--float as-fill" data-pop data-pop-delay="180">
-        <SmartImage file={pHall} alt={ac.picAlt('pHall')} widths={[340, 600]} sizes="(max-width: 1023px) 46vw, 18vw" loading="lazy" decoding="async" />
+        <SmartImage file={ask.shots[1]?.image} alt={ask.shots[1]?.alt ?? ''} widths={[340, 600]} sizes="(max-width: 1023px) 46vw, 18vw" loading="lazy" decoding="async" />
       </div>
       <div class="hp-ask__c as-frame as-frame--float as-fill" data-pop data-pop-delay="280">
-        <SmartImage file={pLibrary} alt={ac.picAlt('pLibrary')} widths={[340, 600]} sizes="(max-width: 1023px) 46vw, 18vw" loading="lazy" decoding="async" />
+        <SmartImage file={ask.shots[2]?.image} alt={ask.shots[2]?.alt ?? ''} widths={[340, 600]} sizes="(max-width: 1023px) 46vw, 18vw" loading="lazy" decoding="async" />
       </div>
     </div>
   </div>
@@ -385,11 +331,11 @@ const ask = ac.section('ask').facts;
 
 <AsClose
   id="hp-close-t"
-  kicker="One sentence, one agenda item"
-  lead="Published clearly."
-  accent="Discussed openly."
-  body="The school publishes that homework follows a pattern, and gives parents two standing agenda items to raise it under. The pattern itself — the load, the days, the weekend and holiday rules — is not published anywhere on its site, and nothing has been invented to fill the gap."
-  photo={pCohort}
+  kicker={close.kicker}
+  lead={closeLead}
+  accent={closeAccent}
+  body={close.body[0]}
+  photo={close.shots[0]?.image ?? null}
 />
 
 <style>
@@ -404,7 +350,7 @@ const ask = ac.section('ask').facts;
   }
   .hp-open__copy { position: relative; }
   .hp-open__ghost { top: clamp(0px, 0.4vw, 8px); left: clamp(-26px, -1.6vw, -8px); }
-  .hp-open__h { max-width: 12ch; }
+  :global(.hp-open__h) { max-width: 12ch; }
 
   .hp-ledger {
     display: grid;
@@ -502,9 +448,9 @@ const ask = ac.section('ask').facts;
   /* ═══ 03 · THE FRAMEWORK ══════════════════════════════════════════════════ */
   .hp-frame__inner { display: grid; grid-template-columns: minmax(0, 1fr); justify-items: center; text-align: center; }
   .hp-frame__kick { text-align: center; }
-  .hp-frame__h { max-width: 20ch; }
+  :global(.hp-frame__h) { max-width: 20ch; }
   .hp-frame__rail { margin-top: clamp(24px, 3vw, 40px); }
-  .hp-frame__note { max-width: 62ch; margin-top: clamp(18px, 2.2vw, 26px); text-align: center; }
+  :global(.hp-frame__note) { max-width: 62ch; margin-top: clamp(18px, 2.2vw, 26px); text-align: center; }
 
   /* ═══ 04 · LESS GUESSING, MORE CLARITY ════════════════════════════════════ */
   .hp-clear__dots { bottom: 6%; left: 1%; }
@@ -578,9 +524,9 @@ const ask = ac.section('ask').facts;
     gap: clamp(24px, 3.4vw, 54px);
     align-items: center;
   }
-  .hp-gap__h { color: #fff; }
-  .hp-gap__h em { color: var(--sb-lime); }
-  .hp-gap__b {
+  :global(.hp-gap__h) { color: #fff; }
+  :global(.hp-gap__h em) { color: var(--sb-lime); }
+  :global(.hp-gap__b) {
     max-width: 42ch;
     margin: clamp(14px, 1.7vw, 20px) 0 0;
     font-size: clamp(12px, 0.88vw, 14px);
@@ -639,7 +585,7 @@ const ask = ac.section('ask').facts;
   @media (max-width: 1179px) {
     .hp-clear__grid { grid-template-columns: minmax(0, 1fr); gap: clamp(20px, 2.8vw, 30px); }
     .hp-gap__grid { grid-template-columns: minmax(0, 1fr); gap: clamp(22px, 3vw, 32px); }
-    .hp-gap__b { max-width: 62ch; }
+    :global(.hp-gap__b) { max-width: 62ch; }
   }
 
   @media (max-width: 1023px) {
@@ -650,7 +596,7 @@ const ask = ac.section('ask').facts;
       gap: clamp(28px, 4vw, 40px);
     }
     .hp-item__stage { order: -1; }
-    .hp-open__h { max-width: none; }
+    :global(.hp-open__h) { max-width: none; }
   }
 
   @media (max-width: 767px) {

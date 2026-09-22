@@ -1,0 +1,236 @@
+{
+  "open": {
+    "kicker": "Chapter 04",
+    "heading": "How a year actually\n{{runs}}",
+    "body": [
+      "Six steps, repeating. Content is taught, practised, assessed and fed back — and where a subject needs more, the support is named rather than assumed."
+    ],
+    "caption": null,
+    "shots": [],
+    "cells": [
+      {
+        "mark": "book",
+        "label": "Learning",
+        "value": "Taught content, to the CBSE scheme of work.",
+        "sub": "Taught content following the school’s curriculum, published class by class as PRECEPT."
+      },
+      {
+        "mark": "hands",
+        "label": "Activities",
+        "value": "Practical, project and laboratory work alongside it.",
+        "sub": "Practical, project and laboratory work alongside classroom learning."
+      },
+      {
+        "mark": "clipboard",
+        "label": "Assessment",
+        "value": "Internal assessment through the year; boards at X and XII.",
+        "sub": "Regular assessment through the academic year, with the CBSE boards at Class X and XII."
+      },
+      {
+        "mark": "speech",
+        "label": "Feedback",
+        "value": "Results to parents, and a parent–teacher meeting to discuss them.",
+        "sub": "Results to parents, and a parent–teacher meeting on the calendar to discuss them."
+      },
+      {
+        "mark": "chart",
+        "label": "Improvement",
+        "value": "Remedial support and mentoring where a subject needs it.",
+        "sub": "Remedial support, mentoring and a retest with published rules, where a subject needs it."
+      },
+      {
+        "mark": "cup",
+        "label": "Achievement",
+        "value": "Board examinations, and competitions beyond the school.",
+        "sub": "Board examinations, and the national programmes the school enters beyond them."
+      }
+    ],
+    "cellsTwo": []
+  },
+  "cycle": {
+    "kicker": "The learning cycle",
+    "heading": "Assessment is\n{{more than a paper.}}",
+    "body": [
+      "A result is one reading of a year. The school assesses across the whole of it — understanding in the room, application in the laboratory, progress across terms, and the feedback that follows each."
+    ],
+    "caption": null,
+    "shots": [],
+    "cells": [
+      {
+        "mark": "desk",
+        "label": "Classroom",
+        "value": "Learning and understanding, every day."
+      },
+      {
+        "mark": "flask",
+        "label": "Practical",
+        "value": "Application and experimentation."
+      },
+      {
+        "mark": "chart",
+        "label": "Progress",
+        "value": "Continuous academic development."
+      },
+      {
+        "mark": "speech",
+        "label": "Feedback",
+        "value": "What happens next, together."
+      }
+    ],
+    "cellsTwo": []
+  },
+  "struct": {
+    "kicker": "Published when it matters",
+    "heading": "Our assessment\n{{structure.}}",
+    "body": [
+      "Four things the school states about how a year is examined. The marks a promotion turns on are set out in the policy itself rather than paraphrased here."
+    ],
+    "caption": null,
+    "shots": [],
+    "cells": [
+      {
+        "mark": "pen",
+        "label": "Half-yearly examination",
+        "value": "A written examination partway through the session, evaluating understanding and academic progress."
+      },
+      {
+        "mark": "doc",
+        "label": "Annual examination",
+        "value": "The assessment at the end of the academic session, and the one a promotion turns on."
+      },
+      {
+        "mark": "clipboard",
+        "label": "Report card",
+        "value": "Results reach parents on the report card, and sit in the parent portal between meetings."
+      },
+      {
+        "mark": "refresh",
+        "label": "Retest / improvement",
+        "value": "Additional teaching and a retest, on a timetable the school publishes in full."
+      }
+    ],
+    "cellsTwo": []
+  },
+  "sup": {
+    "kicker": "Support that makes a difference",
+    "heading": "Support begins\n{{where a difficulty appears.}}",
+    "body": [
+      "Every student learns differently. What matters is that each of the four channels below is published by name and has rules attached — so a family can check what happens next rather than hope that something will."
+    ],
+    "caption": null,
+    "shots": [],
+    "cells": [
+      {
+        "mark": "hand",
+        "label": "Remedial support",
+        "value": "Additional teaching in the subject that needs it — attached to a subject, not to a student.",
+        "href": "/academics/assessment/remedial-support/"
+      },
+      {
+        "mark": "person",
+        "label": "Mentoring",
+        "value": "A member of staff who knows the child as a person rather than as a name on a class list.",
+        "href": "/academics/assessment/mentoring/"
+      },
+      {
+        "mark": "refresh",
+        "label": "Retest",
+        "value": "No sooner than ten days after results, two clear days apart, and results inside two and a half weeks.",
+        "href": "/academics/assessment/remedial-support/"
+      },
+      {
+        "mark": "hands",
+        "label": "Parent partnership",
+        "value": "Meetings placed on the session calendar, and a portal carrying reports in between.",
+        "href": "/academics/assessment/parent-teacher-meetings/"
+      }
+    ],
+    "cellsTwo": []
+  },
+  "conv": {
+    "kicker": "Parent–teacher connection",
+    "heading": "Progress is\n{{a conversation.}}",
+    "body": [
+      "Parent–teacher meetings are placed on the **academic calendar for the session**, alongside the examination dates, the terms and the holidays — so a parent knows the date months in advance and can read it against the paper it follows.",
+      "Meeting dates sit on the [academic calendar](/academics/academic-calendar/); the wider parent channels are on [Parent Partnership](/academics/parent-partnership/)."
+    ],
+    "caption": "Photographs: the school’s Parents’ Forum. No photograph of a parent–teacher meeting has been published.",
+    "shots": [
+      {
+        "key": "pForum",
+        "asset": "assets/parents forum/parents forum (3).jpg",
+        "name": "parents forum (3)",
+        "alt": "Parents of {schoolName} seated in the hall at a Parents’ Forum session, each desk carrying a class placard"
+      },
+      {
+        "key": "pSpeak",
+        "asset": "assets/parents forum/parents forum (4).jpg",
+        "name": "parents forum (4)",
+        "alt": "A parent of {schoolName} speaking into the microphone at a Parents’ Forum session"
+      }
+    ],
+    "cells": [
+      {
+        "label": "Academic progress, and the strengths behind it"
+      },
+      {
+        "label": "The areas that need attention next"
+      },
+      {
+        "label": "Support strategies, planned together"
+      },
+      {
+        "label": "Preparation for the examination that follows"
+      }
+    ],
+    "cellsTwo": []
+  },
+  "next": {
+    "kicker": "What happens next?",
+    "heading": "Noticed, understood,\nand {{acted on.}}",
+    "body": [],
+    "caption": null,
+    "shots": [],
+    "cells": [
+      {
+        "mark": "bell",
+        "label": "Notice",
+        "value": "A mentor who already knows the child sees the change first."
+      },
+      {
+        "mark": "speech",
+        "label": "Understand",
+        "value": "The subject, not the student, is identified as the thing that needs work."
+      },
+      {
+        "mark": "handHeart",
+        "label": "Support",
+        "value": "Additional teaching in that subject, before any retest is sat."
+      },
+      {
+        "mark": "chart",
+        "label": "Improve",
+        "value": "A retest on a published timetable, and the result declared with the annual one."
+      }
+    ],
+    "cellsTwo": []
+  },
+  "close": {
+    "kicker": "Assessment with purpose",
+    "heading": "Assessment tells us\n{{where to go next.}}",
+    "body": [
+      "Learning continues through feedback, support and the opportunity to improve. The school publishes the cycle, the support channels and the retest calendar. It does not publish examination dates, weightings or the promotion threshold — and none is estimated here."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pCohort",
+        "asset": "assets/photos/sunbeem-3.jpg",
+        "name": "sunbeem-3",
+        "alt": ""
+      }
+    ],
+    "cells": [],
+    "cellsTwo": []
+  }
+}

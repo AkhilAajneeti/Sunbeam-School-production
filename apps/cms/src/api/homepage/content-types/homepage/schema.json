@@ -1,79 +1,295 @@
 {
-  "kind":"singleType","collectionName":"homepage",
-  "info":{"singularName":"homepage","pluralName":"homepages","displayName":"Homepage",
-    "description":"Every editorial section of /. Replaces apps/web/src/data/home.ts, `heritageLede` from site.ts, and the inline arrays that were in Achievements.astro and EventsNews.astro. ⚠ NOT HERE, BY DESIGN: the notice board, alumni cards and quick-access tiles (relations to Notice, Alumnus and Site Settings, which own them) and `voices.slots` (a layout number that stays in code)."},
-  "options":{"draftAndPublish":true},
-  "attributes":{
-    "heroTitle":{"type":"text","maxLength":300},
-    "heroDeck":{"type":"text","maxLength":800},
-    "heroActions":{"type":"component","repeatable":true,"component":"shared.link"},
-    "heroStats":{"type":"component","repeatable":true,"component":"shared.figure"},
-    "heroSlides":{"type":"component","repeatable":true,"component":"home.slide"},
-
-    "heritageFigure":{"type":"string","maxLength":24},
-    "heritageEyebrow":{"type":"string","maxLength":120},
-    "heritageHeading":{"type":"string","maxLength":240},
-    "heritageBody":{"type":"text","maxLength":1200},
-
-    "storyEyebrow":{"type":"string","maxLength":120},
-    "storyHeading":{"type":"string","maxLength":240},
-    "storyParagraphs":{"type":"component","repeatable":true,"component":"shared.paragraph"},
-    "storyQuote":{"type":"text","maxLength":800},
-    "storyQuoteAttribution":{"type":"string","maxLength":200},
-    "storyChecks":{"type":"component","repeatable":true,"component":"shared.fact"},
-    "storyStat":{"type":"component","repeatable":false,"component":"shared.figure"},
-    "storyBentoLabel":{"type":"string","maxLength":160},
-    "storyCta":{"type":"component","repeatable":false,"component":"shared.link"},
-    "storyLinks":{"type":"component","repeatable":true,"component":"shared.link"},
-    "storyPhotos":{"type":"component","repeatable":true,"component":"shared.photo"},
-
-    "stagesPill":{"type":"string","maxLength":120},
-    "stagesHeading":{"type":"string","maxLength":240},
-    "stagesTagline":{"type":"text","maxLength":400},
-    "stages":{"type":"component","repeatable":true,"component":"home.stage"},
-
-    "learningEyebrow":{"type":"string","maxLength":120},
-    "learningHeading":{"type":"string","maxLength":240},
-    "learningParagraphs":{"type":"component","repeatable":true,"component":"shared.paragraph"},
-    "learningEvidence":{"type":"component","repeatable":true,"component":"shared.point"},
-    "learningLink":{"type":"component","repeatable":false,"component":"shared.link"},
-    "learningPhoto":{"type":"component","repeatable":false,"component":"shared.photo"},
-    "learningImageBrief":{"type":"string","maxLength":200},
-
-    "campusEyebrow":{"type":"string","maxLength":120},
-    "campusHeading":{"type":"string","maxLength":240},
-    "campusSub":{"type":"text","maxLength":800},
-    "facilities":{"type":"component","repeatable":true,"component":"home.facility-card"},
-
-    "voicesEyebrow":{"type":"string","maxLength":120},
-    "voicesHeading":{"type":"string","maxLength":240},
-    "voicesDeck":{"type":"text","maxLength":1200},
-    "voicesPending":{"type":"boolean","default":true,"required":true},
-    "voicesItems":{"type":"component","repeatable":true,"component":"home.voice"},
-
-    "beyondEyebrow":{"type":"string","maxLength":120},
-    "beyondHeading":{"type":"string","maxLength":240},
-    "beyondDeck":{"type":"text","maxLength":1200},
-    "beyondSport":{"type":"component","repeatable":false,"component":"home.sport-card"},
-    "beyondStrands":{"type":"component","repeatable":true,"component":"home.strand"},
-    "beyondLinks":{"type":"component","repeatable":true,"component":"shared.link"},
-
-    "principalCta":{"type":"component","repeatable":false,"component":"shared.link"},
-    "eventsPill":{"type":"string","maxLength":120},
-    "eventsHeading":{"type":"string","maxLength":240},
-    "eventsSub":{"type":"text","maxLength":800},
-    "events":{"type":"component","repeatable":true,"component":"home.event"},
-    "affiliationsHeading":{"type":"string","maxLength":240},
-    "affiliations":{"type":"component","repeatable":true,"component":"home.affiliation-mark"},
-
-    "achievementsPill":{"type":"string","maxLength":120},
-    "achievementsHeading":{"type":"string","maxLength":240},
-    "achievementsSub":{"type":"text","maxLength":800},
-    "achievementsLead":{"type":"component","repeatable":false,"component":"shared.figure"},
-    "achievementsLeadCta":{"type":"component","repeatable":false,"component":"shared.link"},
-    "achievementsHonoursHead":{"type":"string","maxLength":120},
-    "achievementsPhotos":{"type":"component","repeatable":true,"component":"shared.photo"},
-    "achievementsInstitutional":{"type":"component","repeatable":true,"component":"shared.point"},
-    "achievementsStudent":{"type":"component","repeatable":true,"component":"shared.figure"}
+  "kind": "singleType",
+  "collectionName": "homepage",
+  "info": {
+    "singularName": "homepage",
+    "pluralName": "homepages",
+    "displayName": "Homepage",
+    "description": "Every editorial section of /. Replaces apps/web/src/data/home.ts, `heritageLede` from site.ts, and the inline arrays that were in Achievements.astro and EventsNews.astro. ⚠ NOT HERE, BY DESIGN: the notice board, alumni cards and quick-access tiles (relations to Notice, Alumnus and Site Settings, which own them) and `voices.slots` (a layout number that stays in code)."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "heroEyebrow": {
+      "type": "string",
+      "maxLength": 80
+    },
+    "heroTitle": {
+      "type": "text",
+      "maxLength": 300
+    },
+    "heroDeck": {
+      "type": "text",
+      "maxLength": 800
+    },
+    "heroActions": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.link"
+    },
+    "heroStats": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.figure"
+    },
+    "heroSlides": {
+      "type": "component",
+      "repeatable": true,
+      "component": "home.slide"
+    },
+    "heritageFigure": {
+      "type": "string",
+      "maxLength": 24
+    },
+    "heritageEyebrow": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "heritageHeading": {
+      "type": "string",
+      "maxLength": 240
+    },
+    "heritageBody": {
+      "type": "text",
+      "maxLength": 1200
+    },
+    "storyEyebrow": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "storyHeading": {
+      "type": "string",
+      "maxLength": 240
+    },
+    "storyParagraphs": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.paragraph"
+    },
+    "storyQuote": {
+      "type": "text",
+      "maxLength": 800
+    },
+    "storyQuoteAttribution": {
+      "type": "string",
+      "maxLength": 200
+    },
+    "storyChecks": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.fact"
+    },
+    "storyStat": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.figure"
+    },
+    "storyBentoLabel": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "storyCta": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.link"
+    },
+    "storyLinks": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.link"
+    },
+    "storyPhotos": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.photo"
+    },
+    "stagesPill": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "stagesHeading": {
+      "type": "string",
+      "maxLength": 240
+    },
+    "stagesTagline": {
+      "type": "text",
+      "maxLength": 400
+    },
+    "stages": {
+      "type": "component",
+      "repeatable": true,
+      "component": "home.stage"
+    },
+    "learningEyebrow": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "learningHeading": {
+      "type": "string",
+      "maxLength": 240
+    },
+    "learningParagraphs": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.paragraph"
+    },
+    "learningEvidence": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.point"
+    },
+    "learningLink": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.link"
+    },
+    "learningPhoto": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.photo"
+    },
+    "learningImageBrief": {
+      "type": "string",
+      "maxLength": 200
+    },
+    "campusEyebrow": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "campusHeading": {
+      "type": "string",
+      "maxLength": 240
+    },
+    "campusSub": {
+      "type": "text",
+      "maxLength": 800
+    },
+    "facilities": {
+      "type": "component",
+      "repeatable": true,
+      "component": "home.facility-card"
+    },
+    "voicesEyebrow": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "voicesHeading": {
+      "type": "string",
+      "maxLength": 240
+    },
+    "voicesDeck": {
+      "type": "text",
+      "maxLength": 1200
+    },
+    "voicesPending": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    },
+    "voicesItems": {
+      "type": "component",
+      "repeatable": true,
+      "component": "home.voice"
+    },
+    "beyondEyebrow": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "beyondHeading": {
+      "type": "string",
+      "maxLength": 240
+    },
+    "beyondDeck": {
+      "type": "text",
+      "maxLength": 1200
+    },
+    "beyondSport": {
+      "type": "component",
+      "repeatable": false,
+      "component": "home.sport-card"
+    },
+    "beyondStrands": {
+      "type": "component",
+      "repeatable": true,
+      "component": "home.strand"
+    },
+    "beyondLinks": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.link"
+    },
+    "principalCta": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.link"
+    },
+    "eventsPill": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "eventsHeading": {
+      "type": "string",
+      "maxLength": 240
+    },
+    "eventsSub": {
+      "type": "text",
+      "maxLength": 800
+    },
+    "events": {
+      "type": "component",
+      "repeatable": true,
+      "component": "home.event"
+    },
+    "affiliationsHeading": {
+      "type": "string",
+      "maxLength": 240
+    },
+    "affiliations": {
+      "type": "component",
+      "repeatable": true,
+      "component": "home.affiliation-mark"
+    },
+    "achievementsPill": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "achievementsHeading": {
+      "type": "string",
+      "maxLength": 240
+    },
+    "achievementsSub": {
+      "type": "text",
+      "maxLength": 800
+    },
+    "achievementsLead": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.figure"
+    },
+    "achievementsLeadCta": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.link"
+    },
+    "achievementsHonoursHead": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "achievementsPhotos": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.photo"
+    },
+    "achievementsInstitutional": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.point"
+    },
+    "achievementsStudent": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.figure"
+    }
   }
 }

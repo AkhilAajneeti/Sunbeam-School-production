@@ -446,6 +446,28 @@ export interface AcademicsTiles extends Struct.ComponentSchema {
   };
 }
 
+export interface AchievementsRecordBoard extends Struct.ComponentSchema {
+  collectionName: 'components_achievements_record_boards';
+  info: {
+    description: 'The heading above one of the two boards on Beyond Academics \u2192 Achievements. \u26A0 `category` IS A JOIN KEY, NOT A LABEL \u2014 it must match the `category` on the Achievement Records that belong under this heading, or the board renders empty. Change the label freely; change the category only if you are also re-categorising the records themselves.';
+    displayName: 'Record Board';
+    icon: 'trophy';
+  };
+  attributes: {
+    category: Schema.Attribute.Enumeration<['sport', 'academic']> &
+      Schema.Attribute.Required;
+    label: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    note: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+  };
+}
+
 export interface CampusFacilityGroup extends Struct.ComponentSchema {
   collectionName: 'components_campus_facility_groups';
   info: {
@@ -1369,6 +1391,23 @@ export interface PhilosophySteps extends Struct.ComponentSchema {
   };
 }
 
+export interface PublicationsMyraPage extends Struct.ComponentSchema {
+  collectionName: 'components_publications_myra_pages';
+  info: {
+    description: 'One page of the MYRA STEM Lab newsletter \u2014 the scan, and what it shows. \u26A0 THE ORDER OF THESE ROWS IS THE ORDER ON THE PAGE, and the rail numbers itself from it ("page 3 of 5"), so dragging a row renumbers the caption too. \u26A0 `alt` IS NOT OPTIONAL AND IS NOT THE TITLE. It describes what is ON the scan for a reader who cannot see it. The school\u2019s own widget ships all five with empty alt; these were written for this site and should stay written.';
+    displayName: 'MYRA Page';
+    icon: 'file';
+  };
+  attributes: {
+    alt: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 300;
+      }>;
+    image: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+  };
+}
+
 export interface SharedAddress extends Struct.ComponentSchema {
   collectionName: 'components_shared_addresses';
   info: {
@@ -2090,6 +2129,10 @@ export interface StructureCell extends Struct.ComponentSchema {
     flag: Schema.Attribute.Boolean &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<false>;
+    href: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 300;
+      }>;
     image: Schema.Attribute.Media<'images'>;
     label: Schema.Attribute.String &
       Schema.Attribute.SetMinMaxLength<{
@@ -2103,10 +2146,18 @@ export interface StructureCell extends Struct.ComponentSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 400;
       }>;
+    number: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 40;
+      }>;
     state: Schema.Attribute.Enumeration<['yes', 'part', 'info']>;
     sub: Schema.Attribute.String &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 200;
+      }>;
+    suffix: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 8;
       }>;
     value: Schema.Attribute.Text &
       Schema.Attribute.SetMinMaxLength<{
@@ -2257,6 +2308,38 @@ export interface UniformShoeRow extends Struct.ComponentSchema {
   };
 }
 
+export interface UniformedGroup extends Struct.ComponentSchema {
+  collectionName: 'components_uniformed_groups';
+  info: {
+    description: 'One uniformed group on Beyond Academics \u2192 NCC, Scouts & Guides. \u26A0 `slug` IS THE PAGE ANCHOR (#ncc, #scouts-guides) and may be linked from outside the site \u2014 rename the group freely, but change the slug only if you mean to break those links. \u26A0\u26A0 EVERY FACT ON THIS PAGE HAS A SOURCE, and `verified` on each fact is what says whether it is the school describing itself or something independently evidenced. A claim about OTHER schools \u2014 "first in the district", "first of its kind" \u2014 must stay unverified so the page keeps attributing it.';
+    displayName: 'Uniformed Group';
+    icon: 'shield';
+  };
+  attributes: {
+    blurb: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 400;
+      }>;
+    facts: Schema.Attribute.Component<'shared.measure', true>;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 80;
+      }>;
+    pending: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    photos: Schema.Attribute.Component<'shared.photo', true>;
+    record: Schema.Attribute.Component<'shared.point', true>;
+    slug: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+  };
+}
+
 declare module '@strapi/strapi' {
   export namespace Public {
     export interface ComponentSchemas {
@@ -2271,6 +2354,7 @@ declare module '@strapi/strapi' {
       'academics.stream': AcademicsStream;
       'academics.tile': AcademicsTile;
       'academics.tiles': AcademicsTiles;
+      'achievements.record-board': AchievementsRecordBoard;
       'campus.facility-group': CampusFacilityGroup;
       'campus.facility-item': CampusFacilityItem;
       'campus.map-point': CampusMapPoint;
@@ -2299,6 +2383,7 @@ declare module '@strapi/strapi' {
       'philosophy.statement': PhilosophyStatement;
       'philosophy.step': PhilosophyStep;
       'philosophy.steps': PhilosophySteps;
+      'publications.myra-page': PublicationsMyraPage;
       'shared.address': SharedAddress;
       'shared.affiliation': SharedAffiliation;
       'shared.contact': SharedContact;
@@ -2324,6 +2409,7 @@ declare module '@strapi/strapi' {
       'structure.stream': StructureStream;
       'uniform.catalogue': UniformCatalogue;
       'uniform.shoe-row': UniformShoeRow;
+      'uniformed.group': UniformedGroup;
     }
   }
 }

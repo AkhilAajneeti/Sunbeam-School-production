@@ -14,14 +14,171 @@
  * eyebrow that merely repeated the masthead.
  */
 import { getHero } from '../../lib/cms';
-import AccentHeading from '../ui/AccentHeading.astro';
 import Photo from '../ui/Photo.astro';
+
+/* Each film's own opening frame, pulled with ffmpeg and committed. See FILMS. */
+import heroPoster1 from '../../assets/videos/hero-1-poster.jpg';
+import heroPoster2 from '../../assets/videos/hero-2-poster.jpg';
 /* ⚠ THE CLIENT'S OWN BANNER SET, src/assets/banners/ — ALL NINE OF THEM.
    The folder holds ten files, but banner10.jpg is byte-identical to
    banner2.jpg (same MD5, same 346,606 bytes), so there are nine distinct
    photographs and the tenth can never add a frame. */
 
-const { eyebrow, title, deck, actions, stats, slides } = await getHero();
+const { eyebrow, tagline, title, deck, actions, stats, slides } = await getHero();
+
+/**
+ * ═══ THE TWO DRONE FILMS, AND WHY THEY ARE NOT IN THE CMS ══════════════════
+ *
+ * The hero opens on the campus from the air and the gate, then runs seven
+ * photographs. Those seven come from the CMS, because which photographs the
+ * school shows is an editorial decision that changes. These two do not.
+ *
+ * ⚠⚠ THE FILES ARE FIXED BUILD ARTEFACTS, NOT UPLOADS. public/video/*.mp4 are
+ * hand-encoded from ~55 MB 1080p50 masters with a recipe every flag of which
+ * matters — `-an` (no audio track; it is muted anyway), `+faststart` (metadata
+ * at the front, so it begins before it has fully buffered), `yuv420p` (Safari
+ * will not decode otherwise), CRF 32/33 to land at ~3 MB and ~1 MB. The Media
+ * Library cannot reproduce any of that. Routing these through it would mean an
+ * editor could drop a 40 MB phone clip into the homepage hero, and it would
+ * ship to every visitor.
+ *
+ * ⚠ SO THE PATHS ARE PUBLIC-FOLDER PATHS, SERVED AS-IS. `/video/hero-1.mp4`
+ * is apps/web/public/video/hero-1.mp4 — no import, no hashing, no image
+ * pipeline. That is the whole point: the file that was encoded is byte-for-byte
+ * the file that is served.
+ *
+ * ⚠⚠ THE POSTER IS EACH FILM'S OWN FIRST FRAME, and that is what makes the
+ * handoff invisible: the still underneath and the opening frame of the film are
+ * the same picture, so when playback starts the frame does not change, it
+ * simply begins to move. The posters ARE imported from src/assets, so they go
+ * through Astro's image pipeline like every other photograph — responsive,
+ * AVIF/WebP, and the LCP element on this page.
+ *
+ * ⚠ THE MASTERS ARE GITIGNORED AND MUST STAY THAT WAY. An earlier pair were
+ * ~100 MB and one was over GitHub's hard limit, which rejects the push outright.
+ */
+const FILMS = [
+  {
+    src: heroPoster1,
+    video: '/video/hero-1.mp4',
+    videoSm: '/video/hero-1-sm.mp4',
+    alt:
+      'Sunbeam School Ballia from the air: the main teaching block with its ' +
+      'glass frontage, the school name along the façade, and the drive and ' +
+      'covered cycle stands running past it.',
+    caption: 'The campus from the air',
+    brief: 'Aerial establishing shot across the main block and the forecourt',
+    position: '50% 50%',
+    tone: 'ink' as const,
+  },
+  {
+    src: heroPoster2,
+    video: '/video/hero-2.mp4',
+    videoSm: '/video/hero-2-sm.mp4',
+    alt:
+      'The entrance of Sunbeam School Ballia: the school’s name in raised ' +
+      'lettering across the archway beside the crest, with the drive running ' +
+      'in past the school sign to the buildings beyond.',
+    caption: 'The entrance and the drive in',
+    brief: 'The entrance archway, the gates open on the drive beyond',
+    position: '50% 52%',
+    tone: 'ink' as const,
+  },
+];
+
+/**
+ * ⚠ ONE LIST, BECAUSE THE ROTA MUST NOT KNOW THE DIFFERENCE. The script indexes
+ * slides by position and cross-fades them; a film slide is an ordinary slide
+ * that happens to carry a `video`. Keeping two collections here would mean two
+ * code paths in the script, and the caption, the aria-hidden bookkeeping and
+ * the swipe handler would each need to know which kind they were looking at.
+ *
+ * ⚠ <Photo> TAKES EITHER SOURCE. `file` is a Strapi record and wins where it is
+ * set; `src` is a local import. The films have no `file` and the photographs
+ * have no `src`, so each renders through the branch it needs without the two
+ * ever having to be told apart here.
+ */
+const heroSlides = [
+  ...FILMS.map((f) => ({ ...f, file: null })),
+  /* ⚠ `image` IS RENAMED TO `file` HERE, and forgetting it is silent. <Photo>
+     takes a Strapi record as `file`; a CMS slide calls the same thing `image`.
+     Spreading one into the other without the rename leaves `file` undefined, so
+     every photograph falls through to the labelled development placeholder —
+     the page still renders, still passes a build, and shows seven grey boxes. */
+  ...slides.map((s) => ({ ...s, file: s.image, src: undefined, video: null, videoSm: null })),
+];
+
+/**
+ * ═══ THE HEADLINE IS THREE BLOCKS, AND IT IS BUILT HERE ════════════════════
+ *
+ * `heroTitle` in the CMS is newline-separated, with {{double braces}} marking
+ * the words that take the accent colour:
+ *
+ *     Where Ballia's Future
+ *     {{Leaders}}
+ *     Take Shape
+ *
+ * ⚠⚠ THIS USED TO BE <AccentHeading split>, AND THE BLOCKS ARE WHY IT IS NOT.
+ * The third line is set at 0.58em, and as INLINE content it still sits on the
+ * full-size line's strut — 80.9px of leading carrying a 43px word. The white
+ * band under "Leaders" came out roughly double the band under line one. A
+ * negative margin does not fix it: the strut scales with a fluid headline and
+ * a fixed correction does not, so it is only ever right at one window width.
+ * Measured optical gaps once they were blocks: 26.9 / 28.2px at 1440, and
+ * 16.8 / 18.3 at 900 — even at both ends.
+ *
+ * ⚠⚠ AND THERE IS NO `split` / `data-split` ON THIS HEADING. splitWords() in
+ * scripts/motion-gsap.ts rebuilds a heading out of inline-block word masks,
+ * which would pull all three blocks back onto one line and undo everything
+ * above. It never actually fired — the hero is above the fold and `belowFold`
+ * skips it — which made the attribute a loaded gun rather than a live bug. Do
+ * not add it back.
+ *
+ * ⚠ THE LAST LINE IS THE SMALL ONE ONLY WHEN THERE ARE THREE. An editor who
+ * writes a two-line headline gets two full-size lines, not a headline whose
+ * second half has mysteriously shrunk.
+ */
+const titleLines = (title ?? '').split('\n').map((l) => l.trim()).filter(Boolean);
+
+const heroLines = titleLines.map((line, i) => ({
+  take: titleLines.length >= 3 && i === titleLines.length - 1,
+  parts: line
+    .split(/(\{\{[^}]*\}\})/)
+    .filter(Boolean)
+    .map((piece) =>
+      piece.startsWith('{{') && piece.endsWith('}}')
+        ? { text: piece.slice(2, -2), accent: true }
+        : { text: piece, accent: false },
+    ),
+}));
+
+/**
+ * Line icons for the mobile stat card — calendar, students, award.
+ * Inline rather than a component: three 24px glyphs used in one place do not
+ * justify an import, and `set:html` keeps them out of the markup's way.
+ */
+/**
+ * Line icons for the stat card — mortarboard, students, trophy.
+ *
+ * ⚠⚠ THE PAIRING IS THE POINT, AND IT WAS WRONG. The order used to be
+ * calendar / mortarboard / ribbon, which put a graduation cap beside "Students
+ * Today" — that reads as graduates, i.e. alumni, not as the children currently
+ * on the roll. The mortarboard belongs to the years figure, where it means a
+ * school; the roll gets people; the ranking gets a trophy.
+ *
+ * ⚠ KEYED BY POSITION, NOT BY THE STAT'S TEXT. The figures come from the CMS
+ * and an editor may reword a label, but the three slots keep their meaning:
+ * years, students, ranking. All three are aria-hidden — the value and the label
+ * already say everything a screen reader needs.
+ */
+const STAT_ICONS = [
+  /* Mortarboard — 13+ Years in Ballia. */
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4 2 9l10 5 10-5-10-5Z"/><path d="M6 11.2V16c0 1.7 2.7 3 6 3s6-1.3 6-3v-4.8"/><path d="M22 9v5"/></svg>',
+  /* Two figures — 2,700+ Students Today. */
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.1 2.7-5.2 6-5.2s6 2.1 6 5.2"/><path d="M16.5 5.5a3 3 0 0 1 0 5.6"/><path d="M18 14.6c2 .7 3.4 2.5 3.4 4.9"/></svg>',
+  /* Trophy — #1 Co-ed Day School in Ballia. */
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4h10v5a5 5 0 0 1-10 0V4Z"/><path d="M7 5.5H4.5V7a3 3 0 0 0 3 3"/><path d="M17 5.5h2.5V7a3 3 0 0 1-3 3"/><path d="M12 14v3.5"/><path d="M8.5 20.5h7"/><path d="M10 17.5h4v3h-4Z"/></svg>',
+];
 
 /**
  * ⚠⚠ THE STUDENTS PHOTOGRAPH LEADS NOW, and the poster is gone entirely.
@@ -68,7 +225,7 @@ const { eyebrow, title, deck, actions, stats, slides } = await getHero();
 
 <section class="hero" data-hero aria-label="Welcome to Sunbeam School Ballia">
   <div class="hero__stage">
-    {slides.map((slide, i) => (
+    {heroSlides.map((slide, i) => (
       <div
         class="hero__slide"
         data-slide
@@ -78,7 +235,8 @@ const { eyebrow, title, deck, actions, stats, slides } = await getHero();
         aria-hidden={i !== 0}
       >
         <Photo
-          file={slide.image}
+          file={slide.file}
+          src={slide.src}
           alt={slide.alt}
           brief={slide.brief}
           tone={slide.tone}
@@ -88,10 +246,101 @@ const { eyebrow, title, deck, actions, stats, slides } = await getHero();
           eager={i === 0}
           sizes="100vw"
         />
+        {/* ⚠⚠ THE FILM IS AN ENHANCEMENT PAINTED OVER THE PHOTOGRAPH, NEVER A
+            REPLACEMENT FOR IT. The <Photo> above is still the slide; this sits
+            on top at opacity 0 and only fades up once the browser reports it is
+            actually playing. Every way this can fail — reduced motion, a save-
+            data connection, a blocked autoplay, a 404, a codec the browser will
+            not take — lands on the same outcome: the film never becomes
+            visible and the visitor sees the still. There is no failure branch
+            to write because there is no state in which the photograph is
+            absent.
+
+            ⚠ NO src ATTRIBUTE, DELIBERATELY. The paths are parked in data-*
+            and the script moves one into src only when the film is about to
+            play. An inert `src` here would have every visitor fetch megabytes
+            of video — including the ones who will never see a frame of it,
+            which is exactly the audience the guards exist to protect.
+
+            ⚠ AND NO poster EITHER. The obvious `poster={...}` would paint a
+            second copy of an image already on screen: the slide images for the
+            two film slides ARE the films' own opening frames, pulled with
+            ffmpeg, so the photograph underneath is the poster. Adding the
+            attribute would download it twice and change nothing.
+
+            ⚠ muted AND playsinline ARE LOAD-BEARING, not tidiness. Without
+            `muted` no browser will autoplay at all; without `playsinline` iOS
+            throws the film into its native fullscreen player and takes over the
+            page. Both must survive any edit here. */}
+        {slide.video && (
+          <video
+            class="hero__film"
+            data-film
+            data-src={slide.video}
+            data-src-sm={slide.videoSm ?? slide.video}
+            muted
+            playsinline
+            preload="none"
+            tabindex="-1"
+            aria-hidden="true"
+          ></video>
+        )}
       </div>
     ))}
+    {/* ⚠⚠ READ THE CSS NOTE BEFORE TOUCHING THIS. It is an addition to the
+        briefed scrim, not a replacement for it, and it exists because four of
+        the nine shipped images fail WCAG without it. */}
+    <div class="hero__veil" aria-hidden="true"></div>
     <div class="hero__tint" aria-hidden="true"></div>
     <div class="hero__scrim" aria-hidden="true"></div>
+
+    {/* ══ THE IN-VIDEO UI — desktop only ══════════════════════════════════
+        ⚠ THIS IS THE ONLY THING LEFT OVER THE FOOTAGE. The copy moved out to
+        the panel below precisely so nothing stands over the building, so what
+        stays here has to earn its place: the motto, the position in the rota,
+        and the control that stops it. Nothing else goes in this layer. */}
+    <div class="hero__filmui" data-film-ui>
+      {/* ⚠ MOTTO AND PAGER ARE ONE GROUP. The row is space-between, so three
+          loose children would spread the pager into the middle of the frame
+          instead of keeping it under the motto on the left. */}
+      <div class="hero__filmui-left">
+      <p class="hero__motto">{tagline}</p>
+
+      {/* ⚠ data-dot IS WHAT WIRES THESE UP. The script already listens for it
+          and calls show(i); these are numbered rather than dots because the
+          rota is nine long and a row of nine identical dots says nothing about
+          where you are in it. */}
+      <ol class="hero__pager" aria-label="Choose a slide">
+        {heroSlides.map((_, i) => (
+          <li>
+            <button
+              type="button"
+              class="hero__pageno"
+              data-dot
+              aria-current={i === 0 ? 'true' : 'false'}
+              aria-label={`Slide ${i + 1} of ${heroSlides.length}`}
+            >{String(i + 1).padStart(2, '0')}</button>
+          </li>
+        ))}
+      </ol>
+      </div>
+
+      {/* ⚠ THE PAUSE CONTROL LIVES HERE, NOT IN .hero__meta. It used to sit in
+          the meta block inside .hero__content — and .hero__content is
+          position: relative, so `position: absolute; bottom` placed it against
+          the PANEL rather than the film. Moving the markup is the fix; no
+          amount of CSS re-parents a containing block. */}
+      <button class="hero__pause" type="button" data-hero-pause aria-label="Pause image slideshow">
+      <svg class="hero__icon-pause" width="10" height="12" viewBox="0 0 10 12" aria-hidden="true">
+      <rect x="0" y="0" width="3" height="12" fill="currentColor" />
+      <rect x="7" y="0" width="3" height="12" fill="currentColor" />
+      </svg>
+      <svg class="hero__icon-play" width="10" height="12" viewBox="0 0 10 12" aria-hidden="true">
+      <path d="M0 0L10 6L0 12Z" fill="currentColor" />
+      </svg>
+      </button>
+      
+    </div>
   </div>
 
   <div class="hero__content u-container u-on-dark">
@@ -105,15 +354,31 @@ const { eyebrow, title, deck, actions, stats, slides } = await getHero();
           cost nothing unused, and this is the kind of thing that comes back for
           one admissions season. */}
       <p class="hero__eyebrow t-label">{eyebrow}</p>
-      <AccentHeading
-        tag="h1"
-        class="hero__title t-display"
-        split
-        accentClass="t-squiggle--lime"
-        breakClass="hero__br"
-        text={title}
-      />
+      <h1 class="hero__title t-display">
+        {heroLines.map((line) => (
+          <span class:list={['hero__line', line.take && 'hero__take']}>
+            {line.parts.map((part) =>
+              part.accent ? <span class="hero__accent">{part.text}</span> : part.text,
+            )}
+          </span>
+        ))}
+      </h1>
+      {/* ⚠ THE DECK OPENS THE PANEL'S RIGHT COLUMN on desktop, and simply
+          follows the headline on mobile. One element, two layouts — the grid
+          below places it; the markup does not change between them. */}
       <p class="hero__deck t-body-lg">{deck}</p>
+      {/* ⚠ THE MOTTO SITS HERE, BELOW THE DECK — not as an eyebrow above the
+          <h1>, which is where it used to be and where it was asked to stop
+          being. It is the school's real motto, read off the crest ring on the
+          official logo artwork; text extraction never surfaced it because it
+          exists only in the emblem.
+          ⚠ IT IS STILL READ FROM SITE SETTINGS, not copied onto the homepage.
+          The footer and the About pages print the same three words, and a
+          second copy here is a second thing to forget to change. */}
+      {/* ⚠ THE MOTTO MOVED OVER THE VIDEO — see .hero__filmui above. This
+          element stays for the mobile layout, where nothing is layered on the
+          film and the motto reads under the deck as it always did. */}
+      {tagline && <p class="hero__tagline t-label">{tagline}</p>}
       {/* ⚠ THE TWO APPLICATION FORMS, NOT AN ADMISSIONS PAGE. The school has no
           admissions page of its own — what it publishes is these two forms, one
           per intake, named exactly this way in its own top bar. The hero now
@@ -130,26 +395,87 @@ const { eyebrow, title, deck, actions, stats, slides } = await getHero();
           These two go where the hero used to send people before the apply links
           briefly took the slot — both real, finished pages. */}
       <div class="hero__actions">
+        {/* ⚠ THE GLYPHS ARE KEYED BY POSITION AND ARE DECORATIVE. The labels
+            come from the CMS and an editor may reword them; the two slots keep
+            their meaning — the first action leads onward, the second opens the
+            campus. Both are aria-hidden: the label already says where it goes,
+            and a screen reader announcing "arrow" adds nothing.
+            ⚠ THE PLAY GLYPH OPENS NO LIGHTBOX. It is a visual cue that the
+            campus page is where the film and the gallery live, not a control. */}
         {actions.map((a, i) => (
-          <a class={`btn ${i === 0 ? 'btn--on-image-primary' : 'btn--on-image-secondary'}`} href={a.href}>{a.label}</a>
+          <a class={`btn ${i === 0 ? 'btn--on-image-primary' : 'btn--on-image-secondary'}`} href={a.href}>
+            {i === 1 && (
+              <svg
+                class="hero__cta-glyph hero__cta-glyph--play"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                {/* ⚠ PEOPLE, NOT A PLAY TRIANGLE. The ringed ▷ belonged to
+                    "Discover Our Campus" — it suggested something would play.
+                    This button goes to Admissions, and a play glyph in front of
+                    it promises a video that does not exist. */}
+                <circle cx="9" cy="8" r="3.4" fill="none" stroke="currentColor"
+                  stroke-width="1.7" stroke-linecap="round" />
+                <path d="M2.6 19.2c0-3.3 2.9-5.6 6.4-5.6s6.4 2.3 6.4 5.6"
+                  fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
+                <path d="M16.6 5.4a3.2 3.2 0 0 1 0 6" fill="none" stroke="currentColor"
+                  stroke-width="1.7" stroke-linecap="round" />
+                <path d="M18 13.9c2.1.8 3.5 2.7 3.5 5.3" fill="none" stroke="currentColor"
+                  stroke-width="1.7" stroke-linecap="round" />
+              </svg>
+            )}
+            <span>{a.label}</span>
+            {i === 0 && (
+              <svg class="hero__cta-glyph" viewBox="0 0 16 12" aria-hidden="true">
+                <path d="M1 6h13M9.5 1.5 14 6l-4.5 4.5" fill="none" stroke="currentColor"
+                  stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            )}
+          </a>
         ))}
       </div>
 
       {/* Floating stat card — reference hero pattern. Verified figures only. */}
+      {/* ⚠ THE ICONS ARE MOBILE-ONLY AND PURELY DECORATIVE. They are keyed by
+          POSITION, not by the stat's text — the figures come from the CMS and an
+          editor may reword a label, but the three slots keep their meaning:
+          years, students, ranking. aria-hidden throughout; the value and label
+          already say everything a screen reader needs. */}
+      {/* ⚠⚠ HIDDEN ON DESKTOP, NOT DELETED. The panel design has no stat card
+          in it, so this is switched off at ≥1024px — but 13+ years, the roll and
+          the Cfore #1 ranking are the school's own verified figures and they
+          still carry the mobile hero. Removing them from the CMS is a content
+          decision nobody has taken; one line of CSS brings them back. */}
       <div class="hero__stats">
-        {stats.map((stat) => (
+        {stats.map((stat, i) => (
           <div class="hero__stat">
+            <span class="hero__stat-icon" aria-hidden="true" set:html={STAT_ICONS[i] ?? STAT_ICONS[0]} />
             <span class="hero__stat-value">{stat.value}</span>
             <span class="hero__stat-label">{stat.label}</span>
           </div>
         ))}
       </div>
+
+      {/* ══ THE HANDWRITTEN CLOSE ═══════════════════════════════════════
+          ⚠ SET IN CAVEAT, WHICH THIS SITE ALREADY SHIPS — see base.css. It is
+          decorative and repeats nothing: the headline says "Leaders Take
+          Shape", this says what that is for. aria-hidden because a screen
+          reader reading a decorative flourish after the deck adds nothing.
+          ⚠ DESKTOP ONLY. At panel width it sits in the third column; below
+          1024px there is no column for it and it is switched off rather than
+          stacked under the buttons, where it would read as a caption. */}
+      <p class="hero__script" aria-hidden="true">
+        <span>Learners</span>
+        <span>Today</span>
+        <span>Leaders</span>
+        <span>Tomorrow</span>
+      </p>
     </div>
 
     <div class="hero__meta">
       <p class="hero__caption" data-hero-caption aria-live="off">
-        <span class="hero__caption-tag t-label">{slides[0].caption ? '' : 'Needed · A2'}</span>
-        <span class="hero__caption-text">{slides[0].caption ?? slides[0].brief}</span>
+        <span class="hero__caption-tag t-label">{heroSlides[0].caption ? '' : 'Needed · A2'}</span>
+        <span class="hero__caption-text">{heroSlides[0].caption ?? heroSlides[0].brief}</span>
       </p>
 
       {/* ⚠ THE DOT ROW IS GONE, THE PAUSE CONTROL IS ONLY HIDDEN — and that
@@ -170,15 +496,6 @@ const { eyebrow, title, deck, actions, stats, slides } = await getHero();
           The other two guards were already in the script and still hold:
           autoplay never starts under prefers-reduced-motion, and never starts
           below 768px at all. */}
-      <button class="hero__pause" type="button" data-hero-pause aria-label="Pause image slideshow">
-        <svg class="hero__icon-pause" width="10" height="12" viewBox="0 0 10 12" aria-hidden="true">
-          <rect x="0" y="0" width="3" height="12" fill="currentColor" />
-          <rect x="7" y="0" width="3" height="12" fill="currentColor" />
-        </svg>
-        <svg class="hero__icon-play" width="10" height="12" viewBox="0 0 10 12" aria-hidden="true">
-          <path d="M0 0L10 6L0 12Z" fill="currentColor" />
-        </svg>
-      </button>
     </div>
   </div>
 </section>
@@ -212,6 +529,162 @@ const { eyebrow, title, deck, actions, stats, slides } = await getHero();
 
   .hero__slide[data-active] { opacity: 1; }
 
+  /* --- The film layer ----------------------------------------------------- */
+
+  /* ⚠ IT FADES IN OVER ITS OWN STILL, which is why the handoff is invisible:
+     the frame underneath is this film's first frame, so there is nothing to
+     cross-fade between and the picture simply starts moving.
+
+     ⚠ THE FADE IS ONE-WAY BY DESIGN. Going out, the slide itself is already
+     fading, and fading the film out inside a fading slide double-fades it —
+     the photograph flashes through for a beat in the middle. The script drops
+     [data-playing] only after the slide has gone. */
+  .hero__film {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    opacity: 0;
+    transition: opacity 600ms ease-in;
+    pointer-events: none;
+    /**
+     * ⚠⚠ NO z-index HERE. EVER. THIS RULE USED TO SAY `z-index: 1`, AND IT PUT
+     * THE WHOLE SCRIM UNDERNEATH THE FILM.
+     *
+     * The reasoning that put it there was wrong in a way that sounds right:
+     * ".hero__tint and .hero__scrim come after the slides in the DOM, so they
+     * paint over this anyway." Later-sibling order only breaks ties BETWEEN
+     * ELEMENTS AT THE SAME STACKING LEVEL. The tint and the scrim are
+     * positioned with `z-index: auto`, which is level 0; `z-index: 1` is a
+     * level above, so the film painted over both of them and the two drone
+     * slides had no overlay at all.
+     *
+     * ⚠ MEASURED ON SLIDE 1 — worst background pixel inside each glyph line
+     * box, text-shadow included, everything else identical:
+     *
+     *     block      z-index: 1    removed     needs
+     *     title       1.97 : 1     3.47 : 1     3.0
+     *     eyebrow     3.11 : 1     8.78 : 1     4.5
+     *     deck        2.82 : 1     6.07 : 1     4.5
+     *     tagline     3.61 : 1    10.58 : 1     4.5
+     *
+     * ⚠ A FILM SLIDE'S NUMBERS MOVE A LITTLE BETWEEN RUNS, because the frame
+     * on screen when the sample is taken is not the same frame twice. The deck
+     * ranged 6.07–6.19 across runs. Treat a difference in the second decimal
+     * as noise; a difference in the first is a real change.
+     *
+     * 1.97:1 is white type on a sunlit white wall. All four failed, on the two
+     * slides a visitor sees first.
+     *
+     * ⚠ AND NONE IS NEEDED. This is an absolutely-positioned later sibling of
+     * the .photo it covers, inside .hero__slide, so it already paints above the
+     * photograph at the same level. The stacking this rule wanted is what the
+     * DOM order gives for free.
+     *
+     * ⚠ THIS IS ALSO WHY THE SCRIM LOOKED "TOO LIGHT" AND WAS NOT. Do not
+     * reach for the gradient values when the hero looks washed out — check
+     * here first. The scrim was tuned by measurement and is at its floor.
+     */
+  }
+
+  .hero__film[data-playing] { opacity: 1; }
+
+  /**
+   * ═══ THE COPY VEIL — AN ADDITION TO THE BRIEFED SCRIM ══════════════════
+   *
+   * ⚠⚠ THE SCRIM ITSELF IS UNCHANGED AND MUST STAY THAT WAY. Its gradient
+   * values are the briefed, measured ones and they are at their floor. This is
+   * a separate layer so that the brief's values remain readable as the brief's
+   * values rather than being quietly edited into something else.
+   *
+   * ⚠⚠ WHY IT IS NEEDED. The brief's 5.05:1 was measured against ONE
+   * photograph. The nine images actually shipping include several much
+   * brighter frames, and measured against the real set — worst background
+   * pixel inside each glyph line box, text-shadow included — four of the nine
+   * failed WCAG with the scrim alone:
+   *
+   *     slide                  headline   deck      (needs 3.0 / 4.5)
+   *     1  campus from air      1.97 ✗     3.79 ✗
+   *     3  chemistry practical  3.27 ✓     5.02 ✓   ← the brief's own case
+   *     6  NCC contingent       2.49 ✗     3.30 ✗
+   *     9  portico group        2.14 ✗     4.35 ✗
+   *
+   * Note slide 3: 5.02:1 against the brief's stated 5.05. The scrim is doing
+   * exactly what it was measured to do — it is the other eight images that it
+   * was never measured against.
+   *
+   * 1.97:1 is white type on a sunlit white wall. The brief's own logic is that
+   * 4.5 is the line and going under it is a fail — it rejects 0.70 for landing
+   * at 4.37 — so satisfying it against these images means more overlay, not
+   * less.
+   *
+   * ⚠ IT DARKENS THE COPY, NOT THE PICTURE. This is the reason it is a
+   * separate layer with its own stops rather than a heavier scrim. The client's
+   * objection was that the buildings were buried; the veil holds its value
+   * across the left two-thirds, where the headline and deck actually sit, and
+   * is fully released by 92% — so the right-hand third of every frame is
+   * exactly as unveiled as it was. The strength is set by the worst case
+   * measured across all nine, which is the aerial's headline.
+   *
+   * ⚠⚠ THIS IS THE LIGHTEST IT GOES. The client asked for less overlay after
+   * seeing it, so the load was moved into the type — which is what the brief
+   * says to do first — and the veil came down with it. Every text-shadow in
+   * this file was strengthened in the same pass; the two changes are a pair and
+   * reverting one without the other drops slides under the line.
+   *
+   * ⚠ THE FLOOR WAS FOUND BY SWEEPING, NOT GUESSED. Measured against the
+   * three worst frames:
+   *
+   *     veil    slide 1 headline   slide 9 deck
+   *     0.18      2.80 ✗             4.17 ✗
+   *     0.22      3.04 ✓             4.47 ✗   ← misses by 0.03
+   *     0.25      3.14 ✓             4.66 ✓   ← shipped
+   *
+   * Results at the shipped value, all nine slides passing:
+   *
+   *     worst headline  3.14 : 1  (slide 1, the aerial)   needs 3.0
+   *     worst deck      4.66 : 1  (slide 9, the portico)  needs 4.5
+   *     best headline   5.23 : 1  (slide 3)
+   *
+   * ⚠ THE RELEASE MOVED IN FROM 92% TO 84% in the same pass, and that is free
+   * readability-wise: past the copy's right edge the veil was darkening
+   * photograph that no text sits on. Pulling it in clears another eighth of
+   * every frame without moving any number above.
+   *
+   * ⚠ DO NOT LOWER THESE. The two worst margins are 0.14 and 0.16 — a re-encode
+   * of a film, or one brighter photograph swapped into the rota, is enough to
+   * put them under. Re-measure rather than adjust by eye.
+   */
+  .hero__veil {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      to right,
+      rgba(18, 16, 15, 0.25) 0%,
+      rgba(18, 16, 15, 0.26) 46%,
+      rgba(18, 16, 15, 0.22) 60%,
+      rgba(18, 16, 15, 0.06) 74%,
+      rgba(18, 16, 15, 0) 84%
+    );
+  }
+
+  /* ⚠ NOTHING IS LAYERED OVER THE PICTURE ON MOBILE — the copy sits below the
+     film band on solid ink — so the veil would dim the band for no reader. */
+  @media (max-width: 767px) {
+    .hero__veil { background: none; }
+  }
+
+  /* ⚠ NOT `display: none` UNDER REDUCED MOTION. The script already refuses to
+     play, and this is the belt to that braces: if a future edit ever autoplays
+     a film here, this still keeps it invisible for anyone who asked for less
+     movement. A stationary first frame is not motion, but a drone shot is. */
+  @media (prefers-reduced-motion: reduce) {
+    .hero__film { display: none; }
+  }
+
   /* Square. <Photo> carries a 16px radius for the card contexts it usually sits
      in; a full-bleed banner is not one of those, and the rounded corners showed
      against the stage. */
@@ -220,10 +693,14 @@ const { eyebrow, title, deck, actions, stats, slides } = await getHero();
   /* Warm the photography toward the brand without tinting it into a filter.
      Kept light: a heavy maroon wash makes the whole frame read as sepia, and
      this school needs to look current, not archival. */
+  /* ⚠ 0.06, HALVED FROM 0.12. The client asked twice for less overlay, and the
+     maroon wash was the half of it doing the least work — it warms the
+     photography toward the brand, it does not make anything readable. Read the
+     note on .hero__scrim before touching either. */
   .hero__tint {
     position: absolute;
     inset: 0;
-    background: rgba(61, 0, 0, 0.12);
+    background: rgba(61, 0, 0, 0.06);
   }
 
   /* Two-axis scrim.
@@ -237,21 +714,47 @@ const { eyebrow, title, deck, actions, stats, slides } = await getHero();
   .hero__scrim {
     position: absolute;
     inset: 0;
+    /**
+     * ⚠⚠ THIS IS NEAR THE FLOOR. DO NOT LIGHTEN IT WITHOUT MEASURING.
+     *
+     * It was measured, not judged: the copy was hidden, the exact rectangle
+     * each block occupies was sampled, and the brightest background pixel under
+     * it taken.
+     *
+     *     left edge   deck contrast   verdict
+     *     0.86        6.25 : 1        over-dark, what shipped first
+     *     0.72        5.05 : 1        ✅ current — the bar is 4.5
+     *     0.70        4.37 : 1        ❌ under the line
+     *
+     * ⚠ THE DECK IS THE BINDING CONSTRAINT, NOT THE HEADLINE. The headline is
+     * large text and needs only 3:1. The deck is small text needing 4.5:1, and
+     * its 46ch measure reaches halfway across the frame, where the ramp has
+     * already fallen away.
+     *
+     * ⚠ STEEPENING THE FALLOFF INSTEAD DOES NOT WORK — it was tried. Pulling
+     * the stops in to clear the buildings sooner moved the building region's
+     * mean luminance only 0.231 → 0.279 while the deck collapsed to 2.85:1.
+     * The buildings on the right are already almost unveiled; what reads as
+     * "heavy" is the left ramp, which is the half doing the work.
+     *
+     * ⚠ READABILITY IS PAID FOR IN TYPE, NOT MORE BLACK. Headline, deck and
+     * motto each carry their own text-shadow. Reach for that first.
+     */
     background:
       linear-gradient(
         to right,
-        rgba(18, 16, 15, 0.9) 0%,
-        rgba(18, 16, 15, 0.82) 30%,
-        rgba(18, 16, 15, 0.52) 50%,
-        rgba(18, 16, 15, 0.16) 70%,
-        rgba(18, 16, 15, 0) 84%
+        rgba(18, 16, 15, 0.72) 0%,
+        rgba(18, 16, 15, 0.6) 26%,
+        rgba(18, 16, 15, 0.32) 46%,
+        rgba(18, 16, 15, 0.08) 62%,
+        rgba(18, 16, 15, 0) 72%
       ),
       linear-gradient(
         to top,
-        rgba(18, 16, 15, 0.78) 0%,
-        rgba(18, 16, 15, 0.4) 30%,
-        rgba(18, 16, 15, 0.16) 60%,
-        rgba(18, 16, 15, 0.26) 100%
+        rgba(18, 16, 15, 0.44) 0%,
+        rgba(18, 16, 15, 0.19) 32%,
+        rgba(18, 16, 15, 0.05) 62%,
+        rgba(18, 16, 15, 0.1) 100%
       );
   }
 
@@ -260,19 +763,23 @@ const { eyebrow, title, deck, actions, stats, slides } = await getHero();
   /* From tablet down the copy spans most of the width, so the horizontal ramp
      no longer covers it and the vertical one has to do all the work. */
   @media (max-width: 1023px) {
-    /* The copy block reaches roughly 70% up the frame here, and a worst-case
-       white building behind white text needs ~0.82 alpha to clear 4.5:1. So the
-       ramp stays heavy to the 78% mark and only releases above it, where the
-       photograph is left to read on its own. */
+    /* ⚠ ONE GRADIENT, NOT TWO. The copy spans most of the width here, so the
+       desktop's left-to-right ramp no longer sits under it and the vertical one
+       has to do all the work on its own.
+
+       ⚠ AND IT IS ITS OWN CURVE, NOT THE DESKTOP NUMBERS REUSED. Lightened in
+       step with the desktop scrim — the client's note was about the whole hero,
+       not one breakpoint — but it has to start higher (0.86 against 0.72),
+       because a single gradient is carrying what two carry above 1024px. */
     .hero__scrim {
       background:
         linear-gradient(
           to top,
-          rgba(18, 16, 15, 0.92) 0%,
-          rgba(18, 16, 15, 0.88) 55%,
-          rgba(18, 16, 15, 0.8) 78%,
-          rgba(18, 16, 15, 0.46) 92%,
-          rgba(18, 16, 15, 0.34) 100%
+          rgba(18, 16, 15, 0.86) 0%,
+          rgba(18, 16, 15, 0.78) 50%,
+          rgba(18, 16, 15, 0.54) 72%,
+          rgba(18, 16, 15, 0.2) 88%,
+          rgba(18, 16, 15, 0.1) 100%
         );
     }
   }
@@ -311,41 +818,115 @@ const { eyebrow, title, deck, actions, stats, slides } = await getHero();
   }
 
   /* Floating stat card — reference hero pattern. */
+  /**
+   * ⚠⚠ A NEAR-WHITE PLATE, NOT DARK GLASS. It was 10% white over the
+   * photograph, which made it one more dim rectangle in a hero that already has
+   * a scrim doing that job; the figures had to fight the picture behind them.
+   *
+   * ⚠⚠ THE BLUR IS LOAD-BEARING, NOT A FLOURISH. The plate is 88% white
+   * precisely so the photograph still moves underneath it — that movement is
+   * what stops it reading as a flat grey rectangle dropped onto the picture.
+   * Remove backdrop-filter and you get exactly that rectangle.
+   *
+   * ⚠ AND 0.88 IS THE FALLBACK, WHICH IS WHY IT IS NOT 0.6. Where the filter
+   * is unsupported the browser simply paints the colour, so the alpha alone has
+   * to be opaque enough to carry ink text. At 0.6 it is not.
+   */
   .hero__stats {
     display: inline-flex;
     align-items: stretch;
     gap: var(--sb-7);
     margin-top: var(--sb-8);
     padding: var(--sb-6) var(--sb-7);
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.88);
+    border: 1px solid rgba(255, 255, 255, 0.55);
     border-radius: var(--sb-r-2);
-    backdrop-filter: blur(10px);
+    box-shadow: 0 18px 50px rgba(18, 16, 15, 0.28);
+    backdrop-filter: blur(14px);
   }
 
+  /* Icon disc beside a value-over-label stack. A grid rather than nested
+     flexes so the disc spans both rows without any extra markup. */
   .hero__stat {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-areas:
+      'icon value'
+      'icon label';
+    align-items: center;
+    column-gap: var(--sb-3);
+    row-gap: 2px;
   }
 
+  .hero__stat-value { grid-area: value; }
+  .hero__stat-label { grid-area: label; }
+
+  .hero__stat-icon {
+    grid-area: icon;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--sb-lime-wash);
+    color: var(--sb-violet);
+  }
+
+  .hero__stat-icon :global(svg) {
+    width: 22px;
+    height: 22px;
+    display: block;
+  }
+
+  /* ⚠ THE DIVIDERS FLIPPED WITH THE PLATE. White hairlines are invisible on a
+     white ground — they were there for the dark glass this replaced. */
   .hero__stat + .hero__stat {
     padding-left: var(--sb-7);
-    border-left: 1px solid rgba(255, 255, 255, 0.22);
+    border-left: 1px solid rgba(22, 16, 12, 0.12);
   }
 
+  /* ⚠ THE FIGURES STAY INK. Three big orange numerals turn the plate into
+     another orange block, and the client's note on the hero was that orange had
+     become the dominant colour. The accent is carried by the icon discs, which
+     are small. */
+  /**
+   * ⚠⚠ ONE `color` DECLARATION IN THIS BLOCK. THERE WERE TWO.
+   *
+   * `color: #fff` used to sit at the BOTTOM of this rule, from when the card
+   * was dark glass. The ink colour was added at the top when the card became a
+   * light plate, and the white simply outlived it — same selector, same
+   * specificity, so the later declaration won and the figures stayed white on
+   * a near-white plate. Nothing overrode it and no tooling complained; the
+   * numbers were just invisible.
+   *
+   * ⚠ IF THE FIGURES EVER GO PALE AGAIN, look for a second `color` here before
+   * looking anywhere else. The value inherits white from `.u-on-dark` on
+   * .hero__content the moment this one stops applying — including if
+   * `--sb-charcoal` is ever renamed, since an undefined custom property makes
+   * the declaration invalid at computed-value time and `color` then falls back
+   * to inherit.
+   */
   .hero__stat-value {
+    color: var(--sb-charcoal);
     font-family: var(--sb-font-display);
     font-weight: 700;
     font-size: 30px;
     line-height: 1.1;
     letter-spacing: -0.03em;
-    color: #fff;
   }
 
+  /* ⚠ INK, NOT 82% WHITE. The white was correct while this sat on dark glass;
+     on the near-white plate it is very nearly invisible, and the failure is the
+     quiet kind — the labels are still there, just unreadable. */
   .hero__stat-label {
     font-size: var(--sb-caption);
-    color: rgba(255, 255, 255, 0.82);
+    color: var(--sb-text-muted);
+    /* ⚠ pre-line SO A LABEL CAN CHOOSE ITS OWN BREAK. "Co-ed Day School in
+       Ballia" wraps badly on its own — the widow lands wherever the column
+       happens to end. The CMS value carries a newline and this honours it,
+       which keeps the decision in the copy rather than in a <br> that an
+       editor cannot type. Labels without a newline are unaffected. */
+    white-space: pre-line;
   }
 
   /* The motto is set in white, not gold.
@@ -354,24 +935,53 @@ const { eyebrow, title, deck, actions, stats, slides } = await getHero();
      needs a ground darker than L=0.046 to clear 4.5:1, which would mean blacking
      out the photograph entirely. Gold stays as the rule above, where it is
      decoration rather than text. */
+  /* ⚠ THE SHADOWS ON THE THREE COPY BLOCKS ARE NOT DECORATION. The scrim is
+     deliberately near its floor — the client asked twice for less overlay —
+     and readability is bought in the type instead. Removing these means
+     putting the black back, which is the trade that was explicitly rejected. */
   .hero__eyebrow {
     color: #fff;
+    text-shadow:
+      0 1px 2px rgba(18, 16, 15, 0.55),
+      0 1px 10px rgba(18, 16, 15, 0.62);
     margin-bottom: var(--sb-6);
+    /* The short rule that trails the welcome line. Inline-flex rather than a
+       ::after on a block, so the rule sits on the text's own baseline box and
+       stays beside the last word instead of stranding at the column's edge when
+       the eyebrow wraps. */
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sb-3);
+  }
+
+  /* ⚠ DECORATION, NOT TEXT — which is the only reason it may be orange. The
+     same colour under the eyebrow's own words needs a ground darker than
+     L=0.046 to clear 4.5:1, i.e. blacking out the photograph. A 2px rule has no
+     contrast requirement to meet. */
+  .hero__eyebrow::after {
+    content: '';
+    width: clamp(28px, 4vw, 52px);
+    height: 2px;
+    background: var(--sb-orange-tint);
+    opacity: 0.85;
   }
 
   /**
-   * WARNING: :global BECAUSE ANOTHER COMPONENT RENDERS THIS ELEMENT.
+   * ⚠ NO :global() ON THE HEADLINE ANY MORE, AND THAT IS NOT A TIDY-UP.
    *
-   * Astro scopes a component’s CSS by stamping data-astro-cid-* on the elements
-   * in its OWN template. The h1 here is rendered by AccentHeading, so it carries
-   * AccentHeading’s attribute and not this file’s - and every .hero__title rule
-   * below silently matched nothing. The heading fell back to the page’s dark
-   * default text colour and sat black on a dark photograph, along with losing its
-   * measure, its margin and both of its breakpoints.
+   * While AccentHeading rendered this h1, the element carried ACCENTHEADING's
+   * data-astro-cid-* and not this file's, so every plain `.hero__title` rule
+   * here silently matched nothing — the heading fell back to the page's dark
+   * default text colour and sat black on a dark photograph, having also lost
+   * its measure, its margin and both of its breakpoints. `:global()` was the
+   * fix for that. The h1 is now in this template, so it carries this file's own
+   * scope and the local selector is correct.
    *
-   * ⚠ Passing a class INTO a component does not carry the caller’s scope with it.
+   * ⚠ IF THIS HEADING EVER MOVES BACK INTO A CHILD COMPONENT, these rules stop
+   * applying again, in exactly the same silent way. Passing a class INTO a
+   * component does not carry the caller's scope with it.
    */
-  :global(.hero__title) {
+  .hero__title {
     color: #fff;
     /* FLUID, so the chosen break holds at every width rather than only at the
        two where it happened to fit.
@@ -384,13 +994,56 @@ const { eyebrow, title, deck, actions, stats, slides } = await getHero();
        and `text-wrap: balance` is gone because balancing fights a break we
        have already chosen. */
     font-size: clamp(40px, 5.2vw, 76px);
+    /* Two stops: a tight one to hold the letterforms against a busy ground,
+       and a wide soft one that lifts the whole block off the photograph. */
+    text-shadow:
+      0 1px 2px rgba(18, 16, 15, 0.55),
+      0 2px 12px rgba(18, 16, 15, 0.6),
+      0 6px 30px rgba(18, 16, 15, 0.5);
     max-width: none;
     margin-bottom: var(--sb-6);
   }
 
+  /* Each line is its own block — see the frontmatter note for why this is not
+     a <br>. */
+  .hero__line {
+    display: block;
+  }
+
+  /* ⚠ --sb-orange-tint, NOT --sb-orange. The primary #c93c0a is mixed for a
+     light ground; over a photograph it goes muddy and stops reading as an
+     accent at all.
+     ⚠ AND NOT --sb-violet either, which is what a comp circulating alongside
+     this one used. */
+  .hero__accent {
+    color: var(--sb-orange-tint);
+  }
+
+  /* The quiet third line. */
+  .hero__take {
+    font-size: 0.58em;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-top: 0.04em;
+  }
+
   .hero__deck {
     color: var(--sb-on-dark-90);
+    text-shadow:
+      0 1px 2px rgba(18, 16, 15, 0.5),
+      0 1px 12px rgba(18, 16, 15, 0.62);
     max-width: 46ch;
+    margin-bottom: var(--sb-5);
+  }
+
+  /* ⚠ 78% WHITE, DELIBERATELY QUIET. The motto is the third line of copy in a
+     row and it is not the message — at full white it competes with the deck
+     above it for the same reader. It still clears 4.5:1 against the scrim at
+     this alpha; below about 0.7 it does not. */
+  .hero__tagline {
+    color: rgba(255, 255, 255, 0.78);
+    text-shadow: 0 1px 9px rgba(18, 16, 15, 0.6);
     margin-bottom: var(--sb-8);
   }
 
@@ -400,12 +1053,62 @@ const { eyebrow, title, deck, actions, stats, slides } = await getHero();
     gap: var(--sb-4);
   }
 
+  /* ⚠ THE GLYPH SITS INSIDE THE BUTTON'S OWN LABEL ROW, so it inherits the
+     button's colour and its hover state rather than needing either restated. */
+  .hero__actions .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55em;
+  }
+
+  .hero__cta-glyph {
+    width: 1em;
+    height: 0.85em;
+    flex: none;
+  }
+
+  /**
+   * The play mark needs room for its ring, so it is squarer and larger than the
+   * arrow — which is why it carries its own class rather than resizing both.
+   *
+   * ⚠ BOTH CLASSES ARE IN THE SELECTOR DELIBERATELY. `.hero__cta-glyph--play`
+   * alone has the same specificity as `.hero__cta-glyph`, so it would win only
+   * by sitting later in the file — and silently stop winning the moment
+   * something reorders these rules. Doubling the class settles it on
+   * specificity instead of on source order.
+   *
+   * ⚠ IT MUST NOT GROW THE BUTTON. At 1.55em against a ~1.05em line box this is
+   * the taller child in the flex row, so the button's own padding is what
+   * absorbs it. Both CTAs are still the same height — measured, not assumed.
+   */
+  .hero__cta-glyph.hero__cta-glyph--play {
+    width: 1.55em;
+    height: 1.55em;
+    margin-block: -0.3em;
+  }
+
   /* --- Meta: editorial caption + controls, bottom right ------------------ */
 
+  /**
+   * ⚠⚠ HIDDEN, NOT DELETED — AND THE DIFFERENCE MATTERS. The client's
+   * reference has nothing in the bottom-right corner, so the caption comes off
+   * the banner. It is kept in the markup, and its script with it, because that
+   * caption is also the editorial tell for a slide still awaiting a real
+   * photograph: those render their shot brief under a "Needed · A2" tag.
+   * Changing this one declaration back to `flex` brings the whole thing back
+   * when a photo audit needs it, which is why every layout property below is
+   * left in place rather than deleted alongside it.
+   *
+   * ⚠ THE PAUSE CONTROL GOES WITH IT, which is the one real cost. WCAG 2.2.2
+   * wants a way to stop content that auto-updates for longer than five
+   * seconds. The rota still halts on hover and on keyboard focus, and never
+   * starts at all under prefers-reduced-motion — three ways to stop it, just
+   * no dedicated button. Revisit by unhiding this, not by rebuilding anything.
+   */
   .hero__meta {
     position: relative; /* anchors the hidden pause control */
     grid-column: 9 / span 4;
-    display: flex;
+    display: none;
     flex-direction: column;
     align-items: flex-end;
     gap: var(--sb-5);
@@ -472,7 +1175,7 @@ const { eyebrow, title, deck, actions, stats, slides } = await getHero();
   @media (max-width: 1023px) {
     .hero__copy { grid-column: 1 / span 6; }
     .hero__meta { grid-column: 7 / span 2; }
-    :global(.hero__title) { max-width: none; }
+    .hero__title { max-width: none; }
   }
 
   /* Below ~900 the caption competes with the deck for the same optical line. */
@@ -484,51 +1187,151 @@ const { eyebrow, title, deck, actions, stats, slides } = await getHero();
 
   /* --- Mobile: 4:5 crop, stacked actions, controls below copy ------------- */
 
-  /* The type size bottoms out at 40px, so below roughly 480 the first line can
-     no longer fit however wide the column is. The chosen break is dropped there
-     and the heading wraps naturally. */
-  @media (max-width: 479px) {
-    :global(.hero__br) { display: none; }
-  }
+  /* ⚠ THE OLD `@media (max-width: 479px) { .hero__br { display: none } }` IS
+     GONE WITH THE <br> ITSELF. It existed to drop a hard break that stopped
+     fitting once the type bottomed out at 40px. The headline is now three
+     blocks from three CMS lines, each of which wraps on its own when the column
+     runs out, so there is no longer a break to drop. */
 
+  /* ═══════════════════════════════════════════════════════════════════════
+     MOBILE — THE FILM IS A BLOCK AT THE TOP, NOT A BACKGROUND.
+
+     ⚠⚠ TWO EARLIER ATTEMPTS FAILED AND ARE NOT TO BE REPEATED.
+       1. The desktop scrim ran 0.34 opaque at the very top to 0.92 at the base,
+          so the campus sat under a wash at EVERY pixel and the hero read as
+          black. The film was playing the whole time — buried, not missing.
+       2. Keeping it full-bleed with a gradient over the lower two-thirds still
+          left the building showing behind the headline.
+     The brief was explicit: film at the top, content below it, nothing playing
+     under the text. So the stage comes out of `position: absolute` and back
+     into normal flow as a fixed band, and the copy sits on solid ground.
+
+     ⚠ --hero-band IS THE ONLY DIMENSION TO TOUCH. The stage height and the
+     fade both derive from it. */
   @media (max-width: 767px) {
     .hero {
-      min-height: clamp(560px, 84svh, 680px);
-      align-items: flex-end;
+      --hero-band: clamp(190px, 30svh, 250px);
+      flex-direction: column;
+      align-items: stretch;
+      /* The band plus the copy decide the height. A min-height here re-opens
+         the gap this layout exists to close. */
+      min-height: 0;
+      background: var(--sb-ink);
     }
+
+    .hero__stage {
+      position: relative;
+      inset: auto;
+      height: var(--hero-band);
+      flex: 0 0 auto;
+    }
+
+    /* ⚠ A LANDING, NOT A WASH. The scrim's only job here is to meet the solid
+       ground below without a seam, so it is transparent for the first 60% and
+       opaque only at the very bottom edge. */
+    .hero__scrim {
+      background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        transparent 60%,
+        rgba(22, 16, 12, 0.55) 82%,
+        var(--sb-ink) 100%
+      );
+    }
+
+    /* ⚠ NONE. The maroon wash exists to sit on a scrimmed photograph; over an
+       unscrimmed one it only dirties it. */
+    .hero__tint { background: none; }
 
     .hero__content {
       display: flex;
       flex-direction: column;
       align-items: stretch;
-      padding-block: var(--sb-9);
-      gap: var(--sb-7);
+      padding-block: var(--sb-7) var(--sb-8);
+      gap: var(--sb-6);
     }
 
     .hero__badge { margin-bottom: var(--sb-5); font-size: 12px; }
-    .hero__eyebrow { margin-bottom: var(--sb-5); }
-    .hero__stats {
-      display: flex;
-      width: 100%;
-      gap: var(--sb-5);
-      padding: var(--sb-5);
-      margin-top: var(--sb-7);
+    .hero__eyebrow { margin-bottom: var(--sb-4); }
+
+    /* ⚠ CAPPED AT 46px. The desktop 5.2vw ran to three deep lines here and
+       pushed the stat card off the fold entirely.
+       ⚠ AND TIGHTER LEADING: at three blocks the default line-height opened
+       gaps wide enough to push the deck under the fold on a 390px screen. */
+    .hero__title {
+      max-width: none;
+      margin-bottom: var(--sb-4);
+      font-size: clamp(34px, 9.4vw, 46px);
+      line-height: 1.04;
     }
-    .hero__stat + .hero__stat { padding-left: var(--sb-5); }
-    .hero__stat-value { font-size: 22px; }
-    .hero__stat-label { font-size: 11px; }
-    :global(.hero__title) { max-width: none; margin-bottom: var(--sb-5); }
-    .hero__deck { max-width: none; margin-bottom: var(--sb-7); }
+
+    /* ⚠⚠ THE THIRD LINE NEEDS ITS OWN FLOOR HERE, NOT 0.58em. Against a
+       headline that has itself shrunk to 46px, 0.58em is 27px — and at the
+       34px bottom of the clamp it is 19.7px, which stops reading as part of
+       the headline at all and starts reading as body copy sitting under it.
+       This sets it from the viewport instead, so it stays headline-sized. */
+    .hero__take {
+      font-size: clamp(19px, 5.2vw, 25px);
+      margin-top: 0.1em;
+    }
+    .hero__deck { max-width: none; margin-bottom: var(--sb-5); }
 
     .hero__actions { flex-direction: column; }
     .hero__actions .btn { width: 100%; }
+
+    /* --- The stat card ---------------------------------------------------- */
+    /* The same near-white plate as desktop — it just goes full-width and
+       three-up here instead of sitting inline. */
+    .hero__stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      width: 100%;
+      gap: 0;
+      margin-top: var(--sb-6);
+      padding: var(--sb-5) var(--sb-3);
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(255, 255, 255, 0.55);
+      border-radius: var(--sb-r-2);
+      box-shadow: 0 18px 50px rgba(18, 16, 15, 0.28);
+      backdrop-filter: blur(14px);
+    }
+
+    /* ⚠⚠ THE ICON STACKS ABOVE THE FIGURE HERE, and that is a fit problem
+       rather than a preference: three icon-beside-figure columns do not cross
+       320px without the labels crushing to two or three characters a line. */
+    .hero__stat {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        'icon'
+        'value'
+        'label';
+      justify-items: center;
+      row-gap: 5px;
+      padding-inline: var(--sb-2);
+      text-align: center;
+    }
+
+    .hero__stat + .hero__stat {
+      padding-left: var(--sb-2);
+      border-left: 1px solid rgba(22, 16, 12, 0.12);
+    }
+
+    /* A smaller disc — 44px across three columns leaves nothing for the
+       figures at this width. */
+    .hero__stat-icon {
+      width: 34px;
+      height: 34px;
+    }
+    .hero__stat-icon :global(svg) { width: 18px; height: 18px; }
+
+    .hero__stat-value { font-size: 22px; }
+    .hero__stat-label { font-size: 10.5px; line-height: 1.3; }
 
     .hero__meta {
       align-items: flex-start;
       text-align: left;
       gap: 0;
     }
-
     .hero__caption { display: none; }
 
     /* Auto-advance never runs at this width, so a pause control would be a
@@ -536,6 +1339,456 @@ const { eyebrow, title, deck, actions, stats, slides } = await getHero();
        safe for exactly that reason. Swiping still moves the slider. */
     .hero__pause { display: none; }
   }
+
+  /**
+   * ⚠⚠ THE PANEL DESIGN'S OWN ELEMENTS ARE OFF BY DEFAULT, AND THAT IS WHAT
+   * KEEPS MOBILE UNTOUCHED. The in-video UI and the handwritten slogan are new
+   * markup; without this they would render in the mobile film band, which the
+   * instruction "on mobile dont chnage any thing" rules out. Switching them on
+   * inside the ≥1024px block below is deliberate — default off, desktop on,
+   * rather than default on and hidden late.
+   */
+  .hero__filmui,
+  .hero__script { display: none; }
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     DESKTOP — THE FILM RUNS UNCOVERED AND THE COPY SITS BELOW IT
+
+     ⚠⚠ EVERYTHING IN THIS BLOCK IS ≥1024px ON PURPOSE. The instruction was
+     "all these changes are for only desktop devices on mobile dont chnage any
+     thing". Nothing above this comment is touched, so the phone layout — film
+     band at the top, copy below it on solid ink — is exactly as it was.
+
+     ⚠⚠ AND THIS IS WHY THE SCRIM, TINT AND VEIL ARE OFF HERE. They exist to
+     make copy readable ON the footage. No copy stands on the footage at this
+     width any more, so every one of them would only be dimming the building
+     for nothing. The measured contrast work they were tuned for still governs
+     mobile, where the copy does sit over the film.
+     ⚠ DO NOT "RESTORE" THEM to fix a contrast reading taken at this width.
+     There is no text over the video here to measure.
+     ═══════════════════════════════════════════════════════════════════════ */
+  @media (min-width: 1024px) {
+    .hero {
+      display: block;
+      min-height: 0;
+      /* ⚠⚠ --sb-sand, THE SAME TOKEN .proof USES, NOT THE PAGE'S IVORY. All
+         this actually paints is the shoulders — the strip of section either
+         side of the panel, between the film's foot and the section below — but
+         on ivory that strip was a shade lighter than .proof and drew a
+         horizontal edge right across the page at the join. Sharing the token
+         makes the film's foot the only edge there is, and the card reads as
+         sitting ON that field rather than bridging two of them. */
+      background: var(--sb-sand);
+      /* The panel overlaps the film's foot, so nothing may clip it. */
+      overflow: visible;
+      isolation: auto;
+    }
+
+    .hero__tint,
+    .hero__scrim,
+    .hero__veil { display: none; }
+
+    /* The film is a band of its own again — out of the absolute layer it used
+       to sit in behind the copy. */
+    .hero__stage {
+      position: relative;
+      inset: auto;
+      height: clamp(520px, 69svh, 820px);
+      overflow: hidden;
+    }
+
+    /* ── The only things left over the footage ──────────────────────────── */
+    .hero__filmui {
+      display: flex;
+      position: absolute;
+      left: 0;
+      right: 0;
+      /* ⚠⚠ THIS CLEARS THE PANEL, IT DOES NOT CLEAR THE FILM. The panel rises
+         80px over the film's foot, so anything measured from the film's bottom
+         edge alone ends up underneath it — at 4.7vh the pager and the pause
+         button were both buried and the film looked like it had no controls.
+         The number is the 80px of overlap plus the ~50px the reference leaves
+         between the pager and the panel's top edge.
+         ⚠ IF THE OVERLAP ON .hero__content CHANGES, THIS CHANGES WITH IT. */
+      /* ⚠ A FIXED px, DELIBERATELY — NOT a vh clamp. What this has to clear is
+         the panel, and the panel's overlap is a fixed 80px; tying the offset to
+         viewport height instead made the clearance drift with the window (50px
+         at 1899x1057, but only 32px at 1536x864, where the pager crowded the
+         panel's corner). 80px of overlap + the reference's ~50px gap = 130. */
+      bottom: 130px;
+      z-index: 2;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: var(--sb-6);
+      padding-inline: clamp(24px, 4vw, 72px);
+      pointer-events: none;
+    }
+
+    /* ⚠ A SHADOW, NOT A SCRIM. Two short lines need to clear the footage; a
+       gradient across the frame to serve them is what this design removed. */
+    .hero__filmui-left {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sb-4);
+    }
+
+    .hero__motto {
+      margin: 0;
+      font-size: var(--sb-caption);
+      font-weight: 600;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: #fff;
+      text-shadow: 0 1px 10px rgba(18, 16, 15, .7);
+    }
+
+    .hero__pager {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: clamp(9px, 1vw, 16px);
+      margin: 0;
+      padding: 0;
+      pointer-events: auto;
+    }
+
+    /* ⚠ THE RULE IS A ::after ON THE NUMBER, not a separate element — it has to
+       grow and colour with the slide it belongs to, and a sibling would need
+       its own state to do that. */
+    .hero__pageno {
+      display: flex;
+      align-items: center;
+      gap: clamp(7px, .7vw, 10px);
+      border: 0;
+      background: none;
+      padding: 0;
+      font: inherit;
+      font-size: var(--sb-caption);
+      font-weight: 600;
+      letter-spacing: .08em;
+      color: rgba(255, 255, 255, .72);
+      cursor: pointer;
+      text-shadow: 0 1px 8px rgba(18, 16, 15, .6);
+      transition: color 200ms ease;
+    }
+    .hero__pageno::after {
+      content: '';
+      width: clamp(16px, 1.8vw, 32px);
+      height: 1px;
+      background: currentColor;
+      opacity: .5;
+      transition: background 200ms ease, opacity 200ms ease;
+    }
+    .hero__pageno:hover { color: #fff; }
+    .hero__pageno[aria-current='true'] { color: var(--sb-orange-tint); }
+    .hero__pageno[aria-current='true']::after { opacity: 1; }
+
+    /* The pause control comes back out of hiding — it is the one piece of the
+       old .hero__meta this layout keeps, and WCAG 2.2.2 wants it. */
+    /* Its only occupant moved onto the film; nothing is left to show. */
+    .hero__meta { display: none; }
+
+    /* ⚠ THE BASE RULE PINS THIS TO A 44px SQUARE AT right: 0 — it was a hidden
+       icon button on the old dark hero. Going static is not enough; the fixed
+       box and the offset both have to be released or the label overflows the
+       frame. */
+    .hero__pause {
+      position: static;
+      right: auto;
+      bottom: auto;
+      width: auto;
+      height: auto;
+      pointer-events: auto;
+      opacity: 1;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 18px 9px 9px;
+      border: 1px solid rgba(255, 255, 255, .45);
+      border-radius: 999px;
+      background: rgba(18, 16, 15, .28);
+      backdrop-filter: blur(8px);
+      color: #fff;
+      font-size: var(--sb-caption);
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .hero__pause::after { content: 'Pause video'; }
+    .hero__pause[data-paused]::after { content: 'Play video'; }
+    .hero__pause svg {
+      box-sizing: content-box;
+      padding: 7px;
+      border: 1px solid rgba(255, 255, 255, .55);
+      border-radius: 50%;
+    }
+
+    /* ── The panel ─────────────────────────────────────────────────────── */
+    /* ⚠ -70px IS THE OVERLAP, and the panel's ground matches the section
+       beneath it so the seam disappears. */
+    .hero__content {
+      position: relative;
+      z-index: 3;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+      align-items: start;
+      /* ⚠⚠ `min-content 1fr` IS LOad-BEARING, NOT A DEFAULT. The deck spans
+         both rows, and with two `auto` tracks grid distributes a spanning
+         item's height across every track it spans — so a deck that wrapped to
+         three lines silently inflated row 1, and the headline was pushed 56px
+         below the eyebrow that introduces it. A FLEXIBLE second track absorbs
+         that contribution instead, leaving row 1 sized by the eyebrow alone
+         and the gap below it equal to the row gap, as intended.
+         ⚠ DO NOT "simplify" this to `auto auto`. Nothing breaks visibly at one
+         window width; it breaks at whatever width the deck happens to wrap. */
+      /* ⚠⚠ THREE ROWS, AND THE THIRD ONE IS THE FIX FOR A REAL COLLISION.
+         The buttons used to share row 2 with the deck (deck spanning, buttons
+         end-aligned), so the only thing keeping them apart was the deck's
+         margin — which has to be at least as tall as the buttons. That cannot
+         be written down, because the buttons are not a fixed height: at 1280
+         and 1440 the column is narrow enough that they wrap to two lines and
+         stand 108px tall instead of 48px, and they sat straight on top of the
+         deck's last line. Grid stacks overlapping items in silence, so this
+         looked fine at 1536 and 1899 and was broken at the two widths in
+         between. A row of their own cannot collide with anything. */
+      grid-template-rows: min-content 1fr min-content;
+      --hero-rowgap: clamp(22px, 2vw, 34px);
+      /* ⚠ ROW GAP AND COLUMN GAP ARE NOT THE SAME NUMBER. One value put the
+         column's 64px between the eyebrow and the title too. The columns still
+         need the wide gutter; the rows do not. */
+      gap: var(--hero-rowgap) clamp(28px, 3.4vw, 64px);
+      /* ⚠⚠ max-width HAS TO BE OVERRIDDEN, NOT JUST width. This element also
+         carries `u-container`, whose own max-width is
+         calc(--sb-max-content + --sb-margin * 2) — 1376px at this width. Setting
+         `width` alone left the panel pinned to that and 114px narrower than the
+         reference, which reads as a different layout, not a rounding error. */
+      /* ⚠⚠ THE GUTTER IS PROPORTIONAL AND THAT IS THE WHOLE POINT. `1490px`
+         alone is a cap that only ever binds on a very wide screen: at 1899 it
+         gave the reference's 205px shoulders, but at 1536 — the width this is
+         actually being reviewed on — nothing capped it and the panel ran to
+         95% of the window with 38px gutters, reading as a full-bleed band
+         instead of a card. The reference's shoulders are 10.8% of the window
+         per side, so that is what is written here; the px cap is only a
+         ceiling for very large displays. */
+      width: min(1490px, calc(100% - clamp(64px, 21.5vw, 410px)));
+      max-width: none;
+      margin-inline: auto;
+      /* ⚠ THE PANEL OVERLAPS THE FILM'S FOOT. Read off the reference: the
+         footage stays visible beside the panel's shoulders for ~80px before
+         the page ground takes over. A previous pass set this to 0 from a
+         cropped screenshot where that band was not in frame. */
+      margin-top: -80px;
+      padding: clamp(28px, 2.6vw, 42px) clamp(30px, 2.8vw, 46px);
+      border-radius: clamp(18px, 1.8vw, 26px);
+      /* ⚠ WHITE, AND EVERYTHING AROUND IT IS var(--sb-sand). The card is the
+         one thing here meant to stand off the page; the ground it sits on runs
+         unbroken from the film's foot down through .proof, so the only edge in
+         this whole area is the card's own. --sb-paper rather than #fff so the
+         value stays with the rest of the palette. */
+      background: var(--sb-paper);
+      box-shadow: 0 28px 64px rgba(18, 16, 15, .13);
+      color: var(--sb-charcoal);
+    }
+
+    /* The panel is a light ground: the on-dark ramp has to stop applying. */
+    .hero__copy { display: contents; }
+
+    .hero__eyebrow {
+      grid-column: 1;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sb-4);
+      /* The grid's row gap already spaces this from the title; a margin here
+         is added to it, not merged with it. */
+      margin-bottom: 0;
+      color: var(--sb-text-muted);
+      text-shadow: none;
+    }
+    /* ⚠ THE RULE LEADS THE EYEBROW HERE. On the old dark hero it trailed the
+       words; in the panel it reads as a margin mark and belongs in front. */
+    .hero__eyebrow::after { display: none; }
+    .hero__eyebrow::before {
+      content: '';
+      width: clamp(26px, 3vw, 44px);
+      height: 2px;
+      background: var(--sb-violet);
+      flex: none;
+    }
+
+    /* ⚠ SERIF, AND ONLY HERE. On a cream panel the display sans reads as a
+       product headline; the serif is what makes it read as a school's. */
+    .hero__title {
+      grid-column: 1;
+      /* ⚠⚠ SPANS ROWS 2-3, WHICH IS WHAT KEEPS THE PANEL COMPACT. The buttons
+         need a row of their own (see .hero__content) but column 1 has nothing
+         to put in it, so with the headline confined to row 2 the panel paid
+         for that row twice — its full height plus the whole button row, ~82px
+         of air that the reference does not have. Spanning lets the headline
+         use the button row's height instead of sitting above it, and the panel
+         comes out the height of its tallest COLUMN rather than the sum of
+         three rows. */
+      grid-row: 2 / span 2;
+      align-self: start;
+      margin-bottom: 0;
+      font-family: var(--sb-font-serif);
+      font-size: clamp(30px, 2.6vw, 44px);
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--sb-charcoal);
+      text-shadow: none;
+    }
+    /* The three CMS lines become two: the accent word joins the closing line,
+       which is what the panel's narrower column wants. */
+    .hero__line { display: inline; }
+    .hero__take { font-size: 1em; font-weight: 600; letter-spacing: -0.02em; }
+    .hero__line + .hero__line::before { content: ' '; }
+    .hero__accent { color: var(--sb-violet); }
+
+    /* ⚠ THE RULE SEPARATES THE HEADLINE FROM THE DECK — it was sitting on the
+       script's left instead, which fenced off the decoration and left the two
+       blocks of actual copy running together. It is drawn by the deck because
+       the deck spans both rows and so already has the full height; a standalone
+       element would need to be told that height twice. */
+    .hero__deck {
+      position: relative;
+      grid-column: 2;
+      grid-row: 1 / span 2;
+      max-width: 42ch;
+      /* No margin: the buttons have their own row now, and the row gap is
+         what separates them from this text. */
+      margin-bottom: 0;
+      color: var(--sb-text-secondary);
+      text-shadow: none;
+    }
+    /* ⚠ THE RULE IS DRAWN IN TWO PIECES, ONE PER ROW BAND, AND THEY MEET.
+       The deck covers rows 1-2 and the buttons sit in row 3, so a single
+       ::before on either one would stop short of the other. Each piece reaches
+       half the row gap past its own edge, which closes the seam exactly
+       without either needing to know the other's height. */
+    .hero__deck::before,
+    .hero__actions::before {
+      content: '';
+      position: absolute;
+      /* Half the column gap to its left, so it lands on the centre line
+         between the two columns however the gap is clamped. */
+      left: calc(clamp(28px, 3.4vw, 64px) / -2);
+      width: 1px;
+      background: var(--sb-border);
+    }
+    .hero__deck::before {
+      top: 0;
+      bottom: calc(var(--hero-rowgap) / -2);
+    }
+    .hero__actions::before {
+      top: calc(var(--hero-rowgap) / -2);
+      bottom: 0;
+    }
+
+    /* ⚠⚠ align-self MUST STAY `end` HERE, AND THE REASON IS NOT AESTHETIC. The
+       deck spans grid-row 1 / span 2 so that the rule it draws reaches the full
+       height of the panel. That means the deck and these buttons occupy the
+       SAME grid area in row 2. End-aligning the buttons is what keeps them
+       clear of the deck's text; `start` was tried and the two boxes overlapped
+       outright — by 18px at 1899 and 51px at 1536, where the deck wraps to a
+       third line. Grid does not push overlapping items apart, it stacks them,
+       so nothing about this failure is visible until you measure it.
+       ⚠ THE PANEL'S HEIGHT IS NOT CONTROLLED FROM HERE either — it comes from
+       the row gap above, which is what actually closed the 120px hole between
+       the eyebrow and the headline. */
+    .hero__actions {
+      position: relative;
+      grid-column: 2;
+      grid-row: 3;
+      align-self: start;
+      gap: var(--sb-4);
+    }
+
+    /* ⚠ THE PANEL IS LIGHT, so the on-image button variants would be invisible
+       here — they are painted for a photograph behind them. */
+    .hero__actions .btn--on-image-primary {
+      background: var(--sb-violet);
+      border-color: transparent;
+      color: #fff;
+    }
+    .hero__actions .btn--on-image-secondary {
+      background: transparent;
+      border: 1px solid var(--sb-border-strong);
+      color: var(--sb-charcoal);
+    }
+    .hero__actions .btn--on-image-secondary:hover {
+      border-color: var(--sb-charcoal);
+      background: transparent;
+    }
+
+    /* The motto now lives over the film; this copy is the mobile one. */
+    .hero__tagline { display: none; }
+
+    /* See the markup note — hidden here, not deleted. */
+    .hero__stats { display: none; }
+
+    .hero__script {
+      display: flex;
+      grid-column: 3;
+      grid-row: 1 / span 3;
+      align-self: center;
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+      padding-left: clamp(20px, 2.2vw, 40px);
+      font-family: 'Caveat Variable', var(--sb-font-serif), cursive;
+      font-size: clamp(22px, 2vw, 30px);
+      line-height: 1.12;
+      color: var(--sb-violet);
+      transform: rotate(-4deg);
+    }
+    .hero__script span:nth-child(2) { padding-left: 1.1em; }
+    .hero__script span:nth-child(3) { padding-left: .4em; }
+    .hero__script span:nth-child(4) { padding-left: 1.6em; }
+
+    /* ⚠⚠ MASKS, NOT background-image, SO THEY TAKE currentColor. Painting the
+       stroke into the SVG would hard-code the brand orange in two more places
+       and leave the flourishes behind the next time the script's colour moves.
+       Masked, they are the same colour as the words by construction.
+       ⚠ AND THEY ARE ::before/::after ON A p[aria-hidden], so nothing here
+       reaches assistive tech — it is already decoration announcing nothing. */
+    .hero__script::before,
+    .hero__script::after {
+      content: '';
+      display: block;
+      background: currentColor;
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      -webkit-mask-size: contain;
+      mask-size: contain;
+      opacity: .85;
+    }
+    .hero__script::before {
+      width: clamp(22px, 1.7vw, 30px);
+      height: clamp(28px, 2.1vw, 38px);
+      margin-bottom: clamp(4px, .5vw, 10px);
+      margin-left: 1.4em;
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 50'%3E%3Cpath d='M21 3c11 9 15 20 12.5 29.5C31.4 41 26.6 46.5 21 48c-5.6-1.5-10.4-7-12.5-15.5C6 23 10 12 21 3z' fill='none' stroke='%23000' stroke-width='1.6'/%3E%3Cpath d='M21 12v34' fill='none' stroke='%23000' stroke-width='1.3'/%3E%3C/svg%3E");
+      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 50'%3E%3Cpath d='M21 3c11 9 15 20 12.5 29.5C31.4 41 26.6 46.5 21 48c-5.6-1.5-10.4-7-12.5-15.5C6 23 10 12 21 3z' fill='none' stroke='%23000' stroke-width='1.6'/%3E%3Cpath d='M21 12v34' fill='none' stroke='%23000' stroke-width='1.3'/%3E%3C/svg%3E");
+    }
+    .hero__script::after {
+      width: clamp(78px, 6.4vw, 118px);
+      height: clamp(11px, .9vw, 16px);
+      margin-top: clamp(4px, .5vw, 10px);
+      margin-left: .8em;
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 130 18'%3E%3Cpath d='M3 14C28 5 84 2 127 7' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E");
+      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 130 18'%3E%3Cpath d='M3 14C28 5 84 2 127 7' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E");
+    }
+  }
+
+  /* ⚠ THE THIRD COLUMN GOES FIRST when the panel gets tight — the slogan is
+     decoration and the deck is not. */
+  @media (min-width: 1024px) and (max-width: 1200px) {
+    .hero__content { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+    .hero__script { display: none; }
+  }
+
 </style>
 
 <script>
@@ -557,6 +1810,21 @@ const { eyebrow, title, deck, actions, stats, slides } = await getHero();
     }));
 
     const INTERVAL = 4500;
+
+    /**
+     * ⚠ A CEILING FOR FILM SLIDES, NOT THEIR DURATION. A film normally hands the
+     * slider on itself, from its own `ended` event, so the cut lands on the last
+     * frame rather than mid-shot. This is the guard for when `ended` never
+     * arrives — a stalled buffer, a tab throttled in the background, a decode
+     * that gives up quietly. Both encodes run ~21s, so a slide is never held
+     * here in the normal case; it exists so a dead film cannot freeze the hero
+     * on one image forever.
+     */
+    const FILM_CEILING = 32000;
+
+    /** How long the slide cross-fade takes, for tidying up behind it. */
+    const FADE_OUT = 800;
+
     let index = 0;
     let timer: number | undefined;
     let userPaused = false;
@@ -566,8 +1834,95 @@ const { eyebrow, title, deck, actions, stats, slides } = await getHero();
     const mayAutoplay = () =>
       !reduced.matches && window.matchMedia('(min-width: 768px)').matches && !userPaused;
 
+    /**
+     * ⚠ A FILM THAT HAS FAILED ONCE IS NEVER RETRIED. Without this, a 404 or a
+     * rejected autoplay would be re-attempted on every pass of a nine-slide
+     * rota — a request every forty seconds, for the whole time the page is
+     * open, all of them failing the same way.
+     */
+    const deadFilms = new WeakSet<HTMLVideoElement>();
+
+    /**
+     * ⚠ THE FILMS ARE HELD BACK ON METERED CONNECTIONS. `saveData` is the
+     * visitor explicitly asking not to be sent this, and 2g is a link that
+     * cannot deliver it anyway — on a school site in Ballia that is not a
+     * hypothetical audience. They get the photograph, which is the slide.
+     *
+     * ⚠ THE API IS CHROME-ONLY, AND ABSENCE MEANS PLAY. Safari and Firefox
+     * expose no `navigator.connection`, so the check must fail open or films
+     * would never run in either.
+     */
+    const metered = () => {
+      const c = (navigator as Navigator & {
+        connection?: { saveData?: boolean; effectiveType?: string };
+      }).connection;
+      return !!c && (c.saveData === true || /^(slow-)?2g$/.test(c.effectiveType ?? ''));
+    };
+
+    const mayPlayFilm = () => !reduced.matches && !metered();
+
+    const filmIn = (i: number) =>
+      slides[i]?.querySelector<HTMLVideoElement>('[data-film]') ?? null;
+
+    /** The film on slide `i`, if there is one and it is still worth playing. */
+    const liveFilm = (i: number) => {
+      const v = filmIn(i);
+      return v && !deadFilms.has(v) && mayPlayFilm() ? v : null;
+    };
+
+    /**
+     * Give a film its source the first time it is needed, then play it.
+     *
+     * ⚠ THE SOURCE IS CHOSEN ONCE AND KEPT. Re-reading the media query on a
+     * later pass and swapping `src` would restart the download from scratch
+     * every time someone rotated their phone. The encode picked on first play
+     * is the one that slide keeps for the life of the page.
+     */
+    const armFilm = (v: HTMLVideoElement) => {
+      if (!v.getAttribute('src')) {
+        const small = window.matchMedia('(max-width: 767px)').matches;
+        const src = (small ? v.dataset.srcSm : v.dataset.src) || v.dataset.src;
+        if (!src) {
+          deadFilms.add(v);
+          return;
+        }
+        v.setAttribute('src', src);
+      }
+      /* ⚠ play() REJECTS RATHER THAN THROWS when autoplay is refused, and an
+         unhandled rejection here is a console error on every page load in any
+         browser with a stricter policy. Catching it is how the still becomes
+         the outcome instead of a broken slide. */
+      v.play()?.catch(() => {
+        deadFilms.add(v);
+        v.removeAttribute('data-playing');
+        start();
+      });
+    };
+
+    for (const v of Array.from(hero.querySelectorAll<HTMLVideoElement>('[data-film]'))) {
+      /* Fade up only once frames are genuinely arriving — `playing`, not
+         `play`, which fires before anything has decoded and would show a black
+         rectangle where the photograph was. */
+      v.addEventListener('playing', () => v.setAttribute('data-playing', ''));
+      v.addEventListener('error', () => {
+        deadFilms.add(v);
+        v.removeAttribute('data-playing');
+        start();
+      });
+      /* ⚠ THE FILM HANDS ON THE SLIDE ITSELF. This is the whole reason a film
+         slide does not run on INTERVAL: cutting a 21s drone shot at 4.5s shows
+         a fifth of it and looks like a fault. On mobile — where the rota never
+         auto-advances — it simply holds on its last frame, which is a still,
+         which is what that slide is anyway. */
+      v.addEventListener('ended', () => {
+        if (filmIn(index) === v && mayAutoplay()) show(index + 1);
+      });
+    }
+
     const show = (next: number) => {
       if (next === index) return;
+      const leaving = filmIn(index);
+
       slides[index].removeAttribute('data-active');
       slides[index].setAttribute('aria-hidden', 'true');
       dots[index]?.setAttribute('aria-current', 'false');
@@ -578,6 +1933,26 @@ const { eyebrow, title, deck, actions, stats, slides } = await getHero();
       slides[index].setAttribute('aria-hidden', 'false');
       dots[index]?.setAttribute('aria-current', 'true');
 
+      if (leaving) {
+        leaving.pause();
+        /* ⚠ CLEAR [data-playing] AFTER THE SLIDE HAS GONE, NOT WITH IT.
+           Dropping it here and now fades the film out inside a slide that is
+           already fading out, and the photograph beneath flashes through for a
+           beat in the middle of the transition. The guard re-checks the index
+           because a fast swipe can bring this same slide back before the
+           timeout runs.
+
+           ⚠⚠ AND NOTHING REWINDS HERE. `currentTime = 0` on a rested slide
+           makes the browser re-request the file — hero-1-sm.mp4 was being
+           fetched twice on every pass of the rota, on phones, for no visible
+           gain. It is also unnecessary: play() on a finished video seeks to the
+           start by itself, so the next pass begins from frame one regardless. */
+        window.setTimeout(() => {
+          if (filmIn(index) === leaving) return;
+          leaving.removeAttribute('data-playing');
+        }, FADE_OUT);
+      }
+
       // The caption belongs to the image, so it cross-fades with it.
       if (caption && captionText && captionTag) {
         caption.classList.add('is-fading');
@@ -587,17 +1962,46 @@ const { eyebrow, title, deck, actions, stats, slides } = await getHero();
           caption.classList.remove('is-fading');
         }, 450);
       }
+
+      /* ⚠ EVERY SLIDE RE-ARMS THE TIMER, because slides no longer all last the
+         same time — a film runs to its own end and a photograph gets INTERVAL.
+         A single setInterval cannot express that, which is why this schedules
+         one step at a time. */
+      start();
     };
 
-    const stop = () => {
-      if (timer) window.clearInterval(timer);
+    const clearTimer = () => {
+      if (timer) window.clearTimeout(timer);
       timer = undefined;
     };
 
+    /**
+     * ⚠⚠ THIS STOPS THE ROTA, AND MUST NEVER PAUSE THE FILM. An earlier pass
+     * added `filmIn(index)?.pause()` here, on the reasoning that a hovered hero
+     * should hold still. It deadlocks the slider: a film slide is handed on by
+     * its own `ended` event, a paused film never reaches `ended`, so the hero
+     * sticks on slide one for as long as the page is open. The bug hides in
+     * testing because the pointer moves away again and playback resumes — you
+     * only see it if the pointer comes to rest over the hero, which is exactly
+     * what a reader does.
+     */
+    const stop = () => {
+      clearTimer();
+    };
+
     const start = () => {
-      stop();
+      clearTimer();
+
+      /* ⚠ THE FILM IS STARTED EVEN WHERE THE ROTA WILL NOT ADVANCE — below
+         768px, and while the visitor has paused it. The pause control and the
+         mobile rule are both about the slider moving on by itself; neither is a
+         request to freeze the slide's own content. A paused hero showing a
+         drone shot is still showing the school. */
+      const film = liveFilm(index);
+      if (film) armFilm(film);
+
       if (!mayAutoplay()) return;
-      timer = window.setInterval(() => show(index + 1), INTERVAL);
+      timer = window.setTimeout(() => show(index + 1), film ? FILM_CEILING : INTERVAL);
     };
 
     dots.forEach((dot, i) =>
@@ -641,6 +2045,17 @@ const { eyebrow, title, deck, actions, stats, slides } = await getHero();
     );
 
     reduced.addEventListener('change', start);
-    start();
+
+    /**
+     * ⚠ THE FIRST FILM WAITS FOR `load`, AND THAT IS A PERFORMANCE DECISION.
+     * The hero's opening photograph is this page's LCP element. Requesting a
+     * 3 MB video in the same breath puts the two in direct competition for
+     * bandwidth and pushes the LCP out — for a film that fades in over that
+     * very photograph and so has nothing to show until it has arrived anyway.
+     * Waiting costs the visitor nothing visible and protects the number that
+     * matters.
+     */
+    if (document.readyState === 'complete') start();
+    else window.addEventListener('load', start, { once: true });
   }
 </script>

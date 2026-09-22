@@ -21,13 +21,21 @@
  * than drift. The masthead and footer are unchanged, so the seam is visible at
  * the top and bottom of the page — that is the known trade.
  *
- * ⚠ THE FORM HAS NO BACKEND YET, AND IT DOES NOT PRETEND OTHERWISE. Client:
- * "currently we are working on frontend, when backend is prepared then we
- * worked on it." So every client-side behaviour is finished — validation,
- * error text, disabled/sending/success states — and the single missing piece
- * is the endpoint. See ENDPOINT below: set it and the form posts for real.
- * Until then a submit runs the whole validation pass and then says plainly that
- * delivery is not connected. It never shows a false "message sent".
+ * ⚠ THE FORM IS WIRED TO THE CMS. It POSTs to Strapi's /api/contact-enquiries
+ * and every submission appears under Contact Enquiry in the admin panel. The
+ * destination is resolved at build time and stamped onto the <form> as
+ * data-endpoint — see the frontmatter note for why it cannot be a PUBLIC_*
+ * variable.
+ *
+ * ⚠ NO EMAIL IS SENT, BY DECISION, NOT BY OVERSIGHT. Enquiries land in the CMS
+ * only; nobody is notified. Until an SMTP provider is configured, somebody has
+ * to open the admin panel to see them — which is worth saying out loud to the
+ * office rather than discovering after a fortnight.
+ *
+ * ⚠ IT STILL REFUSES TO LIE WHEN UNCONFIGURED. Build with no Strapi URL and the
+ * endpoint is empty, and a submit runs the full validation pass and then says
+ * plainly that delivery is not connected. It never shows a false "message
+ * sent".
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/ui/PageHero.astro';
@@ -39,6 +47,49 @@ import { getSchool, getContactPage } from '../lib/cms';
 
 const school = await getSchool();
 const page = await getContactPage();
+
+/**
+ * ⚠ THE LABEL COMES FROM THE CMS like every other field’s, with a fallback so
+ * the box is never unlabelled if the row has not been seeded yet. With the
+ * float-label pattern an empty label leaves an unexplained box, which is worse
+ * than a default.
+ */
+const messageLabel = page.fields['cf-message']?.label || 'Message';
+const messageError = page.fields['cf-message']?.error || 'Please write your message.';
+
+/**
+ * ⚠⚠ WHERE THE FORM POSTS, RESOLVED AT BUILD TIME AND STAMPED ONTO THE ELEMENT.
+ *
+ * ⚠ NEVER WRITE A LITERAL SCRIPT TAG IN A COMMENT IN THIS FILE. Astro's
+ * compiler scans for it wherever it appears — including inside a comment — and
+ * starts a client script block at that point, handing everything after it to
+ * esbuild as JavaScript. The failure reads "Expected ";" but found …" quoting
+ * your own prose, with a stack trace deep in esbuild and no mention of the
+ * comment. Say "a client-side script" in words instead.
+ *
+ * A client-side script cannot read frontmatter, and the alternative —
+ * `PUBLIC_STRAPI_URL` — is the one naming convention this repo forbids outright,
+ * because Astro inlines every `PUBLIC_*` variable into the client bundle and the
+ * next person to add `PUBLIC_STRAPI_TOKEN` beside it ships the CMS credential to
+ * every visitor. See lib/cms/config.ts. The URL travels on a data attribute
+ * instead, exactly as the office phone number already does.
+ *
+ * ⚠ `STRAPI_PUBLIC_URL` OVERRIDES `STRAPI_URL`, AND IN PRODUCTION IT MUST. The
+ * build talks to Strapi server-to-server and may reach it on an internal
+ * address; this URL is typed into a visitor's browser, so it has to be the
+ * public one. They are the same thing in development and different the moment
+ * Strapi sits behind a private network.
+ *
+ * ⚠ AN EMPTY VALUE IS A SUPPORTED STATE, NOT A BUG. With no Strapi configured
+ * the endpoint is '' and the form keeps its old honest behaviour: it validates,
+ * then says delivery is not connected. It never claims a message was sent.
+ */
+const strapiPublicBase = (
+  import.meta.env.STRAPI_PUBLIC_URL ??
+  import.meta.env.STRAPI_URL ??
+  ''
+).replace(/\/+$/, '');
+const enquiryEndpoint = strapiPublicBase ? `${strapiPublicBase}/api/contact-enquiries` : '';
 
 /**
  * ⚠ EVERY VALUE COMES FROM SITE SETTINGS IN STRAPI — nothing on this page is a
@@ -165,13 +216,14 @@ const socials = [
             ring the office, and both used to carry '+91 77550 05905' as a
             literal — so changing the number in the CMS updated it everywhere on
             the page except the two places a reader sees when something has
-            already gone wrong. A client-side <script> cannot read frontmatter,
+            already gone wrong. A client-side script cannot read frontmatter,
             so the value travels on the element instead. */}
         <form
           class="ct__form"
           id="contact-form"
           novalidate
           data-office-phone={school.phone.officeDisplay}
+          data-endpoint={enquiryEndpoint}
           data-send-label={page.submitLabel}
           data-sending-label={page.sendingLabel}
           data-msg-consent={page.consentError}
@@ -180,6 +232,7 @@ const socials = [
           data-msg-notconnected={page.statusNotConnected}
           data-msg-name={page.fields['cf-name']?.error}
           data-msg-email={page.fields['cf-email']?.error}
+          data-msg-message={messageError}
         >
           <div class="ct__row">
             <div class="fld">
@@ -227,6 +280,67 @@ const socials = [
               </select>
               <label class="fld__lb fld__lb--up" for="cf-class">{page.classLabel}</label>
             </div>
+          </div>
+
+          {/* ══ THE MESSAGE ════════════════════════
+              ⚠⚠ THIS FIELD WAS MISSING, AND THE PAGE PROMISED IT. The standfirst
+              offers "a message form that reaches the office", and the form gave a
+              parent short boxes and nowhere to write the message.
+
+              ⚠ THE VISIBLE SYMPTOM WAS SOMETHING ELSE, which is why this was
+              reported as a layout bug. The address panel beside the form runs to
+              eight departments; the grid stretches both columns to match, and with
+              nothing to fill the height the card showed a large blank between the
+              Class row and the consent line. The empty space WAS the missing field.
+
+              ⚠ IT ABSORBS THE SLACK RATHER THAN BEING SIZED TO IT — see
+              .ct__row--grow. Nothing is tuned to the panel’s current height, so
+              adding or removing a department cannot reopen the gap. */}
+          <div class="ct__row ct__row--grow">
+            <div class="fld fld--grow">
+              <textarea
+                class="fld__in fld__in--area"
+                id="cf-message"
+                name="message"
+                rows="3"
+                required
+                placeholder=" "
+              ></textarea>
+              <label class="fld__lb" for="cf-message">{messageLabel} <span aria-hidden="true">*</span></label>
+              <p class="fld__err" id="cf-message-err" hidden></p>
+            </div>
+          </div>
+
+          {/* ⚠⚠ THE HONEYPOT. No human ever sees or reaches this: it is moved
+              off-screen, taken out of the tab order, hidden from assistive tech
+              and told not to autofill. A bot that fills every input it finds
+              fills this one, and the server then answers 200 and writes
+              nothing — see the controller for why a silent success beats a 400.
+
+              ⚠ IT MUST NOT BE `display: none` OR `hidden`. The better scrapers
+              skip fields that are genuinely not rendered; an off-screen field
+              looks real to them and invisible to everyone else.
+
+              ⚠ THE NAME IS `company`, WHICH IS THE POINT. It has to read as a
+              field worth filling. Rename it to `honeypot` and it stops working. */}
+          {/* ⚠⚠ THIS IS THE HONEYPOT, AND ITS NAME MUST NEVER BE A REAL AUTOFILL
+              TOKEN. It was `name="company"` with a "Company" label, which is
+              exactly what Chrome's address heuristics look for: a visitor whose
+              browser had a company saved got it filled in automatically, and the
+              server threw the enquiry away as spam and answered 200. A real lead
+              was lost that way, with nothing in the CMS and no error on screen.
+
+              `autocomplete="off"`, being off-screen and tabindex="-1" do NOT stop
+              this — autofill ignores all three for address-shaped fields. Only the
+              NAME and the LABEL do, because that is what the heuristic reads.
+
+              ⚠ IT STILL HAS TO LOOK WORTH FILLING TO A BOT, which fills every
+              input it finds regardless of what the field is called. So: a
+              plausible, meaningless name — never `honeypot`, and never a word
+              from a browser's address book. */}
+          <div class="ct__hp" aria-hidden="true">
+            <label for="cf-topicref">Topic reference</label>
+            <input id="cf-topicref" name="topicRef" type="text" tabindex="-1" autocomplete="off" />
           </div>
 
           <div class="ct__consent">
@@ -393,6 +507,49 @@ const socials = [
       the address and a Google Maps link take its place rather than a dead grey
       band. */}
   <LocationSection />
+
+  {/* ═══ THE SUBMIT TOAST ═══════════════════════════════════════════════════
+      A reader who presses Send looks at the button, not at the foot of the
+      card — the status line under it was being missed entirely, which is the
+      whole reason this exists.
+
+      ⚠⚠ IT LIVES HERE, OUTSIDE THE FORM'S CARD, AND THAT IS NOT TIDINESS.
+      `.ct__form` carries `backdrop-filter`, and a filtered element becomes the
+      containing block for any `position: fixed` descendant — inside the card
+      this would scroll away with the card instead of staying put.
+
+      ⚠ aria-hidden AND NOTHING FOCUSABLE INSIDE. #cf-status is already
+      role="status" aria-live="polite" and carries the same words, so a screen
+      reader is told once, by the element built for it. A second live region
+      would announce everything twice, and a focusable close button inside an
+      aria-hidden container is a keyboard trap for no gain.
+
+      ⚠ NO CLOSE BUTTON, AND IT AUTO-DISMISSES EVEN ON FAILURE. That is safe
+      only because the inline status keeps the same message — including the
+      office number — permanently. Do not remove that line thinking this
+      replaces it. */}
+  <div class="ct__toast" id="cf-toast" data-state="idle" aria-hidden="true">
+    <span class="ct__toast-ico">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path
+          class="ct__toast-tick"
+          d="M4.5 12.5 10 18 19.5 6.5"
+          stroke="currentColor"
+          stroke-width="2.2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          class="ct__toast-bang"
+          d="M12 7v6m0 3.6v.2"
+          stroke="currentColor"
+          stroke-width="2.2"
+          stroke-linecap="round"
+        />
+      </svg>
+    </span>
+    <p class="ct__toast-txt" id="cf-toast-txt"></p>
+  </div>
 </BaseLayout>
 
 <style>
@@ -649,6 +806,21 @@ const socials = [
      button stayed floating mid-card with a block of empty ground beneath it.
      In a stretched flex column, auto is what pushes the consent row, the button
      and the status line down to the foot. */
+  /* ⚠⚠ THE HONEYPOT'S HIDING PLACE — AND IT IS NOT `display: none`.
+     A field that is genuinely not rendered is skipped by the bots worth
+     defending against; one parked off-screen looks ordinary to a scraper and is
+     unreachable for everyone else. `left: -9999px` plus zero height keeps it out
+     of the layout without ever taking it out of the DOM. The element also
+     carries aria-hidden and tabindex="-1", so nothing but a script finds it. */
+  .ct__hp {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
   .ct__consent {
     display: flex;
     align-items: center;
@@ -709,6 +881,23 @@ const socials = [
     color: #475569;
   }
 
+  /* ⚠⚠ AN EMPTY STATUS LINE WAS RESERVING 31px ON EVERY VISIT — the 1.2em line
+     box plus its 14px margin — and that is the blank strip under the Send
+     button. The reservation exists to stop a shift when a message appears, but
+     this is the LAST element in the card with nothing below it inside, so the
+     only thing that moves is the card's own foot, once, at submit. It collapses
+     while empty and takes its height back the moment it has something to say.
+     ⚠ AND THE SAME FOR EMPTY FIELD ERRORS: `[hidden]` covers the ones the
+     script hides, but the consent error sits in flow and kept its 7px margin
+     with nothing in it. */
+  .ct__status:empty {
+    min-height: 0;
+    margin-top: 0;
+  }
+  .fld__err:empty {
+    margin-top: 0;
+  }
+
   .ct__status[data-tone='bad'] { color: #dc2626; }
   .ct__status[data-tone='good'] { color: #15803d; }
 
@@ -722,8 +911,14 @@ const socials = [
     flex-direction: column;
   }
 
+  /* ⚠ `1 1 auto`, NOT `1 1 0`. With a zero basis every row is forced to the
+     SAME height, so whichever group has the least to say shows the biggest
+     hole — the social row ran 54px emptier than the rest while Contact details
+     had 14px. From the natural basis each row instead takes an equal SHARE of
+     what is left over, which came out 31/32/32 — the gaps between the three
+     groups now read as one rhythm rather than three different ones. */
   .prow {
-    flex: 1 1 0;
+    flex: 1 1 auto;
     align-content: center;
   }
 
@@ -975,6 +1170,174 @@ const socials = [
     .soc__a:focus-visible { transform: none; }
     .ct__send:active { transform: none; }
   }
+
+  /* ═══ THE MESSAGE FIELD ═══════════════════════════════════════════════════
+
+     ⚠⚠ `.ct__row.ct__row--grow` — TWO CLASSES, AND THAT IS THE FIX, NOT A
+     STYLE CHOICE. `.ct__row` is given two columns inside a
+     @media (min-width: 700px) block LATER in this same stylesheet. A single
+     `.ct__row--grow` ties it on specificity (0,1,0) and loses on source order,
+     so the message box rendered at half the card's width with dead space
+     beside it. Doubling the class makes it (0,2,0) and it wins wherever it
+     sits. Do not tidy this back to one class.
+
+     ⚠ THE FIELD ABSORBS THE COLUMN'S SLACK rather than being given a height.
+     The card is as tall as the address panel next to it, and that panel grows
+     whenever a department is added — anything tuned to its present height
+     would reopen the gap the moment it changed. Below the stacking breakpoint
+     the column has no slack and the box simply sits at its floor. */
+  .ct__row.ct__row--grow {
+    flex: 1 1 auto;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .fld--grow {
+    display: flex;
+    flex-direction: column;
+    /* Without this the flex child refuses to shrink below its content. */
+    min-height: 0;
+  }
+
+  /* ⚠⚠ THE MESSAGE BOX SETS THE HEIGHT OF BOTH COLUMNS, WHICH IS WHY THESE
+     TWO NUMBERS MATTER MORE THAN THEY LOOK. The form is the taller of the two
+     grid children, so the address panel is stretched to match it, and its
+     three rows share whatever is left over — the further this box grows, the
+     wider the gaps between Address, Contact details and Join us on social.
+     rows="5" gave it a 165px natural height and put ~146px of slack into those
+     gaps; at rows="3" it is ~110px and the gaps close with it.
+     ⚠ min-height IS BELOW THE NATURAL HEIGHT ON PURPOSE. At 118 it was above
+     the rows="3" height and would have clamped it straight back up; it is only
+     a floor for the case where this box has to shrink, and `resize: vertical`
+     below is what lets a parent with more to say make it bigger. */
+  .fld__in--area {
+    flex: 1 1 auto;
+    min-height: 100px;
+    resize: vertical;
+    /* A textarea does not inherit the font the way an input does. */
+    font: inherit;
+    line-height: 1.55;
+    padding-top: 22px;
+  }
+
+  /* ⚠⚠ THESE MUST SIT AFTER THE SHARED .fld__in:focus BLOCK, not beside the
+     rule above. Equal specificity means source order decides, and written any
+     earlier the generic focus ring wins and the textarea loses its own. */
+  .fld__in--area:focus {
+    outline: none;
+    border-color: var(--sb-violet);
+    box-shadow: 0 0 0 3px var(--sb-violet-wash);
+  }
+
+  .fld__in--area[aria-invalid='true'] {
+    border-color: #dc2626;
+  }
+
+  /* The floating label starts inside the box, so it needs the same top offset
+     the inputs use — but a textarea's text begins at its first line, not at its
+     vertical centre, so the raised position is measured from the top. */
+  .fld--grow .fld__lb {
+    top: 20px;
+    transform: none;
+  }
+  .fld__in--area:focus + .fld__lb,
+  .fld__in--area:not(:placeholder-shown) + .fld__lb {
+    top: 8px;
+  }
+
+
+  /* ═══ THE SUBMIT TOAST ═════════════════════════════════════════════════════
+     ⚠ z-index has to clear the sticky masthead, which is the tallest thing on
+     this page's stack. */
+  .ct__toast {
+    position: fixed;
+    right: clamp(14px, 2vw, 26px);
+    bottom: clamp(14px, 2vw, 26px);
+    z-index: 999;
+
+    display: grid;
+    grid-template-columns: 30px minmax(0, 1fr);
+    align-items: center;
+    gap: 13px;
+    width: min(392px, calc(100vw - 28px));
+    padding: 15px 19px;
+
+    border: 1px solid rgba(18, 16, 15, 0.08);
+    border-radius: 15px;
+    background: var(--sb-paper, #fff);
+    box-shadow:
+      0 2px 6px rgba(28, 14, 8, 0.06),
+      0 22px 48px -20px rgba(28, 14, 8, 0.34);
+
+    /* ⚠ visibility, NOT display. `display: none` cannot be transitioned, and a
+       toast that appears without the move reads as a repaint glitch. The pair
+       keeps it out of the hit-testing and out of the a11y tree while hidden. */
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(14px);
+    transition:
+      opacity 260ms ease,
+      transform 260ms cubic-bezier(0.22, 1, 0.36, 1),
+      visibility 0s linear 260ms;
+  }
+
+  .ct__toast[data-state='show'] {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0s, 0s, 0s;
+  }
+
+  .ct__toast-ico {
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--sb-lime-wash, #fff1ea);
+    color: #15803d;
+  }
+  .ct__toast-ico svg {
+    width: 17px;
+    height: 17px;
+  }
+  /* One icon element, two glyphs — whichever the tone does not want is simply
+     not drawn, so there is no second SVG to keep in step. */
+  .ct__toast-bang { display: none; }
+  .ct__toast[data-tone='bad'] .ct__toast-tick { display: none; }
+  .ct__toast[data-tone='bad'] .ct__toast-bang { display: block; }
+  .ct__toast[data-tone='bad'] .ct__toast-ico {
+    background: #fee2e2;
+    color: #dc2626;
+  }
+
+  .ct__toast-txt {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.55;
+    color: var(--sb-ink, #16100c);
+  }
+
+  /* On a phone it spans the width rather than hugging a corner — a 392px card
+     in the corner of a 360px screen is the corner. */
+  @media (max-width: 559px) {
+    .ct__toast {
+      right: 12px;
+      left: 12px;
+      bottom: 12px;
+      width: auto;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ct__toast {
+      transform: none;
+      transition: opacity 120ms linear, visibility 0s linear 120ms;
+    }
+    .ct__toast[data-state='show'] {
+      transform: none;
+    }
+  }
 </style>
 
 <script>
@@ -1020,21 +1383,25 @@ const socials = [
    * other component's `form` on the same page.
    */
   {
-    /**
-     * ═══ THE ONE LINE THAT TURNS THIS FORM ON ═══════════════════════════════
-     *
-     * Paste the POST endpoint here — a Web3Forms/Formspree URL, or the school's
-     * own handler once the backend exists. Everything else is already written:
-     * validation, per-field errors, the sending state, success and failure.
-     *
-     * While it is empty the form deliberately REFUSES to claim it sent
-     * anything. A contact form on a school site that silently swallows an
-     * admissions enquiry is worse than no form at all, so the honest failure is
-     * the default and it takes one edit to remove.
-     */
-    const ENDPOINT = '';
-
     const form = document.querySelector<HTMLFormElement>('#contact-form');
+
+    /**
+     * ═══ THE FORM IS CONNECTED ══════════════════════════════════════════════
+     *
+     * It POSTs to Strapi's /api/contact-enquiries, and every submission lands
+     * in Contact Enquiry in the admin panel. The URL is resolved at build time
+     * from STRAPI_PUBLIC_URL (falling back to STRAPI_URL) and stamped onto the
+     * element — see the note in the frontmatter for why it travels that way
+     * rather than as a PUBLIC_* variable.
+     *
+     * ⚠ AN EMPTY ENDPOINT IS STILL A SUPPORTED STATE. Build without Strapi
+     * configured and this is '', and the form keeps its original honest
+     * behaviour: it validates, then says plainly that delivery is not
+     * connected. A contact form on a school site that silently swallows an
+     * admissions enquiry is worse than no form at all, so the failure stays
+     * loud rather than becoming a false "message sent".
+     */
+    const ENDPOINT = form?.dataset.endpoint ?? '';
 
     /* From data-office-phone — see the note beside the <form>. The fallback is
        deliberately generic rather than a number: a wrong number is worse than
@@ -1062,14 +1429,57 @@ const socials = [
       notConnected: D.msgNotconnected || `This form is not connected to the school’s inbox yet. Please call the office on ${OFFICE_PHONE} meanwhile.`,
       name: D.msgName || 'Please tell us your name.',
       email: D.msgEmail || 'Please enter an email address we can reply to.',
+      message: D.msgMessage || 'Please write your message.',
+      invalid: D.msgInvalid || 'Please check the highlighted fields and send again.',
     };
     const status = document.querySelector<HTMLElement>('#cf-status');
 
     if (form && status) {
+      /**
+       * ⚠⚠ THE TOAST IS DRIVEN FROM say(), NOT FROM THE THREE CALL SITES.
+       * Every message this form produces already goes through say(), so there
+       * is one place where the visible wording and the announced wording
+       * cannot drift apart. Adding a flash() call beside each say() would let
+       * the next outcome someone adds reach one and not the other.
+       *
+       * ⚠ IT FIRES ON THE OUTCOME OF A SUBMIT, NEVER ON VALIDATION. A form
+       * that fails its own checks returns above without calling say() — the
+       * reader gets the field errors and focus lands on the first one, which
+       * is feedback where the problem is. A toast in the corner would point
+       * away from it.
+       *
+       * ⚠ AND IT NEVER INVENTS A SUCCESS. It shows whatever say() was given:
+       * the success line only after a 2xx from the endpoint, and the
+       * "not connected" line when there is no endpoint at all.
+       */
+      const toastEl = document.querySelector<HTMLElement>('#cf-toast');
+      const toastTxt = document.querySelector<HTMLElement>('#cf-toast-txt');
+      let toastTimer = 0;
+
+      /* A failure carries the office phone number, so it is given longer to be
+         read than a thank-you is. Both stay permanently in #cf-status. */
+      const TOAST_MS = { good: 6000, bad: 10000 };
+
+      const flash = (msg: string, tone: 'good' | 'bad') => {
+        if (!toastEl || !toastTxt) return;
+        toastTxt.textContent = msg;
+        toastEl.dataset.tone = tone;
+        toastEl.dataset.state = 'show';
+        /* Re-submitting while one is up restarts the clock rather than letting
+           the first timer cut the second message short. */
+        window.clearTimeout(toastTimer);
+        toastTimer = window.setTimeout(() => {
+          toastEl.dataset.state = 'idle';
+        }, TOAST_MS[tone]);
+      };
+
       const say = (msg: string, tone: 'good' | 'bad' | '') => {
         status.textContent = msg;
         if (tone) status.dataset.tone = tone;
         else delete status.dataset.tone;
+        /* say('', '') is how the handler CLEARS the line before it works —
+           that is not an outcome and must not raise a toast. */
+        if (tone && msg) flash(msg, tone);
       };
 
       /** Field id → the message shown when it fails, and the test it must pass. */
@@ -1083,6 +1493,10 @@ const socials = [
              of an address is sending to it. */
           ok: (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()),
         },
+        /* ⚠ A RULE AND ITS MARKUP HAVE TO ARRIVE TOGETHER. A field with no rule
+           submits blank; a rule with no field silently never matches. Neither
+           failure says anything at the time. */
+        { id: 'cf-message', msg: T.message, ok: (v) => v.trim().length > 0 },
       ];
 
       const setError = (id: string, msg: string | null) => {
@@ -1104,7 +1518,7 @@ const socials = [
       /* Clear a field's error as soon as it is fixed — leaving red text under a
          field the reader has already corrected is its own small insult. */
       for (const r of RULES) {
-        const el = document.querySelector<HTMLInputElement>(`#${r.id}`);
+        const el = document.querySelector<HTMLInputElement | HTMLTextAreaElement>(`#${r.id}`);
         el?.addEventListener('input', () => {
           if (el.getAttribute('aria-invalid') === 'true' && r.ok(el.value)) setError(r.id, null);
         });
@@ -1132,7 +1546,7 @@ const socials = [
         let firstBad: HTMLElement | null = null;
 
         for (const r of RULES) {
-          const el = document.querySelector<HTMLInputElement>(`#${r.id}`);
+          const el = document.querySelector<HTMLInputElement | HTMLTextAreaElement>(`#${r.id}`);
           if (!el) continue;
           const good = r.ok(el.value);
           setError(r.id, good ? null : r.msg);
@@ -1148,9 +1562,14 @@ const socials = [
         }
 
         if (firstBad) {
-          /* Move focus to the first problem rather than only colouring it —
-             otherwise a keyboard user is told something is wrong and left at
-             the bottom of the form with no way to find it. */
+          /* ⚠⚠ IT SAYS SOMETHING *AND* MOVES FOCUS. This used to only move
+             focus, on the reasoning that a toast in the corner points away
+             from the field that is wrong. That was wrong in practice: a reader
+             who misses a required field presses Send, the page scrolls to a
+             box that is already on screen, and nothing else happens — which is
+             indistinguishable from the form being broken. The line names the
+             fields; the focus finds them. */
+          say(T.invalid, 'bad');
           firstBad.focus();
           return;
         }
@@ -1169,12 +1588,62 @@ const socials = [
         say('', '');
 
         try {
+          /**
+           * ⚠⚠ JSON, NOT FormData. This used to send `new FormData(form)`,
+           * which is what a generic form relay such as Formspree expects.
+           * Strapi's REST API is not that: it reads a JSON body under a `data`
+           * key, and a multipart POST reaches the controller with an empty
+           * body — a 400 that looks like a validation bug and is not.
+           *
+           * ⚠ FIELDS ARE MAPPED BY HAND, not spread from the form. Two names
+           * differ from their inputs on purpose: the select is `class` in the
+           * markup (a poor column name, and a reserved word in enough contexts
+           * to be worth avoiding) and `studentClass` in the CMS; the checkbox
+           * is `terms` to the reader and `consent` in the record. The honeypot
+           * is passed straight through so the server can decide about it.
+           */
+          const fd = new FormData(form);
+          const str = (k: string) => String(fd.get(k) ?? '').trim();
+
           const res = await fetch(ENDPOINT, {
             method: 'POST',
-            headers: { Accept: 'application/json' },
-            body: new FormData(form),
+            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+            body: JSON.stringify({
+              data: {
+                name: str('name'),
+                email: str('email'),
+                phone: str('phone'),
+                subject: str('subject'),
+                /* ⚠ THE FIELD THE WHOLE FORM EXISTS FOR. The textarea shipped
+                   before this line did, and for that window every enquiry
+                   arrived at the office with no message in it. */
+                message: str('message'),
+                city: str('city'),
+                studentClass: str('class'),
+                consent: fd.get('terms') !== null,
+                topicRef: str('topicRef'),
+                sourcePage: location.pathname,
+              },
+            }),
           });
-          if (!res.ok) throw new Error(String(res.status));
+          if (!res.ok) {
+            /* ⚠ A 4xx IS THIS PROJECT'S OWN CONTROLLER TALKING, and its
+               messages are written to be read by a visitor ("Name, email,
+               message and consent are required"). Showing the generic failure
+               line instead turned a stated reason into a mystery — which is
+               exactly how a rejected enquiry looks like a form that silently
+               does nothing.
+               ⚠ 4xx ONLY. A 5xx is an internal fault and its text is not
+               written for the public, so that keeps the generic line. */
+            let reason = '';
+            if (res.status >= 400 && res.status < 500) {
+              const body = await res.json().catch(() => null);
+              const m = body?.error?.message;
+              if (typeof m === 'string' && m.trim()) reason = m.trim();
+            }
+            say(reason || T.failure, 'bad');
+            return;
+          }
           form.reset();
           say(T.success, 'good');
         } catch {

@@ -21,11 +21,25 @@
  */
 import { MARK } from './marks';
 
+/**
+ * ⚠ TWO SHAPES, BECAUSE THE PAGES ARE MIGRATING ONE AT A TIME.
+ *
+ * A converted page hands over CMS cells — { label, value, mark } — and a page
+ * still reading its own data hands the older { n, k, v, mark }. Accepting both
+ * lets a page move without this component and its five other callers moving on
+ * the same day.
+ *
+ * ⚠ `n` IS COUNTED HERE WHEN IT IS ABSENT. Every rail on these pages ran 01, 02,
+ * 03 in order, so a cell does not carry one; the rail numbers its own steps and
+ * a fifth step cannot arrive without a number.
+ */
 export interface RailStep {
-  n: string;
+  n?: string;
   mark: string;
-  k: string;
-  v: string;
+  k?: string;
+  v?: string;
+  label?: string;
+  value?: string;
 }
 
 interface Props {
@@ -66,9 +80,9 @@ const inset = (100 / (steps.length * 2)).toFixed(4);
             <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={MARK[s.mark]} />
           </svg>
         </span>
-        <p class="as-step__n t-tabular">{s.n}</p>
-        <h3 class="as-step__k">{s.k}</h3>
-        <p class="as-step__v">{s.v}</p>
+        <p class="as-step__n t-tabular">{s.n ?? String(i + 1).padStart(2, '0')}</p>
+        <h3 class="as-step__k">{s.k ?? s.label}</h3>
+        <p class="as-step__v">{s.v ?? s.value}</p>
       </li>
     ))}
   </ol>

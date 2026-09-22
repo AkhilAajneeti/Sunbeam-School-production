@@ -1,0 +1,98 @@
+{
+  "open": {
+    "kicker": "What the school publishes",
+    "heading": "Someone who knows\n{{the child.}}",
+    "body": [
+      "Sunbeam states one thing about mentoring: that every student has ** a member of staff who knows them as a person rather than as a name on a class list**. It is a single line, and it is not expanded here into a programme that has not been described.",
+      "What that line is for is easy to say without inventing anything. A subject teacher seeing a child four times a week may not notice a change in them. Someone who already knows the child does — and the years in which a student is least likely to raise a problem themselves are exactly the years in which that difference matters.",
+      "The line sits under Assessment & Support on the school’s own {' '}<a class=\"as-link\" href={ASSESSMENT}>assessment</a> pages. It does not say how a mentor is assigned, how often they meet, or how a parent reaches one."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pLib"
+      },
+      {
+        "key": "pTables"
+      },
+      {
+        "key": "pBench"
+      }
+    ],
+    "runs": []
+  },
+  "rel": {
+    "kicker": "The relationship",
+    "heading": "More than\n{{a name on a list.}}",
+    "body": [
+      "The firmer evidence is in the school’s own recruitment posters, where a school states what it will and will not accept. Four kinds of person are named across them and its campus inventory.",
+      "Rows two and three are read off the school’s published recruitment notices, which are on {' '}<a class=\"as-link\" href={CAREERS}>Career</a>."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pCorridor"
+      },
+      {
+        "key": "pStage"
+      }
+    ],
+    "runs": [
+      {
+        "field": "cells",
+        "list": "people"
+      }
+    ]
+  },
+  "jrn": {
+    "kicker": "The mentoring journey",
+    "heading": "Known first.\n{{Then noticed.}}",
+    "body": [],
+    "caption": null,
+    "shots": [],
+    "runs": [
+      {
+        "field": "cells",
+        "list": "journey"
+      }
+    ]
+  },
+  "roles": {
+    "kicker": "People who support",
+    "heading": "Different people.\n{{One purpose.}}",
+    "body": [],
+    "caption": null,
+    "shots": [],
+    "runs": [
+      {
+        "field": "cells",
+        "list": "roles"
+      }
+    ]
+  },
+  "human": {
+    "kicker": null,
+    "heading": "Noticed before\n{{it is a result.}}",
+    "body": [
+      "The school publishes that every student has a mentor, and its own adverts show what it requires of a counsellor. It does not publish a ratio, a programme name, a meeting frequency, or how a parent reaches a child’s mentor — and none of those is estimated here."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pCohort"
+      }
+    ],
+    "runs": []
+  },
+  "final": {
+    "kicker": null,
+    "heading": null,
+    "body": [
+      "Knowing a student *changes what support can mean.*",
+      "Where a difficulty turns out to be a subject rather than a state of mind, it goes to {' '}<a class=\"as-link\" href={REMEDIAL}>remedial support</a>."
+    ],
+    "caption": null,
+    "shots": [],
+    "runs": []
+  }
+}

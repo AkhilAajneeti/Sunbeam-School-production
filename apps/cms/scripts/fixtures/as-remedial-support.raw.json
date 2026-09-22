@@ -1,0 +1,75 @@
+{
+  "open": {
+    "kicker": "Where it applies",
+    "heading": "One subject,\n{{not the whole year.}}",
+    "body": [
+      "Remedial support at Sunbeam is attached to a subject, not to a student. It runs where a result in **Classes VIII and IX** falls below the threshold in a single subject, and in **Class XI** where one subject is failed — additional teaching in that subject, followed by a retest.",
+      "The threshold mark itself is not published, and no percentage is quoted here. What *is* published, unusually, is the timetable the retest has to obey — and that turns out to be the part a family can actually use."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pBench"
+      },
+      {
+        "key": "pActivity"
+      }
+    ],
+    "runs": []
+  },
+  "journey": {
+    "kicker": "The remedial journey",
+    "heading": "A fair {{second chance.}}",
+    "body": [],
+    "caption": null,
+    "shots": [],
+    "runs": [
+      {
+        "field": "cells",
+        "list": "journey"
+      }
+    ]
+  },
+  "rules": {
+    "kicker": "The published rules",
+    "heading": "Support first.\n{{Then a fair retest.}}",
+    "body": [
+      "Most schools promise extra help. Few publish the calendar it has to run to. Everything on the right comes from that published policy, and each rule exists to stop a retest becoming a formality.",
+      "**Not published:** the pass threshold itself, the form the additional teaching takes, or who delivers it. None is estimated here. The wider cycle is on {' '}<a class=\"as-link\" href={ASSESSMENT}>Assessment & Support</a>."
+    ],
+    "caption": null,
+    "shots": [],
+    "runs": [
+      {
+        "field": "cells",
+        "list": "rules"
+      }
+    ]
+  },
+  "note": {
+    "kicker": null,
+    "heading": null,
+    "body": [
+      "Remedial support is about giving the student *another opportunity to learn* — **not simply repeating an examination.**",
+      "Where the difficulty is noticed rather than measured, it reaches {' '}<a class=\"as-link\" href={MENTORING}>mentoring</a> first; results and next steps are discussed at the {' '}<a class=\"as-link\" href={PTM}>parent–teacher meeting</a> that follows."
+    ],
+    "caption": null,
+    "shots": [],
+    "runs": []
+  },
+  "close": {
+    "kicker": "A retest with dates attached",
+    "heading": "Not a second sitting,\n{{a second chance.}}",
+    "body": [
+      "The school publishes the retest calendar, the classes it applies to and the conditions around the additional teaching. It does not publish the pass threshold, the form the extra teaching takes, or who delivers it — and none of those is estimated here."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pCohort",
+        "alt": ""
+      }
+    ],
+    "runs": []
+  }
+}

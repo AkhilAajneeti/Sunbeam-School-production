@@ -319,3 +319,72 @@ export const surveillanceCards: SafetyMeasure[] = [
     verified: false,
   },
 ];
+
+
+/**
+ * ═══ THE BAND HEADS ON /campus/safety-security/ ════════════════════════════
+ *
+ * Every eyebrow, heading and standfirst on that page, in page order. These used
+ * to be string literals inside the five safety components; they live here so the
+ * seed can put them in the CMS, where the school can edit them.
+ *
+ * ⚠ THE QUERY LAYER ALSO HOLDS A COPY, as SAFETY_DEFAULTS in
+ * lib/cms/queries/campus.ts — the fallback for an unseeded or unpublished CMS.
+ * This file is what the seed writes. Change one, change both, or seed again.
+ *
+ * ⚠⚠ TWO HEADINGS COUNT THINGS: "Eleven measures, in three groups" and
+ * "Twenty-two routes across Ballia". Nothing recomputes them — they are prose,
+ * not figures — so an editor who adds a measure or a route must edit the
+ * heading too.
+ */
+export const safetyBands = {
+  timeline: {
+    eyebrow: 'What is in place',
+    heading: 'Eleven measures, in three groups',
+    stand: 'The school publishes five of these. The rest are marked, because a safety page is the last place to guess.',
+  },
+  plan: {
+    eyebrow: 'Where things are',
+    heading: 'The campus, point by point',
+    stand: 'A schematic — it shows what sits where, not what the buildings look like.',
+  },
+  transport: {
+    eyebrow: 'Getting there and back',
+    heading: 'The journey is part of the school day',
+    stand: 'Twenty-two routes across Ballia, and a fleet that is tracked and speed-limited on every one of them.',
+  },
+  wellbeing: {
+    eyebrow: 'Looking after the child',
+    heading: 'Someone notices',
+    stand: 'Equipment keeps a building safe. People are what keep a child feeling safe in it.',
+  },
+  surveillance: {
+    eyebrow: 'Watched over',
+    heading: 'Eyes on the campus, all day and all night',
+    stand: 'Cameras across the school, and guards on duty every hour of the year.',
+  },
+} as const;
+
+/**
+ * The three counts under the transport band on /campus/safety-security/.
+ *
+ * ⚠⚠ TYPED, NOT DERIVED. The Bus Route collection yields 22 distinct vehicles
+ * across the published routes; this says the fleet is 29+. Both can be true — a
+ * school can own more buses than appear on route sheets — so computing these
+ * from the routes would quietly republish a smaller number as fact.
+ *
+ ⚠⚠ THE FLEET AND ROUTE COUNTS APPEAR IN THREE PLACES ON THIS PAGE, all
+ * editable and none derived from the others:
+ *
+ *   1. transportFigures        — "29+ / Buses in the fleet", "22 / Routes"
+ *   2. safetyBands.transport   — "Twenty-two routes across Ballia" (in words)
+ *   3. mapPoints "Bus Zone"    — "29+ buses across 22 routes"
+ *
+ * Change the fleet and all three need changing. They are not computed from Bus
+ * Route on purpose — see below — so nothing will catch a missed one.
+ */
+export const transportFigures = [
+  { value: '29+', label: 'Buses in the fleet' },
+  { value: '22', label: 'Routes across Ballia' },
+  { value: '100%', label: 'GPS and speed-governed' },
+] as const;

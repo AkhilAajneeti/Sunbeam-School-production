@@ -1,5 +1,5 @@
 /**
- * THE ACADEMIC STRUCTURE STAGE PAGES — one named field per band.
+ * THE ACADEMIC STRUCTURE AND TEACHING & LEARNING PAGES — one field per band.
  *
  *     npm run seed:structure [-- --dry] [-- --only=secondary]
  *
@@ -36,6 +36,22 @@ const PAGES = [
   /* These two carry a page-level list of streams beside their bands. */
   { fixture: 'streams-offered', uid: 'api::streams-offered-page.streams-offered-page', label: 'Streams Offered', pageList: 'streams' },
   { fixture: 'subject-combinations', uid: 'api::subject-combinations-page.subject-combinations-page', label: 'Subject Combinations', pageList: 'streams' },
+
+  /* ── Teaching & Learning: the same shape again, six more pages ─────────── */
+  { fixture: 'tl-methodology', uid: 'api::methodology-page.methodology-page', label: 'Methodology' },
+  { fixture: 'tl-smart-classrooms', uid: 'api::smart-classrooms-page.smart-classrooms-page', label: 'Smart Classrooms' },
+  { fixture: 'tl-experiential-learning', uid: 'api::experiential-learning-page.experiential-learning-page', label: 'Experiential Learning' },
+  { fixture: 'tl-stem-robotics', uid: 'api::stem-robotics-page.stem-robotics-page', label: 'STEM & Robotics' },
+  { fixture: 'tl-reading-language', uid: 'api::reading-language-page.reading-language-page', label: 'Reading & Language' },
+  { fixture: 'tl-laboratories-clubs', uid: 'api::laboratories-clubs-page.laboratories-clubs-page', label: 'Laboratories & Clubs' },
+
+  /* ── Assessment & Support: the same shape, six more pages ─────────────── */
+  { fixture: 'as-assessment', uid: 'api::assessment-page.assessment-page', label: 'Assessment System' },
+  { fixture: 'as-homework-policy', uid: 'api::homework-policy-page.homework-policy-page', label: 'Homework Policy' },
+  { fixture: 'as-remedial-support', uid: 'api::remedial-support-page.remedial-support-page', label: 'Remedial Support' },
+  { fixture: 'as-mentoring', uid: 'api::mentoring-page.mentoring-page', label: 'Mentoring' },
+  { fixture: 'as-parent-teacher', uid: 'api::parent-teacher-page.parent-teacher-page', label: 'Parent–Teacher Meetings' },
+  { fixture: 'as-competitive-exam', uid: 'api::competitive-exam-page.competitive-exam-page', label: 'Competitive Exams' },
 ];
 
 const args = process.argv.slice(2);
@@ -73,6 +89,12 @@ await withStrapi(async (strapi) => {
     note: c.note ?? null,
     sub: c.sub ?? null,
     caption: c.caption ?? null,
+    /* ⚠ A FIGURE THE PAGE PRINTS. Left out, "17,574 books" rendered as nothing
+       at all — the seed wrote every other field and silently dropped this one. */
+    number: c.number ?? null,
+    suffix: c.suffix ?? null,
+    state: c.state ?? null,
+    href: c.href ?? null,
     flag: Boolean(c.flag),
     /* A few runs give every item its own photograph. */
     image: await up(c.image, c.imageName, c.alt),

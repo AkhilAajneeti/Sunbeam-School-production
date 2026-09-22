@@ -1,6 +1,6 @@
 ---
 import { getCampusTourData } from '../../../lib/cms';
-const {facilities} = await getCampusTourData();
+const { facilities, categoriesBand } = await getCampusTourData();
 
 /**
  * §3 · FACILITY CATEGORIES — the campus as sixteen cards, not one long scroll.
@@ -27,8 +27,8 @@ import AssetPlaceholder from '../../ui/AssetPlaceholder.astro';
   <div class="u-container">
     <SectionHead
       id="fac-title"
-      eyebrow="Where to look"
-      heading="Every facility, by the room it is"
+      eyebrow={categoriesBand.eyebrow}
+      heading={categoriesBand.heading}
       stand="Choose a place to see its photographs, or scroll on for the whole wall."
       measure={20}
     />

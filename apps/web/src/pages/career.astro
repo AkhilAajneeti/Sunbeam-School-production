@@ -89,7 +89,7 @@ import Backdrop from "../components/ui/Backdrop.astro";
 import heroPhoto from "../assets/photos/sunbeem-1.jpg";
 import applicant from "../assets/icons/thinkgirl.png";
 import CmsImage from "../components/ui/CmsImage.astro";
-import { getCareerPageData, fileUrl, getSchool } from '../lib/cms';
+import { getCareerPageData, getCareerCopy, fileUrl, getSchool } from '../lib/cms';
 
 const school = await getSchool();
 
@@ -98,6 +98,7 @@ const school = await getSchool();
    first time somebody adds a poster and forgets to update it. The old data file
    remains on disk until this is verified in a production build. */
 const { posters, posterCount } = await getCareerPageData();
+const copy = await getCareerCopy();
 
 /**
  * ⚠ THE ROW ICONS BELOW ARE THE CONTACT PAGE'S, GLYPH FOR GLYPH. Envelope,
@@ -183,11 +184,9 @@ const WALL_SIZES = "(min-width: 1024px) 32vw, (min-width: 640px) 46vw, 92vw";
             container each of those spaces becomes an anonymous flex item and the
             spacing goes wrong. Inline-block plus a margin is what survives the
             rebuild. */}
-        <h2 class="cr__h" data-split><span class="starmark cr__star" aria-hidden="true"></span>Work at Sunbeam</h2>
+        <h2 class="cr__h" data-split><span class="starmark cr__star" aria-hidden="true"></span>{copy.wall.heading}</h2>
         <p class="cr__stand" data-reveal>
-          Every notice the school has published, newest first. Each one names
-          the roles, the subjects and the qualification it asks for — select a
-          poster to read it at full size.
+          {copy.wall.stand}
         </p>
 
         {
@@ -223,7 +222,7 @@ const WALL_SIZES = "(min-width: 1024px) 32vw, (min-width: 640px) 46vw, 92vw";
                 stroke-width="1.8"
                 stroke-linecap="round"></path>
             </svg>
-            Send your CV
+            {copy.ctaCvLabel}
           </a>
 
           <a class="cr__cta cr__cta--ghost" href={`tel:${school.phone.office}`}>
@@ -240,7 +239,7 @@ const WALL_SIZES = "(min-width: 1024px) 32vw, (min-width: 640px) 46vw, 92vw";
                 stroke-width="1.8"
                 stroke-linejoin="round"></path>
             </svg>
-            Call the office
+            {copy.ctaCallLabel}
           </a>
         </div>
       </div>
@@ -375,13 +374,13 @@ const WALL_SIZES = "(min-width: 1024px) 32vw, (min-width: 640px) 46vw, 92vw";
 
           <h2 class="how__h" id="how-h">
             <span class="starmark how__star" aria-hidden="true"></span>
-            How to apply
+            {copy.apply.heading}
           </h2>
 
           {/* ⚠ NOT A CLAIM, A SIGNPOST. Everything factual on this card is read
               off data/site.ts; this line only counts the routes below it, which
               is why it can be written here without inventing anything. */}
-          <p class="how__lede" data-reveal>Three ways to reach the school about a post.</p>
+          <p class="how__lede" data-reveal>{copy.apply.stand}</p>
 
           {
             /* ⚠ A <dl>, NOT DIVS. Each row is a term and its value — "By email" →
@@ -424,15 +423,12 @@ const WALL_SIZES = "(min-width: 1024px) 32vw, (min-width: 640px) 46vw, 92vw";
                 </svg>
               </span>
               <div class="how__pair">
-                <dt class="how__k">By email</dt>
+                <dt class="how__k">{copy.applyMethods[0].label}</dt>
                 <dd class="how__d">
                   <a class="how__v" href={`mailto:${school.recruitmentEmail}`}
                     >{mailUser}<wbr />@{mailDomain}</a
                   >
-                  <p class="how__n">
-                    Attach your CV and say which role you are applying for. Most
-                    of the notices above ask for applications this way.
-                  </p>
+                  <p class="how__n">{copy.applyMethods[0].note}</p>
                 </dd>
               </div>
             </div>
@@ -449,12 +445,12 @@ const WALL_SIZES = "(min-width: 1024px) 32vw, (min-width: 640px) 46vw, 92vw";
                 </svg>
               </span>
               <div class="how__pair">
-                <dt class="how__k">By phone</dt>
+                <dt class="how__k">{copy.applyMethods[1].label}</dt>
                 <dd class="how__d">
                   <a class="how__v" href={`tel:${school.phone.office}`}
                     >{school.phone.officeDisplay}</a
                   >
-                  <p class="how__n">The school office, during school hours.</p>
+                  <p class="how__n">{copy.applyMethods[1].note}</p>
                 </dd>
               </div>
             </div>
@@ -477,7 +473,7 @@ const WALL_SIZES = "(min-width: 1024px) 32vw, (min-width: 640px) 46vw, 92vw";
                 </svg>
               </span>
               <div class="how__pair">
-                <dt class="how__k">In person</dt>
+                <dt class="how__k">{copy.applyMethods[2].label}</dt>
                 <dd class="how__d">
                   {
                     /* <address> is italic by default in every browser, which reads
@@ -489,11 +485,10 @@ const WALL_SIZES = "(min-width: 1024px) 32vw, (min-width: 640px) 46vw, 92vw";
                     }
                     {school.address.pin}
                   </address>
-                  <p class="how__n">
-                    {school.address.landmark}. Driver and conductor applicants
-                    are asked to bring their documents and driving licence to
-                    the school office.
-                  </p>
+                  {/* ⚠ THE LANDMARK COMES FROM SITE SETTINGS, the sentence after
+                      it from the CMS. Two owners, one line, on purpose — the
+                      landmark is a contact detail printed in many places. */}
+                  <p class="how__n">{school.address.landmark}. {copy.applyMethods[2].note}</p>
                 </dd>
               </div>
             </div>

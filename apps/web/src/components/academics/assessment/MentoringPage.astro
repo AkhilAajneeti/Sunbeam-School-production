@@ -47,15 +47,11 @@ import { MARK } from './marks';
 import AsRail from './AsRail.astro';
 
 /* ── PHOTOGRAPHY — six genuine Sunbeam Ballia frames, each used ONCE. ─────── */
-import { getAcademicTopic } from '../../../lib/cms';
+import ClipHeading from '../../ui/ClipHeading.astro';
+import RichLine from '../../ui/RichLine.astro';
+import { getMentoring } from '../../../lib/cms';
 
-const ac = await getAcademicTopic('/academics/assessment/mentoring/');
-const pCorridor = ac.pic('pCorridor');
-const pTables = ac.pic('pTables');
-const pLib = ac.pic('pLib');
-const pBench = ac.pic('pBench');
-const pStage = ac.pic('pStage');
-const pCohort = ac.pic('pCohort');
+const { open, rel, jrn, roles, human, final } = await getMentoring();
 
 const S = 'Sunbeam School Ballia';
 
@@ -66,14 +62,11 @@ const REMEDIAL = '/academics/assessment/remedial-support/';
 /* ── SECTION 02 — the four people, in the order the school lists them ─────
    ⚠ `advert: true` marks the two whose evidence is a recruitment poster rather
    than a page of copy, and the rows say so in their own text. */
-const people = ac.section('people').points;
 
 /* ── SECTION 03 — the journey. Four stages, and each is a consequence of the
    one before it rather than a stage in a programme the school has not named. */
-const journey = ac.section('journey').points;
 
 /* ── SECTION 04 — the same four people, stated flat ──────────────────────── */
-const roles = ac.section('roles').points;
 ---
 
 {/* ══ 01 · SOMEONE WHO KNOWS THE CHILD ═══════════════════════════════════════
@@ -85,37 +78,19 @@ const roles = ac.section('roles').points;
 
   <div class="u-container mn-open__grid">
     <div>
-      <p class="as-kicker" data-reveal>What the school publishes</p>
-      <h2 class="as-h as-h--xl mn-open__h" id="mn-open-t">
-        <span data-clip data-clip-delay="0">Someone who knows</span>
-        <span data-clip data-clip-delay="150"><em>the child.</em></span>
-      </h2>
+      <p class="as-kicker" data-reveal>{open.kicker}</p>
+      <ClipHeading class="as-h as-h--xl mn-open__h" id="mn-open-t" text={open.heading} />
 
-      <p class="as-body" data-reveal data-reveal-delay="200">
-        Sunbeam states one thing about mentoring: that every student has
-        <strong> a member of staff who knows them as a person rather than as a name on a class
-        list</strong>. It is a single line, and it is not expanded here into a programme that has not
-        been described.
-      </p>
-      <p class="as-body" data-reveal data-reveal-delay="260">
-        What that line is for is easy to say without inventing anything. A subject teacher seeing a
-        child four times a week may not notice a change in them. Someone who already knows the child
-        does — and the years in which a student is least likely to raise a problem themselves are
-        exactly the years in which that difference matters.
-      </p>
-      <p class="as-note" data-reveal data-reveal-delay="330">
-        The line sits under Assessment &amp; Support on the school’s own
-        {' '}<a class="as-link" href={ASSESSMENT}>assessment</a> pages. It does not say how a mentor
-        is assigned, how often they meet, or how a parent reaches one.
-      </p>
+      <RichLine class="as-body" text={open.body[0]} reveal revealDelay={200} />
+      <RichLine class="as-body" text={open.body[1]} reveal revealDelay={260} />
+      <RichLine class="as-note" text={open.body[2]} linkClass="as-link" reveal revealDelay={330} />
     </div>
 
     <div class="mn-open__stage">
       <span class="as-dots mn-open__dots" aria-hidden="true"></span>
       <div class="mn-open__lead as-frame as-fill" data-mask>
         <SmartImage
-          file={pLib}
-          alt={ac.picAlt('pLib')}
+          file={open.shots[0]?.image} alt={open.shots[0]?.alt ?? ''}
          
           widths={[520, 880, 1200]}
           sizes="(max-width: 1023px) 92vw, 42vw"
@@ -125,8 +100,7 @@ const roles = ac.section('roles').points;
       </div>
       <div class="mn-open__sm as-frame as-frame--float as-fill" data-pop data-pop-delay="180">
         <SmartImage
-          file={pTables}
-          alt={ac.picAlt('pTables')}
+          file={open.shots[1]?.image} alt={open.shots[1]?.alt ?? ''}
          
           widths={[320, 560]}
           sizes="(max-width: 1023px) 44vw, 17vw"
@@ -136,8 +110,7 @@ const roles = ac.section('roles').points;
       </div>
       <div class="mn-open__cir as-frame as-frame--float as-frame--round as-fill" data-pop data-pop-delay="300">
         <SmartImage
-          file={pBench}
-          alt={ac.picAlt('pBench')}
+          file={open.shots[2]?.image} alt={open.shots[2]?.alt ?? ''}
          
           widths={[220, 400]}
           sizes="(max-width: 1023px) 28vw, 11vw"
@@ -158,8 +131,7 @@ const roles = ac.section('roles').points;
       <span class="as-dots mn-rel__dots" aria-hidden="true"></span>
       <div class="mn-rel__lead as-frame as-fill" data-zoom data-zoom-to="1.04">
         <SmartImage
-          file={pCorridor}
-          alt={ac.picAlt('pCorridor')}
+          file={rel.shots[0]?.image} alt={rel.shots[0]?.alt ?? ''}
          
           widths={[520, 880, 1200]}
           sizes="(max-width: 1023px) 92vw, 42vw"
@@ -169,8 +141,7 @@ const roles = ac.section('roles').points;
       </div>
       <div class="mn-rel__sm as-frame as-frame--float as-fill" data-pop data-pop-delay="200">
         <SmartImage
-          file={pStage}
-          alt={ac.picAlt('pStage')}
+          file={rel.shots[1]?.image} alt={rel.shots[1]?.alt ?? ''}
          
           widths={[320, 560]}
           sizes="(max-width: 1023px) 48vw, 19vw"
@@ -181,37 +152,27 @@ const roles = ac.section('roles').points;
     </div>
 
     <div class="mn-rel__copy">
-      <p class="as-kicker" data-reveal>The relationship</p>
-      <h2 class="as-h as-h--lg" id="mn-rel-t">
-        <span data-clip data-clip-delay="0">More than</span>
-        <span data-clip data-clip-delay="150"><em>a name on a list.</em></span>
-      </h2>
-      <p class="as-body" data-reveal data-reveal-delay="200">
-        The firmer evidence is in the school’s own recruitment posters, where a school states what it
-        will and will not accept. Four kinds of person are named across them and its campus
-        inventory.
-      </p>
+      <p class="as-kicker" data-reveal>{rel.kicker}</p>
+      <ClipHeading class="as-h as-h--lg" id="mn-rel-t" text={rel.heading} />
+      <RichLine class="as-body" text={rel.body[0]} reveal revealDelay={200} />
 
       <ol class="mn-people">
-        {people.map((p, i) => (
+        {rel.cells.map((p, i) => (
           <li class="mn-person" data-reveal data-reveal-delay={250 + i * 80}>
             <span class="mn-person__m" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none">
                 <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={MARK[p.mark]} />
               </svg>
             </span>
-            <span class="mn-person__n t-tabular">{p.n}</span>
+            <span class="mn-person__n t-tabular">{String(i + 1).padStart(2, '0')}</span>
             <span class="mn-person__t">
-              <span class="mn-person__k">{p.k}</span>
-              <span class="mn-person__v">{p.v}</span>
+              <span class="mn-person__k">{p.label}</span>
+              <span class="mn-person__v">{p.value}</span>
             </span>
           </li>
         ))}
       </ol>
-      <p class="as-note" data-reveal data-reveal-delay="580">
-        Rows two and three are read off the school’s published recruitment notices, which are on
-        {' '}<a class="as-link" href={CAREERS}>Career</a>.
-      </p>
+      <RichLine class="as-note" text={rel.body[1]} linkClass="as-link" reveal revealDelay={580} />
     </div>
   </div>
 </section>
@@ -222,13 +183,10 @@ const roles = ac.section('roles').points;
   <span class="as-ghost mn-jrn__ghost" aria-hidden="true" data-drift>Guidance</span>
 
   <div class="u-container mn-jrn__inner">
-    <p class="as-kicker mn-jrn__kick" data-reveal>The mentoring journey</p>
-    <h2 class="as-h as-h--md mn-jrn__h" id="mn-jrn-t">
-      <span data-clip data-clip-delay="0">Known first.</span>
-      <span data-clip data-clip-delay="150"><em>Then noticed.</em></span>
-    </h2>
+    <p class="as-kicker mn-jrn__kick" data-reveal>{jrn.kicker}</p>
+    <ClipHeading class="as-h as-h--md mn-jrn__h" id="mn-jrn-t" text={jrn.heading} />
 
-    <AsRail steps={journey} ground="ivory" label="The mentoring journey, four stages" class="mn-jrn__rail" />
+    <AsRail steps={jrn.cells} ground="ivory" label="The mentoring journey, four stages" class="mn-jrn__rail" />
   </div>
 </section>
 
@@ -238,24 +196,21 @@ const roles = ac.section('roles').points;
 <section class="as-sec as-sec--paper as-pad--sm mn-roles" aria-labelledby="mn-roles-t">
   <div class="u-container mn-roles__grid">
     <div class="mn-roles__head">
-      <p class="as-kicker" data-reveal>People who support</p>
-      <h2 class="as-h as-h--md" id="mn-roles-t">
-        <span data-clip data-clip-delay="0">Different people.</span>
-        <span data-clip data-clip-delay="150"><em>One purpose.</em></span>
-      </h2>
+      <p class="as-kicker" data-reveal>{roles.kicker}</p>
+      <ClipHeading class="as-h as-h--md" id="mn-roles-t" text={roles.heading} />
     </div>
 
     <ol class="as-cols" style="--n: 4;">
-      {roles.map((r, i) => (
+      {roles.cells.map((r, i) => (
         <li class="as-col" data-reveal data-reveal-delay={140 + i * 90}>
           <span class="as-col__m" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none">
               <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={MARK[r.mark]} />
             </svg>
           </span>
-          <p class="as-col__n t-tabular">{r.n}</p>
-          <h3 class="as-col__k">{r.k}</h3>
-          <p class="as-col__v">{r.v}</p>
+          <p class="as-col__n t-tabular">{String(i + 1).padStart(2, '0')}</p>
+          <h3 class="as-col__k">{r.label}</h3>
+          <p class="as-col__v">{r.value}</p>
         </li>
       ))}
     </ol>
@@ -269,8 +224,7 @@ const roles = ac.section('roles').points;
 <section class="as-sec mn-human" aria-labelledby="mn-human-t">
   <div class="mn-human__media" aria-hidden="true" data-parallax data-parallax-y="-40">
     <SmartImage
-      file={pCohort}
-      alt={ac.picAlt('pCohort')}
+      file={human.shots[0]?.image} alt={human.shots[0]?.alt ?? ''}
      
       widths={[1024, 1600, 2000]}
       sizes="100vw"
@@ -281,15 +235,8 @@ const roles = ac.section('roles').points;
   <span class="mn-human__scrim" aria-hidden="true"></span>
 
   <div class="u-container mn-human__inner">
-    <h2 class="as-h mn-human__h" id="mn-human-t">
-      <span data-clip data-clip-delay="0">Noticed before</span>
-      <span data-clip data-clip-delay="150"><em>it is a result.</em></span>
-    </h2>
-    <p class="mn-human__b" data-reveal data-reveal-delay="180">
-      The school publishes that every student has a mentor, and its own adverts show what it requires
-      of a counsellor. It does not publish a ratio, a programme name, a meeting frequency, or how a
-      parent reaches a child’s mentor — and none of those is estimated here.
-    </p>
+    <ClipHeading class="as-h mn-human__h" id="mn-human-t" text={human.heading} />
+    <RichLine class="mn-human__b" text={human.body[0]} reveal revealDelay={180} />
   </div>
 </section>
 
@@ -301,16 +248,10 @@ const roles = ac.section('roles').points;
         <g stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" set:html={MARK.quote} />
       </svg>
     </span>
-    <p class="mn-final__t" data-reveal>
-      Knowing a student
-      <em>changes what support can mean.</em>
-    </p>
+    <RichLine class="mn-final__t" text={final.body[0]} reveal />
     <span class="as-dots mn-final__dots" aria-hidden="true"></span>
   </div>
-  <p class="u-container as-note mn-final__foot" data-reveal data-reveal-delay="140">
-    Where a difficulty turns out to be a subject rather than a state of mind, it goes to
-    {' '}<a class="as-link" href={REMEDIAL}>remedial support</a>.
-  </p>
+  <RichLine class="u-container as-note mn-final__foot" text={final.body[1]} linkClass="as-link" reveal revealDelay={140} />
 </section>
 
 <style>
@@ -322,7 +263,7 @@ const roles = ac.section('roles').points;
     gap: clamp(26px, 3.6vw, 56px);
     align-items: center;
   }
-  .mn-open__h { max-width: 14ch; }
+  :global(.mn-open__h) { max-width: 14ch; }
 
   /* ⚠ A PORTRAIT COMPOSITION, NOT A LANDSCAPE ONE. Mentoring is the page about
      people, and a 4:5 lead with a landscape frame across its foot reads closer
@@ -447,9 +388,9 @@ const roles = ac.section('roles').points;
       radial-gradient(64% 74% at 50% 44%, rgba(255, 92, 53, 0.15) 0%, transparent 72%);
   }
   .mn-human__inner { position: relative; display: grid; justify-items: center; text-align: center; }
-  .mn-human__h { max-width: 20ch; font-size: clamp(26px, 3.2vw, 46px); color: #fff; }
-  .mn-human__h em { color: var(--sb-lime); font-style: italic; }
-  .mn-human__b {
+  :global(.mn-human__h) { max-width: 20ch; font-size: clamp(26px, 3.2vw, 46px); color: #fff; }
+  :global(.mn-human__h em) { color: var(--sb-lime); font-style: italic; }
+  :global(.mn-human__b) {
     max-width: 66ch;
     margin: clamp(14px, 1.7vw, 21px) 0 0;
     font-size: clamp(12px, 0.88vw, 14px);
@@ -476,7 +417,7 @@ const roles = ac.section('roles').points;
     color: var(--sb-violet);
   }
   .mn-final__m svg { width: 50%; height: auto; }
-  .mn-final__t {
+  :global(.mn-final__t) {
     margin: 0;
     max-width: 30ch;
     padding-bottom: clamp(10px, 1.2vw, 15px);
@@ -488,9 +429,9 @@ const roles = ac.section('roles').points;
     letter-spacing: -0.032em;
     color: var(--sb-charcoal);
   }
-  .mn-final__t em { display: block; font-style: normal; color: var(--sb-violet); }
+  :global(.mn-final__t em) { display: block; font-style: normal; color: var(--sb-violet); }
   .mn-final__dots { top: 50%; right: 3%; translate: 0 -50%; width: clamp(64px, 6.4vw, 104px); }
-  .mn-final__foot { max-width: none; margin-top: clamp(14px, 1.7vw, 20px); }
+  :global(.mn-final__foot) { max-width: none; margin-top: clamp(14px, 1.7vw, 20px); }
 
   /* ═══ RESPONSIVE ══════════════════════════════════════════════════════════ */
   @media (max-width: 1179px) {
@@ -502,7 +443,7 @@ const roles = ac.section('roles').points;
     .mn-rel__grid { grid-template-columns: minmax(0, 1fr); gap: clamp(28px, 4vw, 40px); }
     .mn-open__stage,
     .mn-rel__stage { order: -1; }
-    .mn-open__h { max-width: none; }
+    :global(.mn-open__h) { max-width: none; }
     .mn-open__lead { width: 70%; aspect-ratio: 4 / 3; }
     .mn-jrn__ghost { font-size: clamp(64px, 13vw, 130px); }
     .mn-jrn__rail :global(.as-step:nth-child(2)),
@@ -523,7 +464,7 @@ const roles = ac.section('roles').points;
     .mn-person__n { grid-column: 2; margin-top: 0; }
 
     .mn-final__inner { grid-template-columns: minmax(0, 1fr); gap: clamp(13px, 3.6vw, 18px); }
-    .mn-final__t { max-width: none; }
+    :global(.mn-final__t) { max-width: none; }
     .mn-final__dots { display: none; }
   }
 </style>

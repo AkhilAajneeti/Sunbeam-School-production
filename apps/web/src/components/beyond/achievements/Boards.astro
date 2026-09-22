@@ -23,7 +23,7 @@
  * a card with a stock icon would be the "endless gallery" the audit objects to
  * on the live site, rebuilt in a nicer font.
  */
-import { getAchievementRecords } from '../../../lib/cms';
+import { getAchievementRecords, getAchievementsBands, getRecordBoards } from '../../../lib/cms';
 import SectionHead from '../../academics/SectionHead.astro';
 
 /* ⚠ FROM STRAPI NOW, NOT data/achievements.ts. Both boards are one content type
@@ -33,29 +33,36 @@ import SectionHead from '../../academics/SectionHead.astro';
    The old data file stays on disk until this is verified in a production build. */
 const { sportRecord, academicRecord } = await getAchievementRecords();
 
-const boards = [
-  {
-    id: 'sport',
-    label: 'Sport',
-    note: 'Every competition record the school publishes.',
-    items: sportRecord,
-  },
-  {
-    id: 'academic',
-    label: 'Academic & innovation',
-    note: 'Science, technology and public speaking.',
-    items: academicRecord,
-  },
-];
+/* The band's heading, from the Achievements Page single type. */
+const { record: bandCopy } = await getAchievementsBands();
+
+/**
+ * ⚠ THE BOARD HEADINGS AND THEIR ORDER NOW COME FROM THE CMS; THE ROWS DO NOT.
+ * The two are joined on `category`, the one field a header and its records
+ * share. So an editor reordering the two headers reorders the boards, and each
+ * board's rows follow their own header — but which records exist, and which
+ * board each belongs to, is still decided on the record itself.
+ *
+ * ⚠ A CATEGORY WITH NO RECORDS RENDERS AS AN EMPTY BOARD, not as an error. That
+ * is the honest state: the heading was published, nothing has been filed under
+ * it yet, and the count beside it reads 00.
+ */
+const byCategory = { sport: sportRecord, academic: academicRecord };
+
+const boards = (await getRecordBoards()).map((b) => ({
+  label: b.label,
+  note: b.note,
+  items: byCategory[b.category] ?? [],
+}));
 ---
 
 <section class="brd" id="record" aria-labelledby="brd-title">
   <div class="u-container">
     <SectionHead
       id="brd-title"
-      eyebrow="The rest of it"
-      heading="The full record"
-      stand="Everything else the school has published, on two boards."
+      eyebrow={bandCopy.eyebrow}
+      heading={bandCopy.heading}
+      stand={bandCopy.stand}
       align="start"
       measure={18}
     />

@@ -1,0 +1,89 @@
+{
+  "room": {
+    "kicker": "The room",
+    "heading": "A smart classroom\nis more than\n{{a screen.}}",
+    "body": [
+      "The useful question about a smart classroom is not whether a school has one. It is whether a teacher can **assume** it.",
+      "Alongside them it runs **two computer laboratories**, junior and senior, carrying **40+ machines each**."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pLabBusy"
+      },
+      {
+        "key": "pCanva"
+      }
+    ],
+    "runs": []
+  },
+  "sys": {
+    "kicker": "The digital classroom system",
+    "heading": "Four numbers,\n{{and one of them is a gap.}}",
+    "body": [
+      "Read together the first two say something a marketing sentence would not: {' '}**the panels do not yet reach every room.** This is a rollout in progress rather than a finished one — and a school that publishes both numbers has already given a parent the means to work that out."
+    ],
+    "caption": null,
+    "shots": [],
+    "runs": [
+      {
+        "field": "cells",
+        "list": "system"
+      }
+    ]
+  },
+  "beyond": {
+    "kicker": "Beyond the screen",
+    "heading": "Technology is the tool.\n{{Learning}} is the point.",
+    "body": [],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pLabRow"
+      },
+      {
+        "key": "pLabEmpty"
+      }
+    ],
+    "runs": [
+      {
+        "field": "cells",
+        "list": "beyond"
+      }
+    ]
+  },
+  "prac": {
+    "kicker": "Technology in practice",
+    "heading": "Real rooms.\nReal lessons.\n{{Nothing staged.}}",
+    "body": [
+      "Every photograph below is the school's own, and each caption says what is actually in it. None of them is a stock picture of somebody else's laboratory."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pLabTaught"
+      },
+      {
+        "key": "pCarnival"
+      },
+      {
+        "key": "pLabEmpty2"
+      }
+    ],
+    "runs": []
+  },
+  "close": {
+    "kicker": null,
+    "heading": "The classroom\n{{keeps changing.}}",
+    "body": [
+      "The school publishes its room counts, its panel count and the certification behind them. It does not publish a device-per-child ratio, a rollout schedule for the remaining rooms, or which classes take digital literacy and for how long — so none of those is described here."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pCohort"
+      }
+    ],
+    "runs": []
+  }
+}

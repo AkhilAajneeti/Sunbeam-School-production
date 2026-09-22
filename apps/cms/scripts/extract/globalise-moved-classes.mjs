@@ -18,18 +18,21 @@
  * fix, and this applies it to every class the page hands out — including
  * `linkClass`, which RichLine puts on the <a>.
  */
-import { readFileSync, writeFileSync } from 'node:fs';
+import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
-const DIR = resolve(HERE, '../../../web/src/components/academics/structure');
+const ACADEMICS = resolve(HERE, '../../../web/src/components/academics');
+/* The pages live in two folders; the file is looked for in both. */
+const FOLDERS = ['structure', 'teaching', 'assessment'];
+const dirFor = (page) => FOLDERS.find((d) => existsSync(`${ACADEMICS}/${d}/${page}.astro`)) ?? 'structure';
 
 const pages = process.argv.slice(2);
 if (!pages.length) { console.error('usage: globalise-moved-classes.mjs <PageName…>'); process.exit(1); }
 
 for (const page of pages) {
-  const p = `${DIR}/${page}.astro`;
+  const p = `${ACADEMICS}/${dirFor(page)}/${page}.astro`;
   let s = readFileSync(p, 'utf8');
 
   /* Every class this page hands to a component that renders the element. */

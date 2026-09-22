@@ -1,6 +1,6 @@
 ---
 import { getCampusSafetyData } from '../../../lib/cms';
-const {safetyGroups} = await getCampusSafetyData();
+const { safetyGroups, timelineBand } = await getCampusSafetyData();
 
 /**
  * §1 · SAFETY TIMELINE — the measures as a walked spine, not a card grid.
@@ -41,9 +41,9 @@ const icons: Record<string, string> = {
   <div class="u-container">
     <SectionHead
       id="stl-title"
-      eyebrow="What is in place"
-      heading="Eleven measures, in three groups"
-      stand="The school publishes five of these. The rest are marked, because a safety page is the last place to guess."
+      eyebrow={timelineBand.eyebrow}
+      heading={timelineBand.heading}
+      stand={timelineBand.stand}
       measure={20}
     />
 

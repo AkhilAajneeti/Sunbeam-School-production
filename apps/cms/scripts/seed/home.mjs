@@ -223,6 +223,14 @@ await withStrapi(async (strapi) => {
    * from is not stated anywhere; computing it would quietly change the
    * homepage on 1 January.
    */
+  /**
+   * ⚠ SEVEN SLIDES HERE, NOT NINE. The hero opens with two drone films that are
+   * NOT in this fixture and never were: their sources are fixed files in
+   * apps/web/public/video/, hand-encoded from ~55 MB masters with a specific
+   * ffmpeg recipe, and their posters are each film's own first frame committed
+   * to apps/web/src/assets/videos/. Hero.astro prepends them. Nothing about
+   * either is an editorial choice, so nothing about either is in the CMS.
+   */
   const heroSlides = DRY ? [] : await Promise.all((fx.heroSlides ?? []).map(async (sl, i) => ({
     alt: sl.alt, caption: sl.caption, brief: sl.brief,
     focalPoint: sl.focalPoint, tone: sl.tone,
@@ -265,16 +273,61 @@ await withStrapi(async (strapi) => {
   }));
 
   const HERO = {
-    heroTitle: 'Where Ballia’s \nFuture Leaders {{Take Shape}}',
-    heroDeck: 'A Sunbeam institution since 2013 — {currentStrength} students, Nursery to Class XII, on a campus built for how children actually learn.',
+    /**
+     * ⚠⚠ THE HEADLINE IS THREE LINES AND THE ACCENT IS ON "Leaders".
+     * It used to break as "Where Ballia's / Future Leaders {{Take Shape}}" —
+     * two lines, with the accent on the last three words. Both changed:
+     *   · the break moved so "Leaders" stands alone and can take the colour
+     *   · "Take Shape" became the quiet third line, set at 0.58em
+     * Hero.astro renders one block span per line here and treats the third as
+     * the small one. Do not re-flow this into two lines without reading §4 of
+     * the brief — the block structure is load-bearing, not cosmetic.
+     */
+    heroTitle: 'Where Ballia’s Future\n{{Leaders}}\nTake Shape',
+
+    /**
+     * ⚠⚠ VERBATIM CLIENT COPY. Do not re-cut this sentence.
+     *
+     * ⚠ AND IT NO LONGER INTERPOLATES {currentStrength}. The roll is not in the
+     * client's wording and the deck was quietly inserting it. The figure has
+     * not left the page — it is the middle stat card, which is where it was
+     * asked to be.
+     */
+    heroDeck: 'A Sunbeam institution since 2013 — a CBSE school from Nursery to Class XII, where children learn, grow and prepare for the future.',
+
+    /**
+     * ⚠ THE EYEBROW IS NEW, AND IT IS NOT THE MOTTO. The motto used to sit
+     * here, above the <h1>; the client asked for it below the deck instead.
+     * Hero.astro reads that from Site Settings rather than from a second copy
+     * kept here, so the two can never drift apart.
+     */
+    heroEyebrow: 'Welcome to Sunbeam School Ballia',
     heroActions: [
-      { label: 'Explore Academics', href: '/academics/', description: null, external: false },
-      { label: 'Explore the Campus', href: '/campus/', description: null, external: false },
+      /* ⚠ "Explore Sunbeam" LANDS ON /about/history-legacy/, NOT /academics/.
+         That page is titled "Our Journey" and is about the school itself; a
+         button reading Sunbeam that dropped a reader onto a syllabus was simply
+         mislabelled.
+         ⚠ NO ADMISSIONS BUTTON HERE. The hero used to carry both application
+         links — the same two already in the utility bar, the masthead pill and
+         the Admissions band below. Four copies of one action on one screen is
+         not four chances to convert; it is a page that will not let a reader
+         look around first. */
+      { label: 'Explore Sunbeam', href: '/about/history-legacy/', description: null, external: false },
+      /* ⚠ ADMISSIONS, NOT "Discover Our Campus". The earlier hero deliberately
+         kept admissions out — it argued four copies of one action on one screen
+         is a page that will not let a reader look around. The panel design puts
+         it back, so the note is kept here rather than deleted: if this ever
+         reverts, that is the reasoning it reverts to. */
+      { label: 'Admissions', href: '/admissions/', description: null, external: false },
     ],
     heroStats: [
-      { figure: '13', label: 'years in Ballia', note: null },
-      { figure: '{currentStrength}', label: 'students today', note: null },
-      { figure: '#1', label: 'co-ed day school, Ballia', note: null },
+      /* ⚠ TITLE CASE, AND THE THIRD CARRIES ITS OWN LINE BREAK. Hero.astro sets
+         the label `white-space: pre-line`, so the \n here is where the line
+         turns — "Co-ed Day School" over "in Ballia" — rather than wherever the
+         column happens to run out. */
+      { figure: '13+', label: 'Years in Ballia', note: null },
+      { figure: '{currentStrength}', label: 'Students Today', note: null },
+      { figure: '#1', label: 'Co-ed Day School\nin Ballia', note: null },
     ],
     heroSlides,
   };
@@ -393,6 +446,63 @@ await withStrapi(async (strapi) => {
    * transcribed here from the markup, character for character, and the
    * production diff is what proves the transcription.
    */
+
+  /**
+   * ⚠⚠ THE PRINCIPAL'S MESSAGE, VERBATIM — five paragraphs as the school sent
+   * it, signed by a named person. Do not tighten it, re-order it, re-punctuate
+   * it or shorten it.
+   *
+   * ⚠⚠ THE HOMEPAGE EXTRACT IS TAKEN FROM THIS ARRAY BY INDEX, NOT RETYPED —
+   * see PRINCIPAL_EXTRACT below. It used to be typed out separately, and the
+   * copy that had been live was NOT this text: it was a condensed rewrite of
+   * paragraph two, missing the words "focusing on", a comma, and the whole
+   * sentence beginning "Our classrooms are places of curiosity…". A paraphrase
+   * had been printing on the homepage under the Principal's signature, and
+   * nothing could catch it while the two were separate strings.
+   */
+  const PRINCIPAL_MESSAGE = [
+        'At Sunbeam School Ballia, we believe that education is not merely about imparting knowledge, but about nurturing character, inspiring creativity, and preparing young minds to lead with empathy and vision. Guided by the ethos of the Sunbeam Group, our mission is to create an environment where academic excellence goes hand-in-hand with values, discipline, and a deep sense of social responsibility.',
+        'The Sunbeam vision has always been to empower students with 21st-century skills while staying rooted in Indian culture and moral values. We are committed to holistic development — focusing on intellectual growth, physical well-being, emotional resilience, and ethical strength. Our classrooms are places of curiosity and collaboration, where innovative teaching methods meet modern technology, ensuring our students are ready for a dynamic world.',
+        'At Sunbeam School Ballia, we celebrate diversity of talent and encourage participation in sports, cultural activities, performing arts, and community service. From fostering leadership qualities to instilling environmental awareness, every initiative is aimed at shaping responsible global citizens.',
+        'As Principal, my role is to ensure that every child feels valued, safe, and inspired to achieve their full potential. Together with our dedicated teachers, supportive parents, and the larger Sunbeam family, we strive to uphold the group\u2019s proud legacy — Lighting the Lamp of Knowledge — and carrying forward the commitment to excellence in education.',
+        'Let us work together to nurture a generation that thinks critically, acts responsibly, and dreams fearlessly.',
+  ];
+
+  /**
+   * ⚠⚠ EXTRACTING MEANS DROPPING WHOLE SENTENCES, NEVER EDITING ONE.
+   *
+   * This is the rule the earlier drift broke: the copy that had been live was a
+   * condensed REWRITE of paragraph two, missing "focusing on", a comma and a
+   * whole sentence — a paraphrase printing under the Principal's signature.
+   * Cutting at a full stop cannot paraphrase. Trimming inside a sentence can.
+   */
+  const firstSentences = (text, n) => {
+    const parts = text.match(/[^.!?]+[.!?]+(?:\s|$)/g);
+    if (!parts || parts.length <= n) return text;
+    return parts.slice(0, n).join('').trim();
+  };
+
+  /**
+   * The two paragraphs the homepage panel shows.
+   *
+   * ⚠⚠ PREFIXES OF THE REAL PARAGRAPHS, TAKEN BY SLICING — not retyped, and not
+   * the whole paragraphs either. PrincipalSpeak is laid out for the pull quote
+   * and two SHORTENED paragraphs; handing it paragraphs 2 and 4 whole is about
+   * 2.2× the copy it was designed for, and it measurably overflows — the copy
+   * column spilled 25px past the section at both 1440px and 390px. Measured
+   * again after this cut: no spill at either width.
+   *
+   * ⚠ WHY THIS IS SAFE TO DUPLICATE. Each is an exact prefix of its paragraph,
+   * so /about/principals-message/ 's build-time guard — every extract paragraph
+   * must appear verbatim inside the full message — still holds. Drift is
+   * impossible by construction; the guard is the backstop for anyone editing in
+   * the admin instead of here.
+   */
+  const PRINCIPAL_EXTRACT = [
+    firstSentences(PRINCIPAL_MESSAGE[1], 2),
+    firstSentences(PRINCIPAL_MESSAGE[3], 1),
+  ];
+
   const leaders = [
     {
       role: 'director', src: fx.director,
@@ -406,7 +516,10 @@ await withStrapi(async (strapi) => {
       pending: null,
     },
     {
+      /* ⚠ `src` STILL SUPPLIES THE PORTRAIT AND CREDENTIALS. Only the prose
+         moved out of the extracted fixture and into PRINCIPAL_MESSAGE above. */
       role: 'principal', src: fx.principal,
+      paragraphs: PRINCIPAL_EXTRACT,
       name: school.principal,
       roleLabel: `Principal, ${school.name}`,
       eyebrow: 'Principal Speak',
@@ -414,7 +527,77 @@ await withStrapi(async (strapi) => {
       portraitAlt: `${school.principal}, Principal of Sunbeam School Ballia.`,
       portraitBrief: 'Principal portrait',
       pullQuote: 'At Sunbeam School Ballia, we believe that education is not merely about imparting knowledge, but about nurturing character, inspiring creativity, and preparing young minds to lead with empathy and vision.',
-      pending: 'A5 — the full message, proofread (audit 1.12)',
+
+      /**
+       * ⚠⚠ THE FULL MESSAGE, VERBATIM — five paragraphs as the school sent it.
+       * It is signed by a named person. Do not tighten it, re-order it,
+       * re-punctuate it or shorten it.
+       *
+       * ⚠ `paragraphs` ABOVE IS THE HOMEPAGE EXTRACT AND STAYS AS IT IS. The
+       * homepage panel is designed around the pull quote and two paragraphs;
+       * dropping all five into it would bury the rest of the page. The two it
+       * carries are the second and fourth paragraphs below, word for word —
+       * and /about/principals-message/ checks that at build time, so the
+       * extract cannot drift away from the message it is taken from.
+       *
+       * ⚠ THE PULL QUOTE IS THE FIRST SENTENCE OF PARAGRAPH ONE. The dedicated
+       * page therefore drops the quote and runs the message whole, rather than
+       * printing that sentence twice in a row or cutting it out of the prose.
+       */
+      fullMessage: PRINCIPAL_MESSAGE,
+
+      /* The full message arrived, so A5 is closed. */
+      pending: null,
+    },
+    /**
+     * ⚠⚠ THE VICE PRINCIPAL'S COPY IS THE SCHOOL'S OWN, VERBATIM, and it is
+     * signed by a named person. Do not tighten it, re-order it, re-punctuate it
+     * or shorten it — including the colon in "Our goal is simple:".
+     *
+     * ⚠ THE PULL QUOTE IS NOT REPEATED IN THE BODY. The school sent it as the
+     * message's first line, in quotation marks; it is set as the quote and the
+     * paragraphs start after it.
+     *
+     * ⚠ THE PORTRAIT IS THE SCHOOL'S OWN FILE, vicePrincipal.jpeg. Until it was
+     * supplied this row carried `pending: 'A17'` and the slot rendered the
+     * labelled placeholder — never another leader's photograph in its place.
+     */
+    {
+      /* ⚠ `src` CARRIES ONLY THE PORTRAIT HERE. The other two leaders' rows come
+         from a fixture extracted out of the old components, so their `src` holds
+         paragraphs and credentials too. The Vice Principal's copy was supplied
+         by the school directly and is written on this row; only the photograph
+         needs the same upload path as theirs. */
+      role: 'vice-principal',
+      src: { portrait: { absolutePath: P('assets/photos/vicePrincipal.jpeg') } },
+      name: 'Mr. Pankaj Singh',
+      roleLabel: 'Vice Principal, Sunbeam School Ballia',
+      eyebrow: 'Vice Principal Speak',
+      heading: 'A word from our {{Vice Principal}}',
+      portraitAlt: 'Mr. Pankaj Singh, Vice Principal of Sunbeam School Ballia.',
+      portraitBrief: 'Vice Principal portrait',
+      pullQuote:
+        'Education should challenge the mind, strengthen character, and give every child the resilience to rise after every setback.',
+      paragraphs: [
+        'At Sunbeam School Ballia, my focus is to build a culture of academic excellence, active learning and continuous growth. I believe classrooms should be democratic spaces where students are heard, respected and encouraged to question, participate and think independently.',
+        'Our goal is simple: strong academics, confident learners and resilient young minds ready to face the future.',
+      ],
+      /**
+       * ⚠⚠ `BCS` AND `PGDYO` ARE NOT EXPANDED, DELIBERATELY. Nobody has
+       * confirmed what either stands for, and guessing an abbreviation in print
+       * beside a named person's own qualifications is not acceptable.
+       *
+       * ⚠ THE ONLY EDITS TO WHAT THE SCHOOL SENT are a space after the full
+       * stop in "M.Sc.(Chemistry)" and the removal of the space before the
+       * comma in "BCS , Career Counsellor". Nothing else was touched.
+       */
+      credentials: [
+        'M.Sc. (Chemistry)',
+        'BCS, Career Counsellor',
+        'B.Ed & PGDYO',
+      ],
+      /* The portrait arrived; nothing on this page is outstanding now. */
+      pending: null,
     },
   ];
   for (const L of leaders) {
@@ -423,14 +606,23 @@ await withStrapi(async (strapi) => {
     const outcome = await upsertBySlug(strapi, LEADER, slug, {
       role: L.role, name: L.name, roleLabel: L.roleLabel,
       eyebrow: L.eyebrow, heading: L.heading, pullQuote: L.pullQuote,
-      paragraphs: paras(L.src.paragraphs),
-      credentials: facts(L.src.credentials),
-      portrait: await up(L.src.portrait, `leader-${slug}`, L.portraitAlt),
+      /* ⚠ A ROW MAY CARRY ITS OWN COPY INSTEAD OF AN EXTRACTED FIXTURE. The
+         two original leaders were transcribed out of the old components and
+         arrive as `src`; the Vice Principal's was supplied by the school
+         directly and is written on the row above. Neither is more correct —
+         but a row with no `src` must not dereference one. */
+      paragraphs: paras(L.paragraphs ?? L.src?.paragraphs),
+      /* Only the Principal has one so far; the others render `paragraphs`. */
+      fullMessage: paras(L.fullMessage),
+      credentials: facts(L.credentials ?? L.src?.credentials),
+      portrait: L.src?.portrait
+        ? await up(L.src.portrait, `leader-${slug}`, L.portraitAlt)
+        : null,
       portraitAlt: L.portraitAlt,
       portraitBrief: L.portraitBrief,
       pending: L.pending,
     });
-    console.log(`    leader (${L.role})${L.role === 'director' ? '    ' : '   '}${outcome}`);
+    console.log(`    leader (${L.role})${' '.repeat(Math.max(1, 16 - L.role.length))}${outcome}`);
   }
 
   /* ── VISION & MISSION ───────────────────────────────────────────────────── */

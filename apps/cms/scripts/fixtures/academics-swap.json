@@ -654,6 +654,22 @@
         "part": "photos",
         "route": "/academics/student-success/career-guidance/"
       },
+      "careerGuidanceOpen": {
+        "part": "block",
+        "route": "/academics/student-success/career-guidance/"
+      },
+      "careerGuidanceMain": {
+        "part": "block",
+        "route": "/academics/student-success/career-guidance/"
+      },
+      "careerGuidanceGive": {
+        "part": "block",
+        "route": "/academics/student-success/career-guidance/"
+      },
+      "careerGuidanceClose": {
+        "part": "block",
+        "route": "/academics/student-success/career-guidance/"
+      },
       "olympiads": {
         "part": "awards",
         "route": "/academics/student-success/olympiad-achievements/"

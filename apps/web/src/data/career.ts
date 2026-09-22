@@ -216,3 +216,47 @@ export const posters: Poster[] = [
 /** Used by the page's counter, so the number can never drift from the wall. */
 export const posterCount = posters.length;
 
+/**
+ * ═══ THE PAGE'S OWN COPY ═══════════════════════════════════════════════════
+ *
+ * Everything on /career/ that is not a job notice. These used to be literals
+ * inside career.astro; they live here so the seed can put them in the CMS.
+ *
+ * ⚠ THE POSTING COUNT IS NOT HERE. The page prints `posters.length`, so it can
+ * never disagree with the wall below it.
+ *
+ * ⚠ THE EMAIL, PHONE AND ADDRESS ARE NOT HERE EITHER — they come from site.ts
+ * and are printed in 57 files. Only the label and note around each are stored.
+ *
+ * ⚠ THE QUERY LAYER HOLDS A COPY as CAREER_DEFAULTS in lib/cms/queries/career.ts,
+ * the fallback for an unseeded CMS. Change one, change both, or seed again.
+ */
+export const careerCopy = {
+  wall: {
+    heading: 'Work at Sunbeam',
+    stand:
+      'Every notice the school has published, newest first. Each one names the roles, the ' +
+      'subjects and the qualification it asks for — select a poster to read it at full size.',
+  },
+  ctaCvLabel: 'Send your CV',
+  ctaCallLabel: 'Call the office',
+  apply: {
+    heading: 'How to apply',
+    stand: 'Three ways to reach the school about a post.',
+  },
+  applyMethods: [
+    {
+      label: 'By email',
+      note:
+        'Attach your CV and say which role you are applying for. Most of the notices above ask ' +
+        'for applications this way.',
+    },
+    { label: 'By phone', note: 'The school office, during school hours.' },
+    {
+      label: 'In person',
+      note:
+        'Driver and conductor applicants are asked to bring their documents and driving licence ' +
+        'to the school office.',
+    },
+  ],
+} as const;

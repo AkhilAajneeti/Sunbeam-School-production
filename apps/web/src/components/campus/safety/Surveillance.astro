@@ -1,6 +1,6 @@
 ---
 import { getCampusSafetyData } from '../../../lib/cms';
-const {surveillanceCards} = await getCampusSafetyData();
+const { surveillanceCards, surveillanceBand } = await getCampusSafetyData();
 
 /**
  * §6 · CAMPUS SURVEILLANCE — the dark close.
@@ -40,9 +40,9 @@ const icons: Record<string, string> = {
   <div class="u-container svl__inner">
     <SectionHead
       id="svl-title"
-      eyebrow="Watched over"
-      heading="Eyes on the campus, all day and all night"
-      stand="Cameras across the school, and guards on duty every hour of the year."
+      eyebrow={surveillanceBand.eyebrow}
+      heading={surveillanceBand.heading}
+      stand={surveillanceBand.stand}
       tone="dark"
       measure={20}
     />

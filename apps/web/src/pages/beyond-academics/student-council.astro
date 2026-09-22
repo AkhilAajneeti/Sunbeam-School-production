@@ -1,0 +1,45 @@
+---
+/**
+ * BEYOND ACADEMICS → STUDENT COUNCIL.
+ *
+ * The school's roll of office-holders, senior and junior. Every name and post
+ * is the school's own — read the header of data/studentCouncil.ts before
+ * editing any of them, because several of the spellings look like mistakes and
+ * are not ours to correct.
+ *
+ * ⚠ THE BANNER IS THE INVESTITURE CEREMONY ITSELF — the school's own backdrop
+ * reads "STUDENT COUNCIL INVESTITURE CEREMONY" and the sashes in frame are the
+ * posts this page lists. It is the one photograph in the library that shows
+ * this page's subject rather than standing in for it.
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/ui/PageHero.astro';
+import StudentCouncilPage from '../../components/beyond/council/StudentCouncilPage.astro';
+import { councilCount } from '../../data/studentCouncil';
+
+import banner from '../../assets/school-activities/investiture-ceremony/04.jpg';
+---
+
+<BaseLayout
+  title="Student Council — Sunbeam School Ballia"
+  description={`The ${councilCount} students holding office on the senior and junior student councils at Sunbeam School Ballia, and the posts they hold.`}
+>
+  <PageHero
+    title="Student Council"
+    standfirst="The students who hold office, and the posts they hold."
+    crumbs={[
+      { label: 'Home', href: '/' },
+      { label: 'Beyond Academics', href: '/beyond-academics/sports/' },
+    ]}
+    src={banner}
+    alt="The student council investiture ceremony at Sunbeam School Ballia, office-holders standing in sashes with the house flags behind them."
+    position="50% 40%"
+  />
+
+  {/* padding-block: 0 on the section inside — the panel owns the vertical
+      rhythm, and both adding it is what put a void under the hero on three
+      earlier pages. */}
+  <div class="u-page-panel">
+    <StudentCouncilPage />
+  </div>
+</BaseLayout>

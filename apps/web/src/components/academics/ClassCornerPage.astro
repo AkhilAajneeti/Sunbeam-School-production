@@ -1,0 +1,409 @@
+---
+/**
+ * ═══ CLASS CORNER — THE CARD GRID ══════════════════════════════════════════
+ *
+ * Four link cards on an ivory ground. Each card is an icon beside a body
+ * block: title, an optional kind pill, one line of description, and then
+ * either an "Open" cue or — for an item the school has not published — a
+ * pending stamp and a list of what is missing.
+ *
+ * Nothing here is school copy. The descriptions are this project's labels for
+ * the school's documents; the documents themselves stay on the school's own
+ * site and are linked, never copied.
+ */
+import { cornerItems } from '../../data/classCorner';
+
+/**
+ * ⚠ SIX ICONS FOR FOUR CARDS, ON PURPOSE. `person` and `star` are unused
+ * today and are kept for the same reason the pending branch below is kept —
+ * the next item the school owes will arrive needing one of them, and a set
+ * that has to be extended under time pressure is the set that ends up
+ * inconsistent. All are 24x24, stroke 1.7, round caps and joins; `star` is the
+ * one solid shape and carries its own fill.
+ */
+const ICONS: Record<string, string> = {
+  teacher:
+    '<circle cx="12" cy="7.5" r="3.4"/><path d="M4.5 20c0-3.7 3.4-6 7.5-6s7.5 2.3 7.5 6"/>',
+  clock: '<circle cx="12" cy="12" r="8.4"/><path d="M12 7.2V12l3.2 2"/>',
+  badge:
+    '<circle cx="12" cy="9" r="4.6"/><path d="m8.4 13.4-1.4 7 5-2.6 5 2.6-1.4-7"/>',
+  exam: '<path d="M6 3h9l3.5 3.5V21H6z"/><path d="M14.5 3v4H18M9 12h6M9 16h4"/>',
+  person:
+    '<circle cx="12" cy="8" r="3.4"/><path d="M5 20c0-3.5 3.1-5.8 7-5.8s7 2.3 7 5.8"/>',
+  star: '<path d="m12 3.6 2.6 5.3 5.8.8-4.2 4.1 1 5.8-5.2-2.8-5.2 2.8 1-5.8L3.6 9.7l5.8-.8Z" fill="currentColor" stroke="none"/>',
+};
+---
+
+<section class="ccn" id="class-corner" aria-labelledby="ccn-heading">
+  <span class="ccn__blob ccn__blob--a" aria-hidden="true"></span>
+  <span class="ccn__blob ccn__blob--b" aria-hidden="true"></span>
+
+  <div class="u-container">
+    <h2 class="ccn__h" id="ccn-heading">Class documents</h2>
+
+    <ul class="ccn__grid" role="list">
+      {
+        cornerItems.map((it) => {
+          /**
+           * ⚠⚠ A CARD WITH NOTHING TO LINK TO MUST NOT BE AN ANCHOR. Not a
+           * disabled anchor, not an anchor with href="#": no anchor at all. An
+           * <a> without an href is not focusable and announces nothing useful,
+           * and it would still pick up the hover lift.
+           */
+          const Tag = it.href ? 'a' : 'div';
+
+          /**
+           * ⚠ AN IN-PAGE ANCHOR MUST NOT OPEN A NEW TAB. The four document
+           * links go to the school's own site and genuinely do leave; an href
+           * beginning "#" points at a section on this very page, and sending
+           * that to a new tab reloads the page the reader is already on.
+           *
+           * The card that needed this — Academic Excellence, pointing at
+           * #academic-excellence — is gone. The branch stays, because the next
+           * in-page card would otherwise inherit the wrong behaviour in
+           * silence.
+           */
+          const inPage = !!it.href && it.href.startsWith('#');
+          const attrs = it.href
+            ? inPage
+              ? { href: it.href }
+              : { href: it.href, target: '_blank', rel: 'noopener' }
+            : {};
+
+          return (
+            <li>
+              <Tag
+                class:list={['ccn__card', !it.href && 'ccn__card--pending']}
+                {...attrs}
+              >
+                <span class="ccn__ico" aria-hidden="true">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.7"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    set:html={ICONS[it.icon] ?? ICONS.badge}
+                  />
+                </span>
+
+                <span class="ccn__b">
+                  {/* ⚠⚠ THE STAMP IS REAL TEXT AND IT COMES FIRST IN READING
+                      ORDER, not a ::before. A screen reader has to learn that
+                      this card is pending BEFORE it reads the title, otherwise
+                      it announces a document that does not exist and only
+                      contradicts itself a sentence later. */}
+                  {!it.href && it.pending && (
+                    <span class="ccn__stamp">{it.pending}</span>
+                  )}
+
+                  <h3 class="ccn__t">
+                    {it.title}
+                    {it.kind && <span class="ccn__kind">{it.kind}</span>}
+                  </h3>
+
+                  <span class="ccn__d">{it.body}</span>
+
+                  {it.href ? (
+                    <span class="ccn__cta">
+                      Open
+                      <svg viewBox="0 0 16 12" aria-hidden="true">
+                        <path
+                          d="M1 6h13M9.5 1.5 14 6l-4.5 4.5"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="1.7"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                      <span class="u-visually-hidden">
+                        {inPage
+                          ? ' — jumps to that section on this page'
+                          : ' — opens in a new tab'}
+                      </span>
+                    </span>
+                  ) : (
+                    it.needs &&
+                    it.needs.length > 0 && (
+                      <span class="ccn__needs">
+                        {/* ⚠ CHIPS NAME MISSING THINGS, NEVER VALUES —
+                            "name", never "Mr X". A real value in a chip stops
+                            being a placeholder and becomes a claim the school
+                            has not made. */}
+                        {it.needs.map((n) => (
+                          <span class="ccn__chip">{n}</span>
+                        ))}
+                      </span>
+                    )
+                  )}
+                </span>
+              </Tag>
+            </li>
+          );
+        })
+      }
+    </ul>
+
+    <p class="ccn__foot">
+      These documents are published and revised by the school office. If one is
+      out of date, or you cannot find your child&rsquo;s class in it, <a
+        href="/contact-us/">contact the school office</a
+      >.
+    </p>
+  </div>
+</section>
+
+<style>
+  /* ⚠⚠ THE STACKING CONTRACT — ALL FOUR OF THESE ARE LOAD-BEARING.
+     This section follows PageHero, which is `position: sticky; top: 0;
+     z-index: 0`. A positioned sibling left at `z-index: auto` paints above the
+     pinned banner only by tree order, and that stops being true the moment
+     anything between them creates a stacking context — the banner then shows
+     through the top of this section. That exact bug was reported three times.
+     ⚠ `isolation: isolate` ALONE DOES NOT FIX IT. The explicit z-index does.
+     ⚠ AND THE BACKGROUND HAS TO STAY OPAQUE. */
+  .ccn {
+    position: relative;
+    z-index: 1;
+    isolation: isolate;
+    background: var(--sb-ivory);
+    padding-block: var(--sb-section-y);
+    /* For the blobs below. Independent of the contract above, and no
+       substitute for it. */
+    overflow: hidden;
+  }
+
+  .ccn__blob {
+    position: absolute;
+    z-index: -1;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+  }
+  .ccn__blob--a {
+    top: -120px;
+    right: -80px;
+    width: 380px;
+    height: 380px;
+    background: rgba(201, 60, 10, 0.07);
+  }
+  .ccn__blob--b {
+    bottom: -140px;
+    left: -100px;
+    width: 420px;
+    height: 420px;
+    background: rgba(201, 60, 10, 0.05);
+  }
+
+  .ccn__h {
+    margin: 0 0 var(--sb-7);
+    font-family: var(--sb-font-display);
+    font-size: clamp(26px, 2.6vw, 34px);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--sb-ink);
+  }
+
+  /* ⚠⚠ align-items: start, NOT THE DEFAULT stretch. A pending card carries a
+     stamp, a sentence and a row of chips, so it stands much taller than a live
+     one. Under `stretch` the short live card beside it is pulled to the same
+     height and reads as half-empty — the one impression this page cannot
+     afford, since three of its four documents do exist. Cards size to their
+     own content and the row simply has a ragged foot. */
+  .ccn__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: start;
+    gap: var(--sb-5);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  /* The <li> is a flex box so the card fills its track whatever it contains. */
+  .ccn__grid > li {
+    display: flex;
+  }
+
+  .ccn__card {
+    display: flex;
+    gap: var(--sb-5);
+    width: 100%;
+    padding: var(--sb-6);
+    border: 1px solid rgba(18, 16, 15, 0.08);
+    border-radius: var(--sb-r-0);
+    background: var(--sb-paper);
+    box-shadow: 0 1px 2px rgba(28, 14, 8, 0.04);
+    color: inherit;
+    text-decoration: none;
+    transition:
+      transform 220ms ease,
+      box-shadow 220ms ease,
+      border-color 220ms ease;
+  }
+
+  /* ⚠⚠ THE SELECTOR IS `a.ccn__card`, NOT `.ccn__card`. A card that rises
+     under the pointer promises a click it cannot honour. Same reason there is
+     no cursor change and no focus ring on a pending card. */
+  a.ccn__card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(201, 60, 10, 0.24);
+    box-shadow:
+      0 2px 6px rgba(28, 14, 8, 0.05),
+      0 18px 38px -16px rgba(28, 14, 8, 0.28);
+  }
+  a.ccn__card:focus-visible {
+    outline: 2px solid var(--sb-violet);
+    outline-offset: 3px;
+  }
+
+  /* ⚠ FLAT, DASHED, NO SHADOW, NO LIFT — it must read as unfinished on
+     purpose. A pending card styled like a live one whose link merely failed to
+     render is worse than no card at all. */
+  .ccn__card--pending {
+    background: transparent;
+    border: 1px dashed rgba(18, 16, 15, 0.2);
+    box-shadow: none;
+  }
+
+  .ccn__ico {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--sb-lime-wash);
+    color: var(--sb-violet);
+  }
+  .ccn__ico svg {
+    width: 22px;
+    height: 22px;
+  }
+  .ccn__card--pending .ccn__ico {
+    background: rgba(18, 16, 15, 0.05);
+    color: var(--sb-text-muted);
+  }
+
+  .ccn__b {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+  }
+
+  .ccn__stamp {
+    align-self: start;
+    padding: 3px 9px;
+    border-radius: 999px;
+    background: rgba(18, 16, 15, 0.06);
+    font-size: var(--sb-caption);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--sb-text-muted);
+  }
+
+  .ccn__t {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0;
+    font-family: var(--sb-font-display);
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--sb-ink);
+  }
+
+  .ccn__kind {
+    padding: 2px 8px;
+    border: 1px solid rgba(201, 60, 10, 0.24);
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--sb-violet);
+  }
+
+  .ccn__d {
+    font-size: var(--sb-body-sm);
+    line-height: 1.6;
+    color: var(--sb-text-muted);
+  }
+
+  .ccn__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 4px;
+    font-size: var(--sb-caption);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--sb-violet);
+  }
+  .ccn__cta svg {
+    width: 15px;
+    height: 11px;
+    transition: transform 220ms ease;
+  }
+  a.ccn__card:hover .ccn__cta svg {
+    transform: translateX(3px);
+  }
+
+  .ccn__needs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 4px;
+  }
+  .ccn__chip {
+    padding: 3px 9px;
+    border: 1px dashed rgba(18, 16, 15, 0.22);
+    border-radius: 999px;
+    font-size: var(--sb-caption);
+    color: var(--sb-text-muted);
+  }
+
+  .ccn__foot {
+    margin: var(--sb-7) auto 0;
+    max-width: 62ch;
+    font-size: var(--sb-body-sm);
+    line-height: 1.7;
+    text-align: center;
+    color: var(--sb-text-muted);
+  }
+  .ccn__foot a {
+    color: var(--sb-violet);
+    text-underline-offset: 3px;
+  }
+  .ccn__foot a:hover {
+    color: var(--sb-violet-dark);
+  }
+
+  /* Four cards: 3 + 1 on desktop, 2 + 2 on tablet, stacked on a phone. */
+  @media (max-width: 1023px) {
+    .ccn__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 639px) {
+    .ccn__grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ccn__card,
+    .ccn__cta svg {
+      transition: none;
+    }
+    a.ccn__card:hover {
+      transform: none;
+    }
+  }
+</style>

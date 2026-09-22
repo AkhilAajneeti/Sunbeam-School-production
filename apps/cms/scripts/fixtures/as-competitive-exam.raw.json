@@ -1,0 +1,80 @@
+{
+  "open": {
+    "kicker": "Beyond the board syllabus",
+    "heading": "Four papers\n{{nobody has to sit}}",
+    "body": [
+      "None of the programmes below is compulsory, and none of them counts towards a board result. That is what makes entering them a decision — and the school names which ones it enters rather than describing a culture of enrichment in the abstract.",
+      "What each asks for is different in kind, which is the useful part for a family reading this: one is a written talent search, one is a defended project, one is an original idea, and one is a paper set from the primary years.",
+      "What has come back from them — the national qualifications and the placings — is recorded on {' '}<a class=\"as-link\" href={OLYMPIADS}>Olympiad Achievements</a> rather than repeated here."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pBench"
+      },
+      {
+        "key": "pComposite"
+      }
+    ],
+    "runs": []
+  },
+  "list": {
+    "kicker": "What each one asks",
+    "heading": "A search, a defence,\n{{an idea, a paper}}",
+    "body": [
+      "Read side by side, the four programmes ask for four different things — and between them they cover most of what a science education is supposed to produce. A student who can sit a talent search may not be the one who can defend a project in front of a panel.",
+      "Where the work is actually done is on {' '}<a class=\"as-link\" href={STEM}>STEM, Robotics & Enrichment</a>; CUET destinations are on {' '}<a class=\"as-link\" href={UNIVERSITY}>University Counselling</a>.",
+      "Other officially published opportunities",
+      "From time to time the school enables participation in other nationally notified science and academic programmes. It does not publish them as a standing list, so none is named here."
+    ],
+    "caption": null,
+    "shots": [],
+    "runs": [
+      {
+        "field": "cells",
+        "list": "programmes"
+      }
+    ]
+  },
+  "feat": {
+    "kicker": "Programmes, at a glance",
+    "heading": null,
+    "body": [],
+    "caption": null,
+    "shots": [],
+    "runs": [
+      {
+        "field": "cells",
+        "list": "features"
+      }
+    ]
+  },
+  "gal": {
+    "kicker": null,
+    "heading": null,
+    "body": [],
+    "caption": null,
+    "shots": [],
+    "runs": [
+      {
+        "field": "cells",
+        "list": "gallery"
+      }
+    ]
+  },
+  "close": {
+    "kicker": "Four national programmes",
+    "heading": "Named,\n{{so it can be checked.}}",
+    "body": [
+      "The school names the programmes it enters and the classes eligible for them. It does not publish a coaching timetable, how students are selected for entry, or whether preparation runs inside or outside the school day — and none of that is invented here."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pCohort",
+        "alt": ""
+      }
+    ],
+    "runs": []
+  }
+}

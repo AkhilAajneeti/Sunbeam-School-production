@@ -1,6 +1,6 @@
 ---
 import { getTransportData } from '../../lib/cms';
-const {routes, coverage, stopAliases, stats} = await getTransportData();
+const { routes, coverage, stopAliases, stats, finderBand, finderCopy } = await getTransportData();
 
 /**
  * ROUTE FINDER — the search, the area chips and the route cards.
@@ -90,15 +90,14 @@ const wordScale = (name: string) => {
 
 <section class="rf" id="routes" aria-labelledby="rf-t">
   <div class="u-container">
-    <p class="rf__eyebrow t-label">Route finder</p>
-    <h2 class="rf__h" id="rf-t" data-split>Find the bus that stops near you</h2>
-    <p class="rf__stand">
-      Type a locality, or pick one below. {stats.stops} boarding points across {stats.runs} runs.
-    </p>
+    <p class="rf__eyebrow t-label">{finderBand.eyebrow}</p>
+    <h2 class="rf__h" id="rf-t" data-split>{finderBand.heading}</h2>
+    {/* The counts are substituted by the query layer — see `fill()` there. */}
+    <p class="rf__stand">{finderBand.stand}</p>
 
     {/* --- Search ---------------------------------------------------------- */}
     <div class="rf__search" data-rf-search hidden>
-      <label class="rf__label" for="rf-q">Search by area or boarding point</label>
+      <label class="rf__label" for="rf-q">{finderCopy.searchLabel}</label>
       <div class="rf__field">
         <span class="rf__icon" aria-hidden="true">
           <svg width="17" height="17" viewBox="0 0 18 18" fill="none">
@@ -130,7 +129,7 @@ const wordScale = (name: string) => {
     {/* --- Area chips ------------------------------------------------------ */}
     <div class="rf__areas" data-rf-areas>
       <p class="rf__areas-h">
-        Areas we cover
+        {finderCopy.areasHeading}
         <span class="rf__areas-n">{coverage.length} boarding points</span>
       </p>
 
@@ -213,7 +212,7 @@ const wordScale = (name: string) => {
                      version of it. */
                   <span class="rc__staff">
                     <span class="rc__staff-t">Only staff</span>
-                    <span class="rc__staff-b">As published in the school’s route list.</span>
+                    <span class="rc__staff-b">{finderCopy.staffNote}</span>
                   </span>
                 ) : r.stops.length === 1 ? (
                   /* ⚠ ONE STOP MEANS ONE ENDPOINT. Bus No. 1's published route
@@ -330,9 +329,7 @@ const wordScale = (name: string) => {
 
               <div class="rcard__body">
                 {r.staffOnly ? (
-                  <p class="rcard__note">
-                    The number below still reaches this vehicle’s driver.
-                  </p>
+                  <p class="rcard__note">{finderCopy.driverNote}</p>
                 ) : (
                   <>
                     {/* The stop list is an ordered list because the school
@@ -384,13 +381,9 @@ const wordScale = (name: string) => {
     {/* Shown only when a search matches nothing. Rendered here, not built in
         JS — see the header note on the scoped-CSS trap. */}
     <div class="rf__empty" data-rf-empty hidden>
-      <p class="rf__empty-h">No published stop matches <span data-rf-empty-q></span>.</p>
-      <p class="rf__empty-b">
-        Routes are set each session and the published list may not name every
-        pick-up point. Speak to the transport in-charge before assuming your
-        area is not covered.
-      </p>
-      <a class="rf__empty-cta" href="#transport-contact">Contact the transport in-charge</a>
+      <p class="rf__empty-h">{finderCopy.emptyHeading} <span data-rf-empty-q></span>.</p>
+      <p class="rf__empty-b">{finderCopy.emptyBody}</p>
+      <a class="rf__empty-cta" href="#transport-contact">{finderCopy.emptyCta}</a>
     </div>
   </div>
 </section>

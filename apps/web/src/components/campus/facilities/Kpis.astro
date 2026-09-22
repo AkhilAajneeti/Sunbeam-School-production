@@ -1,6 +1,6 @@
 ---
 import { getFacilitiesData } from '../../../lib/cms';
-const {kpis} = await getFacilitiesData();
+const { kpis, figuresBand } = await getFacilitiesData();
 
 /**
  * §2 · INFRASTRUCTURE OVERVIEW — eight KPI cards.
@@ -25,9 +25,9 @@ import FacIcon from './FacIcon.astro';
   <div class="u-container">
     <SectionHead
       id="kpi-title"
-      eyebrow="The campus in figures"
-      heading="What the school actually has"
-      stand="Every number below is one Sunbeam Ballia publishes."
+      eyebrow={figuresBand.eyebrow}
+      heading={figuresBand.heading}
+      stand={figuresBand.stand}
       measure={20}
     />
 

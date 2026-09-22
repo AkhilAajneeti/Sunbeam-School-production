@@ -44,15 +44,15 @@ import { getAcademicCalendarPageData, fileUrl } from '../../../lib/cms';
    and live on an Academic Calendar Page Single Type beside them.
    The old data file remains on disk until this is verified in a production
    build. */
-const { calendars, calendarSource, calendarCarries, calendarPlanning } =
+const { calendars, calendarSource, calendarCarries, calendarPlanning, calendarShots } =
   await getAcademicCalendarPageData();
 
-import { getAcademicTopic } from '../../../lib/cms';
 
-const ac = await getAcademicTopic('/academics/academic-calendar/');
-const pMarch = ac.pic('pMarch');
-const pApril = ac.pic('pApril');
-const pCohort = ac.pic('pCohort');
+
+/* The two calendar sheets and the closing frame, in the order the page places
+   them. They used to come from the shared academics record, which meant this
+   page's words were edited in one place and its pictures in another. */
+const [sheetMarch, sheetApril, closeFrame] = calendarShots;
 
 const S = 'Sunbeam School Ballia';
 const CONTACT = '/contact-us/';
@@ -105,15 +105,15 @@ const has = calendars.length > 0;
         <a
           class="ac-sheet ac-sheet--back"
           data-lb-open
-          href={pMarch.src}
+          href={fileUrl(sheetMarch?.image)}
           data-lb-alt={`A month page of the Sunbeam School Calendar & Monthly Planner 2026-27, the calendar ${S} publishes for the current session`}
           data-lb-cap="Calendar & Monthly Planner 2026–27 · a month page"
           data-parallax
           data-parallax-y="-26"
         >
           <SmartImage
-            file={pMarch}
-            alt={ac.picAlt('pMarch')}
+            file={sheetMarch?.image}
+            alt={sheetMarch?.alt ?? ''}
            
             widths={[420, 720, 1000]}
             sizes="(max-width: 1023px) 62vw, 30vw"
@@ -125,15 +125,15 @@ const has = calendars.length > 0;
         <a
           class="ac-sheet ac-sheet--front"
           data-lb-open
-          href={pApril.src}
+          href={fileUrl(sheetApril?.image)}
           data-lb-alt={`A second month page of the Sunbeam School Calendar & Monthly Planner 2026-27, the month in which the session begins`}
           data-lb-cap="Calendar & Monthly Planner 2026–27 · the month the session begins"
           data-pop
           data-pop-delay="220"
         >
           <SmartImage
-            file={pApril}
-            alt={ac.picAlt('pApril')}
+            file={sheetApril?.image}
+            alt={sheetApril?.alt ?? ''}
            
             widths={[360, 620, 900]}
             sizes="(max-width: 1023px) 46vw, 22vw"
@@ -334,7 +334,7 @@ const has = calendars.length > 0;
   lead="Planned well,"
   accent="lives better."
   body="A clear academic plan helps your child stay prepared, confident and ready for what matters. The school's own calendar is the one to plan against — which is why this page gives you the document rather than a summary of it."
-  photo={pCohort}
+  photo={closeFrame?.image ?? null}
   position="50% 42%"
 />
 

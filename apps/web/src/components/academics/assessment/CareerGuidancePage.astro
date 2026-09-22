@@ -55,12 +55,38 @@ import Lightbox from '../../ui/Lightbox.astro';
    set from data/studentSuccess.ts. ─────────────────────────────────────────── */
 import { getAcademicTopic } from '../../../lib/cms';
 import SmartImage from '../../ui/SmartImage.astro';
+import ClipHeading from '../../ui/ClipHeading.astro';
+import RichLine from '../../ui/RichLine.astro';
 
 const ac = await getAcademicTopic('/academics/student-success/career-guidance/');
 const pTalk = ac.pic('pTalk');
 const pHall = ac.pic('pHall');
 const pCohort = ac.pic('pCohort');
 const careerGuidanceImages = ac.section('careerGuidanceImages').photos;
+
+/**
+ * ═══ THE PAGE'S PROSE, FROM THE CMS ════════════════════════════════════════
+ *
+ * ⚠ THESE FOUR BANDS USED TO BE WRITTEN INTO THE MARKUP BELOW. The school could
+ * not correct a word about its own careers programme without a developer, which
+ * is the thing this migration exists to end.
+ *
+ * ⚠ THE EMPHASIS AND THE LINK SURVIVED THE MOVE. <RichLine> parses `**bold**`,
+ * `*italic*` and `[label](/href)` and nothing else — enough to keep the quoted
+ * banner and the quoted blackboard doing their work, with no path from the CMS
+ * to arbitrary markup.
+ *
+ * ⚠ <ClipHeading> TAKES THE HEADING AS TWO LINES with `{{…}}` round the italic
+ * half. The line break is editorial — it is where the sentence turns — so it
+ * lives in the CMS field rather than in this file.
+ */
+const open = ac.section('careerGuidanceOpen');
+const main = ac.section('careerGuidanceMain');
+const give = ac.section('careerGuidanceGive');
+const close = ac.section('careerGuidanceClose');
+
+/* AsClose takes the two halves of its heading separately. */
+const [closeLead = '', closeAccent = ''] = (close.heading ?? '').split('\n');
 
 const S = 'Sunbeam School Ballia';
 
@@ -89,28 +115,12 @@ const story = ac.section('story').photos;
 
   <div class="u-container cg-open__grid">
     <div>
-      <p class="as-kicker" data-reveal>A conversation that counts</p>
-      <h2 class="as-h as-h--xl cg-open__h" id="cg-open-t">
-        <span data-clip data-clip-delay="0">It opens</span>
-        <span data-clip data-clip-delay="150"><em>with a room.</em></span>
-      </h2>
+      <p class="as-kicker" data-reveal>{open.eyebrow}</p>
+      <ClipHeading class="as-h as-h--xl cg-open__h" id="cg-open-t" text={open.heading} />
 
-      <p class="as-body" data-reveal data-reveal-delay="200">
-        The programme begins as a single session for the whole senior school. A visiting speaker
-        takes the hall on a lapel microphone under a deck headed <strong>“Dream BIG aim HIGH”</strong>,
-        opening on a line from Swami Vivekananda — <em>“knowledge does not mean simply intellectual
-        assent, it means realisation.”</em>
-      </p>
-      <p class="as-body" data-reveal data-reveal-delay="260">
-        Beside the stage the school has chalked one word on a blackboard and left it there:
-        <strong>CAREER</strong>. Twenty-six photographs of the day were published, and a second day
-        separately.
-      </p>
-      <p class="as-note" data-reveal data-reveal-delay="330">
-        The school does not publish who spoke or what was covered — his name is printed on the slide
-        behind him but cannot be read with certainty, so it is not guessed at here. The full
-        gallery is under {' '}<a class="as-link" href={ACTIVITY}>School Activities</a>.
-      </p>
+      <RichLine class="as-body" text={open.body[0]} reveal revealDelay={200} />
+      <RichLine class="as-body" text={open.body[1]} reveal revealDelay={260} />
+      <RichLine class="as-note" text={open.body[2]} linkClass="as-link" reveal revealDelay={330} />
     </div>
 
     <figure class="cg-open__stage">
@@ -161,17 +171,9 @@ const story = ac.section('story').photos;
     </div>
 
     <div class="cg-main__copy">
-      <p class="as-kicker" data-reveal>One student, one counsellor</p>
-      <h2 class="as-h as-h--lg" id="cg-main-t">
-        <span data-clip data-clip-delay="0">One</span>
-        <span data-clip data-clip-delay="150"><em>at a time.</em></span>
-      </h2>
-      <p class="as-body" data-reveal data-reveal-delay="200">
-        The school’s own hand-painted banner sets the audience, and it is a specific one:
-        <strong> “Career Counseling — Class X &amp; XI — Your Journey.”</strong> Behind that banner
-        the day stops being an assembly. Each student takes a chair opposite a counsellor working
-        from a laptop, and several bring a parent or an elder sibling to sit alongside.
-      </p>
+      <p class="as-kicker" data-reveal>{main.eyebrow}</p>
+      <ClipHeading class="as-h as-h--lg" id="cg-main-t" text={main.heading} />
+      <RichLine class="as-body" text={main.body[0]} reveal revealDelay={200} />
 
       <ol class="cg-record">
         {record.map((r, i) => (
@@ -199,11 +201,8 @@ const story = ac.section('story').photos;
 <section class="as-sec as-sec--paper as-pad--sm cg-give" aria-labelledby="cg-give-t">
   <div class="u-container cg-give__grid">
     <div class="cg-give__head">
-      <p class="as-kicker" data-reveal>What it gives</p>
-      <h2 class="as-h as-h--lg" id="cg-give-t">
-        <span data-clip data-clip-delay="0">Clarity today,</span>
-        <span data-clip data-clip-delay="150"><em>confidence tomorrow.</em></span>
-      </h2>
+      <p class="as-kicker" data-reveal>{give.eyebrow}</p>
+      <ClipHeading class="as-h as-h--lg" id="cg-give-t" text={give.heading} />
     </div>
 
     <ol class="as-cols" style="--n: 4;">
@@ -269,10 +268,10 @@ const story = ac.section('story').photos;
 
 <AsClose
   id="cg-close-t"
-  kicker="A day, in two halves"
-  lead="Your journey,"
-  accent="in their words."
-  body="The school publishes the programme, the year groups it is for, and twenty-six photographs of the first day. It does not publish who spoke, what was covered, or how a family books a session — and none of that is invented here."
+  kicker={close.eyebrow}
+  lead={closeLead}
+  accent={closeAccent.replace(/^\{\{|\}\}$/g, '')}
+  body={close.body[0]}
   photo={pCohort}
   position="50% 38%"
 />

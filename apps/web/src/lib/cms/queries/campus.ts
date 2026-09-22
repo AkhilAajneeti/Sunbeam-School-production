@@ -42,7 +42,94 @@ export interface RouteRun {
 }
 
 interface RawRoute extends Omit<RouteRun, 'stops'> { stops: RawFact[] | null; displayOrder: number }
-interface RawTransportPage { safety: RawMeasure[] | null; stopAliases: Record<string, string> | null }
+interface RawTransportPage {
+  overview: RawBand | null;
+  overviewCta: string | null;
+  overviewFigures: RawMeasure[] | null;
+  finder: RawBand | null;
+  finderSearchLabel: string | null;
+  finderAreasHeading: string | null;
+  finderStaffNote: string | null;
+  finderDriverNote: string | null;
+  finderEmptyHeading: string | null;
+  finderEmptyBody: string | null;
+  finderEmptyCta: string | null;
+  safetyHead: RawBand | null;
+  contactHead: RawBand | null;
+  safety: RawMeasure[] | null;
+  stopAliases: Record<string, string> | null;
+}
+
+/**
+ * ⚠⚠ TWO OF THESE BODIES CARRY TOKENS, AND THAT IS THE WHOLE POINT.
+ *
+ * `{buses}`, `{runs}` and `{stops}` are replaced with counts computed from the
+ * Bus Route collection. The alternative — letting an editor type "22 buses over
+ * 28 route runs" — freezes three numbers that the routes themselves already
+ * know, and they go wrong the first time a route is added. This is the same
+ * rule transportCountsSentence() exists for.
+ *
+ * An editor who deletes a brace gets the literal word on the page rather than a
+ * crash, which is the right failure for a CMS field.
+ */
+const fill = (text: string, stats: { buses: number; runs: number; stops: number }) =>
+  text
+    .replace(/\{buses\}/g, String(stats.buses))
+    .replace(/\{runs\}/g, String(stats.runs))
+    .replace(/\{stops\}/g, String(stats.stops));
+
+/**
+ * The copy that used to sit in TransportBands.astro and RouteFinder.astro.
+ * Every band reads `cms value ?? default` — see TOUR_DEFAULTS for the reasoning,
+ * which is unchanged here.
+ */
+const TRANSPORT_DEFAULTS = {
+  overview: {
+    eyebrow: 'Transport',
+    heading: 'A bus from most of Ballia',
+    stand:
+      'The school runs {buses} buses over {runs} route runs, calling at {stops} published ' +
+      'boarding points. Every route names its driver and prints a direct mobile number for ' +
+      'them — so the person driving your child is someone you can reach.',
+  },
+  overviewCta: 'Find your route',
+  /* The route finder's own prose. Its data labels — First stop, Driver, /stop —
+     are not here: they label the route data rather than say anything. */
+  finderCopy: {
+    searchLabel: 'Search by area or boarding point',
+    areasHeading: 'Areas we cover',
+    staffNote: 'As published in the school’s route list.',
+    driverNote: 'The number below still reaches this vehicle’s driver.',
+    emptyHeading: 'No published stop matches',
+    emptyBody:
+      'Routes are set each session and the published list may not name every pick-up point. ' +
+      'Speak to the transport in-charge before assuming your area is not covered.',
+    emptyCta: 'Contact the transport in-charge',
+  },
+  finder: {
+    eyebrow: 'Route finder',
+    heading: 'Find the bus that stops near you',
+    stand: 'Type a locality, or pick one below. {stops} boarding points across {runs} runs.',
+  },
+  safetyHead: {
+    eyebrow: 'Safety',
+    heading: 'What is fitted, and what we can confirm',
+    stand: 'Every line below is stated on the school’s own pages.',
+  },
+  contactHead: {
+    eyebrow: 'Contact',
+    heading: 'Anything the routes don’t answer',
+    stand:
+      'Allocation, stop changes, timings, charges and complaints all go to the transport ' +
+      'in-charge — not to the driver.',
+  },
+  /* ⚠ CAPTIONS ONLY — the numbers above them are computed from Bus Route. */
+  figures: [
+    { label: 'Buses on published routes', body: 'From a stated fleet of 29 and more' },
+    { label: 'Route runs', body: 'Several buses make two trips' },
+    { label: 'Boarding points', body: 'Across Ballia and the surrounding blocks' },
+  ],
+};
 
 export async function getBusRoutes(): Promise<RouteRun[]> {
   const raw = await cmsFetchAll<RawRoute>('/api/bus-routes', {
@@ -86,10 +173,35 @@ export async function getTransportData() {
     stops: coverage.length,
   };
 
+  /* Bands are filled AFTER stats is computed, so the tokens resolve. */
+  const tband = (raw: RawBand | null | undefined, fb: { eyebrow: string; heading: string; stand: string }) => {
+    const b = band(raw, fb);
+    return { ...b, stand: fill(b.stand, stats) };
+  };
+
+  const figures = (page?.overviewFigures ?? []).length
+    ? toMeasures(page?.overviewFigures).map((m) => ({ label: m.label, note: m.body }))
+    : TRANSPORT_DEFAULTS.figures.map((f) => ({ label: f.label, note: f.body }));
+
   return {
     routes,
     coverage,
     stats,
+    overviewBand: tband(page?.overview, TRANSPORT_DEFAULTS.overview),
+    overviewCta: page?.overviewCta?.trim() || TRANSPORT_DEFAULTS.overviewCta,
+    overviewFigures: figures,
+    finderBand: tband(page?.finder, TRANSPORT_DEFAULTS.finder),
+    finderCopy: {
+      searchLabel: page?.finderSearchLabel?.trim() || TRANSPORT_DEFAULTS.finderCopy.searchLabel,
+      areasHeading: page?.finderAreasHeading?.trim() || TRANSPORT_DEFAULTS.finderCopy.areasHeading,
+      staffNote: page?.finderStaffNote?.trim() || TRANSPORT_DEFAULTS.finderCopy.staffNote,
+      driverNote: page?.finderDriverNote?.trim() || TRANSPORT_DEFAULTS.finderCopy.driverNote,
+      emptyHeading: page?.finderEmptyHeading?.trim() || TRANSPORT_DEFAULTS.finderCopy.emptyHeading,
+      emptyBody: page?.finderEmptyBody?.trim() || TRANSPORT_DEFAULTS.finderCopy.emptyBody,
+      emptyCta: page?.finderEmptyCta?.trim() || TRANSPORT_DEFAULTS.finderCopy.emptyCta,
+    },
+    safetyHeadBand: tband(page?.safetyHead, TRANSPORT_DEFAULTS.safetyHead),
+    contactHeadBand: tband(page?.contactHead, TRANSPORT_DEFAULTS.contactHead),
     safety: toMeasures(page?.safety),
     stopAliases: page?.stopAliases ?? {},
     /* ⚠ FROM SITE SETTINGS, NOT STORED TWICE. data/transport.ts kept its own
@@ -129,9 +241,28 @@ interface RawGroup {
   stand: string | null; items: FacilityItem[] | null;
 }
 interface RawFacilitiesPage {
+  figures: RawBand | null;
   kpis: RawStat[] | null; groups: RawGroup[] | null;
   whyCards: RawPoint[] | null; progression: RawPoint[] | null;
 }
+
+/**
+ * ⚠⚠ THE ONE EDITABLE BAND HEAD ON /campus/facilities-infrastructure/.
+ *
+ * The other two bands on that page — the photo wall and the visit
+ * call-to-action — are the SAME COMPONENTS as /campus/ and read their copy from
+ * Campus Tour Page. Editing them here would need a second copy of both, which
+ * is how one heading becomes two that disagree.
+ *
+ * See TOUR_DEFAULTS below for why every band carries a fallback.
+ */
+const FACILITIES_DEFAULTS = {
+  figures: {
+    eyebrow: 'The campus in figures',
+    heading: 'What the school actually has',
+    stand: 'Every number below is one Sunbeam Ballia publishes.',
+  },
+};
 
 /** whyCards / progression → {icon, title, body} as the cards destructure them. */
 const toCards = (a: RawPoint[] | null | undefined) =>
@@ -148,6 +279,7 @@ export async function getFacilitiesData() {
   }));
 
   return {
+    figuresBand: band(p?.figures, FACILITIES_DEFAULTS.figures),
     kpis: toStats(p?.kpis),
     groups,
     /* Derived, exactly as facilities.ts derived it. */
@@ -167,7 +299,79 @@ interface RawFacility {
   slug: string; name: string; blurb: string; brief: string | null;
   alt: string; pending: boolean; gallery: PhotoComponent[] | null; displayOrder: number;
 }
-interface RawTourPage { overviewStats: RawStat[] | null; journey: RawPoint[] | null }
+/**
+ * A `structure.section` as Strapi sends it — only the head fields are used.
+ *
+ * ⚠ THE STANDFIRST IS `body[0]`, not a field of its own. structure.section has
+ * no single-line standfirst; `body` is shared.paragraph[] and the first entry is
+ * the line under the heading. Anything an editor types below the first
+ * paragraph is ignored by these bands — which is why the schema describes the
+ * field as "the standfirst" rather than "body".
+ */
+interface RawBand {
+  id: number;
+  kicker: string | null;
+  heading: string | null;
+  body: { id: number; text: string }[] | null;
+}
+
+/** `shared.point` with its `tags`, which carry the featured rooms' highlights. */
+interface RawFeatured extends RawPoint { tags: RawFact[] | null }
+
+interface RawTourPage {
+  overview: RawBand | null;
+  overviewStats: RawStat[] | null;
+  categories: RawBand | null;
+  gallery: RawBand | null;
+  featuredHead: RawBand | null;
+  featured: RawFeatured[] | null;
+  journeyHead: RawBand | null;
+  journey: RawPoint[] | null;
+  visit: RawBand | null;
+  visitCtaLabel: string | null;
+  visitCtaHref: string | null;
+  visitCallLabel: string | null;
+}
+
+export interface TourBand { eyebrow: string; heading: string; stand: string }
+export interface FeaturedRoom { id: string; title: string; body: string; highlights: string[] }
+
+/**
+ * ⚠⚠ THE DEFAULTS ARE THE COPY THAT USED TO BE HARDCODED IN THE COMPONENTS, AND
+ * THEY LIVE HERE SO THERE IS EXACTLY ONE OF EACH.
+ *
+ * Every band reads `cms value ?? default`. That means:
+ *
+ *   · an unseeded or unpublished CMS never renders a headless band — the page
+ *     is always shippable, which matters because this is the campus tour and a
+ *     missing heading reads as a broken page rather than as missing content;
+ *   · clearing a field in the admin RESTORES THE DEFAULT rather than emptying
+ *     the band. That is a deliberate trade and worth knowing: to change a
+ *     heading an editor must type a new one, not delete the old.
+ *
+ * ⚠ DO NOT COPY THESE STRINGS BACK INTO A COMPONENT. The whole point of this
+ * migration is that the components no longer carry copy.
+ */
+const TOUR_DEFAULTS = {
+  overview: { eyebrow: 'The campus at a glance', heading: 'Twelve laboratories, a library, and room to run' },
+  categories: { eyebrow: 'Where to look', heading: 'Every facility, by the room it is' },
+  gallery: { eyebrow: 'The whole wall', heading: '' },
+  featuredHead: { eyebrow: 'Worth stopping at', heading: 'Six rooms, and what each one is for' },
+  journeyHead: { eyebrow: 'A day, end to end', heading: 'How a student meets the campus' },
+  visit: { eyebrow: 'Come and see it', heading: 'Experience our campus in person' },
+  visitCtaLabel: 'Book a campus visit',
+  visitCtaHref: '/admissions/campus-visit/',
+  visitCallLabel: 'Or call admissions',
+} as const;
+
+const band = (
+  raw: RawBand | null | undefined,
+  fallback: { eyebrow: string; heading: string; stand?: string },
+): TourBand => ({
+  eyebrow: raw?.kicker?.trim() || fallback.eyebrow,
+  heading: raw?.heading?.trim() || fallback.heading,
+  stand: raw?.body?.[0]?.text?.trim() || fallback.stand || '',
+});
 
 export async function getCampusTourData() {
   const [raw, page] = await Promise.all([
@@ -192,6 +396,17 @@ export async function getCampusTourData() {
     f.images.map((src) => ({ src, alt: f.alt, facility: f.name, id: f.id })),
   );
 
+  /* ⚠ `icon` CARRIES THE FACILITY ID, for `featured` exactly as it already does
+     for `journey` — both bands match a card to a facility by that key, and the
+     photograph comes from the facility rather than from the card. A room whose
+     `icon` matches no facility simply does not render. */
+  const featured: FeaturedRoom[] = (page?.featured ?? []).map((f) => ({
+    id: f.icon ?? '',
+    title: f.title,
+    body: f.body,
+    highlights: values(f.tags),
+  }));
+
   return {
     facilities,
     shot,
@@ -199,6 +414,23 @@ export async function getCampusTourData() {
     overviewStats: toStats(page?.overviewStats),
     /* journey stored its facility reference in `icon`; the band reads `id`. */
     journey: (page?.journey ?? []).map((j) => ({ id: j.icon, label: j.title, body: j.body })),
+
+    /* Band copy — see TOUR_DEFAULTS for why each one has a fallback. */
+    overviewBand: band(page?.overview, TOUR_DEFAULTS.overview),
+    categoriesBand: band(page?.categories, TOUR_DEFAULTS.categories),
+    galleryBand: band(page?.gallery, TOUR_DEFAULTS.gallery),
+    featuredBand: band(page?.featuredHead, TOUR_DEFAULTS.featuredHead),
+    journeyBand: band(page?.journeyHead, TOUR_DEFAULTS.journeyHead),
+    visitBand: band(page?.visit, TOUR_DEFAULTS.visit),
+    visitCtaLabel: page?.visitCtaLabel?.trim() || TOUR_DEFAULTS.visitCtaLabel,
+    visitCtaHref: page?.visitCtaHref?.trim() || TOUR_DEFAULTS.visitCtaHref,
+    visitCallLabel: page?.visitCallLabel?.trim() || TOUR_DEFAULTS.visitCallLabel,
+
+    /* ⚠ EMPTY UNTIL SEEDED, AND THE COMPONENT FALLS BACK TO ITS OWN ROWS. The
+       six featured rooms are the one piece of this band with no sensible
+       default here — they are 6 × (title + body + 3 highlights), which belongs
+       in the seed, not in a constant in the query layer. */
+    featured,
   };
 }
 
@@ -212,7 +444,53 @@ interface RawMapPoint {
   id: number; pointId: string; label: string; body: string;
   x: number; y: number; verified: boolean; photo: string | null;
 }
+/**
+ * ⚠⚠ THE FIVE BAND HEADS, IN PAGE ORDER. Their defaults are the copy that used
+ * to be hardcoded in the five components, and they live here so there is exactly
+ * one of each — see TOUR_DEFAULTS for the full reasoning, which applies
+ * unchanged: an unseeded CMS never renders a headless band, and clearing a field
+ * in the admin restores the default rather than emptying it.
+ *
+ * ⚠ TWO HEADINGS COUNT THINGS — "Eleven measures, in three groups" and
+ * "Twenty-two routes across Ballia". They are editable like any other line, so
+ * an editor who adds a measure must update the heading too; nothing here
+ * recomputes them, because the sentence is prose rather than a figure.
+ */
+const SAFETY_DEFAULTS = {
+  timeline: {
+    eyebrow: 'What is in place',
+    heading: 'Eleven measures, in three groups',
+    stand: 'The school publishes five of these. The rest are marked, because a safety page is the last place to guess.',
+  },
+  plan: {
+    eyebrow: 'Where things are',
+    heading: 'The campus, point by point',
+    stand: 'A schematic — it shows what sits where, not what the buildings look like.',
+  },
+  transport: {
+    eyebrow: 'Getting there and back',
+    heading: 'The journey is part of the school day',
+    stand: 'Twenty-two routes across Ballia, and a fleet that is tracked and speed-limited on every one of them.',
+  },
+  wellbeing: {
+    eyebrow: 'Looking after the child',
+    heading: 'Someone notices',
+    stand: 'Equipment keeps a building safe. People are what keep a child feeling safe in it.',
+  },
+  surveillance: {
+    eyebrow: 'Watched over',
+    heading: 'Eyes on the campus, all day and all night',
+    stand: 'Cameras across the school, and guards on duty every hour of the year.',
+  },
+};
+
+/** shared.figure — a string figure, so "29+" and "100%" survive as written. */
+interface RawFigure { id: number; figure: string; label: string; note: string | null }
+
 interface RawSafetyPage {
+  timeline: RawBand | null; plan: RawBand | null; transport: RawBand | null;
+  transportFigures: RawFigure[] | null;
+  wellbeing: RawBand | null; surveillance: RawBand | null;
   safetyGroups: RawSafetyGroup[] | null; mapPoints: RawMapPoint[] | null;
   emergencySteps: RawPoint[] | null; emergencyPoints: RawMeasure[] | null;
   transportFeatures: RawMeasure[] | null; wellbeingCards: RawPoint[] | null;
@@ -225,6 +503,21 @@ export async function getCampusSafetyData() {
   });
 
   return {
+    /* Band copy — see SAFETY_DEFAULTS for why each carries a fallback. */
+    timelineBand: band(p?.timeline, SAFETY_DEFAULTS.timeline),
+    planBand: band(p?.plan, SAFETY_DEFAULTS.plan),
+    transportBand: band(p?.transport, SAFETY_DEFAULTS.transport),
+    /* ⚠ TYPED IN THE CMS, NOT DERIVED FROM Bus Route. getTransportData()
+       computes 22 distinct vehicles from the published routes; this band says
+       "29+ buses in the fleet". Both can be true — a school can own more buses
+       than appear on route sheets — so computing these would silently change a
+       published number. It is a content decision, not a refactor. */
+    transportFigures: (p?.transportFigures ?? []).map((f) => ({
+      value: f.figure, label: f.label, note: f.note,
+    })),
+    wellbeingBand: band(p?.wellbeing, SAFETY_DEFAULTS.wellbeing),
+    surveillanceBand: band(p?.surveillance, SAFETY_DEFAULTS.surveillance),
+
     safetyGroups: (p?.safetyGroups ?? []).map((g) => ({
       id: g.groupId, numeral: g.numeral, title: g.title, stand: g.stand,
       measures: toMeasures(g.measures),

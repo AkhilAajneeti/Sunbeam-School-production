@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_achievements_record_boards",
+  "info": {
+    "displayName": "Record Board",
+    "icon": "trophy",
+    "description": "The heading above one of the two boards on Beyond Academics → Achievements. ⚠ `category` IS A JOIN KEY, NOT A LABEL — it must match the `category` on the Achievement Records that belong under this heading, or the board renders empty. Change the label freely; change the category only if you are also re-categorising the records themselves."
+  },
+  "options": {},
+  "attributes": {
+    "category": {
+      "type": "enumeration",
+      "enum": [
+        "sport",
+        "academic"
+      ],
+      "required": true
+    },
+    "label": {
+      "type": "string",
+      "required": true,
+      "maxLength": 60
+    },
+    "note": {
+      "type": "text",
+      "maxLength": 200
+    }
+  }
+}

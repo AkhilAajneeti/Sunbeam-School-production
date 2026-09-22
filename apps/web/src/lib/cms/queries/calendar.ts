@@ -9,7 +9,9 @@
 import { cmsFetchAll, cmsFetchOne } from '../client';
 import { CALENDAR_DOCUMENT_POPULATE, ACADEMIC_CALENDAR_PAGE_POPULATE } from '../populate';
 import { fileUrl } from '../media';
-import type { CalendarDocument, AcademicCalendarPage, PointItem, StrapiFile } from '../types';
+import type {
+  CalendarDocument, AcademicCalendarPage, PointItem, StrapiFile, PhotoComponent,
+} from '../types';
 
 /** What Strapi sends for shared.point, before it is mapped back. */
 interface RawPoint {
@@ -20,7 +22,8 @@ interface RawPoint {
   body: string;
 }
 type RawCalendar = CalendarDocument & { document?: StrapiFile | null };
-type RawPage = Omit<AcademicCalendarPage, 'carries' | 'planning'> & {
+type RawPage = Omit<AcademicCalendarPage, 'carries' | 'planning' | 'shots'> & {
+  shots: PhotoComponent[] | null;
   carries: RawPoint[] | null;
   planning: RawPoint[] | null;
 };
@@ -67,6 +70,7 @@ export async function getAcademicCalendarPage(): Promise<AcademicCalendarPage> {
     source: raw?.source ?? null,
     carries: points(raw?.carries),
     planning: points(raw?.planning),
+    shots: raw?.shots ?? [],
     seo: raw?.seo ?? null,
   };
 }
@@ -77,6 +81,7 @@ export async function getAcademicCalendarPageData(): Promise<{
   calendarSource: string | null;
   calendarCarries: PointItem[];
   calendarPlanning: PointItem[];
+  calendarShots: PhotoComponent[];
 }> {
   const [calendars, page] = await Promise.all([getCalendars(), getAcademicCalendarPage()]);
 
@@ -85,5 +90,6 @@ export async function getAcademicCalendarPageData(): Promise<{
     calendarSource: page.source,
     calendarCarries: page.carries,
     calendarPlanning: page.planning,
+    calendarShots: page.shots,
   };
 }

@@ -1,0 +1,26 @@
+{
+  "kind": "singleType",
+  "collectionName": "publications_page",
+  "info": {
+    "singularName": "publications-page",
+    "pluralName": "publications-pages",
+    "displayName": "Publications Page",
+    "description": "The headings on /publications/, and the MYRA STEM Lab newsletter pages. ⚠ THE PUBLICATIONS THEMSELVES ARE NOT HERE — each newsletter, magazine and e-paper is a row in the Publications collection, because the school adds to that list regularly and a 33-entry nested list is not something anyone should have to scroll. This holds only what wraps them. ⚠ THE BANNER, PAGE TITLE AND SEO ARE ON PAGE META for /publications/, which is where every page on the site keeps them, banner upload included."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "groupHeadings": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.detail"
+    },
+    "myraPages": {
+      "type": "component",
+      "repeatable": true,
+      "component": "publications.myra-page"
+    }
+  }
+}

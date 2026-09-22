@@ -1,6 +1,6 @@
 ---
 import { getCampusSafetyData } from '../../../lib/cms';
-const {wellbeingCards} = await getCampusSafetyData();
+const { wellbeingCards, wellbeingBand } = await getCampusSafetyData();
 
 /**
  * §5 · STUDENT WELLBEING — the warm band.
@@ -31,9 +31,9 @@ const icons: Record<string, string> = {
   <div class="u-container">
     <SectionHead
       id="wlb-title"
-      eyebrow="Looking after the child"
-      heading="Someone notices"
-      stand="Equipment keeps a building safe. People are what keep a child feeling safe in it."
+      eyebrow={wellbeingBand.eyebrow}
+      heading={wellbeingBand.heading}
+      stand={wellbeingBand.stand}
       measure={16}
     />
 

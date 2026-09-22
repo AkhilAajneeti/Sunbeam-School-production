@@ -1,0 +1,126 @@
+{
+  "open": {
+    "kicker": "What the school publishes",
+    "heading": "A pattern,\n{{not a policy.}}",
+    "body": [
+      "The school states one thing about homework: that it is **set to a published pattern** rather than assigned subject by subject on the day. That is the whole of it, and the whole of it is what appears here.",
+      "No minutes per night, no days per subject, no weekend rule, no holiday rule — because none of those is published, and a family that plans its evenings around an invented figure would be planning around us rather than around the school."
+    ],
+    "caption": "Published\nOften assumed",
+    "shots": [],
+    "runs": [
+      {
+        "field": "cells",
+        "list": "published"
+      },
+      {
+        "field": "cellsTwo",
+        "list": "assumed"
+      }
+    ]
+  },
+  "item": {
+    "kicker": "Where the question is actually answered",
+    "heading": "Item five,\n{{and item eleven.}}",
+    "body": [
+      "The more useful fact is not on the school’s homework page at all — it is projected on a screen in its Parents’ Forum. The agenda runs to **twelve items**, and two of them are this subject.",
+      "A parent who wants to know how much homework is set, and whether it comes back marked, has a standing item on a published agenda to raise it under. That is a better answer than a paragraph describing a policy this site cannot verify."
+    ],
+    "caption": "The Parents’ Forum for Classes IX to XII, session 2025-26 — its agenda projected in the room.",
+    "shots": [
+      {
+        "key": "pPanel"
+      },
+      {
+        "key": "pTiers"
+      }
+    ],
+    "runs": []
+  },
+  "frame": {
+    "kicker": "The homework framework",
+    "heading": "What parents can\n{{actually expect.}}",
+    "body": [
+      "Steps three and four describe a published *channel* — the forum agenda — rather than a rule about marking turnaround, because the school publishes the channel and not the rule."
+    ],
+    "caption": null,
+    "shots": [],
+    "runs": [
+      {
+        "field": "cells",
+        "list": "framework"
+      }
+    ]
+  },
+  "clear": {
+    "kicker": "For parents",
+    "heading": "Less guessing.\n{{More clarity.}}",
+    "body": [
+      "Homework at Sunbeam follows the school’s published approach. Where there is a question about it, the three places on the right are where it can be put — and each of them is a channel the school names itself."
+    ],
+    "caption": null,
+    "shots": [],
+    "runs": [
+      {
+        "field": "cells",
+        "list": "places"
+      }
+    ]
+  },
+  "gap": {
+    "kicker": "What is not published",
+    "heading": "What the page\n{{doesn’t pretend to know.}}",
+    "body": [
+      "Each of the four was checked for on the school’s site and is genuinely absent. We do not assume, estimate or invent any of them."
+    ],
+    "caption": null,
+    "shots": [],
+    "runs": [
+      {
+        "field": "cells",
+        "list": "unknown"
+      }
+    ]
+  },
+  "ask": {
+    "kicker": "When a question needs an answer",
+    "heading": "Ask the school,\n{{not the assumption.}}",
+    "body": [
+      "The Parents’ Forum, parent–teacher interaction and the school office are the three channels the school names. Between them they cover homework practice, feedback, correction and the support that follows.",
+      "Meeting dates are on the {' '}<a class=\"as-link\" href={PTM}>parent–teacher meetings</a> page; the office line is on {' '}<a class=\"as-link\" href={CONTACT}>Contact</a>."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pSeated"
+      },
+      {
+        "key": "pHall"
+      },
+      {
+        "key": "pLibrary"
+      }
+    ],
+    "runs": [
+      {
+        "field": "cells",
+        "list": "ask"
+      }
+    ]
+  },
+  "close": {
+    "kicker": "One sentence, one agenda item",
+    "heading": "Published clearly.\n{{Discussed openly.}}",
+    "body": [
+      "The school publishes that homework follows a pattern, and gives parents two standing agenda items to raise it under. The pattern itself — the load, the days, the weekend and holiday rules — is not published anywhere on its site, and nothing has been invented to fill the gap."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pCohort",
+        "alt": ""
+      }
+    ],
+    "runs": []
+  }
+}

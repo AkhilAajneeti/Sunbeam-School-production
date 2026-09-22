@@ -1,0 +1,40 @@
+{
+  "kind": "singleType",
+  "collectionName": "smart_classrooms_pages",
+  "info": {
+    "singularName": "smart-classrooms-page",
+    "pluralName": "smart-classrooms-pages",
+    "displayName": "Smart Classrooms",
+    "description": "The Smart Classrooms page (/academics/teaching-learning/smart-classrooms/) — one named field per band of the page, in the order a reader meets them. ⚠ Every band is the same shape: a label, a heading, paragraphs, photographs and a run of cells. What differs is how the page lays that out, and the page owns it. Bands cannot be reordered, added or removed."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "room": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "sys": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "beyond": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "prac": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "close": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    }
+  }
+}

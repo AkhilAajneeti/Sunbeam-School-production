@@ -1,0 +1,56 @@
+---
+/**
+ * PUBLICATIONS — /publications/
+ *
+ * ⚠ THE PATH MATCHES THE SCHOOL'S LIVE URL, sunbeamballia.edu.in/publications/,
+ * so an existing inbound link or bookmark lands here rather than on a 404. The
+ * footer of the live site links it from BEYOND ACADEMICS; the same entry has
+ * been added to this site's nav.
+ *
+ * ⚠ SAME HERO AS EVERY OTHER INNER PAGE. `PageHero` with title, standfirst,
+ * crumbs and an image — the identical call /parents-feedback/ makes, and the
+ * reason the brief's "do not build a special Publications banner" is satisfied
+ * for free. PageHero itself is untouched.
+ *
+ * ⚠⚠ NOT THE OLD SITE'S banner_publications-journals.jpeg. That is a stock
+ * bookshelf graphic with "Publications & Journals" baked into the pixels: in a
+ * PageHero it prints the page title twice, and the centred crop cuts straight
+ * through the baked words. This is the school's own Nalanda Library reading
+ * room, with the magazine racks in shot.
+ *
+ * ⚠⚠ `crumbs` CARRIES EVERYTHING EXCEPT THIS PAGE. PageHero appends the title
+ * itself and marks it aria-current — passing "Publications" in the array gives
+ * you Home / Publications / Publications.
+ *
+ * ⚠ TITLE AND CRUMBS PASSED EXPLICITLY. Most static routes take their SEO from
+ * a CMS page-meta row keyed on the path; this route has none yet. Seed one and
+ * these props can come out — the same note applies to /parents-feedback/.
+ *
+ * The panel's `padding-block: 0` is inline for the reason recorded on
+ * /parents-feedback/: a scoped rule can skew against its build hash and reopen
+ * a white band above the footer. The bands inside carry their own padding.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/ui/PageHero.astro';
+import PublicationsPage from '../components/publications/PublicationsPage.astro';
+
+import banner from '../assets/library/DSC_1239 copy.jpg';
+---
+
+<BaseLayout
+  title="Publications — Sunbeam School Ballia"
+  description="Newsletters, magazines and e-newspapers published by Sunbeam School Ballia — the student club newsletters, MYRA STEM LAB, Dishayein, Balashray, Sandesh times and the monthly e-newspaper."
+>
+  <PageHero
+    title="Publications"
+    standfirst="Stories, journals and publications from the Sunbeam community."
+    crumbs={[{ label: 'Home', href: '/' }]}
+    src={banner}
+    alt="The Nalanda Library reading room at Sunbeam School Ballia, its magazine racks stocked and the reading tables set out."
+    position="50% 54%"
+  />
+
+  <div class="u-page-panel" style="padding-block: 0;">
+    <PublicationsPage />
+  </div>
+</BaseLayout>

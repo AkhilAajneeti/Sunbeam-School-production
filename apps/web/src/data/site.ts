@@ -218,6 +218,7 @@ export const pending = {
   A7: 'News, events and notices — content plus an update cadence owner',
   A8: 'Admission eligibility, age criteria, dates, fee data',
   A9: 'Decision on YouTube and X — maintain or remove (audit 14.3)',
+  A14: "Class Corner — the Examination In-charge's name, designation and contact (never published; the placeholder was removed at the client's request 19 Sep 2026). Also: confirmation of the Class XII 2022-23 figure 97.40, whose decimal point is not legible on the board; and agreed wording for the \"continuous district topper\" record, which is NOT published until the school supplies it.",
   B1: 'Affiliation and partner logos, with permission to use each mark',
   B2: 'Vector logo originals — only an 816px raster exists',
 } as const;

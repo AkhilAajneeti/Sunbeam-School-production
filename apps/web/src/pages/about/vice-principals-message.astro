@@ -1,0 +1,81 @@
+---
+/**
+ * ABOUT → VICE PRINCIPAL'S MESSAGE
+ *
+ * The school supplied this message directly, signed by a named person. It runs
+ * verbatim — see the row in apps/cms/scripts/seed/home.mjs, which carries the
+ * note about what was and was not edited.
+ *
+ * ⚠ THE PORTRAIT IS NOT YET SUPPLIED. `vicePrincipal.jpeg` has not arrived, so
+ * the slot renders LeaderMessage's labelled placeholder rather than borrowing
+ * the Principal's or the Director's photograph. Tracked as A17.
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/ui/PageHero.astro';
+import LeaderMessage from '../../components/about/LeaderMessage.astro';
+import { getLeaderMessage } from '../../lib/cms';
+import { teachers } from '../../data/disclosure';
+import banner from '../../assets/photos/sunbeem-1.jpg';
+
+const leader = await getLeaderMessage('vice-principal');
+
+/**
+ * ═══ THE BUILD FAILS IF THE CBSE FILING AND THIS PAGE EVER DISAGREE ════════
+ *
+ * ⚠⚠ THIS GUARD IS THE ONLY REASON THE CREDENTIAL LIST IS SAFE TO PRINT.
+ *
+ * The school's mandatory public disclosure — a statutory filing, published as a
+ * PDF and transcribed into data/disclosure.ts — records this post holder's
+ * qualification as the bare string "M.Sc.". The list the school sent for this
+ * page EXPANDS that to "M.Sc. (Chemistry)" and adds two more lines. Expanding a
+ * filing is fine; contradicting one is not, and nobody would notice a
+ * contradiction creeping in years later when the next filing is transcribed.
+ *
+ * So: if a future disclosure ever records something that is not an M.Sc. for
+ * this post, this throws at build time and the page cannot ship until someone
+ * looks at it. It is not a formality — do not delete it to make a build pass.
+ *
+ * ⚠ IT MATCHES ON THE DESIGNATION, NOT THE NAME. A successor in the post is
+ * exactly the case this needs to catch, and their name will be different.
+ */
+const vpRow = teachers.find((r) => r.designation.trim().toUpperCase() === 'VICE PRINCIPAL');
+
+if (!vpRow) {
+  throw new Error(
+    'vice-principals-message: no VICE PRINCIPAL row in data/disclosure.ts. The ' +
+      'credential list on this page is only publishable because it expands that ' +
+      'filing — with no row to check against, it cannot be verified. Re-check the ' +
+      'disclosure transcription before restoring this page.',
+  );
+}
+
+if (!/^M\.?\s*Sc\.?/i.test(vpRow.qualification.trim())) {
+  throw new Error(
+    `vice-principals-message: the CBSE filing now records the Vice Principal's ` +
+      `qualification as "${vpRow.qualification}", which is not an M.Sc. This page ` +
+      `prints "M.Sc. (Chemistry)" as an expansion of that filing, and the two now ` +
+      `disagree. Confirm the current post holder's qualifications with the school ` +
+      `before changing either.`,
+  );
+}
+---
+
+<BaseLayout>
+  <PageHero src={banner} />
+
+  <div class="u-page-panel">
+    <LeaderMessage
+      eyebrow={leader?.eyebrow}
+      heading={leader?.heading}
+      name={leader?.name}
+      role={leader?.roleLabel}
+      portrait={leader?.portrait}
+      portraitAlt={leader?.portraitAlt}
+      portraitBrief={leader?.portraitBrief}
+      pullQuote={leader?.pullQuote}
+      paragraphs={leader?.paragraphs ?? []}
+      credentials={leader?.credentials ?? []}
+      pending={leader?.pending}
+    />
+  </div>
+</BaseLayout>

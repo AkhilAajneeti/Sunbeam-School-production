@@ -1,0 +1,26 @@
+{
+  "kind": "singleType",
+  "collectionName": "uniformed_groups_pages",
+  "info": {
+    "singularName": "uniformed-groups-page",
+    "pluralName": "uniformed-groups-pages",
+    "displayName": "NCC, Scouts & Guides Page",
+    "description": "Beyond Academics → NCC, Scouts & Guides. Both groups, their facts, their record and their photographs. ⚠ THE BANNER, PAGE TITLE AND SEO ARE ON PAGE META for /beyond-academics/ncc-scouts-guides/, as they are for every page on this site. ⚠⚠ FOUR THINGS MOVE TOGETHER if this page is ever renamed: the group names here, the page’s two titles on Page Meta, its meta description, and the nav label in src/data/navigation.ts (\"NCC, Scouts & Guides\"). Narrow one and you have to do all four."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "intro": {
+      "type": "component",
+      "repeatable": false,
+      "component": "structure.section"
+    },
+    "groups": {
+      "type": "component",
+      "repeatable": true,
+      "component": "uniformed.group"
+    }
+  }
+}

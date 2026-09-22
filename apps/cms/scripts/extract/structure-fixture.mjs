@@ -36,6 +36,22 @@ const PAGES = {
   PrePrimaryPage: { fixture: 'pre-primary', route: '/academics/structure/pre-primary/' },
   StreamsOfferedPage: { fixture: 'streams-offered', route: '/academics/structure/streams-offered/', pageRun: { field: 'streams', list: 'streams' } },
   SubjectCombinationsPage: { fixture: 'subject-combinations', route: '/academics/structure/subject-combinations/', pageRun: { field: 'streams', list: 'worlds' } },
+
+  /* ── Teaching & Learning ─────────────────────────────────────────────── */
+  MethodologyPage: { dir: 'teaching', fixture: 'tl-methodology', route: '/academics/teaching-learning/methodology/' },
+  SmartClassroomsPage: { dir: 'teaching', fixture: 'tl-smart-classrooms', route: '/academics/teaching-learning/smart-classrooms/' },
+  ExperientialLearningPage: { dir: 'teaching', fixture: 'tl-experiential-learning', route: '/academics/teaching-learning/experiential-learning/' },
+  StemRoboticsPage: { dir: 'teaching', fixture: 'tl-stem-robotics', route: '/academics/teaching-learning/stem-robotics/' },
+  ReadingLanguagePage: { dir: 'teaching', fixture: 'tl-reading-language', route: '/academics/teaching-learning/reading-language/' },
+  LaboratoriesClubsPage: { dir: 'teaching', fixture: 'tl-laboratories-clubs', route: '/academics/teaching-learning/laboratories-clubs/' },
+
+  /* ── Assessment & Support ────────────────────────────────────────────── */
+  AssessmentPage: { dir: 'assessment', fixture: 'as-assessment', route: '/academics/assessment/' },
+  HomeworkPolicyPage: { dir: 'assessment', fixture: 'as-homework-policy', route: '/academics/assessment/homework-policy/' },
+  RemedialSupportPage: { dir: 'assessment', fixture: 'as-remedial-support', route: '/academics/assessment/remedial-support/' },
+  MentoringPage: { dir: 'assessment', fixture: 'as-mentoring', route: '/academics/assessment/mentoring/' },
+  ParentTeacherPage: { dir: 'assessment', fixture: 'as-parent-teacher', route: '/academics/assessment/parent-teacher-meetings/' },
+  CompetitiveExamPage: { dir: 'assessment', fixture: 'as-competitive-exam', route: '/academics/assessment/competitive-exam-preparation/' },
 };
 
 const PAGE = process.argv[2];
@@ -44,7 +60,9 @@ if (!cfg) { console.error(`usage: structure-fixture.mjs <${Object.keys(PAGES).jo
 
 const raw = JSON.parse(readFileSync(`${FX}/${cfg.fixture}.raw.json`, 'utf8'));
 const plan = JSON.parse(readFileSync(`${FX}/academics-photo-plan.json`, 'utf8'))[cfg.route] ?? [];
-const lists = JSON.parse(readFileSync(`${FX}/academics.json`, 'utf8'))[`components/academics/structure/${PAGE}.astro`] ?? {};
+const lists = JSON.parse(readFileSync(`${FX}/academics.json`, 'utf8'))[
+  `components/academics/${cfg.dir ?? 'structure'}/${PAGE}.astro`
+] ?? {};
 
 const bySlot = Object.fromEntries(plan.map((r) => [r.key, r]));
 
@@ -54,9 +72,37 @@ const FIELD = {
   who: 'note', hired: 'flag', photo: 'image', cap: 'caption',
   name: 'label', line: 'value', dir: 'note', body: 'value', state: 'state',
   core: 'core', optional: 'optional', additional: 'additional', coreOwed: 'owed',
+  anchor: 'note', quote: 'flag', owed: 'flag', inquiry: 'flag',
+  src: 'image', suffix: 'suffix', href: 'href', gloss: 'sub',
 };
-/* `tint` and `key` were only ever a CSS modifier suffix, running in list order. */
-const DROP = new Set(['n', 'nx', 'ny', 'tint', 'key']);
+/* `tint` and `key` were only ever a CSS modifier suffix, running in list order;
+   `dur` is how long a count-up animation takes. All design. */
+const DROP = new Set(['nx', 'ny', 'tint', 'key', 'dur']);
+
+/**
+ * ⚠ `n` IS DECIDED FROM THE DATA. A run numbered 01, 02, 03 is counted by the
+ * page and the number is dropped; a run whose `n` is 17574 or 75 is printing a
+ * figure, and that figure is content.
+ */
+const isSequence = (rows) => Array.isArray(rows) && rows.length > 0
+  && rows.every((r, i) => String(r?.n) === String(i + 1).padStart(2, '0'));
+
+/**
+ * ⚠ THE RUN DATA CARRIES HTML ENTITIES. `academics.json` holds the rows exactly
+ * as the page declared them, and one reads "Smart Classrooms &amp; Digital
+ * Literacy". Stored undecoded and rendered as text it comes out `&amp;amp;` and
+ * the reader sees the five characters instead of the ampersand.
+ */
+const decode = (v) => {
+  if (typeof v !== 'string') return v;
+  return v
+    /* ⚠ THE ROWS CARRY HTML, AND RichLine SPEAKS MARKERS. A value reading
+       "<strong>ten days</strong>" was handed to RichLine unchanged and the
+       reader saw the tags. The same two markers every paragraph uses. */
+    .replace(/<strong>([\s\S]*?)<\/strong>/g, (m, x) => `**${x}**`)
+    .replace(/<em>([\s\S]*?)<\/em>/g, (m, x) => `*${x}*`)
+    .split('&amp;').join('&');
+};
 
 const problems = [];
 const out = {};
@@ -78,8 +124,11 @@ for (const [name, band] of Object.entries(raw)) {
     if (!existsSync(join(WEB_SRC, row.asset))) { problems.push(`${name}: missing asset ${row.asset}`); continue; }
     /* The plan resolves the alt for a slot whose alt was an attribute; where it
        was a template literal in the markup the capture carries it instead. */
+    /* ⚠ AN EMPTY ALT IS A DECISION, NOT AN OMISSION. The full-bleed photograph
+       that closes each of these pages is decorative and its alt has always been
+       empty; only a MISSING alt is a problem. */
     const alt = s.alt ?? row.alt;
-    if (!alt) { problems.push(`${name}: no alt for ${s.key}`); continue; }
+    if (alt == null) { problems.push(`${name}: no alt recorded for ${s.key}`); continue; }
     section.shots.push({ key: s.key, asset: row.asset, name: row.name, alt });
   }
 
@@ -88,13 +137,15 @@ for (const [name, band] of Object.entries(raw)) {
        hand for a band the codemod could not lift by machine. */
     const rows = run.rows ?? lists[run.list];
     if (!Array.isArray(rows)) { problems.push(`${name}: no rows for run "${run.list}"`); continue; }
+    const counted = isSequence(rows);
     section[run.field] = rows.map((r) => {
       if (typeof r === 'string') return { label: r };
       const cell = {};
       for (const [k, v] of Object.entries(r)) {
         if (DROP.has(k)) continue;
+        if (k === 'n') { if (!counted && v != null) cell.number = String(v); continue; }
         if (!FIELD[k]) { problems.push(`${name}: ${run.list}.${k} has nowhere to go on a cell`); continue; }
-        cell[FIELD[k]] = v;
+        cell[FIELD[k]] = decode(v);
       }
       /* A cell that carries its own photograph holds an absolute path from the
          page's data. It becomes a path under web/src plus an upload name — and
@@ -127,12 +178,15 @@ if (cfg.pageRun) {
   const rows = lists[cfg.pageRun.list];
   if (!Array.isArray(rows)) problems.push(`no rows for the page list "${cfg.pageRun.list}"`);
   else {
+    /* The streams are numbered 01-04 in list order, so the page counts them. */
+    const countedPage = isSequence(rows);
     out[cfg.pageRun.field] = rows.map((r) => {
       const item = {};
       for (const [k, v] of Object.entries(r)) {
         if (DROP.has(k)) continue;
+        if (k === 'n') { if (!countedPage && v != null) item.number = String(v); continue; }
         if (!FIELD[k]) { problems.push(`${cfg.pageRun.list}.${k} has nowhere to go on a stream`); continue; }
-        item[FIELD[k]] = v;
+        item[FIELD[k]] = Array.isArray(v) ? v.map(decode) : decode(v);
       }
       return item;
     });

@@ -25,7 +25,7 @@ import { dirname, resolve } from 'node:path';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const FX = resolve(HERE, '../fixtures');
-const STRUCT = resolve(HERE, '../../../web/src/components/academics/structure');
+const ACADEMICS = resolve(HERE, '../../../web/src/components/academics');
 
 const WRITE = process.argv.includes('--write');
 
@@ -37,15 +37,34 @@ const PAGES = [
   { page: 'PrePrimaryPage', fixture: 'pre-primary' },
   { page: 'StreamsOfferedPage', fixture: 'streams-offered' },
   { page: 'SubjectCombinationsPage', fixture: 'subject-combinations' },
+  { page: 'MethodologyPage', fixture: 'tl-methodology', dir: 'teaching' },
+  { page: 'SmartClassroomsPage', fixture: 'tl-smart-classrooms', dir: 'teaching' },
+  { page: 'ExperientialLearningPage', fixture: 'tl-experiential-learning', dir: 'teaching' },
+  { page: 'StemRoboticsPage', fixture: 'tl-stem-robotics', dir: 'teaching' },
+  { page: 'ReadingLanguagePage', fixture: 'tl-reading-language', dir: 'teaching' },
+  { page: 'LaboratoriesClubsPage', fixture: 'tl-laboratories-clubs', dir: 'teaching' },
+  { page: 'AssessmentPage', fixture: 'as-assessment', dir: 'assessment' },
+  { page: 'HomeworkPolicyPage', fixture: 'as-homework-policy', dir: 'assessment' },
+  { page: 'RemedialSupportPage', fixture: 'as-remedial-support', dir: 'assessment' },
+  { page: 'MentoringPage', fixture: 'as-mentoring', dir: 'assessment' },
+  { page: 'ParentTeacherPage', fixture: 'as-parent-teacher', dir: 'assessment' },
+  { page: 'CompetitiveExamPage', fixture: 'as-competitive-exam', dir: 'assessment' },
 ];
 
 const problems = [];
 const linkClasses = {};
 
-for (const { page, fixture } of PAGES) {
+for (const { page, fixture, dir } of PAGES) {
   let file;
   try { file = readFileSync(`${FX}/${fixture}.json`, 'utf8'); } catch { continue; }
-  const src = readFileSync(`${STRUCT}/${page}.astro`, 'utf8');
+  const src = readFileSync(`${ACADEMICS}/${dir ?? 'structure'}/${page}.astro`, 'utf8');
+
+  /**
+   * ⚠ NOT EVERY CONSTANT IS A ROUTE. `PORTAL` is `school.external.results` — an
+   * address that lives in Site Settings. It becomes the site token the query
+   * already knows how to fill, so the address stays in one place.
+   */
+  const SETTING_CONSTS = { PORTAL: '{resultsUrl}' };
 
   /** The page's own route constants. */
   const routes = Object.fromEntries(
@@ -57,6 +76,14 @@ for (const { page, fixture } of PAGES) {
   const classes = {};
 
   for (const [band, b] of Object.entries(fx)) {
+    if (Array.isArray(b)) continue;   /* the page-level stream list, not a band */
+
+    /* ⚠ A HEADING NEEDS ITS ENTITIES DECODED TOO. Captured raw it kept `&amp;`
+       and printed the five characters where the ampersand belongs. */
+    for (const k of ['heading', 'kicker', 'caption']) {
+      if (typeof b[k] === 'string') b[k] = b[k].split('&amp;').join('&');
+    }
+
     b.body = (b.body ?? []).map((text, i) => {
       let t = text;
 
@@ -68,8 +95,12 @@ for (const { page, fixture } of PAGES) {
       t = t.split('{S}').join('{schoolName}');
       t = t.split('{school.name}').join('{schoolName}');
 
-      t = t.replace(/<a class="([^"]+)" href=\{([A-Z_]+)\}>([\s\S]*?)<\/a>/g, (m, cls, name, label) => {
-        const href = routes[name];
+      /* ⚠ ATTRIBUTES IN ANY ORDER, AND MORE OF THEM. One anchor carries
+         rel="noopener noreferrer" as well, and a pattern that assumed exactly
+         class-then-href walked straight past it. */
+      t = t.replace(/<a\b([^>]*?)href=\{([A-Z_]+)\}([^>]*)>([\s\S]*?)<\/a>/g, (m, pre, name, post, label) => {
+        const cls = (`${pre} ${post}`.match(/class="([^"]+)"/) || [])[1] ?? '';
+        const href = routes[name] ?? SETTING_CONSTS[name];
         if (!href) { problems.push(`${fixture}.${band}[${i}]: no route constant named ${name}`); return m; }
         classes[`${band}.${i}`] = cls;
         fixed += 1;

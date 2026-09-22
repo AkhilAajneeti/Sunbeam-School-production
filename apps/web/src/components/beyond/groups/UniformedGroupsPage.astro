@@ -1,0 +1,233 @@
+---
+/**
+ * BEYOND ACADEMICS → NCC, SCOUTS & GUIDES.
+ *
+ * Two uniformed groups, each with its facts, its record and its photographs.
+ * Everything comes from the CMS; the provenance for every fact is recorded in
+ * apps/web/src/data/uniformedGroups.ts, which seeds it.
+ *
+ * ⚠⚠ AN UNVERIFIED FACT KEEPS ITS ATTRIBUTION. Two claims here are about other
+ * schools in the district — "first in the district" and "first of its kind" —
+ * and neither is independently evidenced. They carry a visible "the school's
+ * own account" marker. Do not style that away and do not drop the flag.
+ */
+import SmartImage from '../../ui/SmartImage.astro';
+import { getUniformedGroups } from '../../../lib/cms';
+
+const groups = await getUniformedGroups();
+---
+
+{groups.map((g) => (
+  <section class="ung" id={g.slug} aria-labelledby={`${g.slug}-t`}>
+    <div class="u-container">
+      <header class="ung__head">
+        <h2 class="ung__h" id={`${g.slug}-t`}>{g.name}</h2>
+        {g.blurb && <p class="ung__blurb">{g.blurb}</p>}
+      </header>
+
+      {g.facts.length > 0 && (
+        <ul class="ung__facts">
+          {g.facts.map((f) => (
+            <li class="ung__fact">
+              <p class="ung__fact-l">{f.label}</p>
+              <p class="ung__fact-b">{f.body}</p>
+              {/* ⚠ THE MARKER IS THE WHOLE POINT OF `verified`. */}
+              {!f.verified && <p class="ung__fact-src">The school’s own account</p>}
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {g.record.length > 0 && (
+        <>
+          <h3 class="ung__sub">On the record</h3>
+          <ol class="ung__record">
+            {g.record.map((r) => (
+              <li class="ung__row">
+                <span class="ung__row-t">{r.title}</span>
+                {r.body && <span class="ung__row-b">{r.body}</span>}
+              </li>
+            ))}
+          </ol>
+        </>
+      )}
+
+      {/* ⚠⚠ THE COLUMN COUNT COMES FROM THE PHOTO COUNT. Four frames sit as one
+          row of four, six as two rows of three. Hard-coding four gives the
+          six-photo group a row of four and an orphaned pair. */}
+      {g.photos.length > 0 && (
+        <ul class="ung__shots" style={`--n: ${g.photos.length % 3 === 0 ? 3 : 4};`}>
+          {g.photos.map((p) => (
+            <li class="ung__shot">
+              <figure>
+                <SmartImage file={p.image} alt={p.alt} widths={[400, 800]} sizes="(max-width: 700px) 100vw, 33vw" loading="lazy" />
+                {p.caption && <figcaption>{p.caption}</figcaption>}
+              </figure>
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {g.pending && <p class="ung__pending">Still to come · {g.pending}</p>}
+    </div>
+  </section>
+))}
+
+<style>
+  /**
+   * ⚠⚠ position: relative + z-index: 1 + AN OPAQUE BACKGROUND, all three.
+   * PageHero above this is `position: sticky; top: 0; z-index: 0`, and a
+   * positioned sibling at `z-index: auto` only wins by tree order — which
+   * breaks the moment anything between them creates a stacking context. This is
+   * what stops the banner showing through the section, and `isolation: isolate`
+   * alone is not enough.
+   */
+  .ung {
+    position: relative;
+    z-index: 1;
+    padding-block: var(--sb-section-y);
+    background: var(--sb-paper);
+  }
+
+  .ung:nth-of-type(even) { background: var(--sb-ivory); }
+
+  .ung__h {
+    font-family: var(--sb-font-display);
+    font-size: clamp(26px, 3vw, 40px);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--sb-charcoal);
+  }
+
+  .ung__blurb {
+    margin-top: var(--sb-4);
+    max-width: 56ch;
+    font-size: var(--sb-body);
+    line-height: 1.62;
+    color: var(--sb-text-secondary);
+  }
+
+  .ung__facts {
+    list-style: none;
+    margin: var(--sb-8) 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: clamp(14px, 1.6vw, 24px);
+  }
+
+  .ung__fact {
+    padding: clamp(18px, 1.8vw, 26px);
+    border-radius: var(--sb-r-2);
+    background: var(--sb-paper);
+    box-shadow: inset 0 0 0 1px var(--sb-border);
+  }
+
+  .ung:nth-of-type(even) .ung__fact { background: #fff; }
+
+  .ung__fact-l {
+    font-family: var(--sb-font-display);
+    font-size: 17px;
+    font-weight: 650;
+    line-height: 1.24;
+    color: var(--sb-charcoal);
+  }
+
+  .ung__fact-b {
+    margin-top: var(--sb-3);
+    font-size: var(--sb-body-sm);
+    line-height: 1.6;
+    color: var(--sb-text-secondary);
+  }
+
+  /* The attribution marker. Quiet, but never invisible. */
+  .ung__fact-src {
+    margin-top: var(--sb-4);
+    padding-top: var(--sb-3);
+    border-top: 1px dashed var(--sb-border-strong);
+    font-size: var(--sb-caption);
+    font-style: italic;
+    color: var(--sb-text-muted);
+  }
+
+  .ung__sub {
+    margin-top: var(--sb-10);
+    font-family: var(--sb-font-display);
+    font-size: 20px;
+    font-weight: 650;
+    color: var(--sb-charcoal);
+  }
+
+  .ung__record {
+    list-style: none;
+    margin: var(--sb-5) 0 0;
+    padding: 0;
+  }
+
+  .ung__row {
+    display: grid;
+    grid-template-columns: minmax(0, 22ch) minmax(0, 1fr);
+    gap: var(--sb-5);
+    padding-block: var(--sb-5);
+    border-bottom: var(--sb-hairline);
+  }
+
+  .ung__row-t { font-weight: 650; color: var(--sb-charcoal); }
+  .ung__row-b { font-size: var(--sb-body-sm); line-height: 1.6; color: var(--sb-text-secondary); }
+
+  .ung__shots {
+    list-style: none;
+    margin: var(--sb-10) 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(var(--n, 3), minmax(0, 1fr));
+    gap: clamp(12px, 1.4vw, 20px);
+  }
+
+  .ung__shot figure { margin: 0; }
+
+  /**
+   * ⚠⚠ :global() ANCHORED ON .ung__shots, NEVER A BARE :global(img).
+   * The <img> inside <Picture> is rendered by a CHILD component, so it never
+   * receives this file's data-astro-cid and a plain `.ung__shot img { … }`
+   * compiles to a selector matching nothing. The measured consequence was a
+   * photograph rendered 1066px tall in a 291px column.
+   *
+   * ⚠ height: auto RELEASES THE HEIGHT HINT. <Picture> emits width and height
+   * ATTRIBUTES, which are presentational hints that map to CSS height — and
+   * `aspect-ratio` is ignored while the height is definite. It computes
+   * correctly and does nothing until this line.
+   */
+  .ung__shots :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: var(--sb-r-2);
+  }
+
+  .ung__shot figcaption {
+    margin-top: var(--sb-3);
+    font-size: var(--sb-caption);
+    color: var(--sb-text-muted);
+  }
+
+  .ung__pending {
+    margin-top: var(--sb-8);
+    padding: var(--sb-4) var(--sb-5);
+    border-left: 3px solid var(--sb-violet);
+    background: var(--sb-violet-wash);
+    font-size: var(--sb-caption);
+    color: var(--sb-text-secondary);
+  }
+
+  @media (max-width: 860px) {
+    .ung__shots { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .ung__row { grid-template-columns: minmax(0, 1fr); gap: var(--sb-2); }
+  }
+
+  @media (max-width: 520px) {
+    .ung__shots { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>

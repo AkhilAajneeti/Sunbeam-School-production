@@ -22,6 +22,7 @@
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/home/Hero.astro';
+import MobileFeatureStrip from '../components/home/MobileFeatureStrip.astro';
 import ProofStrip from '../components/home/ProofStrip.astro';
 import QuickAccess from '../components/home/QuickAccess.astro';
 import Story from '../components/home/Story.astro';
@@ -33,12 +34,18 @@ import NoticeBoard from '../components/home/NoticeBoard.astro';
 import Voices from '../components/home/Voices.astro';
 import Affiliations from '../components/home/Affiliations.astro';
 import Achievements from '../components/home/Achievements.astro';
+import GoogleReviews from '../components/home/GoogleReviews.astro';
 import AdmissionsCta from '../components/home/AdmissionsCta.astro';
 ---
 
 <BaseLayout
 >
   <Hero />
+  {/* ⚠ MOBILE ONLY — the component hides itself from 768px up, so this adds
+      nothing to the desktop page. It sits directly under the hero because that
+      is the one place on a phone where the reader has seen the film and the
+      headline and nothing else yet. */}
+  <MobileFeatureStrip />
   <ProofStrip />
   <QuickAccess />
   <Story />
@@ -50,5 +57,14 @@ import AdmissionsCta from '../components/home/AdmissionsCta.astro';
   <Voices />
   <Affiliations />
   <Achievements />
+  {/* Social proof is the last thing a reader passes before being asked to
+      apply. Grounds alternate across the seam: Achievements is --sb-violet,
+      this band is --sb-ivory, AdmissionsCta is --sb-sand.
+
+      Three sections clear of Voices ("What our students say"), which is the
+      minimum — back to back the two headings read as duplicates, and Voices
+      carries alumni placements rather than quotations. If either heading
+      changes, check the other. */}
+  <GoogleReviews />
   <AdmissionsCta />
 </BaseLayout>

@@ -82,6 +82,34 @@
     U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
+/**
+ * CAVEAT — the handwritten flourish on the Google reviews band, and nothing
+ * else on this site.
+ *
+ * SIL Open Font License, self-hosted from public/fonts like every other face
+ * here. Nothing on this site loads a font from a third-party CDN: it is a
+ * request to a server we do not control, on every page view, that also tells
+ * that server who is reading.
+ *
+ * ⚠ DELIBERATELY NOT PRELOADED. It styles two decorative words that are hidden
+ * below 1200px entirely. Preloading it would make a 75 KB download compete with
+ * the hero image for bandwidth on the first paint, to stop a flash on an
+ * ornament. `font-display: swap` is the whole mitigation it needs.
+ *
+ * ⚠ ONE FILE, LATIN ONLY. The flourish reads "Real Stories / Real Impact"; it
+ * has no other characters to cover and no latin-ext sibling is shipped.
+ */
+@font-face {
+  font-family: 'Caveat Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400 700;
+  src: url('/fonts/caveat-latin-wght-normal.woff2') format('woff2-variations');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 
 /* --- RESET ---------------------------------------------------------------- */
 

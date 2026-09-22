@@ -1,0 +1,149 @@
+{
+  "room": {
+    "kicker": "The room",
+    "heading": "A smart classroom\nis more than\n{{a screen.}}",
+    "body": [
+      "The useful question about a smart classroom is not whether a school has one. It is whether a teacher can **assume** it.",
+      "Alongside them it runs **two computer laboratories**, junior and senior, carrying **40+ machines each**."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pLabBusy",
+        "asset": "assets/computer lab/it-3.jpeg",
+        "name": "it-3",
+        "alt": "The senior computer laboratory at {schoolName} in use — students at the machines along both benches with a teacher standing at the back of the room"
+      },
+      {
+        "key": "pCanva",
+        "asset": "assets/school-event/Impetus—ClassesIII-V/Impetus—ClassesIII-V-02.jpg",
+        "name": "Impetus—ClassesIII-V-02",
+        "alt": "A class at {schoolName} during the Canva Presentation activity of the Impetus programme, seated at their desks with the activity poster on the teacher's table"
+      }
+    ],
+    "cells": [],
+    "cellsTwo": []
+  },
+  "sys": {
+    "kicker": "The digital classroom system",
+    "heading": "Four numbers,\n{{and one of them is a gap.}}",
+    "body": [
+      "Read together the first two say something a marketing sentence would not: **the panels do not yet reach every room.** This is a rollout in progress rather than a finished one — and a school that publishes both numbers has already given a parent the means to work that out."
+    ],
+    "caption": null,
+    "shots": [],
+    "cells": [
+      {
+        "number": "75",
+        "suffix": "+",
+        "mark": "panel",
+        "label": "Digitally smart classes"
+      },
+      {
+        "number": "49",
+        "suffix": "+",
+        "mark": "spark",
+        "label": "Interactive flat panels"
+      },
+      {
+        "number": "40",
+        "suffix": "+",
+        "mark": "chipJr",
+        "label": "Junior computer lab computers"
+      },
+      {
+        "number": "40",
+        "suffix": "+",
+        "mark": "tower",
+        "label": "Senior computer lab computers"
+      }
+    ],
+    "cellsTwo": []
+  },
+  "beyond": {
+    "kicker": "Beyond the screen",
+    "heading": "Technology is the tool.\n{{Learning}} is the point.",
+    "body": [],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pLabRow",
+        "asset": "assets/computer lab/it-8.jpeg",
+        "name": "it-8",
+        "alt": "Students of {schoolName} at work down the length of the senior computer laboratory, a teacher walking the row behind them"
+      },
+      {
+        "key": "pLabEmpty",
+        "asset": "assets/computer lab/DSC_1206 copy.jpg",
+        "name": "DSC_1206 copy",
+        "alt": "The computer laboratory at {schoolName} between classes, its machines set out along the benches"
+      }
+    ],
+    "cells": [
+      {
+        "mark": "touch",
+        "label": "Interactive",
+        "value": "49+ interactive flat panels, in the rooms classes already sit in — not a suite a teacher has to book."
+      },
+      {
+        "mark": "book",
+        "label": "Digital Literacy",
+        "value": "100 teachers hold Microsoft Innovative Educator Expert certification — the credential behind Microsoft Showcase School status."
+      },
+      {
+        "mark": "rocket",
+        "label": "Future Skills",
+        "value": "Ayushi, of Class VII, placed first at the Indian AI Impact Festival in 2024."
+      }
+    ],
+    "cellsTwo": []
+  },
+  "prac": {
+    "kicker": "Technology in practice",
+    "heading": "Real rooms.\nReal lessons.\n{{Nothing staged.}}",
+    "body": [
+      "Every photograph below is the school's own, and each caption says what is actually in it. None of them is a stock picture of somebody else's laboratory."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pLabTaught",
+        "asset": "assets/computer lab/it-10.jpeg",
+        "name": "it-10",
+        "alt": "A computer room at {schoolName} during a lesson — a teacher at the front and wall charts of keyboard keys and PC shortcuts behind the machines"
+      },
+      {
+        "key": "pCarnival",
+        "asset": "assets/school-event/Reading-Carnival/Reading-Carnival-02.jpg",
+        "name": "Reading-Carnival-02",
+        "alt": "A corridor at {schoolName} during the Reading Carnival, with the school's Microsoft Innovative Educator Expert 2024 posters displayed on the wall behind the book racks"
+      },
+      {
+        "key": "pLabEmpty2",
+        "asset": "assets/computer lab/DSC_1206 copy.jpg",
+        "name": "DSC_1206 copy",
+        "alt": "The computer laboratory at {schoolName}, its machines set out along the benches"
+      }
+    ],
+    "cells": [],
+    "cellsTwo": []
+  },
+  "close": {
+    "kicker": null,
+    "heading": "The classroom\n{{keeps changing.}}",
+    "body": [
+      "The school publishes its room counts, its panel count and the certification behind them. It does not publish a device-per-child ratio, a rollout schedule for the remaining rooms, or which classes take digital literacy and for how long — so none of those is described here."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pCohort",
+        "asset": "assets/photos/sunbeem-3.jpg",
+        "name": "sunbeem-3",
+        "alt": ""
+      }
+    ],
+    "cells": [],
+    "cellsTwo": []
+  }
+}

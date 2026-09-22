@@ -1,0 +1,217 @@
+{
+  "rooms": {
+    "kicker": "One subject, one space",
+    "heading": "A room for\n{{one subject.}}",
+    "body": [
+      "Twelve is only a number until you know what kind of rooms they are. The distinction that matters is **specialised against general**: a chemistry laboratory with gas taps, a fume path and reagent shelves is a different object from a science room with a sink at the back — and only one of them lets a class run a practical the board expects.",
+      "Physics, Chemistry and Biology each carry **board practicals from Class IX to Class XII**. The mathematics laboratory is the one most schools do without: its purpose is to make mathematics something handled rather than only argued on paper."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pBench",
+        "asset": "assets/photos/sb-chem-lab.jpg",
+        "name": "sb-chem-lab",
+        "alt": "Students of {schoolName} working along the chemistry bench, test tubes held over the burners"
+      },
+      {
+        "key": "pBio",
+        "asset": "assets/bio lab/DSC_1275 copy.jpg",
+        "name": "DSC_1275 copy",
+        "alt": "The biology laboratory at {schoolName} between classes — red stools along the bench, microscopes on the shelves and anatomy charts on the wall"
+      },
+      {
+        "key": "pMicro",
+        "asset": "assets/photos/sb-sci-lab.jpg",
+        "name": "sb-sci-lab",
+        "alt": "A student of {schoolName} at the microscope, conical flasks of plant cuttings and an anatomy model on the bench beside her"
+      }
+    ],
+    "cells": [
+      {
+        "mark": "flask",
+        "number": "12",
+        "label": "Laboratories"
+      },
+      {
+        "mark": "door",
+        "value": "One subject",
+        "label": "One space"
+      },
+      {
+        "mark": "hand",
+        "value": "Hands-on",
+        "label": "Learning"
+      },
+      {
+        "mark": "shield",
+        "value": "Safety & care",
+        "label": "Always"
+      }
+    ],
+    "cellsTwo": []
+  },
+  "twelve": {
+    "kicker": "The spirit of academic clubs",
+    "heading": "Twelve,\n{{and four of them}}\n{{are not labs.}}",
+    "body": [
+      "The school enumerates its twelve rooms by name, and **four of the twelve are inquiry rooms rather than subject laboratories** — counted inside the twelve, not added to it. A school that spends four of twelve on debate, making, maps and open-ended work has chosen to give space to the subjects that do not sit an exam.",
+      "The Robotics Lab is set out on [STEM, Robotics & Enrichment](/academics/teaching-learning/stem-robotics/); the language laboratory on [Reading, Language & Library](/academics/teaching-learning/reading-language/)."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pActivity",
+        "asset": "assets/activity learning lab/DSC_1218 copy.jpg",
+        "name": "DSC_1218 copy",
+        "alt": "The activity learning laboratory at {schoolName}, its worktables set out for group work"
+      },
+      {
+        "key": "pMaths",
+        "asset": "assets/photos/sb-maths-lab.jpg",
+        "name": "sb-maths-lab",
+        "alt": "The mathematics laboratory at {schoolName}, its models and charts set out on the working surfaces"
+      },
+      {
+        "key": "pTables",
+        "asset": "assets/activity learning lab/DSC_1217 copy.jpg",
+        "name": "DSC_1217 copy",
+        "alt": "The activity learning laboratory at {schoolName} — one crescent table with chairs set all the way round it"
+      }
+    ],
+    "cells": [
+      {
+        "mark": "atom",
+        "label": "Physics",
+        "value": "Board practicals, IX–XII.",
+        "flag": false
+      },
+      {
+        "mark": "chem",
+        "label": "Chemistry",
+        "value": "Gas taps, reagent shelves.",
+        "flag": false
+      },
+      {
+        "mark": "leaf",
+        "label": "Biology",
+        "value": "Microscopes and models.",
+        "flag": false
+      },
+      {
+        "mark": "sigma",
+        "label": "Mathematics",
+        "value": "The room most schools skip.",
+        "flag": false
+      },
+      {
+        "mark": "headset",
+        "label": "Language",
+        "value": "Recorded, then reviewed.",
+        "flag": false
+      },
+      {
+        "mark": "chip",
+        "label": "Robotics",
+        "value": "Drone · printer · telescope.",
+        "flag": false
+      },
+      {
+        "mark": "screen",
+        "label": "Computer lab · junior",
+        "value": "40+ machines.",
+        "flag": false
+      },
+      {
+        "mark": "code",
+        "label": "Computer lab · senior",
+        "value": "40+ machines.",
+        "flag": false
+      },
+      {
+        "mark": "map",
+        "label": "Geography",
+        "value": "Maps, instruments, fieldwork.",
+        "flag": true
+      },
+      {
+        "mark": "make",
+        "label": "Srijan",
+        "value": "Making and design.",
+        "flag": true
+      },
+      {
+        "mark": "globe",
+        "label": "Model United Nations",
+        "value": "Debate and committee.",
+        "flag": true
+      },
+      {
+        "mark": "spark",
+        "label": "Active Learning",
+        "value": "No single right answer.",
+        "flag": true
+      }
+    ],
+    "cellsTwo": []
+  },
+  "spaces": {
+    "kicker": "Built to support real learning",
+    "heading": "Rooms for the work\n{{with no right answer.}}",
+    "body": [
+      "Great learning does not come from memorising. It comes from asking, trying, failing safely and trying again — which needs rooms built for experimentation, discussion, making and practical work rather than for listening."
+    ],
+    "caption": null,
+    "shots": [],
+    "cells": [
+      {
+        "mark": "flask",
+        "label": "Science laboratories",
+        "value": "Physics, Chemistry, Biology and Mathematics — practical spaces, not a science room with a sink."
+      },
+      {
+        "mark": "screen",
+        "label": "Computer laboratories",
+        "value": "Junior and senior, 40+ machines each."
+      },
+      {
+        "mark": "headset",
+        "label": "Language lab",
+        "value": "Spoken language, practised aloud, recorded and reviewed."
+      },
+      {
+        "mark": "spark",
+        "label": "Academic clubs & spaces",
+        "value": "The four inquiry rooms — Geography, Srijan, Model UN and Active Learning."
+      }
+    ],
+    "cellsTwo": []
+  },
+  "interlude": {
+    "kicker": null,
+    "heading": "Different rooms.\nDifferent questions.\n{{One connected idea of learning.}}",
+    "body": [],
+    "caption": null,
+    "shots": [],
+    "cells": [],
+    "cellsTwo": []
+  },
+  "close": {
+    "kicker": "Learning beyond textbooks",
+    "heading": "Four of twelve,\nspent on the {{open questions.}}",
+    "body": [
+      "The school enumerates its twelve rooms and names the four inquiry rooms among them. It does not publish club membership, meeting times or who runs each one — and it has published no photograph of the Robotics Lab or of the four inquiry rooms in use."
+    ],
+    "caption": null,
+    "shots": [
+      {
+        "key": "pCohort",
+        "asset": "assets/photos/sunbeem-3.jpg",
+        "name": "sunbeem-3",
+        "alt": ""
+      }
+    ],
+    "cells": [],
+    "cellsTwo": []
+  }
+}

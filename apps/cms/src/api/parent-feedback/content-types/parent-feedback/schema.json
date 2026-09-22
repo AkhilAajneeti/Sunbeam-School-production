@@ -1,0 +1,68 @@
+{
+  "kind": "collectionType",
+  "collectionName": "parent_feedbacks",
+  "info": {
+    "singularName": "parent-feedback",
+    "pluralName": "parent-feedbacks",
+    "displayName": "Parent Feedback",
+    "description": "Feedback sent through the 'Your Voice Matters' form on /parents-feedback/. WRITTEN BY PARENTS, NOT BY EDITORS. ⚠⚠ NOTHING HERE IS EVER PUBLISHED TO THE SITE. The voices carousel on that page is fed by data/parentsFeedback.ts, which a human fills in after checking the feedback and obtaining written consent — no page reads this collection. Treat every row as private correspondence about a named child. draftAndPublish is OFF because a submission is a record of something that happened, not a document with a draft state."
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "parentName": {
+      "type": "string",
+      "required": true,
+      "maxLength": 120
+    },
+    "studentName": {
+      "type": "string",
+      "required": true,
+      "maxLength": 120
+    },
+    "studentClass": {
+      "type": "string",
+      "required": true,
+      "maxLength": 40
+    },
+    "phone": {
+      "type": "string",
+      "maxLength": 40
+    },
+    "rating": {
+      "type": "integer",
+      "required": true,
+      "min": 1,
+      "max": 5
+    },
+    "appreciate": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "feedback": {
+      "type": "text",
+      "required": true,
+      "maxLength": 5000
+    },
+    "recommend": {
+      "type": "enumeration",
+      "enum": ["Yes", "Maybe", "No"]
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": ["new", "read", "replied", "closed"],
+      "default": "new",
+      "required": true
+    },
+    "officeNotes": {
+      "type": "text",
+      "maxLength": 5000
+    },
+    "sourcePage": {
+      "type": "string",
+      "maxLength": 200
+    }
+  }
+}
