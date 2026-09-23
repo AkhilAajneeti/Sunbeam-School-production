@@ -26,6 +26,11 @@
       "repeatable": true,
       "component": "shared.measure"
     },
+    "officers": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.point"
+    },
     "record": {
       "type": "component",
       "repeatable": true,

@@ -95,6 +95,18 @@ const { endpoint, successMessage, contactPhone, contactPhoneDisplay, contactEmai
       );
     })}
 
+    {/* ⚠⚠ THE HONEYPOT. Its name must look worth filling to a bot and mean
+        NOTHING to a browser's autofill — never `company`, `organization` or
+        any other address-book word. The contact form used `company` and
+        Chrome filled it for anyone with an employer saved, so the server threw
+        real enquiries away as spam and answered 200. `autocomplete="off"`,
+        being off-screen and tabindex="-1" do not prevent that; only the name
+        and the label do. */}
+    <div class="arf-hp" aria-hidden="true">
+      <label for="arf-topicref">Topic reference</label>
+      <input id="arf-topicref" name="topicRef" type="text" tabindex="-1" autocomplete="off" />
+    </div>
+
     <p class="arf-f arf-f--wide arf-consent">
       <label class="arf-check" for="arf-consent">
         <input type="checkbox" id="arf-consent" name="consent" data-required="true" aria-describedby="arf-consent-err" />
@@ -240,15 +252,30 @@ const { endpoint, successMessage, contactPhone, contactPhoneDisplay, contactEmai
         const res = await fetch(endpoint, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(Object.fromEntries(new FormData(form).entries())),
+          /* ⚠ sourcePage IS ADDED HERE, NOT AS A HIDDEN INPUT. A hidden input
+             is part of the form and a caller can set it to anything; this is
+             read from the browser at the moment of sending. */
+          body: JSON.stringify({
+            ...Object.fromEntries(new FormData(form).entries()),
+            sourcePage: location.pathname,
+          }),
         });
         if (!res.ok) throw new Error(String(res.status));
+
+        /* ⚠⚠ THE ORDER HERE IS LOAD-BEARING: RESET FIRST, THEN SPEAK.
+           `form.reset()` fires a `reset` event, and the listener at the foot of
+           this script clears the live region — which is right when a reader
+           presses a reset button, and fatal here. Setting the message before
+           the reset meant it was written and then wiped in the same tick: the
+           registration was stored, 201 came back, and the screen said nothing
+           at all. Do not move these three lines back above the reset. */
+        form.reset();
+        controls.forEach((el) => paint(el, ''));
+
         if (live) {
           live.textContent = form.dataset.success || 'Thank you.';
           live.className = 'arf-live is-ok';
         }
-        form.reset();
-        controls.forEach((el) => paint(el, ''));
       } catch {
         if (live) {
           live.textContent =
@@ -331,6 +358,16 @@ const { endpoint, successMessage, contactPhone, contactPhoneDisplay, contactEmai
   .arf-err.is-on { display: block; }
 
   .arf-consent { margin-top: clamp(2px, 0.5vw, 6px); }
+
+  /* Off-screen rather than display:none — a field that is not rendered at all
+     is one some bots skip, and the whole point is that they fill it. */
+  .arf-hp {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
   .arf-check {
     display: grid;
     grid-template-columns: auto minmax(0, 1fr);

@@ -67,7 +67,11 @@
     "seed:curriculum": "node scripts/seed/curriculum.mjs",
     "seed:structure": "node scripts/seed/structure.mjs",
     "seed:publications": "node scripts/seed/publications.mjs",
-    "verify:poster-upload": "node scripts/verify/poster-upload.mjs"
+    "verify:poster-upload": "node scripts/verify/poster-upload.mjs",
+    "seed:class-timetable": "node scripts/seed/class-timetable.mjs",
+    "seed:class-corner": "node scripts/seed/class-corner.mjs",
+    "seed:attach-documents": "node scripts/seed/attach-documents.mjs",
+    "seed:councils": "node scripts/seed/councils.mjs"
   },
   "dependencies": {
     "@strapi/database": "5.52.1",

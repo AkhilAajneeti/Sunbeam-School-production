@@ -11,7 +11,16 @@
  * the school's documents; the documents themselves stay on the school's own
  * site and are linked, never copied.
  */
-import { cornerItems } from '../../data/classCorner';
+import { getClassCorner } from '../../lib/cms';
+
+/**
+ * ⚠⚠ THE CARDS AND THEIR DOCUMENTS COME FROM THE CMS. They were a static file
+ * pointing at the school's old WordPress uploads; the office now replaces a
+ * document by uploading it over the card's `file` in Content Manager → Class
+ * Corner. Do not re-point this at src/assets — the files there seeded the CMS
+ * and are not what the page serves.
+ */
+const cornerItems = await getClassCorner();
 
 /**
  * ⚠ SIX ICONS FOR FOUR CARDS, ON PURPOSE. `person` and `star` are unused
@@ -53,21 +62,25 @@ const ICONS: Record<string, string> = {
           const Tag = it.href ? 'a' : 'div';
 
           /**
-           * ⚠ AN IN-PAGE ANCHOR MUST NOT OPEN A NEW TAB. The four document
-           * links go to the school's own site and genuinely do leave; an href
-           * beginning "#" points at a section on this very page, and sending
-           * that to a new tab reloads the page the reader is already on.
+           * ⚠⚠ THREE CASES, NOT TWO — AND THE THIRD ONE IS NEW. This used to
+           * read "starts with # or else it leaves", which was true while every
+           * document lived on the school's old WordPress site. The timetable
+           * is now a page on THIS site, and under the old rule an internal
+           * route opened in a new tab: the reader ends up with two tabs of the
+           * same site and a back button that does nothing.
            *
-           * The card that needed this — Academic Excellence, pointing at
-           * #academic-excellence — is gone. The branch stays, because the next
-           * in-page card would otherwise inherit the wrong behaviour in
-           * silence.
+           * Only an absolute http(s) URL genuinely leaves. An href beginning
+           * "#" points at a section on this very page — the card that needed
+           * that (Academic Excellence) is gone, but the branch stays, because
+           * the next in-page card would otherwise inherit the wrong behaviour
+           * in silence.
            */
           const inPage = !!it.href && it.href.startsWith('#');
+          const leaves = !!it.href && /^https?:\/\//i.test(it.href);
           const attrs = it.href
-            ? inPage
-              ? { href: it.href }
-              : { href: it.href, target: '_blank', rel: 'noopener' }
+            ? leaves
+              ? { href: it.href, target: '_blank', rel: 'noopener' }
+              : { href: it.href }
             : {};
 
           return (
@@ -121,7 +134,9 @@ const ICONS: Record<string, string> = {
                       <span class="u-visually-hidden">
                         {inPage
                           ? ' — jumps to that section on this page'
-                          : ' — opens in a new tab'}
+                          : leaves
+                            ? ' — opens in a new tab'
+                            : ' — opens on this site'}
                       </span>
                     </span>
                   ) : (

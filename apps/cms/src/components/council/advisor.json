@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_council_advisors",
+  "info": {
+    "displayName": "Advisor",
+    "icon": "user",
+    "description": "ONE MEMBER OF THE ADVISORY COUNCIL, as the school's board prints them. ⚠⚠ THESE ROWS ARE NOT DRAWN ON THE PAGE — the board IMAGE is what a visitor sees. They are the image's text alternative: the page builds the alt text from them, which is the only form these fifteen names exist in for a screen reader, for Google, and for anyone trying to copy one. ⚠⚠ SO THEY MUST BE CHANGED WHENEVER THE BOARD IMAGE IS REPLACED. Upload a new board and leave these rows alone and the page will read out last year's council over this year's picture, with nothing on screen to show it."
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "maxLength": 80,
+      "description": "As printed — 'Prof. Dr. Raghwendra Pratap Singh'. It wraps onto two lines on the board; that is the artwork running out of width, not two lines of meaning."
+    },
+    "office": {
+      "type": "string",
+      "maxLength": 60,
+      "description": "The BOLD line under the name, where the board sets one — 'Chairperson', 'Retd. IAS', 'Professor & Head'. Most members have none."
+    },
+    "affiliation": {
+      "type": "string",
+      "maxLength": 140,
+      "description": "The lighter line beneath, as printed — including the board's own inconsistencies, such as 'Vanarasi' under Mrs. Amrita Burman where every other row spells it Varanasi, and the full stop after 'BHU, Varanasi.'"
+    }
+  }
+}

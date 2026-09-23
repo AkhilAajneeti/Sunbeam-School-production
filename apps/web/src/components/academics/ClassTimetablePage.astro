@@ -1,0 +1,546 @@
+---
+/**
+ * ═══ CLASS TIMETABLE ═══════════════════════════════════════════════════════
+ *
+ * The school's own timetable sheets, grouped by stage and filterable by class.
+ *
+ * ⚠⚠ THIS PAGE EXISTS SO THE TIMETABLE STOPS SENDING PARENTS OFF-SITE. The
+ * Class Corner card used to link to sunbeamballia.edu.in/class-timetable/,
+ * which is the school's old WordPress site — a parent following it left this
+ * site and landed in a different design with a different menu.
+ *
+ * ⚠ THE SHEETS ARE SHOWN, NOT RETYPED. Each one carries the class teacher's
+ * name, the subject teachers' names and a page of instructions; a
+ * transcription would be a second version of a document the school revises,
+ * with nothing on the page to say which one is current.
+ */
+import Lightbox from '../ui/Lightbox.astro';
+import SmartImage from '../ui/SmartImage.astro';
+import { getClassTimetable, fileUrl } from '../../lib/cms';
+
+/**
+ * ⚠⚠ THE SHEETS COME FROM THE CMS, NOT FROM src/assets. The school replaces a
+ * timetable by uploading over the image on its class in Content Manager →
+ * Class Timetable; nothing here needs a developer or a deploy. The files that
+ * seeded it are still in src/assets/timetable, but this page no longer reads
+ * them — do not re-point it at them, or an upload will appear to do nothing.
+ */
+const { stages, classes, sheetCount } = await getClassTimetable();
+
+/**
+ * ⚠ ONE GLYPH PER STAGE, NOT PER CLASS. Fifteen different marks would be
+ * decoration competing with fifteen class names; the stage a class belongs to
+ * is the only thing an icon here can usefully say.
+ */
+const GLYPH: Record<string, string> = {
+  'pre-primary':
+    '<path d="M12 7c-1.7-2.2-4-3.2-6-2.6C4.2 4.9 3 6.6 3 8.7 3 12.3 7 15.6 12 18c5-2.4 9-5.7 9-9.3 0-2.1-1.2-3.8-3-4.3-2-.6-4.3.4-6 2.6Z"/>',
+  primary: '<path d="M4 5.5h6a2 2 0 0 1 2 2V19a2.4 2.4 0 0 0-2-1.4H4Z"/><path d="M20 5.5h-6a2 2 0 0 0-2 2V19a2.4 2.4 0 0 1 2-1.4h6Z"/>',
+  middle: '<path d="M12 3.5 21 8l-9 4.5L3 8l9-4.5Z"/><path d="M7 10.2V15c0 1.7 2.2 3 5 3s5-1.3 5-3v-4.8"/>',
+  secondary:
+    '<circle cx="12" cy="8" r="3.2"/><path d="M5.5 19.5c0-3.3 2.9-5.6 6.5-5.6s6.5 2.3 6.5 5.6"/>',
+  senior: '<circle cx="12" cy="9.2" r="4.4"/><path d="m8.6 13.6-1.3 6.9 4.7-2.5 4.7 2.5-1.3-6.9"/>',
+};
+
+/** The filter row: every class, in the order the page lists them. */
+const chips = classes.map((c) => ({ id: c.slug, label: c.label }));
+
+/**
+ * ⚠ THE DESCRIPTION IS BUILT HERE, NOT TYPED IN THE CMS. An editor replacing a
+ * sheet cannot leave a stale one behind, and cannot leave one blank — see the
+ * header of the timetable.sheet component for why it has no alt field.
+ */
+const alt = (label: string, section: string) =>
+  section
+    ? `The weekly timetable for ${label}, section ${section}, at Sunbeam School Ballia.`
+    : `The weekly timetable for ${label} at Sunbeam School Ballia.`;
+
+const cap = (label: string, section: string) =>
+  section ? `${label} · Section ${section}` : label;
+---
+
+<section class="ctt" aria-labelledby="ctt-t">
+  <div class="u-container">
+    <header class="ctt__head">
+      <div>
+        <p class="ctt__eyebrow">Explore</p>
+        <h2 class="ctt__h" id="ctt-t">Select your class</h2>
+        <p class="ctt__lede">
+          Choose a class to open its weekly timetable. {sheetCount} sheets, one for every section,
+          shown exactly as the school issues them.
+        </p>
+      </div>
+      <p class="ctt__script" aria-hidden="true">
+        <span>Every class,</span>
+        <span>a brighter tomorrow</span>
+      </p>
+    </header>
+
+    {/* ⚠⚠ THE FILTER IS PROGRESSIVE, NOT REQUIRED. Every class is in the
+        markup and visible before any script runs; the buttons only hide what
+        is not wanted. With JavaScript off the page is the full list, which is
+        the thing a parent came for — not an empty grid waiting for a click. */}
+    <div class="ctt__filter" role="group" aria-label="Filter by class">
+      <button class="ctt__chip is-on" type="button" data-filter="all" aria-pressed="true">All</button>
+      {
+        chips.map((c) => (
+          <button class="ctt__chip" type="button" data-filter={c.id} aria-pressed="false">
+            {c.label}
+          </button>
+        ))
+      }
+    </div>
+
+    {
+      stages.map((stage) => (
+        <div class="ctt__stage" data-stage={stage.id}>
+          <div class="ctt__stage-head">
+            <div>
+              <h3 class="ctt__stage-h">{stage.title}</h3>
+              <p class="ctt__stage-r">{stage.range}</p>
+            </div>
+            <p class="ctt__stage-n">
+              {stage.classes.length} {stage.classes.length === 1 ? 'class' : 'classes'}
+            </p>
+          </div>
+
+          <ul class="ctt__grid" role="list">
+            {stage.classes.map((c) => (
+              <li class="ctt__card" data-class={c.slug}>
+                <div class="ctt__card-head">
+                  <span class="ctt__ico" aria-hidden="true">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      set:html={GLYPH[c.stage] ?? GLYPH.primary}
+                    />
+                  </span>
+                  <h4 class="ctt__card-h">{c.label}</h4>
+                  <span class="ctt__card-n">
+                    {c.sheets.length === 1 ? '1 sheet' : `${c.sheets.length} sections`}
+                  </span>
+                </div>
+
+                <a
+                  class="ctt__thumb"
+                  data-lb-open
+                  href={fileUrl(c.sheets[0].image)}
+                  data-lb-alt={alt(c.label, c.sheets[0].section)}
+                  data-lb-cap={cap(c.label, c.sheets[0].section)}
+                >
+                  {/* ⚠ contain, NOT cover — a timetable cropped to a tile is a
+                      picture of a grid. The thumbnail only has to be
+                      recognisable; the viewer is where it is read. */}
+                  <SmartImage
+                    file={c.sheets[0].image}
+                    alt=""
+                    widths={[300, 600]}
+                    sizes="(max-width: 700px) 90vw, 300px"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </a>
+
+                {c.sheets.length > 1 && (
+                  <ul class="ctt__secs" role="list">
+                    {c.sheets.map((s) => (
+                      <li>
+                        <a
+                          class="ctt__sec"
+                          data-lb-open
+                          href={fileUrl(s.image)}
+                          data-lb-alt={alt(c.label, s.section)}
+                          data-lb-cap={cap(c.label, s.section)}
+                        >
+                          <span class="u-visually-hidden">{c.label}, section </span>
+                          {s.section}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+
+                <div class="ctt__acts">
+                  <a
+                    class="ctt__act"
+                    data-lb-open
+                    href={fileUrl(c.sheets[0].image)}
+                    data-lb-alt={alt(c.label, c.sheets[0].section)}
+                    data-lb-cap={cap(c.label, c.sheets[0].section)}
+                  >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path
+                        d="M2.5 12S6 5.8 12 5.8 21.5 12 21.5 12 18 18.2 12 18.2 2.5 12 2.5 12Z"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.6"
+                      />
+                      <circle cx="12" cy="12" r="2.6" fill="none" stroke="currentColor" stroke-width="1.6" />
+                    </svg>
+                    View
+                  </a>
+
+                  {/* ⚠⚠ THE LABEL NAMES THE SHEET IT ACTUALLY FETCHES. A class
+                      with five sections has five files and no combined one, so
+                      a bare "Download" would promise the class's timetable and
+                      hand over one section of it. The other sections are one
+                      tap away above. */}
+                  <a class="ctt__act" href={fileUrl(c.sheets[0].image)} download>
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path
+                        d="M12 4v10m0 0 4-4m-4 4-4-4M4.5 18.5h15"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.6"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                    {c.sheets.length > 1 && c.sheets[0].section
+                      ? `Download ${c.sheets[0].section}`
+                      : 'Download'}
+                  </a>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
+
+    {/* Only ever seen when a filter matches nothing, which cannot happen with
+        the chips as built — it is here so a future chip cannot produce a page
+        that silently shows nothing. */}
+    <p class="ctt__none" hidden>No timetable matches that class.</p>
+  </div>
+</section>
+
+<Lightbox />
+
+<script>
+  const root = document.querySelector<HTMLElement>('.ctt');
+  if (root) {
+    const chips = [...root.querySelectorAll<HTMLButtonElement>('[data-filter]')];
+    const cards = [...root.querySelectorAll<HTMLElement>('[data-class]')];
+    const stages = [...root.querySelectorAll<HTMLElement>('[data-stage]')];
+    const none = root.querySelector<HTMLElement>('.ctt__none');
+
+    const apply = (want: string) => {
+      for (const card of cards) {
+        card.hidden = want !== 'all' && card.dataset.class !== want;
+      }
+      /* ⚠ A STAGE WITH NOTHING LEFT IN IT IS HIDDEN TOO. Otherwise filtering
+         to Class XII leaves four headings standing over empty space, which
+         reads as four stages that failed to load. */
+      for (const stage of stages) {
+        const live = [...stage.querySelectorAll<HTMLElement>('[data-class]')].some((c) => !c.hidden);
+        stage.hidden = !live;
+      }
+      if (none) none.hidden = stages.some((s) => !s.hidden);
+    };
+
+    for (const chip of chips) {
+      chip.addEventListener('click', () => {
+        for (const other of chips) {
+          const on = other === chip;
+          other.classList.toggle('is-on', on);
+          other.setAttribute('aria-pressed', String(on));
+        }
+        apply(chip.dataset.filter ?? 'all');
+      });
+    }
+  }
+</script>
+
+<style>
+  /* The page panel this sits in carries the stacking contract against the
+     pinned banner; this section adds none of its own. */
+  .ctt {
+    padding-block: 0;
+  }
+
+  .ctt__head {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    gap: var(--sb-6, 24px);
+  }
+
+  .ctt__eyebrow {
+    margin: 0 0 var(--sb-3, 8px);
+    font-size: var(--sb-caption);
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--sb-violet);
+  }
+
+  .ctt__h {
+    margin: 0;
+    font-family: var(--sb-font-serif, var(--sb-font-display));
+    font-size: clamp(26px, 2.8vw, 38px);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--sb-ink);
+  }
+
+  .ctt__lede {
+    max-width: 58ch;
+    margin: var(--sb-3, 8px) 0 0;
+    font-size: var(--sb-body-sm);
+    line-height: 1.7;
+    color: var(--sb-text-secondary);
+  }
+
+  .ctt__script {
+    display: grid;
+    margin: 0;
+    font-family: 'Caveat Variable', var(--sb-font-serif), cursive;
+    font-size: clamp(19px, 1.8vw, 26px);
+    line-height: 1.15;
+    text-align: right;
+    color: var(--sb-violet);
+  }
+
+  /* ── The filter ─────────────────────────────────────────────────────── */
+  .ctt__filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: clamp(24px, 3vh, 38px);
+  }
+
+  .ctt__chip {
+    padding: 8px 16px;
+    border: 1px solid rgba(18, 16, 15, 0.1);
+    border-radius: 999px;
+    background: var(--sb-paper);
+    font: inherit;
+    font-size: var(--sb-body-sm);
+    color: var(--sb-text-secondary);
+    cursor: pointer;
+    transition:
+      background 180ms ease,
+      color 180ms ease,
+      border-color 180ms ease;
+  }
+  .ctt__chip:hover {
+    border-color: rgba(201, 60, 10, 0.35);
+    color: var(--sb-violet);
+  }
+  .ctt__chip.is-on {
+    border-color: transparent;
+    background: var(--sb-violet);
+    color: #fff;
+  }
+  .ctt__chip:focus-visible {
+    outline: 2px solid var(--sb-violet);
+    outline-offset: 2px;
+  }
+
+  /* ── Stages ─────────────────────────────────────────────────────────── */
+  .ctt__stage {
+    margin-top: clamp(34px, 4.4vh, 58px);
+  }
+
+  .ctt__stage-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--sb-5, 16px);
+    padding-bottom: var(--sb-4, 12px);
+    border-bottom: 1px solid rgba(18, 16, 15, 0.08);
+  }
+  .ctt__stage-h {
+    margin: 0;
+    font-family: var(--sb-font-serif, var(--sb-font-display));
+    font-size: clamp(19px, 1.8vw, 24px);
+    font-weight: 600;
+    color: var(--sb-ink);
+  }
+  .ctt__stage-r {
+    margin: 2px 0 0;
+    font-size: var(--sb-body-sm);
+    color: var(--sb-text-muted);
+  }
+  .ctt__stage-n {
+    flex: none;
+    margin: 0;
+    font-size: var(--sb-caption);
+    font-weight: 600;
+    color: var(--sb-violet);
+  }
+
+  .ctt__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(12px, 1.4vw, 20px);
+    margin: var(--sb-5, 16px) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* ── A class card ───────────────────────────────────────────────────── */
+  .ctt__card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 14px;
+    border: 1px solid rgba(18, 16, 15, 0.08);
+    border-radius: 14px;
+    background: var(--sb-paper);
+    box-shadow: 0 1px 2px rgba(28, 14, 8, 0.04);
+  }
+  .ctt__card[hidden] {
+    display: none;
+  }
+
+  .ctt__card-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .ctt__ico {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 9px;
+    background: var(--sb-lime-wash, #fff1ea);
+    color: var(--sb-violet);
+  }
+  .ctt__ico svg {
+    width: 17px;
+    height: 17px;
+  }
+  .ctt__card-h {
+    margin: 0;
+    font-family: var(--sb-font-display);
+    font-size: 15px;
+    font-weight: 650;
+    color: var(--sb-ink);
+  }
+  .ctt__card-n {
+    margin-left: auto;
+    font-size: 11.5px;
+    color: var(--sb-text-muted);
+  }
+
+  /* ⚠ A FIXED RATIO WITH contain. The sheets are not one shape — 1024x622,
+     1024x724 and 1024x791 all appear — and letting each tile take its own
+     height gave a ragged row of cards whose buttons no longer lined up. */
+  .ctt__thumb {
+    display: block;
+    aspect-ratio: 4 / 3;
+    border-radius: 9px;
+    background: color-mix(in srgb, var(--sb-ivory) 60%, #fff);
+    box-shadow: inset 0 0 0 1px rgba(18, 16, 15, 0.07);
+    overflow: hidden;
+    cursor: zoom-in;
+  }
+  .ctt__thumb :global(img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .ctt__thumb:focus-visible {
+    outline: 2px solid var(--sb-violet);
+    outline-offset: 2px;
+  }
+
+  .ctt__secs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .ctt__sec {
+    display: grid;
+    place-items: center;
+    min-width: 30px;
+    padding: 4px 8px;
+    border: 1px solid rgba(18, 16, 15, 0.1);
+    border-radius: 7px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--sb-text-secondary);
+    text-decoration: none;
+  }
+  .ctt__sec:hover {
+    border-color: rgba(201, 60, 10, 0.35);
+    color: var(--sb-violet);
+  }
+  .ctt__sec:focus-visible {
+    outline: 2px solid var(--sb-violet);
+    outline-offset: 2px;
+  }
+
+  .ctt__acts {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: auto;
+    padding-top: 10px;
+    border-top: 1px solid rgba(18, 16, 15, 0.07);
+  }
+  .ctt__act {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--sb-text-secondary);
+    text-decoration: none;
+  }
+  .ctt__act svg {
+    width: 15px;
+    height: 15px;
+  }
+  .ctt__act:hover {
+    color: var(--sb-violet);
+  }
+  .ctt__act:focus-visible {
+    outline: 2px solid var(--sb-violet);
+    outline-offset: 3px;
+  }
+
+  .ctt__none {
+    margin: clamp(30px, 4vh, 50px) 0 0;
+    text-align: center;
+    color: var(--sb-text-muted);
+  }
+
+  @media (max-width: 1023px) {
+    .ctt__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 719px) {
+    .ctt__head {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .ctt__script {
+      text-align: left;
+    }
+  }
+  @media (max-width: 519px) {
+    .ctt__grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ctt__chip {
+      transition: none;
+    }
+  }
+</style>

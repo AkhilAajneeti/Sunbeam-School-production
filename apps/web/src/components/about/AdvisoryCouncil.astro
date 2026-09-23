@@ -1,0 +1,93 @@
+---
+/**
+ * ═══ THE ADVISORY COUNCIL ══════════════════════════════════════════════════
+ *
+ * A heading and the school's own board, from the CMS. No standfirst and no
+ * roll of names underneath — the artwork carries every name on it, so the page
+ * would have said all fifteen twice.
+ *
+ * ⚠ IT LIVES ON THE HISTORY PAGE ON PURPOSE, NOT IN A MENU OF ITS OWN. Audit
+ * 1.11 asks for the Chairman, Secretary "and other dignitaries" to be carried
+ * inside the History section rather than given separate menu links, and this
+ * is the same material — so it follows #leadership on that page and adds no
+ * nav entry. Moving it to a page of its own is reopening that decision.
+ *
+ * ⚠⚠ THE ALT TEXT IS THE ONLY TEXT THESE NAMES EXIST IN, AND THAT IS WHY IT IS
+ * LONG. Nothing is drawn under the board, so without it the page holds an
+ * image of text with no text anywhere — unreadable to a screen reader,
+ * invisible to search, impossible to copy. getAdvisoryCouncil builds it from
+ * the same member rows the admin edits, so replacing the board and retyping
+ * the members updates the description in the same save.
+ *
+ * ⚠ THE WHOLE SECTION DISAPPEARS IF THERE IS NO BOARD. A heading over empty
+ * ground is worse than the section being absent until the image is uploaded.
+ */
+import CmsImage from '../ui/CmsImage.astro';
+import { getAdvisoryCouncil } from '../../lib/cms';
+
+const council = await getAdvisoryCouncil();
+---
+
+{
+  council?.board && (
+    <section class="adv" id="advisory-council" aria-labelledby="adv-heading">
+      <div class="u-container">
+        {/* ⚠ THE PILL IS THE HEADING, NOT A LABEL SITTING ABOVE ONE. A sentence
+            headline ran here and was cut: the board's own artwork is titled
+            ADVISORY COUNCIL in letters four inches high, so anything above it
+            was the third time the page said so on one screen. Wrapping the chip
+            in the h2 keeps the section in the document outline with nothing
+            added on screen — do not "restore" a headline to point this at. */}
+        <h2 class="adv__h" id="adv-heading" data-reveal>
+          <span class="pill pill--violet">Advisory Council</span>
+        </h2>
+
+        <figure class="adv__board" data-reveal>
+          <CmsImage
+            file={council.board}
+            alt={council.alt}
+            sizes="(min-width: 1100px) 1040px, 94vw"
+            fallbackWidth={1040}
+          />
+        </figure>
+      </div>
+    </section>
+  )
+}
+
+<style>
+  /* ⚠ ZERO AT BOTH ENDS, AND NEITHER IS AN OVERSIGHT. The section above owns
+     the gap over this one — .hist-voices carries a short bottom padding for
+     exactly that — and .u-page-panel owns the gap under it, since it already
+     closes every page with a full --sb-section-y. Adding one here stacked to
+     240px of empty ground before the footer, where the rest of the site gives
+     120. This is the same contract .stc and .lead keep on the pages that end
+     with them. */
+  .adv {
+    padding-block: 0;
+  }
+
+  /* ⚠ RESET, BECAUSE IT IS AN h2. The chip inside carries all the styling; the
+     heading element itself must not bring a display font size or a UA margin
+     to a section whose only visible text is a 13px pill. */
+  .adv__h {
+    margin: 0 0 var(--sb-6);
+    font: inherit;
+    text-align: center;
+  }
+
+  .adv__board {
+    max-width: 1040px;
+    margin: 0 auto;
+  }
+
+  /* ⚠ ANCHORED ON THE FIGURE, WHICH THIS COMPONENT RENDERS. CmsImage emits a
+     bare <img> — never a <picture> — and a scoped selector never reaches it. */
+  .adv__board :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid rgba(18, 16, 15, 0.08);
+    border-radius: 12px;
+  }
+</style>

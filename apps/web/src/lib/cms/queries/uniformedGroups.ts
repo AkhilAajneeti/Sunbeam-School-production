@@ -12,6 +12,7 @@ import type { StrapiFile } from '../types';
 
 export interface GroupFact { label: string; body: string; verified: boolean }
 export interface GroupRecordItem { title: string; body: string }
+export interface GroupOfficer { name: string; role: string }
 export interface GroupPhoto { image: StrapiFile | null; alt: string; caption: string }
 
 export interface UniformedGroup {
@@ -19,6 +20,7 @@ export interface UniformedGroup {
   name: string;
   blurb: string;
   facts: GroupFact[];
+  officers: GroupOfficer[];
   record: GroupRecordItem[];
   photos: GroupPhoto[];
   pending: string | null;
@@ -27,6 +29,8 @@ export interface UniformedGroup {
 interface RawGroup {
   slug: string | null; name: string | null; blurb: string | null;
   facts: { id: number; label: string | null; body: string | null; verified: boolean | null }[] | null;
+  /* shared.point, reused: `title` is the person and `body` is the post. */
+  officers: { id: number; title: string | null; body: string | null }[] | null;
   record: { id: number; title: string | null; body: string | null }[] | null;
   photos: { id: number; image: StrapiFile | null; alt: string | null; caption: string | null }[] | null;
   pending: string | null;
@@ -53,6 +57,12 @@ export async function getUniformedGroups(): Promise<UniformedGroup[]> {
              school says so", never as "this is evidenced". */
           verified: f.verified === true,
         })),
+      /* ⚠ A NAME WITH NO POST STILL RENDERS — the post is the smaller loss of
+         the two, and dropping the person because a field is blank would remove
+         somebody the school did name. A row with no NAME is dropped. */
+      officers: (g.officers ?? [])
+        .filter((o) => o.title)
+        .map((o) => ({ name: o.title as string, role: o.body ?? '' })),
       record: (g.record ?? [])
         .filter((r) => r.title)
         .map((r) => ({ title: r.title as string, body: r.body ?? '' })),

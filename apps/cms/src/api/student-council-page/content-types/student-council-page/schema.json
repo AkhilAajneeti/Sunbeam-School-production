@@ -1,0 +1,58 @@
+{
+  "kind": "singleType",
+  "collectionName": "student_council_page",
+  "info": {
+    "singularName": "student-council-page",
+    "pluralName": "student-council-pages",
+    "displayName": "Student Council",
+    "description": "The roll on /beyond-academics/student-council/ — the school's own council board and the forty-five names on it. ⚠⚠ ONE RECORD, NOT ONE PER CHILD, BECAUSE THE WHOLE COUNCIL TURNS OVER AT ONCE. A new session means a new board artwork and a new roll together, so they are edited together and cannot drift apart. ⚠⚠ THE BOARD IMAGE AND THE FOUR LISTS ARE THE SAME PEOPLE AND MUST BE CHANGED IN THE SAME SAVE. Upload the new board and leave the lists, and the page shows this year's faces above last year's names — on screen, to parents, with nothing to indicate it. ⚠ EVERY NAME AND POST IS COPIED EXACTLY AS THE BOARD PRINTS IT, misspellings included. See the note on the Council post component before correcting anything."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "session": {
+      "type": "string",
+      "required": true,
+      "maxLength": 16,
+      "description": "The session the board covers, as it prints it — '2026-27'. The page shows it in the caption so the roll dates itself."
+    },
+    "intro": {
+      "type": "text",
+      "required": true,
+      "description": "⚠ THE SCHOOL'S OWN SENTENCE, VERBATIM. Not re-punctuated, not tightened, not made grammatical."
+    },
+    "board": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": ["images"],
+      "description": "The school's COUNCIL MEMBERS board. ⚠ REPLACING THIS IS HALF THE JOB — the four lists below have to be retyped from the new board in the same save."
+    },
+    "seniorOffices": {
+      "type": "component",
+      "repeatable": true,
+      "component": "council.post",
+      "description": "The senior council's four head offices — Head Boy, Head Girl and their vices. Set larger on the page because the board itself leads with them."
+    },
+    "seniorPosts": {
+      "type": "component",
+      "repeatable": true,
+      "component": "council.post",
+      "description": "Every other senior post, in the board's own left-to-right order. ⚠ THE ORDER IS THE BOARD'S, NOT ALPHABETICAL AND NOT RANKED — re-sorting invents a hierarchy the school did not publish."
+    },
+    "juniorOffices": {
+      "type": "component",
+      "repeatable": true,
+      "component": "council.post",
+      "description": "The junior council's four head offices. ⚠ THE BOARD WRITES THEM WITHOUT A 'Jr.' PREFIX, inside a panel titled Junior Student's Council — so do not add one."
+    },
+    "juniorPosts": {
+      "type": "component",
+      "repeatable": true,
+      "component": "council.post",
+      "description": "Every other junior post, in the board's own order."
+    }
+  }
+}

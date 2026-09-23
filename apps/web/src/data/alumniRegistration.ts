@@ -39,10 +39,24 @@ export interface RegistrationField {
   rule?: 'email' | 'phone' | 'year';
 }
 
+/**
+ * ⚠⚠ THE ENDPOINT IS BUILT FROM THE ENVIRONMENT, NOT TYPED IN. It is the same
+ * Strapi origin the contact form posts to, and the same rule applies: on a
+ * deploy where STRAPI_PUBLIC_URL is unset this resolves to null and the form
+ * goes back to saying plainly that nothing was sent — which is the only honest
+ * thing a form with nowhere to post can do. It must never fall back to a
+ * hard-coded localhost, because that fails silently in production.
+ */
+const strapiBase = (
+  import.meta.env.STRAPI_PUBLIC_URL ??
+  import.meta.env.STRAPI_URL ??
+  ''
+).replace(/\/+$/, '');
+
 export const registrationSettings = {
   enabled: true,
-  /** ⚠ null = not wired up. See the file header. */
-  endpoint: null as string | null,
+  /** ⚠ null = not wired up. See above and the file header. */
+  endpoint: strapiBase ? `${strapiBase}/api/alumni-registrations` : (null as string | null),
   successMessage: 'Thank you. Your registration has been submitted.',
   contactPhone: school.phone.office,
   contactPhoneDisplay: school.phone.officeDisplay,

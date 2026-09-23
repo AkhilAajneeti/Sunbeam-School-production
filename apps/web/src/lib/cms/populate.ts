@@ -457,11 +457,44 @@ export const STUDENT_CENTRED_POPULATE: QueryObject = {
  * one of which carries an image; populating `groups: true` returns the groups
  * with empty photo rows and no error.
  */
+/**
+ * ⚠ `image` MUST BE NAMED. `sheets` is a component carrying a media field, and
+ * a component populated with `true` comes back WITHOUT its media — the page
+ * then renders a class with the right number of sections and no pictures.
+ */
+export const CLASS_CORNER_POPULATE = {
+  file: true,
+} as const;
+
+export const CLASS_TIMETABLE_POPULATE = {
+  sheets: { populate: { image: true } },
+} as const;
+
+/* ⚠ EVERY COMPONENT LIST IS NAMED. A repeatable component that is not listed
+   here arrives undefined, and the council page renders as though the school
+   had published a board with nobody on it. */
+export const STUDENT_COUNCIL_POPULATE = {
+  board: true,
+  seniorOffices: true,
+  seniorPosts: true,
+  juniorOffices: true,
+  juniorPosts: true,
+} as const;
+
+export const ADVISORY_COUNCIL_POPULATE = {
+  board: true,
+  advisors: true,
+} as const;
+
 export const UNIFORMED_GROUPS_POPULATE = {
   intro: { populate: { body: true } },
   groups: {
     populate: {
       facts: true,
+      /* ⚠ NAMED, NOT COVERED BY A PARENT `true`. A component that is not listed
+         here simply arrives undefined, and the page renders as though the
+         school had not supplied any officers. */
+      officers: true,
       record: true,
       photos: { populate: { image: true } },
     },

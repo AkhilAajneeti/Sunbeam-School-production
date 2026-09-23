@@ -1,0 +1,29 @@
+{
+  "kind": "singleType",
+  "collectionName": "advisory_council",
+  "info": {
+    "singularName": "advisory-council",
+    "pluralName": "advisory-councils",
+    "displayName": "Advisory Council",
+    "description": "The board that closes /about/history-legacy/. ⚠⚠ THIS IS NOT THE STUDENT COUNCIL AND NOT THE SCHOOL MANAGEMENT COMMITTEE. Three different bodies, and this CMS holds all three separately: the STUDENT council is children (Student Council); the SMC is the statutory CBSE filing (Disclosure Page); this is a panel of academics, officials and the group's own directors that the school chose. Do not merge them. ⚠⚠ ITS OWN RECORD RATHER THAN A FIELD ON HISTORY PAGE, ON PURPOSE: History Page is rewritten whole by `npm run seed:pages`, so anything added there would be restored to the fixture by a seed run meant for something else. ⚠ IT IS A SEPARATE SINGLE TYPE BUT NOT A SEPARATE PAGE — audit 1.11 says dignitaries belong inside the History section rather than behind a new menu link."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "board": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": ["images"],
+      "description": "The school's ADVISORY COUNCIL board. This is the whole of what a visitor sees — there is no heading text and no list drawn under it. ⚠ REPLACING IT MEANS RETYPING THE MEMBERS BELOW IN THE SAME SAVE."
+    },
+    "advisors": {
+      "type": "component",
+      "repeatable": true,
+      "component": "council.advisor",
+      "description": "The members, in the board's own order — left to right, then down. ⚠⚠ NOT DRAWN ON THE PAGE. They become the board image's alt text, which is the only text these names exist in. ⚠ IT IS NOT ALPHABETICAL AND NOT RANKED: the Chairperson leads, but the Vice Chairperson is sixth and the Director ninth. Re-sorting invents a hierarchy the school did not publish."
+    }
+  }
+}

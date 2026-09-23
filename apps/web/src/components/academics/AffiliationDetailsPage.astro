@@ -54,7 +54,7 @@
  */
 import { Image } from 'astro:assets';
 import SmartImage from '../../components/ui/SmartImage.astro';
-import { getSchool } from '../../lib/cms';
+import { getSchool, getDisclosure } from '../../lib/cms';
 
 /* ⚠ FOUR DIFFERENT PHOTOGRAPHS ACROSS THE PAGE, AND THE BANNER OWNS
    DSC_1240 — so the stairwell here is a different frame from the banner's. */
@@ -72,6 +72,21 @@ const docLetter = ac.pic('docLetter');
 const pCampus = ac.pic('pCampus');
 
 const sb = await getSchool();
+
+/**
+ * ⚠⚠ THE LETTER IS SERVED FROM THIS CMS WHEN IT HAS BEEN UPLOADED THERE. The
+ * site settings still carry the school's old sunbeamballia.edu.in URL, and
+ * that is now the FALLBACK, not the source — the disclosure page holds the
+ * same document as an upload, and this page must not be the one link left
+ * pointing at the domain being retired.
+ *
+ * ⚠ AND IT IS LOOKED UP, NOT HARD-CODED. A CMS upload's URL carries the CMS's
+ * own origin, which differs between a developer's machine and production;
+ * writing one into site settings would work in exactly one environment.
+ */
+const { certificates } = await getDisclosure();
+const affl = certificates.find((c) => c.key === 'AFFL');
+const affiliationLetter = affl?.href || sb.external.affiliationLetter;
 
 const S = 'Sunbeam School Ballia';
 
@@ -275,7 +290,7 @@ const points = ac.section('points').points;
       </dl>
 
       <p class="af-doc__acts">
-        <a class="btn btn--primary" href={sb.external.affiliationLetter} target="_blank" rel="noopener noreferrer">
+        <a class="btn btn--primary" href={affiliationLetter} target="_blank" rel="noopener noreferrer">
           View official document <span aria-hidden="true">→</span>
         </a>
         <a class="af-link" href={sb.external.mandatoryDisclosure} target="_blank" rel="noopener noreferrer">
@@ -288,7 +303,7 @@ const points = ac.section('points').points;
         that carries the facts. The plate is sized to the paper, so there is no
         letterboxing to hide. */}
     <figure class="af-paper" data-reveal data-reveal-delay="140">
-      <a class="af-paper__a" href={sb.external.affiliationLetter} target="_blank" rel="noopener noreferrer">
+      <a class="af-paper__a" href={affiliationLetter} target="_blank" rel="noopener noreferrer">
         <SmartImage
           file={docLetter}
           alt={`Page one of the CBSE affiliation letter published by ${S}: letter number CBSE/${sb.affiliationNo}/EX-00497-2526/2025-26 dated ${sb.affiliationLetterDated}, subject “${sb.affiliationSubject}”, with a table giving affiliation number ${sb.affiliationNo}, school number ${sb.schoolCode} and period of affiliation ${sb.affiliationPeriod}, and the school’s stamp carrying UDISE code ${sb.udise}.`}

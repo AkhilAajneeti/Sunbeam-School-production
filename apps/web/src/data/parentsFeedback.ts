@@ -61,32 +61,22 @@ export interface ParentTestimonial {
  * kept to a similar length, roughly two to four lines, or one long entry
  * stretches every card beside it.
  */
-const PREVIEW_ONLY: ParentTestimonial[] = [
-  {
-    quote: 'A short one, to show the floor of the card.',
-    parentName: 'Sample Parent A',
-    relation: 'PREVIEW — not a real testimonial',
-  },
-  {
-    quote:
-      'A middling one, long enough to wrap onto three lines at the two-up width this rail uses, which is roughly where a real testimonial should sit.',
-    parentName: 'Sample Parent B',
-    relation: 'PREVIEW — not a real testimonial',
-  },
-  {
-    quote:
-      'A deliberately long one, written to overflow the others and demonstrate that every card in view grows to match the tallest among them. If a real testimonial runs to this length, the card beside it inherits the height and the band starts to look unbalanced — which is the reason to keep them close in length rather than a rule about writing.',
-    parentName: 'Sample Parent C',
-    relation: 'PREVIEW — not a real testimonial',
-  },
-];
 
 /**
  * ⚠⚠ EMPTY UNTIL THE SCHOOL SUPPLIES REAL FEEDBACK WITH CONSENT. Adding entries
  * here is all that is needed — the band, carousel, arrows and dots are already
  * built and will appear on their own.
  */
-export const testimonials: ParentTestimonial[] = import.meta.env.DEV ? PREVIEW_ONLY : [];
+/**
+ * ⚠⚠ THE CAROUSEL NO LONGER READS THIS FILE. Cleared parent quotes live in the
+ * CMS now, under Parent Testimonial, so the office can add one after speaking
+ * to the parent — see lib/cms/queries/parentTestimonials.ts. The interface
+ * above stays because `participation` and `closing` below still live here.
+ *
+ * ⚠ AND THE CHILD'S NAME STILL HAS NO PLACE TO GO. The CMS collection has no
+ * column for it, which is a stronger guarantee than the comment that used to
+ * stand here asking people not to add one.
+ */
 
 export interface ParticipationItem {
   /** Printed on the card. Two digits, matching the client's design. */

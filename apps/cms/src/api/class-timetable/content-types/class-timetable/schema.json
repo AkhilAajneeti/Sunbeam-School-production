@@ -1,0 +1,52 @@
+{
+  "kind": "collectionType",
+  "collectionName": "class_timetables",
+  "info": {
+    "singularName": "class-timetable",
+    "pluralName": "class-timetables",
+    "displayName": "Class Timetable",
+    "description": "ONE ENTRY PER CLASS on /academics/class-corner/class-timetable/, each holding that class's section sheets. ⚠⚠ A COLLECTION, NOT ONE BIG SINGLE TYPE, SO THE SCHOOL CAN UPDATE ONE CLASS WITHOUT OPENING THE OTHER FOURTEEN — replacing Class VI's sheets at the start of a term should not put Class XII's at risk in the same save. ⚠ `stage` IS WHAT GROUPS THE PAGE. A class with a stage the page does not know about simply will not appear, so the five values are fixed here rather than free text."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true,
+      "maxLength": 40,
+      "description": "As the school writes it — 'Class I', 'KG II', 'Nursery'."
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "label",
+      "required": true
+    },
+    "stage": {
+      "type": "enumeration",
+      "enum": [
+        "pre-primary",
+        "primary",
+        "middle",
+        "secondary",
+        "senior"
+      ],
+      "required": true,
+      "description": "The school's own five stages, the same ones /academics/structure/ uses."
+    },
+    "order": {
+      "type": "integer",
+      "default": 0,
+      "required": true,
+      "description": "Sort order WITHIN the stage. Lower first. Renumber to move a class."
+    },
+    "sheets": {
+      "type": "component",
+      "repeatable": true,
+      "component": "timetable.sheet",
+      "required": true,
+      "min": 1
+    }
+  }
+}

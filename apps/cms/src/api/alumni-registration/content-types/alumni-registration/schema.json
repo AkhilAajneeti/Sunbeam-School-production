@@ -1,0 +1,80 @@
+{
+  "kind": "collectionType",
+  "collectionName": "alumni_registrations",
+  "info": {
+    "singularName": "alumni-registration",
+    "pluralName": "alumni-registrations",
+    "displayName": "Alumni Registration",
+    "description": "A former student registering through the form on /alumni/registration/. WRITTEN BY VISITORS, NOT BY EDITORS — nothing here is authored in the admin panel, and no page on the site reads it back. Fields mirror the form's own inputs one-for-one; see apps/web/src/components/alumni/ArForm.astro and the field list in apps/web/src/data/alumniRegistration.ts. draftAndPublish is OFF because a registration is a record of something that happened, not a document with a draft state."
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "maxLength": 120
+    },
+    "passingYear": {
+      "type": "string",
+      "required": true,
+      "maxLength": 10
+    },
+    "email": {
+      "type": "email",
+      "required": true,
+      "maxLength": 200
+    },
+    "mobile": {
+      "type": "string",
+      "required": true,
+      "maxLength": 40
+    },
+    "classCompleted": {
+      "type": "string",
+      "maxLength": 80
+    },
+    "location": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "profession": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "organisation": {
+      "type": "string",
+      "maxLength": 200
+    },
+    "message": {
+      "type": "text",
+      "maxLength": 4000
+    },
+    "consent": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "new",
+        "read",
+        "replied",
+        "closed"
+      ],
+      "default": "new",
+      "required": true
+    },
+    "officeNotes": {
+      "type": "text",
+      "maxLength": 5000
+    },
+    "sourcePage": {
+      "type": "string",
+      "maxLength": 200
+    }
+  }
+}

@@ -37,6 +37,7 @@ import type { StrapiApp } from '@strapi/strapi/admin';
 import type { DefaultTheme } from 'styled-components';
 
 import { installNavGrouping } from './group-nav';
+import { MakeTestimonialButton } from './testimonial-button';
 
 import authLogo from './assets/sunbeam-logo.png';
 import menuLogo from './assets/sunbeam-emblem.png';
@@ -201,6 +202,23 @@ export default {
      * the only shape that gives real nesting, and it is a supported extension
      * point.
      */
+    /**
+     * ⚠ A BUTTON ON PARENT FEEDBACK ROWS — see testimonial-button.tsx. It
+     * drafts a testimonial from a feedback row so the office does not retype
+     * it, and it CANNOT publish: the draft has no consent date and the site
+     * drops any testimonial without one.
+     *
+     * ⚠ THE ZONE RENDERS ON EVERY EDIT VIEW. The component decides for itself
+     * whether it belongs on the page, because this API passes nothing that
+     * says which content type is open.
+     */
+    app
+      .getPlugin('content-manager')
+      .injectComponent('editView', 'right-links', {
+        name: 'sb-make-testimonial',
+        Component: MakeTestimonialButton,
+      });
+
     app.addMenuLink({
       to: 'sunbeam-content',
       icon: () => '📚',

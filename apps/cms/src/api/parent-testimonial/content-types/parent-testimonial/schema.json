@@ -1,0 +1,56 @@
+{
+  "kind": "collectionType",
+  "collectionName": "parent_testimonials",
+  "info": {
+    "singularName": "parent-testimonial",
+    "pluralName": "parent-testimonials",
+    "displayName": "Parent Testimonial",
+    "description": "A parent quote CLEARED FOR PUBLICATION, shown in the voices carousel on /parents-feedback/. ⚠⚠ THIS IS NOT THE FEEDBACK INBOX. Parent Feedback holds what parents SENT through the form — private correspondence about a named child, which no page reads. A row only reaches this collection after a person has spoken to the parent and obtained consent. ⚠⚠ THERE IS NO FIELD FOR THE CHILD'S NAME, AND THAT IS THE SAFEGUARD. Not a rule someone has to remember — the column does not exist, so a child's name cannot reach the page even by mistake. A parent can consent for themselves; consenting to make their child's name searchable on a school's public site is a different question, and this collection does not ask it. ⚠ CONSENT IS RECORDED, NOT ASSUMED. `consentOn` and `consentNote` exist so that months later anyone can see when it was given and how. A row without them should not be published."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "quote": {
+      "type": "text",
+      "required": true,
+      "maxLength": 1200,
+      "description": "The parent's own words. ⚠ VERBATIM — never edited for tone, length or grammar. Shorten by asking the parent, not by rewriting them."
+    },
+    "parentName": {
+      "type": "string",
+      "required": true,
+      "maxLength": 120,
+      "description": "As the parent agreed to be named."
+    },
+    "relation": {
+      "type": "string",
+      "required": true,
+      "default": "Parent",
+      "maxLength": 60,
+      "description": "⚠ THE RELATION, NEVER THE CHILD'S NAME — 'Parent', 'Guardian'. The class goes in its own field."
+    },
+    "className": {
+      "type": "string",
+      "maxLength": 40,
+      "description": "OPTIONAL, and only where the parent agreed to it — 'Class V'. Leave empty and the quote shows the relation alone."
+    },
+    "consentOn": {
+      "type": "date",
+      "required": true,
+      "description": "The date consent was obtained. Required: a quote whose consent cannot be dated should not be on the site."
+    },
+    "consentNote": {
+      "type": "text",
+      "maxLength": 400,
+      "description": "How it was obtained — 'by phone, 12 Sep 2026, spoke to Mrs X' — so it can be checked later. Internal; never rendered."
+    },
+    "order": {
+      "type": "integer",
+      "default": 0,
+      "required": true,
+      "description": "Carousel order. Lower first."
+    }
+  }
+}

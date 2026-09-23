@@ -77,6 +77,13 @@ export interface UniformedGroup {
   name: string;
   blurb: string;
   facts: GroupFact[];
+  /**
+   * ⚠ NAMED OFFICE-HOLDERS, EXACTLY AS THE SCHOOL PRINTS THEM — rank included.
+   * They are separated from `facts` because they are a roll, not a claim: the
+   * page sets them as chips, and a fact card carrying two names in prose made
+   * the reader parse a sentence to find out who holds the post.
+   */
+  officers?: { name: string; role: string }[];
   record: GroupRecordItem[];
   /** docs/07 id for whatever this group is still owed. */
   pending: string | null;
@@ -113,12 +120,13 @@ export const ncc: UniformedGroup = {
         'Both trained on the PRCN 180 course at the NCC Officer Training Academy, Kamptee, Nagpur.',
       verified: true,
     },
-    {
-      label: 'Officers',
-      /* ⚠ AS THE SCHOOL PRINTS THEM. See the header on rank and on identity. */
-      body: 'Lt. Pankaj Singh and Lt. Rajendra Singh, as the school names them.',
-      verified: true,
-    },
+  ],
+  /* ⚠ AS THE SCHOOL PRINTS THEM — rank and spelling both. See the header on
+     rank and on identity. This replaced a fact card that carried the same two
+     names in a sentence; the names are unchanged. */
+  officers: [
+    { name: 'Lt. Pankaj Singh', role: 'Associate NCC Officer' },
+    { name: 'Lt. Rajendra Singh', role: 'Associate NCC Officer' },
   ],
   record: [
     {
@@ -138,7 +146,12 @@ export const ncc: UniformedGroup = {
       body: 'Cadets marked Rakshabandhan with the battalion.',
     },
   ],
-  pending: 'A13 — cadet strength, and photographs of the contingent',
+  /* ⚠ SHARPENED WHEN THE KARGIL PHOTOGRAPHS WENT UP. It used to read
+     "photographs of the contingent", which was true when the group had none
+     and reads as a contradiction now that four sit directly above it — none
+     of the four shows the contingent formed up, which is the thing still
+     outstanding. A gap note that looks wrong is a gap note nobody believes. */
+  pending: 'A13 — cadet strength, and a photograph of the contingent on parade',
 };
 
 export const scoutsGuides: UniformedGroup = {
@@ -200,6 +213,47 @@ export const uniformedGroups: UniformedGroup[] = [ncc, scoutsGuides];
  * caption. Only the two conclave frames name an event, and only because the
  * banner naming it is inside the frame.
  */
+/**
+ * ═══ THE NCC PHOTOGRAPHS ═══════════════════════════════════════════════════
+ *
+ * From the school's own Kargil Vijay Diwas set — assets/school-activities/
+ * kargil-vijay-diwas/. The school published these; nothing here is sourced
+ * from anywhere else.
+ *
+ * ⚠⚠ EVERY alt AND caption DESCRIBES ONLY WHAT IS VISIBLE IN THE FRAME. No
+ * photograph is captioned with who a person is, what rank they hold or why
+ * they are there unless the frame itself carries it — the 93 UP BN NCC Ballia
+ * banner in the last one does, so that one may say so.
+ *
+ * ⚠ ONE PHOTOGRAPH IN THAT SET IS DELIBERATELY NOT USED. Its subject is an
+ * elderly guest being received by officers, and neither the school's caption
+ * nor the frame says who she is. Publishing a private individual as the
+ * subject of a photograph on the school's own site, described by a guess, is
+ * not a thing to do to fill a grid.
+ */
+export const nccPhotos = [
+  {
+    file: '01.jpg',
+    alt: 'NCC cadets and staff of Sunbeam School Ballia lighting candles set out on a table after dark, at the school’s Kargil Vijay Diwas observance.',
+    caption: 'Kargil Vijay Diwas — the candle memorial',
+  },
+  {
+    file: '02.jpg',
+    alt: 'An NCC cadet of Sunbeam School Ballia speaking at the lectern in uniform, a second cadet standing to attention beside him, under a Kargil Vijay Diwas backdrop.',
+    caption: 'A cadet addresses the school',
+  },
+  {
+    file: '03.jpg',
+    alt: 'A speaker at the lectern behind a Sunbeam School Ballia Kargil Vijay Diwas banner, flanked by an NCC cadet and an officer in uniform.',
+    caption: 'The observance, at the lectern',
+  },
+  {
+    file: '06.jpg',
+    alt: 'Army officers standing with representatives of Sunbeam School Ballia in front of a banner reading 93 UP BN NCC Ballia, Kargil Vijay Diwas.',
+    caption: 'Officers of 93 UP BN with the school’s representatives',
+  },
+];
+
 export const scoutsPhotos = [
   {
     file: 'scouts-and-guides.jpeg',

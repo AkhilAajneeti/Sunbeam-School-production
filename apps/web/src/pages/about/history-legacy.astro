@@ -23,6 +23,7 @@
  * the leading educational Institution" → "is one of the leading educational
  * institutions", and the stray capitalisation on "Institution".
  */
+import AdvisoryCouncil from '../../components/about/AdvisoryCouncil.astro';
 import LegacyTimeline from '../../components/about/LegacyTimeline.astro';
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageHero from "../../components/ui/PageHero.astro";
@@ -219,7 +220,15 @@ const { history, voices } = await getHistoryPage();
       </div>
     </section>
 
-    
+    {
+      /* --- The advisory council. Audit 1.11 again -----------------------------
+         "Other dignitaries can be incorporated within the History section
+         instead of creating separate menu links" — so the council board sits
+         here, after the two signed messages, and adds no nav entry of its own.
+         ⚠ IT IS NOT THE SCHOOL MANAGEMENT COMMITTEE, which is a statutory
+         filing and lives on the disclosure page. See data/advisoryCouncil.ts. */
+    }
+    <AdvisoryCouncil />
   </div>
 </BaseLayout>
 
@@ -468,8 +477,13 @@ const { history, voices } = await getHistoryPage();
      the portrait at 280px, so the base has to establish a grid, set an order on
      the flipped portrait, and leave the portrait width to the column. */
 
+  /* ⚠ THE BOTTOM IS DELIBERATELY SHORT, AND ONLY BECAUSE OF WHAT FOLLOWS. This
+     section no longer ends the page — the advisory council board runs directly
+     under it, on the same subject — and a full --sb-section-y at both ends
+     stacked to 240px of empty ground between the Secretary's portrait and that
+     board. If anything is ever put between the two, put the full value back. */
   .hist-voices {
-    padding-block: var(--sb-section-y);
+    padding-block: var(--sb-section-y) clamp(56px, 7vh, 80px);
     background: var(--sb-ivory);
   }
 

@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_timetable_sheets",
+  "info": {
+    "displayName": "Timetable sheet",
+    "icon": "calendar",
+    "description": "ONE SECTION'S WEEKLY TIMETABLE, as an image of the school's own sheet. ⚠ THERE IS NO ALT FIELD ON PURPOSE — the page writes it from the class and the section ('The weekly timetable for Class I, section B, …'), so an editor uploading a replacement cannot leave a stale description behind, and cannot leave one blank. ⚠ DO NOT RETYPE A TIMETABLE INTO TEXT ANYWHERE. Each sheet carries teachers' names and a page of instructions; a transcription becomes a second version that goes stale the moment the school revises the original."
+  },
+  "options": {},
+  "attributes": {
+    "section": {
+      "type": "string",
+      "maxLength": 12,
+      "description": "The section letter as the sheet prints it — A, B, C… Leave EMPTY where the class has one sheet and no section (Nursery)."
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  }
+}

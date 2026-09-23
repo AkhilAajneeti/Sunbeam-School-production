@@ -1,0 +1,34 @@
+[
+  {
+    "slug": "class-teachers",
+    "title": "Class Teachers",
+    "body": "Every class and section with the teacher who takes it, as published by the school office.",
+    "icon": "teacher",
+    "order": 0,
+    "file": "class-teachers.pdf"
+  },
+  {
+    "slug": "class-timetable",
+    "title": "Class Timetable",
+    "body": "Timetables for Nursery to KG-2, Classes I–II, III–V, VI–VIII and IX–XII.",
+    "icon": "clock",
+    "order": 1,
+    "link": "/academics/class-corner/class-timetable/"
+  },
+  {
+    "slug": "student-monitors",
+    "title": "Student Monitors",
+    "body": "The monitors appointed for the 2026-27 session, class by class.",
+    "icon": "badge",
+    "order": 2,
+    "file": "student-monitors-2026-27.pdf"
+  },
+  {
+    "slug": "examination-schedule",
+    "title": "Examination Schedule",
+    "body": "The examination schedule for the 2026-27 session.",
+    "icon": "exam",
+    "order": 3,
+    "file": "examination-schedule.jpeg"
+  }
+]

@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_council_posts",
+  "info": {
+    "displayName": "Council post",
+    "icon": "user",
+    "description": "ONE OFFICE AND THE STUDENT WHO HOLDS IT. ⚠⚠ TYPE BOTH EXACTLY AS THE SCHOOL'S COUNCIL BOARD PRINTS THEM, INCLUDING ANYTHING THAT LOOKS LIKE A MISTAKE. The 2026-27 board says 'Health & Hygine Inspector' on the junior side and 'Health & Hygiene Inspector' on the senior side; it says 'Adiyta Verma', and 'Sport Vice Captain' beside a 'Sports Captain'. All of those are correct here, because they are what the school published. These are named children holding named offices — correcting a spelling on a hunch tells a parent their child's title is something the school never said it was, and nothing on the page would show it had been changed. If one is genuinely wrong, the BOARD has to change first."
+  },
+  "options": {},
+  "attributes": {
+    "post": {
+      "type": "string",
+      "required": true,
+      "maxLength": 60,
+      "description": "The office, as the board writes it — 'Head Boy', 'Captain Love House', 'Vice Head Prefect'."
+    },
+    "name": {
+      "type": "string",
+      "required": true,
+      "maxLength": 80,
+      "description": "The holder, spelt exactly as the board spells it. The page never re-capitalises a name."
+    },
+    "house": {
+      "type": "enumeration",
+      "enum": ["love", "joy", "hope"],
+      "description": "ONLY where the post names a house. It draws the coloured dot and nothing else — the house is already written in the post itself. ⚠ THE COLOURS ARE THE HOUSES' OWN, read off the board: Love wears red, Joy yellow, Hope green. Leave EMPTY for every post that is not a house office."
+    }
+  }
+}

@@ -710,6 +710,37 @@ export interface ApiAchievementsPageAchievementsPage
   };
 }
 
+export interface ApiAdvisoryCouncilAdvisoryCouncil
+  extends Struct.SingleTypeSchema {
+  collectionName: 'advisory_council';
+  info: {
+    description: "The board that closes /about/history-legacy/. \u26A0\u26A0 THIS IS NOT THE STUDENT COUNCIL AND NOT THE SCHOOL MANAGEMENT COMMITTEE. Three different bodies, and this CMS holds all three separately: the STUDENT council is children (Student Council); the SMC is the statutory CBSE filing (Disclosure Page); this is a panel of academics, officials and the group's own directors that the school chose. Do not merge them. \u26A0\u26A0 ITS OWN RECORD RATHER THAN A FIELD ON HISTORY PAGE, ON PURPOSE: History Page is rewritten whole by `npm run seed:pages`, so anything added there would be restored to the fixture by a seed run meant for something else. \u26A0 IT IS A SEPARATE SINGLE TYPE BUT NOT A SEPARATE PAGE \u2014 audit 1.11 says dignitaries belong inside the History section rather than behind a new menu link.";
+    displayName: 'Advisory Council';
+    pluralName: 'advisory-councils';
+    singularName: 'advisory-council';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    advisors: Schema.Attribute.Component<'council.advisor', true>;
+    board: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::advisory-council.advisory-council'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiAlumniMeetAlumniMeet extends Struct.CollectionTypeSchema {
   collectionName: 'alumni_meets';
   info: {
@@ -764,6 +795,89 @@ export interface ApiAlumniMeetAlumniMeet extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 200;
       }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiAlumniRegistrationAlumniRegistration
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'alumni_registrations';
+  info: {
+    description: "A former student registering through the form on /alumni/registration/. WRITTEN BY VISITORS, NOT BY EDITORS \u2014 nothing here is authored in the admin panel, and no page on the site reads it back. Fields mirror the form's own inputs one-for-one; see apps/web/src/components/alumni/ArForm.astro and the field list in apps/web/src/data/alumniRegistration.ts. draftAndPublish is OFF because a registration is a record of something that happened, not a document with a draft state.";
+    displayName: 'Alumni Registration';
+    pluralName: 'alumni-registrations';
+    singularName: 'alumni-registration';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    classCompleted: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 80;
+      }>;
+    consent: Schema.Attribute.Boolean &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<false>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    email: Schema.Attribute.Email &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::alumni-registration.alumni-registration'
+    > &
+      Schema.Attribute.Private;
+    location: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    message: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 4000;
+      }>;
+    mobile: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 40;
+      }>;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 120;
+      }>;
+    officeNotes: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 5000;
+      }>;
+    organisation: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    passingYear: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 10;
+      }>;
+    profession: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    publishedAt: Schema.Attribute.DateTime;
+    sourcePage: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    status: Schema.Attribute.Enumeration<['new', 'read', 'replied', 'closed']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'new'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1239,6 +1353,117 @@ export interface ApiCareerPageCareerPage extends Struct.SingleTypeSchema {
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     wall: Schema.Attribute.Component<'structure.section', false>;
+  };
+}
+
+export interface ApiClassCornerDocumentClassCornerDocument
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'class_corner_documents';
+  info: {
+    description: "ONE CARD on /academics/class-corner/. \u26A0\u26A0 THE DOCUMENTS ARE HELD HERE NOW, NOT LINKED FROM THE SCHOOL'S OLD SITE. They used to point at sunbeamballia.edu.in/wp-content/uploads/\u2026, which meant a parent left this site to read them and the school had to maintain two places. Upload the new file over `file` and the card serves it \u2014 no developer, no deploy. \u26A0 THE TRADE THAT COMES WITH THAT: a linked file was always whatever the school had just published; a held file is whatever was last uploaded HERE. If the office revises a timetable or a monitors list, it has to be uploaded here too, or this page quietly serves last session's.";
+    displayName: 'Class Corner Document';
+    pluralName: 'class-corner-documents';
+    singularName: 'class-corner-document';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    body: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 300;
+      }>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    file: Schema.Attribute.Media<'images' | 'files'>;
+    icon: Schema.Attribute.Enumeration<
+      ['teacher', 'clock', 'badge', 'exam', 'person', 'star']
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'badge'>;
+    link: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::class-corner-document.class-corner-document'
+    > &
+      Schema.Attribute.Private;
+    needs: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 300;
+      }>;
+    order: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<0>;
+    pending: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 120;
+      }>;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID<'title'> & Schema.Attribute.Required;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 80;
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiClassTimetableClassTimetable
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'class_timetables';
+  info: {
+    description: "ONE ENTRY PER CLASS on /academics/class-corner/class-timetable/, each holding that class's section sheets. \u26A0\u26A0 A COLLECTION, NOT ONE BIG SINGLE TYPE, SO THE SCHOOL CAN UPDATE ONE CLASS WITHOUT OPENING THE OTHER FOURTEEN \u2014 replacing Class VI's sheets at the start of a term should not put Class XII's at risk in the same save. \u26A0 `stage` IS WHAT GROUPS THE PAGE. A class with a stage the page does not know about simply will not appear, so the five values are fixed here rather than free text.";
+    displayName: 'Class Timetable';
+    pluralName: 'class-timetables';
+    singularName: 'class-timetable';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    label: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 40;
+      }>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::class-timetable.class-timetable'
+    > &
+      Schema.Attribute.Private;
+    order: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<0>;
+    publishedAt: Schema.Attribute.DateTime;
+    sheets: Schema.Attribute.Component<'timetable.sheet', true> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      >;
+    slug: Schema.Attribute.UID<'label'> & Schema.Attribute.Required;
+    stage: Schema.Attribute.Enumeration<
+      ['pre-primary', 'primary', 'middle', 'secondary', 'senior']
+    > &
+      Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
@@ -2846,6 +3071,63 @@ export interface ApiParentTeacherPageParentTeacherPage
   };
 }
 
+export interface ApiParentTestimonialParentTestimonial
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'parent_testimonials';
+  info: {
+    description: "A parent quote CLEARED FOR PUBLICATION, shown in the voices carousel on /parents-feedback/. \u26A0\u26A0 THIS IS NOT THE FEEDBACK INBOX. Parent Feedback holds what parents SENT through the form \u2014 private correspondence about a named child, which no page reads. A row only reaches this collection after a person has spoken to the parent and obtained consent. \u26A0\u26A0 THERE IS NO FIELD FOR THE CHILD'S NAME, AND THAT IS THE SAFEGUARD. Not a rule someone has to remember \u2014 the column does not exist, so a child's name cannot reach the page even by mistake. A parent can consent for themselves; consenting to make their child's name searchable on a school's public site is a different question, and this collection does not ask it. \u26A0 CONSENT IS RECORDED, NOT ASSUMED. `consentOn` and `consentNote` exist so that months later anyone can see when it was given and how. A row without them should not be published.";
+    displayName: 'Parent Testimonial';
+    pluralName: 'parent-testimonials';
+    singularName: 'parent-testimonial';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    className: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 40;
+      }>;
+    consentNote: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 400;
+      }>;
+    consentOn: Schema.Attribute.Date & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::parent-testimonial.parent-testimonial'
+    > &
+      Schema.Attribute.Private;
+    order: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<0>;
+    parentName: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 120;
+      }>;
+    publishedAt: Schema.Attribute.DateTime;
+    quote: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 1200;
+      }>;
+    relation: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }> &
+      Schema.Attribute.DefaultTo<'Parent'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiPrePrimaryPagePrePrimaryPage
   extends Struct.SingleTypeSchema {
   collectionName: 'pre_primary_pages';
@@ -2936,6 +3218,7 @@ export interface ApiPublicationPublication extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     displayOrder: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    file: Schema.Attribute.Media<'files' | 'images'>;
     group: Schema.Attribute.Enumeration<
       [
         'entrepreneurial-chronicles',
@@ -3573,6 +3856,46 @@ export interface ApiStudentCentredLearningPageStudentCentredLearningPage
     sectionOne: Schema.Attribute.Component<'philosophy.statement', false>;
     sectionThree: Schema.Attribute.Component<'philosophy.constellation', false>;
     sectionTwo: Schema.Attribute.Component<'philosophy.collage', false>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiStudentCouncilPageStudentCouncilPage
+  extends Struct.SingleTypeSchema {
+  collectionName: 'student_council_page';
+  info: {
+    description: "The roll on /beyond-academics/student-council/ \u2014 the school's own council board and the forty-five names on it. \u26A0\u26A0 ONE RECORD, NOT ONE PER CHILD, BECAUSE THE WHOLE COUNCIL TURNS OVER AT ONCE. A new session means a new board artwork and a new roll together, so they are edited together and cannot drift apart. \u26A0\u26A0 THE BOARD IMAGE AND THE FOUR LISTS ARE THE SAME PEOPLE AND MUST BE CHANGED IN THE SAME SAVE. Upload the new board and leave the lists, and the page shows this year's faces above last year's names \u2014 on screen, to parents, with nothing to indicate it. \u26A0 EVERY NAME AND POST IS COPIED EXACTLY AS THE BOARD PRINTS IT, misspellings included. See the note on the Council post component before correcting anything.";
+    displayName: 'Student Council';
+    pluralName: 'student-council-pages';
+    singularName: 'student-council-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    board: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    intro: Schema.Attribute.Text & Schema.Attribute.Required;
+    juniorOffices: Schema.Attribute.Component<'council.post', true>;
+    juniorPosts: Schema.Attribute.Component<'council.post', true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::student-council-page.student-council-page'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    seniorOffices: Schema.Attribute.Component<'council.post', true>;
+    seniorPosts: Schema.Attribute.Component<'council.post', true>;
+    session: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 16;
+      }>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -4549,7 +4872,9 @@ declare module '@strapi/strapi' {
       'api::achievement-major.achievement-major': ApiAchievementMajorAchievementMajor;
       'api::achievement-record.achievement-record': ApiAchievementRecordAchievementRecord;
       'api::achievements-page.achievements-page': ApiAchievementsPageAchievementsPage;
+      'api::advisory-council.advisory-council': ApiAdvisoryCouncilAdvisoryCouncil;
       'api::alumni-meet.alumni-meet': ApiAlumniMeetAlumniMeet;
+      'api::alumni-registration.alumni-registration': ApiAlumniRegistrationAlumniRegistration;
       'api::alumni-story.alumni-story': ApiAlumniStoryAlumniStory;
       'api::alumnus.alumnus': ApiAlumnusAlumnus;
       'api::assessment-page.assessment-page': ApiAssessmentPageAssessmentPage;
@@ -4559,6 +4884,8 @@ declare module '@strapi/strapi' {
       'api::campus-safety-page.campus-safety-page': ApiCampusSafetyPageCampusSafetyPage;
       'api::campus-tour-page.campus-tour-page': ApiCampusTourPageCampusTourPage;
       'api::career-page.career-page': ApiCareerPageCareerPage;
+      'api::class-corner-document.class-corner-document': ApiClassCornerDocumentClassCornerDocument;
+      'api::class-timetable.class-timetable': ApiClassTimetableClassTimetable;
       'api::competitive-exam-page.competitive-exam-page': ApiCompetitiveExamPageCompetitiveExamPage;
       'api::contact-enquiry.contact-enquiry': ApiContactEnquiryContactEnquiry;
       'api::contact-page.contact-page': ApiContactPageContactPage;
@@ -4587,6 +4914,7 @@ declare module '@strapi/strapi' {
       'api::page-meta.page-meta': ApiPageMetaPageMeta;
       'api::parent-feedback.parent-feedback': ApiParentFeedbackParentFeedback;
       'api::parent-teacher-page.parent-teacher-page': ApiParentTeacherPageParentTeacherPage;
+      'api::parent-testimonial.parent-testimonial': ApiParentTestimonialParentTestimonial;
       'api::pre-primary-page.pre-primary-page': ApiPrePrimaryPagePrePrimaryPage;
       'api::primary-stage-page.primary-stage-page': ApiPrimaryStagePagePrimaryStagePage;
       'api::publication.publication': ApiPublicationPublication;
@@ -4604,6 +4932,7 @@ declare module '@strapi/strapi' {
       'api::stem-robotics-page.stem-robotics-page': ApiStemRoboticsPageStemRoboticsPage;
       'api::streams-offered-page.streams-offered-page': ApiStreamsOfferedPageStreamsOfferedPage;
       'api::student-centred-learning-page.student-centred-learning-page': ApiStudentCentredLearningPageStudentCentredLearningPage;
+      'api::student-council-page.student-council-page': ApiStudentCouncilPageStudentCouncilPage;
       'api::subject-combinations-page.subject-combinations-page': ApiSubjectCombinationsPageSubjectCombinationsPage;
       'api::tc-page.tc-page': ApiTcPageTcPage;
       'api::teacher.teacher': ApiTeacherTeacher;

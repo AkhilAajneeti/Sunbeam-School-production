@@ -27,6 +27,15 @@
       "required": true,
       "maxLength": 500
     },
+    "file": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "files",
+        "images"
+      ],
+      "description": "⚠ THE FILE WINS OVER `href`. Upload the publication here and the card serves it from this CMS; `href` is only the fallback for one still hosted elsewhere. A publication held here does not stop working when the school's old site changes."
+    },
     "group": {
       "type": "enumeration",
       "enum": [

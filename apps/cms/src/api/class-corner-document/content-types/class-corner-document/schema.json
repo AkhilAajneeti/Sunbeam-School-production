@@ -1,0 +1,76 @@
+{
+  "kind": "collectionType",
+  "collectionName": "class_corner_documents",
+  "info": {
+    "singularName": "class-corner-document",
+    "pluralName": "class-corner-documents",
+    "displayName": "Class Corner Document",
+    "description": "ONE CARD on /academics/class-corner/. ⚠⚠ THE DOCUMENTS ARE HELD HERE NOW, NOT LINKED FROM THE SCHOOL'S OLD SITE. They used to point at sunbeamballia.edu.in/wp-content/uploads/…, which meant a parent left this site to read them and the school had to maintain two places. Upload the new file over `file` and the card serves it — no developer, no deploy. ⚠ THE TRADE THAT COMES WITH THAT: a linked file was always whatever the school had just published; a held file is whatever was last uploaded HERE. If the office revises a timetable or a monitors list, it has to be uploaded here too, or this page quietly serves last session's."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 80
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
+    },
+    "body": {
+      "type": "text",
+      "required": true,
+      "maxLength": 300,
+      "description": "One line saying what the document is. Not school copy — this site's label for it."
+    },
+    "icon": {
+      "type": "enumeration",
+      "enum": [
+        "teacher",
+        "clock",
+        "badge",
+        "exam",
+        "person",
+        "star"
+      ],
+      "default": "badge",
+      "required": true
+    },
+    "order": {
+      "type": "integer",
+      "default": 0,
+      "required": true,
+      "description": "Card order on the page. Lower first."
+    },
+    "file": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files"
+      ],
+      "description": "The document itself — a PDF or an image. LEAVE EMPTY and fill `link` instead where the card should open a page on this site."
+    },
+    "link": {
+      "type": "string",
+      "maxLength": 200,
+      "description": "A route on THIS site, e.g. /academics/class-corner/class-timetable/. Use instead of `file`, never as well. ⚠ NEVER PUT AN http:// ADDRESS HERE — the point of this content type is that the school's documents stop living somewhere else."
+    },
+    "pending": {
+      "type": "string",
+      "maxLength": 120,
+      "description": "Set ONLY where the school has not published the thing yet. The card then renders as plainly unfinished — flat, dashed, not clickable — instead of looking like a card whose link failed."
+    },
+    "needs": {
+      "type": "text",
+      "maxLength": 300,
+      "description": "What is still owed, ONE PER LINE, shown as chips on a pending card. ⚠ NAME MISSING THINGS, NEVER VALUES — 'name', never 'Mr X'. A real value here stops being a placeholder and becomes a claim the school has not made."
+    }
+  }
+}

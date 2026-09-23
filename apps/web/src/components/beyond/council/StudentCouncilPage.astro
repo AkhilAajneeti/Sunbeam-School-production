@@ -7,18 +7,52 @@
  *
  * ⚠ NOTHING HERE REWRITES WHAT THE SCHOOL PUBLISHED. The posts are uppercased
  * by CSS, not in the markup, so the stored string stays the record; the names
- * are printed exactly as they are stored, with no casing applied at all. See
- * the header of data/studentCouncil.ts before touching either.
+ * are printed exactly as they are stored, with no casing applied at all. The
+ * board prints several spellings that look like mistakes and they are the
+ * school's — see the Student Council content type's own description.
+ *
+ * ⚠ THE BOARD AND THE LIST BELOW IT ARE THE SAME FORTY-FIVE PEOPLE, so they
+ * have to be changed together or the page contradicts itself in public. The
+ * board is the school's artwork and carries the faces; the list carries the
+ * names as text, which is what search, screen readers and a parent pressing
+ * ctrl-F actually reach. Neither replaces the other. A new board is uploaded
+ * AND its roll retyped in the same save, in Content Manager -> Student Council.
+ *
+ * ⚠ data/studentCouncil.ts IS NO LONGER WHAT THIS RENDERS. It stays in the
+ * repository as the seed's source and as the record of where each spelling
+ * came from; editing it changes nothing on the site.
  */
-import { councils, councilIntro } from '../../../data/studentCouncil';
+import CmsImage from '../../ui/CmsImage.astro';
+import { getStudentCouncil } from '../../../lib/cms';
+
+const council = await getStudentCouncil();
+const { session = '', intro = '', board = null, bodies = [] } = council ?? {};
 ---
 
 <section class="stc" aria-labelledby="stc-intro">
   <div class="u-container">
-    <p class="stc__intro" id="stc-intro">{councilIntro}</p>
+    <p class="stc__intro" id="stc-intro">{intro}</p>
+
+    {/* ⚠ THE ALT TEXT DOES NOT TRY TO LIST FORTY-FIVE NAMES. Every one of them
+        is marked up as text directly below, so reading them twice would be a
+        long detour to arrive back where the reader already was. */}
+    <figure class="stc__board">
+      <CmsImage
+        file={board}
+        alt={`The Sunbeam School Ballia student council board for ${session}, photographs of the junior and senior councils with each member's name and post.`}
+        sizes="(min-width: 1100px) 1040px, 94vw"
+        fallbackWidth={1040}
+        loading="eager"
+        fetchpriority="high"
+      />
+      <figcaption>
+        The school's own board for {session}. Every name it carries is
+        listed below.
+      </figcaption>
+    </figure>
 
     {
-      councils.map((body) => (
+      bodies.map((body) => (
         <div class="stc__body" id={body.id}>
           <h2 class="stc__h">{body.label}</h2>
 
@@ -39,8 +73,8 @@ import { councils, councilIntro } from '../../../data/studentCouncil';
               <li class="stc__card">
                 <span class="stc__post">
                   {/* ⚠ THE DOT IS DECORATION AND IS HIDDEN FROM ASSISTIVE TECH.
-                      The house is already in the post's own text — "Captain,
-                      Red House" — so announcing it again would say "red red".
+                      The house is already in the post's own text — "Captain
+                      Love House" — so announcing it again would say it twice.
                       Colour alone never carries meaning here. */}
                   {o.house && (
                     <span
@@ -71,11 +105,34 @@ import { councils, councilIntro } from '../../../data/studentCouncil';
 
   .stc__intro {
     max-width: 64ch;
-    margin: 0 auto clamp(48px, 6vh, 76px);
+    margin: 0 auto clamp(28px, 3.2vh, 40px);
     font-size: var(--sb-body-lg, 17px);
     line-height: 1.7;
     text-align: center;
     color: var(--sb-text-secondary);
+  }
+
+  .stc__board {
+    max-width: 1040px;
+    margin: 0 auto clamp(48px, 6vh, 76px);
+  }
+
+  /* ⚠ ANCHORED ON THE FIGURE, WHICH THIS COMPONENT RENDERS. CmsImage emits a
+     bare <img> — never a <picture> — and a scoped selector never reaches it. */
+  .stc__board :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid rgba(18, 16, 15, 0.08);
+    border-radius: 12px;
+  }
+
+  .stc__board figcaption {
+    margin-top: var(--sb-3, 10px);
+    font-size: var(--sb-caption);
+    line-height: 1.5;
+    text-align: center;
+    color: var(--sb-text-muted);
   }
 
   .stc__body + .stc__body {
@@ -148,9 +205,9 @@ import { councils, councilIntro } from '../../../data/studentCouncil';
     color: var(--sb-violet);
   }
 
-  /* ⚠ NO text-transform ON A NAME, EVER. 'Miss vaishnavi Kaur' is published
-     with a lower-case v and stays that way; capitalising it here would be this
-     page quietly correcting a child's name. */
+  /* ⚠ NO text-transform ON A NAME, EVER. The board has published a name with a
+     lower-case initial before; capitalising one here would be this page quietly
+     correcting a child's name, with nothing on screen to show it had. */
   .stc__name {
     font-weight: 600;
     font-size: var(--sb-body-sm);
@@ -169,13 +226,17 @@ import { councils, councilIntro } from '../../../data/studentCouncil';
     flex: none;
     border-radius: 50%;
   }
-  .stc__dot--red {
+  /* ⚠ THESE ARE THE HOUSES' OWN COLOURS, READ OFF THE BOARD — on it the Love
+     House captains wear red, Joy yellow and Hope green. They are not three
+     colours chosen to tell three dots apart, so do not re-pick them to suit
+     the palette. The house's name and its colour are two different things. */
+  .stc__dot--love {
     background: #d64541;
   }
-  .stc__dot--yellow {
+  .stc__dot--joy {
     background: #e0a92b;
   }
-  .stc__dot--green {
+  .stc__dot--hope {
     background: #3a9a55;
   }
 

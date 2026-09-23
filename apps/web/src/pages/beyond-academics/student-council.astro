@@ -2,10 +2,10 @@
 /**
  * BEYOND ACADEMICS → STUDENT COUNCIL.
  *
- * The school's roll of office-holders, senior and junior. Every name and post
- * is the school's own — read the header of data/studentCouncil.ts before
- * editing any of them, because several of the spellings look like mistakes and
- * are not ours to correct.
+ * The school's roll of office-holders, senior and junior, from the CMS. Every
+ * name and post is the school's own — several of the spellings look like
+ * mistakes and are not ours to correct. The roll is edited in Content Manager
+ * -> Student Council, where the content type's description says which.
  *
  * ⚠ THE BANNER IS THE INVESTITURE CEREMONY ITSELF — the school's own backdrop
  * reads "STUDENT COUNCIL INVESTITURE CEREMONY" and the sashes in frame are the
@@ -15,9 +15,16 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/ui/PageHero.astro';
 import StudentCouncilPage from '../../components/beyond/council/StudentCouncilPage.astro';
-import { councilCount } from '../../data/studentCouncil';
+import { getStudentCouncil } from '../../lib/cms';
 
 import banner from '../../assets/school-activities/investiture-ceremony/04.jpg';
+
+/* ⚠ FETCHED HERE ONLY FOR THE COUNT IN THE DESCRIPTION — the section below
+   fetches the roll itself. That is two calls for one record, and it costs
+   nothing: the CMS client caches per build, so the second is served from
+   memory rather than the network. */
+const council = await getStudentCouncil();
+const councilCount = council?.count ?? 0;
 ---
 
 <BaseLayout

@@ -12,16 +12,48 @@
  * own account" marker. Do not style that away and do not drop the flag.
  */
 import SmartImage from '../../ui/SmartImage.astro';
-import { getUniformedGroups } from '../../../lib/cms';
+import { getUniformedGroups, getSchool } from '../../../lib/cms';
 
 const groups = await getUniformedGroups();
+const school = await getSchool();
+
+/**
+ * ⚠ ONE GLYPH PER GROUP, KEYED ON THE SLUG. Anything not in this map gets the
+ * generic mark rather than nothing — a heading with a hole beside it where the
+ * other one has an icon reads as a failure, not as a group without an emblem.
+ *
+ * ⚠ AND THEY ARE NOT THE OFFICIAL EMBLEMS. The NCC crest and the Bharat Scouts
+ * and Guides fleur-de-lis are trademarked marks of those organisations; the
+ * school's affiliation does not give this site a licence to redraw them. These
+ * are plain icons standing in for a heading, which is what the reference does.
+ */
+const GLYPH: Record<string, string> = {
+  ncc: '<path d="M12 3 20 6v6c0 4.2-3.2 7.6-8 9-4.8-1.4-8-4.8-8-9V6l8-3Z"/><path d="M9 12.2 11.2 14.5 15.4 10"/>',
+  'scouts-guides':
+    '<path d="M12 3c2.6 3 3.9 5.6 3.9 8a3.9 3.9 0 0 1-7.8 0c0-2.4 1.3-5 3.9-8Z"/><path d="M5 14.5c1.9 1.4 4.3 2.1 7 2.1s5.1-.7 7-2.1"/><path d="M12 17v4"/>',
+};
 ---
 
 {groups.map((g) => (
   <section class="ung" id={g.slug} aria-labelledby={`${g.slug}-t`}>
     <div class="u-container">
+      <div class="ung__card">
       <header class="ung__head">
+        <span class="ung__ico" aria-hidden="true">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.6"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            set:html={GLYPH[g.slug] ?? GLYPH.ncc}
+          />
+        </span>
         <h2 class="ung__h" id={`${g.slug}-t`}>{g.name}</h2>
+        {/* ⚠ THE BLURB IS INDENTED PAST THE ICON, not set under it. It belongs
+            to the heading, and starting it at the card's edge made the icon
+            look like it labelled the whole card rather than the title. */}
         {g.blurb && <p class="ung__blurb">{g.blurb}</p>}
       </header>
 
@@ -36,6 +68,20 @@ const groups = await getUniformedGroups();
             </li>
           ))}
         </ul>
+      )}
+
+      {g.officers.length > 0 && (
+        <>
+          <h3 class="ung__sub">Officers</h3>
+          <ul class="ung__officers">
+            {g.officers.map((o) => (
+              <li class="ung__officer">
+                <span class="ung__officer-n">{o.name}</span>
+                {o.role && <span class="ung__officer-r">{o.role}</span>}
+              </li>
+            ))}
+          </ul>
+        </>
       )}
 
       {g.record.length > 0 && (
@@ -68,10 +114,32 @@ const groups = await getUniformedGroups();
         </ul>
       )}
 
-      {g.pending && <p class="ung__pending">Still to come · {g.pending}</p>}
+      {/* ⚠ STILL NAMED, JUST NOT SHOUTED. The reference drops this note; it is
+          kept because it names the specific things the school has not supplied
+          (see data/uniformedGroups.ts → pending), and a page that quietly
+          stops short is how an invented fact gets added later to fill the
+          space. It is now a quiet line at the foot of the card instead of a
+          tinted bar that read as a warning about the content above it. */}
+      {g.pending && <p class="ung__pending">Still to come &middot; {g.pending}</p>}
+      </div>
     </div>
   </section>
 ))}
+
+{/* ⚠ ONE CLOSING LINE FOR THE WHOLE PAGE, NOT ONE PER GROUP. It states the
+    page's own limit once — anything not here is not published — and gives the
+    office as the way to ask. Repeating it under each card would read as a
+    disclaimer attached to that group's facts. */}
+<div class="ung-foot">
+  <div class="u-container">
+    <p>
+      Anything not stated here has not been published by the school. For NCC or
+      Scouts &amp; Guides enrolment, or any other enquiry, call{' '}
+      <a href={`tel:${school.phone.office}`}>{school.phone.officeDisplay}</a> or write to{' '}
+      <a href={`mailto:${school.email}`}>{school.email}</a>.
+    </p>
+  </div>
+</div>
 
 <style>
   /**
@@ -85,11 +153,55 @@ const groups = await getUniformedGroups();
   .ung {
     position: relative;
     z-index: 1;
-    padding-block: var(--sb-section-y);
-    background: var(--sb-paper);
+    /* ⚠ THE SECTION IS NO LONGER THE SURFACE — the card inside it is. Both
+       groups sit on one continuous ground, so the alternating paper/ivory
+       bands are gone: two full-bleed slabs of different colours made the page
+       read as two unrelated pages stacked, and the facts inside them lost
+       their edges against the slab they sat on. */
+    padding-block: clamp(26px, 3vh, 44px);
+    background: transparent;
   }
 
-  .ung:nth-of-type(even) { background: var(--sb-ivory); }
+  /* The page ground is set once, by the panel this sits in. */
+  .ung:first-of-type { padding-top: clamp(34px, 4vh, 56px); }
+  .ung:last-of-type { padding-bottom: clamp(18px, 2vh, 30px); }
+
+  .ung__card {
+    padding: clamp(22px, 2.6vw, 40px);
+    border: 1px solid rgba(18, 16, 15, 0.07);
+    border-radius: clamp(16px, 1.6vw, 22px);
+    background: var(--sb-paper);
+    box-shadow:
+      0 1px 2px rgba(28, 14, 8, 0.04),
+      0 26px 56px -34px rgba(28, 14, 8, 0.3);
+  }
+
+  /* ⚠ A 3-COLUMN GRID, NOT flex. The icon occupies column 1 of row 1 and the
+     blurb starts in column 2 of row 2 — that is what aligns the blurb with the
+     title rather than with the icon, without a magic left margin that would
+     drift the moment the icon's size changed. */
+  .ung__head {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    column-gap: clamp(12px, 1.2vw, 16px);
+    row-gap: var(--sb-3, 8px);
+  }
+  .ung__blurb { grid-column: 2; }
+
+  .ung__ico {
+    display: grid;
+    place-items: center;
+    width: clamp(36px, 3.4vw, 44px);
+    height: clamp(36px, 3.4vw, 44px);
+    border-radius: 12px;
+    background: var(--sb-lime-wash, #fff1ea);
+    color: var(--sb-violet);
+  }
+  .ung__ico svg {
+    width: 55%;
+    height: 55%;
+  }
 
   .ung__h {
     font-family: var(--sb-font-display);
@@ -112,8 +224,12 @@ const groups = await getUniformedGroups();
     margin: var(--sb-8) 0 0;
     padding: 0;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: clamp(14px, 1.6vw, 24px);
+    /* ⚠ THREE, NOT auto-fit. `minmax(240px, 1fr)` produced four columns at
+       this width and boxes too narrow for their own labels — "First in the
+       district, by the school's account" wrapped to three lines and left the
+       one-line boxes beside it half empty. */
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(11px, 1.1vw, 18px);
   }
 
   .ung__fact {
@@ -123,34 +239,55 @@ const groups = await getUniformedGroups();
     box-shadow: inset 0 0 0 1px var(--sb-border);
   }
 
-  .ung:nth-of-type(even) .ung__fact { background: #fff; }
+  /* ⚠⚠ THESE ARE LABELS ON A FACT, NOT ARTICLES. The card was padded and set
+     like a piece of body copy — 26px of padding round 17/15px type — and the
+     result was 217px tall for two lines of text. Because the row stretches to
+     its tallest card, the two one-line certificate cards beside it inherited
+     that height and sat two-thirds empty, which is what made the grid look
+     broken rather than generous.
+     ⚠ SHRINK THE TALLEST CARD, NOT THE ROW. Dropping `stretch` would leave a
+     ragged foot and the three boxes would stop reading as one set; smaller
+     padding and type pull every card down together. */
+  .ung__fact {
+    padding: clamp(13px, 1.1vw, 18px) clamp(14px, 1.15vw, 19px);
+    background: color-mix(in srgb, var(--sb-ivory) 55%, #fff);
+    box-shadow: inset 0 0 0 1px rgba(18, 16, 15, 0.07);
+  }
 
   .ung__fact-l {
     font-family: var(--sb-font-display);
-    font-size: 17px;
+    font-size: 15px;
     font-weight: 650;
-    line-height: 1.24;
+    line-height: 1.3;
     color: var(--sb-charcoal);
   }
 
   .ung__fact-b {
-    margin-top: var(--sb-3);
-    font-size: var(--sb-body-sm);
-    line-height: 1.6;
+    margin-top: 4px;
+    font-size: 13.5px;
+    line-height: 1.55;
     color: var(--sb-text-secondary);
   }
 
   /* The attribution marker. Quiet, but never invisible. */
   .ung__fact-src {
-    margin-top: var(--sb-4);
-    padding-top: var(--sb-3);
+    margin-top: 10px;
+    padding-top: 8px;
     border-top: 1px dashed var(--sb-border-strong);
     font-size: var(--sb-caption);
     font-style: italic;
     color: var(--sb-text-muted);
   }
 
+  /* A small label over the list, not a heading competing with the card's. */
   .ung__sub {
+    font-size: var(--sb-caption);
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--sb-text-muted);
+  }
+  .ung__sub-unused {
     margin-top: var(--sb-10);
     font-family: var(--sb-font-display);
     font-size: 20px;
@@ -166,7 +303,10 @@ const groups = await getUniformedGroups();
 
   .ung__row {
     display: grid;
-    grid-template-columns: minmax(0, 22ch) minmax(0, 1fr);
+    /* ⚠ STACKED, NOT TWO COLUMNS. A 22ch label column against a one-line
+       body left a third of every row empty and pushed the sentence away from
+       the thing it described. Title over body reads as one entry. */
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--sb-5);
     padding-block: var(--sb-5);
     border-bottom: var(--sb-hairline);
@@ -174,6 +314,7 @@ const groups = await getUniformedGroups();
 
   .ung__row-t { font-weight: 650; color: var(--sb-charcoal); }
   .ung__row-b { font-size: var(--sb-body-sm); line-height: 1.6; color: var(--sb-text-secondary); }
+  .ung__row { padding-block: var(--sb-4, 12px); gap: 3px; }
 
   .ung__shots {
     list-style: none;
@@ -215,9 +356,11 @@ const groups = await getUniformedGroups();
 
   .ung__pending {
     margin-top: var(--sb-8);
-    padding: var(--sb-4) var(--sb-5);
-    border-left: 3px solid var(--sb-violet);
-    background: var(--sb-violet-wash);
+    padding: var(--sb-4, 12px) 0 0;
+    border-top: 1px dashed rgba(18, 16, 15, 0.16);
+    background: none;
+    font-size: var(--sb-caption);
+    color: var(--sb-text-muted);
     font-size: var(--sb-caption);
     color: var(--sb-text-secondary);
   }
@@ -229,5 +372,68 @@ const groups = await getUniformedGroups();
 
   @media (max-width: 520px) {
     .ung__shots { grid-template-columns: minmax(0, 1fr); }
+  }
+
+  .ung-foot {
+    padding-block: clamp(14px, 2vh, 26px) clamp(40px, 5vh, 72px);
+  }
+  .ung-foot p {
+    max-width: 74ch;
+    margin: 0 auto;
+    font-size: var(--sb-body-sm);
+    line-height: 1.75;
+    text-align: center;
+    color: var(--sb-text-muted);
+  }
+  .ung-foot a {
+    color: var(--sb-violet);
+    text-underline-offset: 3px;
+  }
+
+  @media (max-width: 1023px) {
+    .ung__facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 599px) {
+    .ung__facts { grid-template-columns: minmax(0, 1fr); }
+  }
+
+  /* ⚠ THE CARD SETS THE RHYTHM BETWEEN ITS BLOCKS, not each block's own
+     margins. Head, facts, the record label, the list, the photographs and the
+     pending line were each carrying a margin from when they sat directly in a
+     full-bleed section, and inside a card those stacked unevenly — "ON THE
+     RECORD" ended up almost touching the facts above it while the photographs
+     floated. One owner, one set of gaps. */
+  .ung__card > * { margin-block: 0; }
+  .ung__card > * + * { margin-top: clamp(20px, 2.2vw, 32px); }
+  .ung__card > .ung__sub + * { margin-top: var(--sb-3, 8px); }
+  .ung__card > * + .ung__sub { margin-top: clamp(26px, 2.8vw, 40px); }
+
+  /* ⚠ A ROLL, NOT A LIST OF FACTS. Each chip is one person and one post, sized
+     to the name rather than stretched across a grid track — two names in
+     equal-width columns read as a comparison between the two people. */
+  .ung__officers {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sb-3, 8px);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .ung__officer {
+    display: grid;
+    gap: 1px;
+    padding: 10px 16px;
+    border-radius: 10px;
+    background: color-mix(in srgb, var(--sb-ivory) 55%, #fff);
+    box-shadow: inset 0 0 0 1px rgba(18, 16, 15, 0.07);
+  }
+  .ung__officer-n {
+    font-weight: 650;
+    font-size: var(--sb-body-sm);
+    color: var(--sb-charcoal);
+  }
+  .ung__officer-r {
+    font-size: var(--sb-caption);
+    color: var(--sb-text-muted);
   }
 </style>

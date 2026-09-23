@@ -17,6 +17,7 @@
  * school's own page. A group with no rows renders no band at all, which is the
  * correct behaviour — an empty "Quiz Club" heading is worse than its absence.
  */
+import { fileUrl } from '../media';
 import { cmsFetchAll, cmsFetchOne } from '../client';
 import { PUBLICATIONS_PAGE_POPULATE } from '../populate';
 import type { StrapiFile } from '../types';
@@ -38,6 +39,7 @@ interface RawPublication {
   href: string;
   group: string;
   displayOrder: number;
+  file: StrapiFile | null;
 }
 interface RawDetail { id: number; label: string | null; value: string | null }
 interface RawMyraPage { id: number; image: StrapiFile | null; alt: string | null }
@@ -114,7 +116,13 @@ export async function getPublicationsData(): Promise<{
   myraAlt: string[];
 }> {
   const [rows, page] = await Promise.all([
-    cmsFetchAll<RawPublication>('/api/publications', { sort: ['displayOrder:asc'] }),
+    /* ⚠ `file` MUST BE POPULATED BY NAME. A media field left out of populate
+       comes back undefined, and every publication would fall through to its
+       old off-site href as though nothing had been uploaded. */
+    cmsFetchAll<RawPublication>('/api/publications', {
+      sort: ['displayOrder:asc'],
+      populate: { file: true },
+    }),
     cmsFetchOne<RawPublicationsPage>('/api/publications-page', {
       populate: PUBLICATIONS_PAGE_POPULATE,
     }),
@@ -128,7 +136,13 @@ export async function getPublicationsData(): Promise<{
   const headingFor = (id: string) => headings.get(id) || HEADING_DEFAULTS[id] || id;
 
   const itemsIn = (id: string): Publication[] =>
-    rows.filter((r) => r.group === id).map((r) => ({ title: r.title, href: r.href }));
+    rows.filter((r) => r.group === id).map((r) => ({
+      title: r.title,
+      /* ⚠ THE UPLOADED FILE WINS. A publication held in this CMS is served
+         from it; `href` is only the fallback for one still hosted on the
+         school's old site, and it is the thing being retired. */
+      href: r.file ? fileUrl(r.file) : r.href,
+    }));
 
   const group = (id: string): PublicationGroup => ({
     id,

@@ -63,6 +63,9 @@ export {
 export { getJobPostings, getCareerPageData, getCareerCopy } from './queries/career';
 export { getPublicationsData } from './queries/publications';
 export { getUniformedGroups } from './queries/uniformedGroups';
+export { getClassTimetable } from './queries/classTimetable';
+export { getClassCorner } from './queries/classCorner';
+export { getParentTestimonials } from './queries/parentTestimonials';
 export type { Publication, PublicationGroup } from './queries/publications';
 
 /* Content — alumni */
@@ -158,3 +161,17 @@ export type { Teacher, DetailRow, DocCard, PointRow } from './queries/pages';
 /* Content — academics */
 export { getAcademicTopics, getAcademicTopic, getAcademicGroup } from './queries/academics';
 export type { AcademicTopic, Section, Point, Detail, Shot, Stream } from './queries/academics';
+
+/* Content — the two councils (student, and the advisory board on /about/) */
+export {
+  getStudentCouncil,
+  getAdvisoryCouncil,
+} from './queries/councils';
+export type {
+  House,
+  CouncilPost,
+  CouncilBody,
+  StudentCouncil,
+  Advisor,
+  AdvisoryCouncil,
+} from './queries/councils';

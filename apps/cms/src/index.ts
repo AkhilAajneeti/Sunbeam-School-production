@@ -14,6 +14,7 @@ import type { Core } from '@strapi/strapi';
 const PUBLIC_ACTIONS = [
   'api::contact-enquiry.contact-enquiry.create',
   'api::parent-feedback.parent-feedback.create',
+  'api::alumni-registration.alumni-registration.create',
 ];
 
 /**

@@ -128,4 +128,5 @@ export default factories.createCoreController(UID, ({ strapi }) => ({
     ctx.status = 201;
     return { data: { ok: true } };
   },
+
 }));

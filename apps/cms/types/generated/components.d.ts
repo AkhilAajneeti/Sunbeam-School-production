@@ -623,6 +623,52 @@ export interface ContactField extends Struct.ComponentSchema {
   };
 }
 
+export interface CouncilAdvisor extends Struct.ComponentSchema {
+  collectionName: 'components_council_advisors';
+  info: {
+    description: "ONE MEMBER OF THE ADVISORY COUNCIL, as the school's board prints them. \u26A0\u26A0 THESE ROWS ARE NOT DRAWN ON THE PAGE \u2014 the board IMAGE is what a visitor sees. They are the image's text alternative: the page builds the alt text from them, which is the only form these fifteen names exist in for a screen reader, for Google, and for anyone trying to copy one. \u26A0\u26A0 SO THEY MUST BE CHANGED WHENEVER THE BOARD IMAGE IS REPLACED. Upload a new board and leave these rows alone and the page will read out last year's council over this year's picture, with nothing on screen to show it.";
+    displayName: 'Advisor';
+    icon: 'user';
+  };
+  attributes: {
+    affiliation: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 140;
+      }>;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 80;
+      }>;
+    office: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+  };
+}
+
+export interface CouncilPost extends Struct.ComponentSchema {
+  collectionName: 'components_council_posts';
+  info: {
+    description: "ONE OFFICE AND THE STUDENT WHO HOLDS IT. \u26A0\u26A0 TYPE BOTH EXACTLY AS THE SCHOOL'S COUNCIL BOARD PRINTS THEM, INCLUDING ANYTHING THAT LOOKS LIKE A MISTAKE. The 2026-27 board says 'Health & Hygine Inspector' on the junior side and 'Health & Hygiene Inspector' on the senior side; it says 'Adiyta Verma', and 'Sport Vice Captain' beside a 'Sports Captain'. All of those are correct here, because they are what the school published. These are named children holding named offices \u2014 correcting a spelling on a hunch tells a parent their child's title is something the school never said it was, and nothing on the page would show it had been changed. If one is genuinely wrong, the BOARD has to change first.";
+    displayName: 'Council post';
+    icon: 'user';
+  };
+  attributes: {
+    house: Schema.Attribute.Enumeration<['love', 'joy', 'hope']>;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 80;
+      }>;
+    post: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+  };
+}
+
 export interface DisclosureBoardResult extends Struct.ComponentSchema {
   collectionName: 'components_disclosure_board_results';
   info: {
@@ -2231,6 +2277,22 @@ export interface StructureStream extends Struct.ComponentSchema {
   };
 }
 
+export interface TimetableSheet extends Struct.ComponentSchema {
+  collectionName: 'components_timetable_sheets';
+  info: {
+    description: "ONE SECTION'S WEEKLY TIMETABLE, as an image of the school's own sheet. \u26A0 THERE IS NO ALT FIELD ON PURPOSE \u2014 the page writes it from the class and the section ('The weekly timetable for Class I, section B, \u2026'), so an editor uploading a replacement cannot leave a stale description behind, and cannot leave one blank. \u26A0 DO NOT RETYPE A TIMETABLE INTO TEXT ANYWHERE. Each sheet carries teachers' names and a page of instructions; a transcription becomes a second version that goes stale the moment the school revises the original.";
+    displayName: 'Timetable sheet';
+    icon: 'calendar';
+  };
+  attributes: {
+    image: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    section: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 12;
+      }>;
+  };
+}
+
 export interface UniformCatalogue extends Struct.ComponentSchema {
   collectionName: 'components_uniform_catalogues';
   info: {
@@ -2326,6 +2388,7 @@ export interface UniformedGroup extends Struct.ComponentSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 80;
       }>;
+    officers: Schema.Attribute.Component<'shared.point', true>;
     pending: Schema.Attribute.String &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 160;
@@ -2360,6 +2423,8 @@ declare module '@strapi/strapi' {
       'campus.map-point': CampusMapPoint;
       'campus.safety-group': CampusSafetyGroup;
       'contact.field': ContactField;
+      'council.advisor': CouncilAdvisor;
+      'council.post': CouncilPost;
       'disclosure.board-result': DisclosureBoardResult;
       'disclosure.result-row': DisclosureResultRow;
       'disclosure.section': DisclosureSection;
@@ -2407,6 +2472,7 @@ declare module '@strapi/strapi' {
       'structure.cell': StructureCell;
       'structure.section': StructureSection;
       'structure.stream': StructureStream;
+      'timetable.sheet': TimetableSheet;
       'uniform.catalogue': UniformCatalogue;
       'uniform.shoe-row': UniformShoeRow;
       'uniformed.group': UniformedGroup;

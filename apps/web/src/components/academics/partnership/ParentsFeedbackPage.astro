@@ -36,11 +36,20 @@
  * vertically whether or not it ever scrolls that way. Both rails carry vertical
  * padding for that reason.
  */
-import { testimonials, participation, closing } from '../../../data/parentsFeedback';
+import { participation, closing } from '../../../data/parentsFeedback';
+import { getParentTestimonials } from '../../../lib/cms';
 import { feedbackBand } from '../../../data/parentsFeedbackForm';
 import FeedbackForm from './FeedbackForm.astro';
 import leaf from '../../../assets/icons/leaf-remove.png';
 
+/**
+ * ⚠⚠ THE CAROUSEL READS THE CLEARED QUOTES, NOT THE FORM'S INBOX. What a
+ * parent sends through "Your Voice Matters" goes to Parent Feedback, which no
+ * page reads — it is private correspondence about a named child. A quote only
+ * reaches this collection after somebody has asked the parent. Pointing this
+ * at the inbox would publish whatever a stranger typed into a public form.
+ */
+const testimonials = await getParentTestimonials();
 const hasVoices = testimonials.length > 0;
 ---
 

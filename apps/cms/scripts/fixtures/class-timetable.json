@@ -1,0 +1,414 @@
+[
+  {
+    "slug": "nursery",
+    "label": "Nursery",
+    "stage": "pre-primary",
+    "order": 0,
+    "sheets": [
+      {
+        "section": "",
+        "file": "nurs-1024x724.jpg"
+      }
+    ]
+  },
+  {
+    "slug": "kg-i",
+    "label": "KG I",
+    "stage": "pre-primary",
+    "order": 1,
+    "sheets": [
+      {
+        "section": "A",
+        "file": "kg1a-1024x724.jpg"
+      },
+      {
+        "section": "B",
+        "file": "kg1b-1024x724.jpg"
+      },
+      {
+        "section": "C",
+        "file": "kg1c-1024x724.jpg"
+      }
+    ]
+  },
+  {
+    "slug": "kg-ii",
+    "label": "KG II",
+    "stage": "pre-primary",
+    "order": 2,
+    "sheets": [
+      {
+        "section": "A",
+        "file": "kg2a-1024x724.jpg"
+      },
+      {
+        "section": "B",
+        "file": "kg2b-1024x724.jpg"
+      },
+      {
+        "section": "C",
+        "file": "kg2c-1024x724.jpg"
+      },
+      {
+        "section": "D",
+        "file": "kg2d-1024x724.jpg"
+      },
+      {
+        "section": "E",
+        "file": "kg2e-1024x724.jpg"
+      }
+    ]
+  },
+  {
+    "slug": "class-i",
+    "label": "Class I",
+    "stage": "primary",
+    "order": 3,
+    "sheets": [
+      {
+        "section": "A",
+        "file": "1a-1024x622.jpg"
+      },
+      {
+        "section": "B",
+        "file": "1b-1024x622.jpg"
+      },
+      {
+        "section": "C",
+        "file": "1c-1024x622.jpg"
+      },
+      {
+        "section": "D",
+        "file": "1d-1024x622.jpg"
+      },
+      {
+        "section": "E",
+        "file": "1e-1024x622.jpg"
+      }
+    ]
+  },
+  {
+    "slug": "class-ii",
+    "label": "Class II",
+    "stage": "primary",
+    "order": 4,
+    "sheets": [
+      {
+        "section": "A",
+        "file": "2a-1024x622.jpg"
+      },
+      {
+        "section": "B",
+        "file": "2b-1024x622.jpg"
+      },
+      {
+        "section": "C",
+        "file": "2c-1024x622.jpg"
+      },
+      {
+        "section": "D",
+        "file": "2d-1024x622.jpg"
+      },
+      {
+        "section": "E",
+        "file": "2e-1024x622.jpg"
+      }
+    ]
+  },
+  {
+    "slug": "class-iii",
+    "label": "Class III",
+    "stage": "primary",
+    "order": 5,
+    "sheets": [
+      {
+        "section": "A",
+        "file": "3a-1024x791.jpg"
+      },
+      {
+        "section": "B",
+        "file": "3b-1024x791.jpg"
+      },
+      {
+        "section": "C",
+        "file": "3c-1024x791.jpg"
+      },
+      {
+        "section": "D",
+        "file": "3d-1024x791.jpg"
+      },
+      {
+        "section": "E",
+        "file": "3e-1024x791.jpg"
+      }
+    ]
+  },
+  {
+    "slug": "class-iv",
+    "label": "Class IV",
+    "stage": "primary",
+    "order": 6,
+    "sheets": [
+      {
+        "section": "A",
+        "file": "4a-1024x791.jpg"
+      },
+      {
+        "section": "B",
+        "file": "4b-1024x791.jpg"
+      },
+      {
+        "section": "C",
+        "file": "4c-1024x791.jpg"
+      },
+      {
+        "section": "D",
+        "file": "4d-1024x791.jpg"
+      },
+      {
+        "section": "E",
+        "file": "4e-1024x791.jpg"
+      }
+    ]
+  },
+  {
+    "slug": "class-v",
+    "label": "Class V",
+    "stage": "primary",
+    "order": 7,
+    "sheets": [
+      {
+        "section": "A",
+        "file": "5a-1024x791.jpg"
+      },
+      {
+        "section": "B",
+        "file": "5b-1024x791.jpg"
+      },
+      {
+        "section": "C",
+        "file": "5c-1024x791.jpg"
+      },
+      {
+        "section": "D",
+        "file": "5d-1024x791.jpg"
+      },
+      {
+        "section": "E",
+        "file": "5e-1024x791.jpg"
+      }
+    ]
+  },
+  {
+    "slug": "class-vi",
+    "label": "Class VI",
+    "stage": "middle",
+    "order": 8,
+    "sheets": [
+      {
+        "section": "A",
+        "file": "time-table-6-8_page-0001-1024x791.jpg"
+      },
+      {
+        "section": "B",
+        "file": "time-table-6-8_page-0002-1024x791.jpg"
+      },
+      {
+        "section": "C",
+        "file": "time-table-6-8_page-0003-1024x791.jpg"
+      },
+      {
+        "section": "D",
+        "file": "time-table-6-8_page-0004-1024x791.jpg"
+      },
+      {
+        "section": "E",
+        "file": "time-table-6-8_page-0005-1024x791.jpg"
+      }
+    ]
+  },
+  {
+    "slug": "class-vii",
+    "label": "Class VII",
+    "stage": "middle",
+    "order": 9,
+    "sheets": [
+      {
+        "section": "A",
+        "file": "time-table-6-8_page-0006-1024x791.jpg"
+      },
+      {
+        "section": "B",
+        "file": "time-table-6-8_page-0007-1024x791.jpg"
+      },
+      {
+        "section": "C",
+        "file": "time-table-6-8_page-0008-1024x791.jpg"
+      },
+      {
+        "section": "D",
+        "file": "time-table-6-8_page-0009-1024x791.jpg"
+      },
+      {
+        "section": "E",
+        "file": "time-table-6-8_page-0010-1024x791.jpg"
+      }
+    ]
+  },
+  {
+    "slug": "class-viii",
+    "label": "Class VIII",
+    "stage": "middle",
+    "order": 10,
+    "sheets": [
+      {
+        "section": "A",
+        "file": "time-table-6-8_page-0011-1024x791.jpg"
+      },
+      {
+        "section": "B",
+        "file": "time-table-6-8_page-0012-1024x791.jpg"
+      },
+      {
+        "section": "C",
+        "file": "time-table-6-8_page-0013-1024x791.jpg"
+      },
+      {
+        "section": "D",
+        "file": "time-table-6-8_page-0014-1024x791.jpg"
+      },
+      {
+        "section": "E",
+        "file": "time-table-6-8_page-0015-1024x791.jpg"
+      }
+    ]
+  },
+  {
+    "slug": "class-ix",
+    "label": "Class IX",
+    "stage": "secondary",
+    "order": 11,
+    "sheets": [
+      {
+        "section": "A",
+        "file": "class-9_page-0001-1024x791.jpg"
+      },
+      {
+        "section": "B",
+        "file": "class-9_page-0002-1024x791.jpg"
+      },
+      {
+        "section": "C",
+        "file": "class-9_page-0003-1024x791.jpg"
+      },
+      {
+        "section": "D",
+        "file": "class-9_page-0004-1024x791.jpg"
+      },
+      {
+        "section": "E",
+        "file": "class-9_page-0005-1024x791.jpg"
+      },
+      {
+        "section": "F",
+        "file": "class-9_page-0006-1024x791.jpg"
+      }
+    ]
+  },
+  {
+    "slug": "class-x",
+    "label": "Class X",
+    "stage": "secondary",
+    "order": 12,
+    "sheets": [
+      {
+        "section": "A",
+        "file": "class-10_page-0001-1024x791.jpg"
+      },
+      {
+        "section": "B",
+        "file": "class-10_page-0002-1024x791.jpg"
+      },
+      {
+        "section": "C",
+        "file": "class-10_page-0003-1024x791.jpg"
+      },
+      {
+        "section": "D",
+        "file": "class-10_page-0004-1024x791.jpg"
+      },
+      {
+        "section": "E",
+        "file": "class-10_page-0005-1024x791.jpg"
+      },
+      {
+        "section": "F",
+        "file": "class-10_page-0006-1024x791.jpg"
+      }
+    ]
+  },
+  {
+    "slug": "class-xi",
+    "label": "Class XI",
+    "stage": "senior",
+    "order": 13,
+    "sheets": [
+      {
+        "section": "A",
+        "file": "11a-1024x791.jpg"
+      },
+      {
+        "section": "B",
+        "file": "11b-1024x791.jpg"
+      },
+      {
+        "section": "C",
+        "file": "11c-1024x791.jpg"
+      },
+      {
+        "section": "D",
+        "file": "11d-1024x791.jpg"
+      },
+      {
+        "section": "E",
+        "file": "11e-1024x791.jpg"
+      },
+      {
+        "section": "F",
+        "file": "11f-1024x791.jpg"
+      }
+    ]
+  },
+  {
+    "slug": "class-xii",
+    "label": "Class XII",
+    "stage": "senior",
+    "order": 14,
+    "sheets": [
+      {
+        "section": "A",
+        "file": "12a-1024x791.jpg"
+      },
+      {
+        "section": "B",
+        "file": "12b-1024x791.jpg"
+      },
+      {
+        "section": "C",
+        "file": "12c-1024x791.jpg"
+      },
+      {
+        "section": "D",
+        "file": "12d-1024x791.jpg"
+      },
+      {
+        "section": "E",
+        "file": "12e-1024x791.jpg"
+      },
+      {
+        "section": "F",
+        "file": "12f-1024x791.jpg"
+      }
+    ]
+  }
+]

@@ -1,0 +1,53 @@
+---
+/**
+ * ACADEMICS → CLASS TIMETABLE.
+ *
+ * ⚠ IT SITS UNDER CLASS CORNER, and the breadcrumb says so. The card that
+ * reaches it is on that page, so a reader who came from there can walk back
+ * up the trail rather than being dropped at Academics.
+ *
+ * ⚠ THIS ROUTE REPLACES AN OUTBOUND LINK. The Class Corner card used to send a
+ * parent to sunbeamballia.edu.in/class-timetable/ — the school's old WordPress
+ * site, a different design with a different menu. The sheets are the same; the
+ * difference is that the reader stays here. If this route is ever renamed, the
+ * card that reaches it has to move with it — it is the `link` field on the
+ * Class Timetable entry in Content Manager → Class Corner, not a file in
+ * this repository any more.
+ *
+ * ⚠ THE BANNER IS A CORRIDOR, NOT THE ONE CLASS CORNER USES. The two pages sit
+ * a click apart and a shared banner makes the second look like the first
+ * failing to navigate.
+ */
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PageHero from '../../../components/ui/PageHero.astro';
+import ClassTimetablePage from '../../../components/academics/ClassTimetablePage.astro';
+import { getClassTimetable } from '../../../lib/cms';
+
+/* ⚠ READ HERE ONLY FOR THE META DESCRIPTION. The section below does its own
+   fetch; the client caches, so this is not a second round trip. */
+const { sheetCount, classes } = await getClassTimetable();
+
+import banner from '../../../assets/corridor and stairs/DSC_1222 copy.jpg';
+---
+
+<BaseLayout
+  title="Class Timetable — Sunbeam School Ballia"
+  description={`Weekly class timetables for Sunbeam School Ballia, session 2026-27 — ${sheetCount} sheets across ${classes.length} classes, Nursery to Class XII, as the school issues them.`}
+>
+  <PageHero
+    title="Class Timetable"
+    standfirst="Every class, every section — the school's own weekly timetables."
+    crumbs={[
+      { label: 'Home', href: '/' },
+      { label: 'Academics', href: '/academics/' },
+      { label: 'Class Corner', href: '/academics/class-corner/' },
+    ]}
+    src={banner}
+    alt="A corridor at Sunbeam School Ballia, its classroom doors running the length of the block."
+    position="50% 50%"
+  />
+
+  <div class="u-page-panel">
+    <ClassTimetablePage />
+  </div>
+</BaseLayout>

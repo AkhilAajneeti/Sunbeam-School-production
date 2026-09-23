@@ -66,6 +66,11 @@ export const CONTENT_MAP: Branch[] = [
     leaves: [
       { label: 'Leader Messages', to: list('api::leader-message.leader-message'), note: 'The Director’s and the Principal’s messages.' },
       { label: 'History', to: single('api::history-page.history-page') },
+      {
+        label: 'Advisory Council',
+        to: single('api::advisory-council.advisory-council'),
+        note: 'The board that closes the History page. NOT the student council, and NOT the School Management Committee — that one is a statutory filing on the Disclosure Page. ⚠ The member rows are not drawn on screen: they become the board image’s description, so a new board means retyping them in the same save.',
+      },
       { label: 'Vision & Mission', to: single('api::vision-mission-page.vision-mission-page') },
     ],
   },
@@ -124,6 +129,34 @@ export const CONTENT_MAP: Branch[] = [
             ['route', '/academics/structure/streams-offered/'],
             ['route', '/academics/structure/subject-combinations/'],
           ]), note: 'The Academic Structure hub itself. Every stage page above now has its own editor.' },
+        ],
+      },
+      {
+        /**
+         * ⚠ THE BRANCH IS NAMED FOR THE PAGE AN EDITOR IS LOOKING FOR, not for
+         * the content type. The timetables live under Class Corner on the site
+         * and that is the name the school uses for them; a sidebar group
+         * called "Class Timetable" sent people hunting for "Class Corner" and
+         * finding nothing.
+         *
+         * ⚠ A UID THAT IS NOT IN THIS MAP IS NOT GROUPED AT ALL. admin/
+         * group-nav.ts indexes the sidebar from these leaves — a new content
+         * type that is missing here still exists in the Content Manager, but
+         * it falls outside every heading and is genuinely hard to find. Add
+         * the leaf at the same time as the content type.
+         */
+        label: 'Class Corner',
+        leaves: [
+          {
+            label: 'Class Corner cards',
+            to: list('api::class-corner-document.class-corner-document'),
+            note: 'The four cards on the page. Replace a document by uploading over its file.',
+          },
+          {
+            label: 'Class Timetable',
+            to: list('api::class-timetable.class-timetable'),
+            note: 'One entry per class. Replace a sheet by uploading over its image — the page updates itself.',
+          },
         ],
       },
       {
@@ -193,7 +226,21 @@ export const CONTENT_MAP: Branch[] = [
          * never touches its academic-topic record at all. An editor who found it
          * would change a page and see nothing happen.
          */
-        leaves: [{ label: 'All parent pages', to: list(TOPIC, { group: 'parent-partnership' }, [['route', '/academics/parent-partnership/workshops-webinars/']]), note: 'Parents’ Forum, Parent Engagement, Orientation, Communication, FAQs. Workshops & Webinars is edited under News & Events → Workshops.' }],
+        leaves: [
+          {
+            /* ⚠ TWO COLLECTIONS, AND THE ORDER HERE IS THE WORKFLOW. Feedback
+               is what a parent SENT; a testimonial is what the school has
+               permission to PRINT. They are listed together so nobody goes
+               looking for the quotes in the inbox. */
+            label: 'Parent Testimonials (cleared for the site)',
+            to: list('api::parent-testimonial.parent-testimonial'),
+            note: 'Only quotes a parent has agreed to. The carousel on /parents-feedback/ reads these.',
+          },
+          {
+            label: 'Parent Feedback (private inbox)',
+            to: list('api::parent-feedback.parent-feedback'),
+            note: 'What the form receives. No page reads it — treat every row as private.',
+          },{ label: 'All parent pages', to: list(TOPIC, { group: 'parent-partnership' }, [['route', '/academics/parent-partnership/workshops-webinars/']]), note: 'Parents’ Forum, Parent Engagement, Orientation, Communication, FAQs. Workshops & Webinars is edited under News & Events → Workshops.' }],
       },
       {
         label: 'The Academics landing page',
@@ -236,6 +283,16 @@ export const CONTENT_MAP: Branch[] = [
             label: 'Expeditions (not shown)',
             to: list('api::expedition.expedition'),
             note: 'Kept for a section that was removed from the page. Editing these changes nothing on the site today.',
+          },
+        ],
+      },
+      {
+        label: 'Student Council',
+        leaves: [
+          {
+            label: 'Student Council',
+            to: single('api::student-council-page.student-council-page'),
+            note: 'The council board and the forty-five names on it, senior and junior. ⚠ The image and the lists are the same children — a new session means uploading the new board AND retyping the roll in one save. Spellings are copied from the board exactly, mistakes included.',
           },
         ],
       },
