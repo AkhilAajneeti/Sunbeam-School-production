@@ -38,6 +38,8 @@ import { MARK } from './marks';
 import AsClose from './AsClose.astro';
 
 import { getAcademicTopic } from '../../../lib/cms';
+import ClipHeading from '../../ui/ClipHeading.astro';
+import RichLine from '../../ui/RichLine.astro';
 
 const ac = await getAcademicTopic('/academics/board-results/');
 const pExam = ac.pic('pExam');
@@ -48,9 +50,24 @@ const pCohort = ac.pic('pCohort');
 
 const S = 'Sunbeam School Ballia';
 
-const UNIVERSITY = '/academics/student-success/university-counselling/';
-const CONTACT = '/contact-us/';
-const ASSESSMENT = '/academics/assessment/';
+/**
+ * ═══ THE PAGE'S PROSE, FROM THE CMS ════════════════════════════════════════
+ *
+ * ⚠⚠ THIS PAGE MOST OF ALL. It states in the school's own words that no board
+ * results are published — so the day the school DOES publish them, this whole
+ * position has to be rewritten. Until now that meant a developer.
+ *
+ * ⚠ THE CROSS-LINKS MOVED INTO THE COPY as [label](/href), so an editor
+ * rewording a sentence keeps its link instead of leaving a dangling phrase.
+ */
+const open = ac.section('boardOpen');
+const panel = ac.section('boardPanel');
+const does = ac.section('boardDoes');
+const foot = ac.section('boardFoot');
+const close = ac.section('boardClose');
+
+/* AsClose takes the two halves of its heading separately. */
+const [closeLead = '', closeAccent = ''] = (close.heading ?? '').split('\n');
 
 /* ── SECTION 01 — the four absences. Every line is a true statement about the
    record, checked one at a time. ────────────────────────────────────────── */
@@ -76,27 +93,12 @@ const strip = ac.section('strip').points;
     <div class="br-open__copy">
       <span class="br-open__tick" aria-hidden="true"></span>
 
-      <p class="as-kicker" data-reveal>What is published</p>
-      <h2 class="as-h as-h--xl br-open__h" id="br-open-t">
-        <span data-clip data-clip-delay="0">No pass rate.</span>
-        <span data-clip data-clip-delay="150"><em>No toppers.</em></span>
-      </h2>
+      <p class="as-kicker" data-reveal>{open.eyebrow}</p>
+      <ClipHeading class="as-h as-h--xl br-open__h" id="br-open-t" text={open.heading} />
 
-      <p class="as-body" data-reveal data-reveal-delay="200">
-        Sunbeam School Ballia does not currently publish its <strong>CBSE Class X and Class XII
-        results</strong> — no pass percentage, no toppers, and no year-on-year data. That is the
-        whole of the position, and it is stated here rather than worked around.
-      </p>
-      <p class="as-body" data-reveal data-reveal-delay="260">
-        It would be easy to fill this page. A pass percentage is the most expected number on a school
-        website, and almost nobody checks one. That is exactly why it is not here: a figure invented
-        on this page would be indistinguishable from a figure the school had measured, and a family
-        would choose a school on it.
-      </p>
-      <p class="as-body" data-reveal data-reveal-delay="320">
-        When the school supplies its results, they belong here — with the year, the cohort size and
-        the board attached, so they can be read rather than trusted.
-      </p>
+      <RichLine class="as-body" text={open.body[0]} reveal revealDelay={200} />
+      <RichLine class="as-body" text={open.body[1]} reveal revealDelay={260} />
+      <RichLine class="as-body" text={open.body[2]} reveal revealDelay={320} />
     </div>
 
     {/* ⚠ EVERY LAYER IS DECORATION OR A TRUE STATEMENT. No element in this
@@ -144,7 +146,7 @@ const strip = ac.section('strip').points;
 
       {/* The absence panel. Four lines, each of them checkable. */}
       <div class="br-panel" data-pop data-pop-delay="240">
-        <p class="br-panel__k">Results not published</p>
+        <p class="br-panel__k">{panel.eyebrow}</p>
         <ul class="br-panel__list">
           {absent.map((a) => (
             <li>
@@ -206,27 +208,11 @@ const strip = ac.section('strip').points;
     </figure>
 
     <div class="br-does__copy">
-      <p class="as-kicker" data-reveal>What the school does publish</p>
-      <h2 class="as-h as-h--lg" id="br-does-t">
-        <span data-clip data-clip-delay="0">What the school</span>
-        <span data-clip data-clip-delay="150"><em>does publish</em></span>
-      </h2>
-      <p class="as-body" data-reveal data-reveal-delay="200">
-        A parent looking for board results is really asking a broader question:
-        <em> where do students go from here, and what are they doing now?</em>
-      </p>
-      <p class="as-body" data-reveal data-reveal-delay="260">
-        Sunbeam School Ballia publishes more than most schools in the district — just not in the form
-        of a percentage. It publishes <strong>CUET (UG) 2025 results card by card</strong>, with the
-        NTA score and every subject percentile, across PCM, Commerce and Humanities. And it prints a
-        placement board, <strong>“Vision To Reality”</strong>, naming <strong>eighteen leavers of
-        session 2024-25</strong> with their course and institution — ten of them at University of
-        Delhi colleges and three at Banaras Hindu University.
-      </p>
-      <p class="as-body" data-reveal data-reveal-delay="320">
-        Neither is a board result, and neither is presented as one. Both are set out in full on
-        {' '}<a class="as-link" href={UNIVERSITY}>University Counselling</a>.
-      </p>
+      <p class="as-kicker" data-reveal>{does.eyebrow}</p>
+      <ClipHeading class="as-h as-h--lg" id="br-does-t" text={does.heading} />
+      <RichLine class="as-body" text={does.body[0]} reveal revealDelay={200} />
+      <RichLine class="as-body" text={does.body[1]} reveal revealDelay={260} />
+      <RichLine class="as-body" text={does.body[2]} linkClass="as-link" reveal revealDelay={320} />
     </div>
   </div>
 </section>
@@ -248,20 +234,16 @@ const strip = ac.section('strip').points;
         </li>
       ))}
     </ol>
-    <p class="as-note br-strip__foot" data-reveal data-reveal-delay="440">
-      The assessment cycle these examinations sit inside is on
-      {' '}<a class="as-link" href={ASSESSMENT}>Assessment &amp; Support</a>; for a particular year,
-      the {' '}<a class="as-link" href={CONTACT}>school office</a> can answer.
-    </p>
+    <RichLine class="as-note br-strip__foot" text={foot.body[0]} linkClass="as-link" reveal revealDelay={440} />
   </div>
 </section>
 
 <AsClose
   id="br-close-t"
-  kicker="Held, not printed"
-  lead="Unpublished,"
-  accent="not unmeasured."
-  body="The school holds its board results; it has simply not published them. Until it does, this site will not print a figure — the office can answer for a particular year, and the outcome data that is published sits on University Counselling."
+  kicker={close.eyebrow}
+  lead={closeLead}
+  accent={closeAccent.replace(/^\{\{|\}\}$/g, '')}
+  body={close.body[0]}
   photo={pCohort}
   position="50% 38%"
 />

@@ -133,7 +133,19 @@ const {
  */
 /* ⚠ THE SAME RULE, MOVED. art beats the gallery; the gallery is CMS content
    now rather than a folder resolved by a Vite glob. */
-const photos = photosOf(item);
+/**
+ * ⚠ THE BANNER IS `art`; THE GALLERY IS THE GALLERY. They are two fields that
+ * mean two things, and the page now uses each for its own job instead of
+ * letting one hide the other.
+ *
+ * ⚠ A PORTRAIT `art` STILL DOES NOT GO IN THE BANNER, for the reason recorded
+ * below: the banner is roughly 3:1, so a tall graphic is cropped to a strip
+ * through its middle — the NEP poster lost its own headline that way. Such an
+ * image joins the gallery at the front instead, where it is shown whole.
+ */
+const art = item.art ?? null;
+const artIsWide = art && art.width && art.height ? art.width / art.height >= 1.33 : false;
+const photos = art && !artIsWide ? [art, ...photosOf(item)] : photosOf(item);
 
 /* ⚠ THE HERO ONLY TAKES A LANDSCAPE LEAD IMAGE. A banner is panoramic by
    definition — roughly 3:1 at desktop — so a portrait graphic dropped into it is
@@ -215,9 +227,11 @@ const leadIsWide =
    a CMS file and goes to PageHero's `file`; the fallback is still a local
    import and goes to `src`. PageHero prefers `file` and keeps `src` as its
    fallback, so passing both is correct rather than redundant. */
-const heroFile = leadIsWide ? lead! : null;
+/* `art` first when it can carry the frame, then the promoted gallery lead, then
+   the shared campus banner. */
+const heroFile = artIsWide ? art! : leadIsWide ? lead! : null;
 const hero = fallbackHero ?? heroPhoto;
-const heroAlt = leadIsWide
+const heroAlt = heroFile
   ? `${item.title} at Sunbeam School Ballia`
   : (fallbackAlt ?? 'Staff and students of Sunbeam School Ballia in the school hall');
 

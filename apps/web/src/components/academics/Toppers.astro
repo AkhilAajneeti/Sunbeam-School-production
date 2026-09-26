@@ -21,16 +21,51 @@
  * computed over a partial transcription would be an outright false statement.
  * If a board is ever emptied for re-checking, it disappears rather than lying.
  */
-import {
-  classX,
-  classXII,
-  bestX,
-  bestXII,
-  spanX,
-  spanXII,
-  hasBoards,
-  type TopperRow,
-} from '../../data/toppers';
+import { getToppers, getAcademicTopic, type TopperRow } from '../../lib/cms';
+
+/**
+ * ⚠ THE SECTION'S WORDS, FROM THE CMS — including the two notes that qualify a
+ * figure. See data/classCornerPage.ts: they are the page saying which numbers
+ * it could not read, not decoration.
+ */
+const ac = await getAcademicTopic('/academics/class-corner/');
+const intro = ac.section('toppersIntro');
+const labels = ac.section('toppersLabels');
+
+/**
+ * ⚠⚠ THE BOARDS COME FROM THE CMS NOW. They were a data file, which meant the
+ * school could not add next session's topper — the one thing this section is
+ * certain to need every year — without a developer. Each name is a row in
+ * Content Manager → Board Topper.
+ *
+ * ⚠ data/toppers.ts STAYS IN THE REPOSITORY as the seed's source and as the
+ * record of where each line was read off the board. Editing it changes nothing
+ * on the site.
+ */
+const { classX, classXII, hasBoards } = await getToppers();
+
+/**
+ * ⚠⚠ DERIVED HERE, NOT STORED. "Highest on this board" is a fact about the
+ * rows, not a flag an editor should be able to set — stored, it would drift
+ * the moment a name was added and quietly mark the wrong child.
+ *
+ * ⚠ RETURNS null ON AN EMPTY BOARD. `reduce` with no initial value throws on
+ * an empty array, which would take the whole PAGE down rather than just this
+ * section.
+ */
+const peak = (rows: TopperRow[]): TopperRow | null =>
+  rows.length
+    ? rows.reduce((a, b) => (parseFloat(b.percent) > parseFloat(a.percent) ? b : a))
+    : null;
+
+/** 'first — last' from the board's own order, for the table's standfirst. */
+const span = (rows: TopperRow[]): string | null =>
+  rows.length ? `${rows[0].session} – ${rows[rows.length - 1].session}` : null;
+
+const bestX = peak(classX);
+const bestXII = peak(classXII);
+const spanX = span(classX);
+const spanXII = span(classXII);
 
 /**
  * ⚠ THE STORED SPELLING IS THE RECORD; THE CASING IS PRESENTATION. Names are
@@ -76,13 +111,9 @@ const needsFootnote = [...classX, ...classXII].some((r: TopperRow) => r.check);
       <span class="tpr__blob" aria-hidden="true" />
 
       <div class="u-container">
-        <p class="tpr__eyebrow">Academic Excellence</p>
-        <h2 class="tpr__h" id="tpr-heading">The names on the board</h2>
-        <p class="tpr__lead">
-          The school mounts two boards at the entrance &mdash; one for Class X,
-          one for Class XII &mdash; carrying the session topper and their
-          percentage. These are those boards, transcribed row for row.
-        </p>
+        <p class="tpr__eyebrow">{intro.eyebrow}</p>
+        <h2 class="tpr__h" id="tpr-heading">{intro.heading}</h2>
+        <p class="tpr__lead">{intro.body[0]}</p>
 
         <div class="tpr__pair">
           {boards.map((b) => (
@@ -131,7 +162,7 @@ const needsFootnote = [...classX, ...classXII].some((r: TopperRow) => r.check);
                               highest figure on THIS board. No rank, and no
                               comparison with any other school. */}
                           {top && (
-                            <span class="tpr__top">Highest on this board</span>
+                            <span class="tpr__top">{labels.eyebrow}</span>
                           )}
                         </td>
                         <td class="tpr__pc">
@@ -139,7 +170,7 @@ const needsFootnote = [...classX, ...classXII].some((r: TopperRow) => r.check);
                           {r.check && (
                             <abbr
                               class="tpr__flag"
-                              title="The decimal point is not legible on the board; awaiting the school's confirmation."
+                              title={labels.body[0]}
                             >
                               *
                             </abbr>
@@ -156,11 +187,7 @@ const needsFootnote = [...classX, ...classXII].some((r: TopperRow) => r.check);
         </div>
 
         {needsFootnote && (
-          <p class="tpr__fn">
-            Transcribed from the school&rsquo;s own boards. A figure marked *
-            is one the photograph does not render clearly and is awaiting
-            confirmation.
-          </p>
+          <p class="tpr__fn">{labels.body[1]}</p>
         )}
       </div>
     </section>

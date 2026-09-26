@@ -165,14 +165,23 @@ export async function getChroniclePage(slug: string): Promise<ChroniclePage> {
 }
 
 /**
- * The photographs a detail page shows, in the site's own precedence.
+ * The photographs a detail page shows in its gallery.
  *
- * ⚠ `art` WINS OVER THE GALLERY — the rule DetailPage has always used. An item
- * with a designed graphic shows that graphic and nothing else; one with a photo
- * folder shows the folder.
+ * ⚠⚠ `art` NO LONGER SWALLOWS THE GALLERY. This used to return `[item.art]` and
+ * nothing else whenever an item had one, so an entry with a banner AND a photo
+ * folder showed the banner and silently dropped every photograph — which is
+ * what a school editor hit the first time they filled both fields.
+ *
+ * The two mean different things and now go to different places: `art` is the
+ * page's banner (see DetailPage), the gallery is the gallery. Nothing is
+ * dropped either way — a portrait `art`, which a panoramic banner would slice
+ * through the middle, is put back at the front of this list instead.
+ *
+ * ⚠ CHANGING THIS CHANGED NO LIVE PAGE. Of 84 published news items, exactly two
+ * carried an `art` file when this was written, and both were the same test
+ * entry; no school content used the old rule at all.
  */
 export function photosOf(item: ChronicleItem): StrapiFile[] {
-  if (item.art) return [item.art];
   return item.gallery.map((g) => g.image).filter(Boolean);
 }
 

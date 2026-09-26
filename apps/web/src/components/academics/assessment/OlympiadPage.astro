@@ -43,6 +43,8 @@ import AsClose from './AsClose.astro';
 import AsRailSlider from './AsRailSlider.astro';
 
 import { getAcademicTopic } from '../../../lib/cms';
+import ClipHeading from '../../ui/ClipHeading.astro';
+import RichLine from '../../ui/RichLine.astro';
 import SmartImage from '../../ui/SmartImage.astro';
 import RichLine from '../../ui/RichLine.astro';
 
@@ -56,7 +58,19 @@ const olympiads = ac.section('olympiads').awards;
 
 const S = 'Sunbeam School Ballia';
 
-const PREP = '/academics/assessment/competitive-exam-preparation/';
+/* ⚠ THE CROSS-LINKS MOVED INTO THE COPY as [label](/href) — see
+   data/studentSuccess.ts. */
+
+/**
+ * ═══ THE PAGE'S PROSE, FROM THE CMS ════════════════════════════════════════
+ */
+const sof = ac.section('olympiadSof');
+const national = ac.section('olympiadNational');
+const all = ac.section('olympiadAll');
+const close = ac.section('olympiadClose');
+
+/* AsClose takes the two halves of its heading separately. */
+const [closeLead = '', closeAccent = ''] = (close.heading ?? '').split('\n');
 const STORIES = '/academics/student-success/success-stories/';
 
 /* ── SECTION 01 — three facts, and all three are published quantities ────── */
@@ -78,22 +92,11 @@ const categories = ac.section('categories').facts;
 
   <div class="u-container ol-open__grid">
     <div>
-      <p class="as-kicker" data-reveal>Science Olympiad Foundation</p>
-      <h2 class="as-h as-h--lg ol-open__h" id="ol-open-t">
-        <span data-clip data-clip-delay="0">Entered at Nursery,</span>
-        <span data-clip data-clip-delay="150"><em>awarded by Class III.</em></span>
-      </h2>
+      <p class="as-kicker" data-reveal>{sof.eyebrow}</p>
+      <ClipHeading class="as-h as-h--lg ol-open__h" id="ol-open-t" text={sof.heading} />
 
-      <p class="as-body" data-reveal data-reveal-delay="200">
-        The school enters its classes for the SOF Olympiad from <strong>Nursery to Class II</strong>.
-        It is the earliest point at which a Sunbeam child’s work is measured by somebody outside the
-        building, and it happens years before anything that could be called an examination.
-      </p>
-      <p class="as-body" data-reveal data-reveal-delay="260">
-        By Classes III to V the entry has turned into a result: an <strong>SOF Zonal Excellence
-        Award</strong>, which the school records as carrying a <strong>₹500 voucher</strong>. A zonal
-        award is a placing across schools, not a certificate for turning up.
-      </p>
+      <RichLine class="as-body" text={sof.body[0]} reveal revealDelay={200} />
+      <RichLine class="as-body" text={sof.body[1]} reveal revealDelay={260} />
 
       <ul class="ol-facts">
         {facts.map((f, i) => (
@@ -190,16 +193,9 @@ const categories = ac.section('categories').facts;
     </figure>
 
     <div class="ol-nat__copy">
-      <p class="as-kicker" data-reveal>And the national programmes</p>
-      <h2 class="as-h as-h--lg" id="ol-nat-t">
-        <span data-clip data-clip-delay="0">Four papers</span>
-        <span data-clip data-clip-delay="150"><em>that leave the district.</em></span>
-      </h2>
-      <p class="as-body" data-reveal data-reveal-delay="200">
-        Beyond SOF, the school enters the national science talent programmes — and in three of them
-        its students have gone past entry to <strong>national-level qualification or selection</strong>.
-        Those are the words the school uses, and they are the words used here.
-      </p>
+      <p class="as-kicker" data-reveal>{national.eyebrow}</p>
+      <ClipHeading class="as-h as-h--lg" id="ol-nat-t" text={national.heading} />
+      <RichLine class="as-body" text={national.body[0]} reveal revealDelay={200} />
 
       <ol class="ol-list">
         {programmes.map((p, i) => (
@@ -231,17 +227,10 @@ const categories = ac.section('categories').facts;
   <div class="u-container">
     <div class="ol-all__head">
       <div>
-        <p class="as-kicker" data-reveal>Explore all olympiads</p>
-        <h2 class="as-h as-h--md" id="ol-all-t">
-          <span data-clip data-clip-delay="0">Every programme</span>
-          <span data-clip data-clip-delay="150"><em>the school enters.</em></span>
-        </h2>
+        <p class="as-kicker" data-reveal>{all.eyebrow}</p>
+        <ClipHeading class="as-h as-h--md" id="ol-all-t" text={all.heading} />
       </div>
-      <p class="as-note ol-all__b" data-reveal data-reveal-delay="180">
-        The school participates in several olympiad and national science programmes. This is the list
-        it publishes — no award total appears, because it keeps none. What each one asks of a student
-        is set out on {' '}<a class="as-link" href={PREP}>Competitive Examination Preparation</a>.
-      </p>
+      <RichLine class="as-note ol-all__b" text={all.body[0]} linkClass="as-link" reveal revealDelay={180} />
     </div>
 
     {/* ⚠ NO role="group" HERE — see the note in AsRailSlider. It replaced the
@@ -298,10 +287,10 @@ const categories = ac.section('categories').facts;
 
 <AsClose
   id="ol-close-t"
-  kicker="Measured from outside"
-  lead="Measured by"
-  accent="somebody else."
-  body="The school publishes the programmes it enters, the classes that sit them and a handful of named results. It publishes no award total, and no total appears here — a count nobody can check is worth less than one result anybody can."
+  kicker={close.eyebrow}
+  lead={closeLead}
+  accent={closeAccent.replace(/^\{\{|\}\}$/g, '')}
+  body={close.body[0]}
   photo={pCohort}
   position="50% 38%"
 />

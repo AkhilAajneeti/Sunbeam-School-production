@@ -57,6 +57,8 @@ import AsClose from './AsClose.astro';
 import { getSchool } from '../../../lib/cms';
 
 import { getAcademicTopic } from '../../../lib/cms';
+import ClipHeading from '../../ui/ClipHeading.astro';
+import RichLine from '../../ui/RichLine.astro';
 import SmartImage from '../../ui/SmartImage.astro';
 
 const ac = await getAcademicTopic('/academics/student-success/subject-selection/');
@@ -69,7 +71,20 @@ const sb = await getSchool();
 const S = 'Sunbeam School Ballia';
 const streams = ac.section('streams').facts;
 
-const COMBINATIONS = '/academics/structure/subject-combinations/';
+/* ⚠ THE CROSS-LINKS MOVED INTO THE COPY as [label](/href) — see
+   data/studentSuccess.ts. */
+
+/**
+ * ═══ THE PAGE'S PROSE, FROM THE CMS ════════════════════════════════════════
+ */
+const routesCopy = ac.section('subjectRoutes');
+const desk = ac.section('subjectDesk');
+const steps = ac.section('subjectSteps');
+const visualCopy = ac.section('subjectVisual');
+const close = ac.section('subjectClose');
+
+/* AsClose takes the two halves of its heading separately. */
+const [closeLead = '', closeAccent = ''] = (close.heading ?? '').split('\n');
 const CAREER = '/academics/student-success/career-guidance/';
 const UNIVERSITY = '/academics/student-success/university-counselling/';
 const SENIOR = '/academics/structure/senior-secondary/';
@@ -98,21 +113,10 @@ const visual = ac.section('visual').points;
 
   <div class="u-container ss-routes__grid">
     <div class="ss-routes__head">
-      <p class="as-kicker" data-reveal>Four routes</p>
-      <h2 class="as-h as-h--lg" id="ss-routes-t">
-        <span data-clip data-clip-delay="0">One choice,</span>
-        <span data-clip data-clip-delay="150"><em>made once</em></span>
-      </h2>
-      <p class="as-body ss-routes__b" data-reveal data-reveal-delay="200">
-        Sunbeam Ballia teaches four streams to CBSE board level, and guides Classes X and XI through
-        choosing between them. It is the only decision on a student’s timetable that cannot easily be
-        undone — which is why the guidance sits in Class X rather than in Class XI.
-      </p>
-      <p class="as-note" data-reveal data-reveal-delay="270">
-        What each stream <em>contains</em> — and how far each of those lists can be relied on — is on
-        {' '}<a class="as-link" href={COMBINATIONS}>Subject Combinations</a>, where the verified and
-        the unverified are labelled. No combination is restated here.
-      </p>
+      <p class="as-kicker" data-reveal>{routesCopy.eyebrow}</p>
+      <ClipHeading class="as-h as-h--lg" id="ss-routes-t" text={routesCopy.heading} />
+      <RichLine class="as-body ss-routes__b" text={routesCopy.body[0]} reveal revealDelay={200} />
+      <RichLine class="as-note" text={routesCopy.body[1]} linkClass="as-link" reveal revealDelay={270} />
     </div>
 
     <div class="ss-routes__rail">
@@ -152,17 +156,9 @@ const visual = ac.section('visual').points;
     </figure>
 
     <div class="ss-desk__copy">
-      <p class="as-kicker" data-reveal>Where it is actually discussed</p>
-      <h2 class="as-h as-h--lg" id="ss-desk-t">
-        <span data-clip data-clip-delay="0">A desk, a laptop</span>
-        <span data-clip data-clip-delay="150"><em>and one student</em></span>
-      </h2>
-      <p class="as-body" data-reveal data-reveal-delay="200">
-        The school’s stream guidance is not an assembly. Its published photographs show single
-        students at a table with a counsellor working from a laptop, papers between them, and in
-        several frames a parent or elder sibling in the next chair. The banner behind reads
-        <strong> “Career Counseling — Class X &amp; XI.”</strong>
-      </p>
+      <p class="as-kicker" data-reveal>{desk.eyebrow}</p>
+      <ClipHeading class="as-h as-h--lg" id="ss-desk-t" text={desk.heading} />
+      <RichLine class="as-body" text={desk.body[0]} reveal revealDelay={200} />
 
       <ul class="as-checks">
         {covered.map((c, i) => (
@@ -177,13 +173,7 @@ const visual = ac.section('visual').points;
           </li>
         ))}
       </ul>
-      <p class="as-note" data-reveal data-reveal-delay="540">
-        That the guidance works through to the end is checkable rather than asserted: the school
-        published <strong>CUET (UG) 2025 results in all three of PCM, Commerce and Humanities</strong>
-        and a board naming where those students went — set out on
-        {' '}<a class="as-link" href={UNIVERSITY}>University Counselling</a>. The wider programme is
-        on {' '}<a class="as-link" href={CAREER}>Career Guidance</a>.
-      </p>
+      <RichLine class="as-note" text={desk.body[1]} linkClass="as-link" reveal revealDelay={540} />
     </div>
   </div>
 </section>
@@ -199,11 +189,8 @@ const visual = ac.section('visual').points;
 
   <div class="u-container ss-proc__grid">
     <div class="ss-proc__head">
-      <p class="as-kicker" data-reveal>Before the choice</p>
-      <h2 class="as-h as-h--md" id="ss-proc-t">
-        <span data-clip data-clip-delay="0">Four steps,</span>
-        <span data-clip data-clip-delay="150"><em>one direction</em></span>
-      </h2>
+      <p class="as-kicker" data-reveal>{steps.eyebrow}</p>
+      <ClipHeading class="as-h as-h--md" id="ss-proc-t" text={steps.heading} />
     </div>
 
     <ol class="ss-steps">
@@ -228,7 +215,7 @@ const visual = ac.section('visual').points;
     "Humanities" would be a stream illustrated by a room it does not have. */}
 <section class="as-sec as-sec--paper as-pad--sm ss-vis" aria-labelledby="ss-vis-t">
   <div class="u-container">
-    <p class="as-kicker" data-reveal id="ss-vis-t">The four, in the building</p>
+    <p class="as-kicker" data-reveal id="ss-vis-t">{visualCopy.eyebrow}</p>
 
     <ol class="ss-vis__grid">
       {visual.map((v, i) => (
@@ -257,21 +244,16 @@ const visual = ac.section('visual').points;
       ))}
     </ol>
 
-    <p class="as-note ss-vis__foot" data-reveal data-reveal-delay="520">
-      Two of the four are photographed because the school publishes those rooms. It publishes no
-      commerce or humanities teaching space, so neither is illustrated with one that belongs to
-      something else. The stage all four lead into is
-      {' '}<a class="as-link" href={SENIOR}>Senior Secondary</a>.
-    </p>
+    <RichLine class="as-note ss-vis__foot" text={visualCopy.body[0]} linkClass="as-link" reveal revealDelay={520} />
   </div>
 </section>
 
 <AsClose
   id="ss-close-t"
-  kicker="One year before it lands"
-  lead="Class X,"
-  accent="not Class XI."
-  body="Subject selection is addressed before students enter the senior-secondary stage, so they choose with guidance rather than by default. The school publishes the four streams, the year groups its counselling is for and the results that follow the choice. It does not publish an aptitude test, a deadline or a procedure for changing stream."
+  kicker={close.eyebrow}
+  lead={closeLead}
+  accent={closeAccent.replace(/^\{\{|\}\}$/g, '')}
+  body={close.body[0]}
   photo={pCohort}
   position="50% 38%"
 />

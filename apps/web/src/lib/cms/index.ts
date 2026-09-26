@@ -175,3 +175,7 @@ export type {
   Advisor,
   AdvisoryCouncil,
 } from './queries/councils';
+
+/* Content — the two academic excellence boards on /academics/class-corner/ */
+export { getToppers } from './queries/toppers';
+export type { TopperRow, Boards } from './queries/toppers';

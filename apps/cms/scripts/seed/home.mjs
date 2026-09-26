@@ -69,6 +69,24 @@ const points = (a) => (a ?? []).map((p) => ({
   number: null, icon: p.icon ?? null,
   title: p.title ?? p.label, body: p.body ?? p.detail ?? p.value,
 }));
+/**
+ * A fixture block → shared.section.
+ *
+ * ⚠ THE KEY IS THE CONTRACT. The page looks each block up by key, so renaming
+ * one in the fixture empties whatever it fed on the site. `label` is what the
+ * Content Manager shows as the row title and is safe to change.
+ */
+const sections = (a) => (a ?? []).map((s) => ({
+  key: s.key,
+  label: s.label ?? s.key,
+  eyebrow: s.eyebrow ?? null,
+  heading: s.heading ?? null,
+  standfirst: s.standfirst ?? null,
+  note: s.note ?? null,
+  body: paras(s.body),
+  points: points(s.points),
+}));
+
 /** {value,label,detail} | {label,value} → shared.figure */
 const figures = (a) => (a ?? []).map((f) => ({
   figure: String(f.value ?? f.figure), label: f.label ?? f.title, note: f.detail ?? f.note ?? null,
@@ -629,6 +647,10 @@ await withStrapi(async (strapi) => {
   if (!DRY) {
     console.log(`    vision & mission    ${await upsertSingle(strapi, VISION, {
       cipher: paras(fx.visionMission.cipher), greeting: paras(fx.visionMission.greeting),
+      /* ⚠ THE PAGE'S OWN WORDS — the Vision statement, the greeting's
+         translation and oath, and the Cipher letter. They were written into
+         the page itself until now. */
+      sections: sections(fx.visionMission.sections),
     })}`);
   }
 

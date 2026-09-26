@@ -1,0 +1,62 @@
+{
+  "kind": "collectionType",
+  "collectionName": "board_toppers",
+  "info": {
+    "singularName": "board-topper",
+    "pluralName": "board-toppers",
+    "displayName": "Board Topper",
+    "description": "ONE ROW PER NAME ON THE SCHOOL'S TWO ACADEMIC EXCELLENCE BOARDS, which hang at the entrance — one for Class X, one for Class XII — each carrying a session, a topper and a percentage. The Class Corner page reproduces them. ⚠⚠ A COLLECTION, NOT ONE BIG RECORD, SO NEXT SESSION'S TOPPER IS ONE NEW ROW. Adding a name must not mean opening a form holding the other sixteen. ⚠⚠ EVERY ROW IS A NAMED CHILD AND A PUBLISHED RESULT. Both were transcribed from photographs of the boards themselves, line by line. A spelling corrected here on a hunch is this site telling a family their child's name is something the school never engraved; a percentage 'tidied' is this site publishing a mark the school did not award. If one is genuinely wrong, the BOARD is what has to change and this follows it."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "rowKey": {
+      "type": "string",
+      "required": true,
+      "unique": true,
+      "maxLength": 40,
+      "description": "board + session, e.g. 'class-x-2017-18'. ⚠ IT IS THE IDENTITY, NOT A LABEL. A board carries one topper per session, but the SAME session appears on both boards — keyed on session alone the Class X and Class XII rows for 2017-18 would overwrite each other, and keyed on the name a corrected spelling would create a second row instead of fixing the first. Set once and left alone."
+    },
+    "board": {
+      "type": "enumeration",
+      "enum": [
+        "class-x",
+        "class-xii"
+      ],
+      "required": true,
+      "description": "Which of the two boards this name is engraved on. The page draws one table per board and a row with the wrong value here moves a child to the other class."
+    },
+    "session": {
+      "type": "string",
+      "required": true,
+      "maxLength": 16,
+      "description": "As the board prints it — '2017-18'. Not a year, not a range with an en dash: whatever is engraved."
+    },
+    "name": {
+      "type": "string",
+      "required": true,
+      "maxLength": 120,
+      "description": "As the board spells it, IN CAPITALS. The stored spelling is the record; the page title-cases it for reading. ⚠ DO NOT 'fix' a spelling to match a hunch — see the note on this content type."
+    },
+    "percent": {
+      "type": "string",
+      "required": true,
+      "maxLength": 8,
+      "description": "Two decimals, exactly as printed. ⚠ A STRING, NOT A NUMBER, so '98.20' keeps its trailing zero. Stored as a number it would print as 98.2 and stop matching the board."
+    },
+    "needsCheck": {
+      "type": "boolean",
+      "default": false,
+      "required": true,
+      "description": "The figure is not legible on the photograph of the board. The page prints an asterisk and a footnote saying so, rather than a confident number nobody verified. Clear it once the school confirms the figure."
+    },
+    "order": {
+      "type": "integer",
+      "default": 0,
+      "required": true,
+      "description": "The board's own order, OLDEST FIRST, so the transcription can be checked against the photograph line by line. The page shows the newest at the top — it reverses a copy, and does not need this changed."
+    }
+  }
+}

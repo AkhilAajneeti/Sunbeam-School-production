@@ -71,7 +71,8 @@
     "seed:class-timetable": "node scripts/seed/class-timetable.mjs",
     "seed:class-corner": "node scripts/seed/class-corner.mjs",
     "seed:attach-documents": "node scripts/seed/attach-documents.mjs",
-    "seed:councils": "node scripts/seed/councils.mjs"
+    "seed:councils": "node scripts/seed/councils.mjs",
+    "seed:toppers": "node scripts/seed/toppers.mjs"
   },
   "dependencies": {
     "@strapi/database": "5.52.1",

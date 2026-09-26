@@ -45,9 +45,28 @@ const list = (uid: string, filters?: Record<string, string>, exclude?: Array<[st
 const single = (uid: string) => `content-manager/single-types/${uid}`;
 
 const TOPIC = 'api::academic-topic.academic-topic';
+const LEADER = 'api::leader-message.leader-message';
 const NEWS = 'api::news-item.news-item';
 
-export interface Leaf { label: string; to: string; note?: string }
+export interface Leaf {
+  label: string;
+  to: string;
+  note?: string;
+  /**
+   * ⚠ "THIS LINK IS A PAGE, EVEN THOUGH IT OPENS A LIST."
+   *
+   * Most pages are a single type, or a collection filtered to one record, and
+   * the sidebar can work that out for itself. A few are neither: the whole of
+   * /beyond-academics/excursions/ is the Excursion Sections collection — every
+   * row is one band of that one page — so an unfiltered list IS the page, and
+   * nothing in the URL says so. This flag is how it says so.
+   *
+   * ⚠ IT IS NOT A LABEL FOR ANY LIST YOU WANT PROMOTED. Setting it on a real
+   * list view — "all philosophy pages" — would put a collection in the pages
+   * column under a name that is not a page.
+   */
+  page?: true;
+}
 export interface Branch { label: string; note?: string; leaves?: Leaf[]; branches?: Branch[] }
 
 export const CONTENT_MAP: Branch[] = [
@@ -64,20 +83,38 @@ export const CONTENT_MAP: Branch[] = [
   {
     label: 'About Us',
     leaves: [
-      { label: 'Leader Messages', to: list('api::leader-message.leader-message'), note: 'The Director’s and the Principal’s messages.' },
-      { label: 'History', to: single('api::history-page.history-page') },
+      /* ⚠⚠ THE THREE MESSAGES ARE PAGES, AND THEY ARE NAMED ONE BY ONE.
+         Each is a row inside the Leader Message collection, so the nav showed
+         one link called "Leader Messages" and the school had three pages in
+         its own menu it could not find. The rows below are keyed on `role`,
+         which is what the pages themselves look up. */
+      { label: 'Our Journey — the History page', to: single('api::history-page.history-page'), note: 'The story, the timeline, and the Chairman’s and Secretary’s signed messages at #leadership.' },
+      { label: 'Director’s Message', to: list(LEADER, { role: 'director' }) },
+      { label: 'Principal’s Message', to: list(LEADER, { role: 'principal' }) },
+      { label: 'Vice Principal’s Message', to: list(LEADER, { role: 'vice-principal' }) },
       {
         label: 'Advisory Council',
         to: single('api::advisory-council.advisory-council'),
         note: 'The board that closes the History page. NOT the student council, and NOT the School Management Committee — that one is a statutory filing on the Disclosure Page. ⚠ The member rows are not drawn on screen: they become the board image’s description, so a new board means retyping them in the same save.',
       },
       { label: 'Vision & Mission', to: single('api::vision-mission-page.vision-mission-page') },
+      { label: 'All leader messages', to: list(LEADER), note: 'The same three in one list, with their portraits and credentials.' },
     ],
   },
 
   {
     label: 'Academics',
     note: 'Forty-six pages, grouped the way the website groups them.',
+    /* ⚠ THIS LEAF IS FIRST ON PURPOSE, AND IT DECIDES WHERE THE COLLECTION
+       SITS IN THE SIDEBAR. group-nav indexes a content type by the FIRST leaf
+       that mentions it, walking leaves before branches — so without this,
+       Academic Topic was filed under "Academic Philosophy" simply because
+       "All philosophy pages" was the first link to name it. It holds all
+       forty-six academics pages, so it belongs to Academics itself. */
+    leaves: [
+      { label: 'All academics pages', to: list(TOPIC), note: 'Every one of the forty-six, in one list. The groups below are the same pages, sorted the way the website sorts them.' },
+      { label: 'Academics — the section landing page', to: list(TOPIC, { route: '/academics/' }), note: 'What /academics/ itself says, above the seven groups.' },
+    ],
     branches: [
       {
         label: 'Academic Philosophy',
@@ -100,6 +137,8 @@ export const CONTENT_MAP: Branch[] = [
            * it. Strapi's own Content Manager still lists it, as it lists
            * everything; this map is what an editor is meant to navigate by.
            */
+          { label: 'Academic Philosophy — the section landing page', to: list(TOPIC, { route: '/academics/philosophy/' }), note: 'What /academics/philosophy/ itself says.' },
+          { label: 'Affiliation Details', to: list(TOPIC, { route: '/academics/philosophy/affiliation-details/' }), note: 'The CBSE affiliation, as the school publishes it.' },
           { label: 'All philosophy pages', to: list(TOPIC, { group: 'philosophy' }, [['route', '/academics/philosophy/teaching-philosophy/'], ['route', '/academics/philosophy/student-centred-learning/'], ['route', '/academics/philosophy/experiential-inquiry/'], ['route', '/academics/philosophy/critical-thinking/'], ['route', '/academics/philosophy/curriculum/']]), note: 'Affiliation Details and the section hub.' },
         ],
       },
@@ -120,6 +159,7 @@ export const CONTENT_MAP: Branch[] = [
            */
           { label: 'Streams Offered', to: single('api::streams-offered-page.streams-offered-page'), note: 'The four streams, then 01 to 04.' },
           { label: 'Subject Combinations', to: single('api::subject-combinations-page.subject-combinations-page'), note: 'The four streams and their subjects, then 01 to 04.' },
+          { label: 'Academic Structure — the section landing page', to: list(TOPIC, { route: '/academics/structure/' }), note: 'What /academics/structure/ itself says.' },
           { label: 'All other structure pages', to: list(TOPIC, { group: 'structure' }, [
             ['route', '/academics/structure/pre-primary/'],
             ['route', '/academics/structure/primary/'],
@@ -147,6 +187,16 @@ export const CONTENT_MAP: Branch[] = [
          */
         label: 'Class Corner',
         leaves: [
+          {
+            label: 'Class Corner — the page itself',
+            to: list(TOPIC, { route: '/academics/class-corner/' }),
+            note: 'The heading over the cards, the line under them, and the words around the two Academic Excellence boards. The cards and the boards are the two entries below.',
+          },
+          {
+            label: 'Academic Excellence boards',
+            to: list('api::board-topper.board-topper'),
+            note: 'The two boards at the entrance, one row per name. Next session’s topper is a new row — nothing else has to change. ⚠ Every row is a named child and a published mark, transcribed from the boards themselves.',
+          },
           {
             label: 'Class Corner cards',
             to: list('api::class-corner-document.class-corner-document'),
@@ -176,6 +226,7 @@ export const CONTENT_MAP: Branch[] = [
            * see nothing happen. The records are NOT deleted, only kept out of
            * the list an editor is meant to navigate by.
            */
+          { label: 'Teaching & Learning — the section landing page', to: list(TOPIC, { route: '/academics/teaching-learning/' }), note: 'What /academics/teaching-learning/ itself says.' },
           { label: 'All other teaching pages', to: list(TOPIC, { group: 'teaching-learning' }, [
             ['route', '/academics/teaching-learning/methodology/'],
             ['route', '/academics/teaching-learning/smart-classrooms/'],
@@ -215,8 +266,20 @@ export const CONTENT_MAP: Branch[] = [
         ],
       },
       {
-        label: 'Student Success',
-        leaves: [{ label: 'All student-success pages', to: list(TOPIC, { group: 'student-success' }), note: 'Board Results, Career Guidance, Olympiads, Scholarships, Subject Selection, Success Stories, University Counselling, Alumni Interaction.' }],
+        label: 'Career Development & Student Success',
+        note: 'The eight pages under this heading in the site menu. Each one is a single record; its sections are named after what they say rather than after a field.',
+        leaves: [
+          { label: 'Career Guidance', to: list(TOPIC, { route: '/academics/student-success/career-guidance/' }), note: 'The programme, the one-to-one desks, the photo story and the closing statement.' },
+          { label: 'University Counselling', to: list(TOPIC, { route: '/academics/student-success/university-counselling/' }), note: 'The placement board, the CUET result cards, the four destination counts and the close.' },
+          { label: 'Subject Selection Guidance', to: list(TOPIC, { route: '/academics/student-success/subject-selection/' }), note: 'The four streams, where the choice is discussed, the four steps and the rooms.' },
+          { label: 'Alumni Interaction', to: list(TOPIC, { route: '/academics/student-success/alumni-interaction/' }), note: 'The posters, the path and the closing statement.' },
+          { label: 'Board Results', to: list(TOPIC, { route: '/academics/board-results/' }), note: '⚠ THIS PAGE SAYS THE SCHOOL PUBLISHES NO BOARD RESULTS. When it does publish them, this is where that whole position is rewritten.' },
+          { label: 'Olympiad Achievements', to: list(TOPIC, { route: '/academics/student-success/olympiad-achievements/' }), note: 'SOF from Nursery, the national programmes, and the full list. No award total — the school keeps none.' },
+          { label: 'Scholarships', to: list(TOPIC, { route: '/academics/student-success/scholarships/' }), note: '⚠ EMPTY ON PURPOSE. The school publishes no scholarship terms; the page says so rather than inventing any.' },
+          { label: 'Student Success Stories', to: list(TOPIC, { route: '/academics/student-success/success-stories/' }), note: 'The three award graphics, the milestones by reach, and the helpline box.' },
+          { label: 'Career Development — the section landing page', to: list(TOPIC, { route: '/academics/student-success/' }), note: 'What /academics/student-success/ itself says, above the eight.' },
+          { label: 'All student-success pages', to: list(TOPIC, { group: 'student-success' }), note: 'The same eight in one list, plus the section hub.' },
+        ],
       },
       {
         label: 'Parent Partnership',
@@ -240,7 +303,19 @@ export const CONTENT_MAP: Branch[] = [
             label: 'Parent Feedback (private inbox)',
             to: list('api::parent-feedback.parent-feedback'),
             note: 'What the form receives. No page reads it — treat every row as private.',
-          },{ label: 'All parent pages', to: list(TOPIC, { group: 'parent-partnership' }, [['route', '/academics/parent-partnership/workshops-webinars/']]), note: 'Parents’ Forum, Parent Engagement, Orientation, Communication, FAQs. Workshops & Webinars is edited under News & Events → Workshops.' }],
+          },
+          { label: 'Parent Partnership — the section landing page', to: list(TOPIC, { route: '/academics/parent-partnership/' }), note: 'What /academics/parent-partnership/ itself says.' },
+          { label: 'Parent Orientation', to: list(TOPIC, { route: '/academics/parent-partnership/parent-orientation/' }) },
+          { label: 'Parents’ Forum', to: list(TOPIC, { route: '/academics/parent-partnership/parents-forum/' }) },
+          { label: 'School–Parent Communication', to: list(TOPIC, { route: '/academics/parent-partnership/school-parent-communication/' }) },
+          { label: 'Parent Engagement Initiatives', to: list(TOPIC, { route: '/academics/parent-partnership/parent-engagement/' }) },
+          { label: 'Frequently Asked Questions', to: list(TOPIC, { route: '/academics/parent-partnership/faqs/' }) },
+          /* ⚠⚠ WORKSHOPS & WEBINARS IS NOT LISTED HERE, AND THAT IS THE POINT
+             OF THE WARNING ABOVE. It renders from the workshops chronicle and
+             never reads its academic-topic record, so a row pointing at that
+             record would let somebody edit a page and watch nothing change. */
+          { label: 'All parent pages', to: list(TOPIC, { group: 'parent-partnership' }, [['route', '/academics/parent-partnership/workshops-webinars/']]), note: 'The same pages in one list. Workshops & Webinars is edited under News & Events → Workshops.' },
+        ],
       },
       {
         label: 'The Academics landing page',
@@ -265,8 +340,12 @@ export const CONTENT_MAP: Branch[] = [
         label: 'Excursions',
         leaves: [
           {
-            label: 'Excursion Sections',
+            label: 'Excursions & Educational Tours',
             to: list('api::excursion-section.excursion-section'),
+            /* ⚠ THE WHOLE PAGE IS THIS COLLECTION — see `page` on Leaf. It is
+               named here the way the website's own menu names it, because that
+               is what somebody looking for it will have in mind. */
+            page: true,
             note: 'The whole page. Each row is one band — text, poster and photographs. The banner and page title are on Page Meta.',
           },
           /* ⚠⚠ NOT CURRENTLY ON THE SITE, AND THE LABEL HAS TO SAY SO.

@@ -16,9 +16,18 @@
       "type": "media",
       "multiple": false,
       "required": true,
-      "allowedTypes": ["images"]
+      "allowedTypes": [
+        "images"
+      ]
     },
-    "alt": { "type": "text", "required": true, "maxLength": 500 },
-    "caption": { "type": "string", "maxLength": 200 }
+    "alt": {
+      "type": "text",
+      "maxLength": 500,
+      "description": "What the photograph shows, for anyone who cannot see it — a screen reader, a slow connection, and search. ⚠⚠ NOT REQUIRED ANY MORE, AT THE CLIENT'S INSTRUCTION, AND THE COST IS WORTH KNOWING. It was required so that a picture could not reach the site undescribed: 210 photographs already in this CMS have an image and no description, and every document holding one refused to publish until somebody wrote it. That block is gone, so those pages can be published — and those 210 pictures will go out silent to a screen reader. ⚠ PLEASE STILL WRITE IT, and write what the picture SHOWS rather than what the section is about. \"Scouts bandaging an arm under supervision\" is useful; \"Scouts & Guides\" is not. ⚠ AND IF YOU REPLACE A PICTURE, REPLACE THIS TOO. A description left behind describes the wrong image, and nothing in a text check can see that — it has already happened once here, when a hotel photograph carried a description of scouts practising first aid."
+    },
+    "caption": {
+      "type": "string",
+      "maxLength": 200
+    }
   }
 }

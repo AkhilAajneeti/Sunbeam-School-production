@@ -2,18 +2,53 @@
   "kind": "collectionType",
   "collectionName": "campus_facilities",
   "info": {
-    "singularName": "campus-facility", "pluralName": "campus-facilities", "displayName": "Campus Facility",
+    "singularName": "campus-facility",
+    "pluralName": "campus-facilities",
+    "displayName": "Campus Facility",
     "description": "A named room or space on the campus tour, with its photographs. Mirrors the `facilities` export of apps/web/src/data/campusTour.ts. `pending` marks one the school has named but not photographed — the tour shows it as awaited rather than inventing a picture."
   },
-  "options": { "draftAndPublish": true },
+  "options": {
+    "draftAndPublish": true
+  },
   "attributes": {
-    "name": { "type": "string", "required": true, "maxLength": 160 },
-    "slug": { "type": "uid", "targetField": "name", "required": true },
-    "blurb": { "type": "text", "required": true, "maxLength": 1200 },
-    "brief": { "type": "text", "maxLength": 1200 },
-    "alt": { "type": "text", "required": true, "maxLength": 500 },
-    "pending": { "type": "boolean", "default": false, "required": true },
-    "gallery": { "type": "component", "repeatable": true, "component": "shared.photo" },
-    "displayOrder": { "type": "integer", "default": 0, "required": true }
+    "name": {
+      "type": "string",
+      "required": true,
+      "maxLength": 160
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name",
+      "required": true
+    },
+    "blurb": {
+      "type": "text",
+      "required": true,
+      "maxLength": 1200
+    },
+    "brief": {
+      "type": "text",
+      "maxLength": 1200
+    },
+    "alt": {
+      "type": "text",
+      "maxLength": 500,
+      "description": "⚠ NOT REQUIRED, AT THE CLIENT'S INSTRUCTION — a photograph can now be published with nothing here, and it will be silent to a screen reader and to search. Please still write it, and write what the picture SHOWS. If you replace the picture, replace this too: a description left behind describes the wrong image, which no text check can catch."
+    },
+    "pending": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "gallery": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.photo"
+    },
+    "displayOrder": {
+      "type": "integer",
+      "default": 0,
+      "required": true
+    }
   }
 }

@@ -106,6 +106,302 @@ export const careerGuidanceClose = {
   ],
 };
 
+/* ── UNIVERSITY COUNSELLING · THE PAGE'S OWN PROSE ──────────────────────────
+   ⚠⚠ MOVED OUT OF UniversityCounsellingPage.astro VERBATIM, for the same
+   reason the career guidance prose moved: the school could not correct a word
+   about where its own students went without a developer. Nothing here is new
+   copy and nothing was tidied on the way across.
+
+   ⚠ EVERY BAND CARRIES A NON-STRING VALUE — see the note on careerGuidanceGive
+   above. A block of nothing but strings is read by the seed's classifier as a
+   key→prose map and loses its kicker and heading without a word; `body: []` is
+   what keeps a heading-only band intact. */
+
+export const universityBoard = {
+  kicker: 'Vision To Reality · Session 2024-25',
+  heading: 'Eighteen names,\n{{and where each one went}}',
+  body: [
+    'Most schools describe their counselling. Sunbeam prints the result and hangs it up. The board beside this is the school’s own, and every line on it is a student, a course and an institution — **eighteen of them**.',
+    'Counted off the board: **ten went to a University of Delhi college**, **three went to Banaras Hindu University**, and the rest to Galgotias, NIET and ITS in Greater Noida, Dr. Ram Manohar Lohia Avadh University in Ayodhya, and UPES Dehradun.',
+    'The board’s own last line is *“Series will go on…”*',
+    /* The fourth paragraph is the quiet note under the other three. */
+    'No placement rate appears on this page. The school publishes the destinations, not a cohort size — so a percentage would be one this site invented. Board results are a separate question and have [their own page](/academics/board-results/).',
+  ],
+};
+
+export const universityCards = {
+  kicker: 'What made it happen',
+  heading: 'And the paper\n{{that bought the place}}',
+  body: [
+    'A Delhi University seat is decided by one examination, and the school publishes those results the same way it publishes the destinations — one card per student, headed *“Exemplar of Excellence”*, with the NTA score and every subject percentile printed on it rather than summarised.',
+    'All three streams are represented. **No average is given**, because the school publishes none and a mean of these cards would be a figure this site produced. The stream choice behind them is on [Subject Selection](/academics/student-success/subject-selection/), and the counselling around it on [Career Guidance](/academics/student-success/career-guidance/).',
+  ],
+};
+
+export const universityDest = {
+  kicker: 'Counted off the board',
+  heading: '',
+  body: [] as string[],
+};
+
+export const universityClose = {
+  kicker: 'The board\'s own last line',
+  heading: 'Series will\n{{go on…}}',
+  body: [
+    'The school publishes the destinations by name and the scores card by card. It does not publish a cohort size, a placement rate, or the counselling timetable behind them — so no percentage appears on this page.',
+  ],
+};
+
+/* ── BOARD RESULTS · THE PAGE'S OWN PROSE ───────────────────────────────────
+   ⚠⚠ MOVED OUT OF BoardResultsPage.astro VERBATIM. This page is the one the
+   school most needs to be able to change: it states, in its own words, that no
+   board results are published. The day the school publishes them, that whole
+   position has to be rewritten — and until now that meant a developer.
+
+   ⚠ NOTHING HERE WAS SOFTENED ON THE WAY ACROSS. The page argues plainly that
+   an invented pass percentage would be indistinguishable from a measured one.
+   That argument is the school's and it is reproduced word for word. */
+
+export const boardOpen = {
+  kicker: 'What is published',
+  heading: 'No pass rate.\n{{No toppers.}}',
+  body: [
+    'Sunbeam School Ballia does not currently publish its **CBSE Class X and Class XII results** — no pass percentage, no toppers, and no year-on-year data. That is the whole of the position, and it is stated here rather than worked around.',
+    'It would be easy to fill this page. A pass percentage is the most expected number on a school website, and almost nobody checks one. That is exactly why it is not here: a figure invented on this page would be indistinguishable from a figure the school had measured, and a family would choose a school on it.',
+    'When the school supplies its results, they belong here — with the year, the cohort size and the board attached, so they can be read rather than trusted.',
+  ],
+};
+
+export const boardPanel = {
+  kicker: 'Results not published',
+  heading: '',
+  body: [] as string[],
+};
+
+export const boardDoes = {
+  kicker: 'What the school does publish',
+  heading: 'What the school\n{{does publish}}',
+  body: [
+    'A parent looking for board results is really asking a broader question: *where do students go from here, and what are they doing now?*',
+    'Sunbeam School Ballia publishes more than most schools in the district — just not in the form of a percentage. It publishes **CUET (UG) 2025 results card by card**, with the NTA score and every subject percentile, across PCM, Commerce and Humanities. And it prints a placement board, **“Vision To Reality”**, naming **eighteen leavers of session 2024-25** with their course and institution — ten of them at University of Delhi colleges and three at Banaras Hindu University.',
+    'Neither is a board result, and neither is presented as one. Both are set out in full on [University Counselling](/academics/student-success/university-counselling/).',
+  ],
+};
+
+export const boardFoot = {
+  kicker: '',
+  heading: '',
+  body: [
+    'The assessment cycle these examinations sit inside is on [Assessment & Support](/academics/assessment/); for a particular year, the [school office](/contact-us/) can answer.',
+  ],
+};
+
+export const boardClose = {
+  kicker: 'Held, not printed',
+  heading: 'Unpublished,\n{{not unmeasured.}}',
+  body: [
+    'The school holds its board results; it has simply not published them. Until it does, this site will not print a figure — the office can answer for a particular year, and the outcome data that is published sits on University Counselling.',
+  ],
+};
+
+/* ── SUCCESS STORIES · THE PAGE'S OWN PROSE ─────────────────────────────────
+   ⚠⚠ MOVED OUT OF SuccessStoriesPage.astro VERBATIM.
+
+   ⚠ THE SENTENCE ABOUT THERE BEING NO AWARD TOTAL IS LOAD-BEARING and it moved
+   with the rest. The original brief asked for "100+ Olympiad awards"; the
+   school keeps no total, so the page says so instead. An editor who deletes
+   that line is not tidying — they are removing the reason a number is absent. */
+
+export const successOpen = {
+  kicker: 'The three the school made artwork for',
+  heading: 'Second in the world,\n{{second in the state.}}',
+  body: [
+    'A school that designs an award graphic has decided something matters. These are the three Sunbeam Ballia produced artwork for, and they are shown here whole — headline, crest and all — rather than cropped into a photograph they were never meant to be.',
+    'There is **no award total on this page**, because the school keeps none. Sport in full is on [Achievements](/beyond-academics/achievements/); the olympiad programmes are on [Olympiad Achievements](/academics/student-success/olympiad-achievements/).',
+  ],
+};
+
+export const successMile = {
+  kicker: 'Read another way',
+  heading: 'The same record,\n{{by how far it travelled.}}',
+  body: [
+    'Arranged by reach rather than by date, the school’s individual results make a shape: a Class VII student placing first in a national field, a Class IV year group taking the top three places across the whole Sunbeam group, and a drone flown to second place in Malaysia.',
+  ],
+};
+
+export const successCta = {
+  kicker: 'Admissions helpline',
+  heading: 'Want to know more?\n{{Talk to us.}}',
+  body: [
+    'The school publishes more than this page carries. Anything beyond it — and anything that changes from one session to the next — is confirmed by the office rather than guessed at here.',
+    /* The label on the button beside the helpline number. */
+    'Contact school',
+  ],
+};
+
+export const successClose = {
+  kicker: 'Every result, with a name on it',
+  heading: 'Named,\n{{or not printed.}}',
+  body: [
+    'Every result on this page is one the school published with a name, a placing or a prize attached. There is no award total here because the school keeps none — and a count nobody can check is worth less than one result anybody can.',
+  ],
+};
+
+/* ── SCHOLARSHIPS · THE PAGE'S OWN PROSE ────────────────────────────────────
+   ⚠⚠ MOVED OUT OF ScholarshipsPage.astro VERBATIM. Like Board Results, this
+   page exists to say that the school publishes nothing on the subject — so it
+   is the page most likely to need rewriting, and it was the one the school
+   could not touch.
+
+   ⚠ THE REFUSAL IS THE CONTENT. "A scholarship summary invented to fill the
+   space would read exactly like a real one" is the school's own reasoning for
+   an empty page. An editor who replaces it with a cheerful placeholder has not
+   improved the page, they have removed its point. */
+
+export const scholarOpen = {
+  kicker: 'What is published',
+  heading: 'Recognition, yes.\n{{Terms, not yet.}}',
+  body: [
+    'Sunbeam School Ballia publishes no scholarship — **no name, no eligibility, no value and no way to apply**. Every other page in this section is built from something the school printed; on this subject there is nothing to build from.',
+    'So this page does not describe one. A scholarship summary invented to fill the space would read exactly like a real one, and a family could choose a school on the strength of it. Fees are the subject where a plausible guess does the most damage, and the honest answer is the short one.',
+    'What the school *does* publish is recognition of another kind — named results, placings and awards. Those are set out below, labelled as what they are.',
+  ],
+};
+
+export const scholarStories = {
+  kicker: 'Scholarship records',
+  heading: 'Nothing to show\n{{yet.}}',
+  body: [
+    'This section is the archive the school’s scholarship records will fill. It is built and waiting rather than removed, because the page should be ready the day the terms are published.',
+  ],
+};
+
+export const scholarEmpty = {
+  kicker: 'No scholarship has been published by the school',
+  heading: '',
+  body: [
+    'The site audit records scholarships as not mentioned, and no name, value, eligibility or application route appears anywhere on the school’s site. Rather than fill this row with plausible examples, it stays empty until there is a record to put in it — at which point each one appears here with its own image, category and year.',
+    /* The label on the button beneath it. */
+    'Ask the school office',
+  ],
+};
+
+export const scholarPaths = {
+  kicker: 'What the school does record',
+  heading: 'Four kinds of achievement,\n{{all of them named.}}',
+  body: [
+    'None of these is described by the school as a scholarship. Each is a place on this site where a published achievement is recorded with a name attached.',
+  ],
+};
+
+export const scholarTerms = {
+  kicker: 'Important to know',
+  heading: 'Looking for the\n{{current terms?}}',
+  body: [
+    'Scholarship opportunities and eligibility can vary by programme, achievement and session. The school has not published any general scholarship terms on its site, so this page cannot set them out — and does not guess at them.',
+    '**For the latest applicable terms, please contact the school office.**',
+    /* The helpline label and the button beside it. */
+    'Admissions helpline',
+    'Contact school',
+  ],
+};
+
+export const scholarClose = {
+  kicker: 'Until the terms are published',
+  heading: 'Ask the office,\n{{not this page.}}',
+  body: [
+    'Scholarships are recorded in the site audit as not mentioned by the school. Until it publishes terms, the office is the only reliable answer this site can give — and a plausible summary here would be worse than none.',
+  ],
+};
+
+/* ── SUBJECT SELECTION · THE PAGE'S OWN PROSE ───────────────────────────────
+   ⚠⚠ MOVED OUT OF SubjectSelectionPage.astro VERBATIM.
+
+   ⚠ THE SENTENCE ABOUT CLASS X RATHER THAN CLASS XI IS THE PAGE'S ARGUMENT.
+   The school guides the choice a year before it lands; that is the whole
+   reason the page exists and it is stated in the school's own words. */
+
+export const subjectRoutes = {
+  kicker: 'Four routes',
+  heading: 'One choice,\n{{made once}}',
+  body: [
+    'Sunbeam Ballia teaches four streams to CBSE board level, and guides Classes X and XI through choosing between them. It is the only decision on a student’s timetable that cannot easily be undone — which is why the guidance sits in Class X rather than in Class XI.',
+    'What each stream *contains* — and how far each of those lists can be relied on — is on [Subject Combinations](/academics/structure/subject-combinations/), where the verified and the unverified are labelled. No combination is restated here.',
+  ],
+};
+
+export const subjectDesk = {
+  kicker: 'Where it is actually discussed',
+  heading: 'A desk, a laptop\n{{and one student}}',
+  body: [
+    'The school’s stream guidance is not an assembly. Its published photographs show single students at a table with a counsellor working from a laptop, papers between them, and in several frames a parent or elder sibling in the next chair. The banner behind reads **“Career Counseling — Class X & XI.”**',
+    'That the guidance works through to the end is checkable rather than asserted: the school published **CUET (UG) 2025 results in all three of PCM, Commerce and Humanities** and a board naming where those students went — set out on [University Counselling](/academics/student-success/university-counselling/). The wider programme is on [Career Guidance](/academics/student-success/career-guidance/).',
+  ],
+};
+
+export const subjectSteps = {
+  kicker: 'Before the choice',
+  heading: 'Four steps,\n{{one direction}}',
+  body: [] as string[],
+};
+
+export const subjectVisual = {
+  kicker: 'The four, in the building',
+  heading: '',
+  body: [
+    'Two of the four are photographed because the school publishes those rooms. It publishes no commerce or humanities teaching space, so neither is illustrated with one that belongs to something else. The stage all four lead into is [Senior Secondary](/academics/structure/senior-secondary/).',
+  ],
+};
+
+export const subjectClose = {
+  kicker: 'One year before it lands',
+  heading: 'Class X,\n{{not Class XI.}}',
+  body: [
+    'Subject selection is addressed before students enter the senior-secondary stage, so they choose with guidance rather than by default. The school publishes the four streams, the year groups its counselling is for and the results that follow the choice. It does not publish an aptitude test, a deadline or a procedure for changing stream.',
+  ],
+};
+
+/* ── OLYMPIAD ACHIEVEMENTS · THE PAGE'S OWN PROSE ───────────────────────────
+   ⚠⚠ MOVED OUT OF OlympiadPage.astro VERBATIM.
+
+   ⚠ "NO AWARD TOTAL APPEARS, BECAUSE IT KEEPS NONE" IS NOT FILLER. The client
+   brief asked for "100+ Olympiad awards"; the school publishes no total, so
+   the page says why there is none. Deleting that clause reopens the question
+   the array below was built to close. */
+
+export const olympiadSof = {
+  kicker: 'Science Olympiad Foundation',
+  heading: 'Entered at Nursery,\n{{awarded by Class III.}}',
+  body: [
+    'The school enters its classes for the SOF Olympiad from **Nursery to Class II**. It is the earliest point at which a Sunbeam child’s work is measured by somebody outside the building, and it happens years before anything that could be called an examination.',
+    'By Classes III to V the entry has turned into a result: an **SOF Zonal Excellence Award**, which the school records as carrying a **₹500 voucher**. A zonal award is a placing across schools, not a certificate for turning up.',
+  ],
+};
+
+export const olympiadNational = {
+  kicker: 'And the national programmes',
+  heading: 'Four papers\n{{that leave the district.}}',
+  body: [
+    'Beyond SOF, the school enters the national science talent programmes — and in three of them its students have gone past entry to **national-level qualification or selection**. Those are the words the school uses, and they are the words used here.',
+  ],
+};
+
+export const olympiadAll = {
+  kicker: 'Explore all olympiads',
+  heading: 'Every programme\n{{the school enters.}}',
+  body: [
+    'The school participates in several olympiad and national science programmes. This is the list it publishes — no award total appears, because it keeps none. What each one asks of a student is set out on [Competitive Examination Preparation](/academics/assessment/competitive-exam-preparation/).',
+  ],
+};
+
+export const olympiadClose = {
+  kicker: 'Measured from outside',
+  heading: 'Measured by\n{{somebody else.}}',
+  body: [
+    'The school publishes the programmes it enters, the classes that sit them and a handful of named results. It publishes no award total, and no total appears here — a count nobody can check is worth less than one result anybody can.',
+  ],
+};
+
 /* ── OLYMPIADS ──────────────────────────────────────────────────────────────
    ⚠ NO AWARD TOTAL, ANYWHERE. The original client brief asked for "100+
    Olympiad awards". The school publishes no total, so there is none here and

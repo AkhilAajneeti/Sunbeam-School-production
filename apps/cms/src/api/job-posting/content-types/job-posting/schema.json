@@ -7,21 +7,56 @@
     "displayName": "Job Posting",
     "description": "A recruitment poster. Mirrors the `posters` export of apps/web/src/data/career.ts. The school publishes vacancies as designed posters, never as structured text, so the poster IS the posting and the long alt text is the only machine-readable form of it."
   },
-  "options": { "draftAndPublish": true },
+  "options": {
+    "draftAndPublish": true
+  },
   "pluginOptions": {},
   "attributes": {
-    "title": { "type": "string", "required": true, "maxLength": 200 },
-    "slug": { "type": "uid", "targetField": "title", "required": true },
-    "tag": { "type": "string", "required": true, "maxLength": 120 },
-    "image": { "type": "media", "multiple": false, "required": true, "allowedTypes": ["images"] },
-    "alt": { "type": "text", "required": true, "maxLength": 4000 },
-    "dated": { "type": "string", "maxLength": 120 },
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 200
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
+    },
+    "tag": {
+      "type": "string",
+      "required": true,
+      "maxLength": 120
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "alt": {
+      "type": "text",
+      "maxLength": 4000,
+      "description": "⚠ NOT REQUIRED, AT THE CLIENT'S INSTRUCTION — a photograph can now be published with nothing here, and it will be silent to a screen reader and to search. Please still write it, and write what the picture SHOWS. If you replace the picture, replace this too: a description left behind describes the wrong image, which no text check can catch."
+    },
+    "dated": {
+      "type": "string",
+      "maxLength": 120
+    },
     "lang": {
       "type": "enumeration",
       "required": true,
       "default": "en",
-      "enum": ["en", "hi"]
+      "enum": [
+        "en",
+        "hi"
+      ]
     },
-    "displayOrder": { "type": "integer", "default": 0, "required": true }
+    "displayOrder": {
+      "type": "integer",
+      "default": 0,
+      "required": true
+    }
   }
 }

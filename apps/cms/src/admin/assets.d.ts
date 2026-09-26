@@ -20,3 +20,10 @@ declare module '*.svg' {
   const src: string;
   export default src;
 }
+
+/* The campus photograph behind the sign-in screen. Vite serves a JPEG as a URL
+   exactly as it does a PNG; only TypeScript needed telling. */
+declare module '*.jpg' {
+  const src: string;
+  export default src;
+}

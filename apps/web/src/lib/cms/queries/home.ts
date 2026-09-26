@@ -408,13 +408,54 @@ export async function getLeaderMessage(role: LeaderRole): Promise<LeaderMessage 
   };
 }
 
-interface RawVisionMission { cipher: RawParagraph[] | null; greeting: RawParagraph[] | null }
+interface RawVmSection {
+  key: string | null;
+  eyebrow: string | null;
+  heading: string | null;
+  body: RawParagraph[] | null;
+  points: { title: string | null; body: string | null }[] | null;
+}
+interface RawVisionMission {
+  cipher: RawParagraph[] | null;
+  greeting: RawParagraph[] | null;
+  sections: RawVmSection[] | null;
+}
+
+/** One block of the page, looked up by the key the page asks for. */
+export interface VmSection {
+  eyebrow: string;
+  heading: string;
+  body: string[];
+  points: { title: string; body: string }[];
+}
 
 export async function getVisionMission() {
   const v = await cmsFetchOne<RawVisionMission>('/api/vision-mission-page', {
     populate: VISION_MISSION_POPULATE,
   });
-  return { cipher: texts(v?.cipher), greeting: texts(v?.greeting) };
+
+  const byKey = new Map<string, VmSection>();
+  for (const s of v?.sections ?? []) {
+    if (!s.key) continue;
+    byKey.set(s.key, {
+      eyebrow: s.eyebrow ?? '',
+      heading: s.heading ?? '',
+      body: texts(s.body),
+      /* ⚠ A COLOUR WITH NO NAME IS DROPPED. The name is what the stylesheet
+         keys its palette off, so an unnamed one would render uncoloured. */
+      points: (s.points ?? [])
+        .filter((p) => p.title?.trim())
+        .map((p) => ({ title: p.title!.trim(), body: p.body ?? '' })),
+    });
+  }
+
+  /* ⚠ A MISSING BLOCK IS EMPTY, NOT UNDEFINED. The page reads
+     `section('vision').body[0]`; an absent key would throw and take the whole
+     page down rather than leaving one band blank. */
+  const empty: VmSection = { eyebrow: '', heading: '', body: [], points: [] };
+  const section = (key: string): VmSection => byKey.get(key) ?? empty;
+
+  return { cipher: texts(v?.cipher), greeting: texts(v?.greeting), section };
 }
 
 export interface HistoryVoice {

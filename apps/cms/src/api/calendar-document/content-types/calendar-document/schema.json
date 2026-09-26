@@ -7,26 +7,81 @@
     "displayName": "Calendar Document",
     "description": "A published academic calendar or planner. Mirrors the `calendars` export of apps/web/src/data/academicCalendar.ts. Some years the school publishes a PDF, some years only scanned sheets — `kind` records which, and the two are rendered differently."
   },
-  "options": { "draftAndPublish": true },
+  "options": {
+    "draftAndPublish": true
+  },
   "pluginOptions": {},
   "attributes": {
-    "year": { "type": "string", "required": true, "maxLength": 32 },
-    "type": { "type": "string", "required": true, "maxLength": 120 },
-    "slug": { "type": "uid", "targetField": "year", "required": true },
-    "image": { "type": "media", "multiple": false, "required": true, "allowedTypes": ["images"] },
-    "alt": { "type": "text", "required": true, "maxLength": 800 },
+    "year": {
+      "type": "string",
+      "required": true,
+      "maxLength": 32
+    },
+    "type": {
+      "type": "string",
+      "required": true,
+      "maxLength": 120
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "year",
+      "required": true
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "alt": {
+      "type": "text",
+      "maxLength": 800,
+      "description": "⚠ NOT REQUIRED, AT THE CLIENT'S INSTRUCTION — a photograph can now be published with nothing here, and it will be silent to a screen reader and to search. Please still write it, and write what the picture SHOWS. If you replace the picture, replace this too: a description left behind describes the wrong image, which no text check can catch."
+    },
     "kind": {
       "type": "enumeration",
       "required": true,
       "default": "PDF",
-      "enum": ["PDF", "Sheets"]
+      "enum": [
+        "PDF",
+        "Sheets"
+      ]
     },
-    "document": { "type": "media", "multiple": false, "allowedTypes": ["files"] },
-    "href": { "type": "string", "maxLength": 500 },
-    "size": { "type": "string", "maxLength": 32 },
-    "extent": { "type": "string", "maxLength": 64 },
-    "sheets": { "type": "component", "repeatable": true, "component": "shared.photo" },
-    "current": { "type": "boolean", "default": false, "required": true },
-    "displayOrder": { "type": "integer", "default": 0, "required": true }
+    "document": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "files"
+      ]
+    },
+    "href": {
+      "type": "string",
+      "maxLength": 500
+    },
+    "size": {
+      "type": "string",
+      "maxLength": 32
+    },
+    "extent": {
+      "type": "string",
+      "maxLength": 64
+    },
+    "sheets": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.photo"
+    },
+    "current": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "displayOrder": {
+      "type": "integer",
+      "default": 0,
+      "required": true
+    }
   }
 }

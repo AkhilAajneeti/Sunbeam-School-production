@@ -42,6 +42,8 @@ import AsRailSlider from './AsRailSlider.astro';
 import Lightbox from '../../ui/Lightbox.astro';
 
 import { getAcademicTopic } from '../../../lib/cms';
+import ClipHeading from '../../ui/ClipHeading.astro';
+import RichLine from '../../ui/RichLine.astro';
 import SmartImage from '../../ui/SmartImage.astro';
 
 const ac = await getAcademicTopic('/academics/student-success/university-counselling/');
@@ -51,14 +53,38 @@ const universityResults = ac.section('universityResults').results;
 
 const S = 'Sunbeam School Ballia';
 
-const BOARD_RESULTS = '/academics/board-results/';
-const CAREER = '/academics/student-success/career-guidance/';
-const SUBJECT = '/academics/student-success/subject-selection/';
+/* ⚠ THE CROSS-LINKS MOVED INTO THE COPY. They are written as
+   [label](/href) inside the CMS paragraphs now, so an editor rewording a
+   sentence keeps the link with it instead of leaving a dangling phrase. */
 
 /* ── SECTION 03 — the destinations, counted off the board ─────────────────
    ⚠ COUNTS, NOT RATES. "Ten of eighteen" is a count read off a printed table.
    A percentage would imply a cohort size the school has not published. */
 const destinations = ac.section('destinations').points;
+
+/**
+ * ═══ THE PAGE'S PROSE, FROM THE CMS ════════════════════════════════════════
+ *
+ * ⚠ THESE FOUR BANDS USED TO BE WRITTEN INTO THE MARKUP BELOW. The school could
+ * not correct a word about where its own students went without a developer,
+ * which is the thing this migration exists to end.
+ *
+ * ⚠ THE EMPHASIS AND THE LINKS SURVIVED THE MOVE. <RichLine> parses `**bold**`,
+ * `*italic*` and `[label](/href)` and nothing else — enough to keep the quoted
+ * board line and the cross-references doing their work, with no path from the
+ * CMS to arbitrary markup.
+ *
+ * ⚠ <ClipHeading> TAKES THE HEADING AS TWO LINES with `{{…}}` round the italic
+ * half. The break is editorial — it is where the sentence turns — so it lives
+ * in the CMS field rather than in this file.
+ */
+const board = ac.section('universityBoard');
+const cards = ac.section('universityCards');
+const dest = ac.section('universityDest');
+const close = ac.section('universityClose');
+
+/* AsClose takes the two halves of its heading separately. */
+const [closeLead = '', closeAccent = ''] = (close.heading ?? '').split('\n');
 ---
 
 {/* ══ 01 · EIGHTEEN NAMES ════════════════════════════════════════════════════
@@ -72,30 +98,13 @@ const destinations = ac.section('destinations').points;
 
   <div class="u-container uc-board__grid">
     <div>
-      <p class="as-kicker" data-reveal>Vision To Reality · Session 2024-25</p>
-      <h2 class="as-h as-h--lg uc-board__h" id="uc-board-t">
-        <span data-clip data-clip-delay="0">Eighteen names,</span>
-        <span data-clip data-clip-delay="150"><em>and where each one went</em></span>
-      </h2>
+      <p class="as-kicker" data-reveal>{board.eyebrow}</p>
+      <ClipHeading class="as-h as-h--lg uc-board__h" id="uc-board-t" text={board.heading} />
 
-      <p class="as-body" data-reveal data-reveal-delay="200">
-        Most schools describe their counselling. Sunbeam prints the result and hangs it up. The board
-        beside this is the school’s own, and every line on it is a student, a course and an
-        institution — <strong>eighteen of them</strong>.
-      </p>
-      <p class="as-body" data-reveal data-reveal-delay="260">
-        Counted off the board: <strong>ten went to a University of Delhi college</strong>,
-        <strong> three went to Banaras Hindu University</strong>, and the rest to Galgotias, NIET and
-        ITS in Greater Noida, Dr. Ram Manohar Lohia Avadh University in Ayodhya, and UPES Dehradun.
-      </p>
-      <p class="as-body" data-reveal data-reveal-delay="320">
-        The board’s own last line is <em>“Series will go on…”</em>
-      </p>
-      <p class="as-note" data-reveal data-reveal-delay="380">
-        No placement rate appears on this page. The school publishes the destinations, not a cohort
-        size — so a percentage would be one this site invented. Board results are a separate question
-        and have {' '}<a class="as-link" href={BOARD_RESULTS}>their own page</a>.
-      </p>
+      <RichLine class="as-body" text={board.body[0]} reveal revealDelay={200} />
+      <RichLine class="as-body" text={board.body[1]} reveal revealDelay={260} />
+      <RichLine class="as-body" text={board.body[2]} reveal revealDelay={320} />
+      <RichLine class="as-note" text={board.body[3]} linkClass="as-link" reveal revealDelay={380} />
     </div>
 
     <figure class="uc-board__fig">
@@ -150,23 +159,10 @@ const destinations = ac.section('destinations').points;
 <section class="as-sec as-sec--cream as-pad uc-cards" aria-labelledby="uc-cards-t">
   <div class="u-container uc-cards__grid">
     <div class="uc-cards__head">
-      <p class="as-kicker" data-reveal>What made it happen</p>
-      <h2 class="as-h as-h--lg" id="uc-cards-t">
-        <span data-clip data-clip-delay="0">And the paper</span>
-        <span data-clip data-clip-delay="150"><em>that bought the place</em></span>
-      </h2>
-      <p class="as-body uc-cards__b" data-reveal data-reveal-delay="200">
-        A Delhi University seat is decided by one examination, and the school publishes those results
-        the same way it publishes the destinations — one card per student, headed
-        {' '}<em>“Exemplar of Excellence”</em>, with the NTA score and every subject percentile
-        printed on it rather than summarised.
-      </p>
-      <p class="as-note" data-reveal data-reveal-delay="270">
-        All three streams are represented. <strong>No average is given</strong>, because the school
-        publishes none and a mean of these cards would be a figure this site produced. The stream
-        choice behind them is on {' '}<a class="as-link" href={SUBJECT}>Subject Selection</a>, and
-        the counselling around it on {' '}<a class="as-link" href={CAREER}>Career Guidance</a>.
-      </p>
+      <p class="as-kicker" data-reveal>{cards.eyebrow}</p>
+      <ClipHeading class="as-h as-h--lg" id="uc-cards-t" text={cards.heading} />
+      <RichLine class="as-body uc-cards__b" text={cards.body[0]} reveal revealDelay={200} />
+      <RichLine class="as-note" text={cards.body[1]} linkClass="as-link" reveal revealDelay={270} />
     </div>
 
     <div class="uc-cards__rail">
@@ -214,7 +210,7 @@ const destinations = ac.section('destinations').points;
   <span class="as-grid as-grid--fine" aria-hidden="true"></span>
 
   <div class="u-container">
-    <p class="as-kicker" data-reveal id="uc-dest-t">Counted off the board</p>
+    <p class="as-kicker" data-reveal id="uc-dest-t">{dest.eyebrow}</p>
 
     <ol class="uc-band">
       {destinations.map((d, i) => (
@@ -235,10 +231,10 @@ const destinations = ac.section('destinations').points;
 
 <AsClose
   id="uc-close-t"
-  kicker="The board's own last line"
-  lead="Series will"
-  accent="go on…"
-  body="The school publishes the destinations by name and the scores card by card. It does not publish a cohort size, a placement rate, or the counselling timetable behind them — so no percentage appears on this page."
+  kicker={close.eyebrow}
+  lead={closeLead}
+  accent={closeAccent.replace(/^\{\{|\}\}$/g, '')}
+  body={close.body[0]}
   photo={pCohort}
   position="50% 38%"
 />

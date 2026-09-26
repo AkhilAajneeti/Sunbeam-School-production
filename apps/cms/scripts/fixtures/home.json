@@ -491,6 +491,66 @@
     "greeting": [
       "Sunbeam schools not only use this as a greeting but also a way of life where all aspects of patriotism are nurtured and felt to be visible in every little act of Sunbeams. Sunbeams feel strongly for their nation and stand up proudly for it in all their acts.",
       "Jai Hind, is more than a salutation from Sunbeams to others reiterating the pride they take of being an Indian and everything that comes along with that identity."
+    ],
+    "sections": [
+      {
+        "key": "vision",
+        "label": "01 — Our Vision",
+        "eyebrow": "Our Vision",
+        "body": [
+          "Ongoing consolidation, growth and collaboration within and across institutions that are instrumental in *holistic growth of students*, in a conducive environment, that promotes *excellence* and the students further move on to *refine the social fabric*.",
+          "Sunbeam Group of Educational Institutions",
+          "Varanasi · Established 1972"
+        ]
+      },
+      {
+        "key": "hail",
+        "label": "02 — Jai Hind, the greeting",
+        "eyebrow": "…our greeting at Sunbeam",
+        "heading": "Jai Hind",
+        "body": [
+          "Victory be to my India",
+          "All Sunbeams live and abide by the ethos of Jai Hind."
+        ]
+      },
+      {
+        "key": "cipherHead",
+        "label": "03 — The Sunbeam Cipher, its heading",
+        "eyebrow": "The Sunbeam Cipher",
+        "heading": "The story of the Sunbeam {{identity}}"
+      },
+      {
+        "key": "cipherLetter",
+        "label": "03 — The Cipher letter",
+        "note": "The order matters: the page sets these around the two Cipher paragraphs — salute (two lines), paragraph one, the quote, the Duty/Devotion/Discipline line, paragraph two, the three colours, then the closing and the footnote.",
+        "body": [
+          "Jai Hind !!",
+          "I am Sunbeam !!",
+          "A single sunbeam is enough to drive away many shadows.",
+          "My innumerable rays or Sunbeams* are shaping the destiny of mankind through their diverse capabilities steeped into the spirit of **Duty** towards self, society and nation, **Devotion** towards righteous work and **Discipline** to walk down the right path, not getting swayed by temptations.",
+          "So … come be the Sunbeam and take forward my legacy … Shine each day and let the world shine in your reflected glory…",
+          "* A student studying in any Sunbeam Institution, or an alumnus, is called a **Sunbeam**."
+        ]
+      },
+      {
+        "key": "colours",
+        "label": "03 — The three colours",
+        "note": "The name is what the page keys its palette off — Red, Blue and Yellow each have a hex in the stylesheet. Renaming one leaves it uncoloured.",
+        "points": [
+          {
+            "title": "Red",
+            "body": "The RED in me is the youthful energy and vigor that I channelize into substantial output."
+          },
+          {
+            "title": "Blue",
+            "body": "The BLUE symbolizes trust, loyalty, wisdom, confidence, intelligence, faith and a never ending quest for perfection and excellence."
+          },
+          {
+            "title": "Yellow",
+            "body": "YELLOW, the color of sunshine, hope, and happiness which Sunbeam spread all over."
+          }
+        ]
+      }
     ]
   },
   "history": {

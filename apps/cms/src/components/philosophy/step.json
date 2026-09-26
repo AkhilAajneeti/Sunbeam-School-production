@@ -7,10 +7,36 @@
   },
   "options": {},
   "attributes": {
-    "label": { "type": "string", "required": true, "maxLength": 60 },
-    "body": { "type": "text", "required": true, "maxLength": 1200 },
-    "photo": { "type": "media", "multiple": false, "required": true, "allowedTypes": ["images"] },
-    "photoAlt": { "type": "text", "required": true, "maxLength": 500 },
-    "icon": { "type": "media", "multiple": false, "allowedTypes": ["images"], "description": "The small mark beside the step. Decorative — it carries no description because the photograph already says what the step is." }
+    "label": {
+      "type": "string",
+      "required": true,
+      "maxLength": 60
+    },
+    "body": {
+      "type": "text",
+      "required": true,
+      "maxLength": 1200
+    },
+    "photo": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "photoAlt": {
+      "type": "text",
+      "maxLength": 500,
+      "description": "⚠ NOT REQUIRED, AT THE CLIENT'S INSTRUCTION — a photograph can now be published with nothing here, and it will be silent to a screen reader and to search. Please still write it, and write what the picture SHOWS. If you replace the picture, replace this too: a description left behind describes the wrong image, which no text check can catch."
+    },
+    "icon": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ],
+      "description": "The small mark beside the step. Decorative — it carries no description because the photograph already says what the step is."
+    }
   }
 }

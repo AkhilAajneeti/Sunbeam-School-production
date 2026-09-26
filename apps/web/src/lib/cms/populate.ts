@@ -313,7 +313,14 @@ export const LEADER_MESSAGE_POPULATE: QueryObject = {
   portrait: true,
 };
 
-export const VISION_MISSION_POPULATE: QueryObject = { cipher: true, greeting: true };
+export const VISION_MISSION_POPULATE: QueryObject = {
+  cipher: true,
+  greeting: true,
+  /* ⚠ NAMED, NOT COVERED BY A PARENT `true`. A component left out of a
+     populate spec arrives undefined, and the page would render as though the
+     school had written nothing. */
+  sections: { populate: { body: true, points: true } },
+};
 
 export const HISTORY_PAGE_POPULATE: QueryObject = {
   history: true,

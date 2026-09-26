@@ -79,7 +79,15 @@ function parse(src: string): Node[] {
   /* ⚠ `**` IS TESTED BEFORE `*`, or every bold opener reads as an italic. */
   const RULES: Array<[RegExp, (m: RegExpMatchArray) => Node]> = [
     [/^\*\*([\s\S]+?)\*\*/, (m) => ({ t: 'strong', v: m[1] })],
-    [/^\*([^*\n]+?)\*/, (m) => ({ t: 'em', v: m[1] })],
+    /* ⚠⚠ A DELIMITER MAY NOT TOUCH A SPACE, AND THAT IS WHAT KEEPS A REAL
+       ASTERISK FROM EATING A SENTENCE. The Sunbeam Cipher carries a footnote
+       marker — "Sunbeams* are shaping…" — and the old rule paired that star
+       with the first star of a later **bold**, italicising everything between
+       the two. CommonMark's flanking rule settles it: an opener cannot be
+       followed by whitespace and a closer cannot be preceded by one, so
+       "Sunbeams* are" and "* A student…" stay plain text while *emphasis*
+       still works. */
+    [/^\*(?!\s)([^*\n]*?)(?<!\s)\*/, (m) => ({ t: 'em', v: m[1] })],
     [/^\[([^\]\n]+)\]\(([^)\s]+)\)/, (m) => ({ t: 'link', v: m[1], href: m[2] })],
   ];
 

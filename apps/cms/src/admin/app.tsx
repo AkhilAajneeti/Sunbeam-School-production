@@ -37,6 +37,8 @@ import type { StrapiApp } from '@strapi/strapi/admin';
 import type { DefaultTheme } from 'styled-components';
 
 import { installNavGrouping } from './group-nav';
+import { installPageBanner } from './page-banner';
+import { installLoginPage } from './login-page';
 import { MakeTestimonialButton } from './testimonial-button';
 
 import authLogo from './assets/sunbeam-logo.png';
@@ -144,8 +146,13 @@ export default {
         'app.components.LeftMenu.navbrand.title': 'Sunbeam School Ballia',
         'app.components.LeftMenu.navbrand.workplace': 'Website content',
 
-        'Auth.form.welcome.title': 'Welcome to Sunbeam School Ballia',
+        /* ⚠ "WELCOME TO" IS NO LONGER IN THIS STRING. The sign-in design sets it
+           as a small gold eyebrow above the school's name, and login-page.ts
+           draws it with a ::before — so leaving it here too would print it
+           twice. Reverting that stylesheet means putting the words back. */
+        'Auth.form.welcome.title': 'Sunbeam School Ballia',
         'Auth.form.welcome.subtitle': 'Log in to manage the school website',
+        'Auth.form.email.label': 'Email Address',
         'Auth.form.email.placeholder': 'e.g. name@sunbeamballia.edu.in',
         'Auth.form.register.subtitle':
           'Credentials are only used to sign in to the school website CMS. All saved data is stored in the school’s own database.',
@@ -166,6 +173,24 @@ export default {
      * a Strapi upgrade can stop it working but cannot break the panel.
      */
     installNavGrouping();
+
+    /**
+     * ⚠ THE PAGE HEADER, PAINTED IN THE LOGO'S COLOURS — see page-banner.ts.
+     * Unlike the grouping above this is a stylesheet and nothing else: Strapi
+     * marks the header with `data-strapi-header` itself, so there is no DOM to
+     * hold, no observer and nothing to fail soft from. It applies to EVERY
+     * admin page header, not only the Content Manager's.
+     */
+    installPageBanner();
+
+    /**
+     * ⚠ THE SIGN-IN SCREEN, to the supplied split-screen design — see
+     * login-page.ts. It runs on /auth/ only and takes itself down on the way
+     * in, so the campus photograph never ends up behind the Content Manager.
+     * The words on it are the school's published tagline and motto, NOT the
+     * mock-up's wording; the file says why.
+     */
+    installLoginPage();
 
     /**
      * ⚠ THE TAB TITLE, WHICH HAS NO CONFIG KEY. See the header: Strapi writes

@@ -42,13 +42,39 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/ui/PageHero.astro';
 import { Image } from 'astro:assets';
 import { getSchool, getVisionMission } from '../../lib/cms';
+import RichLine from '../../components/ui/RichLine.astro';
 
 import banner from '../../assets/photos/sunbeem-5.jpg';
 import crest from '../../assets/icons/logos/sunbeam.png';
 import wave from '../../assets/icons/bg-2.png';
 
 const school = await getSchool();
-const { cipher, greeting } = await getVisionMission();
+const { cipher, greeting, section } = await getVisionMission();
+
+/**
+ * ⚠⚠ THE PAGE'S OWN WORDS, FROM THE CMS. `cipher` and `greeting` were the only
+ * editable parts; the school's VISION STATEMENT, the greeting's translation and
+ * oath, and most of the Cipher letter were written into this file — so the one
+ * page that says what the school is for could not be changed without a
+ * developer.
+ */
+const vision = section('vision');
+const hail = section('hail');
+const cipherHead = section('cipherHead');
+const letter = section('cipherLetter');
+
+/* ⚠ THE PALETTE STAYS HERE, KEYED BY NAME. A hex is design, not something an
+   editor should be able to set; the NAME and the sentence come from the CMS. */
+const KEY_HEX: Record<string, { hex: string; fill: string }> = {
+  Red: { hex: '#c8281f', fill: '#f8e5e4' },
+  Blue: { hex: '#17529b', fill: '#e3eaf3' },
+  Yellow: { hex: '#e8a800', fill: '#fbf1d6' },
+};
+const keys = section('colours').points.map((p) => ({
+  name: p.title,
+  text: p.body,
+  ...(KEY_HEX[p.title] ?? { hex: '#c8281f', fill: '#f8e5e4' }),
+}));
 
 /**
  * The three colours, keyed to the crest.
@@ -68,26 +94,9 @@ const { cipher, greeting } = await getVisionMission();
  * a property of the section it happens to sit in. These are the same three
  * colours composited once, at build time, and they cannot drift.
  */
-const keys = [
-  {
-    name: 'Red',
-    hex: '#c8281f',
-    fill: '#f8e5e4',
-    text: 'The RED in me is the youthful energy and vigor that I channelize into substantial output.',
-  },
-  {
-    name: 'Blue',
-    hex: '#17529b',
-    fill: '#e3eaf3',
-    text: 'The BLUE symbolizes trust, loyalty, wisdom, confidence, intelligence, faith and a never ending quest for perfection and excellence.',
-  },
-  {
-    name: 'Yellow',
-    hex: '#e8a800',
-    fill: '#fbf1d6',
-    text: 'YELLOW, the color of sunshine, hope, and happiness which Sunbeam spread all over.',
-  },
-];
+/* ⚠ THE THREE SENTENCES MOVED TO THE CMS; the hexes above did not. A fill is
+   the composited tint described in the note above this one — a measured value,
+   not copy — and it stays keyed by the colour's name. */
 
 /** The Cipher, in the emblem's own first-person voice. */
 
@@ -114,16 +123,11 @@ const keys = [
             from the section behind it — the pill disappeared and left orange
             text floating. The solid variant is the same component, and it is
             the only one that stays a pill on a warm ground. */}
-        <p class="vis__pill"><span class="pill pill--solid">Our Vision</span></p>
+        <p class="vis__pill"><span class="pill pill--solid">{vision.eyebrow}</span></p>
 
-        <h2 class="u-visually-hidden" id="vis-heading">Our Vision</h2>
+        <h2 class="u-visually-hidden" id="vis-heading">{vision.eyebrow}</h2>
 
-        <p class="vis__words" data-split>
-          Ongoing consolidation, growth and collaboration within and across
-          institutions that are instrumental in <em>holistic growth of students</em>,
-          in a conducive environment, that promotes <em>excellence</em> and the
-          students further move on to <em>refine the social fabric</em>.
-        </p>
+        <RichLine class="vis__words" text={vision.body[0]} split />
 
         {/* NO CREST HERE, deliberately. The only mark in the repository is the
             Ballia crest, which is stamped Estd. 2013 — setting it beside an
@@ -133,8 +137,8 @@ const keys = [
             they arrive. */}
         <div class="vis__from" data-reveal data-reveal-delay="200">
           <p class="vis__from-text">
-            <span>Sunbeam Group of Educational Institutions</span>
-            <span class="vis__from-sub">Varanasi · Established 1972</span>
+            <span>{vision.body[1]}</span>
+            <span class="vis__from-sub">{vision.body[2]}</span>
           </p>
         </div>
       </div>
@@ -156,9 +160,9 @@ const keys = [
       />
 
       <div class="u-container">
-        <p class="hail__eyebrow">…our greeting at Sunbeam</p>
+        <p class="hail__eyebrow">{hail.eyebrow}</p>
 
-        <h2 class="hail__title" id="hail-heading" data-split>Jai Hind</h2>
+        <h2 class="hail__title" id="hail-heading" data-split>{hail.heading}</h2>
 
         {/* Three abstract bars in saffron, ivory and green. Deliberately NOT a
             flag: no chakra, no flag proportion, no rectangle — a rule made of
@@ -170,10 +174,8 @@ const keys = [
 
         <div class="hail__grid">
           <div class="hail__lead" data-reveal>
-            <p class="hail__gloss">Victory be to my India</p>
-            <p class="hail__oath">
-              All Sunbeams live and abide by the ethos of Jai Hind.
-            </p>
+            <p class="hail__gloss">{hail.body[0]}</p>
+            <p class="hail__oath">{hail.body[1]}</p>
           </div>
 
           <div class="hail__body" data-reveal data-reveal-delay="140">
@@ -187,7 +189,7 @@ const keys = [
     <section class="ciph" aria-labelledby="ciph-heading">
       <div class="u-container">
         <div class="ciph__head" data-reveal>
-          <p class="ciph__pill"><span class="pill pill--violet">The Sunbeam Cipher</span></p>
+          <p class="ciph__pill"><span class="pill pill--violet">{cipherHead.eyebrow}</span></p>
           <h2 class="ciph__heading t-h2-sans" id="ciph-heading" data-split>
             The story of the Sunbeam <span class="t-squiggle">identity</span>
           </h2>
@@ -208,24 +210,17 @@ const keys = [
           </figure>
 
           <div class="ciph__letter" data-reveal data-reveal-delay="120">
-            <p class="ciph__salute">Jai Hind !!<br />I am Sunbeam !!</p>
+            <p class="ciph__salute">{letter.body[0]}<br />{letter.body[1]}</p>
 
             <p class="ciph__para">{cipher[0]}</p>
 
             <blockquote class="ciph__quote">
-              <p>A single sunbeam is enough to drive away many shadows.</p>
+              <p>{letter.body[2]}</p>
             </blockquote>
 
             {/* The motto words are the school's own, already in this sentence.
                 Picking them out is emphasis, not editing. */}
-            <p class="ciph__para">
-              My innumerable rays or Sunbeams* are shaping the destiny of mankind
-              through their diverse capabilities steeped into the spirit of
-              <strong>Duty</strong> towards self, society and nation,
-              <strong>Devotion</strong> towards righteous work and
-              <strong>Discipline</strong> to walk down the right path, not
-              getting swayed by temptations.
-            </p>
+            <RichLine class="ciph__para" text={letter.body[3]} />
 
             <p class="ciph__para">{cipher[1]}</p>
           </div>
@@ -254,14 +249,8 @@ const keys = [
         </ul>
 
         <div class="ciph__close" data-reveal>
-          <p class="ciph__closing">
-            So … come be the Sunbeam and take forward my legacy … Shine each day
-            and let the world shine in your reflected glory…
-          </p>
-          <p class="ciph__note">
-            * A student studying in any Sunbeam Institution, or an alumnus, is
-            called a <strong>Sunbeam</strong>.
-          </p>
+          <p class="ciph__closing">{letter.body[4]}</p>
+          <RichLine class="ciph__note" text={letter.body[5]} />
         </div>
       </div>
     </section>

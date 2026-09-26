@@ -300,46 +300,19 @@ const STAT_ICONS = [
         stays here has to earn its place: the motto, the position in the rota,
         and the control that stops it. Nothing else goes in this layer. */}
     <div class="hero__filmui" data-film-ui>
-      {/* ⚠ MOTTO AND PAGER ARE ONE GROUP. The row is space-between, so three
-          loose children would spread the pager into the middle of the frame
-          instead of keeping it under the motto on the left. */}
-      <div class="hero__filmui-left">
+      {/* ⚠⚠ THE MOTTO IS ALL THAT IS LEFT OVER THE FOOTAGE, AT THE CLIENT'S
+          REQUEST. A numbered pager (01-09) and a "Pause video" button stood
+          here and were both removed on the reference design.
+
+          ⚠⚠ AND THAT TOOK WCAG 2.2.2's VISIBLE CONTROL WITH IT. The rota
+          auto-advances every 4.5s and the film slides play by themselves, so
+          something has to be able to stop them. What remains is
+          prefers-reduced-motion, which the script honours by never starting
+          autoplay at all — that covers a visitor whose system asks for it and
+          nobody else. If the control is ever wanted back, the script still
+          listens for [data-hero-pause] and [data-dot]; only this markup and
+          its CSS were taken out. */}
       <p class="hero__motto">{tagline}</p>
-
-      {/* ⚠ data-dot IS WHAT WIRES THESE UP. The script already listens for it
-          and calls show(i); these are numbered rather than dots because the
-          rota is nine long and a row of nine identical dots says nothing about
-          where you are in it. */}
-      <ol class="hero__pager" aria-label="Choose a slide">
-        {heroSlides.map((_, i) => (
-          <li>
-            <button
-              type="button"
-              class="hero__pageno"
-              data-dot
-              aria-current={i === 0 ? 'true' : 'false'}
-              aria-label={`Slide ${i + 1} of ${heroSlides.length}`}
-            >{String(i + 1).padStart(2, '0')}</button>
-          </li>
-        ))}
-      </ol>
-      </div>
-
-      {/* ⚠ THE PAUSE CONTROL LIVES HERE, NOT IN .hero__meta. It used to sit in
-          the meta block inside .hero__content — and .hero__content is
-          position: relative, so `position: absolute; bottom` placed it against
-          the PANEL rather than the film. Moving the markup is the fix; no
-          amount of CSS re-parents a containing block. */}
-      <button class="hero__pause" type="button" data-hero-pause aria-label="Pause image slideshow">
-      <svg class="hero__icon-pause" width="10" height="12" viewBox="0 0 10 12" aria-hidden="true">
-      <rect x="0" y="0" width="3" height="12" fill="currentColor" />
-      <rect x="7" y="0" width="3" height="12" fill="currentColor" />
-      </svg>
-      <svg class="hero__icon-play" width="10" height="12" viewBox="0 0 10 12" aria-hidden="true">
-      <path d="M0 0L10 6L0 12Z" fill="currentColor" />
-      </svg>
-      </button>
-      
     </div>
   </div>
 
@@ -1136,40 +1109,6 @@ const STAT_ICONS = [
     max-width: 34ch;
   }
 
-  /* ⚠ ABSOLUTE AND opacity: 0, NOT display: none OR visibility: hidden.
-     Either of those would drop it out of the tab order, which is the one thing
-     that must not happen — it is the page's only way to stop the slideshow.
-     Absolute keeps it out of the flow, so .hero__meta lays out exactly as if
-     the control were not there. */
-  .hero__pause {
-    position: absolute;
-    right: 0;
-    bottom: calc(-1 * var(--sb-8, 44px) - 12px);
-    width: 44px;
-    height: 44px;
-    display: grid;
-    place-items: center;
-    color: rgba(255, 255, 255, 0.72);
-    border: 1px solid rgba(255, 255, 255, 0.28);
-    border-radius: var(--sb-r-1);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity var(--sb-dur-btn) ease, color var(--sb-dur-btn) ease,
-      border-color var(--sb-dur-btn) ease;
-  }
-
-  /* It appears the instant somebody reaches for it, and not before. */
-  .hero__pause:focus-visible {
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  .hero__pause:hover { color: #fff; border-color: rgba(255, 255, 255, 0.6); }
-
-  .hero__icon-play { display: none; }
-  .hero__pause[data-paused] .hero__icon-play { display: block; }
-  .hero__pause[data-paused] .hero__icon-pause { display: none; }
-
   /* --- Tablet ------------------------------------------------------------- */
 
   @media (max-width: 1023px) {
@@ -1334,10 +1273,6 @@ const STAT_ICONS = [
     }
     .hero__caption { display: none; }
 
-    /* Auto-advance never runs at this width, so a pause control would be a
-       button that does nothing — and dropping it from the tab order here is
-       safe for exactly that reason. Swiping still moves the slider. */
-    .hero__pause { display: none; }
   }
 
   /**
@@ -1405,15 +1340,14 @@ const STAT_ICONS = [
       right: 0;
       /* ⚠⚠ THIS CLEARS THE PANEL, IT DOES NOT CLEAR THE FILM. The panel rises
          80px over the film's foot, so anything measured from the film's bottom
-         edge alone ends up underneath it — at 4.7vh the pager and the pause
-         button were both buried and the film looked like it had no controls.
+         edge alone ends up underneath it — at 4.7vh the motto was buried.
          The number is the 80px of overlap plus the ~50px the reference leaves
-         between the pager and the panel's top edge.
+         between the motto and the panel's top edge.
          ⚠ IF THE OVERLAP ON .hero__content CHANGES, THIS CHANGES WITH IT. */
       /* ⚠ A FIXED px, DELIBERATELY — NOT a vh clamp. What this has to clear is
          the panel, and the panel's overlap is a fixed 80px; tying the offset to
          viewport height instead made the clearance drift with the window (50px
-         at 1899x1057, but only 32px at 1536x864, where the pager crowded the
+         at 1899x1057, but only 32px at 1536x864, where the motto crowded the
          panel's corner). 80px of overlap + the reference's ~50px gap = 130. */
       bottom: 130px;
       z-index: 2;
@@ -1423,14 +1357,6 @@ const STAT_ICONS = [
       gap: var(--sb-6);
       padding-inline: clamp(24px, 4vw, 72px);
       pointer-events: none;
-    }
-
-    /* ⚠ A SHADOW, NOT A SCRIM. Two short lines need to clear the footage; a
-       gradient across the frame to serve them is what this design removed. */
-    .hero__filmui-left {
-      display: flex;
-      flex-direction: column;
-      gap: var(--sb-4);
     }
 
     .hero__motto {
@@ -1443,86 +1369,12 @@ const STAT_ICONS = [
       text-shadow: 0 1px 10px rgba(18, 16, 15, .7);
     }
 
-    .hero__pager {
-      list-style: none;
-      display: flex;
-      align-items: center;
-      gap: clamp(9px, 1vw, 16px);
-      margin: 0;
-      padding: 0;
-      pointer-events: auto;
-    }
+    /* ⚠ THE PAGER AND THE PAUSE BUTTON WERE REMOVED FROM THIS LAYOUT — see the
+       markup note on .hero__filmui. Their rules are gone with them rather than
+       left behind to puzzle the next reader. */
 
-    /* ⚠ THE RULE IS A ::after ON THE NUMBER, not a separate element — it has to
-       grow and colour with the slide it belongs to, and a sibling would need
-       its own state to do that. */
-    .hero__pageno {
-      display: flex;
-      align-items: center;
-      gap: clamp(7px, .7vw, 10px);
-      border: 0;
-      background: none;
-      padding: 0;
-      font: inherit;
-      font-size: var(--sb-caption);
-      font-weight: 600;
-      letter-spacing: .08em;
-      color: rgba(255, 255, 255, .72);
-      cursor: pointer;
-      text-shadow: 0 1px 8px rgba(18, 16, 15, .6);
-      transition: color 200ms ease;
-    }
-    .hero__pageno::after {
-      content: '';
-      width: clamp(16px, 1.8vw, 32px);
-      height: 1px;
-      background: currentColor;
-      opacity: .5;
-      transition: background 200ms ease, opacity 200ms ease;
-    }
-    .hero__pageno:hover { color: #fff; }
-    .hero__pageno[aria-current='true'] { color: var(--sb-orange-tint); }
-    .hero__pageno[aria-current='true']::after { opacity: 1; }
-
-    /* The pause control comes back out of hiding — it is the one piece of the
-       old .hero__meta this layout keeps, and WCAG 2.2.2 wants it. */
     /* Its only occupant moved onto the film; nothing is left to show. */
     .hero__meta { display: none; }
-
-    /* ⚠ THE BASE RULE PINS THIS TO A 44px SQUARE AT right: 0 — it was a hidden
-       icon button on the old dark hero. Going static is not enough; the fixed
-       box and the offset both have to be released or the label overflows the
-       frame. */
-    .hero__pause {
-      position: static;
-      right: auto;
-      bottom: auto;
-      width: auto;
-      height: auto;
-      pointer-events: auto;
-      opacity: 1;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 9px 18px 9px 9px;
-      border: 1px solid rgba(255, 255, 255, .45);
-      border-radius: 999px;
-      background: rgba(18, 16, 15, .28);
-      backdrop-filter: blur(8px);
-      color: #fff;
-      font-size: var(--sb-caption);
-      font-weight: 600;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-    }
-    .hero__pause::after { content: 'Pause video'; }
-    .hero__pause[data-paused]::after { content: 'Play video'; }
-    .hero__pause svg {
-      box-sizing: content-box;
-      padding: 7px;
-      border: 1px solid rgba(255, 255, 255, .55);
-      border-radius: 50%;
-    }
 
     /* ── The panel ─────────────────────────────────────────────────────── */
     /* ⚠ -70px IS THE OVERLAP, and the panel's ground matches the section

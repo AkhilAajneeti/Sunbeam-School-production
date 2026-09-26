@@ -822,7 +822,6 @@ export interface HomeSlide extends Struct.ComponentSchema {
   };
   attributes: {
     alt: Schema.Attribute.Text &
-      Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 800;
       }>;
@@ -1050,7 +1049,6 @@ export interface PhilosophyClose extends Struct.ComponentSchema {
     headingLines: Schema.Attribute.Component<'shared.paragraph', true>;
     image: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     imageAlt: Schema.Attribute.Text &
-      Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 500;
       }>;
@@ -1089,19 +1087,16 @@ export interface PhilosophyCollage extends Struct.ComponentSchema {
       }>;
     imageOne: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     imageOneAlt: Schema.Attribute.Text &
-      Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 500;
       }>;
     imageThree: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     imageThreeAlt: Schema.Attribute.Text &
-      Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 500;
       }>;
     imageTwo: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     imageTwoAlt: Schema.Attribute.Text &
-      Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 500;
       }>;
@@ -1134,7 +1129,6 @@ export interface PhilosophyConstellation extends Struct.ComponentSchema {
       }>;
     image: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     imageAlt: Schema.Attribute.Text &
-      Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 500;
       }>;
@@ -1317,13 +1311,11 @@ export interface PhilosophyPair extends Struct.ComponentSchema {
       }>;
     imageLower: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     imageLowerAlt: Schema.Attribute.Text &
-      Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 500;
       }>;
     imageUpper: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     imageUpperAlt: Schema.Attribute.Text &
-      Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 500;
       }>;
@@ -1371,7 +1363,6 @@ export interface PhilosophyStatement extends Struct.ComponentSchema {
       }>;
     image: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     imageAlt: Schema.Attribute.Text &
-      Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 500;
       }>;
@@ -1412,7 +1403,6 @@ export interface PhilosophyStep extends Struct.ComponentSchema {
       }>;
     photo: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     photoAlt: Schema.Attribute.Text &
-      Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 500;
       }>;
@@ -1446,7 +1436,6 @@ export interface PublicationsMyraPage extends Struct.ComponentSchema {
   };
   attributes: {
     alt: Schema.Attribute.Text &
-      Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 300;
       }>;
@@ -1845,7 +1834,6 @@ export interface SharedPhoto extends Struct.ComponentSchema {
   };
   attributes: {
     alt: Schema.Attribute.Text &
-      Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 500;
       }>;

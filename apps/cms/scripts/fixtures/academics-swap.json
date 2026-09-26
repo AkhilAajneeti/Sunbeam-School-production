@@ -227,6 +227,188 @@
       }
     }
   },
+  "data/studentSuccess.ts": {
+    "route": "/academics/board-results/",
+    "consts": {
+      "boardOpen": {
+        "part": "block",
+        "route": "/academics/board-results/"
+      },
+      "boardPanel": {
+        "part": "block",
+        "route": "/academics/board-results/"
+      },
+      "boardDoes": {
+        "part": "block",
+        "route": "/academics/board-results/"
+      },
+      "boardFoot": {
+        "part": "block",
+        "route": "/academics/board-results/"
+      },
+      "boardClose": {
+        "part": "block",
+        "route": "/academics/board-results/"
+      },
+      "careerGuidanceImages": {
+        "part": "photos",
+        "route": "/academics/student-success/career-guidance/"
+      },
+      "careerGuidanceOpen": {
+        "part": "block",
+        "route": "/academics/student-success/career-guidance/"
+      },
+      "careerGuidanceMain": {
+        "part": "block",
+        "route": "/academics/student-success/career-guidance/"
+      },
+      "careerGuidanceGive": {
+        "part": "block",
+        "route": "/academics/student-success/career-guidance/"
+      },
+      "careerGuidanceClose": {
+        "part": "block",
+        "route": "/academics/student-success/career-guidance/"
+      },
+      "olympiads": {
+        "part": "awards",
+        "route": "/academics/student-success/olympiad-achievements/"
+      },
+      "olympiadSof": {
+        "part": "block",
+        "route": "/academics/student-success/olympiad-achievements/"
+      },
+      "olympiadNational": {
+        "part": "block",
+        "route": "/academics/student-success/olympiad-achievements/"
+      },
+      "olympiadAll": {
+        "part": "block",
+        "route": "/academics/student-success/olympiad-achievements/"
+      },
+      "olympiadClose": {
+        "part": "block",
+        "route": "/academics/student-success/olympiad-achievements/"
+      },
+      "recognitionPaths": {
+        "part": "points",
+        "route": "/academics/student-success/scholarships/"
+      },
+      "scholarships": {
+        "part": "facts",
+        "route": "/academics/student-success/scholarships/"
+      },
+      "scholarOpen": {
+        "part": "block",
+        "route": "/academics/student-success/scholarships/"
+      },
+      "scholarStories": {
+        "part": "block",
+        "route": "/academics/student-success/scholarships/"
+      },
+      "scholarEmpty": {
+        "part": "block",
+        "route": "/academics/student-success/scholarships/"
+      },
+      "scholarPaths": {
+        "part": "block",
+        "route": "/academics/student-success/scholarships/"
+      },
+      "scholarTerms": {
+        "part": "block",
+        "route": "/academics/student-success/scholarships/"
+      },
+      "scholarClose": {
+        "part": "block",
+        "route": "/academics/student-success/scholarships/"
+      },
+      "subjectRoutes": {
+        "part": "block",
+        "route": "/academics/student-success/subject-selection/"
+      },
+      "subjectDesk": {
+        "part": "block",
+        "route": "/academics/student-success/subject-selection/"
+      },
+      "subjectSteps": {
+        "part": "block",
+        "route": "/academics/student-success/subject-selection/"
+      },
+      "subjectVisual": {
+        "part": "block",
+        "route": "/academics/student-success/subject-selection/"
+      },
+      "subjectClose": {
+        "part": "block",
+        "route": "/academics/student-success/subject-selection/"
+      },
+      "successMilestones": {
+        "part": "points",
+        "route": "/academics/student-success/success-stories/"
+      },
+      "successStories": {
+        "part": "stories",
+        "route": "/academics/student-success/success-stories/"
+      },
+      "successOpen": {
+        "part": "block",
+        "route": "/academics/student-success/success-stories/"
+      },
+      "successMile": {
+        "part": "block",
+        "route": "/academics/student-success/success-stories/"
+      },
+      "successCta": {
+        "part": "block",
+        "route": "/academics/student-success/success-stories/"
+      },
+      "successClose": {
+        "part": "block",
+        "route": "/academics/student-success/success-stories/"
+      },
+      "universityResults": {
+        "part": "results",
+        "route": "/academics/student-success/university-counselling/"
+      },
+      "universityBoard": {
+        "part": "block",
+        "route": "/academics/student-success/university-counselling/"
+      },
+      "universityCards": {
+        "part": "block",
+        "route": "/academics/student-success/university-counselling/"
+      },
+      "universityDest": {
+        "part": "block",
+        "route": "/academics/student-success/university-counselling/"
+      },
+      "universityClose": {
+        "part": "block",
+        "route": "/academics/student-success/university-counselling/"
+      }
+    }
+  },
+  "data/classCornerPage.ts": {
+    "route": "/academics/class-corner/",
+    "consts": {
+      "classCornerDocs": {
+        "part": "block",
+        "route": "/academics/class-corner/"
+      },
+      "classCornerFoot": {
+        "part": "block",
+        "route": "/academics/class-corner/"
+      },
+      "toppersIntro": {
+        "part": "block",
+        "route": "/academics/class-corner/"
+      },
+      "toppersLabels": {
+        "part": "block",
+        "route": "/academics/class-corner/"
+      }
+    }
+  },
   "pages/academics/index.astro": {
     "route": "/academics/",
     "consts": {
@@ -644,55 +826,6 @@
       "story": {
         "part": "photos",
         "route": "/academics/student-success/career-guidance/"
-      }
-    }
-  },
-  "data/studentSuccess.ts": {
-    "route": "/academics/student-success/career-guidance/",
-    "consts": {
-      "careerGuidanceImages": {
-        "part": "photos",
-        "route": "/academics/student-success/career-guidance/"
-      },
-      "careerGuidanceOpen": {
-        "part": "block",
-        "route": "/academics/student-success/career-guidance/"
-      },
-      "careerGuidanceMain": {
-        "part": "block",
-        "route": "/academics/student-success/career-guidance/"
-      },
-      "careerGuidanceGive": {
-        "part": "block",
-        "route": "/academics/student-success/career-guidance/"
-      },
-      "careerGuidanceClose": {
-        "part": "block",
-        "route": "/academics/student-success/career-guidance/"
-      },
-      "olympiads": {
-        "part": "awards",
-        "route": "/academics/student-success/olympiad-achievements/"
-      },
-      "recognitionPaths": {
-        "part": "points",
-        "route": "/academics/student-success/scholarships/"
-      },
-      "scholarships": {
-        "part": "facts",
-        "route": "/academics/student-success/scholarships/"
-      },
-      "successMilestones": {
-        "part": "points",
-        "route": "/academics/student-success/success-stories/"
-      },
-      "successStories": {
-        "part": "stories",
-        "route": "/academics/student-success/success-stories/"
-      },
-      "universityResults": {
-        "part": "results",
-        "route": "/academics/student-success/university-counselling/"
       }
     }
   },

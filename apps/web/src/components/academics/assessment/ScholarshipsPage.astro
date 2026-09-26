@@ -49,12 +49,30 @@ import { getSchool } from '../../../lib/cms';
 
 import SmartImage from '../../ui/SmartImage.astro';
 import { getAcademicTopic } from '../../../lib/cms';
+import ClipHeading from '../../ui/ClipHeading.astro';
+import RichLine from '../../ui/RichLine.astro';
 
 const ac = await getAcademicTopic('/academics/student-success/scholarships/');
 const pAward = ac.pic('pAward');
 const pCohort = ac.pic('pCohort');
 const scholarships = ac.section('scholarships').facts;
 const recognitionPaths = ac.section('recognitionPaths').points;
+
+/**
+ * ═══ THE PAGE'S PROSE, FROM THE CMS ════════════════════════════════════════
+ * ⚠ THE REFUSAL IS THE CONTENT — see data/studentSuccess.ts. This page argues
+ * that an invented scholarship summary would read like a real one; that
+ * argument is the school's and it is now the school's to change.
+ */
+const open = ac.section('scholarOpen');
+const stories = ac.section('scholarStories');
+const empty = ac.section('scholarEmpty');
+const paths = ac.section('scholarPaths');
+const terms = ac.section('scholarTerms');
+const close = ac.section('scholarClose');
+
+/* AsClose takes the two halves of its heading separately. */
+const [closeLead = '', closeAccent = ''] = (close.heading ?? '').split('\n');
 
 const school = await getSchool();
 
@@ -77,31 +95,16 @@ const hasScholarships = scholarships.length > 0;
 
   <div class="u-container sc-open__grid">
     <div>
-      <p class="as-kicker" data-reveal>What is published</p>
+      <p class="as-kicker" data-reveal>{open.eyebrow}</p>
       {/* ⚠ NOT "Scholarships that recognise more than marks." That headline
           asserts the school runs scholarships, which is the one thing this page
           cannot claim. The composition is the reference's; the sentence is
           true. */}
-      <h2 class="as-h as-h--xl sc-open__h" id="sc-open-t">
-        <span data-clip data-clip-delay="0">Recognition, yes.</span>
-        <span data-clip data-clip-delay="150"><em>Terms, not yet.</em></span>
-      </h2>
+      <ClipHeading class="as-h as-h--xl sc-open__h" id="sc-open-t" text={open.heading} />
 
-      <p class="as-body" data-reveal data-reveal-delay="200">
-        Sunbeam School Ballia publishes no scholarship — <strong>no name, no eligibility, no value
-        and no way to apply</strong>. Every other page in this section is built from something the
-        school printed; on this subject there is nothing to build from.
-      </p>
-      <p class="as-body" data-reveal data-reveal-delay="260">
-        So this page does not describe one. A scholarship summary invented to fill the space would
-        read exactly like a real one, and a family could choose a school on the strength of it. Fees
-        are the subject where a plausible guess does the most damage, and the honest answer is the
-        short one.
-      </p>
-      <p class="as-body" data-reveal data-reveal-delay="320">
-        What the school <em>does</em> publish is recognition of another kind — named results, placings
-        and awards. Those are set out below, labelled as what they are.
-      </p>
+      <RichLine class="as-body" text={open.body[0]} reveal revealDelay={200} />
+      <RichLine class="as-body" text={open.body[1]} reveal revealDelay={260} />
+      <RichLine class="as-body" text={open.body[2]} reveal revealDelay={320} />
     </div>
 
     <figure class="sc-open__stage">
@@ -147,17 +150,10 @@ const hasScholarships = scholarships.length > 0;
   <div class="u-container">
     <div class="sc-stories__head">
       <div>
-        <p class="as-kicker" data-reveal>Scholarship records</p>
-        <h2 class="as-h as-h--md" id="sc-stories-t">
-          <span data-clip data-clip-delay="0">Nothing to show</span>
-          <span data-clip data-clip-delay="150"><em>yet.</em></span>
-        </h2>
+        <p class="as-kicker" data-reveal>{stories.eyebrow}</p>
+        <ClipHeading class="as-h as-h--md" id="sc-stories-t" text={stories.heading} />
       </div>
-      <p class="as-note sc-stories__b" data-reveal data-reveal-delay="180">
-        This section is the archive the school’s scholarship records will fill. It is built and
-        waiting rather than removed, because the page should be ready the day the terms are
-        published.
-      </p>
+      <RichLine class="as-note sc-stories__b" text={stories.body[0]} reveal revealDelay={180} />
     </div>
 
     {hasScholarships ? (
@@ -206,7 +202,7 @@ const hasScholarships = scholarships.length > 0;
           </svg>
         </span>
         <div>
-          <p class="sl-empty__k">No scholarship has been published by the school</p>
+          <p class="sl-empty__k">{empty.eyebrow}</p>
           <p class="sl-empty__v">
             The site audit records scholarships as not mentioned, and no name, value, eligibility or
             application route appears anywhere on the school’s site. Rather than fill this row with
@@ -215,7 +211,7 @@ const hasScholarships = scholarships.length > 0;
           </p>
           <p class="sl-empty__acts">
             <a class="as-btn" href={CONTACT}>
-              Ask the school office
+              {empty.body[1]}
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <g stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" set:html={MARK.arrow} />
               </svg>
@@ -235,15 +231,9 @@ const hasScholarships = scholarships.length > 0;
 <section class="as-sec as-sec--cream as-pad--sm sc-paths" aria-labelledby="sc-paths-t">
   <div class="u-container">
     <div class="sc-paths__head">
-      <p class="as-kicker" data-reveal>What the school does record</p>
-      <h2 class="as-h as-h--md" id="sc-paths-t">
-        <span data-clip data-clip-delay="0">Four kinds of achievement,</span>
-        <span data-clip data-clip-delay="150"><em>all of them named.</em></span>
-      </h2>
-      <p class="as-note sc-paths__b" data-reveal data-reveal-delay="180">
-        None of these is described by the school as a scholarship. Each is a place on this site where
-        a published achievement is recorded with a name attached.
-      </p>
+      <p class="as-kicker" data-reveal>{paths.eyebrow}</p>
+      <ClipHeading class="as-h as-h--md" id="sc-paths-t" text={paths.heading} />
+      <RichLine class="as-note sc-paths__b" text={paths.body[0]} reveal revealDelay={180} />
     </div>
 
     <ol class="as-cols sc-paths__cols" style="--n: 4;">
@@ -276,19 +266,10 @@ const hasScholarships = scholarships.length > 0;
   <div class="u-container">
     <div class="sc-terms__box">
       <div class="sc-terms__copy">
-        <p class="as-kicker" data-reveal>Important to know</p>
-        <h2 class="as-h as-h--md" id="sc-terms-t">
-          <span data-clip data-clip-delay="0">Looking for the</span>
-          <span data-clip data-clip-delay="150"><em>current terms?</em></span>
-        </h2>
-        <p class="as-body" data-reveal data-reveal-delay="200">
-          Scholarship opportunities and eligibility can vary by programme, achievement and session.
-          The school has not published any general scholarship terms on its site, so this page cannot
-          set them out — and does not guess at them.
-        </p>
-        <p class="as-note" data-reveal data-reveal-delay="260">
-          <strong>For the latest applicable terms, please contact the school office.</strong>
-        </p>
+        <p class="as-kicker" data-reveal>{terms.eyebrow}</p>
+        <ClipHeading class="as-h as-h--md" id="sc-terms-t" text={terms.heading} />
+        <RichLine class="as-body" text={terms.body[0]} reveal revealDelay={200} />
+        <RichLine class="as-note" text={terms.body[1]} reveal revealDelay={260} />
       </div>
 
       <div class="sc-terms__cta" data-pop data-pop-delay="200">
@@ -297,11 +278,11 @@ const hasScholarships = scholarships.length > 0;
             <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={MARK.phone} />
           </svg>
         </span>
-        <p class="sc-terms__lab">Admissions helpline</p>
+        <p class="sc-terms__lab">{terms.body[2]}</p>
         <p class="sc-terms__num"><a href={`tel:${phoneHref}`}>{phoneShow}</a></p>
         <p class="sc-terms__act">
           <a class="as-btn" href={CONTACT}>
-            Contact school
+            {terms.body[3]}
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <g stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" set:html={MARK.arrow} />
             </svg>
@@ -314,10 +295,10 @@ const hasScholarships = scholarships.length > 0;
 
 <AsClose
   id="sc-close-t"
-  kicker="Until the terms are published"
-  lead="Ask the office,"
-  accent="not this page."
-  body="Scholarships are recorded in the site audit as not mentioned by the school. Until it publishes terms, the office is the only reliable answer this site can give — and a plausible summary here would be worse than none."
+  kicker={close.eyebrow}
+  lead={closeLead}
+  accent={closeAccent.replace(/^\{\{|\}\}$/g, '')}
+  body={close.body[0]}
   photo={pCohort}
   position="50% 38%"
 />

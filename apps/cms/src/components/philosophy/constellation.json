@@ -37,8 +37,8 @@
     },
     "imageAlt": {
       "type": "text",
-      "required": true,
-      "maxLength": 500
+      "maxLength": 500,
+      "description": "⚠ NOT REQUIRED, AT THE CLIENT'S INSTRUCTION — a photograph can now be published with nothing here, and it will be silent to a screen reader and to search. Please still write it, and write what the picture SHOWS. If you replace the picture, replace this too: a description left behind describes the wrong image, which no text check can catch."
     },
     "cards": {
       "type": "component",

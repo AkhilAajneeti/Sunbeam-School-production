@@ -35,6 +35,62 @@
       "teachingLearning.words.figure": "05 — Reading and language · the figure",
       "teachingLearning.index": "06 — Laboratories and clubs index",
       "teachingLearning.index.groups": "06 — Laboratories and clubs · the groups"
+    },
+    "/academics/student-success/university-counselling/": {
+      "universityBoard": "Eighteen names, and where each one went",
+      "universityCards": "And the paper that bought the place",
+      "universityResults": "The CUET result cards",
+      "universityDest": "Counted off the board — heading",
+      "destinations": "Counted off the board — the four counts",
+      "universityClose": "Closing statement"
+    },
+    "/academics/board-results/": {
+      "boardOpen": "No pass rate. No toppers.",
+      "boardPanel": "The absence panel — its heading",
+      "absent": "The absence panel — the four lines",
+      "boardDoes": "What the school does publish",
+      "strip": "The strip of counts",
+      "boardFoot": "The note under the strip",
+      "boardClose": "Closing statement"
+    },
+    "/academics/student-success/success-stories/": {
+      "successOpen": "Second in the world, second in the state",
+      "successStories": "The three award graphics",
+      "successMile": "The same record, by how far it travelled",
+      "successMilestones": "The milestones, by reach",
+      "successCta": "Want to know more? — the helpline box",
+      "successClose": "Closing statement"
+    },
+    "/academics/student-success/scholarships/": {
+      "scholarOpen": "Recognition, yes. Terms, not yet.",
+      "scholarStories": "Scholarship records — nothing to show yet",
+      "scholarships": "The scholarship archive (empty until the school publishes terms)",
+      "scholarEmpty": "The empty-state panel",
+      "scholarPaths": "Four kinds of achievement, all of them named",
+      "recognitionPaths": "The four recognition routes",
+      "scholarTerms": "Looking for the current terms?",
+      "scholarClose": "Closing statement"
+    },
+    "/academics/student-success/subject-selection/": {
+      "subjectRoutes": "One choice, made once",
+      "streams": "The four streams",
+      "subjectDesk": "A desk, a laptop and one student",
+      "covered": "What the counselling covers",
+      "subjectSteps": "Four steps, one direction — heading",
+      "process": "The four steps",
+      "subjectVisual": "The four, in the building — heading and note",
+      "visual": "The four, in the building — the rooms",
+      "subjectClose": "Closing statement"
+    },
+    "/academics/student-success/olympiad-achievements/": {
+      "olympiadSof": "Entered at Nursery, awarded by Class III",
+      "facts": "The SOF facts",
+      "olympiadNational": "Four papers that leave the district",
+      "programmes": "The national programmes",
+      "olympiadAll": "Every programme the school enters",
+      "olympiads": "The full olympiad list",
+      "categories": "The filter categories",
+      "olympiadClose": "Closing statement"
     }
   }
 }

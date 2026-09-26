@@ -1,10 +1,31 @@
 {
-  "kind":"singleType","collectionName":"vision_mission_page",
-  "info":{"singularName":"vision-mission-page","pluralName":"vision-mission-pages","displayName":"Vision & Mission Page",
-    "description":"The prose of /about/vision-mission/. ⚠ `keys` STAYS IN CODE — it is {name,hex,fill,text}, a colour palette driving the cipher animation, which is design rather than editorial content. ⚠ docs/07 A3 is still open: the school has published no formal Vision and Mission statement, so this page carries what it has rather than an invented one."},
-  "options":{"draftAndPublish":true},
-  "attributes":{
-    "cipher":{"type":"component","repeatable":true,"component":"shared.paragraph"},
-    "greeting":{"type":"component","repeatable":true,"component":"shared.paragraph"}
+  "kind": "singleType",
+  "collectionName": "vision_mission_page",
+  "info": {
+    "singularName": "vision-mission-page",
+    "pluralName": "vision-mission-pages",
+    "displayName": "Vision & Mission Page",
+    "description": "The Vision, the Jai Hind greeting and the Sunbeam Cipher on /about/vision-mission/. ⚠⚠ `cipher` AND `greeting` WERE THE ONLY EDITABLE PARTS UNTIL NOW. The school's own VISION STATEMENT, the greeting's translation and oath, and most of the Cipher letter were written into the page itself — so the one page on this site that states what the school is for could not be changed without a developer. `sections` carries them now. ⚠ THE SECTION KEYS ARE THE CONTRACT: the page looks each block up by key, so renaming one empties whatever it fed. Set the label instead."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "cipher": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.paragraph"
+    },
+    "greeting": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.paragraph"
+    },
+    "sections": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.section",
+      "description": "The page's own words, block by block — `vision`, `hail`, `cipherHead`, `cipherLetter` and `colours`. ⚠ THE ORDER OF `cipherLetter`'s paragraphs IS THE LETTER'S ORDER and the page interleaves them with the `cipher` paragraphs above; moving one changes what the letter says."
+    }
   }
 }

@@ -48,6 +48,8 @@ import { getSchool } from '../../../lib/cms';
 
 import SmartImage from '../../ui/SmartImage.astro';
 import { getAcademicTopic } from '../../../lib/cms';
+import ClipHeading from '../../ui/ClipHeading.astro';
+import RichLine from '../../ui/RichLine.astro';
 
 const ac = await getAcademicTopic('/academics/student-success/success-stories/');
 const pCohort = ac.pic('pCohort');
@@ -58,8 +60,20 @@ const school = await getSchool();
 
 const S = 'Sunbeam School Ballia';
 const CONTACT = '/contact-us/';
-const OLYMPIADS = '/academics/student-success/olympiad-achievements/';
-const ACHIEVEMENTS = '/beyond-academics/achievements/';
+
+/**
+ * ═══ THE PAGE'S PROSE, FROM THE CMS ════════════════════════════════════════
+ *
+ * ⚠ THE CROSS-LINKS MOVED INTO THE COPY as [label](/href), so an editor
+ * rewording a sentence keeps its link rather than leaving a dangling phrase.
+ */
+const open = ac.section('successOpen');
+const mile = ac.section('successMile');
+const cta = ac.section('successCta');
+const close = ac.section('successClose');
+
+/* AsClose takes the two halves of its heading separately. */
+const [closeLead = '', closeAccent = ''] = (close.heading ?? '').split('\n');
 
 const phoneHref = school.phone.admissions;
 const phoneShow = school.phone.admissionsDisplay;
@@ -78,24 +92,13 @@ const phoneShow = school.phone.admissionsDisplay;
   <div class="u-container">
     <div class="st-open__head">
       <div>
-        <p class="as-kicker" data-reveal>The three the school made artwork for</p>
-        <h2 class="as-h as-h--lg st-open__h" id="st-open-t">
-          <span data-clip data-clip-delay="0">Second in the world,</span>
-          <span data-clip data-clip-delay="150"><em>second in the state.</em></span>
-        </h2>
+        <p class="as-kicker" data-reveal>{open.eyebrow}</p>
+        <ClipHeading class="as-h as-h--lg st-open__h" id="st-open-t" text={open.heading} />
       </div>
 
       <div class="st-open__b">
-        <p class="as-body" data-reveal data-reveal-delay="200">
-          A school that designs an award graphic has decided something matters. These are the three
-          Sunbeam Ballia produced artwork for, and they are shown here whole — headline, crest and
-          all — rather than cropped into a photograph they were never meant to be.
-        </p>
-        <p class="as-note" data-reveal data-reveal-delay="260">
-          There is <strong>no award total on this page</strong>, because the school keeps none. Sport
-          in full is on {' '}<a class="as-link" href={ACHIEVEMENTS}>Achievements</a>; the olympiad
-          programmes are on {' '}<a class="as-link" href={OLYMPIADS}>Olympiad Achievements</a>.
-        </p>
+        <RichLine class="as-body" text={open.body[0]} reveal revealDelay={200} />
+        <RichLine class="as-note" text={open.body[1]} linkClass="as-link" reveal revealDelay={260} />
       </div>
     </div>
 
@@ -162,16 +165,9 @@ const phoneShow = school.phone.admissionsDisplay;
 
   <div class="u-container st-mile__grid">
     <div class="st-mile__head">
-      <p class="as-kicker" data-reveal>Read another way</p>
-      <h2 class="as-h as-h--lg" id="st-mile-t">
-        <span data-clip data-clip-delay="0">The same record,</span>
-        <span data-clip data-clip-delay="150"><em>by how far it travelled.</em></span>
-      </h2>
-      <p class="as-body st-mile__b" data-reveal data-reveal-delay="200">
-        Arranged by reach rather than by date, the school’s individual results make a shape: a Class
-        VII student placing first in a national field, a Class IV year group taking the top three
-        places across the whole Sunbeam group, and a drone flown to second place in Malaysia.
-      </p>
+      <p class="as-kicker" data-reveal>{mile.eyebrow}</p>
+      <ClipHeading class="as-h as-h--lg" id="st-mile-t" text={mile.heading} />
+      <RichLine class="as-body st-mile__b" text={mile.body[0]} reveal revealDelay={200} />
     </div>
 
     <ol class="st-miles">
@@ -204,23 +200,16 @@ const phoneShow = school.phone.admissionsDisplay;
       </span>
 
       <div class="st-cta__copy">
-        <h2 class="as-h as-h--md st-cta__h" id="st-cta-t">
-          <span data-clip data-clip-delay="0">Want to know more?</span>
-          <span data-clip data-clip-delay="150"><em>Talk to us.</em></span>
-        </h2>
-        <p class="as-note st-cta__b" data-reveal data-reveal-delay="200">
-          The school publishes more than this page carries. Anything beyond it — and anything that
-          changes from one session to the next — is confirmed by the office rather than guessed at
-          here.
-        </p>
+        <ClipHeading class="as-h as-h--md st-cta__h" id="st-cta-t" text={cta.heading} />
+        <RichLine class="as-note st-cta__b" text={cta.body[0]} reveal revealDelay={200} />
       </div>
 
       <div class="st-cta__num">
-        <p class="st-cta__lab">Admissions helpline</p>
+        <p class="st-cta__lab">{cta.eyebrow}</p>
         <p class="st-cta__ph"><a href={`tel:${phoneHref}`}>{phoneShow}</a></p>
         <p class="st-cta__act">
           <a class="as-btn" href={CONTACT}>
-            Contact school
+            {cta.body[1]}
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <g stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" set:html={MARK.arrow} />
             </svg>
@@ -233,10 +222,10 @@ const phoneShow = school.phone.admissionsDisplay;
 
 <AsClose
   id="st-close-t"
-  kicker="Every result, with a name on it"
-  lead="Named,"
-  accent="or not printed."
-  body="Every result on this page is one the school published with a name, a placing or a prize attached. There is no award total here because the school keeps none — and a count nobody can check is worth less than one result anybody can."
+  kicker={close.eyebrow}
+  lead={closeLead}
+  accent={closeAccent.replace(/^\{\{|\}\}$/g, '')}
+  body={close.body[0]}
   photo={pCohort}
   position="50% 38%"
 />

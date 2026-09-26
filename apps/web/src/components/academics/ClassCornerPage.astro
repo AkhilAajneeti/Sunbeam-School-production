@@ -11,7 +11,17 @@
  * the school's documents; the documents themselves stay on the school's own
  * site and are linked, never copied.
  */
-import { getClassCorner } from '../../lib/cms';
+import { getClassCorner, getAcademicTopic } from '../../lib/cms';
+import RichLine from '../ui/RichLine.astro';
+
+/**
+ * ⚠ THE PAGE'S OWN WORDS, FROM THE CMS. The cards were already editable; the
+ * heading over them and the line under them were not, so the office could not
+ * change who to contact about an out-of-date document.
+ */
+const ac = await getAcademicTopic('/academics/class-corner/');
+const docs = ac.section('classCornerDocs');
+const foot = ac.section('classCornerFoot');
 
 /**
  * ⚠⚠ THE CARDS AND THEIR DOCUMENTS COME FROM THE CMS. They were a static file
@@ -48,7 +58,7 @@ const ICONS: Record<string, string> = {
   <span class="ccn__blob ccn__blob--b" aria-hidden="true"></span>
 
   <div class="u-container">
-    <h2 class="ccn__h" id="ccn-heading">Class documents</h2>
+    <h2 class="ccn__h" id="ccn-heading">{docs.heading}</h2>
 
     <ul class="ccn__grid" role="list">
       {
@@ -161,12 +171,7 @@ const ICONS: Record<string, string> = {
       }
     </ul>
 
-    <p class="ccn__foot">
-      These documents are published and revised by the school office. If one is
-      out of date, or you cannot find your child&rsquo;s class in it, <a
-        href="/contact-us/">contact the school office</a
-      >.
-    </p>
+    <RichLine class="ccn__foot" text={foot.body[0]} />
   </div>
 </section>
 

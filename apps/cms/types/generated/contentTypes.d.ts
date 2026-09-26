@@ -576,7 +576,6 @@ export interface ApiAchievementMajorAchievementMajor
   };
   attributes: {
     alt: Schema.Attribute.Text &
-      Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 500;
       }>;
@@ -964,7 +963,6 @@ export interface ApiAlumnusAlumnus extends Struct.CollectionTypeSchema {
   };
   attributes: {
     alt: Schema.Attribute.Text &
-      Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 500;
       }>;
@@ -1044,6 +1042,63 @@ export interface ApiAssessmentPageAssessmentPage
   };
 }
 
+export interface ApiBoardTopperBoardTopper extends Struct.CollectionTypeSchema {
+  collectionName: 'board_toppers';
+  info: {
+    description: "ONE ROW PER NAME ON THE SCHOOL'S TWO ACADEMIC EXCELLENCE BOARDS, which hang at the entrance \u2014 one for Class X, one for Class XII \u2014 each carrying a session, a topper and a percentage. The Class Corner page reproduces them. \u26A0\u26A0 A COLLECTION, NOT ONE BIG RECORD, SO NEXT SESSION'S TOPPER IS ONE NEW ROW. Adding a name must not mean opening a form holding the other sixteen. \u26A0\u26A0 EVERY ROW IS A NAMED CHILD AND A PUBLISHED RESULT. Both were transcribed from photographs of the boards themselves, line by line. A spelling corrected here on a hunch is this site telling a family their child's name is something the school never engraved; a percentage 'tidied' is this site publishing a mark the school did not award. If one is genuinely wrong, the BOARD is what has to change and this follows it.";
+    displayName: 'Board Topper';
+    pluralName: 'board-toppers';
+    singularName: 'board-topper';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    board: Schema.Attribute.Enumeration<['class-x', 'class-xii']> &
+      Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::board-topper.board-topper'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 120;
+      }>;
+    needsCheck: Schema.Attribute.Boolean &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<false>;
+    order: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<0>;
+    percent: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 8;
+      }>;
+    publishedAt: Schema.Attribute.DateTime;
+    rowKey: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 40;
+      }>;
+    session: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 16;
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiBusRouteBusRoute extends Struct.CollectionTypeSchema {
   collectionName: 'bus_routes';
   info: {
@@ -1114,7 +1169,6 @@ export interface ApiCalendarDocumentCalendarDocument
   };
   attributes: {
     alt: Schema.Attribute.Text &
-      Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 800;
       }>;
@@ -1183,7 +1237,6 @@ export interface ApiCampusFacilityCampusFacility
   };
   attributes: {
     alt: Schema.Attribute.Text &
-      Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 500;
       }>;
@@ -2462,7 +2515,6 @@ export interface ApiJobPostingJobPosting extends Struct.CollectionTypeSchema {
   };
   attributes: {
     alt: Schema.Attribute.Text &
-      Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 4000;
       }>;
@@ -2860,7 +2912,6 @@ export interface ApiNoticeNotice extends Struct.CollectionTypeSchema {
   };
   attributes: {
     alt: Schema.Attribute.Text &
-      Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 500;
       }>;
@@ -4329,7 +4380,7 @@ export interface ApiVisionMissionPageVisionMissionPage
   extends Struct.SingleTypeSchema {
   collectionName: 'vision_mission_page';
   info: {
-    description: 'The prose of /about/vision-mission/. \u26A0 `keys` STAYS IN CODE \u2014 it is {name,hex,fill,text}, a colour palette driving the cipher animation, which is design rather than editorial content. \u26A0 docs/07 A3 is still open: the school has published no formal Vision and Mission statement, so this page carries what it has rather than an invented one.';
+    description: "The Vision, the Jai Hind greeting and the Sunbeam Cipher on /about/vision-mission/. \u26A0\u26A0 `cipher` AND `greeting` WERE THE ONLY EDITABLE PARTS UNTIL NOW. The school's own VISION STATEMENT, the greeting's translation and oath, and most of the Cipher letter were written into the page itself \u2014 so the one page on this site that states what the school is for could not be changed without a developer. `sections` carries them now. \u26A0 THE SECTION KEYS ARE THE CONTRACT: the page looks each block up by key, so renaming one empties whatever it fed. Set the label instead.";
     displayName: 'Vision & Mission Page';
     pluralName: 'vision-mission-pages';
     singularName: 'vision-mission-page';
@@ -4350,6 +4401,7 @@ export interface ApiVisionMissionPageVisionMissionPage
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
+    sections: Schema.Attribute.Component<'shared.section', true>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -4878,6 +4930,7 @@ declare module '@strapi/strapi' {
       'api::alumni-story.alumni-story': ApiAlumniStoryAlumniStory;
       'api::alumnus.alumnus': ApiAlumnusAlumnus;
       'api::assessment-page.assessment-page': ApiAssessmentPageAssessmentPage;
+      'api::board-topper.board-topper': ApiBoardTopperBoardTopper;
       'api::bus-route.bus-route': ApiBusRouteBusRoute;
       'api::calendar-document.calendar-document': ApiCalendarDocumentCalendarDocument;
       'api::campus-facility.campus-facility': ApiCampusFacilityCampusFacility;

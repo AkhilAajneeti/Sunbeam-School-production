@@ -455,5 +455,46 @@ await withStrapi(async (strapi) => {
     }, c);
   }
 
+  /* -- Single types: title the page with its own name --------------------
+     THIS IS WHY 43 OF THE 45 SINGLE TYPES OPENED ON A RANDOM STRING.
+     Strapi's own getTitle (content-manager/admin/hooks/useDocument) reads:
+
+         if (mainField !== 'id' && document[mainField]) return document[mainField];
+         if (kind === 'singleType' && info.displayName)  return displayName;
+         return 'Untitled';
+
+     The FIRST branch is the trap. Thirty-five of these had mainField set to
+     'documentId' -- a real property holding a real value, so the title became
+     `ek3xr5a70f6pa9v7jewd67ru`. Eight more pointed at whatever string field
+     happened to exist: the Disclosure page was titled by a URL, the Career
+     page by the label on its CV button.
+
+     THE FIX IS 'id' AND NOTHING ELSE. It is the one value that fails the first
+     branch on purpose and drops through to the display name -- "Campus Safety
+     Page". It is NOT a missing field to add: thirty-three of these pages have
+     no top-level string at all, they are built entirely from components, so
+     there is nothing to point a title at, and adding one would mean
+     thirty-three new columns the website never reads and an editor could
+     change.
+
+     AND IT IS NOT A LIST-VIEW SETTING. A single type has no list, so nothing
+     else reads this value. */
+  const TITLED_BY_CONTENT = new Set([
+    /* These two keep their own field, because it says something the display
+       name does not: the school's name, and which session the council board
+       covers. Every other one was a kicker, a URL or a button label. */
+    'api::site-setting.site-setting',
+    'api::student-council-page.student-council-page',
+  ]);
+
+  for (const ct of Object.values(strapi.contentTypes)) {
+    if (!ct.uid.startsWith('api::') || ct.kind !== 'singleType') continue;
+    if (TITLED_BY_CONTENT.has(ct.uid)) continue;
+    changed += await patch(`${CT}${ct.uid}`, (cfg) => {
+      cfg.settings = cfg.settings ?? {};
+      cfg.settings.mainField = 'id';
+    }, `${ct.info.displayName} -- titled by its own name`);
+  }
+
   console.log(`\n  ${changed} configuration row(s) updated\n`);
 });
